@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Discussions
+    url: https://github.com/rainwangphy/aftd-platform/discussions
+    about: Questions, curriculum ideas, and results you built on the knowledge base.
+  - name: Browse the results
+    url: https://rainwangphy.github.io/aftd-platform/results/
+    about: Check whether a statement is already proved before submitting it.

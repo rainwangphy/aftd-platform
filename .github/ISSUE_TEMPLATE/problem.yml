@@ -1,0 +1,78 @@
+name: Submit a problem
+description: Give the machine a statement to formalize and prove in Lean 4.
+title: "[Problem] "
+labels: ["problem"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for posing a problem. A maintainer reviews every submission before
+        the machine spends anything on it; accepted problems get the `accepted` label
+        and appear on the site's Problems page. Your GitHub handle is shown as the
+        person who posed it.
+
+        One statement per issue, please. LaTeX between `$…$` is rendered on the site.
+  - type: dropdown
+    id: domain
+    attributes:
+      label: Domain
+      options:
+        - Theoretical Computer Science
+        - Optimization & Operations Research
+        - Probability & Mathematical Statistics
+        - Mathematical Logic & Foundations
+        - Game Theory & Mathematical Economics
+        - Theoretical Physics
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      description: Optional. The area within the domain, e.g. "regular languages", "stable matching", "convex duality".
+  - type: textarea
+    id: statement
+    attributes:
+      label: Statement
+      description: The statement, as precisely as you would write it in a paper. Define anything non-standard.
+      placeholder: "For every finite two-player zero-sum game, max_x min_y x^T A y = min_y max_x x^T A y."
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of statement is this?
+      options:
+        - A known result (textbook or paper)
+        - An exercise or folklore fact
+        - A conjecture of my own
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Where the result appears, if anywhere. A citation greatly improves the odds of a faithful formalization.
+      placeholder: "Sipser, Introduction to the Theory of Computation, Theorem 1.49"
+  - type: textarea
+    id: lean
+    attributes:
+      label: Lean statement (optional)
+      description: If you know Lean 4 and Mathlib. It is used as reference text only and is never executed; the machine writes and verifies its own statement.
+      render: lean
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: Why it is interesting, what it would be used for, related results.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched the existing results and problems for this statement.
+          required: true
+        - label: I agree that this statement may be published, reformulated and built on by anyone.
+          required: true

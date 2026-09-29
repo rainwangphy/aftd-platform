@@ -1,0 +1,5 @@
+.DS_Store
+_site/
+web/data/problems.json
+__pycache__/
+*.pyc

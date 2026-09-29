@@ -1,0 +1,11 @@
+{
+ "repo": "rainwangphy/aftd-platform",
+ "branch": "main",
+ "base_url": "https://rainwangphy.github.io/aftd-platform/",
+ "description": "AFTD, Auto-Formalizing Theoretical Domains: theorems of the theoretical sciences, stated and proved in Lean 4 by machine and published openly. Submit a problem, read the proofs, challenge the verdicts.",
+ "featured": [
+  "self_halting_problem_undecidable",
+  "condorcet_winner_unique",
+  "graph_matching_num_le_vertex_cover_num"
+ ]
+}

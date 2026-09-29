@@ -1,0 +1,39 @@
+name: Challenge a result
+description: Dispute a verified declaration — its name, its significance, or the definitions it rests on.
+title: "[Verdict] "
+labels: ["verdict"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Whether a proof is correct is settled by Lean: it elaborates and `#print axioms`
+        is clean, or it is not on the site. Everything else is open. Challenges are
+        shown on the declaration's page while they are open.
+  - type: input
+    id: declaration
+    attributes:
+      label: Declaration
+      description: The Lean name, exactly as it appears on the site.
+      placeholder: stable_matching_exists
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: What is wrong with it?
+      options:
+        - The name claims more than the statement proves
+        - The English and the Lean say different things
+        - The statement is trivial or vacuous
+        - A definition is not the one the subject uses
+        - It duplicates something already in Mathlib
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: explanation
+    attributes:
+      label: Explanation
+      description: What the statement actually says, and what it should say. A counter-reading or a Mathlib reference helps most.
+    validations:
+      required: true

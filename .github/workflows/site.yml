@@ -1,0 +1,62 @@
+# Build the public site from web/data/kb.json and the problem/verdict issues,
+# and publish it to GitHub Pages (Settings -> Pages -> Source: GitHub Actions).
+#
+# The snapshot is committed by whoever runs the loop (scripts/snapshot.py); the
+# issues are read fresh on every build, so a problem appears on the site as
+# soon as it is labelled `accepted`.
+#
+# Issue text is untrusted. It is read through the API by fetch_problems.py and
+# escaped by build.py; it is never interpolated into a `run:` line here.
+name: site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - ".github/workflows/site.yml"
+  issues:
+    types: [opened, edited, closed, reopened, labeled, unlabeled, deleted]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; a burst of labelling collapses into the last build.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test the site generator
+        run: python tests/test_web.py
+      - name: Read problems and challenges from issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python web/fetch_problems.py --repo "$GITHUB_REPOSITORY" --out web/data/problems.json
+      - name: Build
+        run: python web/build.py --out _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,21 @@
+name = "AFTD"
+version = "0.1.0"
+keywords = ["math"]
+defaultTargets = ["AFTD"]
+
+# These must stay in sync with `Config.lean_options`, which the REPL applies at
+# startup -- otherwise the REPL could accept something `lake build` rejects.
+[leanOptions]
+pp.unicode.fun = true # pretty-prints `fun a ↦ b`
+autoImplicit = false
+relaxedAutoImplicit = false
+maxSynthPendingDepth = 3
+weak.linter.mathlibStandardSet = false # generated files are not Mathlib-styled
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.33.1"
+
+[[lean_lib]]
+name = "AFTD"

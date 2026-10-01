@@ -1,49 +1,184 @@
-// Search and filters on the results page; math on the problem pages.
+// Search, filters and order on the results page; copy buttons on Lean
+// blocks; math on the problem pages.
 
 (function results() {
   const root = document.getElementById('results');
   if (!root) return;
-  const entries = [...root.querySelectorAll('.entry')];
-  const topics = [...root.querySelectorAll('.topic')];
-  const domains = [...root.querySelectorAll('.domain')];
+  const grouped = document.getElementById('grouped');
+  const flat = document.getElementById('flat');
+  const empty = document.getElementById('empty');
+  const entries = [...grouped.querySelectorAll('.entry')];
+  const home = new Map(entries.map(el => [el, el.parentNode]));
+  // The topic and domain each entry is counted under in the sidebar.
+  const under = new Map(entries.map(el => [el, [el.parentNode.id, el.parentNode.closest('.domain').id]]));
+  const sections = [...grouped.querySelectorAll('.topic, .domain')];
+  const tocLinks = [...document.querySelectorAll('.toc a[data-sec]')];
   const count = document.getElementById('count');
+  const clear = document.getElementById('clear');
+  const q = document.getElementById('q');
+  const domain = document.getElementById('f-domain');
+  const sort = document.getElementById('f-sort');
+  const lean = document.getElementById('f-lean');
+  const community = document.getElementById('f-community');
+  const kinds = [...document.querySelectorAll('.seg [data-kind]')];
   const total = entries.length;
-  const state = {q: '', kind: 'all', domain: 'all', community: 'all'};
+  const DEFAULTS = {q: '', kind: 'all', domain: 'all', sort: 'topic', lean: '', community: ''};
+  const state = {...DEFAULTS};
+
+  // The search text is normalised the way build.py normalises each entry.
+  const norm = s => s.toLowerCase().replace(/[_.\s]+/g, ' ').trim();
+
+  // Filters live in the query string, so a filtered view can be shared and
+  // survives a reload; the hash is left alone for the topic anchors.
+  function readUrl() {
+    const p = new URLSearchParams(location.search);
+    for (const k of Object.keys(DEFAULTS)) if (p.has(k)) state[k] = p.get(k);
+  }
+  function writeUrl() {
+    const p = new URLSearchParams();
+    for (const [k, v] of Object.entries(state)) if (v !== DEFAULTS[k]) p.set(k, v);
+    const s = p.toString();
+    try { history.replaceState(null, '', (s ? '?' + s : location.pathname) + location.hash); } catch (_) {}
+  }
+  function syncControls() {
+    q.value = state.q;
+    domain.value = [...domain.options].some(o => o.value === state.domain) ? state.domain : 'all';
+    state.domain = domain.value;
+    sort.value = state.sort === 'new' ? 'new' : 'topic';
+    lean.checked = state.lean === '1';
+    if (community) community.checked = state.community === '1';
+    for (const b of kinds) b.setAttribute('aria-pressed', String(b.dataset.kind === state.kind));
+  }
+
+  let arranged = 'topic';
+  function arrange() {
+    const mode = state.sort === 'new' ? 'new' : 'topic';
+    if (mode === arranged) return;
+    arranged = mode;
+    if (mode === 'new') {
+      const order = [...entries].sort((a, b) => b.dataset.t - a.dataset.t || b.dataset.seq - a.dataset.seq);
+      flat.append(...order);
+    } else {
+      for (const el of entries) home.get(el).appendChild(el);
+    }
+    grouped.hidden = mode === 'new';
+    flat.hidden = mode !== 'new';
+    root.classList.toggle('grouped', mode !== 'new');
+  }
 
   function apply() {
-    const q = state.q.trim().toLowerCase();
+    arrange();
+    const words = norm(state.q).split(' ').filter(Boolean);
     let shown = 0;
     for (const el of entries) {
-      const ok = (!q || el.dataset.q.includes(q))
+      const ok = words.every(w => el.dataset.q.includes(w))
         && (state.kind === 'all' || el.dataset.kind === state.kind)
         && (state.domain === 'all' || el.dataset.domain === state.domain)
-        && (state.community === 'all' || el.dataset.community === state.community);
+        && (state.community !== '1' || el.dataset.community === '1');
       el.classList.toggle('hidden', !ok);
       if (ok) shown++;
     }
-    for (const t of topics) t.classList.toggle('hidden', !t.querySelector('.entry:not(.hidden)'));
-    for (const d of domains) d.classList.toggle('hidden', !d.querySelector('.entry:not(.hidden)'));
-    count.textContent = shown === total ? `${total} declarations` : `${shown} of ${total} declarations`;
+    const counts = {};
+    for (const el of entries) {
+      if (el.classList.contains('hidden')) continue;
+      for (const id of under.get(el)) counts[id] = (counts[id] || 0) + 1;
+    }
+    for (const sec of sections) {
+      sec.classList.toggle('hidden', !counts[sec.id]);
+      const n = sec.querySelector(':scope > .dhead .n');
+      if (n) n.textContent = counts[sec.id] || 0;
+    }
+    for (const a of tocLinks) {
+      const n = counts[a.dataset.sec] || 0;
+      a.querySelector('.c').textContent = n;
+      a.classList.toggle('none', n === 0);
+    }
+    root.classList.toggle('show-lean', state.lean === '1');
+    const filtered = Object.keys(DEFAULTS).some(k => k !== 'sort' && k !== 'lean' && state[k] !== DEFAULTS[k]);
+    count.textContent = filtered ? `${shown} of ${total} declarations` : `${total} declarations`;
+    clear.hidden = !filtered;
+    empty.hidden = shown !== 0;
+    writeUrl();
   }
 
-  document.getElementById('q').addEventListener('input', ev => { state.q = ev.target.value; apply(); });
-  for (const chip of document.querySelectorAll('.chip[data-filter]')) {
-    chip.addEventListener('click', () => {
-      const group = chip.dataset.filter;
-      if (chip.hasAttribute('data-toggle')) {
-        // An on/off filter that sits beside a group without being part of it.
-        const on = !chip.classList.contains('on');
-        chip.classList.toggle('on', on);
-        state[group] = on ? chip.dataset.value : 'all';
-      } else {
-        state[group] = chip.dataset.value;
-        document.querySelectorAll(`.chip[data-filter="${group}"]:not([data-toggle])`)
-          .forEach(c => c.classList.toggle('on', c === chip));
-      }
-      apply();
+  function reset() {
+    Object.assign(state, {q: '', kind: 'all', domain: 'all', community: ''});
+    syncControls();
+    apply();
+  }
+
+  q.addEventListener('input', () => { state.q = q.value; apply(); });
+  q.addEventListener('keydown', ev => { if (ev.key === 'Escape' && q.value) { ev.preventDefault(); state.q = ''; q.value = ''; apply(); } });
+  domain.addEventListener('change', () => { state.domain = domain.value; apply(); });
+  sort.addEventListener('change', () => { state.sort = sort.value; apply(); });
+  lean.addEventListener('change', () => { state.lean = lean.checked ? '1' : ''; apply(); });
+  if (community) community.addEventListener('change', () => { state.community = community.checked ? '1' : ''; apply(); });
+  for (const b of kinds) b.addEventListener('click', () => { state.kind = b.dataset.kind; syncControls(); apply(); });
+  clear.addEventListener('click', reset);
+  empty.querySelector('[data-clear]').addEventListener('click', reset);
+
+  // "/" jumps to the search box from anywhere on the page.
+  document.addEventListener('keydown', ev => {
+    if (ev.key !== '/' || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    const t = ev.target;
+    if (t.closest && t.closest('input, textarea, select, [contenteditable]')) return;
+    ev.preventDefault();
+    q.focus();
+    q.select();
+  });
+
+  // A topic link in the list ordered by date goes back to the grouped list
+  // first, or there would be nothing to scroll to.
+  for (const a of tocLinks) {
+    a.addEventListener('click', () => {
+      if (state.sort === 'new') { state.sort = 'topic'; syncControls(); apply(); }
+      const toc = document.getElementById('toc');
+      if (toc && matchMedia('(max-width: 900px)').matches) toc.open = false;
     });
   }
+
+  // The topic list is open beside the results on a wide screen and folded
+  // above them on a narrow one.
+  const toc = document.getElementById('toc');
+  const wide = matchMedia('(min-width: 901px)');
+  const fold = () => { if (toc) toc.open = wide.matches; };
+  fold();
+  if (wide.addEventListener) wide.addEventListener('change', fold);
+
+  // Mark the topic being read in the sidebar.
+  if ('IntersectionObserver' in window) {
+    const byId = new Map(tocLinks.map(a => [a.dataset.sec, a]));
+    const visible = new Set();
+    const io = new IntersectionObserver(items => {
+      for (const it of items) {
+        if (it.isIntersecting) visible.add(it.target.id); else visible.delete(it.target.id);
+      }
+      const first = sections.find(s => s.classList.contains('topic') && visible.has(s.id));
+      for (const a of tocLinks) a.classList.toggle('here', !!first && a.dataset.sec === first.id);
+    }, {rootMargin: '-140px 0px -55% 0px'});
+    for (const s of sections) if (s.classList.contains('topic') && byId.has(s.id)) io.observe(s);
+  }
+
+  readUrl();
+  syncControls();
   apply();
+})();
+
+(function copyButtons() {
+  if (!navigator.clipboard) return;
+  for (const btn of document.querySelectorAll('.codebox .copy')) {
+    const pre = btn.parentNode.querySelector('pre');
+    btn.hidden = false;
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = 'Copied';
+      } catch (_) {
+        btn.textContent = 'Copy failed';
+      }
+      setTimeout(() => { btn.textContent = 'Copy'; }, 1600);
+    });
+  }
 })();
 
 (function proofWindow() {

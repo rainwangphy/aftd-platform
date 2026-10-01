@@ -85,6 +85,17 @@ class Site:
             name = v["fields"].get("declaration", "").strip().strip("`")
             if name in self.by_name:
                 self.challenges.setdefault(name, []).append(v)
+        # Each topic's declarations in the order the results page lists them,
+        # for the previous/next links on a declaration page.
+        self.in_topic: dict[str, list[dict]] = {}
+        for d in self.decls:
+            self.in_topic.setdefault(d["topic"], []).append(d)
+
+    def verified(self, d: dict) -> bool:
+        """Whether a theorem's axioms are all trusted. An empty list is the
+        cleanest case -- Lean said it depends on no axioms at all -- although
+        the snapshot's `clean` flag counts it as not clean."""
+        return not d["is_def"] and all(a in self.kb["trusted_axioms"] for a in d["axioms"])
 
     # Outbound links. GitHub pre-fills an issue form from query parameters
     # named after the form's field ids.
@@ -304,50 +315,59 @@ def decl_link(root: str, name: str) -> str:
     return f'<a class="decl" href="{root}d/{slug(name)}/">{e(name)}</a>'
 
 
+def searchable(*texts: str) -> str:
+    """Text as the results search sees it: lower case, with Lean's `_` and `.`
+    as spaces, so "condorcet unique" finds `condorcet_winner_unique`. app.js
+    normalises the query the same way."""
+    return " ".join(re.sub(r"[_.\s]+", " ", " ".join(texts).lower()).split())
+
+
+def inline_code(text: str) -> str:
+    """Escaped text with `backticked` spans set as code, the way the models
+    write Lean names into their prose."""
+    return re.sub(r"`([^`\n]+)`", r"<code>\1</code>", e(text))
+
+
+def kind_badge(d: dict) -> str:
+    return badge(d["kind"], "kind def" if d["is_def"] else "kind thm")
+
+
 def decl_card(s: Site, d: dict, root: str, *, sig: bool = True) -> str:
-    """One declaration in a list: enough to recognise it, one click to the rest."""
-    badges = [badge(d["kind"], "kind")]
-    if d["clean"]:
-        badges.append(badge("verified", "ok", "#print axioms returned only the trusted set"))
+    """One declaration in a list: what it says in words first, the Lean name
+    and signature second, and the whole card is the link to the rest."""
+    tags = [kind_badge(d)]
+    if d.get("provenance") == "original":
+        tags.append(badge("original", "orig", "Proposed by the machine, not transcribed from the literature"))
     if d.get("problem") is not None:
-        badges.append(badge(f"problem #{d['problem']}", "comm"))
+        tags.append(badge(f"problem #{d['problem']}", "comm"))
     if d.get("explanation"):
-        badges.append(badge("explained", "expl", "the proof is explained in words"))
+        tags.append(badge("explained", "expl", "the proof is explained in words"))
     if s.challenges.get(d["name"]):
-        badges.append(badge("challenged", "chal", "someone has questioned this result"))
-    hay = " ".join([d["name"], d["informal"], d["topic"], d["statement"]]).lower()
-    parts = [
-        f'<div class="card-top">{decl_link(root, d["name"])}'
-        f'<span class="badges">{"".join(badges)}</span></div>'
-    ]
-    if d["informal"]:
-        parts.append(f'<p class="prose">{e(d["informal"])}</p>')
-    if sig:
-        parts.append(f'<pre class="sig lean">{highlight_lean(d["statement"])}</pre>')
+        tags.append(badge("challenged", "chal", "someone has questioned this result"))
+    meta = [f'<span class="m-topic">{e(s.topic_title(d["topic"]))}</span>']
+    if d.get("citation"):
+        meta.append(f'<span class="m-src" title="{e(d["citation"])}">{e(clip(d["citation"], 80))}</span>')
+    elif d.get("provenance") == "lemma":
+        meta.append('<span title="Filed by the prover as a step towards another result">helper lemma</span>')
+    if d["used_by"]:
+        meta.append(f'<span>used by {len(d["used_by"])}</span>')
+    meta.append(f'<span>{e(day(d["proved_at"]))}</span>')
+    hay = searchable(
+        d["name"], d["informal"], s.topic_title(d["topic"]), s.domain_title(d["domain"]),
+        d.get("citation") or "", d["statement"],
+    )
+    words = d["informal"] or d["statement"]
     return (
         f'<article class="card entry" data-q="{e(hay)}" data-domain="{e(d["domain"])}" '
         f'data-kind="{"def" if d["is_def"] else "theorem"}" '
-        f'data-community="{"1" if d.get("problem") is not None else "0"}">'
-        f'{"".join(parts)}</article>'
+        f'data-community="{"1" if d.get("problem") is not None else "0"}" '
+        f'data-t="{d["proved_at"]}" data-seq="{d["seq"]}">'
+        f'<div class="card-top"><a class="decl stretch" href="{root}d/{slug(d["name"])}/">{e(d["name"])}</a>'
+        f'<span class="badges">{"".join(tags)}</span></div>'
+        f'<p class="prose">{e(words)}</p>'
+        + (f'<pre class="sig lean">{highlight_lean(d["statement"])}</pre>' if sig else "")
+        + f'<p class="meta">{"".join(meta)}</p></article>'
     )
-
-
-def facts(s: Site) -> str:
-    t = s.kb["totals"]
-    solved = sum(1 for p in s.problems if p["status"] == "proved")
-    items = [
-        ("verified", f'{t["declarations"]:,}', "hl"),
-        ("theorems", f'{t["theorems"]:,}', ""),
-        ("definitions", f'{t["definitions"]:,}', ""),
-        ("topics", str(t["topics"]), ""),
-        ("open statements", str(t["open"]), ""),
-        ("community problems solved", str(solved), "comm"),
-        ("API spend", money(t["spend"], t["currency"]), ""),
-    ]
-    return '<div class="facts">' + "".join(
-        f'<div class="fact {c}"><span class="k">{e(k)}</span><span class="v">{v}</span></div>'
-        for k, v, c in items
-    ) + "</div>"
 
 
 def problem_card(s: Site, p: dict, root: str) -> str:
@@ -655,15 +675,12 @@ def render_results(s: Site) -> str:
     order = [n for n in s.domains if n in by_dom] + sorted(
         n for n in by_dom if n not in s.domains
     )
-    sections, chips = [], []
+    sections, toc, options = [], [], []
     for dom in order:
         topics = by_dom[dom]
         count = sum(len(v) for v in topics.values())
-        chips.append(
-            f'<button class="chip" data-filter="domain" data-value="{e(dom)}">'
-            f"{e(s.domain_title(dom))} <span>{count}</span></button>"
-        )
-        blocks = []
+        options.append(f'<option value="{e(dom)}">{e(s.domain_title(dom))} ({count})</option>')
+        blocks, toc_topics = [], []
         for tname in sorted(topics, key=lambda t: -len(topics[t])):
             ds = topics[tname]
             target = (s.topics.get(tname) or {}).get("target") or 0
@@ -673,13 +690,17 @@ def render_results(s: Site) -> str:
                 bar = (
                     f'<span class="meter" title="{len(ds)} of a target of {target}">'
                     f'<span style="width:{pct}%"></span></span>'
-                    f'<span class="tnum">{len(ds)}/{target}</span>'
+                    f'<span class="tnum">{len(ds)} of {target} targeted</span>'
                 )
             blocks.append(
                 f'<section class="topic" id="t-{e(tname)}"><header class="thead">'
                 f"<h3>{e(s.topic_title(tname))}</h3>{bar}</header>"
                 + "".join(decl_card(s, d, root) for d in ds)
                 + "</section>"
+            )
+            toc_topics.append(
+                f'<li><a href="#t-{e(tname)}" data-sec="t-{e(tname)}">'
+                f'<span>{e(s.topic_title(tname))}</span><span class="c">{len(ds)}</span></a></li>'
             )
         desc = (s.domains.get(dom) or {}).get("description") or ""
         sections.append(
@@ -689,31 +710,70 @@ def render_results(s: Site) -> str:
             + "".join(blocks)
             + "</section>"
         )
+        toc.append(
+            f'<li class="toc-d"><a href="#d-{e(dom)}" data-sec="d-{e(dom)}">'
+            f'<span>{e(s.domain_title(dom))}</span><span class="c">{count}</span></a>'
+            f'<ul>{"".join(toc_topics)}</ul></li>'
+        )
+    t = s.kb["totals"]
+    community = (
+        '<label class="switch"><input type="checkbox" id="f-community"> From community problems</label>'
+        if any(d.get("problem") is not None for d in s.decls)
+        else ""
+    )
     body = f"""
 <header class="phead">
   <p class="eyebrow">The knowledge base</p>
   <h1>Verified results</h1>
-  <p class="lead">Everything that has got past Lean&nbsp;4 and Mathlib, grouped
-  by domain and topic. Within a topic, declarations are listed in the order
-  they were proved, so dependencies come first.</p>
+  <p class="lead">{t["declarations"]} declarations &mdash; {t["theorems"]} theorems and
+  {t["definitions"]} definitions in {t["topics"]} topics &mdash; each elaborated by
+  Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. Open one for
+  its proof, what it builds on and what builds on it.</p>
 </header>
-{facts(s)}
-<div class="toolbar">
-  <label class="vh" for="q">Search declarations</label>
-  <input id="q" type="search" placeholder="Search names and statements" autocomplete="off">
-  <div class="chips" role="group" aria-label="Kind">
-    <button class="chip on" data-filter="kind" data-value="all">All</button>
-    <button class="chip" data-filter="kind" data-value="theorem">Theorems</button>
-    <button class="chip" data-filter="kind" data-value="def">Definitions</button>
-    <button class="chip" data-filter="community" data-value="1" data-toggle>From community problems</button>
+<div class="rlayout">
+  <aside class="toc">
+    <details id="toc" open>
+      <summary>Topics</summary>
+      <nav aria-label="Topics"><ul>{"".join(toc)}</ul></nav>
+    </details>
+  </aside>
+  <div class="rmain">
+    <div class="toolbar">
+      <div class="search">
+        <label class="vh" for="q">Search declarations</label>
+        <input id="q" type="search" placeholder="Search in words or by Lean name" autocomplete="off">
+        <kbd aria-hidden="true">/</kbd>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Kind">
+          <button type="button" data-kind="all" aria-pressed="true">All</button>
+          <button type="button" data-kind="theorem" aria-pressed="false">Theorems</button>
+          <button type="button" data-kind="def" aria-pressed="false">Definitions</button>
+        </div>
+        <label class="vh" for="f-domain">Domain</label>
+        <select id="f-domain"><option value="all">Every domain</option>{"".join(options)}</select>
+        <label class="vh" for="f-sort">Order</label>
+        <select id="f-sort">
+          <option value="topic">By topic</option>
+          <option value="new">Newest first</option>
+        </select>
+        <label class="switch"><input type="checkbox" id="f-lean"> Show Lean</label>
+        {community}
+      </div>
+    </div>
+    <p class="rcount"><span id="count" aria-live="polite">{t["declarations"]} declarations</span>
+    <button type="button" class="linkish" id="clear" hidden>Clear filters</button></p>
+    <div id="results" class="rlist grouped">
+      <div id="grouped">{"".join(sections)}</div>
+      <div id="flat" class="flat" hidden></div>
+      <div id="empty" class="empty-card card" hidden>
+        <p class="prose">Nothing matches. Try fewer words, or a name from the
+        topic list.</p>
+        <button type="button" class="btn" data-clear>Clear filters</button>
+      </div>
+    </div>
   </div>
-  <div class="chips" role="group" aria-label="Domain">
-    <button class="chip on" data-filter="domain" data-value="all">Every domain</button>
-    {"".join(chips)}
-  </div>
-  <span id="count" aria-live="polite"></span>
 </div>
-<div id="results">{"".join(sections)}</div>
 {render_ack(s)}
 """
     return page(
@@ -748,9 +808,11 @@ def render_ack(s: Site) -> str:
 
 def render_decl(s: Site, d: dict) -> str:
     root = "../../"
-    badges = [badge(d["kind"], "kind")]
-    if d["clean"]:
-        badges.append(badge("verified", "ok"))
+    badges = [kind_badge(d)]
+    if s.verified(d):
+        badges.append(badge("verified", "ok", "Lean accepted it, and #print axioms lists only trusted axioms"))
+    if d.get("provenance") == "original":
+        badges.append(badge("original", "orig", "Proposed by the machine, not transcribed from the literature"))
     parts = [
         f'<nav class="crumbs"><a href="{root}results/">Results</a> / '
         f'<a href="{root}results/#d-{e(d["domain"])}">{e(s.domain_title(d["domain"]))}</a> / '
@@ -767,11 +829,14 @@ def render_decl(s: Site, d: dict) -> str:
         )
     if d["informal"]:
         parts.append(f'<p class="prose big">{e(d["informal"])}</p>')
-    parts.append(f'<h2>Statement</h2><pre class="sig lean">{highlight_lean(d["statement"])}</pre>')
+    parts.append(
+        f'<h2>Statement</h2>{codebox(highlight_lean(d["statement"]), "sig")}'
+    )
+    parts.append(decl_facts(s, d, root))
     if d.get("reading"):
         parts.append(
             '<div class="reading"><h3>Read back from the Lean</h3>'
-            f'<p class="prose">{e(d["reading"])}</p><p class="small">Written by a '
+            f'<p class="prose">{inline_code(d["reading"])}</p><p class="small">Written by a '
             "model that saw only the Lean, never the English above. If the two "
             "disagree, that is worth a challenge.</p></div>"
         )
@@ -817,29 +882,7 @@ def render_decl(s: Site, d: dict) -> str:
         else ""
     )
     parts.append(
-        f'<h2>Lean source{src_link}</h2><pre class="src lean">{highlight_lean(d["source"])}</pre>'
-    )
-    chips = "".join(
-        f'<code class="{"ok" if a in s.kb["trusted_axioms"] else "bad"}">{e(a)}</code>'
-        for a in d["axioms"]
-    )
-    facts_ = [("Axioms", f'<span class="ax">{chips or "none"}</span>')]
-    if d["deps"]:
-        facts_.append(("Built on", ", ".join(decl_link(root, n) for n in d["deps"])))
-    if d["used_by"]:
-        facts_.append(("Used by", ", ".join(decl_link(root, n) for n in d["used_by"])))
-    if d.get("citation"):
-        facts_.append(("Source", e(d["citation"])))
-    elif d.get("provenance") == "original":
-        facts_.append(("Source", "Proposed by the machine; not transcribed from the literature"))
-    facts_.append(("Verified", e(day(d["proved_at"]))))
-    g = s.grants.get(d.get("funder") or "")
-    if g:
-        facts_.append(("Paid for by", e(g["funder"])))
-    parts.append(
-        '<dl class="kv">'
-        + "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in facts_)
-        + "</dl>"
+        f'<h2>Lean source{src_link}</h2>{codebox(highlight_lean(d["source"]), "src")}'
     )
     ch = s.challenges.get(d["name"], [])
     if ch:
@@ -855,13 +898,90 @@ def render_decl(s: Site, d: dict) -> str:
         f'<a class="btn" href="{e(s.discussions(d["name"]))}">Discuss this result</a>'
         f'<a class="btn" href="{e(s.new_verdict(d["name"]))}">Challenge it</a></div>'
     )
+    parts.append(pager(s, d, root))
     return page(
         s,
         title=d["name"],
         root=root,
         active="results/",
         body="".join(parts),
+        script=True,
         description=clip(d["informal"] or d["statement"], 180),
+    )
+
+
+def codebox(lean_html: str, cls: str) -> str:
+    """A block of Lean with a copy button. The button stays hidden until
+    app.js wires it up, so without JavaScript there is no dead control."""
+    return (
+        f'<div class="codebox"><button type="button" class="copy" hidden>Copy</button>'
+        f'<pre class="{cls} lean">{lean_html}</pre></div>'
+    )
+
+
+def related(s: Site, names: list[str], root: str) -> str:
+    """Declarations named by a dependency edge, each with what it says, so the
+    reader can tell which one to follow without opening them all."""
+    items = []
+    for n in names:
+        d = s.by_name.get(n)
+        words = f'<span class="rel-w">{e(clip(d["informal"], 140))}</span>' if d and d["informal"] else ""
+        items.append(f"<li>{decl_link(root, n)}{words}</li>")
+    return f'<ul class="rel">{"".join(items)}</ul>'
+
+
+def decl_facts(s: Site, d: dict, root: str) -> str:
+    chips = "".join(
+        f'<code class="{"ok" if a in s.kb["trusted_axioms"] else "bad"}">{e(a)}</code>'
+        for a in d["axioms"]
+    )
+    if not chips:
+        chips = (
+            '<span class="small">none &mdash; Lean reports it depends on no axioms</span>'
+            if not d["is_def"]
+            else '<span class="small">none listed</span>'
+        )
+    rows = []
+    if d.get("citation"):
+        rows.append(("Source", e(d["citation"])))
+    elif d.get("provenance") == "original":
+        rows.append(("Source", "Proposed by the machine; not transcribed from the literature"))
+    elif d.get("provenance") == "lemma":
+        rows.append(("Source", "Filed by the prover as a step towards another result"))
+    rows.append(("Verified", e(day(d["proved_at"]))))
+    rows.append(("Axioms", f'<span class="ax">{chips}</span>'))
+    if d["deps"]:
+        rows.append((f'Built on <span class="c">{len(d["deps"])}</span>', related(s, d["deps"], root)))
+    if d["used_by"]:
+        rows.append((f'Used by <span class="c">{len(d["used_by"])}</span>', related(s, d["used_by"], root)))
+    g = s.grants.get(d.get("funder") or "")
+    if g:
+        rows.append(("Paid for by", e(g["funder"])))
+    return '<dl class="kv">' + "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in rows) + "</dl>"
+
+
+def pager(s: Site, d: dict, root: str) -> str:
+    """Previous and next in the same topic, in results-page order."""
+    seq = s.in_topic.get(d["topic"], [])
+    i = next((k for k, x in enumerate(seq) if x["name"] == d["name"]), -1)
+    if i < 0 or len(seq) < 2:
+        return ""
+
+    def side(x: dict | None, cls: str, label: str) -> str:
+        if not x:
+            return f'<span class="{cls}"></span>'
+        return (
+            f'<a class="{cls}" href="{root}d/{slug(x["name"])}/"><span class="small">{label}</span>'
+            f'<span class="mono">{e(x["name"])}</span></a>'
+        )
+
+    prev = seq[i - 1] if i > 0 else None
+    nxt = seq[i + 1] if i + 1 < len(seq) else None
+    return (
+        f'<nav class="pager" aria-label="{e(s.topic_title(d["topic"]))}">'
+        f'{side(prev, "prev", "&larr; Previous")}'
+        f'<span class="pos small">{i + 1} of {len(seq)} in {e(s.topic_title(d["topic"]))}</span>'
+        f'{side(nxt, "next", "Next &rarr;")}</nav>'
     )
 
 

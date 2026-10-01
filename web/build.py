@@ -14,7 +14,8 @@ Inputs, all under `web/`:
 Pages:
 
     index.html                  what this is, what is new, where to start
-    results/                    every verified declaration, searchable
+    results/                    the knowledge base: every verified declaration,
+                                searchable
     d/<name>/                   one declaration: statement, proof, dependencies,
                                 the problem it answers, challenges against it
     problems/                   community problems by status, and what is open
@@ -201,7 +202,7 @@ def highlight_lean(src: str) -> str:
 # ------------------------------------------------------------------- layout
 NAME = "AFTD"
 FULL_NAME = "Auto-Formalizing Theoretical Domains"
-NAV = [("results/", "Results"), ("problems/", "Problems"), ("submit/", "Submit")]
+NAV = [("results/", "Knowledge base"), ("problems/", "Problems"), ("submit/", "Submit")]
 
 
 def page(
@@ -279,7 +280,7 @@ def page(
     </div>
     <div class="foot-col">
       <h2>Explore</h2>
-      <a href="{root}results/">Verified results</a>
+      <a href="{root}results/">Knowledge base</a>
       <a href="{root}problems/">Community problems</a>
       <a href="{root}submit/">Submit a problem</a>
     </div>
@@ -537,7 +538,7 @@ def render_home(s: Site) -> str:
       was true.</p>
       <div class="cta">
         <a class="btn primary" href="submit/">Submit a problem</a>
-        <a class="btn" href="results/">Browse {t["declarations"]} results</a>
+        <a class="btn" href="results/">Browse the knowledge base</a>
       </div>
     </div>
     <div class="hero-card">{proof_window(s, featured(s), root)}</div>
@@ -602,7 +603,7 @@ def render_home(s: Site) -> str:
     <div class="panel"><span class="panel-n">02</span><h3>Read the proofs</h3>
     <p>Every verified declaration has its own page: the statement in words and in
     Lean, the full proof, what it builds on and what builds on it.</p>
-    <a href="results/">All results &rarr;</a></div>
+    <a href="results/">The knowledge base &rarr;</a></div>
     <div class="panel"><span class="panel-n">03</span><h3>Judge the verdicts</h3>
     <p>Correctness is settled by Lean. Everything else is yours to dispute: a name
     that claims too much, a trivial statement, a definition the subject would not
@@ -617,7 +618,7 @@ def render_home(s: Site) -> str:
     {probs}
   </div>
   <div>
-    <header class="shead"><h2>Recently verified</h2><a href="results/">All results &rarr;</a></header>
+    <header class="shead"><h2>Recently verified</h2><a href="results/">Knowledge base &rarr;</a></header>
     {"".join(decl_card(s, d, root, sig=False) for d in recent)}
   </div>
 </section>
@@ -723,8 +724,8 @@ def render_results(s: Site) -> str:
     )
     body = f"""
 <header class="phead">
-  <p class="eyebrow">The knowledge base</p>
-  <h1>Verified results</h1>
+  <p class="eyebrow">Verified in Lean&nbsp;4</p>
+  <h1>Knowledge base</h1>
   <p class="lead">{t["declarations"]} declarations &mdash; {t["theorems"]} theorems and
   {t["definitions"]} definitions in {t["topics"]} topics &mdash; each elaborated by
   Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. Open one for
@@ -778,7 +779,7 @@ def render_results(s: Site) -> str:
 """
     return page(
         s,
-        title="Verified results",
+        title="Knowledge base",
         root=root,
         active="results/",
         body=body,
@@ -814,7 +815,7 @@ def render_decl(s: Site, d: dict) -> str:
     if d.get("provenance") == "original":
         badges.append(badge("original", "orig", "Proposed by the machine, not transcribed from the literature"))
     parts = [
-        f'<nav class="crumbs"><a href="{root}results/">Results</a> / '
+        f'<nav class="crumbs"><a href="{root}results/">Knowledge base</a> / '
         f'<a href="{root}results/#d-{e(d["domain"])}">{e(s.domain_title(d["domain"]))}</a> / '
         f'<a href="{root}results/#t-{e(d["topic"])}">{e(s.topic_title(d["topic"]))}</a></nav>',
         f'<header class="phead"><h1 class="mono">{e(d["name"])}</h1>'
@@ -1164,7 +1165,7 @@ def render_submit(s: Site) -> str:
     <em>needs help</em>, with the exact statement it is stuck on.</li>
     <li><strong>Publication.</strong> When everything answering your problem is
     proved, it appears under <a href="{root}problems/">Problems</a> and in the
-    results, with its full proof, and the issue is updated.</li>
+    knowledge base, with its full proof, and the issue is updated.</li>
   </ol>
 
   <h2>Credit</h2>
@@ -1195,7 +1196,7 @@ def render_404(s: Site) -> str:
     body = (
         '<header class="phead"><h1>Not here</h1><p class="lead">That page does not '
         "exist. A declaration that was renamed keeps no forwarding address; search "
-        f'the <a href="{e(base)}results/">results</a> for it.</p></header>'
+        f'the <a href="{e(base)}results/">knowledge base</a> for it.</p></header>'
     )
     return page(s, title="Not found", root=base, active="", body=body)
 

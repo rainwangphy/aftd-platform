@@ -192,11 +192,15 @@ def main() -> int:
         pages = {p.relative_to(out).as_posix(): p.read_text(encoding="utf-8")
                  for p in out.rglob("*.html")}
         everything = "\n".join(pages.values())
-        for rel in ("index.html", "results/index.html", "problems/index.html",
+        for rel in ("index.html", "knowledgebase/index.html", "results/index.html", "problems/index.html",
                     "submit/index.html", "404.html", "d/answer_ten/index.html",
                     "d/plain_one/index.html", "problems/10/index.html",
                     "problems/13/index.html"):
             check(f"page {rel}", rel in pages)
+        check("the old results/ address forwards to the knowledgebase",
+              "../knowledgebase/" in pages.get("results/index.html", ""))
+        check("the navigation links the knowledgebase under its own name",
+              'href="knowledgebase/"' in pages["index.html"] and ">Knowledgebase<" in pages["index.html"])
         check("submitted text never reaches a page unescaped", evil not in everything)
         check("an unreviewed submission is counted, not published",
               "UNREVIEWED-TEXT-MARKER" not in everything and "problems/11/index.html" not in pages)

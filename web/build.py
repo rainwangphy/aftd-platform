@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the public AFTD site from the knowledge-base snapshot and the issues.
+"""Build the public AFTD site from the knowledgebase snapshot and the issues.
 
     python3 web/build.py --out _site
 
@@ -14,8 +14,8 @@ Inputs, all under `web/`:
 Pages:
 
     index.html                  what this is, what is new, where to start
-    results/                    the knowledge base: every verified declaration,
-                                searchable
+    knowledgebase/              every verified declaration, searchable
+    results/                    the page's old address, forwarding to the new one
     d/<name>/                   one declaration: statement, proof, dependencies,
                                 the problem it answers, challenges against it
     problems/                   community problems by status, and what is open
@@ -86,7 +86,7 @@ class Site:
             name = v["fields"].get("declaration", "").strip().strip("`")
             if name in self.by_name:
                 self.challenges.setdefault(name, []).append(v)
-        # Each topic's declarations in the order the results page lists them,
+        # Each topic's declarations in the order the knowledgebase page lists them,
         # for the previous/next links on a declaration page.
         self.in_topic: dict[str, list[dict]] = {}
         for d in self.decls:
@@ -202,7 +202,7 @@ def highlight_lean(src: str) -> str:
 # ------------------------------------------------------------------- layout
 NAME = "AFTD"
 FULL_NAME = "Auto-Formalizing Theoretical Domains"
-NAV = [("results/", "Knowledge base"), ("problems/", "Problems"), ("submit/", "Submit")]
+NAV = [("knowledgebase/", "Knowledgebase"), ("problems/", "Problems"), ("submit/", "Submit")]
 
 
 def page(
@@ -280,7 +280,7 @@ def page(
     </div>
     <div class="foot-col">
       <h2>Explore</h2>
-      <a href="{root}results/">Knowledge base</a>
+      <a href="{root}knowledgebase/">Knowledgebase</a>
       <a href="{root}problems/">Community problems</a>
       <a href="{root}submit/">Submit a problem</a>
     </div>
@@ -317,7 +317,7 @@ def decl_link(root: str, name: str) -> str:
 
 
 def searchable(*texts: str) -> str:
-    """Text as the results search sees it: lower case, with Lean's `_` and `.`
+    """Text as the knowledgebase search sees it: lower case, with Lean's `_` and `.`
     as spaces, so "condorcet unique" finds `condorcet_winner_unique`. app.js
     normalises the query the same way."""
     return " ".join(re.sub(r"[_.\s]+", " ", " ".join(texts).lower()).split())
@@ -511,7 +511,7 @@ def render_home(s: Site) -> str:
             else '<span class="badge">waiting on compute</span>'
         )
         head = (
-            f'<a href="results/#d-{e(d["name"])}">{e(d["title"])}</a>'
+            f'<a href="knowledgebase/#d-{e(d["name"])}">{e(d["title"])}</a>'
             if live
             else e(d["title"])
         )
@@ -538,7 +538,7 @@ def render_home(s: Site) -> str:
       was true.</p>
       <div class="cta">
         <a class="btn primary" href="submit/">Submit a problem</a>
-        <a class="btn" href="results/">Browse the knowledge base</a>
+        <a class="btn" href="knowledgebase/">Browse the knowledgebase</a>
       </div>
     </div>
     <div class="hero-card">{proof_window(s, featured(s), root)}</div>
@@ -603,7 +603,7 @@ def render_home(s: Site) -> str:
     <div class="panel"><span class="panel-n">02</span><h3>Read the proofs</h3>
     <p>Every verified declaration has its own page: the statement in words and in
     Lean, the full proof, what it builds on and what builds on it.</p>
-    <a href="results/">The knowledge base &rarr;</a></div>
+    <a href="knowledgebase/">The knowledgebase &rarr;</a></div>
     <div class="panel"><span class="panel-n">03</span><h3>Judge the verdicts</h3>
     <p>Correctness is settled by Lean. Everything else is yours to dispute: a name
     that claims too much, a trivial statement, a definition the subject would not
@@ -618,7 +618,7 @@ def render_home(s: Site) -> str:
     {probs}
   </div>
   <div>
-    <header class="shead"><h2>Recently verified</h2><a href="results/">Knowledge base &rarr;</a></header>
+    <header class="shead"><h2>Recently verified</h2><a href="knowledgebase/">Knowledgebase &rarr;</a></header>
     {"".join(decl_card(s, d, root, sig=False) for d in recent)}
   </div>
 </section>
@@ -641,7 +641,7 @@ def render_home(s: Site) -> str:
   <div class="rules not">
     <h2>What this is not</h2>
     <p>It is not an attempt on open problems, and not a claim that mathematicians
-    are replaceable. Most of the knowledge base is known mathematics, carefully
+    are replaceable. Most of the knowledgebase is known mathematics, carefully
     transcribed and machine-checked, plus a growing minority of modest original
     statements. The value is in the aggregate &mdash; verified, open and
     cumulative &mdash; not in any single line of it.</p>
@@ -668,7 +668,7 @@ def render_home(s: Site) -> str:
     return page(s, title=NAME, root=root, active="", body=body, math=bool(shown), wide=True)
 
 
-def render_results(s: Site) -> str:
+def render_kb(s: Site) -> str:
     root = "../"
     by_dom: dict[str, dict[str, list[dict]]] = {}
     for d in s.decls:
@@ -725,7 +725,7 @@ def render_results(s: Site) -> str:
     body = f"""
 <header class="phead">
   <p class="eyebrow">Verified in Lean&nbsp;4</p>
-  <h1>Knowledge base</h1>
+  <h1>Knowledgebase</h1>
   <p class="lead">{t["declarations"]} declarations &mdash; {t["theorems"]} theorems and
   {t["definitions"]} definitions in {t["topics"]} topics &mdash; each elaborated by
   Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. Open one for
@@ -764,7 +764,7 @@ def render_results(s: Site) -> str:
     </div>
     <p class="rcount"><span id="count" aria-live="polite">{t["declarations"]} declarations</span>
     <button type="button" class="linkish" id="clear" hidden>Clear filters</button></p>
-    <div id="results" class="rlist grouped">
+    <div id="kb" class="rlist grouped">
       <div id="grouped">{"".join(sections)}</div>
       <div id="flat" class="flat" hidden></div>
       <div id="empty" class="empty-card card" hidden>
@@ -779,9 +779,9 @@ def render_results(s: Site) -> str:
 """
     return page(
         s,
-        title="Knowledge base",
+        title="Knowledgebase",
         root=root,
-        active="results/",
+        active="knowledgebase/",
         body=body,
         script=True,
         description=f'{len(s.decls)} machine-verified Lean 4 declarations.',
@@ -815,9 +815,9 @@ def render_decl(s: Site, d: dict) -> str:
     if d.get("provenance") == "original":
         badges.append(badge("original", "orig", "Proposed by the machine, not transcribed from the literature"))
     parts = [
-        f'<nav class="crumbs"><a href="{root}results/">Knowledge base</a> / '
-        f'<a href="{root}results/#d-{e(d["domain"])}">{e(s.domain_title(d["domain"]))}</a> / '
-        f'<a href="{root}results/#t-{e(d["topic"])}">{e(s.topic_title(d["topic"]))}</a></nav>',
+        f'<nav class="crumbs"><a href="{root}knowledgebase/">Knowledgebase</a> / '
+        f'<a href="{root}knowledgebase/#d-{e(d["domain"])}">{e(s.domain_title(d["domain"]))}</a> / '
+        f'<a href="{root}knowledgebase/#t-{e(d["topic"])}">{e(s.topic_title(d["topic"]))}</a></nav>',
         f'<header class="phead"><h1 class="mono">{e(d["name"])}</h1>'
         f'<div class="badges">{"".join(badges)}</div></header>',
     ]
@@ -904,7 +904,7 @@ def render_decl(s: Site, d: dict) -> str:
         s,
         title=d["name"],
         root=root,
-        active="results/",
+        active="knowledgebase/",
         body="".join(parts),
         script=True,
         description=clip(d["informal"] or d["statement"], 180),
@@ -962,7 +962,7 @@ def decl_facts(s: Site, d: dict, root: str) -> str:
 
 
 def pager(s: Site, d: dict, root: str) -> str:
-    """Previous and next in the same topic, in results-page order."""
+    """Previous and next in the same topic, in knowledgebase-page order."""
     seq = s.in_topic.get(d["topic"], [])
     i = next((k for k, x in enumerate(seq) if x["name"] == d["name"]), -1)
     if i < 0 or len(seq) < 2:
@@ -999,7 +999,7 @@ def render_problems(s: Site) -> str:
     blurbs = {
         "proved": "Formalized, checked against the English, and proved.",
         "stuck": "Formalized, but the prover is stuck. A pointer to the right Mathlib lemma is the most useful thing you can offer.",
-        "formalized": "The statement is in the knowledge base and waiting for its proof.",
+        "formalized": "The statement is in the knowledgebase and waiting for its proof.",
         "accepted": "Reviewed and queued. The machine has not formalized it yet.",
     }
     secs = []
@@ -1047,7 +1047,7 @@ def render_problems(s: Site) -> str:
             for n in loose
         )
         secs.append(
-            '<section class="pgroup" id="open"><header class="shead"><h2>Open in the knowledge base</h2>'
+            '<section class="pgroup" id="open"><header class="shead"><h2>Open in the knowledgebase</h2>'
             f'<span class="n">{len(loose)}</span></header>'
             '<p class="small">Statements the machine posed itself and has not proved yet. '
             f'If you can see how, say so in <a href="{e(s.discussions())}">the discussions</a>.</p>'
@@ -1092,7 +1092,7 @@ def render_problem(s: Site, p: dict) -> str:
         parts.append(
             "<h2>Lean suggested by the submitter</h2>"
             '<p class="small">Reference only. It has not been checked, and the '
-            "statement in the knowledge base is written and verified independently.</p>"
+            "statement in the knowledgebase is written and verified independently.</p>"
             f'<pre>{e(f["lean"])}</pre>'
         )
     answered = s.answers.get(p["number"], [])
@@ -1108,7 +1108,7 @@ def render_problem(s: Site, p: dict) -> str:
                     f'<span class="badges">{status_badge("stuck" if n.get("status") == "stuck" else "formalized")}</span></div>'
                     f'<pre class="sig lean">{highlight_lean(n["statement"])}</pre></article>'
                 )
-        parts.append("<h2>In the knowledge base</h2>" + "".join(cards))
+        parts.append("<h2>In the knowledgebase</h2>" + "".join(cards))
     parts.append(
         f'<div class="actions"><a class="btn" href="{e(p["url"])}">Discuss on the issue</a></div>'
     )
@@ -1165,7 +1165,7 @@ def render_submit(s: Site) -> str:
     <em>needs help</em>, with the exact statement it is stuck on.</li>
     <li><strong>Publication.</strong> When everything answering your problem is
     proved, it appears under <a href="{root}problems/">Problems</a> and in the
-    knowledge base, with its full proof, and the issue is updated.</li>
+    knowledgebase, with its full proof, and the issue is updated.</li>
   </ol>
 
   <h2>Credit</h2>
@@ -1184,10 +1184,30 @@ def render_submit(s: Site) -> str:
 
   <h2>Just want to talk?</h2>
   <p>Questions, ideas for the curriculum and results you built on top of the
-  knowledge base belong in <a href="{e(s.discussions())}">the discussions</a>.</p>
+  knowledgebase belong in <a href="{e(s.discussions())}">the discussions</a>.</p>
 </section>
 """
     return page(s, title="Submit a problem", root=root, active="submit/", body=body)
+
+
+def render_moved(s: Site, to: str) -> str:
+    """A page that has moved: it forwards to its new address, keeping the
+    query and the anchor so a shared, filtered link still lands where it
+    pointed. Without JavaScript the refresh still goes to the right page."""
+    url = f"../{to}"
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Moved · {NAME}</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="{e(s.cfg.get("base_url", "").rstrip("/") + "/" + to)}">
+<meta http-equiv="refresh" content="0; url={e(url)}">
+<script>location.replace({json.dumps(url)} + location.search + location.hash);</script>
+</head>
+<body><p>This page is now at <a href="{e(url)}">{e(to)}</a>.</p></body>
+</html>
+"""
 
 
 def render_404(s: Site) -> str:
@@ -1196,7 +1216,7 @@ def render_404(s: Site) -> str:
     body = (
         '<header class="phead"><h1>Not here</h1><p class="lead">That page does not '
         "exist. A declaration that was renamed keeps no forwarding address; search "
-        f'the <a href="{e(base)}results/">knowledge base</a> for it.</p></header>'
+        f'the <a href="{e(base)}knowledgebase/">knowledgebase</a> for it.</p></header>'
     )
     return page(s, title="Not found", root=base, active="", body=body)
 
@@ -1214,7 +1234,8 @@ def build(kb: dict, issues: list[dict], cfg: dict, out: Path) -> dict[str, int]:
         path.write_text(text, encoding="utf-8")
 
     write("index.html", render_home(s))
-    write("results/index.html", render_results(s))
+    write("knowledgebase/index.html", render_kb(s))
+    write("results/index.html", render_moved(s, "knowledgebase/"))
     write("problems/index.html", render_problems(s))
     write("submit/index.html", render_submit(s))
     write("404.html", render_404(s))

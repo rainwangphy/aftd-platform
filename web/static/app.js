@@ -1,8 +1,8 @@
-// Search, filters and order on the results page; copy buttons on Lean
+// Search, filters and order on the knowledgebase page; copy buttons on Lean
 // blocks; math on the problem pages.
 
-(function results() {
-  const root = document.getElementById('results');
+(function knowledgebase() {
+  const root = document.getElementById('kb');
   if (!root) return;
   const grouped = document.getElementById('grouped');
   const flat = document.getElementById('flat');
@@ -137,7 +137,7 @@
     });
   }
 
-  // The topic list is open beside the results on a wide screen and folded
+  // The topic list is open beside the list on a wide screen and folded
   // above them on a narrow one.
   const toc = document.getElementById('toc');
   const wide = matchMedia('(min-width: 901px)');

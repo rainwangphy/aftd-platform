@@ -6,7 +6,7 @@ Prove the theoretical results, and open source them to everyone.
 
 AFTD is a machine that reads a curriculum of theoretical subjects, states
 theorems in Lean 4, proves them against Mathlib, and adds whatever survives to
-a public knowledge base. It runs unattended. Nothing enters the knowledge base
+a public knowledgebase. It runs unattended. Nothing enters the knowledgebase
 because a language model said it was true.
 
 ---
@@ -39,7 +39,7 @@ tomorrow without asking permission or citing us.
 This is the only part of the programme worth being strict about, so it is
 strict in a way that is mechanical rather than editorial.
 
-A declaration is in the knowledge base only when:
+A declaration is in the knowledgebase only when:
 
 1. **Lean 4 elaborates it against Mathlib**, with zero errors.
 2. **`#print axioms` returns nothing outside `propext`, `Classical.choice` and
@@ -60,10 +60,10 @@ A declaration is in the knowledge base only when:
    round trip is blind to it.
 5. **It did not reinvent a concept Mathlib already has.** A new definition must
    cite the literature or prove that the agent searched Mathlib and the
-   knowledge base first. A privately restated `NP` severs everything downstream
+   knowledgebase first. A privately restated `NP` severs everything downstream
    from every real theorem about `NP`, silently.
 
-Everything in the knowledge base rebuilds offline from source with
+Everything in the knowledgebase rebuilds offline from source with
 `lake build`. The verification story does not depend on our database, our
 scheduler, or our word.
 
@@ -89,7 +89,7 @@ is the reason the thing can run for days without drifting.
   the trivial and the vacuous, keeps the graph acyclic, and steers coverage
   toward whichever topic is furthest behind its target.
 
-A bounded context per node is what keeps the cost flat: the knowledge base can
+A bounded context per node is what keeps the cost flat: the knowledgebase can
 grow from ten declarations to a thousand without the prompts growing with it.
 
 ## Where it stands
@@ -122,7 +122,7 @@ Everything, as it is produced, with no gate and no embargo:
 
 - **Lean sources** under `lean/AFTD/Kb/`, one module per declaration,
   rebuildable with `lake build`.
-- **A Markdown knowledge base** — every declaration with its informal
+- **A Markdown knowledgebase** — every declaration with its informal
   statement, its Lean source and its dependencies.
 - **A results board** — a single HTML page of everything verified, grouped by
   domain and topic, searchable, each declaration one click from its full proof
@@ -139,8 +139,7 @@ That is a deliberate choice, not modesty. The moment the output exists to
 support a publication, the incentives bend: toward results that look novel
 rather than results that are useful, toward holding work back until it can be
 announced, toward a claim of authorship over mathematics that a machine checked
-and that mostly already belonged to the people who first proved it. A knowledge
-base that anyone can `import` is worth more than a paper that cites it.
+and that mostly already belonged to the people who first proved it. A knowledgebase that anyone can `import` is worth more than a paper that cites it.
 
 So: take the Lean, use it, build on it, teach from it. You do not owe us a
 citation.
@@ -154,7 +153,7 @@ is the one the subject actually uses, whether a topic's target is the right
 shape — none of that is settled by two anonymous referees behind a journal. The
 Manager's triage is a first pass, not a last word; the graph page shows what
 was rejected alongside what was kept; and disagreeing with either is an issue
-on the repository, in public, against a knowledge base you can rebuild yourself.
+on the repository, in public, against a knowledgebase you can rebuild yourself.
 
 ## Funding, and the board
 
@@ -196,7 +195,7 @@ We thank you for the support.
 ## What this is not
 
 It is not an attempt on open problems. It is not a claim that mathematicians
-are replaceable. Most of what is in the knowledge base is known mathematics,
+are replaceable. Most of what is in the knowledgebase is known mathematics,
 carefully transcribed and machine-checked, plus a growing minority of modest
 original statements — generalizations, converses, bridges — that the Manager
 judged worth keeping. The value is in the aggregate and in the fact that it is

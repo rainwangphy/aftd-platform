@@ -72,7 +72,7 @@ body:
     attributes:
       label: Before you submit
       options:
-        - label: I searched the knowledge base and the existing problems for this statement.
+        - label: I searched the knowledgebase and the existing problems for this statement.
           required: true
         - label: I agree that this statement may be published, reformulated and built on by anyone.
           required: true

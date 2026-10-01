@@ -111,7 +111,7 @@ def normalize(issue: dict) -> dict:
 def status(problem: dict, nodes: list[dict]) -> str:
     """Where a problem stands, from its labels and the nodes that answer it.
 
-    `nodes` are the knowledge-base nodes whose `problem` is this issue. The
+    `nodes` are the knowledgebase nodes whose `problem` is this issue. The
     machine's record outranks the labels -- a proved answer is proved even if
     nobody got round to closing the issue -- except that a declined problem
     stays declined.

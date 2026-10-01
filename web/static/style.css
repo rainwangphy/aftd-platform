@@ -283,7 +283,7 @@ pre.src{max-height:70vh;overflow:auto}
 .fact.comm .v,.fact.st-formalized .v{color:var(--comm)}
 .fact.st-proved .v{color:var(--proved)} .fact.st-stuck .v{color:var(--stuck)}
 
-/* ------------------------------------------------------------ results */
+/* ------------------------------------------------------------ knowledgebase */
 .rlayout{display:grid;grid-template-columns:232px minmax(0,1fr);gap:36px;align-items:start}
 .rmain{display:flex;flex-direction:column;gap:12px;min-width:0}
 

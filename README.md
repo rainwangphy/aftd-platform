@@ -17,7 +17,7 @@ This repository is where the results live and where the community takes part.
 | Path | What it is |
 |---|---|
 | `lean/` | A Lean 4 project with every verified declaration, one module each under `lean/AFTD/Kb/` |
-| `web/data/kb.json` | A snapshot of the knowledge base the site is built from |
+| `web/data/kb.json` | A snapshot of the knowledgebase the site is built from |
 | `web/` | The site generator (Python, standard library only) |
 | `.github/` | The forms for submitting problems and challenging results, and the workflow that publishes the site |
 
@@ -41,7 +41,7 @@ lake build
   if a name claims more than its statement proves, a statement is trivial, or a
   definition is not the one the subject uses.
 - **Discuss** — questions, curriculum ideas and results you built on the
-  knowledge base belong in [Discussions](https://github.com/rainwangphy/aftd-platform/discussions).
+  knowledgebase belong in [Discussions](https://github.com/rainwangphy/aftd-platform/discussions).
 
 ## Build the site locally
 

@@ -60,6 +60,45 @@ def form_labels(path: Path) -> tuple[set[str], set[str]]:
     return labels, ids
 
 
+# The page every declaration lives on is the Knowledgebase -- one word -- at
+# knowledgebase/. A rename that stops at the label leaves the old name in a
+# URL, a breadcrumb or a form, so this looks everywhere the public reads.
+KB_URL = "knowledgebase/"
+OLD_NAMES = [
+    (re.compile(r"knowledge[\s-]+base", re.I), 'two-word "knowledge base"'),
+    # Case matters here: "how many verified results carry their name" is prose
+    # about declarations; "Verified results" or a bare "Results" link is the
+    # old name of the page.
+    (re.compile(r"Verified results|All results|>\s*Results\s*<|Browse [^<]{0,20}results"),
+     '"Results" as the name of the page'),
+]
+OLD_LINK = re.compile(r"""href=["'][^"']*\bresults/""")
+
+
+def naming_problems(texts: dict[str, str]) -> list[str]:
+    bad = []
+    for where, text in texts.items():
+        for rx, what in OLD_NAMES:
+            m = rx.search(text)
+            if m:
+                bad.append(f"{where}: {what} ({m.group(0)!r})")
+        if where != "results/index.html" and OLD_LINK.search(text):
+            bad.append(f"{where}: links the old results/ address")
+    return bad
+
+
+def public_texts() -> dict[str, str]:
+    """Every file in this repository a reader sees as words, not the snapshot."""
+    out = {}
+    for p in sorted(ROOT.rglob("*")):
+        rel = p.relative_to(ROOT).as_posix()
+        if (p.is_file() and p.suffix.lower() in (".md", ".yml", ".py", ".js", ".css", ".json")
+                and not rel.startswith(("web/data/", "lean/", "_site/"))
+                and "__pycache__" not in rel and rel != "tests/test_web.py"):
+            out[rel] = p.read_text(encoding="utf-8", errors="replace")
+    return out
+
+
 def body(fields: dict[str, str]) -> str:
     """An issue body the way GitHub renders a submitted form."""
     return "\n\n".join(f"### {k}\n\n{v}" for k, v in fields.items())
@@ -197,10 +236,17 @@ def main() -> int:
                     "d/plain_one/index.html", "problems/10/index.html",
                     "problems/13/index.html"):
             check(f"page {rel}", rel in pages)
+        print("naming")
         check("the old results/ address forwards to the knowledgebase",
-              "../knowledgebase/" in pages.get("results/index.html", ""))
-        check("the navigation links the knowledgebase under its own name",
-              'href="knowledgebase/"' in pages["index.html"] and ">Knowledgebase<" in pages["index.html"])
+              f"../{KB_URL}" in pages.get("results/index.html", ""))
+        site_pages = {k: v for k, v in pages.items() if k != "404.html"}
+        no_nav = [k for k, v in site_pages.items()
+                  if k != "results/index.html" and not re.search(
+                      rf'href="(?:\.\./)*{KB_URL}"[^>]*>Knowledgebase<', v)]
+        check("every page's navigation links the Knowledgebase by name", not no_nav, str(no_nav[:5]))
+        bad = naming_problems(pages) + naming_problems(public_texts())
+        check("nothing public still calls it Results or the knowledge base, or links results/",
+              not bad, "\n        " + "\n        ".join(bad[:20]))
         check("submitted text never reaches a page unescaped", evil not in everything)
         check("an unreviewed submission is counted, not published",
               "UNREVIEWED-TEXT-MARKER" not in everything and "problems/11/index.html" not in pages)

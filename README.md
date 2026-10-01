@@ -7,9 +7,11 @@ science, optimization, probability, logic, game theory, physics — states their
 theorems in Lean 4, proves them against Mathlib, and publishes whatever Lean
 accepts: immediately, to everyone, with no paper and no author line.
 
-This repository is where the results live and where the community takes part.
+This repository is where the knowledgebase lives and where the community takes
+part.
 
 **Site:** <https://rainwangphy.github.io/aftd-platform/> ·
+**Knowledgebase:** <https://rainwangphy.github.io/aftd-platform/knowledgebase/> ·
 **Programme:** [assets/README_AFTD.MD](assets/README_AFTD.MD)
 
 ## What is here

@@ -1,15 +1,15 @@
 {
  "schema": 1,
- "generated": "2026-10-02T16:01:14Z",
+ "generated": "2026-10-02T17:49:18Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 252,
-  "definitions": 63,
-  "theorems": 189,
+  "declarations": 278,
+  "definitions": 80,
+  "theorems": 198,
   "topics": 22,
   "domains": 4,
   "open": 28,
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788679323,
-  "last": 1790956729
+  "last": 1790963215
  },
  "domains": [
   {
@@ -320,13 +320,13 @@
      "name": "fair_division",
      "title": "Fair Division",
      "target": 20,
-     "proved": 12
+     "proved": 32
     },
     {
      "name": "matching_markets",
      "title": "Matching & Market Design",
      "target": 20,
-     "proved": 19
+     "proved": 25
     },
     {
      "name": "general_equilibrium",
@@ -7420,10 +7420,20 @@
    "clean": false,
    "deps": [],
    "used_by": [
+    "is_ef1_chores",
+    "is_ef1_fair",
     "is_pmms_fair",
+    "is_mxs_fair",
     "pmms_fair_not_imp_mms_fair",
+    "is_eef1_fair",
+    "multigraph_orientation_subsidy_three_halves",
+    "is_connected_allocation",
+    "is_efx_fair",
+    "is_envy_free_with_subsidy",
+    "mxs_fair_imp_prop1_fair_of_submodular",
     "aps_fair_not_imp_prop1_fair",
-    "maximin_share"
+    "maximin_share",
+    "mxs_fair_not_imp_eef1_fair"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/BundleOf.lean",
    "proved_at": 1790928435,
@@ -7449,7 +7459,9 @@
    "clean": false,
    "deps": [],
    "used_by": [
-    "aps_fair_not_imp_prop1_fair"
+    "is_ef1_chores",
+    "aps_fair_not_imp_prop1_fair",
+    "mxs_fair_not_imp_eef1_fair"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/AdditiveValuation.lean",
    "proved_at": 1790928576,
@@ -7475,6 +7487,7 @@
    "clean": false,
    "deps": [],
    "used_by": [
+    "mxs_fair_imp_prop1_fair_of_submodular",
     "aps_fair_not_imp_prop1_fair"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsProp1Fair.lean",
@@ -7610,7 +7623,12 @@
    "clean": false,
    "deps": [],
    "used_by": [
-    "pmms_fair_not_imp_mms_fair"
+    "submod_union_marginal_le",
+    "submod_add_items_le",
+    "pmms_fair_not_imp_mms_fair",
+    "submod_zero_marginals",
+    "submod_biUnion_le_sum",
+    "mxs_fair_imp_prop1_fair_of_submodular"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsSubmodular.lean",
    "proved_at": 1790929144,
@@ -8299,6 +8317,784 @@
    "proved_at": 1790956729,
    "provenance": "original",
    "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_efx_fair",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 253,
+   "informal": "An allocation is EFX-fair to agent i (Garg-Sharma Def. 3, equal entitlements) if, against every other agent j, either i does not envy j, or removing any subset of j's bundle with positive marginal value over i's bundle ends the envy and removing any subset of i's bundle with negative marginal value ends it too.",
+   "statement": "def is_efx_fair {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ) (σ : Fin m → Fin n) (i : Fin n) : Prop",
+   "source": "/-- EFX (Garg-Sharma, arXiv:2502.02815, Def. 3, equal entitlements), judged by agent `i`'s valuation `v i`: against every other agent `j`, either `i` does not envy `j`, or removing any subset `S` of `j`'s bundle with positive marginal value over `i`'s bundle ends the envy, and removing any subset `S` of `i`'s own bundle with negative marginal value ends it too. -/\ndef is_efx_fair {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ) (σ : Fin m → Fin n) (i : Fin n) : Prop :=\n  ∀ j, j ≠ i → v i (bundle_of σ j) ≤ v i (bundle_of σ i) ∨\n    ((∀ S, S ⊆ bundle_of σ j → v i (bundle_of σ i) < v i (bundle_of σ i ∪ S) →\n        v i (bundle_of σ j \\ S) ≤ v i (bundle_of σ i)) ∧\n     (∀ S, S ⊆ bundle_of σ i → v i (bundle_of σ i) < v i (bundle_of σ i \\ S) →\n        v i (bundle_of σ j) ≤ v i (bundle_of σ i \\ S)))",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "bundle_of"
+   ],
+   "used_by": [
+    "is_mxs_fair"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsEfxFair.lean",
+   "proved_at": 1790957300,
+   "provenance": "literature",
+   "citation": "Garg & Sharma, Exploring Relations among Fairness Notions in Discrete Fair Division, arXiv:2502.02815 v3, Defs. 3, 10; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_mxs_fair",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 254,
+   "informal": "An allocation is MXS-fair to agent i (minimum EFX share, Garg-Sharma Def. 10) if i's bundle is worth to her at least her bundle in some allocation that is EFX-fair to her.",
+   "statement": "def is_mxs_fair {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ) (σ : Fin m → Fin n) (i : Fin n) : Prop",
+   "source": "/-- Minimum EFX share (Garg-Sharma Def. 10 with F = EFX, equal entitlements): agent `i`'s bundle under `σ` is worth to her at least her bundle in some allocation `τ` that is EFX-fair to her. -/\ndef is_mxs_fair {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ) (σ : Fin m → Fin n) (i : Fin n) : Prop :=\n  ∃ τ : Fin m → Fin n, is_efx_fair v τ i ∧ v i (bundle_of τ i) ≤ v i (bundle_of σ i)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "is_efx_fair",
+    "bundle_of"
+   ],
+   "used_by": [
+    "mxs_fair_imp_prop1_fair_of_submodular",
+    "mxs_fair_not_imp_eef1_fair"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsMxsFair.lean",
+   "proved_at": 1790957577,
+   "provenance": "literature",
+   "citation": "Garg & Sharma, Exploring Relations among Fairness Notions in Discrete Fair Division, arXiv:2502.02815 v3, Defs. 3, 10; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "submod_union_marginal_le",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 255,
+   "informal": "For a monotone submodular set function and S inside T, adding a set U gains at most as much on top of T as on top of S.",
+   "statement": "theorem submod_union_marginal_le {m : ℕ} (v : Finset (Fin m) → ℝ) (hmono : Monotone v)\n    (hsub : is_submodular v) {S T : Finset (Fin m)} (hST : S ⊆ T) (U : Finset (Fin m)) :\n    v (T ∪ U) - v T ≤ v (S ∪ U) - v S",
+   "source": "/-- For a monotone submodular set function and `S ⊆ T`, adding a set `U` gains at most as much on top of `T` as on top of `S`. -/\ntheorem submod_union_marginal_le {m : ℕ} (v : Finset (Fin m) → ℝ) (hmono : Monotone v)\n    (hsub : is_submodular v) {S T : Finset (Fin m)} (hST : S ⊆ T) (U : Finset (Fin m)) :\n    v (T ∪ U) - v T ≤ v (S ∪ U) - v S := by\n  induction U using Finset.induction_on with\n  | empty => simp\n  | insert a U ha ih =>\n    rw [Finset.union_insert, Finset.union_insert]\n    by_cases haT : a ∈ T ∪ U\n    · rw [Finset.insert_eq_of_mem haT]\n      have : v (S ∪ U) ≤ v (insert a (S ∪ U)) := hmono (Finset.subset_insert _ _)\n      linarith\n    · have h := hsub (S ∪ U) (T ∪ U) a (Finset.union_subset_union hST le_rfl) haT\n      linarith",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_submodular"
+   ],
+   "used_by": [
+    "submod_zero_marginals",
+    "submod_biUnion_le_sum",
+    "mxs_fair_imp_prop1_fair_of_submodular"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SubmodUnionMarginalLe.lean",
+   "proved_at": 1790957808,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-03: proof of open problem 3 of Garg-Sharma, arXiv:2502.02815 v3, Sec. 6",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "submod_biUnion_le_sum",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 256,
+   "informal": "A monotone submodular set function with v(empty) = 0 is subadditive over a finite family of sets.",
+   "statement": "theorem submod_biUnion_le_sum {m n : ℕ} (v : Finset (Fin m) → ℝ) (hmono : Monotone v)\n    (hsub : is_submodular v) (h0 : v ∅ = 0) (K : Finset (Fin n)) (B : Fin n → Finset (Fin m)) :\n    v (K.biUnion B) ≤ ∑ j ∈ K, v (B j)",
+   "source": "/-- A monotone submodular set function with `v ∅ = 0` is subadditive over a family of sets. -/\ntheorem submod_biUnion_le_sum {m n : ℕ} (v : Finset (Fin m) → ℝ) (hmono : Monotone v)\n    (hsub : is_submodular v) (h0 : v ∅ = 0) (K : Finset (Fin n)) (B : Fin n → Finset (Fin m)) :\n    v (K.biUnion B) ≤ ∑ j ∈ K, v (B j) := by\n  induction K using Finset.induction_on with\n  | empty => simp [h0]\n  | insert a K ha ih =>\n    rw [Finset.biUnion_insert, Finset.sum_insert ha]\n    have h := submod_union_marginal_le v hmono hsub (Finset.empty_subset (B a)) (K.biUnion B)\n    rw [Finset.empty_union, h0] at h\n    linarith",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_submodular",
+    "submod_union_marginal_le"
+   ],
+   "used_by": [
+    "mxs_fair_imp_prop1_fair_of_submodular"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SubmodBiUnionLeSum.lean",
+   "proved_at": 1790957982,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-03: proof of open problem 3 of Garg-Sharma, arXiv:2502.02815 v3, Sec. 6",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "submod_zero_marginals",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 257,
+   "informal": "For a monotone submodular set function, items whose marginal value over X is zero add nothing on top of any superset of X.",
+   "statement": "theorem submod_zero_marginals {m : ℕ} (v : Finset (Fin m) → ℝ) (hmono : Monotone v)\n    (hsub : is_submodular v) {X W : Finset (Fin m)} (hXW : X ⊆ W) (R : Finset (Fin m))\n    (hR : ∀ z ∈ R, v (insert z X) ≤ v X) : v (W ∪ R) = v W",
+   "source": "/-- Items whose marginal value over `X` is zero add nothing on top of any superset of `X`. -/\ntheorem submod_zero_marginals {m : ℕ} (v : Finset (Fin m) → ℝ) (hmono : Monotone v)\n    (hsub : is_submodular v) {X W : Finset (Fin m)} (hXW : X ⊆ W) (R : Finset (Fin m))\n    (hR : ∀ z ∈ R, v (insert z X) ≤ v X) : v (W ∪ R) = v W := by\n  have key : v (X ∪ R) ≤ v X := by\n    induction R using Finset.induction_on with\n    | empty => simp\n    | insert a R ha ih =>\n      have ih' := ih (fun z hz => hR z (Finset.mem_insert_of_mem hz))\n      have haX := hR a (Finset.mem_insert_self a R)\n      rw [Finset.union_insert]\n      by_cases haXR : a ∈ X ∪ R\n      · rw [Finset.insert_eq_of_mem haXR]; exact ih'\n      · by_cases haX' : a ∈ X\n        · exact absurd (Finset.mem_union_left R haX') haXR\n        · have h := hsub X (X ∪ R) a Finset.subset_union_left haXR\n          linarith\n  have h := submod_union_marginal_le v hmono hsub hXW R\n  have hge : v W ≤ v (W ∪ R) := hmono Finset.subset_union_left\n  have hge' : v X ≤ v (X ∪ R) := hmono Finset.subset_union_left\n  linarith",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_submodular",
+    "submod_union_marginal_le"
+   ],
+   "used_by": [
+    "mxs_fair_imp_prop1_fair_of_submodular"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SubmodZeroMarginals.lean",
+   "proved_at": 1790958159,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-03: proof of open problem 3 of Garg-Sharma, arXiv:2502.02815 v3, Sec. 6",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "submod_add_items_le",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 258,
+   "informal": "For a submodular set function, if every item of G lies outside A and adds at most delta >= 0 to A, then adding G to any superset W of A gains at most |G| delta.",
+   "statement": "theorem submod_add_items_le {m : ℕ} (v : Finset (Fin m) → ℝ)\n    (hsub : is_submodular v) {A W : Finset (Fin m)} (hAW : A ⊆ W) {δ : ℝ} (hδ : 0 ≤ δ)\n    (G : Finset (Fin m)) (hG : ∀ g ∈ G, g ∉ A ∧ v (insert g A) ≤ v A + δ) :\n    v (W ∪ G) ≤ v W + G.card * δ",
+   "source": "/-- If every item of `G` lies outside `A` and adds at most `δ ≥ 0` to `A`, then adding `G` to any superset `W` of `A` gains at most `|G| δ`. -/\ntheorem submod_add_items_le {m : ℕ} (v : Finset (Fin m) → ℝ)\n    (hsub : is_submodular v) {A W : Finset (Fin m)} (hAW : A ⊆ W) {δ : ℝ} (hδ : 0 ≤ δ)\n    (G : Finset (Fin m)) (hG : ∀ g ∈ G, g ∉ A ∧ v (insert g A) ≤ v A + δ) :\n    v (W ∪ G) ≤ v W + G.card * δ := by\n  induction G using Finset.induction_on with\n  | empty => simp\n  | insert a G ha ih =>\n    have ih' := ih (fun g hg => hG g (Finset.mem_insert_of_mem hg))\n    obtain ⟨haA, hadd⟩ := hG a (Finset.mem_insert_self a G)\n    rw [Finset.union_insert, Finset.card_insert_of_notMem ha]\n    push_cast\n    by_cases haWG : a ∈ W ∪ G\n    · rw [Finset.insert_eq_of_mem haWG]; nlinarith\n    · have h := hsub A (W ∪ G) a (hAW.trans Finset.subset_union_left) haWG\n      linarith",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_submodular"
+   ],
+   "used_by": [
+    "mxs_fair_imp_prop1_fair_of_submodular"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SubmodAddItemsLe.lean",
+   "proved_at": 1790958318,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-03: proof of open problem 3 of Garg-Sharma, arXiv:2502.02815 v3, Sec. 6",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "mxs_fair_imp_prop1_fair_of_submodular",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 259,
+   "informal": "Garg-Sharma open problem 3 has a positive answer: for submodular goods (monotone, v(empty) = 0) and equal entitlements, every MXS-fair allocation is PROP1-fair. Proof: take an EFX certificate X, B_1..B_{n-1} with v(X) <= v(A); if A is not PROP1, put delta = v(M)/n - v(A) > 0, and pick from each B_j an item g_j outside A with positive marginal over X when there is one (k such items, G). Then v(B_j - g_j) <= v(X), and v(M) <= v(M - G) + k delta. If k = n - 1, v(M - G) <= n v(X); otherwise the remaining items outside A have zero marginal over X and v(M - G) <= (k + 2) v(A). Either way v(M) < n (v(A) + delta) = v(M).",
+   "statement": "theorem mxs_fair_imp_prop1_fair_of_submodular :\n    ∀ (n m : ℕ) (v : Fin n → Finset (Fin m) → ℝ),\n      (∀ i, v i ∅ = 0 ∧ Monotone (v i) ∧ is_submodular (v i)) →\n      ∀ (σ : Fin m → Fin n) (i : Fin n), is_mxs_fair v σ i →\n        is_prop1_fair (v i) (1 / n) (bundle_of σ i)",
+   "source": "/-- Garg-Sharma open problem 3 (arXiv:2502.02815 v3, Sec. 6) has a positive answer: for submodular goods and equal entitlements, every MXS-fair allocation is PROP1-fair. -/\ntheorem mxs_fair_imp_prop1_fair_of_submodular :\n    ∀ (n m : ℕ) (v : Fin n → Finset (Fin m) → ℝ),\n      (∀ i, v i ∅ = 0 ∧ Monotone (v i) ∧ is_submodular (v i)) →\n      ∀ (σ : Fin m → Fin n) (i : Fin n), is_mxs_fair v σ i →\n        is_prop1_fair (v i) (1 / n) (bundle_of σ i) := by\n  classical\n  intro n m v hv σ i hmxs\n  obtain ⟨τ, hefx, hle⟩ := hmxs\n  obtain ⟨h0, hmono, hsub⟩ := hv i\n  have hn : (0 : ℝ) < n := by exact_mod_cast Nat.lt_of_le_of_lt (Nat.zero_le _) i.2\n  set u := v i with hu\n  set A := bundle_of σ i with hA\n  set X := bundle_of τ i with hX\n  set V := u Finset.univ with hV\n  -- suppose not PROP1\n  by_contra hcon\n  simp only [is_prop1_fair, not_or, not_exists, not_and, not_lt, not_le] at hcon\n  obtain ⟨hAlt, hadd, -⟩ := hcon\n  set δ := 1 / (n : ℝ) * V - u A with hδdef\n  have hδ : 0 < δ := by rw [hδdef]; linarith\n  have hVn : V = n * (u A + δ) := by rw [hδdef]; field_simp; ring\n  have huA0 : 0 ≤ u A := by rw [← h0]; exact hmono (Finset.empty_subset _)\n  -- no items: then A is everything\n  rcases isEmpty_or_nonempty (Fin m) with hm | hm\n  · have e1 : A = ∅ := Subsingleton.elim _ _\n    have e2 : (Finset.univ : Finset (Fin m)) = ∅ := Subsingleton.elim _ _\n    rw [e1, e2, h0] at hAlt\n    simp at hAlt\n  -- the bundles of the EFX certificate τ\n  have hmemB : ∀ x, x ∈ bundle_of τ (τ x) := fun x => by simp [bundle_of]\n  let P : Fin n → Fin m → Prop := fun j x => x ∈ bundle_of τ j ∧ x ∉ A ∧ u X < u (insert x X)\n  let K : Finset (Fin n) := (Finset.univ.erase i).filter (fun j => ∃ x, P j x)\n  let g : Fin n → Fin m := fun j => Classical.epsilon (P j)\n  have hg : ∀ j ∈ K, P j (g j) := fun j hj =>\n    Classical.epsilon_spec (Finset.mem_filter.1 hj).2\n  have hKi : ∀ j ∈ K, j ≠ i := fun j hj => (Finset.mem_erase.1 (Finset.mem_filter.1 hj).1).1\n  -- EFX with S = {g j}\n  have hefxK : ∀ j ∈ K, u ((bundle_of τ j).erase (g j)) ≤ u X := by\n    intro j hj\n    obtain ⟨hgB, -, hgpos⟩ := hg j hj\n    rcases hefx j (hKi j hj) with h | ⟨h1, -⟩\n    · exact le_trans (hmono (Finset.erase_subset _ _)) h\n    · have := h1 {g j} (Finset.singleton_subset_iff.2 hgB)\n        (by rw [Finset.union_singleton]; exact hgpos)\n      rwa [Finset.sdiff_singleton_eq_erase] at this\n  let G := K.image g\n  let W := X ∪ K.biUnion (fun j => (bundle_of τ j).erase (g j))\n  have hW : u W ≤ u X + K.card * u X := by\n    have h1 := submod_union_marginal_le u hmono hsub (Finset.empty_subset X)\n      (K.biUnion (fun j => (bundle_of τ j).erase (g j)))\n    rw [Finset.empty_union, h0] at h1\n    have h2 := submod_biUnion_le_sum u hmono hsub h0 K (fun j => (bundle_of τ j).erase (g j))\n    have h3 : ∑ j ∈ K, u ((bundle_of τ j).erase (g j)) ≤ K.card * u X := by\n      have := Finset.sum_le_sum hefxK\n      simpa using this\n    linarith\n  have hGadd : ∀ x ∈ G, x ∉ A ∧ u (insert x A) ≤ u A + δ := by\n    intro x hx\n    obtain ⟨j, hj, rfl⟩ := Finset.mem_image.1 hx\n    have hgA := (hg j hj).2.1\n    exact ⟨hgA, by have := hadd (g j) hgA; linarith⟩\n  have hGcard : (G.card : ℝ) ≤ K.card := by exact_mod_cast Finset.card_image_le\n  have hXW : X ⊆ W := Finset.subset_union_left\n  have huXA : u X ≤ u A := hle\n  have hKsub : K ⊆ Finset.univ.erase i := Finset.filter_subset _ _\n  have hcardE : (Finset.univ.erase i).card + 1 = n := by\n    rw [Finset.card_erase_add_one (Finset.mem_univ i), Finset.card_univ, Fintype.card_fin]\n  by_cases hK : K = Finset.univ.erase i\n  · -- every bundle other than i's has a positive item outside A\n    have hcov : ∀ x, x ∉ G → x ∈ W := by\n      intro x hxG\n      by_cases hx : τ x = i\n      · exact Finset.mem_union_left _ (by simp [hX, bundle_of, hx])\n      · have hj : τ x ∈ K := by rw [hK]; exact Finset.mem_erase.2 ⟨hx, Finset.mem_univ _⟩\n        have hxg : x ≠ g (τ x) := fun h => hxG (Finset.mem_image.2 ⟨τ x, hj, h.symm⟩)\n        exact Finset.mem_union_right _\n          (Finset.mem_biUnion.2 ⟨τ x, hj, Finset.mem_erase.2 ⟨hxg, hmemB x⟩⟩)\n    have hAW : A ⊆ W := fun x hxA => hcov x (fun hxG => (hGadd x hxG).1 hxA)\n    have hun : Finset.univ ⊆ W ∪ G := fun x _ => by\n      by_cases hxG : x ∈ G\n      · exact Finset.mem_union_right _ hxG\n      · exact Finset.mem_union_left _ (hcov x hxG)\n    have h1 : V ≤ u (W ∪ G) := hmono hun\n    have h2 := submod_add_items_le u hsub hAW hδ.le G hGadd\n    have hKc : (K.card : ℝ) + 1 = n := by rw [hK]; exact_mod_cast hcardE\n    have h3 : (K.card : ℝ) * u X ≤ K.card * u A :=\n      mul_le_mul_of_nonneg_left huXA (Nat.cast_nonneg _)\n    have h4 : (G.card : ℝ) * δ ≤ K.card * δ := mul_le_mul_of_nonneg_right hGcard hδ.le\n    -- V ≤ n u(A) + (n-1) δ < n (u(A) + δ) = V\n    have : V ≤ (K.card + 1) * u A + K.card * δ := by nlinarith\n    rw [hKc] at this\n    nlinarith\n  · -- some other bundle has no positive item outside A\n    have hss : K ⊂ Finset.univ.erase i := Finset.ssubset_iff_subset_ne.2 ⟨hKsub, hK⟩\n    have hKlt : K.card < (Finset.univ.erase i).card := Finset.card_lt_card hss\n    have hKc : (K.card : ℝ) + 2 ≤ n := by\n      have : K.card + 2 ≤ n := by omega\n      exact_mod_cast this\n    let R := Finset.univ.filter (fun x => x ∉ A ∧ τ x ≠ i ∧ τ x ∉ K)\n    have hR : ∀ z ∈ R, u (insert z X) ≤ u X := by\n      intro z hz\n      obtain ⟨hzA, hzi, hzK⟩ := (Finset.mem_filter.1 hz).2\n      by_contra hlt\n      rw [not_le] at hlt\n      exact hzK (Finset.mem_filter.2\n        ⟨Finset.mem_erase.2 ⟨hzi, Finset.mem_univ _⟩, ⟨z, hmemB z, hzA, hlt⟩⟩)\n    let W' := W ∪ A\n    have hun : Finset.univ ⊆ (W' ∪ R) ∪ G := by\n      intro x _\n      by_cases hx : τ x = i\n      · exact Finset.mem_union_left _ (Finset.mem_union_left _\n          (Finset.mem_union_left _ (Finset.mem_union_left _ (by simp [hX, bundle_of, hx]))))\n      by_cases hxA : x ∈ A\n      · exact Finset.mem_union_left _ (Finset.mem_union_left _ (Finset.mem_union_right _ hxA))\n      by_cases hj : τ x ∈ K\n      · by_cases hxg : x = g (τ x)\n        · exact Finset.mem_union_right _ (Finset.mem_image.2 ⟨τ x, hj, hxg.symm⟩)\n        · exact Finset.mem_union_left _ (Finset.mem_union_left _ (Finset.mem_union_left _\n            (Finset.mem_union_right _\n              (Finset.mem_biUnion.2 ⟨τ x, hj, Finset.mem_erase.2 ⟨hxg, hmemB x⟩⟩))))\n      · exact Finset.mem_union_left _ (Finset.mem_union_right _\n          (Finset.mem_filter.2 ⟨Finset.mem_univ _, hxA, hx, hj⟩))\n    have hAW' : A ⊆ W' ∪ R := fun x hx => Finset.mem_union_left _ (Finset.mem_union_right _ hx)\n    have h1 : V ≤ u ((W' ∪ R) ∪ G) := hmono hun\n    have h2 := submod_add_items_le u hsub hAW' hδ.le G hGadd\n    have h3 : u (W' ∪ R) = u W' :=\n      submod_zero_marginals u hmono hsub (hXW.trans Finset.subset_union_left) R hR\n    have h4 : u W' ≤ u W + u A := by\n      have := submod_union_marginal_le u hmono hsub (Finset.empty_subset W) A\n      rw [Finset.empty_union, h0] at this\n      linarith\n    have h5 : (K.card : ℝ) * u X ≤ K.card * u A :=\n      mul_le_mul_of_nonneg_left huXA (Nat.cast_nonneg _)\n    have h6 : (G.card : ℝ) * δ ≤ K.card * δ := mul_le_mul_of_nonneg_right hGcard hδ.le\n    have h7 : ((K.card : ℝ) + 2) * u A ≤ n * u A := mul_le_mul_of_nonneg_right hKc huA0\n    have h8 : (K.card : ℝ) * δ ≤ (n - 2) * δ := mul_le_mul_of_nonneg_right (by linarith) hδ.le\n    nlinarith",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_submodular",
+    "is_mxs_fair",
+    "is_prop1_fair",
+    "bundle_of",
+    "submod_union_marginal_le",
+    "submod_biUnion_le_sum",
+    "submod_add_items_le",
+    "submod_zero_marginals"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MxsFairImpProp1FairOfSubmodular.lean",
+   "proved_at": 1790958476,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-03: proof of open problem 3 of Garg-Sharma, arXiv:2502.02815 v3, Sec. 6",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "da_run",
+   "kind": "def",
+   "is_def": true,
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "seq": 260,
+   "informal": "One run of men-proposing deferred acceptance with a step budget: each step the first free man with proposals left proposes to his next woman, who keeps whichever of him and her current man she ranks better.",
+   "statement": "def da_run {nm nw : ℕ} (rm : Fin nm → Fin nw → Fin nw) (rw : Fin nw → Fin nm → Fin nm)\n    (fuel : ℕ) (hold : Fin nw → Option (Fin nm)) (nxt : Fin nm → ℕ) : Fin nw → Option (Fin nm)",
+   "source": "/-- One run of men-proposing deferred acceptance with a step budget. `rm m w` is the rank man `m` gives woman `w` and `rw w m` the rank woman `w` gives man `m` (0 = best). `hold w` is the man woman `w` currently holds and `nxt m` how many proposals man `m` has made. Each step, the first free man with proposals left proposes to the woman he ranks `nxt m`; she keeps whichever of him and her current man she ranks better. -/\ndef da_run {nm nw : ℕ} (rm : Fin nm → Fin nw → Fin nw) (rw : Fin nw → Fin nm → Fin nm)\n    (fuel : ℕ) (hold : Fin nw → Option (Fin nm)) (nxt : Fin nm → ℕ) : Fin nw → Option (Fin nm) :=\n  match fuel with\n  | 0 => hold\n  | fuel + 1 =>\n    match (List.finRange nm).find? (fun m =>\n        decide (nxt m < nw) && (List.finRange nw).all (fun w => hold w != some m)) with\n    | none => hold\n    | some m =>\n      match (List.finRange nw).find? (fun w => ((rm m w : ℕ) == nxt m)) with\n      | none => hold\n      | some w =>\n        let nxt' := Function.update nxt m (nxt m + 1)\n        match hold w with\n        | none => da_run rm rw fuel (Function.update hold w (some m)) nxt'\n        | some m' =>\n          if rw w m < rw w m' then da_run rm rw fuel (Function.update hold w (some m)) nxt'\n          else da_run rm rw fuel hold nxt'",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "deferred_acceptance"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/DaRun.lean",
+   "proved_at": 1790960026,
+   "provenance": "literature",
+   "citation": "Gale & Shapley 1962 (men-proposing deferred acceptance); Hartman, Segal-Halevi & Tao, It's Not All Black and White: Degree of Truthfulness for Risk-Avoiding Agents, arXiv:2502.18805 v3, Def. 3.1 and Sec. 8.1; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "deferred_acceptance",
+   "kind": "def",
+   "is_def": true,
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "seq": 261,
+   "informal": "Men-proposing deferred acceptance (Gale-Shapley): the man each woman ends up with, given each man's ranking of the women and each woman's ranking of the men (0 = best).",
+   "statement": "def deferred_acceptance {nm nw : ℕ} (rm : Fin nm → Fin nw → Fin nw) (rw : Fin nw → Fin nm → Fin nm) :\n    Fin nw → Option (Fin nm)",
+   "source": "/-- Men-proposing deferred acceptance (Gale-Shapley): the man each woman ends up with. With complete rankings every man makes at most `nw` proposals, so `nm * nw` steps suffice. -/\ndef deferred_acceptance {nm nw : ℕ} (rm : Fin nm → Fin nw → Fin nw) (rw : Fin nw → Fin nm → Fin nm) :\n    Fin nw → Option (Fin nm) :=\n  da_run rm rw (nm * nw + 1) (fun _ => none) (fun _ => 0)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "da_run"
+   ],
+   "used_by": [
+    "da_woman_k_known_safely_manipulable",
+    "da_three_by_three_three_known_safely_manipulable"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/DeferredAcceptance.lean",
+   "proved_at": 1790960143,
+   "provenance": "literature",
+   "citation": "Gale & Shapley 1962 (men-proposing deferred acceptance); Hartman, Segal-Halevi & Tao, It's Not All Black and White: Degree of Truthfulness for Risk-Avoiding Agents, arXiv:2502.18805 v3, Def. 3.1 and Sec. 8.1; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "woman_weakly_prefers",
+   "kind": "def",
+   "is_def": true,
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "seq": 262,
+   "informal": "Under a woman's true ranking (unmatched worst), outcome a is at least as good as outcome b.",
+   "statement": "def woman_weakly_prefers {nm : ℕ} (T : Fin nm → Fin nm) (a b : Option (Fin nm)) : Prop",
+   "source": "/-- Woman's view of two outcomes under her true ranking `T` (0 = best, unmatched worst): `a` is at least as good as `b`. -/\ndef woman_weakly_prefers {nm : ℕ} (T : Fin nm → Fin nm) (a b : Option (Fin nm)) : Prop :=\n  ∀ y ∈ b, ∃ x ∈ a, T x ≤ T y",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "da_woman_k_known_safely_manipulable",
+    "da_three_by_three_three_known_safely_manipulable"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/WomanWeaklyPrefers.lean",
+   "proved_at": 1790960250,
+   "provenance": "literature",
+   "citation": "Gale & Shapley 1962 (men-proposing deferred acceptance); Hartman, Segal-Halevi & Tao, It's Not All Black and White: Degree of Truthfulness for Risk-Avoiding Agents, arXiv:2502.18805 v3, Def. 3.1 and Sec. 8.1; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "woman_strictly_prefers",
+   "kind": "def",
+   "is_def": true,
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "seq": 263,
+   "informal": "Under a woman's true ranking (unmatched worst), outcome a is strictly better than outcome b.",
+   "statement": "def woman_strictly_prefers {nm : ℕ} (T : Fin nm → Fin nm) (a b : Option (Fin nm)) : Prop",
+   "source": "/-- Woman's view of two outcomes under her true ranking `T` (0 = best, unmatched worst): `a` is strictly better than `b`. -/\ndef woman_strictly_prefers {nm : ℕ} (T : Fin nm → Fin nm) (a b : Option (Fin nm)) : Prop :=\n  ∃ x ∈ a, ∀ y ∈ b, T x < T y",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "da_woman_k_known_safely_manipulable",
+    "da_three_by_three_three_known_safely_manipulable"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/WomanStrictlyPrefers.lean",
+   "proved_at": 1790960358,
+   "provenance": "literature",
+   "citation": "Gale & Shapley 1962 (men-proposing deferred acceptance); Hartman, Segal-Halevi & Tao, It's Not All Black and White: Degree of Truthfulness for Risk-Avoiding Agents, arXiv:2502.18805 v3, Def. 3.1 and Sec. 8.1; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "da_woman_k_known_safely_manipulable",
+   "kind": "def",
+   "is_def": true,
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "seq": 264,
+   "informal": "In men-proposing deferred acceptance with nm men, nw women and complete rankings (no truncation), some woman who knows the rankings of k other agents has a misreport that is safe (never worse, whatever the unknown agents rank) and profitable (strictly better for some rankings of the unknown agents); Hartman-Segal-Halevi-Tao Def. 3.1.",
+   "statement": "def da_woman_k_known_safely_manipulable (nm nw k : ℕ) : Prop",
+   "source": "/-- Hartman, Segal-Halevi and Tao (arXiv:2502.18805, Def. 3.1), for men-proposing deferred acceptance in a market of `nm` men and `nw` women with complete rankings (no truncation), and a woman as the manipulator: some woman `w0`, knowing the rankings of `k` other agents (men `Km`, women `Kw`), has a report `P` instead of her true ranking `T` that is safe (never worse, whatever the unknown agents rank) and profitable (strictly better for some rankings of the unknown agents). -/\ndef da_woman_k_known_safely_manipulable (nm nw k : ℕ) : Prop :=\n  ∃ (w0 : Fin nw) (Km : Finset (Fin nm)) (Kw : Finset (Fin nw)), w0 ∉ Kw ∧ Km.card + Kw.card = k ∧\n  ∃ (km : Fin nm → Fin nw → Fin nw) (kw : Fin nw → Fin nm → Fin nm) (T P : Fin nm → Fin nm),\n    (∀ m ∈ Km, Function.Injective (km m)) ∧ (∀ w ∈ Kw, Function.Injective (kw w)) ∧\n    Function.Injective T ∧ Function.Injective P ∧\n    (∀ (rm : Fin nm → Fin nw → Fin nw) (rw : Fin nw → Fin nm → Fin nm),\n      (∀ m, Function.Injective (rm m)) → (∀ w, Function.Injective (rw w)) →\n      (∀ m ∈ Km, rm m = km m) → (∀ w ∈ Kw, rw w = kw w) →\n      woman_weakly_prefers T (deferred_acceptance rm (Function.update rw w0 P) w0)\n        (deferred_acceptance rm (Function.update rw w0 T) w0)) ∧\n    (∃ (rm : Fin nm → Fin nw → Fin nw) (rw : Fin nw → Fin nm → Fin nm),\n      (∀ m, Function.Injective (rm m)) ∧ (∀ w, Function.Injective (rw w)) ∧\n      (∀ m ∈ Km, rm m = km m) ∧ (∀ w ∈ Kw, rw w = kw w) ∧\n      woman_strictly_prefers T (deferred_acceptance rm (Function.update rw w0 P) w0)\n        (deferred_acceptance rm (Function.update rw w0 T) w0))",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "deferred_acceptance",
+    "woman_weakly_prefers",
+    "woman_strictly_prefers"
+   ],
+   "used_by": [
+    "da_three_by_three_three_known_safely_manipulable"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/DaWomanKKnownSafelyManipulable.lean",
+   "proved_at": 1790960513,
+   "provenance": "literature",
+   "citation": "Gale & Shapley 1962 (men-proposing deferred acceptance); Hartman, Segal-Halevi & Tao, It's Not All Black and White: Degree of Truthfulness for Risk-Avoiding Agents, arXiv:2502.18805 v3, Def. 3.1 and Sec. 8.1; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "da_three_by_three_three_known_safely_manipulable",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "seq": 265,
+   "informal": "In the 3x3 market with complete rankings, a woman who knows three agents can safely and profitably manipulate men-proposing deferred acceptance: woman 0 (true m0 > m1 > m2) knows woman 1 (m1 > m0), man 0 (w1 > w0) and man 1 (w0 > w1), and swaps m1 and m2. So the RAT-degree of deferred acceptance without truncation is at most 3 in this market, refuting the conjecture of Hartman, Segal-Halevi and Tao (arXiv:2502.18805, Sec. 8.1) that 5 is tight.",
+   "statement": "theorem da_three_by_three_three_known_safely_manipulable :\n    da_woman_k_known_safely_manipulable 3 3 3",
+   "source": "/-- In the 3-man, 3-woman market with complete rankings, three known agents already let a woman manipulate men-proposing deferred acceptance safely and profitably: woman 0 (true ranking m0 > m1 > m2) knows woman 1 (m1 > m0 > ...), man 0 (w1 > w0 > ...) and man 1 (w0 > w1 > ...), and swaps m1 and m2. So the RAT-degree of deferred acceptance without truncation is at most 3 here, not 5: the conjecture of Hartman, Segal-Halevi and Tao (arXiv:2502.18805, Sec. 8.1) that 5 is tight fails in this market, where 5 is all the other agents. -/\ntheorem da_three_by_three_three_known_safely_manipulable :\n    da_woman_k_known_safely_manipulable 3 3 3 := by\n  let km : Fin 3 → Fin 3 → Fin 3 := ![![1, 0, 2], ![0, 1, 2], ![0, 1, 2]]\n  let kw : Fin 3 → Fin 3 → Fin 3 := ![![0, 1, 2], ![1, 0, 2], ![0, 1, 2]]\n  let T : Fin 3 → Fin 3 := ![0, 1, 2]\n  let P : Fin 3 → Fin 3 := ![0, 2, 1]\n  -- the outcome only depends on the unknown man 2 and woman 2\n  have key : ∀ a : Fin 3 → Fin 3, Function.Injective a → ∀ b : Fin 3 → Fin 3, Function.Injective b →\n      woman_weakly_prefers T\n        (deferred_acceptance ![km 0, km 1, a] (Function.update ![T, kw 1, b] 0 P) 0)\n        (deferred_acceptance ![km 0, km 1, a] (Function.update ![T, kw 1, b] 0 T) 0) := by\n    unfold woman_weakly_prefers\n    decide +kernel\n  refine ⟨0, {0, 1}, {1}, by decide, by decide, km, kw, T, P, by decide, by decide, by decide,\n    by decide, ?_, ?_⟩\n  · intro rm rw hrm hrw hKm hKw\n    have e1 : rm = ![km 0, km 1, rm 2] := by\n      funext m; fin_cases m\n      · exact hKm 0 (by decide)\n      · exact hKm 1 (by decide)\n      · rfl\n    have e2 : ∀ X, Function.update rw 0 X = Function.update ![T, kw 1, rw 2] 0 X := by\n      intro X; funext w; fin_cases w\n      · simp\n      · simp [hKw 1 (by decide)]\n      · simp\n    rw [e1, e2, e2]\n    exact key _ (hrm 2) _ (hrw 2)\n  · refine ⟨km, kw, by decide, by decide, fun _ _ => rfl, fun _ _ => rfl, ?_⟩\n    unfold woman_strictly_prefers\n    decide +kernel",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "da_woman_k_known_safely_manipulable",
+    "woman_weakly_prefers",
+    "deferred_acceptance",
+    "woman_strictly_prefers"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/DaThreeByThreeThreeKnownSafelyManipulable.lean",
+   "proved_at": 1790960636,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-03: counterexample to the conjecture of Hartman, Segal-Halevi & Tao (arXiv:2502.18805 v3, Sec. 8.1) that the RAT-degree 5 of deferred acceptance without truncation is tight",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_orientation",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 266,
+   "informal": "An allocation of the edges of a multigraph is an orientation if every edge goes to one of its two endpoints.",
+   "statement": "def is_orientation {m n : ℕ} (ends : Fin m → Fin n × Fin n) (σ : Fin m → Fin n) : Prop",
+   "source": "/-- The allocation `σ` is an orientation of the multigraph whose edge `e` joins `(ends e).1` and `(ends e).2`: every edge goes to one of its two endpoints. -/\ndef is_orientation {m n : ℕ} (ends : Fin m → Fin n × Fin n) (σ : Fin m → Fin n) : Prop :=\n  ∀ e, σ e = (ends e).1 ∨ σ e = (ends e).2",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "multigraph_orientation_subsidy_not_le_one",
+    "multigraph_orientation_subsidy_three_halves"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsOrientation.lean",
+   "proved_at": 1790961395,
+   "provenance": "literature",
+   "citation": "Li, Sun, Suzuki & Xing, On the Subsidy of Envy-Free Orientations in Graphs, arXiv:2502.13671 v1, Sec. 2; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_graph_valuation",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 267,
+   "informal": "In the graph model each agent values only the edges incident to her: v_i(X) = v_i(X ∩ E_i).",
+   "statement": "def is_graph_valuation {m n : ℕ} (ends : Fin m → Fin n × Fin n)\n    (v : Fin n → Finset (Fin m) → ℝ) : Prop",
+   "source": "/-- Every agent values only the edges incident to her: `v i X = v i (X ∩ E_i)`. -/\ndef is_graph_valuation {m n : ℕ} (ends : Fin m → Fin n × Fin n)\n    (v : Fin n → Finset (Fin m) → ℝ) : Prop :=\n  ∀ i S, v i S = v i (S.filter fun e => (ends e).1 = i ∨ (ends e).2 = i)",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "multigraph_orientation_subsidy_not_le_one",
+    "multigraph_orientation_subsidy_three_halves"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsGraphValuation.lean",
+   "proved_at": 1790961532,
+   "provenance": "literature",
+   "citation": "Li, Sun, Suzuki & Xing, On the Subsidy of Envy-Free Orientations in Graphs, arXiv:2502.13671 v1, Sec. 2; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_monotone_valuation",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 268,
+   "informal": "A valuation is monotone and nonnegative: v(∅) ≥ 0 and S ⊆ T implies v(S) ≤ v(T).",
+   "statement": "def is_monotone_valuation {m : ℕ} (v : Finset (Fin m) → ℝ) : Prop",
+   "source": "/-- A monotone valuation into the nonnegative reals: `0 ≤ v ∅` and `S ⊆ T → v S ≤ v T`. -/\ndef is_monotone_valuation {m : ℕ} (v : Finset (Fin m) → ℝ) : Prop :=\n  0 ≤ v ∅ ∧ ∀ S T, S ⊆ T → v S ≤ v T",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "multigraph_orientation_subsidy_not_le_one",
+    "multigraph_orientation_subsidy_three_halves"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsMonotoneValuation.lean",
+   "proved_at": 1790961654,
+   "provenance": "literature",
+   "citation": "Li, Sun, Suzuki & Xing, On the Subsidy of Envy-Free Orientations in Graphs, arXiv:2502.13671 v1, Sec. 2; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "has_max_marginal_one",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 269,
+   "informal": "The subsidy normalisation: every marginal value v(S + e) - v(S) is at most 1, and some marginal value equals 1.",
+   "statement": "def has_max_marginal_one {m : ℕ} (v : Finset (Fin m) → ℝ) : Prop",
+   "source": "/-- The subsidy normalisation: the largest marginal value of any item is exactly 1. -/\ndef has_max_marginal_one {m : ℕ} (v : Finset (Fin m) → ℝ) : Prop :=\n  (∀ S e, v (insert e S) - v S ≤ 1) ∧ ∃ S e, v (insert e S) - v S = 1",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "multigraph_orientation_subsidy_not_le_one",
+    "multigraph_orientation_subsidy_three_halves"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/HasMaxMarginalOne.lean",
+   "proved_at": 1790961799,
+   "provenance": "literature",
+   "citation": "Li, Sun, Suzuki & Xing, On the Subsidy of Envy-Free Orientations in Graphs, arXiv:2502.13671 v1, Sec. 2; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_envy_free_with_subsidy",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 270,
+   "informal": "An allocation with nonnegative payments p is envy-free if v_i(A_i) + p_i ≥ v_i(A_j) + p_j for all agents i, j.",
+   "statement": "def is_envy_free_with_subsidy {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ)\n    (σ : Fin m → Fin n) (p : Fin n → ℝ) : Prop",
+   "source": "/-- The allocation `σ` with payments `p ≥ 0` is envy-free: `v i (A j) + p j ≤ v i (A i) + p i` for all agents `i`, `j`. -/\ndef is_envy_free_with_subsidy {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ)\n    (σ : Fin m → Fin n) (p : Fin n → ℝ) : Prop :=\n  (∀ i, 0 ≤ p i) ∧ ∀ i j, v i (bundle_of σ j) + p j ≤ v i (bundle_of σ i) + p i",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "bundle_of"
+   ],
+   "used_by": [
+    "multigraph_orientation_subsidy_not_le_one",
+    "multigraph_orientation_subsidy_three_halves"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsEnvyFreeWithSubsidy.lean",
+   "proved_at": 1790962165,
+   "provenance": "literature",
+   "citation": "Li, Sun, Suzuki & Xing, On the Subsidy of Envy-Free Orientations in Graphs, arXiv:2502.13671 v1, Sec. 2; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "multigraph_orientation_subsidy_three_halves",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 271,
+   "informal": "There is a three-agent multigraph with monotone graph valuations, normalised so the largest marginal is 1, in which every envy-free orientation needs a total subsidy of at least 3/2, and 3/2 suffices. Edge b joins agents 0 and 1; edges c, d are parallel between agents 0 and 2. Agent 1 values b at 1; agent 2 values one of c, d at 1/2 and both at 3/2; agent 0 values b at 1, c and d at 1/4 each, any two edges at 5/4 and all three at 3/2. This beats the lower bound n - 2 = 1 of Li-Sun-Suzuki-Xing (Example 20) at n = 3.",
+   "statement": "theorem multigraph_orientation_subsidy_three_halves :\n    ∃ (ends : Fin 3 → Fin 3 × Fin 3) (v : Fin 3 → Finset (Fin 3) → ℝ),\n      (∀ e, (ends e).1 ≠ (ends e).2) ∧ is_graph_valuation ends v ∧\n      (∀ i, is_monotone_valuation (v i) ∧ has_max_marginal_one (v i)) ∧\n      (∀ σ p, is_orientation ends σ → is_envy_free_with_subsidy v σ p → 3 / 2 ≤ ∑ i, p i) ∧\n      ∃ σ p, is_orientation ends σ ∧ is_envy_free_with_subsidy v σ p ∧ ∑ i, p i = 3 / 2",
+   "source": "/-- The three-agent gadget: edge 0 joins agents 0 and 1; edges 1 and 2 are parallel,\njoining agents 0 and 2. -/\ndef subsidy_gadget_ends : Fin 3 → Fin 3 × Fin 3 := ![(0, 1), (0, 2), (0, 2)]\n\n/-- Agent 0: edge 0 is worth 1, edges 1, 2 are worth 1/4 each, any two edges 5/4, all three 3/2.\nAgent 1: edge 0 is worth 1. Agent 2: one of edges 1, 2 is worth 1/2, both 3/2. -/\nnoncomputable def subsidy_gadget_val : Fin 3 → Finset (Fin 3) → ℝ\n  | 0, S => if 0 ∈ S then (if 1 ∈ S ∧ 2 ∈ S then 3 / 2 else if 1 ∈ S ∨ 2 ∈ S then 5 / 4 else 1)\n            else (if 1 ∈ S ∧ 2 ∈ S then 5 / 4 else if 1 ∈ S ∨ 2 ∈ S then 1 / 4 else 0)\n  | 1, S => if 0 ∈ S then 1 else 0\n  | 2, S => if 1 ∈ S ∧ 2 ∈ S then 3 / 2 else if 1 ∈ S ∨ 2 ∈ S then 1 / 2 else 0\n\nlemma subsidy_gadget_graph : is_graph_valuation subsidy_gadget_ends subsidy_gadget_val := by\n  intro i S\n  have hx : ∀ x, x ∈ S.filter (fun e => (subsidy_gadget_ends e).1 = i ∨ (subsidy_gadget_ends e).2 = i)\n      ↔ x ∈ S ∧ ((subsidy_gadget_ends x).1 = i ∨ (subsidy_gadget_ends x).2 = i) :=\n    fun x => Finset.mem_filter\n  fin_cases i <;> simp only [subsidy_gadget_val] <;> simp only [hx] <;>\n    simp (config := { decide := true }) [subsidy_gadget_ends]\n\nlemma subsidy_gadget_monotone (i : Fin 3) : is_monotone_valuation (subsidy_gadget_val i) := by\n  refine ⟨by fin_cases i <;> simp [subsidy_gadget_val], fun S T hST => ?_⟩\n  have h0 := @hST 0; have h1 := @hST 1; have h2 := @hST 2\n  fin_cases i <;> simp only [subsidy_gadget_val] <;>\n    by_cases a0 : (0 : Fin 3) ∈ S <;> by_cases a1 : (1 : Fin 3) ∈ S <;>\n    by_cases a2 : (2 : Fin 3) ∈ S <;> by_cases b0 : (0 : Fin 3) ∈ T <;>\n    by_cases b1 : (1 : Fin 3) ∈ T <;> by_cases b2 : (2 : Fin 3) ∈ T <;>\n    simp_all <;> norm_num\n\nlemma subsidy_gadget_marginal (i : Fin 3) : has_max_marginal_one (subsidy_gadget_val i) := by\n  refine ⟨fun S e => ?_, ?_⟩\n  · fin_cases i <;> fin_cases e <;> simp only [subsidy_gadget_val] <;>\n      by_cases a0 : (0 : Fin 3) ∈ S <;> by_cases a1 : (1 : Fin 3) ∈ S <;>\n      by_cases a2 : (2 : Fin 3) ∈ S <;> simp [a0, a1, a2] <;> norm_num\n  · fin_cases i\n    · exact ⟨∅, 0, by simp [subsidy_gadget_val]⟩\n    · exact ⟨∅, 0, by simp [subsidy_gadget_val]⟩\n    · exact ⟨{1}, 2, by simp [subsidy_gadget_val]; norm_num⟩\n\nlemma subsidy_gadget_lower (σ : Fin 3 → Fin 3) (p : Fin 3 → ℝ)\n    (hσ : is_orientation subsidy_gadget_ends σ)\n    (hef : is_envy_free_with_subsidy subsidy_gadget_val σ p) : 3 / 2 ≤ ∑ i, p i := by\n  obtain ⟨hp, h⟩ := hef\n  have e0 := hσ 0; have e1 := hσ 1; have e2 := hσ 2\n  simp only [subsidy_gadget_ends, Matrix.cons_val_zero, Matrix.cons_val_one,\n    Matrix.cons_val_two, Matrix.head_cons, Matrix.tail_cons] at e0 e1 e2\n  have mem : ∀ x j, x ∈ bundle_of σ j ↔ σ x = j := by\n    intro x j; simp [bundle_of]\n  have h01 := h 0 1; have h02 := h 0 2; have h10 := h 1 0\n  have h12 := h 1 2; have h20 := h 2 0; have h21 := h 2 1\n  simp only [subsidy_gadget_val, mem] at h01 h02 h10 h12 h20 h21\n  have p0 := hp 0; have p1 := hp 1; have p2 := hp 2\n  simp only [Fin.sum_univ_three]\n  rcases e0 with e0 | e0 <;> rcases e1 with e1 | e1 <;> rcases e2 with e2 | e2 <;>\n    simp only [e0, e1, e2] at h01 h02 h10 h12 h20 h21 <;>\n    simp (config := { decide := true }) only [ite_true, ite_false,\n      or_false, false_or, true_and, and_true, true_or, or_true]\n      at h01 h02 h10 h12 h20 h21 <;>\n    norm_num at h01 h02 h10 h12 h20 h21 <;>\n    linarith\n\nlemma subsidy_gadget_attained :\n    is_orientation subsidy_gadget_ends ![1, 0, 2] ∧\n      is_envy_free_with_subsidy subsidy_gadget_val ![1, 0, 2] ![3 / 4, 0, 3 / 4] := by\n  refine ⟨fun e => ?_, fun i => ?_, fun i j => ?_⟩\n  · fin_cases e <;> decide\n  · fin_cases i <;> simp <;> norm_num\n  · have mem : ∀ x j, x ∈ bundle_of (![1, 0, 2] : Fin 3 → Fin 3) j ↔ (![1, 0, 2] : Fin 3 → Fin 3) x = j := by\n      intro x j; simp [bundle_of]\n    fin_cases i <;> fin_cases j <;> simp [subsidy_gadget_val, mem] <;> norm_num\n\ntheorem multigraph_orientation_subsidy_three_halves :\n    ∃ (ends : Fin 3 → Fin 3 × Fin 3) (v : Fin 3 → Finset (Fin 3) → ℝ),\n      (∀ e, (ends e).1 ≠ (ends e).2) ∧ is_graph_valuation ends v ∧\n      (∀ i, is_monotone_valuation (v i) ∧ has_max_marginal_one (v i)) ∧\n      (∀ σ p, is_orientation ends σ → is_envy_free_with_subsidy v σ p → 3 / 2 ≤ ∑ i, p i) ∧\n      ∃ σ p, is_orientation ends σ ∧ is_envy_free_with_subsidy v σ p ∧ ∑ i, p i = 3 / 2 := by\n  refine ⟨subsidy_gadget_ends, subsidy_gadget_val, fun e => ?_, subsidy_gadget_graph,\n    fun i => ⟨subsidy_gadget_monotone i, subsidy_gadget_marginal i⟩, subsidy_gadget_lower,\n    ![1, 0, 2], ![3 / 4, 0, 3 / 4], subsidy_gadget_attained.1, subsidy_gadget_attained.2, ?_⟩\n  · fin_cases e <;> decide\n  · simp [Fin.sum_univ_three]; norm_num",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_orientation",
+    "is_graph_valuation",
+    "is_monotone_valuation",
+    "has_max_marginal_one",
+    "is_envy_free_with_subsidy",
+    "bundle_of"
+   ],
+   "used_by": [
+    "multigraph_orientation_subsidy_not_le_one"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MultigraphOrientationSubsidyThreeHalves.lean",
+   "proved_at": 1790962309,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-03: improves the lower bound n-2 (Example 20) for multigraphs with monotone valuations at n = 3, toward the open gap of Li-Sun-Suzuki-Xing, arXiv:2502.13671 v1, Sec. 7",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "multigraph_orientation_subsidy_not_le_one",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 272,
+   "informal": "For three agents on a multigraph with monotone valuations, a total subsidy of n - 2 = 1 does not always suffice for an envy-free orientation, unlike simple graphs (Li-Sun-Suzuki-Xing, Thm 21).",
+   "statement": "theorem multigraph_orientation_subsidy_not_le_one :\n    ¬ ∀ (m : ℕ) (ends : Fin m → Fin 3 × Fin 3) (v : Fin 3 → Finset (Fin m) → ℝ),\n      (∀ e, (ends e).1 ≠ (ends e).2) → is_graph_valuation ends v →\n      (∀ i, is_monotone_valuation (v i) ∧ has_max_marginal_one (v i)) →\n      ∃ σ p, is_orientation ends σ ∧ is_envy_free_with_subsidy v σ p ∧ ∑ i, p i ≤ 1",
+   "source": "theorem multigraph_orientation_subsidy_not_le_one :\n    ¬ ∀ (m : ℕ) (ends : Fin m → Fin 3 × Fin 3) (v : Fin 3 → Finset (Fin m) → ℝ),\n      (∀ e, (ends e).1 ≠ (ends e).2) → is_graph_valuation ends v →\n      (∀ i, is_monotone_valuation (v i) ∧ has_max_marginal_one (v i)) →\n      ∃ σ p, is_orientation ends σ ∧ is_envy_free_with_subsidy v σ p ∧ ∑ i, p i ≤ 1 := by\n  intro h\n  obtain ⟨ends, v, hne, hg, hv, hlow, -⟩ := multigraph_orientation_subsidy_three_halves\n  obtain ⟨σ, p, hσ, hef, hp⟩ := h 3 ends v hne hg hv\n  linarith [hlow σ p hσ hef]",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "multigraph_orientation_subsidy_three_halves",
+    "is_orientation",
+    "is_graph_valuation",
+    "is_monotone_valuation",
+    "has_max_marginal_one",
+    "is_envy_free_with_subsidy"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MultigraphOrientationSubsidyNotLeOne.lean",
+   "proved_at": 1790962416,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-03: improves the lower bound n-2 (Example 20) for multigraphs with monotone valuations at n = 3, toward the open gap of Li-Sun-Suzuki-Xing, arXiv:2502.13671 v1, Sec. 7",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_ef1_fair",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 273,
+   "informal": "An allocation is EF1-fair to agent i if, against every other agent j, i does not envy j, or removing some item from j's bundle ends the envy, or removing some item from i's own bundle does.",
+   "statement": "def is_ef1_fair {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ) (σ : Fin m → Fin n) (i : Fin n) : Prop",
+   "source": "/-- EF1 (Garg-Sharma, arXiv:2502.02815, Def. 2, equal entitlements), judged by agent `i`'s valuation `v i`: against every other agent `j`, either `i` does not envy `j`, or removing some item from `j`'s bundle ends the envy, or removing some item from `i`'s own bundle does. -/\ndef is_ef1_fair {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ) (σ : Fin m → Fin n) (i : Fin n) : Prop :=\n  ∀ j, j ≠ i → v i (bundle_of σ j) ≤ v i (bundle_of σ i) ∨\n    (∃ g ∈ bundle_of σ j, v i ((bundle_of σ j).erase g) ≤ v i (bundle_of σ i)) ∨\n    (∃ c ∈ bundle_of σ i, v i (bundle_of σ j) ≤ v i ((bundle_of σ i).erase c))",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "bundle_of"
+   ],
+   "used_by": [
+    "is_eef1_fair"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsEf1Fair.lean",
+   "proved_at": 1790962863,
+   "provenance": "literature",
+   "citation": "Garg & Sharma, Exploring Relations among Fairness Notions in Discrete Fair Division, arXiv:2502.02815 v3, Defs. 2 and 9; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_path_connected",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 274,
+   "informal": "A set of items on the path 0, 1, ..., m-1 is connected if it contains every item between two of its items.",
+   "statement": "def is_path_connected {m : ℕ} (B : Finset (Fin m)) : Prop",
+   "source": "/-- A set of items on a path `0, 1, …, m - 1` is connected: it contains every item lying between two of its items. -/\ndef is_path_connected {m : ℕ} (B : Finset (Fin m)) : Prop :=\n  ∀ x ∈ B, ∀ y ∈ B, ∀ z, x ≤ z → z ≤ y → z ∈ B",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "is_connected_allocation"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsPathConnected.lean",
+   "proved_at": 1790962939,
+   "provenance": "literature",
+   "citation": "Sun & Li, Connected EF1 Allocations Exist in Discrete Chore Cutting, arXiv:2609.32545 v1, Sec. 2 (chores on a path, connected bundles, EF1) and Sec. 4 (PO); PO among connected allocations as in Igarashi-Peters; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_eef1_fair",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 275,
+   "informal": "An allocation is epistemic-EF1-fair to agent i if some allocation gives i the same bundle and is EF1-fair to her.",
+   "statement": "def is_eef1_fair {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ) (σ : Fin m → Fin n) (i : Fin n) : Prop",
+   "source": "/-- Epistemic EF1 (Garg-Sharma Def. 9 with F = EF1): some allocation `τ` gives agent `i` the same bundle as `σ` and is EF1-fair to her. -/\ndef is_eef1_fair {m n : ℕ} (v : Fin n → Finset (Fin m) → ℝ) (σ : Fin m → Fin n) (i : Fin n) : Prop :=\n  ∃ τ : Fin m → Fin n, bundle_of τ i = bundle_of σ i ∧ is_ef1_fair v τ i",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "is_ef1_fair",
+    "bundle_of"
+   ],
+   "used_by": [
+    "mxs_fair_not_imp_eef1_fair"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsEef1Fair.lean",
+   "proved_at": 1790963011,
+   "provenance": "literature",
+   "citation": "Garg & Sharma, Exploring Relations among Fairness Notions in Discrete Fair Division, arXiv:2502.02815 v3, Defs. 2 and 9; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_connected_allocation",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 276,
+   "informal": "An allocation is connected if every agent's bundle is connected on the path.",
+   "statement": "def is_connected_allocation {m n : ℕ} (σ : Fin m → Fin n) : Prop",
+   "source": "/-- Every agent's bundle under `σ` is connected on the path. -/\ndef is_connected_allocation {m n : ℕ} (σ : Fin m → Fin n) : Prop :=\n  ∀ i, is_path_connected (bundle_of σ i)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "is_path_connected",
+    "bundle_of"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsConnectedAllocation.lean",
+   "proved_at": 1790963065,
+   "provenance": "literature",
+   "citation": "Sun & Li, Connected EF1 Allocations Exist in Discrete Chore Cutting, arXiv:2609.32545 v1, Sec. 2 (chores on a path, connected bundles, EF1) and Sec. 4 (PO); PO among connected allocations as in Igarashi-Peters; formalized by the operator (Claude), 2026-10-03",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "mxs_fair_not_imp_eef1_fair",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 277,
+   "informal": "Garg-Sharma open problem 1 has a negative answer: for additive goods and equal entitlements, MXS does not imply EEF1, already for three agents. Example: twelve goods worth 2,2,2,1,2,2,2,3,2,2,2,3 to every agent; agent 0 holds the goods worth 1, 3, 3, which is MXS-fair via the EFX certificate {2,2,2,1}, {2,2,2,3}, {2,2,2,3}, but not EEF1-fair because one of the other two agents always gets five of the nine goods worth 2.",
+   "statement": "theorem mxs_fair_not_imp_eef1_fair :\n    ¬ ∀ (n m : ℕ) (u : Fin n → Fin m → ℝ), (∀ i j, 0 ≤ u i j) →\n      ∀ (σ : Fin m → Fin n) (i : Fin n),\n        is_mxs_fair (fun k => additive_valuation (u k)) σ i →\n        is_eef1_fair (fun k => additive_valuation (u k)) σ i",
+   "source": "/-- Garg-Sharma open problem 1 (arXiv:2502.02815 v3, Sec. 6) has a negative answer: for additive goods and equal entitlements, MXS does not imply EEF1, already for three agents. -/\ntheorem mxs_fair_not_imp_eef1_fair :\n    ¬ ∀ (n m : ℕ) (u : Fin n → Fin m → ℝ), (∀ i j, 0 ≤ u i j) →\n      ∀ (σ : Fin m → Fin n) (i : Fin n),\n        is_mxs_fair (fun k => additive_valuation (u k)) σ i →\n        is_eef1_fair (fun k => additive_valuation (u k)) σ i := by\n  intro h\n  -- twelve goods; agent 0 holds {3, 7, 11}, worth 1 + 3 + 3 = 7; the other nine goods are worth 2\n  let w : Fin 12 → ℕ := ![2, 2, 2, 1, 2, 2, 2, 3, 2, 2, 2, 3]\n  let vN : Finset (Fin 12) → ℕ := fun S => ∑ j ∈ S, w j\n  let u : Fin 3 → Fin 12 → ℝ := fun _ j => (w j : ℝ)\n  have hv : ∀ k S, additive_valuation (u k) S = (vN S : ℝ) := by\n    intro k S\n    simp [additive_valuation, u, vN]\n  have hmono : ∀ S S' : Finset (Fin 12), S ⊆ S' → vN S ≤ vN S' := fun S S' hSS' =>\n    Finset.sum_le_sum_of_subset hSS'\n  let σ : Fin 12 → Fin 3 := ![1, 1, 1, 0, 1, 1, 1, 0, 2, 2, 2, 0]\n  -- the EFX certificate: X = {0,1,2,3} worth 7, and two bundles {2,2,2,3} worth 7 after removing any good\n  let τ : Fin 12 → Fin 3 := ![0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2]\n  have hX : vN (bundle_of τ 0) = 7 := by decide +kernel\n  have hA7 : vN (bundle_of σ 0) = 7 := by decide +kernel\n  have hB : ∀ j : Fin 3, j ≠ 0 → ∀ g ∈ bundle_of τ j, vN ((bundle_of τ j).erase g) ≤ 7 := by\n    decide +kernel\n  have hmxs : is_mxs_fair (fun k => additive_valuation (u k)) σ 0 := by\n    refine ⟨τ, fun j hj => Or.inr ⟨fun S hS hlt => ?_, fun S hS hlt => ?_⟩, ?_⟩\n    · simp only [hv] at hlt ⊢\n      have hlt' : vN (bundle_of τ 0) < vN (bundle_of τ 0 ∪ S) := by exact_mod_cast hlt\n      obtain ⟨g, hg⟩ : S.Nonempty := by\n        rw [Finset.nonempty_iff_ne_empty]\n        rintro rfl\n        simp at hlt'\n      have h1 : bundle_of τ j \\ S ⊆ (bundle_of τ j).erase g := by\n        intro x hx\n        rw [Finset.mem_sdiff] at hx\n        exact Finset.mem_erase.2 ⟨fun hxg => hx.2 (hxg ▸ hg), hx.1⟩\n      have := (hmono _ _ h1).trans (hB j hj g (hS hg))\n      rw [hX]\n      exact_mod_cast this\n    · simp only [hv] at hlt\n      have hlt' : vN (bundle_of τ 0) < vN (bundle_of τ 0 \\ S) := by exact_mod_cast hlt\n      exact absurd (hmono _ _ Finset.sdiff_subset) (not_le.2 hlt')\n    · simp only [hv]\n      rw [hX, hA7]\n  obtain ⟨τ', hb, hef1⟩ := h 3 12 u (fun _ j => by simp [u]) σ 0 hmxs\n  have hcases : ∀ k : Fin 3, k = 0 ∨ k = 1 ∨ k = 2 := by decide\n  have hx0 : ∀ x, x ∈ bundle_of τ' 0 ↔ τ' x = 0 := by\n    intro x\n    simp [bundle_of]\n  have hσ0 : ∀ x, x ∈ bundle_of σ 0 ↔ σ x = 0 := by\n    intro x\n    simp [bundle_of]\n  have hw2 : ∀ x : Fin 12, σ x ≠ 0 → w x = 2 := by decide +kernel\n  -- every good another agent gets under τ' lies outside agent 0's bundle, so it is worth 2\n  have hval2 : ∀ j : Fin 3, j ≠ 0 → ∀ S ⊆ bundle_of τ' j, vN S = 2 * S.card := by\n    intro j hj S hS\n    show ∑ x ∈ S, w x = 2 * S.card\n    rw [Finset.card_eq_sum_ones, Finset.mul_sum]\n    apply Finset.sum_congr rfl\n    intro x hx\n    have hx' := hS hx\n    simp only [bundle_of, Finset.mem_filter, Finset.mem_univ, true_and] at hx'\n    have hσx : σ x ≠ 0 := by\n      intro h0\n      have hmem : x ∈ bundle_of τ' 0 := by\n        rw [hb]\n        exact (hσ0 x).2 h0\n      rw [hx0, hx'] at hmem\n      exact hj hmem\n    rw [hw2 x hσx]\n    rfl\n  -- agents 1 and 2 share the nine goods outside agent 0's bundle\n  have hcard : (bundle_of τ' 1).card + (bundle_of τ' 2).card = 9 := by\n    have hdisj : Disjoint (bundle_of τ' 1) (bundle_of τ' 2) := by\n      rw [Finset.disjoint_left]\n      intro x h1 h2\n      simp only [bundle_of, Finset.mem_filter, Finset.mem_univ, true_and] at h1 h2\n      rw [h1] at h2\n      exact absurd h2 (by decide)\n    rw [← Finset.card_union_of_disjoint hdisj]\n    have hU : bundle_of τ' 1 ∪ bundle_of τ' 2 = (bundle_of σ 0)ᶜ := by\n      ext x\n      rw [Finset.mem_union, Finset.mem_compl, ← hb, hx0]\n      simp only [bundle_of, Finset.mem_filter, Finset.mem_univ, true_and]\n      rcases hcases (τ' x) with hk | hk | hk <;> simp [hk]\n    have h3 : (bundle_of σ 0).card = 3 := by decide +kernel\n    rw [hU, Finset.card_compl, h3]\n    simp\n  -- an agent with five or more of them is envied by agent 0 even after removing any good\n  have hfail : ∀ j : Fin 3, j ≠ 0 → 5 ≤ (bundle_of τ' j).card → False := by\n    intro j hj h5\n    have hB2 := hval2 j hj (bundle_of τ' j) (le_refl _)\n    rcases hef1 j hj with h1 | ⟨g, hg, h2⟩ | ⟨c, _, h3⟩\n    · simp only [hv, hb] at h1\n      have h1' : vN (bundle_of τ' j) ≤ vN (bundle_of σ 0) := by exact_mod_cast h1\n      omega\n    · simp only [hv, hb] at h2\n      have h2' : vN ((bundle_of τ' j).erase g) ≤ vN (bundle_of σ 0) := by exact_mod_cast h2\n      have he := hval2 j hj _ (Finset.erase_subset g _)\n      rw [Finset.card_erase_of_mem hg] at he\n      omega\n    · simp only [hv, hb] at h3\n      have h3' : vN (bundle_of τ' j) ≤ vN ((bundle_of σ 0).erase c) := by exact_mod_cast h3\n      have hm := hmono _ _ (Finset.erase_subset c (bundle_of σ 0))\n      omega\n  by_cases h5 : 5 ≤ (bundle_of τ' 1).card\n  · exact hfail 1 (by decide) h5\n  · exact hfail 2 (by decide) (by omega)",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_eef1_fair",
+    "bundle_of",
+    "additive_valuation",
+    "is_mxs_fair"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MxsFairNotImpEef1Fair.lean",
+   "proved_at": 1790963149,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-03: counterexample to open problem 1 of Garg-Sharma, arXiv:2502.02815 v3, Sec. 6",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_ef1_chores",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 278,
+   "informal": "EF1 for chores with additive costs: whenever agent i envies agent j, removing some chore from i's own bundle removes the envy.",
+   "statement": "def is_ef1_chores {m n : ℕ} (c : Fin n → Fin m → ℝ) (σ : Fin m → Fin n) : Prop",
+   "source": "/-- EF1 for chores with additive costs `c`: whenever agent `i` envies `j`, removing some chore from `i`'s own bundle removes the envy. -/\ndef is_ef1_chores {m n : ℕ} (c : Fin n → Fin m → ℝ) (σ : Fin m → Fin n) : Prop :=\n  ∀ i j, additive_valuation (c i) (bundle_of σ i) ≤ additive_valuation (c i) (bundle_of σ j) ∨\n    ∃ e ∈ bundle_of σ i,\n      additive_valuation (c i) (bundle_of σ i) - c i e ≤ additive_valuation (c i) (bundle_of σ j)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "additive_valuation",
+    "bundle_of"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsEf1Chores.lean",
+   "proved_at": 1790963215,
+   "provenance": "literature",
+   "citation": "Sun & Li, Connected EF1 Allocations Exist in Discrete Chore Cutting, arXiv:2609.32545 v1, Sec. 2 (chores on a path, connected bundles, EF1) and Sec. 4 (PO); PO among connected allocations as in Igarashi-Peters; formalized by the operator (Claude), 2026-10-03",
    "reading": "",
    "roundtrip": "",
    "explanation": null,

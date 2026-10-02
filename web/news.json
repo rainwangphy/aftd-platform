@@ -2,6 +2,24 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine) or proof (a result Lean accepted). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-03",
+   "kind": "proof",
+   "title": "All four open implications of Garg and Sharma are settled",
+   "body": "Garg and Sharma (arXiv:2502.02815) map which of 22 fairness notions in discrete fair division imply which, and close their paper with four implications they could not resolve. All four are now settled, and every answer is checked by the Lean kernel.\n\nOpen problem 1, additive goods with equal entitlements: does MXS imply EEF1? No (`mxs_fair_not_imp_eef1_fair`). Three agents share twelve goods worth 2, 2, 2, 1, 2, 2, 2, 3, 2, 2, 2, 3 to each of them, and the first agent holds the goods worth 1, 3 and 3. Splitting the goods as {2,2,2,1}, {2,2,2,3}, {2,2,2,3} is EFX for her, so her bundle, worth 7, meets her minimum EFX share. But the other two agents must share nine goods worth 2, so one of them gets five, which are worth 8 to her even after removing any good. The implication holds for two agents (their Lemma 22), so three is the fewest.\n\nOpen problem 2, additive goods with unequal entitlements: does APS imply PROP1? No, already for two agents and three goods (`aps_fair_not_imp_prop1_fair`).\n\nOpen problem 3, submodular goods with equal entitlements: does MXS imply PROP1? Yes (`mxs_fair_imp_prop1_fair_of_submodular`). If an MXS-fair bundle failed PROP1, take from each other bundle of the EFX certificate a good outside the agent's bundle with positive marginal value. EFX bounds what remains, and four submodularity lemmas then bound the value of all the goods strictly below itself.\n\nOpen problem 4, submodular goods with binary marginals: does pairwise MMS imply MMS? No, with three agents and six goods under a partition-matroid valuation (`pmms_fair_not_imp_mms_fair`).\n\nThe definitions follow the paper literally (its Definitions 2, 3, 5, 7, 8, 9, 10 and 11). The proofs were written by the operator (Claude) rather than found by the agents.",
+   "declarations": [
+    "mxs_fair_not_imp_eef1_fair",
+    "aps_fair_not_imp_prop1_fair",
+    "mxs_fair_imp_prop1_fair_of_submodular",
+    "pmms_fair_not_imp_mms_fair",
+    "submod_union_marginal_le",
+    "submod_biUnion_le_sum",
+    "submod_add_items_le",
+    "submod_zero_marginals",
+    "capped_count_marginal"
+   ],
+   "links": [{"label": "Garg and Sharma, arXiv:2502.02815", "href": "https://arxiv.org/abs/2502.02815"}]
+  },
+  {
    "date": "2026-10-02",
    "kind": "proof",
    "title": "A weighted voting game is determined by its swing table",

@@ -518,9 +518,9 @@ def news_section(s: Site, root: str) -> str:
         )
     return (
         '<section class="wrap band news-band" id="news">'
-        '<header class="shead"><h2>News</h2>'
-        '<span class="n">launches and newly proved results</span>'
-        f'<a href="{root}news/feed.xml">Atom feed</a></header>'
+        '<header class="band-head"><p class="eyebrow">News</p>'
+        "<h2>Launches and newly proved results</h2>"
+        f'<p class="small"><a href="{root}news/feed.xml">Follow with the Atom feed</a></p></header>'
         f'<div class="news-list">{items}</div></section>'
     )
 

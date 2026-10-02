@@ -16,15 +16,17 @@ Inputs, all under `web/`:
 
 Pages:
 
-    index.html                  what this is, what is new, where to start
+    index.html                  what this is, what is new (the News section),
+                                where to start
     knowledgebase/              every verified declaration, searchable
     results/                    the page's old address, forwarding to the new one
     d/<name>/                   one declaration: statement, proof, dependencies,
                                 the problem it answers, challenges against it
     problems/                   community problems by status, and what is open
     problems/<number>/          one reviewed problem and what answers it
-    news/                       launches and newly proved results, newest first
-    news/feed.xml               the same, as an Atom feed
+    news/                       the address the news first had, forwarding to the
+                                home page's News section
+    news/feed.xml               the News section as an Atom feed
     submit/                     how to submit a problem or challenge a result
 
 Stdlib only, so CI needs nothing but Python. Everything a submitter wrote is
@@ -247,12 +249,7 @@ def highlight_lean(src: str) -> str:
 # ------------------------------------------------------------------- layout
 NAME = "AFTD"
 FULL_NAME = "Auto-Formalizing Theoretical Domains"
-NAV = [
-    ("knowledgebase/", "Knowledgebase"),
-    ("problems/", "Problems"),
-    ("news/", "News"),
-    ("submit/", "Submit"),
-]
+NAV = [("knowledgebase/", "Knowledgebase"), ("problems/", "Problems"), ("submit/", "Submit")]
 
 
 def page(
@@ -338,7 +335,7 @@ def page(
       <h2>Explore</h2>
       <a href="{root}knowledgebase/">Knowledgebase</a>
       <a href="{root}problems/">Community problems</a>
-      <a href="{root}news/">News</a>
+      <a href="{root}index.html#news">News</a>
       <a href="{root}submit/">Submit a problem</a>
     </div>
     <div class="foot-col">
@@ -470,13 +467,19 @@ def news_date(n: dict) -> str:
     )
 
 
+NEWS_SHOWN = 4  # entries open on the home page; older ones sit behind a toggle
+
+
 def news_item(s: Site, n: dict, root: str) -> str:
-    """One announcement on the News page, in full."""
+    """One announcement in the home page's News section: its title and first
+    paragraph, and the rest -- further paragraphs, the declarations a proof
+    announcement names, its links -- one click away."""
     kind = badge(NEWS_KINDS[n["kind"]], "nk-" + n["kind"])
-    decls = ""
+    paras = news_paras(n["body"])
+    more = "".join(f'<p class="prose">{p}</p>' for p in paras[1:])
     if n["declarations"]:
         label = "Verified in Lean" if n["kind"] == "proof" else "Declarations"
-        decls = (
+        more += (
             f'<div class="news-decls"><span class="small">{label}</span>'
             + related(s, n["declarations"], root)
             + "</div>"
@@ -485,26 +488,40 @@ def news_item(s: Site, n: dict, root: str) -> str:
         f'<a href="{e(news_href(root, l["href"]))}">{e(l["label"])} &rarr;</a>'
         for l in n["links"]
     )
+    if more:
+        what = (
+            f'{len(n["declarations"])} declaration{"s" if len(n["declarations"]) != 1 else ""} verified in Lean'
+            if n["kind"] == "proof"
+            else "More"
+        )
+        more = f'<details class="news-more"><summary>{what}</summary>{more}</details>'
     return (
         f'<article class="news-item" id="{e(n["id"])}">'
         f'<p class="news-when">{news_date(n)}{kind}</p>'
-        f'<div class="news-main"><h2><a href="#{e(n["id"])}">{e(n["title"])}</a></h2>'
-        + "".join(f'<p class="prose">{p}</p>' for p in news_paras(n["body"]))
-        + decls
+        f'<div class="news-main"><h3><a href="#{e(n["id"])}">{e(n["title"])}</a></h3>'
+        f'<p class="prose">{paras[0]}</p>{more}'
         + (f'<p class="news-links">{links}</p>' if links else "")
         + "</div></article>"
     )
 
 
-def news_card(n: dict, root: str) -> str:
-    """An announcement on the home page: its first paragraph, linking to the rest."""
-    first = re.split(r"\n\s*\n", n["body"].strip(), maxsplit=1)[0]
-    kind = badge(NEWS_KINDS[n["kind"]], "nk-" + n["kind"])
+def news_section(s: Site, root: str) -> str:
+    if not s.news:
+        return ""
+    items = "".join(news_item(s, n, root) for n in s.news[:NEWS_SHOWN])
+    older = s.news[NEWS_SHOWN:]
+    if older:
+        items += (
+            f'<details class="news-older"><summary>Earlier news ({len(older)})</summary>'
+            + "".join(news_item(s, n, root) for n in older)
+            + "</details>"
+        )
     return (
-        f'<article class="card news-card">'
-        f'<p class="news-when">{news_date(n)}{kind}</p>'
-        f'<h3><a class="stretch" href="{root}news/#{e(n["id"])}">{e(n["title"])}</a></h3>'
-        f'<p class="prose">{inline_code(clip(first, 200))}</p></article>'
+        '<section class="wrap band news-band" id="news">'
+        '<header class="shead"><h2>News</h2>'
+        '<span class="n">launches and newly proved results</span>'
+        f'<a href="{root}news/feed.xml">Atom feed</a></header>'
+        f'<div class="news-list">{items}</div></section>'
     )
 
 
@@ -606,14 +623,6 @@ def render_home(s: Site) -> str:
          "goes public with its full source, rebuildable by anyone with "
          "<code>lake build</code>."),
     ]
-    news_band = ""
-    if s.news:
-        news_band = (
-            '<section class="wrap band news-band"><header class="shead"><h2>News</h2>'
-            '<a href="news/">All news &rarr;</a></header>'
-            f'<div class="news-cards">{"".join(news_card(n, root) for n in s.news[:3])}</div>'
-            "</section>"
-        )
     flow = "".join(
         f'<li><span class="step-n">{i}</span><h3>{name}</h3><p>{text}</p></li>'
         for i, (name, text) in enumerate(steps, start=1)
@@ -676,7 +685,7 @@ def render_home(s: Site) -> str:
   </div>
 </section>
 
-{news_band}
+{news_section(s, root)}
 <section class="wrap band manifesto">
   <blockquote>Point a loop at a curriculum of theoretical domains. Let it state and
   prove, forever. Keep only what Lean accepts. Publish all of it, immediately, to
@@ -1311,39 +1320,13 @@ def render_submit(s: Site) -> str:
     return page(s, title="Submit a problem", root=root, active="submit/", body=body)
 
 
-def render_news(s: Site) -> str:
-    root = "../"
-    items = "".join(news_item(s, n, root) for n in s.news) or (
-        '<p class="empty">Nothing announced yet.</p>'
-    )
-    body = f"""
-<header class="phead">
-  <p class="eyebrow">What is new</p>
-  <h1>News</h1>
-  <p class="lead">Launches, and results newly proved. A result is announced here only
-  once Lean has accepted it, and the announcement links the declarations
-  themselves.</p>
-  <p class="small"><a href="feed.xml">Subscribe to the Atom feed</a></p>
-</header>
-<div class="news-list">{items}</div>
-"""
-    return page(
-        s,
-        title="News",
-        root=root,
-        active="news/",
-        body=body,
-        description="Launches and newly proved results.",
-    )
-
-
 def render_feed(s: Site) -> str:
     """The announcements as Atom. Feed readers resolve nothing, so every
     link is absolute."""
     base = s.cfg.get("base_url", "").rstrip("/") + "/"
     entries = []
     for n in s.news:
-        url = f"{base}news/#{n['id']}"
+        url = f"{base}#{n['id']}"
         content = "".join(f"<p>{p}</p>" for p in news_paras(n["body"]))
         if n["declarations"]:
             content += "<ul>" + "".join(
@@ -1366,7 +1349,7 @@ def render_feed(s: Site) -> str:
         '<?xml version="1.0" encoding="utf-8"?>\n'
         '<feed xmlns="http://www.w3.org/2005/Atom">'
         f"<title>{NAME} news</title><subtitle>{e(FULL_NAME)}: launches and newly proved results</subtitle>"
-        f'<link rel="alternate" href="{e(base)}news/"/>'
+        f'<link rel="alternate" href="{e(base)}#news"/>'
         f'<link rel="self" href="{e(base)}news/feed.xml"/>'
         f"<id>{e(base)}news/</id><updated>{updated}</updated>"
         f"<author><name>{NAME}</name></author>"
@@ -1378,19 +1361,23 @@ def render_feed(s: Site) -> str:
 def render_moved(s: Site, to: str) -> str:
     """A page that has moved: it forwards to its new address, keeping the
     query and the anchor so a shared, filtered link still lands where it
-    pointed. Without JavaScript the refresh still goes to the right page."""
+    pointed. Without JavaScript the refresh still goes to the right page.
+    When the new address is itself an anchor, the link's own anchor wins."""
     url = f"../{to}"
+    path, _, frag = url.partition("#")
+    frag = "#" + frag if frag else ""
+    canonical = s.cfg.get("base_url", "").rstrip("/") + "/" + to
     return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Moved · {NAME}</title>
 <meta name="robots" content="noindex">
-<link rel="canonical" href="{e(s.cfg.get("base_url", "").rstrip("/") + "/" + to)}">
+<link rel="canonical" href="{e(canonical)}">
 <meta http-equiv="refresh" content="0; url={e(url)}">
-<script>location.replace({json.dumps(url)} + location.search + location.hash);</script>
+<script>location.replace({json.dumps(path)} + location.search + (location.hash || {json.dumps(frag)}));</script>
 </head>
-<body><p>This page is now at <a href="{e(url)}">{e(to)}</a>.</p></body>
+<body><p>This page is now at <a href="{e(url)}">{e(canonical)}</a>.</p></body>
 </html>
 """
 
@@ -1425,7 +1412,7 @@ def build(
     write("results/index.html", render_moved(s, "knowledgebase/"))
     write("problems/index.html", render_problems(s))
     write("submit/index.html", render_submit(s))
-    write("news/index.html", render_news(s))
+    write("news/index.html", render_moved(s, "#news"))
     write("news/feed.xml", render_feed(s))
     write("404.html", render_404(s))
     for d in s.decls:
@@ -1451,8 +1438,10 @@ def main() -> int:
     cfg = json.loads(Path(args.config).read_text(encoding="utf-8"))
     pp = Path(args.problems)
     issues = json.loads(pp.read_text(encoding="utf-8"))["issues"] if pp.is_file() else []
-    np_ = Path(args.news)
-    news = json.loads(np_.read_text(encoding="utf-8"))["entries"] if np_.is_file() else []
+    news_path = Path(args.news)
+    news = (
+        json.loads(news_path.read_text(encoding="utf-8"))["entries"] if news_path.is_file() else []
+    )
     n = build(kb, issues, cfg, Path(args.out), news)
     print(
         f"wrote {args.out}  ({n['declarations']} declaration pages, "

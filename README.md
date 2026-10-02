@@ -12,7 +12,7 @@ part.
 
 **Site:** <https://rainwangphy.github.io/aftd-platform/> ·
 **Knowledgebase:** <https://rainwangphy.github.io/aftd-platform/knowledgebase/> ·
-**News:** <https://rainwangphy.github.io/aftd-platform/news/> ·
+**News:** <https://rainwangphy.github.io/aftd-platform/#news> ·
 **Programme:** [assets/README_AFTD.MD](assets/README_AFTD.MD)
 
 ## What is here
@@ -22,7 +22,7 @@ part.
 | `lean/` | A Lean 4 project with every verified declaration, one module each under `lean/AFTD/Kb/` |
 | `web/data/kb.json` | A snapshot of the knowledgebase the site is built from |
 | `web/` | The site generator (Python, standard library only) |
-| `web/news.json` | The announcements on the site's News page and its Atom feed |
+| `web/news.json` | The announcements in the home page's News section and its Atom feed |
 | `.github/` | The forms for submitting problems and challenging results, and the workflow that publishes the site |
 
 ## Check it yourself

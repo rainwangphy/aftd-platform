@@ -234,7 +234,8 @@ def main() -> int:
                    {"label": "Away", "href": "https://example.org/x"}]},
         {"date": "2026-10-02", "kind": "proof", "title": "Answer ten is proved",
          "body": "NEWS-PROOF-BODY", "declarations": ["answer_ten"]},
-    ]
+    ] + [{"date": f"2026-09-0{d}", "kind": "launch", "title": f"Launch {d}", "body": "b"}
+         for d in range(1, 5)]
     with tempfile.TemporaryDirectory() as tmp:
         out = Path(tmp) / "_site"
         n = build(data, issues, cfg, out, news)
@@ -245,14 +246,16 @@ def main() -> int:
         for rel in ("index.html", "knowledgebase/index.html", "results/index.html", "problems/index.html",
                     "submit/index.html", "404.html", "d/answer_ten/index.html",
                     "d/plain_one/index.html", "problems/10/index.html",
-                    "problems/13/index.html", "news/index.html"):
+                    "problems/13/index.html"):
             check(f"page {rel}", rel in pages)
         print("naming")
         check("the old results/ address forwards to the knowledgebase",
               f"../{KB_URL}" in pages.get("results/index.html", ""))
-        site_pages = {k: v for k, v in pages.items() if k != "404.html"}
+        # Pages that only forward to where something moved have no layout.
+        moved = {"results/index.html", "news/index.html"}
+        site_pages = {k: v for k, v in pages.items() if k != "404.html" and k not in moved}
         no_nav = [k for k, v in site_pages.items()
-                  if k != "results/index.html" and not re.search(
+                  if not re.search(
                       rf'href="(?:\.\./)*{KB_URL}"[^>]*>Knowledgebase<', v)]
         check("every page's navigation links the Knowledgebase by name", not no_nav, str(no_nav[:5]))
         bad = naming_problems(pages) + naming_problems(public_texts())
@@ -283,20 +286,30 @@ def main() -> int:
         check("a stuck lemma of a problem is not listed again as machine-posed",
               "machine_open" in machine and "stuck_lemma" not in machine)
         check("the counts returned match",
-              n == {"declarations": 2, "problems": 2, "news": 2}, str(n))
+              n == {"declarations": 2, "problems": 2, "news": 6}, str(n))
 
         print("news")
-        news_page = pages.get("news/index.html", "")
-        check("news is newest first", 0 < news_page.find("Answer ten is proved") < news_page.find("Old launch"))
-        check("a proof announcement links the declaration", 'href="../d/answer_ten/"' in news_page)
-        check("paragraphs and code are kept", "<p class=\"prose\">Second with <code>code</code>.</p>" in news_page)
+        home = pages["index.html"]
+        news = home.split('id="news"', 1)[-1].split("</section>", 1)[0]
+        check("the home page has a News section", 'id="news"' in home)
+        check("News is a section of the home page, not a tab",
+              not any(">News<" in m for v in pages.values()
+                      for m in re.findall(r'<nav aria-label="Site">(.*?)</nav>', v, re.S)))
+        check("news is newest first", 0 < news.find("Answer ten is proved") < news.find("Old launch"))
+        check("a proof announcement links the declaration", 'href="d/answer_ten/"' in news)
+        check("paragraphs and code are kept",
+              "<p class=\"prose\">Second with <code>code</code>.</p>" in news)
         check("a site link is relative to the root, an outside one left alone",
-              'href="../submit/"' in news_page and 'href="https://example.org/x"' in news_page)
-        check("every page links News in its navigation",
-              all(re.search(r'href="(?:\.\./)*news/"[^>]*>News<', v)
-                  for k, v in site_pages.items() if k != "results/index.html"))
-        check("the home page shows the latest news",
-              'href="news/#n-2026-10-02-answer-ten-is-proved"' in pages["index.html"])
+              'href="submit/"' in news and 'href="https://example.org/x"' in news)
+        check("an entry can be linked to", 'id="n-2026-10-02-answer-ten-is-proved"' in news)
+        older = news.split('class="news-older"', 1)
+        check("only the latest entries are open; the rest are folded away",
+              len(older) == 2 and "Earlier news (2)" in older[1]
+              and "Launch 2" in older[1] and "Launch 2" not in older[0])
+        check("the footer links the News section on every page",
+              all('index.html#news">News<' in v for v in site_pages.values()))
+        check("the old news/ address forwards to the section, keeping an entry's anchor",
+              "location.hash || \"#news\"" in pages.get("news/index.html", ""))
         try:
             root = ET.fromstring(feed)
         except ET.ParseError as ex:
@@ -306,9 +319,10 @@ def main() -> int:
         entries = root.findall("a:entry", ns) if root is not None else []
         check("the feed has every entry, newest first",
               [x.findtext("a:title", namespaces=ns) for x in entries][:1] == ["Answer ten is proved"]
-              and len(entries) == 2)
-        check("feed links are absolute",
-              "https://o.github.io/r/d/answer_ten/" in feed and 'href="../' not in feed)
+              and len(entries) == 6)
+        check("feed links are absolute and point at the home page",
+              "https://o.github.io/r/d/answer_ten/" in feed and 'href="../' not in feed
+              and "https://o.github.io/r/#n-2026-10-02-answer-ten-is-proved" in feed)
         check("pages point feed readers at the feed", 'application/atom+xml' in pages["index.html"])
 
     def refused(entry: dict) -> str:

@@ -4,6 +4,36 @@
   {
    "date": "2026-10-02",
    "kind": "proof",
+   "title": "Two open implications among fairness notions are false",
+   "body": "Garg and Sharma (arXiv:2502.02815, §6) map how fairness notions for indivisible goods imply one another and list four implications they could not settle. The Lean kernel now refutes two of them with small counterexamples.\n\nOpen problem 2, `aps_fair_not_imp_prop1_fair`: for additive goods with unequal entitlements, giving every agent her AnyPrice share does not guarantee PROP1, even with two agents. Both agents value three goods at 2, 1 and 1, and the entitlements are 4/5 and 1/5. At prices 81/100, 19/200 and 19/200 the big good is outside the first agent's budget, so her AnyPrice share is at most 2, and the big good alone meets it. Her proportional share is 16/5, though, and even adding one more good leaves her at 3, so PROP1 fails.\n\nOpen problem 4, `pmms_fair_not_imp_mms_fair`: for submodular goods with binary marginals, pairwise MMS does not imply MMS. Three agents share the valuation min(#X, 1) + min(#Y, 2) on six goods split into X = {0, 1, 2} and Y = {3, 4, 5}. The allocation {0, 1, 3}, {2}, {4, 5} is pairwise-MMS-fair to every agent. Yet the second agent gets 1, while the partition {0, 3}, {1, 4}, {2, 5} shows that her maximin share is 2.\n\nThe other two implications, problems 1 and 3, are still open. Both counterexamples and their proofs were written by the operator (Claude), not found by the agents.",
+   "declarations": [
+    "aps_fair_not_imp_prop1_fair",
+    "pmms_fair_not_imp_mms_fair",
+    "capped_count_marginal"
+   ],
+   "links": [{"label": "Garg and Sharma, arXiv:2502.02815", "href": "https://arxiv.org/abs/2502.02815"}]
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "proof",
+   "title": "Weakly consecutive sequences of prime-power length begin or end with 1",
+   "body": "A permutation s of {1, …, k} is weakly consecutive if, whenever m divides s(i) and m divides i − j, m also divides s(j). Garrison, Seiler and Knowles (arXiv:2401.09497) conjecture that every such sequence begins or ends with 1 (Conjecture 5.2).\n\nThe Lean kernel now proves this whenever the length k is a prime power: `weakly_consecutive_one_at_end_of_isPrimePow`. The general conjecture is still open.\n\nThe proof counts residue classes. If m divides the first term, every position congruent to the first one holds a multiple of m. That is ⌈k/m⌉ positions for the ⌊k/m⌋ multiples of m up to k, so m divides k. By reversal, the same holds for the last term. If a prime p divided both end terms, the first term's class would already use up all k/p multiples of p, and the last position lies outside that class. So the two end terms are coprime. If 1 sat strictly inside, both end terms would exceed 1, divide k and be coprime, which is impossible when k is a power of a single prime.\n\nThe proof and its lemmas were written by the operator (Claude), not found by the agents.",
+   "declarations": [
+    "weakly_consecutive_one_at_end_of_isPrimePow",
+    "weakly_consecutive_ends_coprime",
+    "weakly_consecutive_first_dvd",
+    "weakly_consecutive_last_dvd",
+    "weakly_consecutive_rev",
+    "perm_card_filter_dvd_succ",
+    "fin_card_filter_dvd",
+    "range_card_filter_dvd",
+    "dvd_of_div_ceil_le"
+   ],
+   "links": [{"label": "Garrison, Seiler and Knowles, arXiv:2401.09497", "href": "https://arxiv.org/abs/2401.09497"}]
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "proof",
    "title": "The cyclic Hollow-Shell market has at most ⌊(n−1)²/4⌋ blocking pairs",
    "body": "Ishida (arXiv:2609.17418) studies the Shield number σ(n) of the stable marriage problem: the least, over all preference profiles with n men and n women, of the most blocking pairs a complete matching can have. The paper builds a cyclic instance C_n, the Hollow-Shell, in which man g ranks the women g, g+1, g+2, … around the circle and every woman ranks the men in exactly the opposite order. Its Theorem 5.3 gives a matching of C_n with ⌊(n−1)²/4⌋ blocking pairs, and §7.1 leaves open whether any matching has more. The Shield-Core conjecture is σ(n) = β(C_n) = ⌊(n−1)²/4⌋.\n\nThe Lean kernel now confirms that no matching of C_n has more: `hollow_shell_blocking_pairs_ncard_le`. So β(C_n) = ⌊(n−1)²/4⌋ exactly, and σ(n) ≤ ⌊(n−1)²/4⌋ for every n. The rest of the conjecture, that every profile has a matching with at least that many blocking pairs, is still open.\n\nThe proof reads each man's match as an arc running clockwise from him to his partner; a blocking pair is one arc strictly nested inside another. Cut the circle at 0 and let k be the number of arcs that cross the cut. Counting inversions of the matching on each side of the cut, and the crossings between the two sides, bounds the nested pairs by k(n−1−k), which is at most ⌊(n−1)²/4⌋.\n\nThe proof and its seven lemmas were written by the operator (Claude) rather than found by the agents.",
    "declarations": [

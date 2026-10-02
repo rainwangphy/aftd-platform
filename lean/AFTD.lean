@@ -1,6 +1,11 @@
 import AFTD.Prelude
 
 -- game_theory_economics
+import AFTD.Kb.GameTheoryEconomics.AdditiveValuation
+import AFTD.Kb.GameTheoryEconomics.AnyPriceShare
+import AFTD.Kb.GameTheoryEconomics.ApsFairNotImpProp1Fair
+import AFTD.Kb.GameTheoryEconomics.BundleOf
+import AFTD.Kb.GameTheoryEconomics.CappedCountMarginal
 import AFTD.Kb.GameTheoryEconomics.CatchUpBestAttachMapCongr
 import AFTD.Kb.GameTheoryEconomics.CatchUpBestMapEqWinIff
 import AFTD.Kb.GameTheoryEconomics.CatchUpBestMapNeLossIff
@@ -79,6 +84,7 @@ import AFTD.Kb.GameTheoryEconomics.EndowmentIsFeasible
 import AFTD.Kb.GameTheoryEconomics.ExchangeEconomy
 import AFTD.Kb.GameTheoryEconomics.FirstWelfareTheorem
 import AFTD.Kb.GameTheoryEconomics.FirstWelfareTheoremWeak
+import AFTD.Kb.GameTheoryEconomics.HasBinaryMarginals
 import AFTD.Kb.GameTheoryEconomics.HollowShellBlockingPairsNcardLe
 import AFTD.Kb.GameTheoryEconomics.HollowShellMarket
 import AFTD.Kb.GameTheoryEconomics.InducedDirectMechanism
@@ -87,14 +93,19 @@ import AFTD.Kb.GameTheoryEconomics.IsDominantStrategyEquilibrium
 import AFTD.Kb.GameTheoryEconomics.IsDominantStrategyIncentiveCompatible
 import AFTD.Kb.GameTheoryEconomics.IsFeasibleAllocation
 import AFTD.Kb.GameTheoryEconomics.IsParetoOptimal
+import AFTD.Kb.GameTheoryEconomics.IsPmmsFair
+import AFTD.Kb.GameTheoryEconomics.IsProp1Fair
 import AFTD.Kb.GameTheoryEconomics.IsPureNashEquilibrium
 import AFTD.Kb.GameTheoryEconomics.IsStableMatching
 import AFTD.Kb.GameTheoryEconomics.IsStableMatchingOfNoStrictPreference
+import AFTD.Kb.GameTheoryEconomics.IsSubmodular
 import AFTD.Kb.GameTheoryEconomics.IsWalrasianEquilibrium
 import AFTD.Kb.GameTheoryEconomics.IsWeaklyParetoOptimal
 import AFTD.Kb.GameTheoryEconomics.MarriageMarket
+import AFTD.Kb.GameTheoryEconomics.MaximinShare
 import AFTD.Kb.GameTheoryEconomics.NotIsStableMatchingOfUniversalPreference
 import AFTD.Kb.GameTheoryEconomics.NotPureNashOfExistsBetterResponse
+import AFTD.Kb.GameTheoryEconomics.PairwiseMaximinShare
 import AFTD.Kb.GameTheoryEconomics.ParetoOptimalImpliesWeaklyParetoOptimal
 import AFTD.Kb.GameTheoryEconomics.PermCardLeftGtLe
 import AFTD.Kb.GameTheoryEconomics.PermCardValLt
@@ -102,6 +113,7 @@ import AFTD.Kb.GameTheoryEconomics.PermCrossInvSum
 import AFTD.Kb.GameTheoryEconomics.PermGapSum
 import AFTD.Kb.GameTheoryEconomics.PermInvLeftAdd
 import AFTD.Kb.GameTheoryEconomics.PermNestingBound
+import AFTD.Kb.GameTheoryEconomics.PmmsFairNotImpMmsFair
 import AFTD.Kb.GameTheoryEconomics.PureNashOfCommonPayoffMaximizer
 import AFTD.Kb.GameTheoryEconomics.PureNashOfSubsingletonStrategy
 import AFTD.Kb.GameTheoryEconomics.RevelationPrincipleDominantStrategy
@@ -116,8 +128,17 @@ import AFTD.Kb.GameTheoryEconomics.WalrasianExpenditureGeOfUtilityGe
 import AFTD.Kb.GameTheoryEconomics.WalrasianExpenditureGtOfUtilityGt
 
 -- number_theory
+import AFTD.Kb.NumberTheory.DvdOfDivCeilLe
+import AFTD.Kb.NumberTheory.FinCardFilterDvd
 import AFTD.Kb.NumberTheory.IsCrystalWithComponents
 import AFTD.Kb.NumberTheory.IsWeaklyConsecutive
+import AFTD.Kb.NumberTheory.PermCardFilterDvdSucc
+import AFTD.Kb.NumberTheory.RangeCardFilterDvd
+import AFTD.Kb.NumberTheory.WeaklyConsecutiveEndsCoprime
+import AFTD.Kb.NumberTheory.WeaklyConsecutiveFirstDvd
+import AFTD.Kb.NumberTheory.WeaklyConsecutiveLastDvd
+import AFTD.Kb.NumberTheory.WeaklyConsecutiveOneAtEndOfIsPrimePow
+import AFTD.Kb.NumberTheory.WeaklyConsecutiveRev
 
 -- physics
 import AFTD.Kb.Physics.BoltzmannDistribution

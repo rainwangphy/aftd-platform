@@ -70,6 +70,8 @@ import AFTD.Kb.GameTheoryEconomics.CondorcetWinner
 import AFTD.Kb.GameTheoryEconomics.CondorcetWinnerNotOfMajorityDefeated
 import AFTD.Kb.GameTheoryEconomics.CondorcetWinnerOfSubsingleton
 import AFTD.Kb.GameTheoryEconomics.CondorcetWinnerUnique
+import AFTD.Kb.GameTheoryEconomics.CyclicOffset
+import AFTD.Kb.GameTheoryEconomics.CyclicOffsetEqIte
 import AFTD.Kb.GameTheoryEconomics.DirectMechanism
 import AFTD.Kb.GameTheoryEconomics.DsicIffTruthfulDominantStrategy
 import AFTD.Kb.GameTheoryEconomics.DsicOfConstantMechanism
@@ -77,6 +79,8 @@ import AFTD.Kb.GameTheoryEconomics.EndowmentIsFeasible
 import AFTD.Kb.GameTheoryEconomics.ExchangeEconomy
 import AFTD.Kb.GameTheoryEconomics.FirstWelfareTheorem
 import AFTD.Kb.GameTheoryEconomics.FirstWelfareTheoremWeak
+import AFTD.Kb.GameTheoryEconomics.HollowShellBlockingPairsNcardLe
+import AFTD.Kb.GameTheoryEconomics.HollowShellMarket
 import AFTD.Kb.GameTheoryEconomics.InducedDirectMechanism
 import AFTD.Kb.GameTheoryEconomics.IsBlockingPair
 import AFTD.Kb.GameTheoryEconomics.IsDominantStrategyEquilibrium
@@ -92,6 +96,12 @@ import AFTD.Kb.GameTheoryEconomics.MarriageMarket
 import AFTD.Kb.GameTheoryEconomics.NotIsStableMatchingOfUniversalPreference
 import AFTD.Kb.GameTheoryEconomics.NotPureNashOfExistsBetterResponse
 import AFTD.Kb.GameTheoryEconomics.ParetoOptimalImpliesWeaklyParetoOptimal
+import AFTD.Kb.GameTheoryEconomics.PermCardLeftGtLe
+import AFTD.Kb.GameTheoryEconomics.PermCardValLt
+import AFTD.Kb.GameTheoryEconomics.PermCrossInvSum
+import AFTD.Kb.GameTheoryEconomics.PermGapSum
+import AFTD.Kb.GameTheoryEconomics.PermInvLeftAdd
+import AFTD.Kb.GameTheoryEconomics.PermNestingBound
 import AFTD.Kb.GameTheoryEconomics.PureNashOfCommonPayoffMaximizer
 import AFTD.Kb.GameTheoryEconomics.PureNashOfSubsingletonStrategy
 import AFTD.Kb.GameTheoryEconomics.RevelationPrincipleDominantStrategy
@@ -104,6 +114,10 @@ import AFTD.Kb.GameTheoryEconomics.WalrasLaw
 import AFTD.Kb.GameTheoryEconomics.WalrasianBudgetExhaustion
 import AFTD.Kb.GameTheoryEconomics.WalrasianExpenditureGeOfUtilityGe
 import AFTD.Kb.GameTheoryEconomics.WalrasianExpenditureGtOfUtilityGt
+
+-- number_theory
+import AFTD.Kb.NumberTheory.IsCrystalWithComponents
+import AFTD.Kb.NumberTheory.IsWeaklyConsecutive
 
 -- physics
 import AFTD.Kb.Physics.BoltzmannDistribution

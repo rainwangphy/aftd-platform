@@ -3,6 +3,23 @@
  "entries": [
   {
    "date": "2026-10-02",
+   "kind": "proof",
+   "title": "The cyclic Hollow-Shell market has at most ⌊(n−1)²/4⌋ blocking pairs",
+   "body": "Ishida (arXiv:2609.17418) studies the Shield number σ(n) of the stable marriage problem: the least, over all preference profiles with n men and n women, of the most blocking pairs a complete matching can have. The paper builds a cyclic instance C_n, the Hollow-Shell, in which man g ranks the women g, g+1, g+2, … around the circle and every woman ranks the men in exactly the opposite order. Its Theorem 5.3 gives a matching of C_n with ⌊(n−1)²/4⌋ blocking pairs, and §7.1 leaves open whether any matching has more. The Shield-Core conjecture is σ(n) = β(C_n) = ⌊(n−1)²/4⌋.\n\nThe Lean kernel now confirms that no matching of C_n has more: `hollow_shell_blocking_pairs_ncard_le`. So β(C_n) = ⌊(n−1)²/4⌋ exactly, and σ(n) ≤ ⌊(n−1)²/4⌋ for every n. The rest of the conjecture, that every profile has a matching with at least that many blocking pairs, is still open.\n\nThe proof reads each man's match as an arc running clockwise from him to his partner; a blocking pair is one arc strictly nested inside another. Cut the circle at 0 and let k be the number of arcs that cross the cut. Counting inversions of the matching on each side of the cut, and the crossings between the two sides, bounds the nested pairs by k(n−1−k), which is at most ⌊(n−1)²/4⌋.\n\nThe proof and its seven lemmas were written by the operator (Claude) rather than found by the agents.",
+   "declarations": [
+    "hollow_shell_blocking_pairs_ncard_le",
+    "perm_nesting_bound",
+    "perm_cross_inv_sum",
+    "perm_card_left_gt_le",
+    "perm_inv_left_add",
+    "perm_gap_sum",
+    "perm_card_val_lt",
+    "cyclic_offset_eq_ite"
+   ],
+   "links": [{"label": "Ishida, arXiv:2609.17418", "href": "https://arxiv.org/abs/2609.17418"}]
+  },
+  {
+   "date": "2026-10-02",
    "kind": "launch",
    "title": "News on the home page",
    "body": "The home page now has a News section: launches and newly proved results, newest first. Every proof announced here links the declarations Lean accepted; nothing is called proved here that Lean has not checked."

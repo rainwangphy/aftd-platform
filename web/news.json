@@ -1,12 +1,11 @@
 {
- "about": "Announcements for the News section of the home page and its feed, newest first. kind is launch (something new on the site or in the machine) or proof (a result Lean accepted). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
+ "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine) or proof (a result Lean accepted). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
    "date": "2026-10-02",
    "kind": "launch",
    "title": "News on the home page",
-   "body": "The home page now has a News section: launches and newly proved results, newest first. Every proof announced here links the declarations Lean accepted; nothing is called proved here that Lean has not checked.\n\nSubscribe to the Atom feed to hear about them without coming back to look.",
-   "links": [{"label": "Atom feed", "href": "news/feed.xml"}]
+   "body": "The home page now has a News section: launches and newly proved results, newest first. Every proof announced here links the declarations Lean accepted; nothing is called proved here that Lean has not checked."
   },
   {
    "date": "2026-10-02",

@@ -13,7 +13,6 @@ import json
 import re
 import sys
 import tempfile
-import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -241,7 +240,6 @@ def main() -> int:
         n = build(data, issues, cfg, out, news)
         pages = {p.relative_to(out).as_posix(): p.read_text(encoding="utf-8")
                  for p in out.rglob("*.html")}
-        feed = (out / "news" / "feed.xml").read_text(encoding="utf-8")
         everything = "\n".join(pages.values())
         for rel in ("index.html", "knowledgebase/index.html", "results/index.html", "problems/index.html",
                     "submit/index.html", "404.html", "d/answer_ten/index.html",
@@ -310,20 +308,8 @@ def main() -> int:
               all('index.html#news">News<' in v for v in site_pages.values()))
         check("the old news/ address forwards to the section, keeping an entry's anchor",
               "location.hash || \"#news\"" in pages.get("news/index.html", ""))
-        try:
-            root = ET.fromstring(feed)
-        except ET.ParseError as ex:
-            root = None
-            check("the feed is well-formed XML", False, str(ex))
-        ns = {"a": "http://www.w3.org/2005/Atom"}
-        entries = root.findall("a:entry", ns) if root is not None else []
-        check("the feed has every entry, newest first",
-              [x.findtext("a:title", namespaces=ns) for x in entries][:1] == ["Answer ten is proved"]
-              and len(entries) == 6)
-        check("feed links are absolute and point at the home page",
-              "https://o.github.io/r/d/answer_ten/" in feed and 'href="../' not in feed
-              and "https://o.github.io/r/#n-2026-10-02-answer-ten-is-proved" in feed)
-        check("pages point feed readers at the feed", 'application/atom+xml' in pages["index.html"])
+        check("there is no feed", not (out / "news" / "feed.xml").exists()
+              and "atom" not in everything.lower())
 
     def refused(entry: dict) -> str:
         try:

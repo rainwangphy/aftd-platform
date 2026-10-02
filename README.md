@@ -22,7 +22,7 @@ part.
 | `lean/` | A Lean 4 project with every verified declaration, one module each under `lean/AFTD/Kb/` |
 | `web/data/kb.json` | A snapshot of the knowledgebase the site is built from |
 | `web/` | The site generator (Python, standard library only) |
-| `web/news.json` | The announcements in the home page's News section and its Atom feed |
+| `web/news.json` | The announcements in the home page's News section |
 | `.github/` | The forms for submitting problems and challenging results, and the workflow that publishes the site |
 
 ## Check it yourself

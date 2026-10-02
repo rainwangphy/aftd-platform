@@ -26,7 +26,6 @@ Pages:
     problems/<number>/          one reviewed problem and what answers it
     news/                       the address the news first had, forwarding to the
                                 home page's News section
-    news/feed.xml               the News section as an Atom feed
     submit/                     how to submit a problem or challenge a result
 
 Stdlib only, so CI needs nothing but Python. Everything a submitter wrote is
@@ -280,12 +279,6 @@ def page(
         f'<script src="{root}static/app.js"></script>' if (script or math or wide) else ""
     )
     full = f"{title} · {NAME}" if title != NAME else f"{NAME} · {FULL_NAME}"
-    feed = (
-        f'<link rel="alternate" type="application/atom+xml" title="{NAME} news" '
-        f'href="{root}news/feed.xml">'
-        if s.news
-        else ""
-    )
     t = s.kb["totals"]
     main = f'<main class="home">{body}</main>' if wide else f'<main class="wrap">{body}</main>'
     return f"""<!doctype html>
@@ -302,7 +295,7 @@ def page(
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="{root}static/style.css">
-{feed}{head_math}
+{head_math}
 </head>
 <body>
 <header class="site">
@@ -519,8 +512,7 @@ def news_section(s: Site, root: str) -> str:
     return (
         '<section class="wrap band news-band" id="news">'
         '<header class="band-head"><p class="eyebrow">News</p>'
-        "<h2>Launches and newly proved results</h2>"
-        f'<p class="small"><a href="{root}news/feed.xml">Follow with the Atom feed</a></p></header>'
+        "<h2>Launches and newly proved results</h2></header>"
         f'<div class="news-list">{items}</div></section>'
     )
 
@@ -1320,44 +1312,6 @@ def render_submit(s: Site) -> str:
     return page(s, title="Submit a problem", root=root, active="submit/", body=body)
 
 
-def render_feed(s: Site) -> str:
-    """The announcements as Atom. Feed readers resolve nothing, so every
-    link is absolute."""
-    base = s.cfg.get("base_url", "").rstrip("/") + "/"
-    entries = []
-    for n in s.news:
-        url = f"{base}#{n['id']}"
-        content = "".join(f"<p>{p}</p>" for p in news_paras(n["body"]))
-        if n["declarations"]:
-            content += "<ul>" + "".join(
-                f'<li><a href="{e(base)}d/{slug(x)}/"><code>{e(x)}</code></a></li>'
-                for x in n["declarations"]
-            ) + "</ul>"
-        content += "".join(
-            f'<p><a href="{e(news_href(base, l["href"]))}">{e(l["label"])}</a></p>'
-            for l in n["links"]
-        )
-        entries.append(
-            f"<entry><title>{e(n['title'])}</title>"
-            f'<link rel="alternate" href="{e(url)}"/><id>{e(url)}</id>'
-            f"<updated>{n['date']}T00:00:00Z</updated>"
-            f'<category term="{n["kind"]}" label="{NEWS_KINDS[n["kind"]]}"/>'
-            f'<content type="html">{e(content)}</content></entry>'
-        )
-    updated = (s.news[0]["date"] if s.news else s.kb["generated"][:10]) + "T00:00:00Z"
-    return (
-        '<?xml version="1.0" encoding="utf-8"?>\n'
-        '<feed xmlns="http://www.w3.org/2005/Atom">'
-        f"<title>{NAME} news</title><subtitle>{e(FULL_NAME)}: launches and newly proved results</subtitle>"
-        f'<link rel="alternate" href="{e(base)}#news"/>'
-        f'<link rel="self" href="{e(base)}news/feed.xml"/>'
-        f"<id>{e(base)}news/</id><updated>{updated}</updated>"
-        f"<author><name>{NAME}</name></author>"
-        + "".join(entries)
-        + "</feed>\n"
-    )
-
-
 def render_moved(s: Site, to: str) -> str:
     """A page that has moved: it forwards to its new address, keeping the
     query and the anchor so a shared, filtered link still lands where it
@@ -1413,7 +1367,6 @@ def build(
     write("problems/index.html", render_problems(s))
     write("submit/index.html", render_submit(s))
     write("news/index.html", render_moved(s, "#news"))
-    write("news/feed.xml", render_feed(s))
     write("404.html", render_404(s))
     for d in s.decls:
         write(f"d/{slug(d['name'])}/index.html", render_decl(s, d))

@@ -1,15 +1,15 @@
 {
  "schema": 1,
- "generated": "2026-10-02T12:21:54Z",
+ "generated": "2026-10-02T16:01:14Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 235,
-  "definitions": 60,
-  "theorems": 175,
+  "declarations": 252,
+  "definitions": 63,
+  "theorems": 189,
   "topics": 22,
   "domains": 4,
   "open": 28,
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788679323,
-  "last": 1790929557
+  "last": 1790956729
  },
  "domains": [
   {
@@ -332,7 +332,7 @@
      "name": "general_equilibrium",
      "title": "General Equilibrium & Cooperative Games",
      "target": 15,
-     "proved": 13
+     "proved": 30
     },
     {
      "name": "combinatorial_games",
@@ -7740,6 +7740,565 @@
    "proved_at": 1790929557,
    "provenance": "original",
    "citation": "operator (Claude), 2026-10-02: counterexamples to open problems 2 and 4 of Garg-Sharma, arXiv:2502.02815 v3, Sec. 6",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_simple_game",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 236,
+   "informal": "A simple game on n players is a monotone function v from coalitions to {0,1} with v(empty) = 0 and v(all players) = 1; the coalitions with value 1 are winning.",
+   "statement": "def is_simple_game {n : ℕ} (v : Finset (Fin n) → Bool) : Prop",
+   "source": "/-- A simple game on `n` players (Fried, arXiv:2607.07013, Sec. 10): a monotone `v : 2^[n] → {0,1}` with `v(∅) = 0` and `v([n]) = 1`; coalitions with `v S = true` are winning. -/\ndef is_simple_game {n : ℕ} (v : Finset (Fin n) → Bool) : Prop :=\n  (∀ S T, S ⊆ T → v S = true → v T = true) ∧ v ∅ = false ∧ v Finset.univ = true",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "simple_game_card_size_eq_of_swing_table_eq",
+    "weighted_game_eq_of_swing_table_eq",
+    "exists_simple_games_ne_of_swing_table_eq",
+    "simple_game_card_winning_mem_eq_of_swing_table_eq",
+    "simple_game_card_winning_eq_of_swing_table_eq",
+    "exists_not_weighted_simple_games_ne_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsSimpleGame.lean",
+   "proved_at": 1790954497,
+   "provenance": "literature",
+   "citation": "Fried, What Semivalues Cannot See: The Information Content of Anonymous Marginal Values, arXiv:2607.07013, Sec. 10 (simple game, weighted game after Taylor-Zwicker, swing table); formalized by the operator (Claude), 2026-10-02",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_weighted_game",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 237,
+   "informal": "A game is weighted if there are nonnegative player weights w and a quota q such that a coalition wins exactly when its total weight is at least q.",
+   "statement": "def is_weighted_game {n : ℕ} (v : Finset (Fin n) → Bool) : Prop",
+   "source": "/-- A game is weighted (Taylor-Zwicker): there are nonnegative weights `w` and a quota `q` such that a coalition wins exactly when its total weight reaches the quota. -/\ndef is_weighted_game {n : ℕ} (v : Finset (Fin n) → Bool) : Prop :=\n  ∃ (w : Fin n → ℝ) (q : ℝ), (∀ i, 0 ≤ w i) ∧ ∀ S, v S = true ↔ q ≤ ∑ i ∈ S, w i",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "weighted_game_eq_of_swing_table_eq",
+    "weighted_game_eq_of_chow_parameters_eq",
+    "exists_not_weighted_simple_games_ne_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsWeightedGame.lean",
+   "proved_at": 1790954633,
+   "provenance": "literature",
+   "citation": "Fried, What Semivalues Cannot See: The Information Content of Anonymous Marginal Values, arXiv:2607.07013, Sec. 10 (simple game, weighted game after Taylor-Zwicker, swing table); formalized by the operator (Claude), 2026-10-02",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "swing_table",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 238,
+   "informal": "The swing table of a game: T(i, k) is the number of coalitions S of size k not containing i such that S together with i wins while S loses.",
+   "statement": "def swing_table {n : ℕ} (v : Finset (Fin n) → Bool) (i : Fin n) (k : ℕ) : ℕ",
+   "source": "/-- The swing table of a game (Fried, Sec. 10): `T i k` counts the coalitions `S` of size `k` not containing `i` for which `i` is a swing, i.e. `S ∪ {i}` wins and `S` loses. -/\ndef swing_table {n : ℕ} (v : Finset (Fin n) → Bool) (i : Fin n) (k : ℕ) : ℕ :=\n  (Finset.univ.filter fun S : Finset (Fin n) =>\n    i ∉ S ∧ S.card = k ∧ v (insert i S) = true ∧ v S = false).card",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "simple_game_card_size_eq_of_swing_table_eq",
+    "sum_swing_table_eq",
+    "sum_range_swing_table_eq",
+    "weighted_game_eq_of_swing_table_eq",
+    "swing_table_cast_eq_sum",
+    "exists_simple_games_ne_of_swing_table_eq",
+    "simple_game_card_winning_mem_eq_of_swing_table_eq",
+    "swing_table_eq_zero_of_lt",
+    "simple_game_card_winning_eq_of_swing_table_eq",
+    "exists_not_weighted_simple_games_ne_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SwingTable.lean",
+   "proved_at": 1790954752,
+   "provenance": "literature",
+   "citation": "Fried, What Semivalues Cannot See: The Information Content of Anonymous Marginal Values, arXiv:2607.07013, Sec. 10 (simple game, weighted game after Taylor-Zwicker, swing table); formalized by the operator (Claude), 2026-10-02",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "swing_table_cast_eq_sum",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 239,
+   "informal": "For a monotone game, T(i, k) equals the sum over coalitions S of size k not containing i of v(S with i) - v(S).",
+   "statement": "theorem swing_table_cast_eq_sum {n : ℕ} (v : Finset (Fin n) → Bool)\n    (hv : ∀ S T, S ⊆ T → v S = true → v T = true) (i : Fin n) (k : ℕ) :\n    (swing_table v i k : ℝ) = ∑ S ∈ Finset.univ.filter (fun S : Finset (Fin n) => i ∉ S ∧ S.card = k),\n      ((if v (insert i S) then 1 else 0) - (if v S then 1 else 0))",
+   "source": "/-- For a monotone game, the swing count `T i k` is the sum, over coalitions `S` of size `k` not containing `i`, of `v(S ∪ {i}) - v(S)`. -/\ntheorem swing_table_cast_eq_sum {n : ℕ} (v : Finset (Fin n) → Bool)\n    (hv : ∀ S T, S ⊆ T → v S = true → v T = true) (i : Fin n) (k : ℕ) :\n    (swing_table v i k : ℝ) = ∑ S ∈ Finset.univ.filter (fun S : Finset (Fin n) => i ∉ S ∧ S.card = k),\n      ((if v (insert i S) then 1 else 0) - (if v S then 1 else 0)) := by\n  have e : (Finset.univ.filter fun S : Finset (Fin n) =>\n      i ∉ S ∧ S.card = k ∧ v (insert i S) = true ∧ v S = false)\n      = (Finset.univ.filter fun S : Finset (Fin n) => i ∉ S ∧ S.card = k).filter\n          (fun S => v (insert i S) = true ∧ v S = false) := by\n    ext S; simp [and_assoc]\n  unfold swing_table\n  rw [e, Finset.card_filter]\n  push_cast\n  apply Finset.sum_congr rfl\n  intro S _\n  have := hv S (insert i S) (Finset.subset_insert i S)\n  cases h1 : v (insert i S) <;> cases h2 : v S <;> simp_all",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "swing_table"
+   ],
+   "used_by": [
+    "sum_swing_table_eq",
+    "sum_range_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SwingTableCastEqSum.lean",
+   "proved_at": 1790954874,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "sum_not_mem_card_eq_insert",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 240,
+   "informal": "For any function G on coalitions, the sum of G(S with i) over k-element coalitions S avoiding i equals the sum of G(T) over (k+1)-element coalitions T containing i.",
+   "statement": "theorem sum_not_mem_card_eq_insert {n : ℕ} (G : Finset (Fin n) → ℝ) (i : Fin n) (k : ℕ) :\n    ∑ S ∈ Finset.univ.filter (fun S : Finset (Fin n) => i ∉ S ∧ S.card = k), G (insert i S)\n      = ∑ T ∈ Finset.univ.filter (fun T : Finset (Fin n) => i ∈ T ∧ T.card = k + 1), G T",
+   "source": "/-- Adding `i` is a bijection from the `k`-sets avoiding `i` onto the `(k+1)`-sets containing `i`. -/\ntheorem sum_not_mem_card_eq_insert {n : ℕ} (G : Finset (Fin n) → ℝ) (i : Fin n) (k : ℕ) :\n    ∑ S ∈ Finset.univ.filter (fun S : Finset (Fin n) => i ∉ S ∧ S.card = k), G (insert i S)\n      = ∑ T ∈ Finset.univ.filter (fun T : Finset (Fin n) => i ∈ T ∧ T.card = k + 1), G T := by\n  apply Finset.sum_nbij' (fun S => insert i S) (fun T => T.erase i)\n  · intro S hS\n    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hS ⊢\n    exact ⟨Finset.mem_insert_self i S, by rw [Finset.card_insert_of_notMem hS.1, hS.2]⟩\n  · intro T hT\n    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hT ⊢\n    exact ⟨Finset.notMem_erase i T, by rw [Finset.card_erase_of_mem hT.1, hT.2]; rfl⟩\n  · intro S hS\n    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hS\n    exact Finset.erase_insert hS.1\n  · intro T hT\n    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hT\n    exact Finset.insert_erase hT.1\n  · intro S _; rfl",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [],
+   "used_by": [
+    "sum_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SumNotMemCardEqInsert.lean",
+   "proved_at": 1790955030,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "sum_not_mem_eq_insert",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 241,
+   "informal": "For any function G on coalitions, the sum of G(S with i) over coalitions S avoiding i equals the sum of G(T) over coalitions T containing i.",
+   "statement": "theorem sum_not_mem_eq_insert {n : ℕ} (G : Finset (Fin n) → ℝ) (i : Fin n) :\n    ∑ S ∈ Finset.univ.filter (fun S : Finset (Fin n) => i ∉ S), G (insert i S)\n      = ∑ T ∈ Finset.univ.filter (fun T : Finset (Fin n) => i ∈ T), G T",
+   "source": "/-- Adding `i` is a bijection from the sets avoiding `i` onto the sets containing `i`. -/\ntheorem sum_not_mem_eq_insert {n : ℕ} (G : Finset (Fin n) → ℝ) (i : Fin n) :\n    ∑ S ∈ Finset.univ.filter (fun S : Finset (Fin n) => i ∉ S), G (insert i S)\n      = ∑ T ∈ Finset.univ.filter (fun T : Finset (Fin n) => i ∈ T), G T := by\n  apply Finset.sum_nbij' (fun S => insert i S) (fun T => T.erase i)\n  · intro S hS; simp\n  · intro T hT; simp\n  · intro S hS\n    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hS\n    exact Finset.erase_insert hS\n  · intro T hT\n    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hT\n    exact Finset.insert_erase hT\n  · intro S _; rfl",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [],
+   "used_by": [
+    "sum_range_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SumNotMemEqInsert.lean",
+   "proved_at": 1790955146,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "sum_swing_table_eq",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 242,
+   "informal": "For a monotone game, the sum over all players of T(i, k) equals (k+1) w(k+1) - (n-k) w(k), where w(k) is the number of winning coalitions of size k.",
+   "statement": "theorem sum_swing_table_eq {n : ℕ} (v : Finset (Fin n) → Bool)\n    (hv : ∀ S T, S ⊆ T → v S = true → v T = true) (k : ℕ) :\n    ∑ i, (swing_table v i k : ℝ)\n      = (k + 1) * ((Finset.univ.filter fun S : Finset (Fin n) => S.card = k + 1 ∧ v S = true).card : ℝ)\n        - (n - k) * ((Finset.univ.filter fun S : Finset (Fin n) => S.card = k ∧ v S = true).card : ℝ)",
+   "source": "/-- For a monotone game, the swings at size `k` summed over all players equal `(k+1) w_{k+1} - (n-k) w_k`, where `w_k` is the number of winning coalitions of size `k`. -/\ntheorem sum_swing_table_eq {n : ℕ} (v : Finset (Fin n) → Bool)\n    (hv : ∀ S T, S ⊆ T → v S = true → v T = true) (k : ℕ) :\n    ∑ i, (swing_table v i k : ℝ)\n      = (k + 1) * ((Finset.univ.filter fun S : Finset (Fin n) => S.card = k + 1 ∧ v S = true).card : ℝ)\n        - (n - k) * ((Finset.univ.filter fun S : Finset (Fin n) => S.card = k ∧ v S = true).card : ℝ) := by\n  simp_rw [swing_table_cast_eq_sum v hv, Finset.sum_sub_distrib]\n  simp_rw [sum_not_mem_card_eq_insert (fun T => if v T then (1:ℝ) else 0)]\n  congr 1\n  · rw [Finset.card_filter, Nat.cast_sum, Finset.mul_sum]\n    simp_rw [Finset.sum_filter]\n    rw [Finset.sum_comm]\n    apply Finset.sum_congr rfl\n    intro T _\n    by_cases hc : T.card = k + 1 <;> by_cases hvT : v T = true\n    · simp [hc, hvT]\n    · simp [hc, hvT]\n    · simp [hc, hvT]\n    · simp [hc, hvT]\n  · rw [Finset.card_filter, Nat.cast_sum, Finset.mul_sum]\n    simp_rw [Finset.sum_filter]\n    rw [Finset.sum_comm]\n    apply Finset.sum_congr rfl\n    intro S _\n    by_cases hc : S.card = k <;> by_cases hvS : v S = true\n    · have hle : S.card ≤ n := (Finset.card_le_univ S).trans (by simp)\n      have hcomp : (Finset.univ.filter fun i : Fin n => i ∉ S).card = n - k := by\n        rw [Finset.filter_not, Finset.filter_mem_eq_inter, Finset.univ_inter, Finset.card_sdiff_of_subset (Finset.subset_univ S)]\n        simp [hc]\n      simp only [hc, hvS, and_true, if_true]\n      rw [← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul, hcomp, Nat.cast_sub (hc ▸ hle)]\n      simp\n    · simp [hc, hvS]\n    · simp [hc, hvS]\n    · simp [hc, hvS]",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "swing_table",
+    "swing_table_cast_eq_sum",
+    "sum_not_mem_card_eq_insert"
+   ],
+   "used_by": [
+    "simple_game_card_size_eq_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SumSwingTableEq.lean",
+   "proved_at": 1790955250,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "simple_game_card_size_eq_of_swing_table_eq",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 243,
+   "informal": "If two simple games have the same swing table, then for every k they have the same number of winning coalitions of size k.",
+   "statement": "theorem simple_game_card_size_eq_of_swing_table_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_simple_game f) (hg : is_simple_game g)\n    (h : ∀ i k, swing_table f i k = swing_table g i k) (k : ℕ) :\n    (Finset.univ.filter fun S : Finset (Fin n) => S.card = k ∧ f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => S.card = k ∧ g S = true).card",
+   "source": "/-- Two simple games with the same swing table have the same number of winning coalitions of each size. -/\ntheorem simple_game_card_size_eq_of_swing_table_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_simple_game f) (hg : is_simple_game g)\n    (h : ∀ i k, swing_table f i k = swing_table g i k) (k : ℕ) :\n    (Finset.univ.filter fun S : Finset (Fin n) => S.card = k ∧ f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => S.card = k ∧ g S = true).card := by\n  induction k with\n  | zero =>\n    have e : ∀ v : Finset (Fin n) → Bool, v ∅ = false →\n        (Finset.univ.filter fun S : Finset (Fin n) => S.card = 0 ∧ v S = true) = ∅ := by\n      intro v hv\n      ext S\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.card_eq_zero, Finset.notMem_empty, iff_false, not_and]\n      rintro rfl\n      simp [hv]\n    rw [e f hf.2.1, e g hg.2.1]\n  | succ k ih =>\n    have hs : ∑ i, (swing_table f i k : ℝ) = ∑ i, (swing_table g i k : ℝ) := by simp [h]\n    rw [sum_swing_table_eq f hf.1 k, sum_swing_table_eq g hg.1 k, ih] at hs\n    have hk : (k : ℝ) + 1 ≠ 0 := by positivity\n    have h2 : ((k : ℝ) + 1) * ((Finset.univ.filter fun S : Finset (Fin n) => S.card = k + 1 ∧ f S = true).card : ℝ)\n        = ((k : ℝ) + 1) * ((Finset.univ.filter fun S : Finset (Fin n) => S.card = k + 1 ∧ g S = true).card : ℝ) := by\n      linarith\n    exact_mod_cast mul_left_cancel₀ hk h2",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_simple_game",
+    "swing_table",
+    "sum_swing_table_eq"
+   ],
+   "used_by": [
+    "simple_game_card_winning_eq_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SimpleGameCardSizeEqOfSwingTableEq.lean",
+   "proved_at": 1790955365,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "card_filter_eq_sum_range_card_size",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 244,
+   "informal": "The number of winning coalitions of a game is the sum, over k from 0 to n, of the number of winning coalitions of size k.",
+   "statement": "theorem card_filter_eq_sum_range_card_size {n : ℕ} (v : Finset (Fin n) → Bool) :\n    (Finset.univ.filter fun S : Finset (Fin n) => v S = true).card\n      = ∑ k ∈ Finset.range (n + 1), (Finset.univ.filter fun S : Finset (Fin n) => S.card = k ∧ v S = true).card",
+   "source": "/-- The number of winning coalitions is the sum over sizes `k ≤ n` of the number of winning coalitions of size `k`. -/\ntheorem card_filter_eq_sum_range_card_size {n : ℕ} (v : Finset (Fin n) → Bool) :\n    (Finset.univ.filter fun S : Finset (Fin n) => v S = true).card\n      = ∑ k ∈ Finset.range (n + 1), (Finset.univ.filter fun S : Finset (Fin n) => S.card = k ∧ v S = true).card := by\n  rw [Finset.card_eq_sum_card_fiberwise (f := Finset.card) (t := Finset.range (n + 1))]\n  · apply Finset.sum_congr rfl\n    intro k _\n    congr 1\n    ext S\n    simp [and_comm]\n  · intro S _\n    simp only [Finset.coe_range, Set.mem_Iio]\n    exact Nat.lt_succ_of_le ((Finset.card_le_univ S).trans (by simp))",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [],
+   "used_by": [
+    "simple_game_card_winning_eq_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/CardFilterEqSumRangeCardSize.lean",
+   "proved_at": 1790955477,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "simple_game_card_winning_eq_of_swing_table_eq",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 245,
+   "informal": "If two simple games have the same swing table, they have the same number of winning coalitions.",
+   "statement": "theorem simple_game_card_winning_eq_of_swing_table_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_simple_game f) (hg : is_simple_game g)\n    (h : ∀ i k, swing_table f i k = swing_table g i k) :\n    (Finset.univ.filter fun S : Finset (Fin n) => f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => g S = true).card",
+   "source": "/-- Two simple games with the same swing table have the same number of winning coalitions. -/\ntheorem simple_game_card_winning_eq_of_swing_table_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_simple_game f) (hg : is_simple_game g)\n    (h : ∀ i k, swing_table f i k = swing_table g i k) :\n    (Finset.univ.filter fun S : Finset (Fin n) => f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => g S = true).card := by\n  rw [card_filter_eq_sum_range_card_size f, card_filter_eq_sum_range_card_size g]\n  exact Finset.sum_congr rfl fun k _ => simple_game_card_size_eq_of_swing_table_eq f g hf hg h k",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_simple_game",
+    "swing_table",
+    "simple_game_card_size_eq_of_swing_table_eq",
+    "card_filter_eq_sum_range_card_size"
+   ],
+   "used_by": [
+    "weighted_game_eq_of_swing_table_eq",
+    "simple_game_card_winning_mem_eq_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SimpleGameCardWinningEqOfSwingTableEq.lean",
+   "proved_at": 1790955597,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "sum_range_swing_table_eq",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 246,
+   "informal": "For a monotone game, player i's total swing count (the sum of T(i, k) over k) equals 2 A_i - |W|, where A_i is the number of winning coalitions containing i and |W| is the number of winning coalitions.",
+   "statement": "theorem sum_range_swing_table_eq {n : ℕ} (v : Finset (Fin n) → Bool)\n    (hv : ∀ S T, S ⊆ T → v S = true → v T = true) (i : Fin n) :\n    ∑ k ∈ Finset.range (n + 1), (swing_table v i k : ℝ)\n      = 2 * ((Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ v S = true).card : ℝ)\n        - ((Finset.univ.filter fun S : Finset (Fin n) => v S = true).card : ℝ)",
+   "source": "/-- For a monotone game, player `i`'s total swing count (its raw Banzhaf score) is `2 A_i - |W|`, where `A_i` is the number of winning coalitions containing `i` and `|W|` the number of winning coalitions. -/\ntheorem sum_range_swing_table_eq {n : ℕ} (v : Finset (Fin n) → Bool)\n    (hv : ∀ S T, S ⊆ T → v S = true → v T = true) (i : Fin n) :\n    ∑ k ∈ Finset.range (n + 1), (swing_table v i k : ℝ)\n      = 2 * ((Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ v S = true).card : ℝ)\n        - ((Finset.univ.filter fun S : Finset (Fin n) => v S = true).card : ℝ) := by\n  have hcollapse : ∑ k ∈ Finset.range (n + 1), (swing_table v i k : ℝ)\n      = ∑ S ∈ Finset.univ.filter (fun S : Finset (Fin n) => i ∉ S),\n          ((if v (insert i S) then (1:ℝ) else 0) - (if v S then 1 else 0)) := by\n    simp_rw [swing_table_cast_eq_sum v hv, Finset.sum_filter]\n    rw [Finset.sum_comm]\n    apply Finset.sum_congr rfl\n    intro S _\n    have hS : S.card ∈ Finset.range (n + 1) :=\n      Finset.mem_range.2 (Nat.lt_succ_of_le ((Finset.card_le_univ S).trans (by simp)))\n    by_cases hi : i ∉ S\n    · simp only [hi, not_false_eq_true, true_and]\n      rw [Finset.sum_ite_eq (Finset.range (n + 1)) S.card, if_pos hS, if_pos trivial]\n    · simp [hi]\n  have hW : ((Finset.univ.filter fun S : Finset (Fin n) => v S = true).card : ℝ)\n      = ∑ T ∈ Finset.univ.filter (fun T : Finset (Fin n) => i ∈ T), (if v T then (1:ℝ) else 0)\n        + ∑ S ∈ Finset.univ.filter (fun S : Finset (Fin n) => i ∉ S), (if v S then (1:ℝ) else 0) := by\n    rw [Finset.sum_filter_add_sum_filter_not, Finset.card_filter]\n    push_cast\n    rfl\n  have hA : ((Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ v S = true).card : ℝ)\n      = ∑ T ∈ Finset.univ.filter (fun T : Finset (Fin n) => i ∈ T), (if v T then (1:ℝ) else 0) := by\n    rw [Finset.sum_filter, Finset.card_filter]\n    push_cast\n    apply Finset.sum_congr rfl\n    intro T _\n    by_cases hi : i ∈ T <;> simp [hi]\n  rw [hcollapse, Finset.sum_sub_distrib, sum_not_mem_eq_insert (fun T => if v T then (1:ℝ) else 0), hW, hA]\n  ring",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "swing_table",
+    "swing_table_cast_eq_sum",
+    "sum_not_mem_eq_insert"
+   ],
+   "used_by": [
+    "simple_game_card_winning_mem_eq_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SumRangeSwingTableEq.lean",
+   "proved_at": 1790955710,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "simple_game_card_winning_mem_eq_of_swing_table_eq",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 247,
+   "informal": "If two simple games have the same swing table, then for every player i they have the same number of winning coalitions containing i.",
+   "statement": "theorem simple_game_card_winning_mem_eq_of_swing_table_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_simple_game f) (hg : is_simple_game g)\n    (h : ∀ i k, swing_table f i k = swing_table g i k) (i : Fin n) :\n    (Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ g S = true).card",
+   "source": "/-- Two simple games with the same swing table have, for every player `i`, the same number of winning coalitions containing `i`. -/\ntheorem simple_game_card_winning_mem_eq_of_swing_table_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_simple_game f) (hg : is_simple_game g)\n    (h : ∀ i k, swing_table f i k = swing_table g i k) (i : Fin n) :\n    (Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ g S = true).card := by\n  have hs : ∑ k ∈ Finset.range (n + 1), (swing_table f i k : ℝ)\n      = ∑ k ∈ Finset.range (n + 1), (swing_table g i k : ℝ) := by simp [h]\n  rw [sum_range_swing_table_eq f hf.1 i, sum_range_swing_table_eq g hg.1 i,\n    simple_game_card_winning_eq_of_swing_table_eq f g hf hg h] at hs\n  exact_mod_cast (by linarith : ((Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ f S = true).card : ℝ)\n      = (Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ g S = true).card)",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_simple_game",
+    "swing_table",
+    "simple_game_card_winning_eq_of_swing_table_eq",
+    "sum_range_swing_table_eq"
+   ],
+   "used_by": [
+    "weighted_game_eq_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SimpleGameCardWinningMemEqOfSwingTableEq.lean",
+   "proved_at": 1790955806,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "weighted_game_eq_of_chow_parameters_eq",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 248,
+   "informal": "Chow's theorem for games: if f is weighted and g is any 0/1-valued function on coalitions with the same number of winning coalitions and, for every player, the same number of winning coalitions containing that player, then f = g.",
+   "statement": "theorem weighted_game_eq_of_chow_parameters_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_weighted_game f)\n    (hW : (Finset.univ.filter fun S : Finset (Fin n) => f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => g S = true).card)\n    (hA : ∀ i, (Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ g S = true).card) :\n    f = g",
+   "source": "/-- Chow's theorem (1961) for games: a weighted game is determined, among all `{0,1}`-valued set functions, by its number of winning coalitions and, for each player, the number of winning coalitions containing that player. -/\ntheorem weighted_game_eq_of_chow_parameters_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_weighted_game f)\n    (hW : (Finset.univ.filter fun S : Finset (Fin n) => f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => g S = true).card)\n    (hA : ∀ i, (Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ f S = true).card\n      = (Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ g S = true).card) :\n    f = g := by\n  obtain ⟨w, q, -, hw⟩ := hf\n  have hlin : ∀ v : Finset (Fin n) → Bool,\n      ∑ S, (if v S then (1:ℝ) else 0) * ∑ i ∈ S, w i\n        = ∑ i, w i * ((Finset.univ.filter fun S : Finset (Fin n) => i ∈ S ∧ v S = true).card : ℝ) := by\n    intro v\n    have hS : ∀ S : Finset (Fin n), ∑ i ∈ S, w i = ∑ i, if i ∈ S then w i else 0 := by\n      intro S; rw [Finset.sum_ite_mem, Finset.univ_inter]\n    simp_rw [hS, Finset.mul_sum]\n    rw [Finset.sum_comm]\n    apply Finset.sum_congr rfl\n    intro i _\n    rw [Finset.card_filter, Nat.cast_sum, Finset.mul_sum]\n    apply Finset.sum_congr rfl\n    intro S _\n    by_cases hi : i ∈ S <;> by_cases hv : v S = true <;> simp [hi, hv]\n  have hcnt : ∀ v : Finset (Fin n) → Bool,\n      ((Finset.univ.filter fun S : Finset (Fin n) => v S = true).card : ℝ)\n        = ∑ S, (if v S then (1:ℝ) else 0) := by\n    intro v; rw [Finset.card_filter]; push_cast; rfl\n  have hzero : ∑ S, ((if f S then (1:ℝ) else 0) - (if g S then 1 else 0)) * (∑ i ∈ S, w i - q) = 0 := by\n    have e : ∀ S : Finset (Fin n), ((if f S then (1:ℝ) else 0) - (if g S then 1 else 0)) * (∑ i ∈ S, w i - q)\n        = (if f S then (1:ℝ) else 0) * ∑ i ∈ S, w i - (if g S then (1:ℝ) else 0) * ∑ i ∈ S, w i\n          - q * ((if f S then (1:ℝ) else 0) - (if g S then 1 else 0)) := fun S => by ring\n    rw [show (∑ S, ((if f S then (1:ℝ) else 0) - (if g S then 1 else 0)) * (∑ i ∈ S, w i - q))\n        = (∑ S, (if f S then (1:ℝ) else 0) * ∑ i ∈ S, w i)\n          - (∑ S, (if g S then (1:ℝ) else 0) * ∑ i ∈ S, w i)\n          - q * ((∑ S, (if f S then (1:ℝ) else 0)) - ∑ S, (if g S then (1:ℝ) else 0)) by\n        rw [mul_sub, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib]\n        exact Finset.sum_congr rfl fun S _ => by rw [e S]; ring]\n    rw [hlin f, hlin g, ← hcnt f, ← hcnt g, hW]\n    simp_rw [hA]\n    ring\n  have hnn : ∀ S ∈ (Finset.univ : Finset (Finset (Fin n))),\n      0 ≤ ((if f S then (1:ℝ) else 0) - (if g S then 1 else 0)) * (∑ i ∈ S, w i - q) := by\n    intro S _\n    have hS := hw S\n    by_cases hfS : f S = true <;> by_cases hgS : g S = true\n    · simp [hfS, hgS]\n    · have := hS.1 hfS\n      simp [hfS, hgS]\n      linarith\n    · have : ∑ i ∈ S, w i < q := lt_of_not_ge fun h => hfS (hS.2 h)\n      simp [hfS, hgS]\n      linarith\n    · simp [hfS, hgS]\n  have hle : ∀ S, g S = true → f S = true := by\n    intro S hgS\n    by_contra hfS\n    have h0 := (Finset.sum_eq_zero_iff_of_nonneg hnn).1 hzero S (Finset.mem_univ S)\n    have hlt : ∑ i ∈ S, w i < q := by\n      by_contra hq; exact hfS ((hw S).2 (not_lt.1 hq))\n    simp only [Bool.not_eq_true] at hfS\n    simp [hfS, hgS] at h0\n    linarith\n  have hsub : (Finset.univ.filter fun S : Finset (Fin n) => g S = true)\n      ⊆ (Finset.univ.filter fun S : Finset (Fin n) => f S = true) := by\n    intro S; simp only [Finset.mem_filter, Finset.mem_univ, true_and]; exact hle S\n  have heq := Finset.eq_of_subset_of_card_le hsub hW.le\n  funext S\n  have hS := congrArg (fun F => S ∈ F) heq\n  simp only [Finset.mem_filter, Finset.mem_univ, true_and, eq_iff_iff] at hS\n  cases hfS : f S <;> cases hgS : g S <;> simp_all",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_weighted_game"
+   ],
+   "used_by": [
+    "weighted_game_eq_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/WeightedGameEqOfChowParametersEq.lean",
+   "proved_at": 1790955906,
+   "provenance": "literature",
+   "citation": "Chow, On the characterization of threshold functions, 1961; the game form with theta = q, proved by the operator (Claude), 2026-10-02",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "weighted_game_eq_of_swing_table_eq",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 249,
+   "informal": "Fried's swing-rigidity conjecture (arXiv:2607.07013, Conjecture 10.2) is true: if f is a weighted simple game and g is any simple game with the same swing table, then f = g.",
+   "statement": "theorem weighted_game_eq_of_swing_table_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_simple_game f) (hfw : is_weighted_game f) (hg : is_simple_game g)\n    (h : ∀ i k, swing_table f i k = swing_table g i k) : f = g",
+   "source": "/-- Fried's swing-rigidity conjecture (arXiv:2607.07013, Conjecture 10.2) holds: a weighted voting game is determined by its swing table among all simple games. -/\ntheorem weighted_game_eq_of_swing_table_eq {n : ℕ} (f g : Finset (Fin n) → Bool)\n    (hf : is_simple_game f) (hfw : is_weighted_game f) (hg : is_simple_game g)\n    (h : ∀ i k, swing_table f i k = swing_table g i k) : f = g :=\n  weighted_game_eq_of_chow_parameters_eq f g hfw\n    (simple_game_card_winning_eq_of_swing_table_eq f g hf hg h)\n    (simple_game_card_winning_mem_eq_of_swing_table_eq f g hf hg h)",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_simple_game",
+    "is_weighted_game",
+    "swing_table",
+    "simple_game_card_winning_eq_of_swing_table_eq",
+    "simple_game_card_winning_mem_eq_of_swing_table_eq",
+    "weighted_game_eq_of_chow_parameters_eq"
+   ],
+   "used_by": [
+    "exists_not_weighted_simple_games_ne_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/WeightedGameEqOfSwingTableEq.lean",
+   "proved_at": 1790956010,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "swing_table_eq_zero_of_lt",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 250,
+   "informal": "In a game on n players, T(i, k) = 0 whenever k > n.",
+   "statement": "theorem swing_table_eq_zero_of_lt {n : ℕ} (v : Finset (Fin n) → Bool) (i : Fin n) (k : ℕ)\n    (hk : n < k) : swing_table v i k = 0",
+   "source": "/-- A swing table vanishes at sizes larger than the number of players. -/\ntheorem swing_table_eq_zero_of_lt {n : ℕ} (v : Finset (Fin n) → Bool) (i : Fin n) (k : ℕ)\n    (hk : n < k) : swing_table v i k = 0 := by\n  unfold swing_table\n  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]\n  intro S _ h\n  have := Finset.card_le_univ S\n  simp only [Fintype.card_fin] at this\n  omega",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "swing_table"
+   ],
+   "used_by": [
+    "exists_simple_games_ne_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SwingTableEqZeroOfLt.lean",
+   "proved_at": 1790956343,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "exists_simple_games_ne_of_swing_table_eq",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 251,
+   "informal": "Fried's Example 10.1: the five-player simple games with minimal winning coalitions {1,2,3}, {0,2,4}, {0,3,4}, {1,3,4} and {0,1,2}, {0,3,4}, {1,3,4}, {2,3,4} are different simple games with the same swing table.",
+   "statement": "theorem exists_simple_games_ne_of_swing_table_eq :\n    ∃ f g : Finset (Fin 5) → Bool, is_simple_game f ∧ is_simple_game g ∧\n      (∀ i k, swing_table f i k = swing_table g i k) ∧ f ≠ g",
+   "source": "/-- Fried's Example 10.1 (arXiv:2607.07013): the simple games on five players with minimal winning coalitions {123, 024, 034, 134} and {012, 034, 134, 234} are different but have the same swing table. -/\ntheorem exists_simple_games_ne_of_swing_table_eq :\n    ∃ f g : Finset (Fin 5) → Bool, is_simple_game f ∧ is_simple_game g ∧\n      (∀ i k, swing_table f i k = swing_table g i k) ∧ f ≠ g := by\n  refine ⟨fun S => decide ({1, 2, 3} ⊆ S ∨ {0, 2, 4} ⊆ S ∨ {0, 3, 4} ⊆ S ∨ {1, 3, 4} ⊆ S),\n    fun S => decide ({0, 1, 2} ⊆ S ∨ {0, 3, 4} ⊆ S ∨ {1, 3, 4} ⊆ S ∨ {2, 3, 4} ⊆ S),\n    ⟨?_, by decide, by decide⟩, ⟨?_, by decide, by decide⟩, ?_, ?_⟩\n  · intro S T hST hS\n    simp only [decide_eq_true_eq] at hS ⊢\n    rcases hS with h | h | h | h\n    exacts [Or.inl (h.trans hST), Or.inr (Or.inl (h.trans hST)),\n      Or.inr (Or.inr (Or.inl (h.trans hST))), Or.inr (Or.inr (Or.inr (h.trans hST)))]\n  · intro S T hST hS\n    simp only [decide_eq_true_eq] at hS ⊢\n    rcases hS with h | h | h | h\n    exacts [Or.inl (h.trans hST), Or.inr (Or.inl (h.trans hST)),\n      Or.inr (Or.inr (Or.inl (h.trans hST))), Or.inr (Or.inr (Or.inr (h.trans hST)))]\n  · intro i k\n    rcases Nat.lt_or_ge 5 k with hk | hk\n    · rw [swing_table_eq_zero_of_lt _ i k hk, swing_table_eq_zero_of_lt _ i k hk]\n    · interval_cases k <;> revert i <;> decide +kernel\n  · intro h\n    have := congrFun h {1, 2, 3}\n    revert this\n    decide",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "swing_table_eq_zero_of_lt",
+    "is_simple_game",
+    "swing_table"
+   ],
+   "used_by": [
+    "exists_not_weighted_simple_games_ne_of_swing_table_eq"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExistsSimpleGamesNeOfSwingTableEq.lean",
+   "proved_at": 1790956552,
+   "provenance": "literature",
+   "citation": "Fried, arXiv:2607.07013, Example 10.1 (the displayed collision pair); checked by the Lean kernel by the operator (Claude), 2026-10-02",
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "exists_not_weighted_simple_games_ne_of_swing_table_eq",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 252,
+   "informal": "The weighted hypothesis in swing rigidity cannot be dropped: there are two different five-player simple games, neither of them weighted, with the same swing table.",
+   "statement": "theorem exists_not_weighted_simple_games_ne_of_swing_table_eq :\n    ∃ f g : Finset (Fin 5) → Bool, is_simple_game f ∧ is_simple_game g ∧\n      ¬ is_weighted_game f ∧ ¬ is_weighted_game g ∧\n      (∀ i k, swing_table f i k = swing_table g i k) ∧ f ≠ g",
+   "source": "/-- The weighted hypothesis in swing rigidity cannot be dropped: there are two different simple games, neither of them weighted, with the same swing table. -/\ntheorem exists_not_weighted_simple_games_ne_of_swing_table_eq :\n    ∃ f g : Finset (Fin 5) → Bool, is_simple_game f ∧ is_simple_game g ∧\n      ¬ is_weighted_game f ∧ ¬ is_weighted_game g ∧\n      (∀ i k, swing_table f i k = swing_table g i k) ∧ f ≠ g := by\n  obtain ⟨f, g, hf, hg, h, hne⟩ := exists_simple_games_ne_of_swing_table_eq\n  refine ⟨f, g, hf, hg, fun hw => hne (weighted_game_eq_of_swing_table_eq f g hf hw hg h),\n    fun hw => hne (weighted_game_eq_of_swing_table_eq g f hg hw hf fun i k => (h i k).symm).symm, h, hne⟩",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "exists_simple_games_ne_of_swing_table_eq",
+    "is_simple_game",
+    "is_weighted_game",
+    "swing_table",
+    "weighted_game_eq_of_swing_table_eq"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExistsNotWeightedSimpleGamesNeOfSwingTableEq.lean",
+   "proved_at": 1790956729,
+   "provenance": "original",
+   "citation": "operator (Claude), 2026-10-02: proof of Fried's swing-rigidity conjecture (arXiv:2607.07013, Conj. 10.2) by reduction to Chow's theorem (1961)",
    "reading": "",
    "roundtrip": "",
    "explanation": null,

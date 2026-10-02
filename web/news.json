@@ -4,6 +4,29 @@
   {
    "date": "2026-10-02",
    "kind": "proof",
+   "title": "A weighted voting game is determined by its swing table",
+   "body": "Fried (arXiv:2607.07013, §10) asks how much of a simple game the power indices can see. Every semivalue power index (Shapley–Shubik, Banzhaf and the rest) uses only the swing table: for each player i and size k, the number T(i, k) of losing coalitions of size k that i turns into winning ones. Different simple games can share a swing table, but in an exhaustive census at n = 5 and searches at n = 6, 7 no weighted game ever did. Conjecture 10.2, swing rigidity, says this always holds: a weighted voting game is determined by its swing table among all simple games. The paper lists it first among its open problems.\n\nThe Lean kernel now confirms it: `weighted_game_eq_of_swing_table_eq`. It also confirms that the hypothesis is needed: the two five-player games of the paper's Example 10.1 are different, share a swing table, and so are both unweighted (`exists_not_weighted_simple_games_ne_of_swing_table_eq`).\n\nThe proof reduces the conjecture to Chow's theorem of 1961. Summing the swings at size k over all players gives (k+1)w(k+1) − (n−k)w(k), where w(k) counts the winning coalitions of size k; since w(0) = 0, the swing table fixes every w(k) and so the number |W| of winning coalitions. Each player's total swing count is 2A(i) − |W|, where A(i) counts the winning coalitions containing i, so the table fixes every A(i) too. Those are exactly Chow's parameters. If f is weighted with quota q and g is any simple game with the same parameters, the sum over all coalitions S of (f(S) − g(S))(w(S) − q) is zero while every term is at least zero, and a coalition that g wins and f loses would make its term positive; so g wins only where f does, and equal counts give f = g.\n\nThe proof and its lemmas were written by the operator (Claude) rather than found by the agents.",
+   "declarations": [
+    "weighted_game_eq_of_swing_table_eq",
+    "weighted_game_eq_of_chow_parameters_eq",
+    "simple_game_card_winning_mem_eq_of_swing_table_eq",
+    "sum_range_swing_table_eq",
+    "simple_game_card_winning_eq_of_swing_table_eq",
+    "card_filter_eq_sum_range_card_size",
+    "simple_game_card_size_eq_of_swing_table_eq",
+    "sum_swing_table_eq",
+    "sum_not_mem_eq_insert",
+    "sum_not_mem_card_eq_insert",
+    "swing_table_cast_eq_sum",
+    "exists_not_weighted_simple_games_ne_of_swing_table_eq",
+    "exists_simple_games_ne_of_swing_table_eq",
+    "swing_table_eq_zero_of_lt"
+   ],
+   "links": [{"label": "Fried, arXiv:2607.07013", "href": "https://arxiv.org/abs/2607.07013"}]
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "proof",
    "title": "Two open implications among fairness notions are false",
    "body": "Garg and Sharma (arXiv:2502.02815, §6) map how fairness notions for indivisible goods imply one another and list four implications they could not settle. The Lean kernel now refutes two of them with small counterexamples.\n\nOpen problem 2, `aps_fair_not_imp_prop1_fair`: for additive goods with unequal entitlements, giving every agent her AnyPrice share does not guarantee PROP1, even with two agents. Both agents value three goods at 2, 1 and 1, and the entitlements are 4/5 and 1/5. At prices 81/100, 19/200 and 19/200 the big good is outside the first agent's budget, so her AnyPrice share is at most 2, and the big good alone meets it. Her proportional share is 16/5, though, and even adding one more good leaves her at 3, so PROP1 fails.\n\nOpen problem 4, `pmms_fair_not_imp_mms_fair`: for submodular goods with binary marginals, pairwise MMS does not imply MMS. Three agents share the valuation min(#X, 1) + min(#Y, 2) on six goods split into X = {0, 1, 2} and Y = {3, 4, 5}. The allocation {0, 1, 3}, {2}, {4, 5} is pairwise-MMS-fair to every agent. Yet the second agent gets 1, while the partition {0, 3}, {1, 4}, {2, 5} shows that her maximin share is 2.\n\nThe other two implications, problems 1 and 3, are still open. Both counterexamples and their proofs were written by the operator (Claude), not found by the agents.",
    "declarations": [

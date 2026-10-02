@@ -1,0 +1,50 @@
+{
+ "about": "Announcements for the site's News page and feed, newest first. kind is launch (something new on the site or in the machine) or proof (a result Lean accepted). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
+ "entries": [
+  {
+   "date": "2026-10-02",
+   "kind": "launch",
+   "title": "News",
+   "body": "Launches and newly proved results are announced here, newest first. Every proof announced on this page links the declarations Lean accepted; nothing is called proved here that Lean has not checked.\n\nSubscribe to the Atom feed to hear about them without coming back to look.",
+   "links": [{"label": "Atom feed", "href": "news/feed.xml"}]
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "proof",
+   "title": "Catch-Up on {1, …, N} is a draw for N = 3, 4, 7, 8 and 11",
+   "body": "Catch-Up (Isaksen et al., 2015) is a two-player game: players take numbers from a shared set, and on each turn a player keeps taking until their total catches up with or passes the other's, and the higher total at the end wins. The open conjecture is that with perfect play the game on {1, …, N} is a draw exactly when 1 + 2 + … + N is even.\n\nThe Lean kernel now confirms a draw for every N up to 11 with an even total: N = 3, 4, 7, 8 and 11. Each case is checked with `decide +kernel` (no `native_decide`) through a pruned search, `catch_up_search`, which is proved to agree with the game's value. Together with the parity theorem announced the day before, the conjecture holds in Lean for every N ≤ 11. The general case is still open.\n\nThe search, its correctness proof and the split of the conjecture into these steps came from the operator rather than the agents; the agents proved the rest of the ladder.",
+   "declarations": [
+    "catch_up_value_icc_three",
+    "catch_up_value_icc_four",
+    "catch_up_value_icc_seven",
+    "catch_up_value_icc_eight",
+    "catch_up_value_icc_eleven",
+    "catch_up_search_eq"
+   ]
+  },
+  {
+   "date": "2026-10-01",
+   "kind": "proof",
+   "title": "Catch-Up: no draw when the total is odd",
+   "body": "On any finite set of numbers whose sum is odd, Catch-Up cannot end in a draw: the two totals always differ by an odd amount. On {1, …, N} this settles one half of the conjecture above, for every N at once.",
+   "declarations": [
+    "catch_up_value_ne_draw_of_odd_sum",
+    "catch_up_value_icc_ne_draw_of_odd_triangular"
+   ]
+  },
+  {
+   "date": "2026-10-01",
+   "kind": "launch",
+   "title": "A Knowledgebase you can scan, filter and share",
+   "body": "The Knowledgebase now has search, in words or by Lean name, and filters by domain and by kind, with a newest-first order and the Lean statements one switch away. The address keeps the filters, so a link to a filtered view opens the same view for whoever you send it to.",
+   "links": [{"label": "Open the Knowledgebase", "href": "knowledgebase/"}]
+  },
+  {
+   "date": "2026-09-29",
+   "kind": "launch",
+   "title": "The site is live",
+   "body": "Every verified declaration now has its own page: the statement in words and in Lean, the full proof, what it builds on and what builds on it. Anyone with a GitHub account can submit a problem for the machine to attempt, or challenge a result whose name claims more than it proves.",
+   "links": [{"label": "Submit a problem", "href": "submit/"}]
+  }
+ ]
+}

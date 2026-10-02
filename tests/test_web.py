@@ -3,7 +3,8 @@
 Stdlib only -- CI runs this before every deploy without installing aftd. The
 things checked are the ones that fail quietly: a form label edited on GitHub
 that no longer parses, a problem shown with the wrong status, a submitter's
-text reaching the page unescaped, or an unreviewed submission published.
+text reaching the page unescaped, an unreviewed submission published, or a
+proof announced on the News page that Lean never checked.
 """
 
 from __future__ import annotations
@@ -12,6 +13,7 @@ import json
 import re
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -225,16 +227,25 @@ def main() -> int:
           "attempts": 0, "deps": [], "problem": None}],
     )
     cfg = {"repo": "o/r", "branch": "master", "base_url": "https://o.github.io/r/"}
+    news = [
+        {"date": "2026-09-30", "kind": "launch", "title": f"Old launch {evil}",
+         "body": "First paragraph.\n\nSecond with `code`.",
+         "links": [{"label": "Submit", "href": "submit/"},
+                   {"label": "Away", "href": "https://example.org/x"}]},
+        {"date": "2026-10-02", "kind": "proof", "title": "Answer ten is proved",
+         "body": "NEWS-PROOF-BODY", "declarations": ["answer_ten"]},
+    ]
     with tempfile.TemporaryDirectory() as tmp:
         out = Path(tmp) / "_site"
-        n = build(data, issues, cfg, out)
+        n = build(data, issues, cfg, out, news)
         pages = {p.relative_to(out).as_posix(): p.read_text(encoding="utf-8")
                  for p in out.rglob("*.html")}
+        feed = (out / "news" / "feed.xml").read_text(encoding="utf-8")
         everything = "\n".join(pages.values())
         for rel in ("index.html", "knowledgebase/index.html", "results/index.html", "problems/index.html",
                     "submit/index.html", "404.html", "d/answer_ten/index.html",
                     "d/plain_one/index.html", "problems/10/index.html",
-                    "problems/13/index.html"):
+                    "problems/13/index.html", "news/index.html"):
             check(f"page {rel}", rel in pages)
         print("naming")
         check("the old results/ address forwards to the knowledgebase",
@@ -271,7 +282,51 @@ def main() -> int:
         machine = pages["problems/index.html"].split('id="open"', 1)[-1]
         check("a stuck lemma of a problem is not listed again as machine-posed",
               "machine_open" in machine and "stuck_lemma" not in machine)
-        check("the counts returned match", n == {"declarations": 2, "problems": 2}, str(n))
+        check("the counts returned match",
+              n == {"declarations": 2, "problems": 2, "news": 2}, str(n))
+
+        print("news")
+        news_page = pages.get("news/index.html", "")
+        check("news is newest first", 0 < news_page.find("Answer ten is proved") < news_page.find("Old launch"))
+        check("a proof announcement links the declaration", 'href="../d/answer_ten/"' in news_page)
+        check("paragraphs and code are kept", "<p class=\"prose\">Second with <code>code</code>.</p>" in news_page)
+        check("a site link is relative to the root, an outside one left alone",
+              'href="../submit/"' in news_page and 'href="https://example.org/x"' in news_page)
+        check("every page links News in its navigation",
+              all(re.search(r'href="(?:\.\./)*news/"[^>]*>News<', v)
+                  for k, v in site_pages.items() if k != "results/index.html"))
+        check("the home page shows the latest news",
+              'href="news/#n-2026-10-02-answer-ten-is-proved"' in pages["index.html"])
+        try:
+            root = ET.fromstring(feed)
+        except ET.ParseError as ex:
+            root = None
+            check("the feed is well-formed XML", False, str(ex))
+        ns = {"a": "http://www.w3.org/2005/Atom"}
+        entries = root.findall("a:entry", ns) if root is not None else []
+        check("the feed has every entry, newest first",
+              [x.findtext("a:title", namespaces=ns) for x in entries][:1] == ["Answer ten is proved"]
+              and len(entries) == 2)
+        check("feed links are absolute",
+              "https://o.github.io/r/d/answer_ten/" in feed and 'href="../' not in feed)
+        check("pages point feed readers at the feed", 'application/atom+xml' in pages["index.html"])
+
+    def refused(entry: dict) -> str:
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                build(data, [], cfg, Path(tmp) / "_site", [entry])
+        except ValueError as ex:
+            return str(ex)
+        return ""
+
+    base = {"date": "2026-10-02", "kind": "proof", "title": "t", "body": "b"}
+    check("a proof announcement must name what it proves", refused(base) != "")
+    check("a proof announcement may not name an open statement",
+          "machine_open" in refused({**base, "declarations": ["machine_open"]}))
+    check("a proof announcement may not name something unknown",
+          "nope" in refused({**base, "declarations": ["nope"]}))
+    check("an unknown kind is refused", refused({**base, "kind": "rumour"}) != "")
+    check("a malformed date is refused", refused({**base, "kind": "launch", "date": "2 Oct"}) != "")
 
     snap = ROOT / "web" / "data" / "kb.json"
     if snap.is_file():
@@ -279,7 +334,14 @@ def main() -> int:
         real = json.loads(snap.read_text(encoding="utf-8"))
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "_site"
-            n = build(real, [], json.loads((ROOT / "web" / "site.json").read_text()), out)
+            news_file = ROOT / "web" / "news.json"
+            news = json.loads(news_file.read_text())["entries"] if news_file.is_file() else []
+            try:
+                n = build(real, [], json.loads((ROOT / "web" / "site.json").read_text()), out, news)
+                err = ""
+            except ValueError as ex:
+                n, err = {"declarations": -1}, str(ex)
+            check("the committed news names only what the snapshot verified", not err, err)
             check("the committed snapshot builds", n["declarations"] == len(real["declarations"]))
             missing = [d["name"] for d in real["declarations"]
                        for dep in d["deps"] if dep not in {x["name"] for x in real["declarations"]}]

@@ -10,6 +10,9 @@ Inputs, all under `web/`:
 * `data/problems.json` -- written by `fetch_problems.py` from GitHub issues at
   build time. Optional: without it the site simply has no community problems.
 * `site.json` -- the repository and branch that every outbound link points at.
+* `news.json` -- announcements, written by hand: launches and newly proved
+  results. A proof announcement must name only declarations Lean verified, or
+  the build stops.
 
 Pages:
 
@@ -20,6 +23,8 @@ Pages:
                                 the problem it answers, challenges against it
     problems/                   community problems by status, and what is open
     problems/<number>/          one reviewed problem and what answers it
+    news/                       launches and newly proved results, newest first
+    news/feed.xml               the same, as an Atom feed
     submit/                     how to submit a problem or challenge a result
 
 Stdlib only, so CI needs nothing but Python. Everything a submitter wrote is
@@ -58,7 +63,7 @@ FONTS = (
 class Site:
     """Everything the pages are rendered from, with the joins done once."""
 
-    def __init__(self, kb: dict, issues: list[dict], cfg: dict):
+    def __init__(self, kb: dict, issues: list[dict], cfg: dict, news: list[dict] | None = None):
         self.kb = kb
         self.cfg = cfg
         self.repo = cfg["repo"]
@@ -91,6 +96,7 @@ class Site:
         self.in_topic: dict[str, list[dict]] = {}
         for d in self.decls:
             self.in_topic.setdefault(d["topic"], []).append(d)
+        self.news = check_news(self, news or [])
 
     def verified(self, d: dict) -> bool:
         """Whether a theorem's axioms are all trusted. An empty list is the
@@ -129,6 +135,45 @@ class Site:
     def topic_title(self, name: str) -> str:
         t = self.topics.get(name)
         return t["title"] if t else name
+
+
+NEWS_KINDS = {"launch": "Launch", "proof": "Proved"}
+_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def check_news(s: Site, entries: list[dict]) -> list[dict]:
+    """The announcements, newest first, each with the anchor it is linked by.
+
+    A mistake here is the operator's, not a submitter's, so it stops the
+    build instead of being skipped: a proof announced for a declaration Lean
+    has not verified is exactly what the site exists not to publish."""
+    out, seen = [], set()
+    for i, n in enumerate(entries):
+        where = f"news.json entry {i + 1} ({n.get('title', '?')!r})"
+        if not _DATE.match(n.get("date", "")):
+            raise ValueError(f"{where}: date must be YYYY-MM-DD, not {n.get('date')!r}")
+        time.strptime(n["date"], "%Y-%m-%d")
+        if n.get("kind") not in NEWS_KINDS:
+            raise ValueError(f"{where}: kind must be one of {sorted(NEWS_KINDS)}")
+        if not (n.get("title") or "").strip() or not (n.get("body") or "").strip():
+            raise ValueError(f"{where}: needs a title and a body")
+        names = n.get("declarations") or []
+        unknown = [x for x in names if x not in s.by_name]
+        if unknown:
+            raise ValueError(f"{where}: not in the knowledgebase: {', '.join(unknown)}")
+        if n["kind"] == "proof":
+            if not names:
+                raise ValueError(f"{where}: a proof announcement must name its declarations")
+            unverified = [x for x in names if not s.verified(s.by_name[x])]
+            if unverified:
+                raise ValueError(f"{where}: not a verified theorem: {', '.join(unverified)}")
+        nid = "n-" + n["date"] + "-" + (re.sub(r"[^a-z0-9]+", "-", n["title"].lower()).strip("-")[:48] or "x")
+        if nid in seen:
+            raise ValueError(f"{where}: two entries on the same day share a title")
+        seen.add(nid)
+        out.append({**n, "id": nid, "declarations": names, "links": n.get("links") or []})
+    # Newest first; entries of the same day keep the file's order.
+    return sorted(out, key=lambda n: n["date"], reverse=True)
 
 
 def slug(name: str) -> str:
@@ -202,7 +247,12 @@ def highlight_lean(src: str) -> str:
 # ------------------------------------------------------------------- layout
 NAME = "AFTD"
 FULL_NAME = "Auto-Formalizing Theoretical Domains"
-NAV = [("knowledgebase/", "Knowledgebase"), ("problems/", "Problems"), ("submit/", "Submit")]
+NAV = [
+    ("knowledgebase/", "Knowledgebase"),
+    ("problems/", "Problems"),
+    ("news/", "News"),
+    ("submit/", "Submit"),
+]
 
 
 def page(
@@ -233,6 +283,12 @@ def page(
         f'<script src="{root}static/app.js"></script>' if (script or math or wide) else ""
     )
     full = f"{title} · {NAME}" if title != NAME else f"{NAME} · {FULL_NAME}"
+    feed = (
+        f'<link rel="alternate" type="application/atom+xml" title="{NAME} news" '
+        f'href="{root}news/feed.xml">'
+        if s.news
+        else ""
+    )
     t = s.kb["totals"]
     main = f'<main class="home">{body}</main>' if wide else f'<main class="wrap">{body}</main>'
     return f"""<!doctype html>
@@ -249,7 +305,7 @@ def page(
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="{root}static/style.css">
-{head_math}
+{feed}{head_math}
 </head>
 <body>
 <header class="site">
@@ -282,6 +338,7 @@ def page(
       <h2>Explore</h2>
       <a href="{root}knowledgebase/">Knowledgebase</a>
       <a href="{root}problems/">Community problems</a>
+      <a href="{root}news/">News</a>
       <a href="{root}submit/">Submit a problem</a>
     </div>
     <div class="foot-col">
@@ -396,6 +453,61 @@ def problem_card(s: Site, p: dict, root: str) -> str:
     )
 
 
+def news_href(root: str, href: str) -> str:
+    """A link from news.json: absolute URLs and anchors as written, anything
+    else relative to the site root."""
+    return href if re.match(r"^([a-z][a-z0-9+.-]*:|#)", href) else root + href
+
+
+def news_paras(text: str) -> list[str]:
+    return [inline_code(" ".join(p.split())) for p in re.split(r"\n\s*\n", text.strip())]
+
+
+def news_date(n: dict) -> str:
+    return (
+        f'<time datetime="{e(n["date"])}">'
+        f'{e(time.strftime("%d %b %Y", time.strptime(n["date"], "%Y-%m-%d")))}</time>'
+    )
+
+
+def news_item(s: Site, n: dict, root: str) -> str:
+    """One announcement on the News page, in full."""
+    kind = badge(NEWS_KINDS[n["kind"]], "nk-" + n["kind"])
+    decls = ""
+    if n["declarations"]:
+        label = "Verified in Lean" if n["kind"] == "proof" else "Declarations"
+        decls = (
+            f'<div class="news-decls"><span class="small">{label}</span>'
+            + related(s, n["declarations"], root)
+            + "</div>"
+        )
+    links = "".join(
+        f'<a href="{e(news_href(root, l["href"]))}">{e(l["label"])} &rarr;</a>'
+        for l in n["links"]
+    )
+    return (
+        f'<article class="news-item" id="{e(n["id"])}">'
+        f'<p class="news-when">{news_date(n)}{kind}</p>'
+        f'<div class="news-main"><h2><a href="#{e(n["id"])}">{e(n["title"])}</a></h2>'
+        + "".join(f'<p class="prose">{p}</p>' for p in news_paras(n["body"]))
+        + decls
+        + (f'<p class="news-links">{links}</p>' if links else "")
+        + "</div></article>"
+    )
+
+
+def news_card(n: dict, root: str) -> str:
+    """An announcement on the home page: its first paragraph, linking to the rest."""
+    first = re.split(r"\n\s*\n", n["body"].strip(), maxsplit=1)[0]
+    kind = badge(NEWS_KINDS[n["kind"]], "nk-" + n["kind"])
+    return (
+        f'<article class="card news-card">'
+        f'<p class="news-when">{news_date(n)}{kind}</p>'
+        f'<h3><a class="stretch" href="{root}news/#{e(n["id"])}">{e(n["title"])}</a></h3>'
+        f'<p class="prose">{inline_code(clip(first, 200))}</p></article>'
+    )
+
+
 # ------------------------------------------------------------------- pages
 def featured(s: Site) -> list[dict]:
     """Declarations to show in the hero: configured in site.json, else a few
@@ -494,6 +606,14 @@ def render_home(s: Site) -> str:
          "goes public with its full source, rebuildable by anyone with "
          "<code>lake build</code>."),
     ]
+    news_band = ""
+    if s.news:
+        news_band = (
+            '<section class="wrap band news-band"><header class="shead"><h2>News</h2>'
+            '<a href="news/">All news &rarr;</a></header>'
+            f'<div class="news-cards">{"".join(news_card(n, root) for n in s.news[:3])}</div>'
+            "</section>"
+        )
     flow = "".join(
         f'<li><span class="step-n">{i}</span><h3>{name}</h3><p>{text}</p></li>'
         for i, (name, text) in enumerate(steps, start=1)
@@ -556,6 +676,7 @@ def render_home(s: Site) -> str:
   </div>
 </section>
 
+{news_band}
 <section class="wrap band manifesto">
   <blockquote>Point a loop at a curriculum of theoretical domains. Let it state and
   prove, forever. Keep only what Lean accepts. Publish all of it, immediately, to
@@ -1190,6 +1311,70 @@ def render_submit(s: Site) -> str:
     return page(s, title="Submit a problem", root=root, active="submit/", body=body)
 
 
+def render_news(s: Site) -> str:
+    root = "../"
+    items = "".join(news_item(s, n, root) for n in s.news) or (
+        '<p class="empty">Nothing announced yet.</p>'
+    )
+    body = f"""
+<header class="phead">
+  <p class="eyebrow">What is new</p>
+  <h1>News</h1>
+  <p class="lead">Launches, and results newly proved. A result is announced here only
+  once Lean has accepted it, and the announcement links the declarations
+  themselves.</p>
+  <p class="small"><a href="feed.xml">Subscribe to the Atom feed</a></p>
+</header>
+<div class="news-list">{items}</div>
+"""
+    return page(
+        s,
+        title="News",
+        root=root,
+        active="news/",
+        body=body,
+        description="Launches and newly proved results.",
+    )
+
+
+def render_feed(s: Site) -> str:
+    """The announcements as Atom. Feed readers resolve nothing, so every
+    link is absolute."""
+    base = s.cfg.get("base_url", "").rstrip("/") + "/"
+    entries = []
+    for n in s.news:
+        url = f"{base}news/#{n['id']}"
+        content = "".join(f"<p>{p}</p>" for p in news_paras(n["body"]))
+        if n["declarations"]:
+            content += "<ul>" + "".join(
+                f'<li><a href="{e(base)}d/{slug(x)}/"><code>{e(x)}</code></a></li>'
+                for x in n["declarations"]
+            ) + "</ul>"
+        content += "".join(
+            f'<p><a href="{e(news_href(base, l["href"]))}">{e(l["label"])}</a></p>'
+            for l in n["links"]
+        )
+        entries.append(
+            f"<entry><title>{e(n['title'])}</title>"
+            f'<link rel="alternate" href="{e(url)}"/><id>{e(url)}</id>'
+            f"<updated>{n['date']}T00:00:00Z</updated>"
+            f'<category term="{n["kind"]}" label="{NEWS_KINDS[n["kind"]]}"/>'
+            f'<content type="html">{e(content)}</content></entry>'
+        )
+    updated = (s.news[0]["date"] if s.news else s.kb["generated"][:10]) + "T00:00:00Z"
+    return (
+        '<?xml version="1.0" encoding="utf-8"?>\n'
+        '<feed xmlns="http://www.w3.org/2005/Atom">'
+        f"<title>{NAME} news</title><subtitle>{e(FULL_NAME)}: launches and newly proved results</subtitle>"
+        f'<link rel="alternate" href="{e(base)}news/"/>'
+        f'<link rel="self" href="{e(base)}news/feed.xml"/>'
+        f"<id>{e(base)}news/</id><updated>{updated}</updated>"
+        f"<author><name>{NAME}</name></author>"
+        + "".join(entries)
+        + "</feed>\n"
+    )
+
+
 def render_moved(s: Site, to: str) -> str:
     """A page that has moved: it forwards to its new address, keeping the
     query and the anchor so a shared, filtered link still lands where it
@@ -1222,8 +1407,10 @@ def render_404(s: Site) -> str:
 
 
 # -------------------------------------------------------------------- build
-def build(kb: dict, issues: list[dict], cfg: dict, out: Path) -> dict[str, int]:
-    s = Site(kb, issues, cfg)
+def build(
+    kb: dict, issues: list[dict], cfg: dict, out: Path, news: list[dict] | None = None
+) -> dict[str, int]:
+    s = Site(kb, issues, cfg, news)
     if out.exists():
         shutil.rmtree(out)
     shutil.copytree(HERE / "static", out / "static")
@@ -1238,6 +1425,8 @@ def build(kb: dict, issues: list[dict], cfg: dict, out: Path) -> dict[str, int]:
     write("results/index.html", render_moved(s, "knowledgebase/"))
     write("problems/index.html", render_problems(s))
     write("submit/index.html", render_submit(s))
+    write("news/index.html", render_news(s))
+    write("news/feed.xml", render_feed(s))
     write("404.html", render_404(s))
     for d in s.decls:
         write(f"d/{slug(d['name'])}/index.html", render_decl(s, d))
@@ -1247,7 +1436,7 @@ def build(kb: dict, issues: list[dict], cfg: dict, out: Path) -> dict[str, int]:
     # Pages would otherwise run Jekyll over the output and drop nothing useful,
     # but it is slower and ignores directories that start with an underscore.
     write(".nojekyll", "")
-    return {"declarations": len(s.decls), "problems": len(published)}
+    return {"declarations": len(s.decls), "problems": len(published), "news": len(s.news)}
 
 
 def main() -> int:
@@ -1256,15 +1445,18 @@ def main() -> int:
     ap.add_argument("--kb", default=str(HERE / "data" / "kb.json"))
     ap.add_argument("--problems", default=str(HERE / "data" / "problems.json"))
     ap.add_argument("--config", default=str(HERE / "site.json"))
+    ap.add_argument("--news", default=str(HERE / "news.json"))
     args = ap.parse_args()
     kb = json.loads(Path(args.kb).read_text(encoding="utf-8"))
     cfg = json.loads(Path(args.config).read_text(encoding="utf-8"))
     pp = Path(args.problems)
     issues = json.loads(pp.read_text(encoding="utf-8"))["issues"] if pp.is_file() else []
-    n = build(kb, issues, cfg, Path(args.out))
+    np_ = Path(args.news)
+    news = json.loads(np_.read_text(encoding="utf-8"))["entries"] if np_.is_file() else []
+    n = build(kb, issues, cfg, Path(args.out), news)
     print(
         f"wrote {args.out}  ({n['declarations']} declaration pages, "
-        f"{n['problems']} problem pages)"
+        f"{n['problems']} problem pages, {n['news']} news entries)"
     )
     return 0
 

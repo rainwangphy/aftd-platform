@@ -428,6 +428,31 @@ main.wrap>*,.pgroup>*,.split>div>*,.topic>*,.domain>*,.hero-grid>*{min-width:0}
 .card .prose,.math{overflow-wrap:anywhere}
 .katex-display{overflow-x:auto;overflow-y:hidden}
 
+/* ------------------------------------------------------------ news */
+.badge.nk-launch{color:var(--accent);border-color:var(--accent)}
+.badge.nk-proof{color:var(--proved);border-color:var(--proved)}
+.news-when{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;
+           color:var(--ink-3);font-variant-numeric:tabular-nums}
+.news-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:10px}
+.news-card{position:relative}
+.news-card h3{margin:0;font-family:var(--prose);font-size:18.5px;font-weight:600;line-height:1.3}
+.news-card h3 a{color:var(--ink);text-decoration:none}
+.news-card:hover h3 a{color:var(--accent)}
+.news-card .prose{font-size:14.5px;color:var(--ink-2)}
+.news-list{display:flex;flex-direction:column}
+.news-item{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px 28px;padding-block:26px;
+           border-top:1px solid var(--rule);scroll-margin-top:80px}
+.news-item .news-when{flex-direction:column;align-items:flex-start;padding-top:4px}
+.news-main{display:flex;flex-direction:column;gap:12px;min-width:0}
+.news-main h2{margin:0;font-family:var(--prose);font-size:25px;font-weight:600;line-height:1.25}
+.news-main h2 a{color:var(--ink);text-decoration:none}
+.news-main h2 a:hover{color:var(--accent)}
+.news-item:target .news-main h2 a{color:var(--accent)}
+.news-decls{display:flex;flex-direction:column;gap:8px;padding:12px 15px;background:var(--panel);
+            border:1px solid var(--rule);border-left:3px solid var(--proved);border-radius:9px;max-width:80ch}
+.news-links{margin:0;display:flex;flex-wrap:wrap;gap:6px 18px}
+.news-links a{font-weight:600;text-decoration:none}
+
 /* ------------------------------------------------------------ responsive */
 @media (max-width:1000px){
   .brand-full{display:none}
@@ -447,7 +472,9 @@ main.wrap>*,.pgroup>*,.split>div>*,.topic>*,.domain>*,.hero-grid>*{min-width:0}
   .toc nav{padding-bottom:10px}
 }
 @media (max-width:860px){
-  .three,.split,.rules-grid{grid-template-columns:minmax(0,1fr)}
+  .three,.split,.rules-grid,.news-cards{grid-template-columns:minmax(0,1fr)}
+  .news-item{grid-template-columns:minmax(0,1fr)}
+  .news-item .news-when{flex-direction:row;padding-top:0}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stat:nth-child(3){border-left:0;padding-left:0}
   .stat{border-top:1px solid var(--rule-2)}

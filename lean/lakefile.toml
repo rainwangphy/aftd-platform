@@ -3,9 +3,13 @@ version = "0.1.0"
 keywords = ["math"]
 defaultTargets = ["AFTD"]
 
-# These must stay in sync with `Config.lean_options`, which the REPL applies at
-# startup -- otherwise the REPL could accept something `lake build` rejects.
+# These must stay in sync with `Config.lean_options`, `Config.max_heartbeats`
+# and `Config.max_rec_depth`, which the REPL applies at startup -- otherwise the
+# REPL could accept something `lake build` rejects. tests/test_lean_options.py
+# checks it.
 [leanOptions]
+maxHeartbeats = 1000000
+maxRecDepth = 4000
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
 autoImplicit = false
 relaxedAutoImplicit = false

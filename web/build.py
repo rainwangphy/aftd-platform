@@ -674,6 +674,7 @@ def render_home(s: Site) -> str:
   </div>
 </section>
 
+{news_section(s, root)}
 <section class="stats-band">
   <div class="wrap stats">
     {stat(f'{t["declarations"]:,}', "machine-verified declarations",
@@ -685,7 +686,6 @@ def render_home(s: Site) -> str:
   </div>
 </section>
 
-{news_section(s, root)}
 <section class="wrap band manifesto">
   <blockquote>Point a loop at a curriculum of theoretical domains. Let it state and
   prove, forever. Keep only what Lean accepts. Publish all of it, immediately, to

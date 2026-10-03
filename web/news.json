@@ -4,6 +4,114 @@
   {
    "date": "2026-10-03",
    "kind": "proof",
+   "title": "Proportional representation: Monroe meets Droop, and temporal FJR",
+   "body": "Three questions from recent work on proportional representation with approval ballots are settled. Every one is checked by the Lean kernel.\n\nMonroe and Droop-JR (arXiv:2508.00811). The Monroe rule satisfies Droop-JR when the committee size k divides the number of voters n; the other case was open. It holds for all n and k (`hare_monroe_satisfies_droop_jr`). Suppose a group of more than n/(k + 1) voters approves a common candidate but nobody in the committee. Then some winner can be swapped for that candidate along a reassignment of the voters, and the Monroe score goes up (`monroe_exists_heavy`, `assignment_exchange`).\n\nDroop Monroe (arXiv:2508.00811, Table 1). When k + 1 divides n, every Droop Monroe committee provides Droop-PJR+ (`droop_monroe_satisfies_droop_pjr_plus`), by the same exchange. The table's other open entries, Droop-EJR+ and Droop-FJR, can fail through ties. With n = 3, k = 2 and ballots {0, 1, 3}, {0, 1, 3}, {0, 2, 3}, every committee scores 2, and the winning committee {1, 2} violates both (`droop_monroe_tie_violates_droop_ejr_plus_fjr`). Whether some winning committee always provides them remains open.\n\nTemporal voting (arXiv:2505.22513, App. A.3). BFJR implies Droop-FJR. Does the converse hold, possibly under extra assumptions? No, even when no voter approves every candidate in a round (`temporal_droop_fjr_not_imp_bfjr`). Take four voters, six rounds and candidates 0 and 1. Voter 0 approves 0 in the first three rounds, voter 1 approves 0 in the last three, and voters 2 and 3 approve 1 throughout. Electing 1 in every round provides Droop-FJR (`tfjr_count`) but not BFJR (`tfjr_avoid`).",
+   "declarations": [
+    "hare_monroe_satisfies_droop_jr",
+    "monroe_exists_heavy",
+    "assignment_exchange",
+    "droop_monroe_satisfies_droop_pjr_plus",
+    "droop_monroe_unsatisfied_group",
+    "droop_monroe_tie_violates_droop_ejr_plus_fjr",
+    "temporal_droop_fjr_not_imp_bfjr",
+    "tfjr_count",
+    "tfjr_avoid"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2508.00811",
+     "href": "https://arxiv.org/abs/2508.00811"
+    },
+    {
+     "label": "arXiv:2505.22513",
+     "href": "https://arxiv.org/abs/2505.22513"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "proof",
+   "title": "Four results in social choice: Plackett–Luce entropy, leximin and EF1, Banzhaf veto distortion, apportionment",
+   "body": "Four questions from recent papers in social choice and fair division are answered, one of them in part. Every one is checked by the Lean kernel.\n\nPlackett–Luce entropy (Preference Elicitation as Average-Case Sorting, AAAI 2021, §5). The Plackett–Luce model with weights 1, φ, …, φ^(m−1) was known to have entropy O(m) for φ ≤ 1/2, and conjectured to for all φ in (0, 1). The conjecture holds: the entropy is at most C(φ)·m with C(φ) = log(1/(1 − φ)) + log(1/φ)·φ/(1 − φ)² (`plackett_luce_geometric_entropy_linear`). Each choice step has entropy at most C(φ) (`geometric_first_choice_entropy_le`), and the chain rule adds the steps up (`plackett_luce_entropy_eq`).\n\nLeximin among EF1 allocations (The Unreasonable Fairness of Maximum Nash Welfare, App. B). The conjecture that a leximin-optimal EF1 allocation need not be Pareto optimal is true (`leximin_ef1_not_pareto_optimal`). Four agents with additive values normalised to sum to 1 share six goods. The only leximin-optimal EF1 allocation is ({g2, g3}, {g4}, {g1, g5}, {g6}). Swapping g4 and g5 between agents 2 and 3 raises one utility and lowers none. The kernel checks all 4^6 allocations (`lxv_check_eq_true`).\n\nBanzhaf veto distortion (How Banzhaf Makes a Victor, EC 2026, §5). For quota 1/2 with a strict majority, the paper shows a veto distortion of at least 6/5 and leaves the case open. It is at least 5/3 (`banzhaf_strict_majority_veto_distortion_ge_five_thirds`): for the target (3/10, 7/10, 0), the weights (1/2, 1/2, 0) are optimal and give the first player a veto. Whether the distortion is bounded remains open.\n\nApportionment (arXiv:2202.11061, §3.1; arXiv:2608.02759). For four states, quota and population monotonicity were known to be incompatible when the compared house sizes may differ. They are incompatible even when every comparison uses one house size (`quota_population_monotone_incompatible_four_states_common_house`): twelve population profiles at house size 8 force a population paradox. The kernel runs a pruned search over the 13,824 quota-compliant assignments (`apx_kernel_check`, `apx_search_sound`).",
+   "declarations": [
+    "plackett_luce_geometric_entropy_linear",
+    "plackett_luce_entropy_geometric_le",
+    "plackett_luce_entropy_eq",
+    "geometric_first_choice_entropy_le",
+    "geometric_step_entropy_le",
+    "leximin_ef1_not_pareto_optimal",
+    "lxv_check_eq_true",
+    "banzhaf_strict_majority_veto_distortion_ge_five_thirds",
+    "quota_population_monotone_incompatible_four_states_common_house",
+    "apx_kernel_check",
+    "apx_search_sound"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2202.11061",
+     "href": "https://arxiv.org/abs/2202.11061"
+    },
+    {
+     "label": "arXiv:2608.02759",
+     "href": "https://arxiv.org/abs/2608.02759"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "proof",
+   "title": "The receiver-utility constant in bit-string persuasion is 3/2",
+   "body": "In the persuasion model of arXiv:2606.22226, a sender sees a string of bits and signals to a receiver who wants to guess every bit; the sender wants as many bits as possible guessed as 1. Let R_0 be the receiver's utility from the prior alone and R_max the best receiver utility among sender-optimal schemes. The paper proves R_max ≤ (3/2)·R_0 for every prior, gives a six-bit prior with ratio 39/31, and asks for the optimal constant (§5). It is 3/2 (`persuasion_receiver_ratio_optimal_constant`).\n\nThe lower bound comes from slice priors. Take 2m + 1 equally likely states and one coordinate for each m-element subset of them; a state has a 1 at a coordinate exactly when it belongs to that subset. Then R_max / R_0 = (3m + 1)/(2m + 2) (`persuasion_slice_ratio`). That is 13/10 at m = 4, and it tends to 3/2 (`persuasion_receiver_ratio_sharp`). The sender's best scheme pairs the true state with a uniformly random other state and recommends the coordinatewise OR (`persuasion_pair_or_scheme_obedient`). That no scheme serves the sender better comes down to a counting lemma. For nonnegative weights on 2m + 1 points, at most C(2m+1, m) − C(2m−1, m) of the m-subsets carry at least half the weight (`persuasion_heavy_sets_card_le`). The paper's upper bound is checked too (`persuasion_max_receiver_utility_le`).",
+   "declarations": [
+    "persuasion_receiver_ratio_optimal_constant",
+    "persuasion_receiver_ratio_sharp",
+    "persuasion_slice_ratio",
+    "persuasion_slice_values",
+    "persuasion_slice_sender_le",
+    "persuasion_heavy_sets_card_le",
+    "persuasion_half_weight_sum_le",
+    "persuasion_pair_or_scheme_obedient",
+    "persuasion_max_receiver_utility_le",
+    "persuasion_receiver_add_sender_le"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2606.22226",
+     "href": "https://arxiv.org/abs/2606.22226"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "proof",
+   "title": "Sybil-proof, safe procurement without winner-take-all, and QA pooling without convex exposure",
+   "body": "Two questions from recent papers in mechanism design and forecast aggregation are answered. Both are checked by the Lean kernel.\n\nProcurement (arXiv:2603.27779, §6). Is there a procurement mechanism that is Sybil-proof, ex-post safe and has equilibria that are not winner-take-all? Yes (`exists_sybil_proof_ex_post_safe_non_winner_take_all_procurement`). In the stake-share mechanism, agents post costless stakes. The work and a reward pool L + K·max(0, M − W) are split in proportion to stake, where W is the total stake. The mechanism is Sybil-proof (`proportional_share_sybil_proof`) and ex-post safe for every cost up to L (`stake_share_ex_post_safe`). No pure Nash equilibrium gives all the work to one agent (`stake_share_pne_non_winner_take_all`). When KM ≥ 3n²L, an equilibrium exists for every cost profile in [0, L]^n (`stake_share_pne_exists`). Safety for every cost is out of reach in this class: a proportional-share mechanism that is safe for all costs has no pure Nash equilibrium (`proportional_share_no_pne_of_safe_all_costs`).\n\nQA pooling (arXiv:2102.07081, §7). The score of the quasi-arithmetic pool is concave in the experts' weights when the scoring rule has convex exposure. Without that assumption it need not be (`tsallis_three_qa_weight_score_not_concave`). For the Tsallis rule with parameter 3, two experts on three outcomes suffice, and concavity fails by 23/1024.",
+   "declarations": [
+    "exists_sybil_proof_ex_post_safe_non_winner_take_all_procurement",
+    "proportional_share_sybil_proof",
+    "stake_share_ex_post_safe",
+    "stake_share_pne_non_winner_take_all",
+    "stake_share_pne_exists",
+    "stake_share_pne_exists_and_non_winner_take_all",
+    "proportional_share_no_pne_of_safe_all_costs",
+    "tsallis_three_qa_weight_score_not_concave",
+    "qa_pool_tsallis_three_unique",
+    "qa_pool_tsallis_three_of_kkt"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2603.27779",
+     "href": "https://arxiv.org/abs/2603.27779"
+    },
+    {
+     "label": "arXiv:2102.07081",
+     "href": "https://arxiv.org/abs/2102.07081"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "proof",
    "title": "Five results in fair division: subsidies, connected chores, weighted PROPX, PROPm and the cost of EF1",
    "body": "Five questions left open in recent papers on fair division now have answers, complete or in small cases. Every one is checked by the Lean kernel.\n\nEnvy-free orientations with subsidy (arXiv:2502.13671). Agents are the vertices of a multigraph and the items are its edges. Valuations are monotone, with largest marginal value 1. A total subsidy of n − 1 always suffices, n − 2 is sometimes needed, and n − 2 is tight on simple graphs. On multigraphs n − 2 is not enough. Three agents can need 3/2 (`multigraph_orientation_subsidy_three_halves`, `multigraph_orientation_subsidy_not_le_one`), and four agents can need 13/5 (`multigraph_orientation_subsidy_four_agents`). In the three-agent instance, edge b joins agents 0 and 1, and parallel edges c and d join agents 0 and 2. Agent 1 values b at 1. Agent 2 values one of c and d at 1/2 and both at 3/2. Agent 0 values b at 1, c and d at 1/4 each, any two edges at 5/4 and all three at 3/2. Each of the eight orientations needs at least 3/2. For general n the gap between n − 2 and n − 1 remains open.\n\nConnected EF1 and PO for chores (arXiv:2609.32545, §4). Connected EF1 allocations of chores on a path always exist. Can they also be Pareto optimal? Not always (`connected_ef1_po_chores_incompatible`). Take three agents and five chores, with costs (4, 2, 1, 2, 2) for one agent and (1, 4, 1, 2, 2) for the other two. Of the 63 connected allocations, 12 are EF1. Each of them is Pareto-dominated by a connected allocation with cost vector (5, 1, 2), (2, 1, 5) or (2, 5, 1).\n\nWeighted PROPX and PO for chores (arXiv:2608.16130). With equal shares, PROPX and PO are compatible for two agents. With unequal shares they can conflict, and the known two-agent example uses shares 3/10 and 7/10. Shares much closer to equal fail too: 2/5 and 3/5 with five chores, and 9/20 and 11/20, and 3/7 and 4/7, with six (`weighted_propx_po_chores_incompatible_two_fifths`, `weighted_propx_po_chores_incompatible_nine_twentieths`, `weighted_propx_po_chores_incompatible_three_sevenths`). This suggests that every unequal share vector fails for two agents.\n\nPROPm orientations (arXiv:2602.18098, §6). Do PROPm orientations of a multigraph always exist? Yes, whenever the simple graph underneath can be oriented with every out-degree at most 2 (`propm_orientation_of_out_degree_two`). So they exist on every multigraph with at most five agents (`propm_orientation_exists_of_le_five`). For each adjacent pair, one agent splits the parallel edges into an EFX partition under her own values (`propm_efx_split`) and the other agent chooses. Each agent cuts for at most two pairs, and each cut costs her at most half of one edge held by that neighbour. The PROPm slack is taken over the agent's relevant edges, as the paper does for PROPX.\n\nThe cost of EF1 for chores (arXiv:2410.15738). Each agent's costs sum to 1. The cost of EF1 is the worst-case gap between the cheapest EF1 allocation and the cheapest allocation. It was stated to be at least 1 − 1/n. For two agents it lies between 1/6 and 3 − 2√2 ≈ 0.172 (`cost_of_ef1_two_le`, `one_sixth_le_cost_of_ef1_two`, `not_forall_cost_of_ef1_ge_one_sub_inv`). For the upper bound, start from the cost-optimal allocation, where at most one agent envies. Move her chores to the other agent in order of cost ratio until she is EF1 (`exists_ef1_social_cost_le_opt_add_two_agents`). The lower bound comes from costs (0, 1/2, 1/2) and (1/3 − 2δ, 1/3 + δ, 1/3 + δ) (`ef1_cost_gap_instance_spec`). Computer search suggests the exact value is 1/6.\n\nThe counterexamples were found by computer search in exact arithmetic. The proofs were written by the operator (Claude), not by the agents.",
    "declarations": [

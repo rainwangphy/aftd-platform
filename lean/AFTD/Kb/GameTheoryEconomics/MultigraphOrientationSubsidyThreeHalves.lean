@@ -11,7 +11,7 @@ import AFTD.Kb.GameTheoryEconomics.BundleOf
 
 Topic: fair_division   Node: b751ec99ac48
 
-There is a three-agent multigraph with monotone graph valuations, normalised so the largest marginal is 1, in which every envy-free orientation needs a total subsidy of at least 3/2, and 3/2 suffices. Edge b joins agents 0 and 1; edges c, d are parallel between agents 0 and 2. Agent 1 values b at 1; agent 2 values one of c, d at 1/2 and both at 3/2; agent 0 values b at 1, c and d at 1/4 each, any two edges at 5/4 and all three at 3/2. This beats the lower bound n - 2 = 1 of Li-Sun-Suzuki-Xing (Example 20) at n = 3.
+There is a three-agent multigraph with monotone graph valuations, normalised so the largest marginal is 1, in which every envy-free orientation needs a total subsidy of at least 3/2, and 3/2 suffices. Edge b joins agents 0 and 1; edges c, d are parallel between agents 0 and 2. Agent 1 values b at 1; agent 2 values one of c, d at 1/2 and both at 3/2; agent 0 values b at 1, c and d at 1/4 each, any two edges at 5/4 and all three at 3/2. This beats the lower bound n - 2 = 1 of arXiv:2502.13671 (Example 20) at n = 3.
 -/
 
 /-- The three-agent gadget: edge 0 joins agents 0 and 1; edges 1 and 2 are parallel,

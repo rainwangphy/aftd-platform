@@ -11,7 +11,7 @@ import AFTD.Kb.GameTheoryEconomics.IsEnvyFreeWithSubsidy
 
 Topic: fair_division   Node: 5400db66d336
 
-For three agents on a multigraph with monotone valuations, a total subsidy of n - 2 = 1 does not always suffice for an envy-free orientation, unlike simple graphs (Li-Sun-Suzuki-Xing, Thm 21).
+For three agents on a multigraph with monotone valuations, a total subsidy of n - 2 = 1 does not always suffice for an envy-free orientation, unlike simple graphs (arXiv:2502.13671, Thm 21).
 -/
 
 theorem multigraph_orientation_subsidy_not_le_one :

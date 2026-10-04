@@ -19,7 +19,7 @@ Topic: mechanism_design   Node: f0abcb1881ca
 Existence of equilibrium (Proposition 3.1 for two-point rewards): for every static threshold and S >= 2 signals, all players using the two-point scheme is an equilibrium.
 -/
 
-/-- Existence of equilibrium (Prop. 3.1 of Tang–Xu–Zhang–Zhu, for two-point rewards): for every static threshold `T` and `S ≥ 2` signals, the profile in which every player uses `spi_two_point_scheme` is an equilibrium. -/
+/-- Existence of equilibrium (Prop. 3.1 of arXiv:2409.18269, for two-point rewards): for every static threshold `T` and `S ≥ 2` signals, the profile in which every player uses `spi_two_point_scheme` is an equilibrium. -/
 theorem spi_two_point_equilibrium_exists {N S : ℕ} (hS : 2 ≤ S) (x w : Fin N → Fin 2 → ℝ)
     (hinst : spi_is_two_point_instance x w) (T : ℝ) :
     spi_is_equilibrium x w T (fun i => spi_two_point_scheme S (x i 0) (x i 1) (w i 0) T) := by

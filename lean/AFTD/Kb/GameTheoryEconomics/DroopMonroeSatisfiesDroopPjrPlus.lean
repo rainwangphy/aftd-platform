@@ -8,10 +8,10 @@ import AFTD.Kb.GameTheoryEconomics.DroopMonroeUnsatisfiedGroup
 
 Topic: social_choice   Node: 74137c0da414
 
-If k + 1 divides n, every committee selected by the Droop Monroe rule satisfies Droop-PJR+. This settles the PJR+ entry for Droop Monroe that Casey and Elkind (arXiv:2508.00811, Table 1, note a) leave open.
+If k + 1 divides n, every committee selected by the Droop Monroe rule satisfies Droop-PJR+. This settles the PJR+ entry for Droop Monroe that arXiv:2508.00811 (Table 1, note a) leaves open.
 -/
 
-/-- If k + 1 divides n, every committee selected by the Droop Monroe rule satisfies Droop-PJR+. This settles the PJR+ entry for Droop Monroe that Casey and Elkind (arXiv:2508.00811, Table 1, note a) leave open. -/
+/-- If k + 1 divides n, every committee selected by the Droop Monroe rule satisfies Droop-PJR+. This settles the PJR+ entry for Droop Monroe that arXiv:2508.00811 (Table 1, note a) leaves open. -/
 theorem droop_monroe_satisfies_droop_pjr_plus {n m : ℕ} (A : Fin n → Finset (Fin m)) (k : ℕ)
     (W : Finset (Fin m)) (hdiv : (k + 1) ∣ n) (hW : is_droop_monroe_committee A k W) :
     is_droop_pjr_plus A k W := by

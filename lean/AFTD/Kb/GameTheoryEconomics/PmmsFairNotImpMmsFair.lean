@@ -11,7 +11,7 @@ import AFTD.Kb.GameTheoryEconomics.CappedCountMarginal
 
 Topic: fair_division   Node: 8e034309f4af
 
-Garg-Sharma open problem 4 has a negative answer: for submodular goods with binary marginals and equal entitlements, pairwise MMS does not imply MMS. Example: three agents with the same valuation min(#X, 1) + min(#Y, 2) on six goods, X = {0,1,2}, Y = {3,4,5}; the allocation {0,1,3}, {2}, {4,5} is pairwise-MMS-fair but the second agent gets 1 < MMS = 2.
+Open problem 4 of arXiv:2502.02815 has a negative answer: for submodular goods with binary marginals and equal entitlements, pairwise MMS does not imply MMS. Example: three agents with the same valuation min(#X, 1) + min(#Y, 2) on six goods, X = {0,1,2}, Y = {3,4,5}; the allocation {0,1,3}, {2}, {4,5} is pairwise-MMS-fair but the second agent gets 1 < MMS = 2.
 -/
 
 theorem pmms_fair_not_imp_mms_fair :

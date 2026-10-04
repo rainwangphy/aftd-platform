@@ -9,7 +9,7 @@ import AFTD.Kb.NumberTheory.WeaklyConsecutiveEndsCoprime
 
 Topic: elementary_number_theory   Node: f3b3f5bba7b6
 
-Garrison-Seiler-Knowles Conjecture 5.2 holds when the length k is a prime power: a weakly consecutive sequence of length p^n begins or ends with 1.
+Conjecture 5.2 of arXiv:2401.09497 holds when the length k is a prime power: a weakly consecutive sequence of length p^n begins or ends with 1.
 -/
 
 theorem weakly_consecutive_one_at_end_of_isPrimePow {k : ℕ} (σ : Equiv.Perm (Fin k))

@@ -15,7 +15,7 @@ Topic: social_choice   Node: d24375575e56
 No apportionment solution for four states satisfies quota and avoids population paradoxes between profiles at the same house size; twelve profiles at house size 8 already force a paradox.
 -/
 
-/-- **Quota and population monotonicity are incompatible for four states, even with every monotonicity comparison at one common house size.** Gölz, Peters and Procaccia (In This Apportionment Lottery, the House Always Wins, Sec. 3.1) ask whether impossibility holds for `n = 4`; Varshney (arXiv:2608.02759) settles it when house sizes may differ and leaves open the common-house-size version. Here no apportionment solution for four states with positive integer populations satisfies quota and has no population paradox between two profiles at the same house size; twelve profiles at house size 8 already force a paradox. -/
+/-- **Quota and population monotonicity are incompatible for four states, even with every monotonicity comparison at one common house size.** In This Apportionment Lottery, the House Always Wins (Sec. 3.1) asks whether impossibility holds for `n = 4`; arXiv:2608.02759 settles it when house sizes may differ and leaves open the common-house-size version. Here no apportionment solution for four states with positive integer populations satisfies quota and has no population paradox between two profiles at the same house size; twelve profiles at house size 8 already force a paradox. -/
 theorem quota_population_monotone_incompatible_four_states_common_house :
     ¬ ∃ f : (Fin 4 → ℕ) → ℕ → (Fin 4 → ℕ),
       (∀ p h, (∀ i, 0 < p i) → satisfies_quota p h (f p h)) ∧

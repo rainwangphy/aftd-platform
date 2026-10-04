@@ -17,7 +17,7 @@ Topic: general_equilibrium   Node: 8e7d8a7494a8
 At simple majority with strict quota, the Banzhaf index has veto distortion at least 5/3: for target (3/10, 7/10, 0) the weights (1/2, 1/2, 0) are optimal and give player 0, whose target is 3/10, a veto.
 -/
 
-/-- **Veto distortion of Banzhaf power at simple majority with a strict quota is at least 5/3.** de Raaij, Duchin, Procaccia and Tucker-Foltz (How Banzhaf Makes a Victor, EC 2026, Sec. 5) leave open the case `q = 1/2` with strict quota and give `veto-dist ≥ 6/5`. Here, for the Banzhaf index `β^{1/2}` (which at `q = 1/2` is also the adaptive Banzhaf index), the target `m = (3/10, 7/10, 0)` has the optimal weights `w* = (1/2, 1/2, 0)`, under which player 0 (`m₀ = 3/10`) holds a veto (`w*₀ ≥ 1 - q`). Hence `veto-dist_{1/2}(β^{1/2}) ≥ (1 - q)/m₀ = 5/3`. -/
+/-- **Veto distortion of Banzhaf power at simple majority with a strict quota is at least 5/3.** How Banzhaf Makes a Victor (EC 2026, Sec. 5) leaves open the case `q = 1/2` with strict quota and gives `veto-dist ≥ 6/5`. Here, for the Banzhaf index `β^{1/2}` (which at `q = 1/2` is also the adaptive Banzhaf index), the target `m = (3/10, 7/10, 0)` has the optimal weights `w* = (1/2, 1/2, 0)`, under which player 0 (`m₀ = 3/10`) holds a veto (`w*₀ ≥ 1 - q`). Hence `veto-dist_{1/2}(β^{1/2}) ≥ (1 - q)/m₀ = 5/3`. -/
 theorem banzhaf_strict_majority_veto_distortion_ge_five_thirds :
     ∃ m w : Fin 3 → ℝ, in_std_simplex m ∧ is_optimal_banzhaf_weights m (1 / 2) (1 / 2) w ∧
       1 - 1 / 2 ≤ w 0 ∧ (1 - 1 / 2) / m 0 = 5 / 3 := by

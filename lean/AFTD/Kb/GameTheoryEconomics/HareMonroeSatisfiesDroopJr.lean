@@ -9,10 +9,10 @@ import AFTD.Kb.GameTheoryEconomics.MonroeExchange
 
 Topic: social_choice   Node: cf22b0956cf0
 
-Every committee selected by the (Hare) Monroe rule satisfies Droop-JR, for all n and k. This answers the open question of Casey and Elkind (Justified Representation: From Hare to Droop, arXiv:2508.00811, App., after Prop. 2), who proved it only when k divides n.
+Every committee selected by the (Hare) Monroe rule satisfies Droop-JR, for all n and k. This answers the open question of Justified Representation: From Hare to Droop (arXiv:2508.00811, App., after Prop. 2), which proved it only when k divides n.
 -/
 
-/-- Every committee selected by the (Hare) Monroe rule satisfies Droop-JR, for all n and k. This answers the open question of Casey and Elkind (Justified Representation: From Hare to Droop, arXiv:2508.00811, App., after Prop. 2), who proved it only when k divides n. -/
+/-- Every committee selected by the (Hare) Monroe rule satisfies Droop-JR, for all n and k. This answers the open question of Justified Representation: From Hare to Droop (arXiv:2508.00811, App., after Prop. 2), which proved it only when k divides n. -/
 theorem hare_monroe_satisfies_droop_jr {n m : ℕ} (A : Fin n → Finset (Fin m)) (k : ℕ)
     (W : Finset (Fin m)) (hW : is_hare_monroe_committee A k W) : is_droop_jr A k W := by
   obtain ⟨π, hv, hopt⟩ := hW

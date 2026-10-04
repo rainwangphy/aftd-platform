@@ -9,10 +9,10 @@ import AFTD.Kb.GameTheoryEconomics.IsMxsFair
 
 Topic: fair_division   Node: fd9f1a3136b6
 
-Garg-Sharma open problem 1 has a negative answer: for additive goods and equal entitlements, MXS does not imply EEF1, already for three agents. Example: twelve goods worth 2,2,2,1,2,2,2,3,2,2,2,3 to every agent; agent 0 holds the goods worth 1, 3, 3, which is MXS-fair via the EFX certificate {2,2,2,1}, {2,2,2,3}, {2,2,2,3}, but not EEF1-fair because one of the other two agents always gets five of the nine goods worth 2.
+Open problem 1 of arXiv:2502.02815 has a negative answer: for additive goods and equal entitlements, MXS does not imply EEF1, already for three agents. Example: twelve goods worth 2,2,2,1,2,2,2,3,2,2,2,3 to every agent; agent 0 holds the goods worth 1, 3, 3, which is MXS-fair via the EFX certificate {2,2,2,1}, {2,2,2,3}, {2,2,2,3}, but not EEF1-fair because one of the other two agents always gets five of the nine goods worth 2.
 -/
 
-/-- Garg-Sharma open problem 1 (arXiv:2502.02815 v3, Sec. 6) has a negative answer: for additive goods and equal entitlements, MXS does not imply EEF1, already for three agents. -/
+/-- Open problem 1 of arXiv:2502.02815 v3 (Sec. 6) has a negative answer: for additive goods and equal entitlements, MXS does not imply EEF1, already for three agents. -/
 theorem mxs_fair_not_imp_eef1_fair :
     ¬ ∀ (n m : ℕ) (u : Fin n → Fin m → ℝ), (∀ i j, 0 ≤ u i j) →
       ∀ (σ : Fin m → Fin n) (i : Fin n),

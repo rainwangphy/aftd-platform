@@ -16,7 +16,7 @@ import AFTD.Kb.GameTheoryEconomics.PersuasionReceiverAddSenderLe
 
 Topic: mechanism_design   Node: 0a7ebba0bb8d
 
-Yachbes–Tardos, Theorem 4.5 (ratio form). For every prior, R_max(μ) ≤ (3/2) R_0(μ).
+arXiv:2606.22226, Theorem 4.5 (ratio form). For every prior, R_max(μ) ≤ (3/2) R_0(μ).
 -/
 
 open Finset in
@@ -60,7 +60,7 @@ lemma persuasion_or_scheme_sender_utility {ι : Type*} [Fintype ι] [DecidableEq
         ring
 
 open Finset in
-/-- **Yachbes–Tardos, Theorem 4.5 (ratio form).** For every prior, `R_max(μ) ≤ (3/2) R_0(μ)`. -/
+/-- **arXiv:2606.22226, Theorem 4.5 (ratio form).** For every prior, `R_max(μ) ≤ (3/2) R_0(μ)`. -/
 theorem persuasion_max_receiver_utility_le {ι : Type*} [Fintype ι] [DecidableEq ι]
     (μ : (ι → Bool) → ℝ) (hμ : is_bit_prior μ) :
     persuasion_max_receiver_utility μ ≤ 3 / 2 * persuasion_prior_utility μ := by

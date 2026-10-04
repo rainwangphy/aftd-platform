@@ -13,10 +13,10 @@ import AFTD.Kb.GameTheoryEconomics.SubmodZeroMarginals
 
 Topic: fair_division   Node: deca533ea1c3
 
-Garg-Sharma open problem 3 has a positive answer: for submodular goods (monotone, v(empty) = 0) and equal entitlements, every MXS-fair allocation is PROP1-fair. Proof: take an EFX certificate X, B_1..B_{n-1} with v(X) <= v(A); if A is not PROP1, put delta = v(M)/n - v(A) > 0, and pick from each B_j an item g_j outside A with positive marginal over X when there is one (k such items, G). Then v(B_j - g_j) <= v(X), and v(M) <= v(M - G) + k delta. If k = n - 1, v(M - G) <= n v(X); otherwise the remaining items outside A have zero marginal over X and v(M - G) <= (k + 2) v(A). Either way v(M) < n (v(A) + delta) = v(M).
+Open problem 3 of arXiv:2502.02815 has a positive answer: for submodular goods (monotone, v(empty) = 0) and equal entitlements, every MXS-fair allocation is PROP1-fair. Proof: take an EFX certificate X, B_1..B_{n-1} with v(X) <= v(A); if A is not PROP1, put delta = v(M)/n - v(A) > 0, and pick from each B_j an item g_j outside A with positive marginal over X when there is one (k such items, G). Then v(B_j - g_j) <= v(X), and v(M) <= v(M - G) + k delta. If k = n - 1, v(M - G) <= n v(X); otherwise the remaining items outside A have zero marginal over X and v(M - G) <= (k + 2) v(A). Either way v(M) < n (v(A) + delta) = v(M).
 -/
 
-/-- Garg-Sharma open problem 3 (arXiv:2502.02815 v3, Sec. 6) has a positive answer: for submodular goods and equal entitlements, every MXS-fair allocation is PROP1-fair. -/
+/-- Open problem 3 of arXiv:2502.02815 v3 (Sec. 6) has a positive answer: for submodular goods and equal entitlements, every MXS-fair allocation is PROP1-fair. -/
 theorem mxs_fair_imp_prop1_fair_of_submodular :
     ∀ (n m : ℕ) (v : Fin n → Finset (Fin m) → ℝ),
       (∀ i, v i ∅ = 0 ∧ Monotone (v i) ∧ is_submodular (v i)) →

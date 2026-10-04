@@ -19,7 +19,7 @@ Topic: fair_division   Node: 9ed374916b9a
 Choosing the leximin-optimal allocation among EF1 allocations does not guarantee Pareto optimality, even for normalised additive valuations: with 4 agents and 6 goods, a leximin-optimal EF1 allocation exists and every one is Pareto-dominated.
 -/
 
-/-- **Leximin among EF1 allocations is not Pareto optimal** (conjectured by Caragiannis, Kurokawa, Moulin, Procaccia, Shah and Wang, The Unreasonable Fairness of Maximum Nash Welfare, App. B). Four agents, six goods, additive values normalised to sum to 1: there is a leximin-optimal EF1 allocation, and every leximin-optimal EF1 allocation is Pareto-dominated. -/
+/-- **Leximin among EF1 allocations is not Pareto optimal** (conjectured in The Unreasonable Fairness of Maximum Nash Welfare, App. B). Four agents, six goods, additive values normalised to sum to 1: there is a leximin-optimal EF1 allocation, and every leximin-optimal EF1 allocation is Pareto-dominated. -/
 theorem leximin_ef1_not_pareto_optimal :
     ∃ u : Fin 4 → Fin 6 → ℝ, (∀ i g, 0 ≤ u i g) ∧ (∀ i, ∑ g, u i g = 1) ∧
       (∃ σ, is_leximin_ef1 u σ) ∧ ∀ σ, is_leximin_ef1 u σ → ¬ is_pareto_optimal_goods u σ := by

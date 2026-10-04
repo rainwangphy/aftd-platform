@@ -10,7 +10,7 @@ For alpha = 1/2 and beta = 2 with positive costs, the closed form of Lemma 3.1, 
 -/
 
 open Finset in
-/-- For `α = 1/2`, `β = 2` and positive costs, the closed form of Lemma 3.1 of Wang–Wu–Xu, `a j = v j ^ 4 / (c j ^ 2 * D)` with `D = ∑ j, v j ^ 4 / c j > 0`, is a best response. -/
+/-- For `α = 1/2`, `β = 2` and positive costs, the closed form of Lemma 3.1 of arXiv:2511.13678, `a j = v j ^ 4 / (c j ^ 2 * D)` with `D = ∑ j, v j ^ 4 / c j > 0`, is a best response. -/
 lemma pcp_half_two_best_response {k : ℕ} (c v : Fin k → ℝ) (hc : ∀ j, 0 < c j)
     (hD : 0 < ∑ j, v j ^ 4 / c j) :
     pcp_is_best_response (1 / 2) 2 c v (fun j => v j ^ 4 / (c j ^ 2 * ∑ l, v l ^ 4 / c l)) := by

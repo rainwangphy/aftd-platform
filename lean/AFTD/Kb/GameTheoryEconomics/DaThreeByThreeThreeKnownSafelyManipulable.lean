@@ -9,10 +9,10 @@ import AFTD.Kb.GameTheoryEconomics.WomanStrictlyPrefers
 
 Topic: matching_markets   Node: 556b7c01aedc
 
-In the 3x3 market with complete rankings, a woman who knows three agents can safely and profitably manipulate men-proposing deferred acceptance: woman 0 (true m0 > m1 > m2) knows woman 1 (m1 > m0), man 0 (w1 > w0) and man 1 (w0 > w1), and swaps m1 and m2. So the RAT-degree of deferred acceptance without truncation is at most 3 in this market, refuting the conjecture of Hartman, Segal-Halevi and Tao (arXiv:2502.18805, Sec. 8.1) that 5 is tight.
+In the 3x3 market with complete rankings, a woman who knows three agents can safely and profitably manipulate men-proposing deferred acceptance: woman 0 (true m0 > m1 > m2) knows woman 1 (m1 > m0), man 0 (w1 > w0) and man 1 (w0 > w1), and swaps m1 and m2. So the RAT-degree of deferred acceptance without truncation is at most 3 in this market, refuting the conjecture of arXiv:2502.18805 (Sec. 8.1) that 5 is tight.
 -/
 
-/-- In the 3-man, 3-woman market with complete rankings, three known agents already let a woman manipulate men-proposing deferred acceptance safely and profitably: woman 0 (true ranking m0 > m1 > m2) knows woman 1 (m1 > m0 > ...), man 0 (w1 > w0 > ...) and man 1 (w0 > w1 > ...), and swaps m1 and m2. So the RAT-degree of deferred acceptance without truncation is at most 3 here, not 5: the conjecture of Hartman, Segal-Halevi and Tao (arXiv:2502.18805, Sec. 8.1) that 5 is tight fails in this market, where 5 is all the other agents. -/
+/-- In the 3-man, 3-woman market with complete rankings, three known agents already let a woman manipulate men-proposing deferred acceptance safely and profitably: woman 0 (true ranking m0 > m1 > m2) knows woman 1 (m1 > m0 > ...), man 0 (w1 > w0 > ...) and man 1 (w0 > w1 > ...), and swaps m1 and m2. So the RAT-degree of deferred acceptance without truncation is at most 3 here, not 5: the conjecture of arXiv:2502.18805 (Sec. 8.1) that 5 is tight fails in this market, where 5 is all the other agents. -/
 theorem da_three_by_three_three_known_safely_manipulable :
     da_woman_k_known_safely_manipulable 3 3 3 := by
   let km : Fin 3 → Fin 3 → Fin 3 := ![![1, 0, 2], ![0, 1, 2], ![0, 1, 2]]

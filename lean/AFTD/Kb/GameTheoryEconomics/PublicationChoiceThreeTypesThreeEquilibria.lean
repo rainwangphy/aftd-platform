@@ -22,7 +22,7 @@ Topic: equilibria   Node: e1371c6c392c
 A Publication Choice Problem with three strictly ordered types and two venues, alpha = 1/2, beta = 2, satisfying Assumptions 1 and 2, has three pure-strategy equilibria with pairwise different venue impacts.
 -/
 
-/-- Counterexample to Conjecture 4.2 of Wang–Wu–Xu (uniqueness of equilibrium with many types): a three-type instance with strictly increasing types, two venues, `α = 1/2`, `β = 2`, satisfying Assumption 1 (MCR) and Assumption 2 (non-competitive venue), has three pure-strategy equilibria with pairwise different venue impacts. -/
+/-- Counterexample to Conjecture 4.2 of arXiv:2511.13678 (uniqueness of equilibrium with many types): a three-type instance with strictly increasing types, two venues, `α = 1/2`, `β = 2`, satisfying Assumption 1 (MCR) and Assumption 2 (non-competitive venue), has three pure-strategy equilibria with pairwise different venue impacts. -/
 theorem publication_choice_three_types_three_equilibria :
     StrictMono pcy_theta ∧ pcp_is_valid (1 / 2) 2 pcy_theta pcy_mu pcy_cost ∧
       pcp_monotone_cost_ratio pcy_theta pcy_cost ∧ pcp_noncompetitive_venue pcy_cost ∧

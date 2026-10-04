@@ -8,10 +8,10 @@ import AFTD.Kb.GameTheoryEconomics.SwingTable
 
 Topic: general_equilibrium   Node: 9709c043e338
 
-Fried's Example 10.1: the five-player simple games with minimal winning coalitions {1,2,3}, {0,2,4}, {0,3,4}, {1,3,4} and {0,1,2}, {0,3,4}, {1,3,4}, {2,3,4} are different simple games with the same swing table.
+Example 10.1 of arXiv:2607.07013: the five-player simple games with minimal winning coalitions {1,2,3}, {0,2,4}, {0,3,4}, {1,3,4} and {0,1,2}, {0,3,4}, {1,3,4}, {2,3,4} are different simple games with the same swing table.
 -/
 
-/-- Fried's Example 10.1 (arXiv:2607.07013): the simple games on five players with minimal winning coalitions {123, 024, 034, 134} and {012, 034, 134, 234} are different but have the same swing table. -/
+/-- Example 10.1 of arXiv:2607.07013: the simple games on five players with minimal winning coalitions {123, 024, 034, 134} and {012, 034, 134, 234} are different but have the same swing table. -/
 theorem exists_simple_games_ne_of_swing_table_eq :
     ∃ f g : Finset (Fin 5) → Bool, is_simple_game f ∧ is_simple_game g ∧
       (∀ i k, swing_table f i k = swing_table g i k) ∧ f ≠ g := by

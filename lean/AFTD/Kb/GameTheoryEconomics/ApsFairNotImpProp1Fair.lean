@@ -9,7 +9,7 @@ import AFTD.Kb.GameTheoryEconomics.IsProp1Fair
 
 Topic: fair_division   Node: e84058b5db37
 
-Garg-Sharma open problem 2 has a negative answer: for additive goods with unequal entitlements, an allocation can give every agent her AnyPrice share and still fail PROP1, already with two agents. Example: three goods worth (2, 1, 1) to both agents, entitlements 4/5 and 1/5; the first agent gets the good worth 2.
+Open problem 2 of arXiv:2502.02815 has a negative answer: for additive goods with unequal entitlements, an allocation can give every agent her AnyPrice share and still fail PROP1, already with two agents. Example: three goods worth (2, 1, 1) to both agents, entitlements 4/5 and 1/5; the first agent gets the good worth 2.
 -/
 
 theorem aps_fair_not_imp_prop1_fair :

@@ -10,10 +10,10 @@ import AFTD.Kb.GameTheoryEconomics.CyclicOffsetEqIte
 
 Topic: matching_markets   Node: d0b32f67859c
 
-The upper half of the Shield-Core conjecture (Ishida 2026, arXiv:2609.17418, open): in the cyclic Hollow-Shell market C_n, every complete matching has at most floor((n-1)^2/4) blocking pairs. Ishida's Theorem 5.3 gives a matching attaining floor((n-1)^2/4), so this would make it the exact maximum.
+The upper half of the Shield-Core conjecture (arXiv:2609.17418, open): in the cyclic Hollow-Shell market C_n, every complete matching has at most floor((n-1)^2/4) blocking pairs. Theorem 5.3 of that paper gives a matching attaining floor((n-1)^2/4), so this would make it the exact maximum.
 -/
 
-/-- Upper half of the Shield-Core conjecture (Ishida 2026): `β(C_n) ≤ ⌊(n-1)²/4⌋`. Open. -/
+/-- Upper half of the Shield-Core conjecture (arXiv:2609.17418): `β(C_n) ≤ ⌊(n-1)²/4⌋`. Open. -/
 theorem hollow_shell_blocking_pairs_ncard_le (n : ℕ) (μ : Fin n ≃ Fin n) :
     {p : Fin n × Fin n | is_blocking_pair (hollow_shell_market n) μ p.1 p.2}.ncard ≤
       (n - 1) ^ 2 / 4 := by

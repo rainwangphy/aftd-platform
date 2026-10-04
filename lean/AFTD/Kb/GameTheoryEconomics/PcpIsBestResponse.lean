@@ -9,7 +9,7 @@ Program (1) of the Publication Choice Problem: a publication vector a is a best 
 -/
 
 open Finset in
-/-- Program (1) of Wang–Wu–Xu, The Publication Choice Problem: given costs `c` and venue impacts `v`, the publication vector `a` is a best response if it is nonnegative, within the unit budget `∑ j, a j * c j ≤ 1`, and maximises `∑ j, a j ^ α * v j ^ β` among all such vectors. -/
+/-- Program (1) of The Publication Choice Problem (arXiv:2511.13678): given costs `c` and venue impacts `v`, the publication vector `a` is a best response if it is nonnegative, within the unit budget `∑ j, a j * c j ≤ 1`, and maximises `∑ j, a j ^ α * v j ^ β` among all such vectors. -/
 def pcp_is_best_response {k : ℕ} (α β : ℝ) (c v a : Fin k → ℝ) : Prop :=
   (∀ j, 0 ≤ a j) ∧ ∑ j, a j * c j ≤ 1 ∧
     ∀ a' : Fin k → ℝ, (∀ j, 0 ≤ a' j) → ∑ j, a' j * c j ≤ 1 →

@@ -8,10 +8,10 @@ import AFTD.Kb.GameTheoryEconomics.DroopMonroeExchange
 
 Topic: social_choice   Node: e4dec9eeef49
 
-Lemma 2 of Casey–Elkind: if (k+1) divides n and π is an optimal Droop-valid assignment for W, no group of more than n/(k+1) voters, all unsatisfied by π, jointly approves a candidate outside W.
+Lemma 2 of arXiv:2508.00811: if (k+1) divides n and π is an optimal Droop-valid assignment for W, no group of more than n/(k+1) voters, all unsatisfied by π, jointly approves a candidate outside W.
 -/
 
-/-- Casey–Elkind's Lemma 2 for the Droop Monroe rule, in the form used here: if `(k+1) ∣ n` and `π` is an optimal Droop-valid assignment for `W`, no group of more than `n/(k+1)` voters, none of them satisfied by `π`, jointly approves a candidate outside `W`. -/
+/-- Lemma 2 of arXiv:2508.00811 for the Droop Monroe rule, in the form used here: if `(k+1) ∣ n` and `π` is an optimal Droop-valid assignment for `W`, no group of more than `n/(k+1)` voters, none of them satisfied by `π`, jointly approves a candidate outside `W`. -/
 theorem droop_monroe_unsatisfied_group {n m : ℕ} (A : Fin n → Finset (Fin m)) (k : ℕ)
     (W : Finset (Fin m)) (π : Fin n → Option (Fin m)) (hdiv : (k + 1) ∣ n)
     (hv : is_droop_valid_assignment k W π)

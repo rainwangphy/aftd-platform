@@ -21,7 +21,7 @@ Topic: equilibria   Node: ef284b1bf8f8
 A binary-type Publication Choice Problem with two venues, alpha = 1/2, beta = 2, satisfying Assumptions 1 and 2, has three pure-strategy equilibria with pairwise different venue impacts (all publication amounts positive).
 -/
 
-/-- Counterexample to Theorem 4.1 of Wang–Wu–Xu (The Publication Choice Problem, AAAI 2026): a binary-type instance with two venues, `α = 1/2`, `β = 2`, satisfying Assumption 1 (MCR) and Assumption 2 (non-competitive venue), has three pure-strategy equilibria with pairwise different venue impacts, each with every type publishing a positive amount at every venue. -/
+/-- Counterexample to Theorem 4.1 of arXiv:2511.13678 (The Publication Choice Problem, AAAI 2026): a binary-type instance with two venues, `α = 1/2`, `β = 2`, satisfying Assumption 1 (MCR) and Assumption 2 (non-competitive venue), has three pure-strategy equilibria with pairwise different venue impacts, each with every type publishing a positive amount at every venue. -/
 theorem publication_choice_three_equilibria :
     pcp_is_valid (1 / 2) 2 pcx_theta pcx_mu pcx_cost ∧ pcp_monotone_cost_ratio pcx_theta pcx_cost ∧
       pcp_noncompetitive_venue pcx_cost ∧

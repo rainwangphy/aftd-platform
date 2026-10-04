@@ -10,10 +10,10 @@ import AFTD.Kb.GameTheoryEconomics.PublicationChoiceThreeEquilibria
 
 Topic: equilibria   Node: 500588ac1693
 
-Theorem 4.1 of Wang-Wu-Xu is false: not every binary-type Publication Choice Problem satisfying the standing assumptions, Assumption 1 and Assumption 2 has a unique pure-strategy equilibrium.
+Theorem 4.1 of arXiv:2511.13678 is false: not every binary-type Publication Choice Problem satisfying the standing assumptions, Assumption 1 and Assumption 2 has a unique pure-strategy equilibrium.
 -/
 
-/-- Theorem 4.1 of Wang–Wu–Xu is false: not every binary-type Publication Choice Problem satisfying the standing assumptions, Assumption 1 (MCR) and Assumption 2 (non-competitive venue) has a unique pure-strategy equilibrium, even counting only the venue impacts. -/
+/-- Theorem 4.1 of arXiv:2511.13678 is false: not every binary-type Publication Choice Problem satisfying the standing assumptions, Assumption 1 (MCR) and Assumption 2 (non-competitive venue) has a unique pure-strategy equilibrium, even counting only the venue impacts. -/
 theorem publication_choice_binary_equilibrium_not_unique :
     ¬ ∀ (α β : ℝ) (θ μ : Fin 2 → ℝ) (c : Fin 2 → Fin 2 → ℝ),
         pcp_is_valid α β θ μ c → pcp_monotone_cost_ratio θ c → pcp_noncompetitive_venue c →

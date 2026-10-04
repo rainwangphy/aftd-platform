@@ -11,11 +11,11 @@ import AFTD.Kb.GameTheoryEconomics.PersuasionSliceRatio
 
 Topic: mechanism_design   Node: b7c090676f88
 
-The 3/2 bound of Yachbes–Tardos is sharp. For every c < 3/2 there is a prior with R_max(μ) > c · R_0(μ).
+The 3/2 bound of arXiv:2606.22226 is sharp. For every c < 3/2 there is a prior with R_max(μ) > c · R_0(μ).
 -/
 
 open Finset in
-/-- **The `3/2` bound of Yachbes–Tardos is sharp.** For every `c < 3/2` there is a prior with
+/-- **The `3/2` bound of arXiv:2606.22226 is sharp.** For every `c < 3/2` there is a prior with
 `R_max(μ) > c · R_0(μ)`. -/
 theorem persuasion_receiver_ratio_sharp (c : ℝ) (hc : c < 3 / 2) :
     ∃ m : ℕ, 1 ≤ m ∧ is_bit_prior (persuasion_slice_prior m) ∧

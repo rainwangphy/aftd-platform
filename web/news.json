@@ -2,6 +2,35 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine) or proof (a result Lean accepted). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-04",
+   "kind": "proof",
+   "title": "Two answers from Haifeng Xu's papers: publication choice and strategic prophets",
+   "body": "Two questions from recent papers of Haifeng Xu and coauthors are settled, both negatively. Every result is checked by the Lean kernel.\n\nThe Publication Choice Problem (arXiv:2511.13678, AAAI 2026). Theorem 4.1 states that a binary-type problem with a non-competitive venue has a unique pure-strategy equilibrium, and Conjecture 4.2 extends this to many types. Both fail. Take α = 1/2, β = 2 and two venues. Types 1 and 8 have densities 1/3 and 2/3. The first venue costs 1 for both types. The second costs 128 for the low type and 8 for the high type. This instance satisfies Assumptions 1 and 2 and has three equilibria with different venue impacts (`publication_choice_three_equilibria`, `publication_choice_binary_equilibrium_not_unique`). The best response has a closed form (`pcp_half_two_best_response`). Each equilibrium comes from a root of a degree-9 polynomial, and the intermediate value theorem gives three roots. Types 1, 2 and 8 with densities 3/10, 1/20 and 13/20 do the same for Conjecture 4.2 (`publication_choice_three_types_three_equilibria`, `publication_choice_many_type_equilibrium_not_unique`). With two venues, the equilibrium condition reduces to one variable for any number of types (`pcp_two_venue_equilibrium_of_fixed_point`).\n\nProphet inequality with strategic reward signaling (arXiv:2409.18269, NeurIPS 2024, Remark 4.1 and §6). Is some threshold stopping policy 1/2-robust? For static thresholds, no. There are four players: X1 = 24/5 surely; X2 = 9 with probability 1/10, else 3; X3 = 1000 with probability 1/300, else 0; X4 = 40 with probability 1/25, else 0. Then OPT = 155039/15625. Under every static threshold and in every equilibrium of the players' signaling game, the searcher gets at most 721/150 < OPT/2 (`spx_searcher_payoff_le`). The threshold T = 9 attains this bound, a ratio of 450625/930234 ≈ 0.4844 (`spx_searcher_payoff_at_nine`, `strategic_prophet_no_half_robust_static_threshold`). The signaling game is formalised in full, with finite signal sets. Equilibria exist for every threshold (`spi_two_point_equilibrium_exists`). In every equilibrium, each reached player behaves as in Proposition 3.1 (`spi_two_point_equilibrium_pinned`). Whether a dynamic threshold can be 1/2-robust remains open.",
+   "declarations": [
+    "publication_choice_three_equilibria",
+    "publication_choice_binary_equilibrium_not_unique",
+    "pcp_half_two_best_response",
+    "publication_choice_three_types_three_equilibria",
+    "publication_choice_many_type_equilibrium_not_unique",
+    "pcp_two_venue_equilibrium_of_fixed_point",
+    "spx_searcher_payoff_le",
+    "spx_searcher_payoff_at_nine",
+    "strategic_prophet_no_half_robust_static_threshold",
+    "spi_two_point_equilibrium_exists",
+    "spi_two_point_equilibrium_pinned"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2511.13678",
+     "href": "https://arxiv.org/abs/2511.13678"
+    },
+    {
+     "label": "arXiv:2409.18269",
+     "href": "https://arxiv.org/abs/2409.18269"
+    }
+   ]
+  },
+  {
    "date": "2026-10-03",
    "kind": "proof",
    "title": "Proportional representation: Monroe meets Droop, and temporal FJR",

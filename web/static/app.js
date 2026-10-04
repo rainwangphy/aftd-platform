@@ -29,14 +29,15 @@
   const norm = s => s.toLowerCase().replace(/[_.\s]+/g, ' ').trim();
 
   // Filters live in the query string, so a filtered view can be shared and
-  // survives a reload; the hash is left alone for the topic anchors.
+  // survives a reload; the hash is left alone for the topic anchors, and the
+  // graph's own keys in the query string are left alone too.
   function readUrl() {
     const p = new URLSearchParams(location.search);
     for (const k of Object.keys(DEFAULTS)) if (p.has(k)) state[k] = p.get(k);
   }
   function writeUrl() {
-    const p = new URLSearchParams();
-    for (const [k, v] of Object.entries(state)) if (v !== DEFAULTS[k]) p.set(k, v);
+    const p = new URLSearchParams(location.search);
+    for (const [k, v] of Object.entries(state)) if (v !== DEFAULTS[k]) p.set(k, v); else p.delete(k);
     const s = p.toString();
     try { history.replaceState(null, '', (s ? '?' + s : location.pathname) + location.hash); } catch (_) {}
   }

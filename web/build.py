@@ -18,7 +18,9 @@ Pages:
 
     index.html                  what this is, what is new (the News section),
                                 where to start
-    knowledgebase/              every verified declaration, searchable
+    knowledgebase/              every verified declaration: first as a dependency
+                                graph (one node per declaration, one arrow per
+                                use), then as a searchable list
     results/                    the page's old address, forwarding to the new one
     d/<name>/                   one declaration: statement, proof, dependencies,
                                 the problem it answers, challenges against it
@@ -327,6 +329,7 @@ def page(
     <div class="foot-col">
       <h2>Explore</h2>
       <a href="{root}knowledgebase/">Knowledgebase</a>
+      <a href="{root}knowledgebase/#graph">Dependency graph</a>
       <a href="{root}problems/">Community problems</a>
       <a href="{root}index.html#news">News</a>
       <a href="{root}submit/">Submit a problem</a>
@@ -850,9 +853,11 @@ def render_kb(s: Site) -> str:
   <h1>Knowledgebase</h1>
   <p class="lead">{t["declarations"]} declarations &mdash; {t["theorems"]} theorems and
   {t["definitions"]} definitions in {t["topics"]} topics &mdash; each elaborated by
-  Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. Open one for
-  its proof, what it builds on and what builds on it.</p>
+  Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. The graph
+  shows what each one builds on; the list below has them all, by topic.</p>
 </header>
+{graph_section(s, root)}
+<h2 class="rhead" id="list">Every declaration</h2>
 <div class="rlayout">
   <aside class="toc">
     <details id="toc" open>
@@ -927,6 +932,111 @@ def render_ack(s: Site) -> str:
         "declaration cost tokens to find, to state, to fail at and to prove. These "
         f'people paid for them.</p><ul class="grants">{rows}</ul></section>'
     )
+
+
+# Domain colours on the graph, in the order the snapshot lists the domains, so
+# a domain keeps its colour when another one is added after it. style.css
+# defines --g1 .. --g8 for light and dark; a ninth domain shares slot 8.
+GRAPH_SLOTS = 8
+
+
+def graph_data(s: Site) -> dict:
+    """The graph as graph.js reads it: nodes as short arrays, and edges as
+    index pairs (user, used), counting only edges between published nodes."""
+    present = {d["domain"] for d in s.decls}
+    doms = [n for n in s.domains if n in present] + sorted(present - set(s.domains))
+    slot = {n: min(i, GRAPH_SLOTS - 1) for i, n in enumerate(n for n in s.domains)}
+    for n in doms:
+        slot.setdefault(n, GRAPH_SLOTS - 1)
+    di = {n: i for i, n in enumerate(doms)}
+    idx = {d["name"]: i for i, d in enumerate(s.decls)}
+    nodes = [
+        [
+            d["name"],
+            1 if d["is_def"] else 0,
+            di[d["domain"]],
+            s.topic_title(d["topic"]),
+            clip(d["informal"], 240),
+            slug(d["name"]),
+        ]
+        for d in s.decls
+    ]
+    edges = sorted(
+        {(idx[d["name"]], idx[u]) for d in s.decls for u in d["deps"] if u in idx and u != d["name"]}
+    )
+    return {
+        "domains": [[n, s.domain_title(n), slot[n] + 1] for n in doms],
+        "nodes": nodes,
+        "edges": [list(x) for x in edges],
+    }
+
+
+def graph_section(s: Site, root: str) -> str:
+    """The top of the knowledgebase page: every declaration as a node, every
+    use as an arrow. graph.js draws it; without JavaScript the list below
+    still has everything."""
+    data = graph_data(s)
+    # Inside <script> only "</" can end the element early.
+    blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    n_thm = sum(1 for n in data["nodes"] if not n[1])
+    legend = "".join(
+        f'<button type="button" class="g-dom" data-dom="{i}" aria-pressed="true">'
+        f'<span class="sw" style="background:var(--g{c})"></span>{e(title)}'
+        f'<span class="c" data-dom-count="{i}"></span></button>'
+        for i, (_, title, c) in enumerate(data["domains"])
+    )
+    return f"""
+<section class="g-sec" id="graph" aria-labelledby="graph-h">
+<div class="g-title"><h2 id="graph-h">Dependency graph</h2>
+<p class="small">One node per declaration, with an arrow to each result its proof uses.
+Click a node to follow its chain; double-click to open its proof.</p></div>
+<div class="g-bar">
+  <div class="search g-search">
+    <label class="vh" for="g-q">Find a declaration</label>
+    <input id="g-q" type="search" placeholder="Find a theorem on the graph"
+      autocomplete="off" role="combobox" aria-expanded="false" aria-controls="g-hits">
+    <ul id="g-hits" class="g-hits" role="listbox" hidden></ul>
+  </div>
+  <div class="seg" role="group" aria-label="Nodes">
+    <button type="button" data-defs="0" aria-pressed="true">Theorems</button>
+    <button type="button" data-defs="1" aria-pressed="false">Theorems + definitions</button>
+  </div>
+  <div class="g-legend" role="group" aria-label="Domains, click to hide or show">{legend}</div>
+</div>
+<div class="g-layout">
+  <div class="g-stage" id="g-stage">
+    <canvas id="g-canvas" aria-label="Dependency graph of {len(data["nodes"])} declarations; the list below has the same declarations as text"></canvas>
+    <div class="g-tip" id="g-tip" hidden></div>
+    <div class="g-zoom">
+      <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
+      <button type="button" data-zoom="out" aria-label="Zoom out">&minus;</button>
+      <button type="button" data-zoom="fit" aria-label="Fit the graph to the view">Fit</button>
+    </div>
+    <p class="g-count small" id="g-count" aria-live="polite"></p>
+    <noscript><p class="g-nojs">The graph needs JavaScript. The list below has
+    every declaration, and each declaration page links what it uses and what
+    uses it.</p></noscript>
+  </div>
+  <aside class="g-panel card" id="g-panel" aria-live="polite" hidden>
+    <button type="button" class="g-close" id="g-close" aria-label="Close">&times;</button>
+    <div id="g-sel"></div>
+  </aside>
+</div>
+<div class="g-read" id="g-idle">
+  <h3>How to read it</h3>
+  <ul class="g-help">
+    <li><span class="g-key thm"></span> theorem or lemma</li>
+    <li><span class="g-key def"></span> definition</li>
+    <li><span class="g-key arr"></span> uses &mdash; points at what the proof relies on</li>
+    <li><span class="g-key big"></span> bigger &mdash; used by more results</li>
+  </ul>
+  <p class="small">{n_thm} theorems and {len(data["nodes"]) - n_thm} definitions,
+  {len(data["edges"])} uses between them. Drag to pan, scroll or pinch to zoom,
+  drag a node to move it, double-click a node to open its proof.</p>
+</div>
+<script type="application/json" id="g-data">{blob}</script>
+<script src="{root}static/graph.js" defer></script>
+</section>"""
 
 
 def render_decl(s: Site, d: dict) -> str:
@@ -1018,6 +1128,7 @@ def render_decl(s: Site, d: dict) -> str:
         parts.append(f'<h2>Challenges</h2><ul class="list">{items}</ul>')
     parts.append(
         '<div class="actions">'
+        f'<a class="btn" href="{root}knowledgebase/?n={quote(d["name"])}#graph">See it in the graph</a>'
         f'<a class="btn" href="{e(s.discussions(d["name"]))}">Discuss this result</a>'
         f'<a class="btn" href="{e(s.new_verdict(d["name"]))}">Challenge it</a></div>'
     )

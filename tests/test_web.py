@@ -217,7 +217,7 @@ def main() -> int:
     ]
     data = kb(
         [decl("answer_ten", problem=10, used_by=["plain_one"]),
-         decl("plain_one", deps=["answer_ten"])],
+         decl("plain_one", deps=["answer_ten"], informal=f"Uses answer ten {evil}")],
         [{"name": "stuck_lemma", "kind": "theorem", "status": "stuck", "topic": "t1",
           "domain": "d1", "informal": "", "statement": "theorem stuck_lemma : False",
           "attempts": 3, "deps": [], "problem": 13},
@@ -310,6 +310,28 @@ def main() -> int:
               "location.hash || \"#news\"" in pages.get("news/index.html", ""))
         check("there is no feed", not (out / "news" / "feed.xml").exists()
               and "atom" not in everything.lower())
+
+        print("graph")
+        gp = pages.get("knowledgebase/index.html", "")
+        m = re.search(r'<script type="application/json" id="g-data">(.*?)</script>', gp, re.S)
+        check("the graph page carries its data", m is not None)
+        g = json.loads(m.group(1)) if m else {"nodes": [], "edges": []}
+        names = [x[0] for x in g["nodes"]]
+        check("every declaration is a node", sorted(names) == ["answer_ten", "plain_one"], str(names))
+        check("a use is an edge from the user to what it uses",
+              g["edges"] == [[names.index("plain_one"), names.index("answer_ten")]] if len(names) == 2 else False,
+              str(g["edges"]))
+        check("the graph's data cannot close its script element early",
+              "</script" not in m.group(1).lower() if m else False)
+        check("the graph opens the knowledgebase page, above the list",
+              0 < gp.find('id="graph"') < gp.find('id="kb"'))
+        check("the graph is part of the knowledgebase, not a tab of its own",
+              "graph/index.html" not in pages
+              and not any("graph" in m.lower() for v in pages.values()
+                          for m in re.findall(r'<nav aria-label="Site">(.*?)</nav>', v, re.S)))
+        check("a declaration page opens the graph on itself",
+              'href="../../knowledgebase/?n=answer_ten#graph"' in pages.get("d/answer_ten/index.html", ""))
+        check("the graph script ships with the site", (out / "static" / "graph.js").is_file())
 
     def refused(entry: dict) -> str:
         try:

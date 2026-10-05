@@ -3,6 +3,69 @@
  "entries": [
   {
    "date": "2026-10-05",
+   "kind": "proof",
+   "title": "Minimal elements of width-two posets, anonymous games, scaling effects and temporal EFX",
+   "body": "Four questions from papers on algorithms, equilibria and mechanism design are settled or advanced. Every result is checked by the Lean kernel.\n\nSorting and selection in posets (arXiv:0707.1532, Section 4). The conjecture is that the deterministic lower bound (w + 1)n/2 − w for finding the minimal elements is tight. It is not. For width 2 the deterministic query complexity is exactly 2n − 3 (`pm_exact_complexity`), so no algorithm achieves 3n/2 − 2 + C for any constant C (`pm_conjecture_false`). The lower bound is an adversary on unions of two chains whose potential, (components − 1) + (alive elements − 2), drops by at most one per query (`pm_lower_bound`).\n\nAnonymous games (arXiv:0710.5582). The conjecture is that sλ is a lower bound for pure approximate equilibria of λ-Lipschitz games with s strategies. It holds for s = 2, 3, 4. For s = 2 the optimal guarantee is exactly 2λ: every game has a pure 2λ-equilibrium, and matching pennies has none better (`ag_two_exact`). For s = 3 and s = 4, a cyclic five-player game with λ = 1/8 has no pure ε-equilibrium for any ε < 4λ (`ag_three_lower`, `ag_four_lower`). The cases s ≥ 5 remain open.\n\nFacility location with scaling effects (arXiv:2402.18908, Conclusion). The conjecture is that strategyproof, surjective deterministic mechanisms are dictatorships. This is true when the mechanism does not know the scaling function and must be strategyproof for every continuous positive q (`fse_scaling_oblivious_dictatorship`). It fails when the mechanism knows q: for q(y) = 1 − 9y/10, under which preferences are not single-peaked, the leftmost mechanism is strategyproof, surjective and anonymous (`fse_dictatorship_conjecture_false`, `fse_conjecture_false_qdep`).\n\nTemporal fair division on identical days (arXiv:2607.17224, Section 7). The question is the best approximation ratio for temporal EFX; a 1/2-TEFX algorithm is known for two agents. No ratio above 1/√2 can be guaranteed: two agents with identical values 0, 1 and 2 + 2√2 per round over three rounds admit no α-TEFX allocation for any α > 1/√2 (`tfx_identical_days_upper_bound`).",
+   "declarations": [
+    "pm_exact_complexity",
+    "pm_conjecture_false",
+    "pm_lower_bound",
+    "ag_two_exact",
+    "ag_three_lower",
+    "ag_four_lower",
+    "fse_scaling_oblivious_dictatorship",
+    "fse_dictatorship_conjecture_false",
+    "fse_conjecture_false_qdep",
+    "tfx_identical_days_upper_bound"
+   ],
+   "links": [
+    {
+     "label": "arXiv:0707.1532",
+     "href": "https://arxiv.org/abs/0707.1532"
+    },
+    {
+     "label": "arXiv:0710.5582",
+     "href": "https://arxiv.org/abs/0710.5582"
+    },
+    {
+     "label": "arXiv:2402.18908",
+     "href": "https://arxiv.org/abs/2402.18908"
+    },
+    {
+     "label": "arXiv:2607.17224",
+     "href": "https://arxiv.org/abs/2607.17224"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "proof",
+   "title": "Two published claims fail: a concavification identity and a team-order bound",
+   "body": "Two claims made inside published proofs are false. Both counterexamples are checked by the Lean kernel.\n\nGeneralized principal-agency (arXiv:2209.01146, WINE 2024, Section 5.3). The APX-hardness proof for costly information acquisition rests on Eq. (5.4): the maximum of u*(σ) − h(σ) over the simplex equals 1/k times the maximum of u* over the cube, where u*(σ) = Σ_i max{σ_i − Σ_j e_ij σ_j, 0} and h(σ) = max{‖σ‖∞ − 1/k, 0}. For the 0/1 adjacency matrix of a graph with independence number α, the two sides are exactly 1 − 1/α + 1/k and α/k (`gpa_lhs_isGreatest`, `gpa_rhs_isGreatest`). They differ whenever 2 ≤ α < k (`gpa_eq54_fails_of_indep`). On the three-vertex path they are 5/6 and 2/3 (`gpa_eq54_false`). The auxiliary claim that u* is at most 1 on the cube fails too (`gpa_cube_max_le_one_false`). Exact maximisation stays NP-hard, but the stated approximation factor needs a new argument.\n\nThe Team Order problem (arXiv:2605.21234, SAGT 2024, Theorem 4(2)). Near weight n/2, an optimal line-up should beat a maximum-weight matching M* by at most (4 + o(1))/(n + 1) · Σ_{e∈M*} (p_e − 1/2)². For every odd n there is an instance where the identity is the unique maximum-weight matching (`team2_unique_maxWeight`) and every one of its edges has probability 1/2, so the bound is 0. The identity wins with probability 1/2, while an optimal line-up wins with probability at least 1/2 + 1/40 (`team_gap_unique`). So the bound fails for every choice of the o(1) term, even if it is only required of some maximum-weight matching (`team_thm4_part2_exists_false`). A simpler instance with a tie gives a gap of 1/16 (`team_thm4_part2_false`).",
+   "declarations": [
+    "gpa_lhs_isGreatest",
+    "gpa_rhs_isGreatest",
+    "gpa_eq54_fails_of_indep",
+    "gpa_eq54_false",
+    "gpa_cube_max_le_one_false",
+    "team2_unique_maxWeight",
+    "team_gap_unique",
+    "team_thm4_part2_exists_false",
+    "team_thm4_part2_false"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2209.01146",
+     "href": "https://arxiv.org/abs/2209.01146"
+    },
+    {
+     "label": "arXiv:2605.21234",
+     "href": "https://arxiv.org/abs/2605.21234"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-05",
    "kind": "daily",
    "title": "Daily reading: 17 proved, 13 open",
    "body": "The Proposer read 0 new paper(s), listed 0 open problem(s), and stated 5 of them in Lean, and posed 1 more from what the knowledgebase already holds (30 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 17 theorem(s); 13 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `cnf_not_satisfiable_of_has_empty_clause`: A CNF formula containing the empty clause cannot be satisfied by any assignment because the empty clause contains no literals to be made true.\n\nProved. `eval_matrix3_decomposition_apply`: Entry (i, j) of the evaluation of a list of 3x3 triads on A and B is the sum, over the triads, of (sum of u_kl A_kl) times (sum of v_kl B_kl) times w_ij.\n\nProved. `matrix3_tensor_rank_le_23_of_comm_ring` (arXiv:2610.01639): Over every commutative ring R, 3x3 matrix multiplication has a valid bilinear decomposition with 23 products (the classical 23-multiplication algorithm with integer coefficients 0, 1, -1); hence its rank over R is at most 23.\n\nProved. `matrix3_tensor_rank_le_of_surjective` (arXiv:2610.01639): If f : R → S is a surjective homomorphism of commutative semirings and 3x3 matrix multiplication over R has a valid triad decomposition with at most r products, then so does 3x3 matrix multiplication over S (apply f to every coefficient).\n\nProved. `matrix3_tensor_rank_ge_of_surjective` (arXiv:2610.01639): If f : R → S is a surjective homomorphism of commutative semirings and every valid triad decomposition of 3x3 matrix multiplication over S has at least r products, then the same holds over R.\n\nProved. `matrix3_tensor_rank_zmod2_le_of_int` (arXiv:2610.01639): A bilinear algorithm for 3x3 matrix multiplication with integer coefficients and r products gives one over the two-element field with r products; in particular a 22-product algorithm over the integers would answer the two-element-field question positively.\n\nProved. `matrix3_tensor_rank_int_ge_of_zmod2` (arXiv:2610.01639): A lower bound r on the number of products of every bilinear algorithm for 3x3 matrix multiplication over the two-element field is also a lower bound over the integers.\n\nProved. `gf8_oracle_syndrome_zero_zero_zero`: Sanity check: the syndrome of the GF(8) oracle is 1 on {x_0, y_0, z_0}, since 1 * 1 = 1 has bit 0 set.\n\nProved. `gf8_oracle_syndrome_same_register`: Sanity check: the syndrome of the GF(8) oracle vanishes on a triple inside one register.\n\nProved. `gf8_oracle_syndrome_singleton`: Sanity check: the GF(8) oracle has no order-one syndrome.\n\nProved. `gf8_oracle_t_count_le_29` (arXiv:2610.01024): The GF(8) multiplication oracle has a parity representation with 29 parities, so its T-count delta(U_3) in Hadamard-free {CNOT, T} circuits is at most 29 (an explicit certificate found by SAT search; the merged schoolbook expansion has 36).\n\nProved. `ccz_layer_syndrome_one_block`: Sanity check: for two CCZ gates the syndrome is 1 on the first block {0, 1, 2}.\n\nOpen. `matrix3_tensor_rank_int_le_22` (arXiv:2610.01639): Open problem (arXiv:2610.01639, Sec. 8): there is a bilinear algorithm for 3x3 matrix multiplication with integer coefficients that uses 22 products, i.e. a list of 22 triads over the integers whose evaluation equals A * B for all integer 3x3 matrices A and…\n\nOpen. `matrix3_tensor_rank_zmod2_le_22` (arXiv:2610.01639): Open problem (arXiv:2610.01639, Sec. 7, Table 1, row 0, interval [22, 23]): the tensor rank of 3x3 matrix multiplication over the two-element field is 22, i.e. there are 22 triads over ZMod 2 whose evaluation equals A * B for all 3x3 matrices A, B over ZMod…\n\nOpen. `matrix3_tensor_rank_zmod2_ge_22` (arXiv:2610.01639): Every bilinear algorithm (valid triad decomposition) for 3x3 matrix multiplication over the two-element field uses at least 22 products. This is the main lower bound of arXiv:2610.01639 (row 0 of its table), proved there by a large computer-assisted Lean…\n\nOpen. `gf8_oracle_t_count_le_23` (arXiv:2610.01024): Open Problem 10 of arXiv:2610.01024 presupposes that the T-count delta(U_3) of the GF(8) multiplication oracle (Hadamard-free {CNOT, T} circuits, diagonal Cliffords free) lies in [20, 23] and asks for its value: this is the upper end, that some set of at…\n\nOpen. `gf8_oracle_t_count_ge_24` (arXiv:2610.01024): Negation of the premise of Open Problem 10 of arXiv:2610.01024: every set of nonzero parities on nine qubits whose order-1, 2, 3 moments equal the syndrome of the GF(8) multiplication oracle has at least 24 elements, i.e. delta(U_3) > 23, so the T-count is…\n\nOpen. `gf8_oracle_t_count_ge_20` (arXiv:2610.01024): The slice-rank floor of arXiv:2610.01024 Proposition 59 at k = 3: every parity representation of the GF(8) multiplication oracle's syndrome has at least G(3) = 20 parities (every nonzero slice of the multiplication tensor has rank 6, so the column code is an…\n\nOpen. `ccz_layer_parity_repr_card_ge` (arXiv:2610.01024): The Hadamard-free floor of arXiv:2610.01024 (Corollary 83): every set of nonzero parities on 3m qubits whose order-1, 2, 3 moments equal the syndrome of the layer of m >= 1 disjoint CCZ gates has at least 6m + 1 elements; so every Hadamard-free {CNOT, T}…\n\nOpen. `resolution_refutation_exists_of_unsat` (arXiv:2610.02047): Completeness of resolution, the length-free part of the problem: every unsatisfiable CNF formula has a resolution refutation.\n\nOpen. `clifford_t_circuit_matrix_nil`: Sanity check: the empty circuit has the identity matrix.\n\nOpen. `clifford_t_gate_matrix_t_sq`: Sanity check: T^2 = S on every qubit.\n\nOpen. `implements_ccz_layer_zero`: Sanity check: with no CCZ gates and no ancillas, the empty circuit implements the (identity) layer.\n\nOpen. `ccz_layer_t_count_below_6m_plus_1_with_hadamards` (arXiv:2610.01024): Open problem (arXiv:2610.01024, abstract and Sec. 1): in general Clifford+T circuits, with Hadamards anywhere and any number of clean ancillas, some layer of m >= 2 disjoint CCZ gates can be implemented with strictly fewer than 6m + 1 T gates (the exact…",

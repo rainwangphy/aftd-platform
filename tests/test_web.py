@@ -254,7 +254,7 @@ def main() -> int:
               "../problems/#submit" in pages.get("submit/index.html", ""))
         check("the Problems page carries the submission guide",
               'id="submit"' in pages.get("problems/index.html", "")
-              and "What happens next" in pages.get("problems/index.html", ""))
+              and "Formalize and prove" in pages.get("problems/index.html", ""))
         prob = pages.get("problems/index.html", "")
         check("the submission guide sits at the top, with the Submit button, above the problems",
               0 <= prob.find('id="submit"') < prob.find('Submit a problem</a>')

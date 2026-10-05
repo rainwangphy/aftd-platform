@@ -1383,7 +1383,7 @@ def render_problems(s: Site) -> str:
   <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a></div>
   <p class="small">Submissions go through a GitHub issue, so you need a GitHub
   account, and the discussion of your problem happens there in public.</p>
-  {submit_guide(s, root)}
+  {submit_guide(s)}
 </header>
 <div class="facts">{counts}</div>
 {"".join(secs)}
@@ -1445,62 +1445,26 @@ def render_problem(s: Site, p: dict) -> str:
     )
 
 
-def submit_guide(s: Site, root: str) -> str:
-    """How to submit a problem or challenge a result, folded under the Submit
-    button at the top of the Problems page. The old submit/ address lands on
-    #submit, which opens it."""
-    doms = "".join(
-        f'<li><strong>{e(d["title"])}</strong> &mdash; {e(clip(d["description"], 160))}</li>'
-        for d in s.kb["domains"]
-    )
+def submit_guide(s: Site) -> str:
+    """How submitting works, folded under the Submit button at the top of the
+    Problems page. The old submit/ address lands on #submit, which opens it."""
     return f"""<details class="submit-guide doc" id="submit-guide">
   <summary>How submitting works</summary>
-  <h3>What to submit</h3>
-  <p>A single, precise statement from one of the domains below. The best
-  candidates are results you can point to in a textbook or paper: the machine
-  is very good at careful transcription and patchy at genuinely new
-  mathematics. Your own conjectures are welcome; expect some of them to end up
-  under <em>needs help</em>. Famous open problems are out of scope.</p>
-  <ul class="doms">{doms}</ul>
-  <p>Write the statement the way you would in a paper. LaTeX between
-  <code>$&hellip;$</code> is rendered. If you know Lean, you may add a Lean
-  statement, but you do not have to.</p>
-
-  <h3>What happens next</h3>
   <ol class="flow">
-    <li><strong>Review.</strong> A maintainer reads every submission before the
-    machine spends anything on it, since every attempt costs tokens. Accepted
-    problems get the <code>accepted</code> label; declined ones are closed with a
-    reason. Until then a submission is only counted on this site, not shown.</li>
-    <li><strong>Formalization.</strong> The machine writes its own Lean statement.
-    It must type-check, pass the round trip against your English, and not reuse a
-    name for something it is not. Any Lean you supplied is reference text and is
-    never run as-is.</li>
-    <li><strong>Proof.</strong> The prover works on it like any other node. If it
-    gets stuck it splits the statement into lemmas, and the problem shows as
-    <em>needs help</em>, with the exact statement it is stuck on.</li>
-    <li><strong>Publication.</strong> When everything answering your problem is
-    proved, it appears on this page and in the
-    knowledgebase, with its full proof, and the issue is updated.</li>
+    <li><strong>Submit.</strong> Open a GitHub issue with one precise statement,
+    written as in a paper (LaTeX between <code>$&hellip;$</code> works). A Lean
+    version is optional.</li>
+    <li><strong>Review.</strong> A maintainer reads it first. Accepted problems are
+    labelled <code>accepted</code>; declined ones are closed with a reason.</li>
+    <li><strong>Formalize and prove.</strong> The machine writes its own Lean
+    statement, checks that it says what you said, and tries to prove it. If it
+    gets stuck, the problem is marked <em>needs help</em>.</li>
+    <li><strong>Publish.</strong> Once proved, it appears here and in the
+    knowledgebase, credited to your GitHub handle.</li>
   </ol>
-
-  <h3>Credit</h3>
-  <p>Your GitHub handle is shown on the problem as the person who posed it.
-  Everything the machine produces is public and free to use; by submitting,
-  you agree that your statement may be published, reformulated and built on
-  by anyone.</p>
-
-  <h3>Challenging a result</h3>
-  <p>Whether a proof is correct is not up for debate: it elaborates and
-  <code>#print axioms</code> is clean, or it is not on this site. Everything else
-  is. If a declaration's name claims more than it proves, if a statement is
-  trivial or vacuous, or if a definition is not the one the subject uses,
-  <a href="{e(s.new_verdict())}">open a challenge</a>. Every declaration page
-  has a button for it too.</p>
-
-  <h3>Just want to talk?</h3>
-  <p>Questions, ideas for the curriculum and results you built on top of the
-  knowledgebase belong in <a href="{e(s.discussions())}">the discussions</a>.</p>
+  <p>Submitted statements are published and free for anyone to use. To dispute
+  a result, <a href="{e(s.new_verdict())}">open a challenge</a>; for anything
+  else, use <a href="{e(s.discussions())}">the discussions</a>.</p>
 </details>
 <script>if (location.hash === "#submit") document.getElementById("submit-guide").open = true;</script>
 """

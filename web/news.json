@@ -1,6 +1,46 @@
 {
- "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted) or daily (written by `aftd daily`: what the day's reading posed, proved and left open). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
+ "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
+  {
+   "date": "2026-10-06",
+   "kind": "proof",
+   "title": "PMMS for chores with three agents, the price of MNW, and the linkedness conjecture",
+   "body": "Three questions from fair-division papers are settled. Every result is checked by the Lean kernel.\n\nPMMS for chores (arXiv:2609.10493). Pairwise-MMS allocations of chores were known to fail only through EFX, whose counterexamples need at least four agents. Three agents suffice: nine chores with strictly positive additive costs (101 minus the values of that paper's three-agent goods instance) admit no allocation that is PMMS for every agent (`pmms_chores_three_agents_may_not_exist`). With two agents a PMMS allocation always exists, so three is the least number of agents. The proof checks all 3^9 allocations, each against a stored violation certificate.\n\nThe price of MNW for two agents (arXiv:1905.04910, Theorem 5.4). The price and the strong price of maximum Nash welfare for two agents were known to lie between 27/23 and 5/4. Both equal 27/23. For additive normalized valuations over any number of goods, every MNW allocation has at least 23/27 of the optimal social welfare (`mnw_two_agents_welfare_le`), and the paper's instance shows that no smaller factor works (`mnw_two_agents_price_lower_bound`). The proof groups the goods into four classes by their owner under an optimal and under an MNW allocation and compares Nash welfare with five allocations built from these classes.\n\nPrice of connectivity (arXiv:1908.05433, Conjecture 3.10). The conjecture says that a graph that is (2,k−1)-linked but not (2,k)-linked has two-agent price of connectivity exactly 2k/(2k−1). It is false. A 4-connected graph on eight vertices is (2,3)-linked but not (2,4)-linked, so the conjecture predicts 8/7. Yet with vertex values (5,5,5,1,1,1,12,0) the maximin share is 15 while every split into two connected parts leaves the poorer part at most 13, so the price is at least 15/13 (`poc_linkedness_conjecture_counterexample`). Every biconnected graph with at most seven vertices satisfies the conjecture (computed, not in Lean).",
+   "declarations": [
+    "pmms_chores_three_agents_may_not_exist",
+    "mnw_two_agents_welfare_le",
+    "mnw_two_agents_price_lower_bound",
+    "poc_linkedness_conjecture_counterexample"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2609.10493",
+     "href": "https://arxiv.org/abs/2609.10493"
+    },
+    {
+     "label": "arXiv:1905.04910",
+     "href": "https://arxiv.org/abs/1905.04910"
+    },
+    {
+     "label": "arXiv:1908.05433",
+     "href": "https://arxiv.org/abs/1908.05433"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "weekly",
+   "week": "2026-W40",
+   "title": "Week of 28 Sep – 4 Oct 2026: Swing table rigidity, publication choice multiplicity, and bounds in fair division and persuasion",
+   "body": "The swing-rigidity conjecture in simple games is confirmed, showing that a weighted voting game is uniquely determined by its swing table. In strategic behavior, uniqueness of pure-strategy equilibria fails in the Publication Choice Problem, and static thresholds cannot achieve a 1/2-competitive prophet inequality under strategic reward signaling. In fair division and information design, the optimal receiver-utility ratio in bit-string persuasion is settled at 3/2, while all four open fairness implications in discrete fair division are resolved. Further results establish bounds on blocking pairs in cyclic marriage markets, characterize Droop representation for the Monroe rule, and verify Catch-Up draws on small initial segments.\n\nLean accepted 175 new theorems this week, drawn from 16 papers and 8 topics; 25 statements posed this week are not yet proved. The reading covered 3 new papers.",
+   "declarations": [],
+   "links": [
+    {
+     "label": "Read the weekly report",
+     "href": "weekly/2026-W40/"
+    }
+   ]
+  },
   {
    "date": "2026-10-05",
    "kind": "proof",

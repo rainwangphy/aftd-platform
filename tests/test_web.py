@@ -288,7 +288,7 @@ def main() -> int:
         check("a stuck lemma of a problem is not listed again as machine-posed",
               "machine_open" in machine and "stuck_lemma" not in machine)
         check("the counts returned match",
-              n == {"declarations": 2, "problems": 2, "news": 6}, str(n))
+              n == {"declarations": 2, "problems": 2, "news": 6, "weekly": 0}, str(n))
 
         print("news")
         home = pages["index.html"]
@@ -337,6 +337,62 @@ def main() -> int:
               'href="../../knowledgebase/?n=answer_ten#graph"' in pages.get("d/answer_ten/index.html", ""))
         check("the graph script ships with the site", (out / "static" / "graph.js").is_file())
 
+    print("weekly")
+    report = {
+        "week": "2026-W40", "start": "2026-09-28", "end": "2026-10-04", "partial": False,
+        "title": f"Ten is the answer {evil}", "lede": "WEEKLY-LEDE with `answer_ten`.",
+        "sections": [{"heading": "The answer", "body": "Para one.\n\nPara two.",
+                      "declarations": ["answer_ten"]}],
+        "outlook": "WEEKLY-OUTLOOK", "numbers": "Lean accepted 1 new theorem(s) this week.",
+        "disclaimer": "Written by a model.",
+    }
+    older = {**report, "week": "2026-W39", "start": "2026-09-21", "end": "2026-09-27",
+             "title": "An earlier week"}
+    wnews = [{"date": "2026-10-05", "kind": "weekly", "week": "2026-W40",
+              "title": "Week of 28 Sep - 4 Oct 2026: ten", "body": "WEEKLY-LEDE",
+              "links": [{"label": "Read the weekly report", "href": "weekly/2026-W40/"}]}]
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "_site"
+        n = build(data, [], cfg, out, wnews, [older, report])
+        pages = {p.relative_to(out).as_posix(): p.read_text(encoding="utf-8")
+                 for p in out.rglob("*.html")}
+        wk = pages.get("weekly/2026-W40/index.html", "")
+        idx = pages.get("weekly/index.html", "")
+        check("each report has a page, and there is an index", wk != "" and idx != ""
+              and "weekly/2026-W39/index.html" in pages)
+        check("the counts include the reports", n.get("weekly") == 2, str(n))
+        check("the index is newest first",
+              0 < idx.find("2026-W40/") < idx.find("2026-W39/"))
+        check("a report links the declarations it names",
+              'href="../../d/answer_ten/"' in wk)
+        check("a report keeps its paragraphs, lede, outlook and numbers",
+              "<p>Para two.</p>" in wk and "WEEKLY-LEDE" in wk and "WEEKLY-OUTLOOK" in wk
+              and "Lean accepted 1 new theorem" in wk)
+        check("a report's text is escaped", evil not in wk and evil not in idx)
+        check("a report links the week before it",
+              'href="../../weekly/2026-W39/"' in wk and "Earlier week" in wk)
+        check("the weekly News item links to its report",
+              'href="weekly/2026-W40/"' in pages["index.html"] and "Weekly report" in pages["index.html"])
+        check("every page's navigation links the weekly reports",
+              all(re.search(r'href="(?:\.\./)*weekly/"[^>]*>Weekly<', v)
+                  for k, v in pages.items() if k not in {"404.html", "results/index.html",
+                                                          "news/index.html"}))
+
+    def wrefused(reports: list[dict], news: list[dict] | None = None) -> str:
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                build(data, [], cfg, Path(tmp) / "_site", news or [], reports)
+        except ValueError as ex:
+            return str(ex)
+        return ""
+
+    check("a well-formed report builds", wrefused([report]) == "")
+    bad_sec = [{**report["sections"][0], "declarations": ["machine_open"]}]
+    check("a report may not name an open statement as verified",
+          "machine_open" in wrefused([{**report, "sections": bad_sec}]))
+    check("a malformed week is refused", wrefused([{**report, "week": "2026-40"}]) != "")
+    check("a weekly News item needs its report", "2026-W40" in wrefused([], wnews))
+
     def refused(entry: dict) -> str:
         try:
             with tempfile.TemporaryDirectory() as tmp:
@@ -366,8 +422,11 @@ def main() -> int:
             out = Path(tmp) / "_site"
             news_file = ROOT / "web" / "news.json"
             news = json.loads(news_file.read_text())["entries"] if news_file.is_file() else []
+            weekly = [json.loads(f.read_text(encoding="utf-8"))
+                      for f in sorted((ROOT / "web" / "weekly").glob("*.json"))]
             try:
-                n = build(real, [], json.loads((ROOT / "web" / "site.json").read_text()), out, news)
+                n = build(real, [], json.loads((ROOT / "web" / "site.json").read_text()), out,
+                          news, weekly)
                 err = ""
             except ValueError as ex:
                 n, err = {"declarations": -1}, str(ex)

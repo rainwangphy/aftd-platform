@@ -1,0 +1,201 @@
+{
+ "week": "2026-W40",
+ "start": "2026-09-28",
+ "end": "2026-10-04",
+ "partial": false,
+ "language": "English",
+ "model": "gemini-3.8-flash",
+ "generated": "2026-10-05",
+ "title": "Swing table rigidity, publication choice multiplicity, and bounds in fair division and persuasion",
+ "lede": "The swing-rigidity conjecture in simple games is confirmed, showing that a weighted voting game is uniquely determined by its swing table. In strategic behavior, uniqueness of pure-strategy equilibria fails in the Publication Choice Problem, and static thresholds cannot achieve a 1/2-competitive prophet inequality under strategic reward signaling. In fair division and information design, the optimal receiver-utility ratio in bit-string persuasion is settled at 3/2, while all four open fairness implications in discrete fair division are resolved. Further results establish bounds on blocking pairs in cyclic marriage markets, characterize Droop representation for the Monroe rule, and verify Catch-Up draws on small initial segments.",
+ "sections": [
+  {
+   "heading": "Equilibrium multiplicity in publication choice and limits of static prophet inequalities",
+   "body": "In the Publication Choice Problem (arXiv:2511.13678), Theorem 4.1 claimed that binary-type problems with a non-competitive venue have a unique pure-strategy equilibrium, and Conjecture 4.2 extended this to multiple types. Both assertions fail. With parameters α = 1/2, β = 2, and two venues, an instance where types 1 and 8 have densities 1/3 and 2/3 satisfies the paper's standing assumptions yet admits three distinct equilibria with differing venue impacts (`publication_choice_three_equilibria`, `publication_choice_binary_equilibrium_not_unique`). The equilibrium condition reduces to finding roots of a degree-9 polynomial where the intermediate value theorem guarantees three roots. A three-type instance with densities 3/10, 1/20, and 13/20 similarly produces three equilibria, refuting Conjecture 4.2 (`publication_choice_three_types_three_equilibria`).\n\nIn prophet inequalities with strategic reward signaling (arXiv:2409.18269), Remark 4.1 asked whether any threshold stopping policy is 1/2-robust against strategic signaling. For static thresholds, the answer is negative. In an instance with four players whose values are drawn independently—X₁ = 24/5 deterministically, X₂ ∈ {3, 9}, X₃ ∈ {0, 1000}, and X₄ ∈ {0, 40}—the offline optimum is OPT = 155039/15625. Under every static threshold and in every equilibrium of the players' signaling game, the searcher achieves at most 721/150, strictly below OPT/2 (`strategic_prophet_no_half_robust_static_threshold`). The threshold T = 9 achieves this upper bound, yielding a competitive ratio of 450625/930234 ≈ 0.4844.",
+   "declarations": [
+    "publication_choice_three_equilibria",
+    "publication_choice_binary_equilibrium_not_unique",
+    "publication_choice_three_types_three_equilibria",
+    "publication_choice_many_type_equilibrium_not_unique",
+    "spx_searcher_payoff_le",
+    "spx_searcher_payoff_at_nine",
+    "strategic_prophet_no_half_robust_static_threshold",
+    "spi_two_point_equilibrium_exists"
+   ]
+  },
+  {
+   "heading": "Swing rigidity for weighted voting games",
+   "body": "In cooperative game theory, semivalue power indices depend entirely on a game's swing table T(i, k), which counts the losing coalitions of size k that player i turns into winning ones. It was conjectured in arXiv:2607.07013 (Conjecture 10.2, swing rigidity) that every weighted voting game is uniquely determined among all simple games by its swing table.\n\nThis conjecture is now proved: `weighted_game_eq_of_swing_table_eq`. The argument reduces swing rigidity to Chow's 1961 characterization theorem. Summing T(i, k) over all players yields (k + 1)w(k + 1) − (n − k)w(k), where w(k) counts winning coalitions of size k. Because w(0) = 0, the swing table recursively fixes each w(k) and hence the total number |W| of winning coalitions. A player's total swing count equals 2A(i) − |W|, where A(i) counts winning coalitions containing i. These counts are Chow's parameters, which uniquely characterize weighted games (`weighted_game_eq_of_chow_parameters_eq`). The weighted hypothesis cannot be dropped: two distinct five-player simple games share a swing table, and neither is weighted (`exists_not_weighted_simple_games_ne_of_swing_table_eq`).",
+   "declarations": [
+    "weighted_game_eq_of_swing_table_eq",
+    "weighted_game_eq_of_chow_parameters_eq",
+    "simple_game_card_winning_mem_eq_of_swing_table_eq",
+    "sum_range_swing_table_eq",
+    "simple_game_card_winning_eq_of_swing_table_eq",
+    "card_filter_eq_sum_range_card_size",
+    "simple_game_card_size_eq_of_swing_table_eq",
+    "sum_swing_table_eq",
+    "sum_not_mem_eq_insert",
+    "sum_not_mem_card_eq_insert",
+    "swing_table_cast_eq_sum",
+    "exists_not_weighted_simple_games_ne_of_swing_table_eq",
+    "exists_simple_games_ne_of_swing_table_eq",
+    "swing_table_eq_zero_of_lt"
+   ]
+  },
+  {
+   "heading": "Settlement of four open fairness implications in discrete fair division",
+   "body": "A recent mapping of relationships among fairness notions in discrete fair division (arXiv:2502.02815) left open four implications between standard criteria. All four questions are now settled: three are refuted by counterexamples and one is proved.\n\nFor additive valuations with equal entitlements, the maximum EFX share (MXS) does not imply epistemic envy-freeness up to one good (EEF1) (`mxs_fair_not_imp_eef1_fair`). In a three-agent, twelve-good instance where goods have values 2, 2, 2, 1, 2, 2, 2, 3, 2, 2, 2, 3, an agent holding {1, 3, 3} attains her MXS value of 7, but dividing the remaining nine goods of value 2 forces another agent to receive five goods, violating EEF1. For additive goods with unequal entitlements, the AnyPrice share (APS) does not guarantee PROP1 (`aps_fair_not_imp_prop1_fair`), as seen in a two-agent, three-good instance with entitlements 4/5 and 1/5.\n\nFor submodular valuations with binary marginals, pairwise maximin share (pairwise MMS) does not imply MMS (`pmms_fair_not_imp_mms_fair`), shown by a partition-matroid valuation over six items across three agents. Conversely, for monotone submodular valuations with equal entitlements, MXS does imply PROP1 (`mxs_fair_imp_prop1_fair_of_submodular`). The proof takes an EFX partition certificate; if PROP1 failed, removing items of positive marginal value from outside bundles would violate submodularity.",
+   "declarations": [
+    "mxs_fair_not_imp_eef1_fair",
+    "aps_fair_not_imp_prop1_fair",
+    "mxs_fair_imp_prop1_fair_of_submodular",
+    "pmms_fair_not_imp_mms_fair",
+    "submod_union_marginal_le",
+    "submod_biUnion_le_sum",
+    "submod_add_items_le",
+    "submod_zero_marginals",
+    "capped_count_marginal"
+   ]
+  },
+  {
+   "heading": "Subsidies, chore allocation, and efficiency bounds in fair division",
+   "body": "Five questions left open in fair division have been answered with bounds and counterexamples. On multigraphs with monotone valuations, envy-free orientations can require a total subsidy strictly exceeding n − 2, contrasting with the simple-graph bound. Three agents on a multigraph can require a subsidy of 3/2 (`multigraph_orientation_subsidy_three_halves`), and four agents can require 13/5.\n\nFor chore allocation on a path (arXiv:2609.32545), connected EF1 allocations need not be Pareto optimal among connected allocations (`connected_ef1_po_chores_incompatible`), shown by a three-agent, five-chore instance where all 12 connected EF1 allocations are Pareto dominated. For chores with unequal shares (arXiv:2608.16130), weighted PROPX and Pareto optimality conflict for shares (2/5, 3/5), (9/20, 11/20), and (3/7, 4/7) (`weighted_propx_po_chores_incompatible_two_fifths`).\n\nOn multigraph orientations (arXiv:2602.18098), PROPm orientations exist whenever the underlying simple graph has an orientation with out-degree at most 2, guaranteeing existence for all multigraphs with at most five agents. Finally, for additive chores with two agents (arXiv:2410.15738), the cost of EF1—the worst-case ratio gap between the cheapest EF1 allocation and the social optimum—is bounded between 1/6 and 3 − 2√2 ≈ 0.172, refuting the conjecture that it is at least 1 − 1/n (`cost_of_ef1_two_le`).",
+   "declarations": [
+    "multigraph_orientation_subsidy_three_halves",
+    "multigraph_orientation_subsidy_not_le_one",
+    "multigraph_orientation_subsidy_four_agents",
+    "connected_ef1_po_chores_incompatible",
+    "weighted_propx_po_chores_incompatible_two_fifths",
+    "weighted_propx_po_chores_incompatible_nine_twentieths",
+    "weighted_propx_po_chores_incompatible_three_sevenths",
+    "no_weighted_propx_po_of_nat_check",
+    "propm_orientation_of_out_degree_two",
+    "propm_orientation_exists_of_le_five",
+    "exists_ef1_social_cost_le_opt_add_two_agents",
+    "ef1_gap_le_two_agents",
+    "ef1_gap_set_two_agents_le",
+    "cost_of_ef1_two_le",
+    "ef1_cost_gap_instance_spec",
+    "one_sixth_le_cost_of_ef1_two",
+    "cost_of_ef1_two_lt_one_sub_inv",
+    "not_forall_cost_of_ef1_ge_one_sub_inv"
+   ]
+  },
+  {
+   "heading": "Optimal persuasion ratio, safe procurement, and forecast pooling concavity",
+   "body": "In the bit-string persuasion model of arXiv:2606.22226, a sender provides signals about a binary state vector to maximize guessed 1s, while the receiver maximizes correct guesses. Let R₀ be the receiver utility under the prior and R_max the optimal receiver utility under sender-optimal signaling. While R_max / R₀ ≤ 3/2 was known, slice priors over 2m + 1 states achieve ratio (3m + 1)/(2m + 2), proving that the supremum over all priors is exactly 3/2 (`persuasion_receiver_ratio_optimal_constant`).\n\nIn procurement mechanism design (arXiv:2603.27779), there exists a mechanism that is Sybil-proof and ex-post safe for costs up to L without collapsing into winner-take-all equilibria (`exists_sybil_proof_ex_post_safe_non_winner_take_all_procurement`). The stake-share mechanism distributes work and a reward pool L + K·max(0, M − W) proportionally to costless stakes. If KM ≥ 3n²L, a pure Nash equilibrium exists for all costs in [0, L]ⁿ and splits work among multiple agents. Conversely, requiring ex-post safety for all nonnegative costs rules out pure Nash equilibria entirely (`proportional_share_no_pne_of_safe_all_costs`).\n\nIn forecast aggregation (arXiv:2102.07081), the score of the quasi-arithmetic pool was known to be concave in expert weights when the scoring rule has convex exposure. Without this condition, concavity can fail (`tsallis_three_qa_weight_score_not_concave`), as shown for the cubic Tsallis rule on two experts and three outcomes.",
+   "declarations": [
+    "persuasion_receiver_ratio_optimal_constant",
+    "persuasion_receiver_ratio_sharp",
+    "persuasion_slice_ratio",
+    "persuasion_slice_values",
+    "persuasion_max_receiver_utility_le",
+    "proportional_share_sybil_proof",
+    "stake_share_ex_post_safe",
+    "stake_share_pne_non_winner_take_all",
+    "stake_share_two_agent_pne",
+    "proportional_share_no_pne_of_safe_all_costs",
+    "exists_sybil_proof_ex_post_safe_non_winner_take_all_procurement",
+    "stake_share_pne_exists",
+    "stake_share_pne_exists_and_non_winner_take_all",
+    "qa_pool_tsallis_three_unique",
+    "tsallis_three_qa_weight_score_not_concave"
+   ]
+  },
+  {
+   "heading": "Justified representation in Monroe voting and temporal elections",
+   "body": "In approval-based committee voting, the Hare Monroe rule was known to satisfy Droop justified representation (Droop-JR) when committee size k divides the number of voters n. It is now proved that Hare Monroe satisfies Droop-JR for all n and k (`hare_monroe_satisfies_droop_jr`). If a cohesive group of more than n/(k + 1) voters approves a common candidate outside the committee while none is satisfied, an exchange lemma strictly increases the Monroe score.\n\nFor the Droop Monroe variant (arXiv:2508.00811), when k + 1 divides n, every winning committee satisfies Droop-PJR+ (`droop_monroe_satisfies_droop_pjr_plus`). However, due to tie-breaking, Droop Monroe can select committees that violate Droop-EJR+ and Droop-FJR (`droop_monroe_tie_violates_droop_ejr_plus_fjr`), as demonstrated by an instance with n = 3, k = 2 where every committee ties with score 2.\n\nIn temporal voting (arXiv:2505.22513), bounded fully justified representation (BFJR) implies Droop-FJR. The converse fails: Droop-FJR does not imply BFJR (`temporal_droop_fjr_not_imp_bfjr`). With four voters over six rounds and two candidates, electing candidate 1 in every round provides Droop-FJR but fails BFJR for two voters who approve candidate 0 in different halves of the rounds.",
+   "declarations": [
+    "hare_monroe_satisfies_droop_jr",
+    "monroe_perm_swap_finsets",
+    "monroe_load_comp_perm",
+    "monroe_ceil_le_floor_succ",
+    "monroe_exists_heavy",
+    "assignment_exchange",
+    "monroe_exchange",
+    "droop_monroe_exchange",
+    "droop_monroe_unsatisfied_group",
+    "droop_monroe_satisfies_droop_pjr_plus",
+    "droop_monroe_score_le",
+    "droop_monroe_tie_violates_droop_ejr_plus_fjr",
+    "tfjr_count",
+    "tfjr_avoid",
+    "tfjr_droop_le",
+    "temporal_droop_fjr_not_imp_bfjr"
+   ]
+  },
+  {
+   "heading": "Entropy bounds, leximin efficiency, Banzhaf veto distortion, and apportionment",
+   "body": "In preference elicitation, a conjecture from AAAI 2021 (Preference Elicitation as Average-Case Sorting, §5) posits that the Plackett–Luce model with weights 1, φ, …, φ^(m−1) has entropy O(m) for all φ ∈ (0, 1). This is now proved: the entropy is bounded by C(φ)·m with constant C(φ) = log(1/(1 − φ)) + (φ/(1 − φ)²)·log(1/φ) (`plackett_luce_geometric_entropy_linear`).\n\nIn fair division, leximin-optimal allocations among envy-free up to one good (EF1) allocations need not be Pareto optimal (`leximin_ef1_not_pareto_optimal`), confirming a conjecture from The Unreasonable Fairness of Maximum Nash Welfare. For four agents and six goods with additive valuations, the unique leximin-optimal EF1 allocation is strictly Pareto dominated by swapping two goods between two agents.\n\nIn cooperative voting games, the veto distortion of the Banzhaf index at strict quota 1/2 is at least 5/3 (`banzhaf_strict_majority_veto_distortion_ge_five_thirds`), improving upon the 6/5 bound from How Banzhaf Makes a Victor (EC 2026, §5). For apportionment across four states (arXiv:2202.11061, arXiv:2608.02759), satisfying quota is incompatible with population monotonicity even when comparisons are restricted to a fixed house size (`quota_population_monotone_incompatible_four_states_common_house`), as twelve population profiles at house size 8 force a population paradox.",
+   "declarations": [
+    "plackett_luce_geometric_entropy_linear",
+    "leximin_ef1_not_pareto_optimal",
+    "banzhaf_strict_majority_veto_distortion_ge_five_thirds",
+    "quota_population_monotone_incompatible_four_states_common_house"
+   ]
+  },
+  {
+   "heading": "Upper bound on blocking pairs for the cyclic Hollow-Shell market",
+   "body": "In the stable marriage problem, the Shield number σ(n) is the minimum, over all preference profiles with n men and n women, of the maximum number of blocking pairs across complete matchings. In the cyclic Hollow-Shell market C_n (arXiv:2609.17418), man g ranks women g, g+1, g+2, … cyclically, and every woman ranks men in the reverse order. A matching with ⌊(n−1)²/4⌋ blocking pairs was known, and §7.1 left open whether any complete matching could have strictly more.\n\nIt is now proved that every complete matching of C_n has at most ⌊(n−1)²/4⌋ blocking pairs (`hollow_shell_blocking_pairs_ncard_le`). This establishes that the market achieves exactly β(C_n) = ⌊(n−1)²/4⌋ and confirms the upper bound σ(n) ≤ ⌊(n−1)²/4⌋ of the Shield-Core conjecture. The proof models each match as a circular arc and cuts the circle at 0; counting inversions and crossings bounds nested arcs by k(n − 1 − k) ≤ ⌊(n−1)²/4⌋, where k is the number of arcs crossing the cut.",
+   "declarations": [
+    "hollow_shell_blocking_pairs_ncard_le",
+    "perm_nesting_bound",
+    "perm_cross_inv_sum",
+    "perm_card_left_gt_le",
+    "perm_inv_left_add",
+    "perm_gap_sum",
+    "perm_card_val_lt",
+    "cyclic_offset_eq_ite"
+   ]
+  },
+  {
+   "heading": "Weakly consecutive sequences of prime-power length",
+   "body": "A permutation s of {1, …, k} is weakly consecutive if m divides s(j) whenever m divides s(i) and m divides i − j. Conjecture 5.2 of arXiv:2401.09497 states that every weakly consecutive sequence begins or ends with 1.\n\nThis conjecture is now proved whenever the length k is a prime power: `weakly_consecutive_one_at_end_of_isPrimePow`. The argument analyzes residue classes. If m divides the first term, every position congruent to the first holds a multiple of m, giving ⌈k/m⌉ positions for the ⌊k/m⌋ available multiples, forcing m to divide k (`weakly_consecutive_first_dvd`). By reversal, the last term also divides k (`weakly_consecutive_last_dvd`). Because the first term's class exhausts all k/p multiples of any prime p dividing it, the first and last terms must be coprime (`weakly_consecutive_ends_coprime`). If 1 were strictly internal, both endpoints would be coprime divisors of k strictly greater than 1, which is impossible when k is a prime power.",
+   "declarations": [
+    "weakly_consecutive_one_at_end_of_isPrimePow",
+    "weakly_consecutive_ends_coprime",
+    "weakly_consecutive_first_dvd",
+    "weakly_consecutive_last_dvd",
+    "weakly_consecutive_rev",
+    "perm_card_filter_dvd_succ",
+    "fin_card_filter_dvd",
+    "range_card_filter_dvd",
+    "dvd_of_div_ceil_le"
+   ]
+  },
+  {
+   "heading": "Parity obstruction and draw values in Catch-Up",
+   "body": "Catch-Up is a two-player game on a finite set of positive integers where players take numbers to match or exceed the opponent's cumulative score, winning with the higher final total. A conjecture states that on {1, …, N}, the game with optimal play ends in a draw if and only if the sum N(N+1)/2 is even.\n\nIt is now proved that no draw is possible whenever the total sum of the pieces is odd, as the final score difference is always odd (`catch_up_value_ne_draw_of_odd_sum`). On {1, …, N}, this rules out draws whenever the triangular number N(N+1)/2 is odd (`catch_up_value_icc_ne_draw_of_odd_triangular`). Conversely, for small initial segments where the sum is even, verified decision procedures confirm that the game is indeed a draw for N = 3, 4, 7, 8, and 11 (`catch_up_value_icc_three`, `catch_up_value_icc_eleven`).",
+   "declarations": [
+    "catch_up_value_ne_draw_of_odd_sum",
+    "catch_up_value_icc_ne_draw_of_odd_triangular",
+    "catch_up_value_icc_three",
+    "catch_up_value_icc_four",
+    "catch_up_value_icc_seven",
+    "catch_up_value_icc_eight",
+    "catch_up_value_icc_eleven",
+    "catch_up_search_eq",
+    "catch_up_score_diff_even_of_even_sum",
+    "catch_up_score_diff_odd_of_odd_sum",
+    "catch_up_value_aux_ne_draw_of_odd_sum",
+    "catch_up_value_aux_icc_zero_initial",
+    "catch_up_value_triple_draw",
+    "catch_up_sum_icc_id"
+   ]
+  }
+ ],
+ "outlook": "In strategic stopping, whether dynamic thresholds can achieve a 1/2-competitive prophet inequality under strategic reward signaling remains unresolved. For weakly consecutive sequences, the conjecture that sequences begin or end with 1 remains open for lengths with multiple distinct prime factors, while in the stable marriage problem the lower bound of the Shield-Core conjecture remains unproved. In Catch-Up, confirming draws for all remaining even triangular numbers up to general N stands open, along with the uniqueness of crystal components and the exact value of the two-agent chore EF1 cost gap.",
+ "stats": {
+  "theorems": 175,
+  "sources": 16,
+  "topics": 8,
+  "announcements": 13,
+  "open": 25,
+  "papers_read": 3
+ },
+ "issues": [],
+ "rounds": 1,
+ "numbers": "Lean accepted 175 new theorems this week, drawn from 16 papers and 8 topics; 25 statements posed this week are not yet proved. The reading covered 3 new papers.",
+ "disclaimer": "Written by a model (gemini-3.8-flash) from the week's Lean-verified results. Every declaration named here was checked by Lean; this summary is a reading aid and is not itself machine-checked."
+}

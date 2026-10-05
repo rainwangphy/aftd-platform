@@ -13,6 +13,9 @@ Inputs, all under `web/`:
 * `news.json` -- announcements, written by hand: launches and newly proved
   results. A proof announcement must name only declarations Lean verified, or
   the build stops.
+* `weekly/<week>.json` -- the weekly reports (`aftd interpret --week`): what
+  Lean accepted that week, in words. Same rule: every declaration a report
+  names must be verified, or the build stops.
 
 Pages:
 
@@ -28,6 +31,8 @@ Pages:
     problems/<number>/          one reviewed problem and what answers it
     news/                       the address the news first had, forwarding to the
                                 home page's News section
+    weekly/                     every weekly report, newest first
+    weekly/<week>/              one week: what was settled, what is open
     submit/                     how to submit a problem or challenge a result
 
 Stdlib only, so CI needs nothing but Python. Everything a submitter wrote is
@@ -66,7 +71,14 @@ FONTS = (
 class Site:
     """Everything the pages are rendered from, with the joins done once."""
 
-    def __init__(self, kb: dict, issues: list[dict], cfg: dict, news: list[dict] | None = None):
+    def __init__(
+        self,
+        kb: dict,
+        issues: list[dict],
+        cfg: dict,
+        news: list[dict] | None = None,
+        weekly: list[dict] | None = None,
+    ):
         self.kb = kb
         self.cfg = cfg
         self.repo = cfg["repo"]
@@ -99,6 +111,7 @@ class Site:
         self.in_topic: dict[str, list[dict]] = {}
         for d in self.decls:
             self.in_topic.setdefault(d["topic"], []).append(d)
+        self.weekly = check_weekly(self, weekly or [])
         self.news = check_news(self, news or [])
 
     def verified(self, d: dict) -> bool:
@@ -140,7 +153,13 @@ class Site:
         return t["title"] if t else name
 
 
-NEWS_KINDS = {"launch": "Launch", "proof": "Proved", "daily": "Daily reading"}
+NEWS_KINDS = {
+    "launch": "Launch",
+    "proof": "Proved",
+    "daily": "Daily reading",
+    "weekly": "Weekly report",
+}
+_WEEK = re.compile(r"^\d{4}-W\d{2}$")
 _DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -171,6 +190,8 @@ def check_news(s: Site, entries: list[dict]) -> list[dict]:
             unverified = [x for x in names if not s.verified(s.by_name[x])]
             if unverified:
                 raise ValueError(f"{where}: not a verified theorem: {', '.join(unverified)}")
+        if n["kind"] == "weekly" and n.get("week") not in {r["week"] for r in s.weekly}:
+            raise ValueError(f"{where}: no weekly report for {n.get('week')!r} in weekly/")
         nid = "n-" + n["date"] + "-" + (re.sub(r"[^a-z0-9]+", "-", n["title"].lower()).strip("-")[:48] or "x")
         if nid in seen:
             raise ValueError(f"{where}: two entries on the same day share a title")
@@ -178,6 +199,30 @@ def check_news(s: Site, entries: list[dict]) -> list[dict]:
         out.append({**n, "id": nid, "declarations": names, "links": n.get("links") or []})
     # Newest first; entries of the same day keep the file's order.
     return sorted(out, key=lambda n: n["date"], reverse=True)
+
+
+def check_weekly(s: Site, reports: list[dict]) -> list[dict]:
+    """The weekly reports, newest first. Held to the News rule: a report that
+    names a declaration Lean has not verified stops the build."""
+    out, seen = [], set()
+    for r in reports:
+        where = f"weekly report {r.get('week', '?')!r}"
+        if not _WEEK.match(r.get("week", "")):
+            raise ValueError(f"{where}: week must be YYYY-Www")
+        if r["week"] in seen:
+            raise ValueError(f"{where}: two reports for one week")
+        seen.add(r["week"])
+        for k in ("start", "end"):
+            time.strptime(r.get(k, ""), "%Y-%m-%d")
+        if not (r.get("title") or "").strip() or not r.get("sections"):
+            raise ValueError(f"{where}: needs a title and sections")
+        for sec in r["sections"]:
+            names = sec.get("declarations") or []
+            bad = [x for x in names if x not in s.by_name or not s.verified(s.by_name[x])]
+            if bad:
+                raise ValueError(f"{where}: not a verified theorem: {', '.join(bad)}")
+        out.append(r)
+    return sorted(out, key=lambda r: r["week"], reverse=True)
 
 
 def slug(name: str) -> str:
@@ -251,7 +296,12 @@ def highlight_lean(src: str) -> str:
 # ------------------------------------------------------------------- layout
 NAME = "AFTD"
 FULL_NAME = "Auto-Formalizing Theoretical Domains"
-NAV = [("knowledgebase/", "Knowledgebase"), ("problems/", "Problems"), ("submit/", "Submit")]
+NAV = [
+    ("knowledgebase/", "Knowledgebase"),
+    ("weekly/", "Weekly"),
+    ("problems/", "Problems"),
+    ("submit/", "Submit"),
+]
 
 
 def page(
@@ -333,6 +383,7 @@ def page(
       <a href="{root}knowledgebase/#graph">Dependency graph</a>
       <a href="{root}problems/">Community problems</a>
       <a href="{root}index.html#news">News</a>
+      <a href="{root}weekly/">Weekly reports</a>
       <a href="{root}submit/">Submit a problem</a>
     </div>
     <div class="foot-col">
@@ -1463,6 +1514,93 @@ def render_submit(s: Site) -> str:
     return page(s, title="Submit a problem", root=root, active="submit/", body=body)
 
 
+def week_span(r: dict) -> str:
+    a = time.strptime(r["start"], "%Y-%m-%d")
+    b = time.strptime(r["end"], "%Y-%m-%d")
+    if a.tm_mon == b.tm_mon:
+        return f"{a.tm_mday}–{b.tm_mday} {time.strftime('%b %Y', b)}"
+    return f"{a.tm_mday} {time.strftime('%b', a)} – {b.tm_mday} {time.strftime('%b %Y', b)}"
+
+
+def render_weekly_index(s: Site) -> str:
+    root = "../"
+    items = "".join(
+        f'<article class="news-item" id="{e(r["week"])}">'
+        f'<p class="news-when"><span>{e(r["week"])}</span>'
+        f'<span class="small">{e(week_span(r))}</span></p>'
+        f'<div class="news-main"><h3><a href="{e(r["week"])}/">{e(r["title"])}</a></h3>'
+        f'<p class="prose">{inline_code(" ".join(r.get("lede", "").split()))}</p>'
+        f'<p class="small">{e(r.get("numbers", ""))}</p></div></article>'
+        for r in s.weekly
+    )
+    body = f"""
+<header class="phead">
+  <p class="eyebrow">Weekly reports</p>
+  <h1>What each week settled</h1>
+  <p class="lead">Once a week, the theorems Lean accepted are told in words: which
+  questions they settle, which papers they come from and what is still open.
+  Every declaration a report names links to its Lean proof.</p>
+</header>
+<section class="band">
+  {f'<div class="news-list">{items}</div>' if items else '<p class="prose">No weekly report yet.</p>'}
+</section>"""
+    return page(s, title="Weekly reports", root=root, active="weekly/", body=body,
+                description="What Lean accepted each week, in words.")
+
+
+def render_weekly(s: Site, i: int) -> str:
+    """One week's report. `s.weekly` is newest first, so the previous week is
+    the next item."""
+    r = s.weekly[i]
+    root = "../../"
+    secs = []
+    for sec in r["sections"]:
+        paras = "".join(f"<p>{p}</p>" for p in news_paras(sec.get("body", "")))
+        decls = sec.get("declarations") or []
+        secs.append(
+            f'<h2>{e(sec.get("heading", ""))}</h2>{paras}'
+            + (
+                '<div class="news-decls"><span class="small">Verified in Lean</span>'
+                + related(s, decls, root) + "</div>"
+                if decls else ""
+            )
+        )
+    outlook = "".join(f"<p>{p}</p>" for p in news_paras(r.get("outlook", "")))
+    if outlook:
+        secs.append(f"<h2>Still open</h2>{outlook}")
+
+    def side(x: dict | None, cls: str, label: str) -> str:
+        if not x:
+            return f'<span class="{cls}"></span>'
+        return (
+            f'<a class="{cls}" href="{root}weekly/{e(x["week"])}/"><span class="small">{label}</span>'
+            f'<span class="mono">{e(x["week"])}</span></a>'
+        )
+
+    older = s.weekly[i + 1] if i + 1 < len(s.weekly) else None
+    newer = s.weekly[i - 1] if i > 0 else None
+    pager = (
+        f'<nav class="pager" aria-label="Weekly reports">{side(older, "prev", "&larr; Earlier week")}'
+        f'<a class="pos" href="{root}weekly/"><span class="small">All weekly reports</span></a>'
+        f'{side(newer, "next", "Later week &rarr;")}</nav>'
+    )
+    partial = " (so far: the week is not over)" if r.get("partial") else ""
+    body = f"""
+<header class="phead">
+  <p class="eyebrow">Weekly report &middot; {e(r["week"])} &middot; {e(week_span(r))}{partial}</p>
+  <h1>{e(r["title"])}</h1>
+  <p class="lead">{inline_code(" ".join(r.get("lede", "").split()))}</p>
+  <p class="small">{e(r.get("numbers", ""))}</p>
+</header>
+<section class="doc">
+  {"".join(secs)}
+  <p class="small"><em>{e(r.get("disclaimer", ""))}</em></p>
+  {pager}
+</section>"""
+    return page(s, title=f"Weekly report {r['week']}", root=root, active="weekly/",
+                body=body, description=r.get("lede", ""))
+
+
 def render_moved(s: Site, to: str) -> str:
     """A page that has moved: it forwards to its new address, keeping the
     query and the anchor so a shared, filtered link still lands where it
@@ -1500,9 +1638,14 @@ def render_404(s: Site) -> str:
 
 # -------------------------------------------------------------------- build
 def build(
-    kb: dict, issues: list[dict], cfg: dict, out: Path, news: list[dict] | None = None
+    kb: dict,
+    issues: list[dict],
+    cfg: dict,
+    out: Path,
+    news: list[dict] | None = None,
+    weekly: list[dict] | None = None,
 ) -> dict[str, int]:
-    s = Site(kb, issues, cfg, news)
+    s = Site(kb, issues, cfg, news, weekly)
     if out.exists():
         shutil.rmtree(out)
     shutil.copytree(HERE / "static", out / "static")
@@ -1518,6 +1661,9 @@ def build(
     write("problems/index.html", render_problems(s))
     write("submit/index.html", render_submit(s))
     write("news/index.html", render_moved(s, "#news"))
+    write("weekly/index.html", render_weekly_index(s))
+    for i, r in enumerate(s.weekly):
+        write(f"weekly/{r['week']}/index.html", render_weekly(s, i))
     write("404.html", render_404(s))
     for d in s.decls:
         write(f"d/{slug(d['name'])}/index.html", render_decl(s, d))
@@ -1527,7 +1673,12 @@ def build(
     # Pages would otherwise run Jekyll over the output and drop nothing useful,
     # but it is slower and ignores directories that start with an underscore.
     write(".nojekyll", "")
-    return {"declarations": len(s.decls), "problems": len(published), "news": len(s.news)}
+    return {
+        "declarations": len(s.decls),
+        "problems": len(published),
+        "news": len(s.news),
+        "weekly": len(s.weekly),
+    }
 
 
 def main() -> int:
@@ -1537,6 +1688,7 @@ def main() -> int:
     ap.add_argument("--problems", default=str(HERE / "data" / "problems.json"))
     ap.add_argument("--config", default=str(HERE / "site.json"))
     ap.add_argument("--news", default=str(HERE / "news.json"))
+    ap.add_argument("--weekly", default=str(HERE / "weekly"))
     args = ap.parse_args()
     kb = json.loads(Path(args.kb).read_text(encoding="utf-8"))
     cfg = json.loads(Path(args.config).read_text(encoding="utf-8"))
@@ -1546,10 +1698,15 @@ def main() -> int:
     news = (
         json.loads(news_path.read_text(encoding="utf-8"))["entries"] if news_path.is_file() else []
     )
-    n = build(kb, issues, cfg, Path(args.out), news)
+    wd = Path(args.weekly)
+    weekly = [
+        json.loads(f.read_text(encoding="utf-8")) for f in sorted(wd.glob("*.json"))
+    ] if wd.is_dir() else []
+    n = build(kb, issues, cfg, Path(args.out), news, weekly)
     print(
         f"wrote {args.out}  ({n['declarations']} declaration pages, "
-        f"{n['problems']} problem pages, {n['news']} news entries)"
+        f"{n['problems']} problem pages, {n['news']} news entries, "
+        f"{n['weekly']} weekly reports)"
     )
     return 0
 

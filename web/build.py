@@ -1381,8 +1381,6 @@ def render_problems(s: Site) -> str:
   problem counts as proved when every declaration answering it has passed Lean
   and the round trip.</p>
   <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a></div>
-  <p class="small">Submissions go through a GitHub issue, so you need a GitHub
-  account, and the discussion of your problem happens there in public.</p>
   {submit_guide(s)}
 </header>
 <div class="facts">{counts}</div>
@@ -1446,27 +1444,14 @@ def render_problem(s: Site, p: dict) -> str:
 
 
 def submit_guide(s: Site) -> str:
-    """How submitting works, folded under the Submit button at the top of the
-    Problems page. The old submit/ address lands on #submit, which opens it."""
-    return f"""<details class="submit-guide doc" id="submit-guide">
-  <summary>How submitting works</summary>
-  <ol class="flow">
-    <li><strong>Submit.</strong> Open a GitHub issue with one precise statement,
-    written as in a paper (LaTeX between <code>$&hellip;$</code> works). A Lean
-    version is optional.</li>
-    <li><strong>Review.</strong> A maintainer reads it first. Accepted problems are
-    labelled <code>accepted</code>; declined ones are closed with a reason.</li>
-    <li><strong>Formalize and prove.</strong> The machine writes its own Lean
-    statement, checks that it says what you said, and tries to prove it. If it
-    gets stuck, the problem is marked <em>needs help</em>.</li>
-    <li><strong>Publish.</strong> Once proved, it appears here and in the
-    knowledgebase, credited to your GitHub handle.</li>
-  </ol>
-  <p>Submitted statements are published and free for anyone to use. To dispute
-  a result, <a href="{e(s.new_verdict())}">open a challenge</a>; for anything
-  else, use <a href="{e(s.discussions())}">the discussions</a>.</p>
-</details>
-<script>if (location.hash === "#submit") document.getElementById("submit-guide").open = true;</script>
+    """How submitting works, in one paragraph under the Submit button at the
+    top of the Problems page (where the old submit/ address lands)."""
+    return f"""<p class="small">Submit one precise statement as a GitHub issue; Lean is
+  optional. Once a maintainer accepts it, the machine states it in Lean, checks
+  that the statement says what you said, and tries to prove it. A proved problem
+  appears here, credited to you. To dispute a result,
+  <a href="{e(s.new_verdict())}">open a challenge</a>; for anything else, use
+  <a href="{e(s.discussions())}">the discussions</a>.</p>
 """
 
 

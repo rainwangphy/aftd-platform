@@ -255,6 +255,10 @@ def main() -> int:
         check("the Problems page carries the submission guide",
               'id="submit"' in pages.get("problems/index.html", "")
               and "What happens next" in pages.get("problems/index.html", ""))
+        prob = pages.get("problems/index.html", "")
+        check("the submission guide sits at the top, with the Submit button, above the problems",
+              0 <= prob.find('id="submit"') < prob.find('Submit a problem</a>')
+              < prob.find("How submitting works") < prob.find('class="facts"'))
         check("Submit is no longer a tab of its own",
               not re.search(r'<nav[^>]*>.*?>Submit<', pages["index.html"], re.S))
         moved = {"results/index.html", "news/index.html", "submit/index.html"}

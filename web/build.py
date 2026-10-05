@@ -1379,18 +1379,19 @@ def render_problems(s: Site) -> str:
             f"{cards}</section>"
         )
     body = f"""
-<header class="phead">
+<header class="phead" id="submit">
   <p class="eyebrow">Open verdict by the community</p>
   <h1>Community problems</h1>
   <p class="lead">Statements submitted by people, attempted by the machine. A
   problem counts as proved when every declaration answering it has passed Lean
   and the round trip.</p>
-  <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a>
-  <a class="btn" href="#submit">How it works</a></div>
+  <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a></div>
+  <p class="small">Submissions go through a GitHub issue, so you need a GitHub
+  account, and the discussion of your problem happens there in public.</p>
+  {submit_guide(s, root)}
 </header>
 <div class="facts">{counts}</div>
 {"".join(secs)}
-{submit_guide(s, root)}
 """
     return page(s, title="Community problems", root=root, active="problems/", body=body, math=True)
 
@@ -1450,19 +1451,15 @@ def render_problem(s: Site, p: dict) -> str:
 
 
 def submit_guide(s: Site, root: str) -> str:
-    """How to submit a problem or challenge a result: the last section of the
-    Problems page (its own page once, now forwarding here)."""
+    """How to submit a problem or challenge a result, folded under the Submit
+    button at the top of the Problems page. The old submit/ address lands on
+    #submit, which opens it."""
     doms = "".join(
         f'<li><strong>{e(d["title"])}</strong> &mdash; {e(clip(d["description"], 160))}</li>'
         for d in s.kb["domains"]
     )
-    return f"""
-<section class="doc" id="submit">
-  <header class="shead"><h2>Submit a problem</h2></header>
-  <p class="lead">Give the machine a statement to prove. Submissions go through a
-  GitHub issue, so you need a GitHub account, and the discussion of your problem
-  happens there in public.</p>
-  <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Open the submission form</a></div>
+    return f"""<details class="submit-guide doc" id="submit-guide">
+  <summary>How submitting works</summary>
   <h3>What to submit</h3>
   <p>A single, precise statement from one of the domains below. The best
   candidates are results you can point to in a textbook or paper: the machine
@@ -1509,7 +1506,8 @@ def submit_guide(s: Site, root: str) -> str:
   <h3>Just want to talk?</h3>
   <p>Questions, ideas for the curriculum and results you built on top of the
   knowledgebase belong in <a href="{e(s.discussions())}">the discussions</a>.</p>
-</section>
+</details>
+<script>if (location.hash === "#submit") document.getElementById("submit-guide").open = true;</script>
 """
 
 

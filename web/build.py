@@ -140,7 +140,7 @@ class Site:
         return t["title"] if t else name
 
 
-NEWS_KINDS = {"launch": "Launch", "proof": "Proved"}
+NEWS_KINDS = {"launch": "Launch", "proof": "Proved", "daily": "Daily reading"}
 _DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -164,9 +164,10 @@ def check_news(s: Site, entries: list[dict]) -> list[dict]:
         unknown = [x for x in names if x not in s.by_name]
         if unknown:
             raise ValueError(f"{where}: not in the knowledgebase: {', '.join(unknown)}")
-        if n["kind"] == "proof":
-            if not names:
-                raise ValueError(f"{where}: a proof announcement must name its declarations")
+        if n["kind"] == "proof" and not names:
+            raise ValueError(f"{where}: a proof announcement must name its declarations")
+        if n["kind"] in ("proof", "daily"):
+            # A daily entry lists what it proved: the same standard applies.
             unverified = [x for x in names if not s.verified(s.by_name[x])]
             if unverified:
                 raise ValueError(f"{where}: not a verified theorem: {', '.join(unverified)}")
@@ -421,6 +422,37 @@ def decl_card(s: Site, d: dict, root: str, *, sig: bool = True) -> str:
     )
 
 
+def open_card(s: Site, n: dict, root: str) -> str:
+    """A statement in the knowledgebase that Lean has not proved (yet).
+
+    It is listed where it belongs, so a reader sees what the machine is working
+    on, but marked as unproved and with no result page: nothing about it is
+    verified beyond the statement type-checking."""
+    st = "stuck" if n.get("status") == "stuck" else "open"
+    tags = [badge(n["kind"], "kind thm"),
+            badge("needs help" if st == "stuck" else "not yet proved", "st-unproved",
+                  "Stated and type-checked in Lean, not proved")]
+    if n.get("provenance") == "original":
+        tags.append(badge("original", "orig", "Proposed by the machine, not transcribed from the literature"))
+    meta = [f'<span class="m-topic">{e(s.topic_title(n["topic"]))}</span>']
+    if n.get("citation"):
+        meta.append(f'<span class="m-src" title="{e(n["citation"])}">{e(clip(n["citation"], 80))}</span>')
+    if n.get("created"):
+        meta.append(f'<span>posed {e(day(n["created"]))}</span>')
+    hay = searchable(n["name"], n["informal"], s.topic_title(n["topic"]),
+                     s.domain_title(n["domain"]), n.get("citation") or "", n["statement"])
+    return (
+        f'<article class="card entry unproved" data-q="{e(hay)}" data-domain="{e(n["domain"])}" '
+        f'data-kind="open" data-community="{"1" if n.get("problem") is not None else "0"}" '
+        f'data-t="{n.get("created") or 0}" data-seq="0">'
+        f'<div class="card-top"><code class="decl">{e(n["name"])}</code>'
+        f'<span class="badges">{"".join(tags)}</span></div>'
+        f'<p class="prose">{e(n["informal"] or n["statement"])}</p>'
+        f'<pre class="sig lean">{highlight_lean(n["statement"])}</pre>'
+        f'<p class="meta">{"".join(meta)}</p></article>'
+    )
+
+
 def problem_card(s: Site, p: dict, root: str) -> str:
     f = p["fields"]
     meta = [status_badge(p["status"])]
@@ -474,7 +506,7 @@ def news_item(s: Site, n: dict, root: str) -> str:
     paras = news_paras(n["body"])
     more = "".join(f'<p class="prose">{p}</p>' for p in paras[1:])
     if n["declarations"]:
-        label = "Verified in Lean" if n["kind"] == "proof" else "Declarations"
+        label = "Verified in Lean" if n["kind"] in ("proof", "daily") else "Declarations"
         more += (
             f'<div class="news-decls"><span class="small">{label}</span>'
             + related(s, n["declarations"], root)
@@ -488,7 +520,7 @@ def news_item(s: Site, n: dict, root: str) -> str:
         what = (
             f'{len(n["declarations"])} declaration{"s" if len(n["declarations"]) != 1 else ""} verified in Lean'
             if n["kind"] == "proof"
-            else "More"
+            else "Details"
         )
         more = f'<details class="news-more"><summary>{what}</summary>{more}</details>'
     return (
@@ -798,6 +830,10 @@ def render_kb(s: Site) -> str:
     by_dom: dict[str, dict[str, list[dict]]] = {}
     for d in s.decls:
         by_dom.setdefault(d["domain"], {}).setdefault(d["topic"], []).append(d)
+    # Unproved theorems sit with their topic, after what is proved there.
+    unproved = [n for n in s.open if n.get("kind") == "theorem"]
+    for n in unproved:
+        by_dom.setdefault(n["domain"], {}).setdefault(n["topic"], []).append({**n, "_open": True})
     order = [n for n in s.domains if n in by_dom] + sorted(
         n for n in by_dom if n not in s.domains
     )
@@ -809,19 +845,21 @@ def render_kb(s: Site) -> str:
         blocks, toc_topics = [], []
         for tname in sorted(topics, key=lambda t: -len(topics[t])):
             ds = topics[tname]
+            n_proved = sum(1 for d in ds if not d.get("_open"))
             target = (s.topics.get(tname) or {}).get("target") or 0
             bar = ""
             if target:
-                pct = min(100, round(100 * len(ds) / target))
+                pct = min(100, round(100 * n_proved / target))
                 bar = (
-                    f'<span class="meter" title="{len(ds)} of a target of {target}">'
+                    f'<span class="meter" title="{n_proved} of a target of {target}">'
                     f'<span style="width:{pct}%"></span></span>'
-                    f'<span class="tnum">{len(ds)} of {target} targeted</span>'
+                    f'<span class="tnum">{n_proved} of {target} targeted</span>'
                 )
             blocks.append(
                 f'<section class="topic" id="t-{e(tname)}"><header class="thead">'
                 f"<h3>{e(s.topic_title(tname))}</h3>{bar}</header>"
-                + "".join(decl_card(s, d, root) for d in ds)
+                + "".join(open_card(s, d, root) if d.get("_open") else decl_card(s, d, root)
+                          for d in ds)
                 + "</section>"
             )
             toc_topics.append(
@@ -854,7 +892,8 @@ def render_kb(s: Site) -> str:
   <p class="lead">{t["declarations"]} declarations &mdash; {t["theorems"]} theorems and
   {t["definitions"]} definitions in {t["topics"]} topics &mdash; each elaborated by
   Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. The graph
-  shows what each one builds on; the list below has them all, by topic.</p>
+  shows what each one builds on; the list below has them all, by topic.
+  {f"It also lists, marked <em>not yet proved</em>, the {len(unproved)} statements the machine has posed and not proved: they type-check in Lean, and nothing more is claimed for them." if unproved else ""}</p>
 </header>
 {graph_section(s, root)}
 <h2 class="rhead" id="list">Every declaration</h2>
@@ -877,6 +916,7 @@ def render_kb(s: Site) -> str:
           <button type="button" data-kind="all" aria-pressed="true">All</button>
           <button type="button" data-kind="theorem" aria-pressed="false">Theorems</button>
           <button type="button" data-kind="def" aria-pressed="false">Definitions</button>
+          {'<button type="button" data-kind="open" aria-pressed="false">Not yet proved</button>' if unproved else ""}
         </div>
         <label class="vh" for="f-domain">Domain</label>
         <select id="f-domain"><option value="all">Every domain</option>{"".join(options)}</select>

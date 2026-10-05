@@ -280,6 +280,10 @@ def main() -> int:
               "template=verdict.yml" in dp and "declaration=answer_ten" in dp)
         check("an open machine statement is listed as open",
               "machine_open" in pages["problems/index.html"])
+        kbpage = pages["knowledgebase/index.html"]
+        check("an unproved statement is listed in the knowledgebase, marked unproved",
+              "machine_open" in kbpage and "not yet proved" in kbpage
+              and 'href="../d/machine_open/"' not in kbpage)
         machine = pages["problems/index.html"].split('id="open"', 1)[-1]
         check("a stuck lemma of a problem is not listed again as machine-posed",
               "machine_open" in machine and "stuck_lemma" not in machine)
@@ -348,6 +352,10 @@ def main() -> int:
     check("a proof announcement may not name something unknown",
           "nope" in refused({**base, "declarations": ["nope"]}))
     check("an unknown kind is refused", refused({**base, "kind": "rumour"}) != "")
+    daily = {**base, "kind": "daily"}
+    check("a daily entry may prove nothing", refused(daily) == "")
+    check("a daily entry may not list an open statement as proved",
+          "machine_open" in refused({**daily, "declarations": ["machine_open"]}))
     check("a malformed date is refused", refused({**base, "kind": "launch", "date": "2 Oct"}) != "")
 
     snap = ROOT / "web" / "data" / "kb.json"

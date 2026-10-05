@@ -1,6 +1,49 @@
 {
- "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine) or proof (a result Lean accepted). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
+ "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted) or daily (written by `aftd daily`: what the day's reading posed, proved and left open). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
+  {
+   "date": "2026-10-05",
+   "kind": "daily",
+   "title": "Daily reading: 17 proved, 13 open",
+   "body": "The Proposer read 0 new paper(s), listed 0 open problem(s), and stated 5 of them in Lean, and posed 1 more from what the knowledgebase already holds (30 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 17 theorem(s); 13 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `cnf_not_satisfiable_of_has_empty_clause`: A CNF formula containing the empty clause cannot be satisfied by any assignment because the empty clause contains no literals to be made true.\n\nProved. `eval_matrix3_decomposition_apply`: Entry (i, j) of the evaluation of a list of 3x3 triads on A and B is the sum, over the triads, of (sum of u_kl A_kl) times (sum of v_kl B_kl) times w_ij.\n\nProved. `matrix3_tensor_rank_le_23_of_comm_ring` (arXiv:2610.01639): Over every commutative ring R, 3x3 matrix multiplication has a valid bilinear decomposition with 23 products (the classical 23-multiplication algorithm with integer coefficients 0, 1, -1); hence its rank over R is at most 23.\n\nProved. `matrix3_tensor_rank_le_of_surjective` (arXiv:2610.01639): If f : R → S is a surjective homomorphism of commutative semirings and 3x3 matrix multiplication over R has a valid triad decomposition with at most r products, then so does 3x3 matrix multiplication over S (apply f to every coefficient).\n\nProved. `matrix3_tensor_rank_ge_of_surjective` (arXiv:2610.01639): If f : R → S is a surjective homomorphism of commutative semirings and every valid triad decomposition of 3x3 matrix multiplication over S has at least r products, then the same holds over R.\n\nProved. `matrix3_tensor_rank_zmod2_le_of_int` (arXiv:2610.01639): A bilinear algorithm for 3x3 matrix multiplication with integer coefficients and r products gives one over the two-element field with r products; in particular a 22-product algorithm over the integers would answer the two-element-field question positively.\n\nProved. `matrix3_tensor_rank_int_ge_of_zmod2` (arXiv:2610.01639): A lower bound r on the number of products of every bilinear algorithm for 3x3 matrix multiplication over the two-element field is also a lower bound over the integers.\n\nProved. `gf8_oracle_syndrome_zero_zero_zero`: Sanity check: the syndrome of the GF(8) oracle is 1 on {x_0, y_0, z_0}, since 1 * 1 = 1 has bit 0 set.\n\nProved. `gf8_oracle_syndrome_same_register`: Sanity check: the syndrome of the GF(8) oracle vanishes on a triple inside one register.\n\nProved. `gf8_oracle_syndrome_singleton`: Sanity check: the GF(8) oracle has no order-one syndrome.\n\nProved. `gf8_oracle_t_count_le_29` (arXiv:2610.01024): The GF(8) multiplication oracle has a parity representation with 29 parities, so its T-count delta(U_3) in Hadamard-free {CNOT, T} circuits is at most 29 (an explicit certificate found by SAT search; the merged schoolbook expansion has 36).\n\nProved. `ccz_layer_syndrome_one_block`: Sanity check: for two CCZ gates the syndrome is 1 on the first block {0, 1, 2}.\n\nOpen. `matrix3_tensor_rank_int_le_22` (arXiv:2610.01639): Open problem (arXiv:2610.01639, Sec. 8): there is a bilinear algorithm for 3x3 matrix multiplication with integer coefficients that uses 22 products, i.e. a list of 22 triads over the integers whose evaluation equals A * B for all integer 3x3 matrices A and…\n\nOpen. `matrix3_tensor_rank_zmod2_le_22` (arXiv:2610.01639): Open problem (arXiv:2610.01639, Sec. 7, Table 1, row 0, interval [22, 23]): the tensor rank of 3x3 matrix multiplication over the two-element field is 22, i.e. there are 22 triads over ZMod 2 whose evaluation equals A * B for all 3x3 matrices A, B over ZMod…\n\nOpen. `matrix3_tensor_rank_zmod2_ge_22` (arXiv:2610.01639): Every bilinear algorithm (valid triad decomposition) for 3x3 matrix multiplication over the two-element field uses at least 22 products. This is the main lower bound of arXiv:2610.01639 (row 0 of its table), proved there by a large computer-assisted Lean…\n\nOpen. `gf8_oracle_t_count_le_23` (arXiv:2610.01024): Open Problem 10 of arXiv:2610.01024 presupposes that the T-count delta(U_3) of the GF(8) multiplication oracle (Hadamard-free {CNOT, T} circuits, diagonal Cliffords free) lies in [20, 23] and asks for its value: this is the upper end, that some set of at…\n\nOpen. `gf8_oracle_t_count_ge_24` (arXiv:2610.01024): Negation of the premise of Open Problem 10 of arXiv:2610.01024: every set of nonzero parities on nine qubits whose order-1, 2, 3 moments equal the syndrome of the GF(8) multiplication oracle has at least 24 elements, i.e. delta(U_3) > 23, so the T-count is…\n\nOpen. `gf8_oracle_t_count_ge_20` (arXiv:2610.01024): The slice-rank floor of arXiv:2610.01024 Proposition 59 at k = 3: every parity representation of the GF(8) multiplication oracle's syndrome has at least G(3) = 20 parities (every nonzero slice of the multiplication tensor has rank 6, so the column code is an…\n\nOpen. `ccz_layer_parity_repr_card_ge` (arXiv:2610.01024): The Hadamard-free floor of arXiv:2610.01024 (Corollary 83): every set of nonzero parities on 3m qubits whose order-1, 2, 3 moments equal the syndrome of the layer of m >= 1 disjoint CCZ gates has at least 6m + 1 elements; so every Hadamard-free {CNOT, T}…\n\nOpen. `resolution_refutation_exists_of_unsat` (arXiv:2610.02047): Completeness of resolution, the length-free part of the problem: every unsatisfiable CNF formula has a resolution refutation.\n\nOpen. `clifford_t_circuit_matrix_nil`: Sanity check: the empty circuit has the identity matrix.\n\nOpen. `clifford_t_gate_matrix_t_sq`: Sanity check: T^2 = S on every qubit.\n\nOpen. `implements_ccz_layer_zero`: Sanity check: with no CCZ gates and no ancillas, the empty circuit implements the (identity) layer.\n\nOpen. `ccz_layer_t_count_below_6m_plus_1_with_hadamards` (arXiv:2610.01024): Open problem (arXiv:2610.01024, abstract and Sec. 1): in general Clifford+T circuits, with Hadamards anywhere and any number of clean ancillas, some layer of m >= 2 disjoint CCZ gates can be implemented with strictly fewer than 6m + 1 T gates (the exact…",
+   "declarations": [
+    "cnf_not_satisfiable_of_has_empty_clause",
+    "eval_matrix3_decomposition_apply",
+    "matrix3_tensor_rank_le_23_of_comm_ring",
+    "matrix3_tensor_rank_le_of_surjective",
+    "matrix3_tensor_rank_ge_of_surjective",
+    "matrix3_tensor_rank_zmod2_le_of_int",
+    "matrix3_tensor_rank_int_ge_of_zmod2",
+    "gf8_oracle_syndrome_zero_zero_zero",
+    "gf8_oracle_syndrome_same_register",
+    "gf8_oracle_syndrome_singleton",
+    "gf8_oracle_t_count_le_29",
+    "ccz_layer_syndrome_one_block",
+    "ccz_layer_syndrome_across_blocks",
+    "clifford_t_circuit_t_count_example",
+    "ccz_layer_parity_repr_two",
+    "resolution_refutation_pos_neg_example",
+    "has_tree_decomposition_single_bag"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.01639",
+     "href": "https://arxiv.org/abs/2610.01639"
+    },
+    {
+     "label": "arXiv:2610.01024",
+     "href": "https://arxiv.org/abs/2610.01024"
+    },
+    {
+     "label": "arXiv:2610.02047",
+     "href": "https://arxiv.org/abs/2610.02047"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
   {
    "date": "2026-10-04",
    "kind": "proof",
@@ -202,7 +245,12 @@
     "submod_zero_marginals",
     "capped_count_marginal"
    ],
-   "links": [{"label": "arXiv:2502.02815", "href": "https://arxiv.org/abs/2502.02815"}]
+   "links": [
+    {
+     "label": "arXiv:2502.02815",
+     "href": "https://arxiv.org/abs/2502.02815"
+    }
+   ]
   },
   {
    "date": "2026-10-02",
@@ -225,7 +273,12 @@
     "exists_simple_games_ne_of_swing_table_eq",
     "swing_table_eq_zero_of_lt"
    ],
-   "links": [{"label": "arXiv:2607.07013", "href": "https://arxiv.org/abs/2607.07013"}]
+   "links": [
+    {
+     "label": "arXiv:2607.07013",
+     "href": "https://arxiv.org/abs/2607.07013"
+    }
+   ]
   },
   {
    "date": "2026-10-02",
@@ -237,7 +290,12 @@
     "pmms_fair_not_imp_mms_fair",
     "capped_count_marginal"
    ],
-   "links": [{"label": "arXiv:2502.02815", "href": "https://arxiv.org/abs/2502.02815"}]
+   "links": [
+    {
+     "label": "arXiv:2502.02815",
+     "href": "https://arxiv.org/abs/2502.02815"
+    }
+   ]
   },
   {
    "date": "2026-10-02",
@@ -255,7 +313,12 @@
     "range_card_filter_dvd",
     "dvd_of_div_ceil_le"
    ],
-   "links": [{"label": "arXiv:2401.09497", "href": "https://arxiv.org/abs/2401.09497"}]
+   "links": [
+    {
+     "label": "arXiv:2401.09497",
+     "href": "https://arxiv.org/abs/2401.09497"
+    }
+   ]
   },
   {
    "date": "2026-10-02",
@@ -272,7 +335,12 @@
     "perm_card_val_lt",
     "cyclic_offset_eq_ite"
    ],
-   "links": [{"label": "arXiv:2609.17418", "href": "https://arxiv.org/abs/2609.17418"}]
+   "links": [
+    {
+     "label": "arXiv:2609.17418",
+     "href": "https://arxiv.org/abs/2609.17418"
+    }
+   ]
   },
   {
    "date": "2026-10-02",
@@ -309,14 +377,24 @@
    "kind": "launch",
    "title": "A Knowledgebase you can scan, filter and share",
    "body": "The Knowledgebase now has search, in words or by Lean name, and filters by domain and by kind, with a newest-first order and the Lean statements one switch away. The address keeps the filters, so a link to a filtered view opens the same view for whoever you send it to.",
-   "links": [{"label": "Open the Knowledgebase", "href": "knowledgebase/"}]
+   "links": [
+    {
+     "label": "Open the Knowledgebase",
+     "href": "knowledgebase/"
+    }
+   ]
   },
   {
    "date": "2026-09-29",
    "kind": "launch",
    "title": "The site is live",
    "body": "Every verified declaration now has its own page: the statement in words and in Lean, the full proof, what it builds on and what builds on it. Anyone with a GitHub account can submit a problem for the machine to attempt, or challenge a result whose name claims more than it proves.",
-   "links": [{"label": "Submit a problem", "href": "submit/"}]
+   "links": [
+    {
+     "label": "Submit a problem",
+     "href": "submit/"
+    }
+   ]
   }
  ]
 }

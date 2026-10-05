@@ -1337,11 +1337,6 @@ def render_problems(s: Site) -> str:
             + "".join(problem_card(s, p, root) for p in groups[k])
             + "</section>"
         )
-    if not secs:
-        secs.append(
-            '<p class="empty">No reviewed problems yet. '
-            f'<a href="{e(s.new_problem())}">Submit the first one.</a></p>'
-        )
     if groups["pending"]:
         n = len(groups["pending"])
         secs.append(

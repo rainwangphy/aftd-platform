@@ -250,7 +250,14 @@ def main() -> int:
         check("the old results/ address forwards to the knowledgebase",
               f"../{KB_URL}" in pages.get("results/index.html", ""))
         # Pages that only forward to where something moved have no layout.
-        moved = {"results/index.html", "news/index.html"}
+        check("the old submit/ address forwards to the Problems page's guide",
+              "../problems/#submit" in pages.get("submit/index.html", ""))
+        check("the Problems page carries the submission guide",
+              'id="submit"' in pages.get("problems/index.html", "")
+              and "What happens next" in pages.get("problems/index.html", ""))
+        check("Submit is no longer a tab of its own",
+              not re.search(r'<nav[^>]*>.*?>Submit<', pages["index.html"], re.S))
+        moved = {"results/index.html", "news/index.html", "submit/index.html"}
         site_pages = {k: v for k, v in pages.items() if k != "404.html" and k not in moved}
         no_nav = [k for k, v in site_pages.items()
                   if not re.search(
@@ -376,7 +383,7 @@ def main() -> int:
         check("every page's navigation links the weekly reports",
               all(re.search(r'href="(?:\.\./)*weekly/"[^>]*>Weekly<', v)
                   for k, v in pages.items() if k not in {"404.html", "results/index.html",
-                                                          "news/index.html"}))
+                                                          "news/index.html", "submit/index.html"}))
 
     def wrefused(reports: list[dict], news: list[dict] | None = None) -> str:
         try:

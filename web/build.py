@@ -27,13 +27,15 @@ Pages:
     results/                    the page's old address, forwarding to the new one
     d/<name>/                   one declaration: statement, proof, dependencies,
                                 the problem it answers, challenges against it
-    problems/                   community problems by status, and what is open
+    problems/                   community problems by status, what is open, and
+                                how to submit a problem or challenge a result
     problems/<number>/          one reviewed problem and what answers it
     news/                       the address the news first had, forwarding to the
                                 home page's News section
     weekly/                     every weekly report, newest first
     weekly/<week>/              one week: what was settled, what is open
-    submit/                     how to submit a problem or challenge a result
+    submit/                     the old address of the submission guide,
+                                forwarding to problems/#submit
 
 Stdlib only, so CI needs nothing but Python. Everything a submitter wrote is
 escaped; nothing unreviewed is published beyond a count.
@@ -300,7 +302,6 @@ NAV = [
     ("knowledgebase/", "Knowledgebase"),
     ("weekly/", "Weekly"),
     ("problems/", "Problems"),
-    ("submit/", "Submit"),
 ]
 
 
@@ -384,7 +385,7 @@ def page(
       <a href="{root}problems/">Community problems</a>
       <a href="{root}index.html#news">News</a>
       <a href="{root}weekly/">Weekly reports</a>
-      <a href="{root}submit/">Submit a problem</a>
+      <a href="{root}problems/#submit">Submit a problem</a>
     </div>
     <div class="foot-col">
       <h2>Take part</h2>
@@ -744,7 +745,7 @@ def render_home(s: Site) -> str:
       paper and no author line. Nothing is here because a language model said it
       was true.</p>
       <div class="cta">
-        <a class="btn primary" href="submit/">Submit a problem</a>
+        <a class="btn primary" href="problems/#submit">Submit a problem</a>
         <a class="btn" href="knowledgebase/">Browse the knowledgebase</a>
       </div>
     </div>
@@ -807,7 +808,7 @@ def render_home(s: Site) -> str:
     <p>Send a statement through a GitHub issue. Once reviewed, the machine
     formalizes it, checks the formalization says what you said, and tries to
     prove it. Your handle stays on it.</p>
-    <a href="submit/">How submitting works &rarr;</a></div>
+    <a href="problems/#submit">How submitting works &rarr;</a></div>
     <div class="panel"><span class="panel-n">02</span><h3>Read the proofs</h3>
     <p>Every verified declaration has its own page: the statement in words and in
     Lean, the full proof, what it builds on and what builds on it.</p>
@@ -1385,10 +1386,11 @@ def render_problems(s: Site) -> str:
   problem counts as proved when every declaration answering it has passed Lean
   and the round trip.</p>
   <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a>
-  <a class="btn" href="{root}submit/">How it works</a></div>
+  <a class="btn" href="#submit">How it works</a></div>
 </header>
 <div class="facts">{counts}</div>
 {"".join(secs)}
+{submit_guide(s, root)}
 """
     return page(s, title="Community problems", root=root, active="problems/", body=body, math=True)
 
@@ -1447,23 +1449,21 @@ def render_problem(s: Site, p: dict) -> str:
     )
 
 
-def render_submit(s: Site) -> str:
-    root = "../"
+def submit_guide(s: Site, root: str) -> str:
+    """How to submit a problem or challenge a result: the last section of the
+    Problems page (its own page once, now forwarding here)."""
     doms = "".join(
         f'<li><strong>{e(d["title"])}</strong> &mdash; {e(clip(d["description"], 160))}</li>'
         for d in s.kb["domains"]
     )
-    body = f"""
-<header class="phead">
-  <p class="eyebrow">Take part</p>
-  <h1>Submit a problem</h1>
+    return f"""
+<section class="doc" id="submit">
+  <header class="shead"><h2>Submit a problem</h2></header>
   <p class="lead">Give the machine a statement to prove. Submissions go through a
   GitHub issue, so you need a GitHub account, and the discussion of your problem
   happens there in public.</p>
   <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Open the submission form</a></div>
-</header>
-<section class="doc">
-  <h2>What to submit</h2>
+  <h3>What to submit</h3>
   <p>A single, precise statement from one of the domains below. The best
   candidates are results you can point to in a textbook or paper: the machine
   is very good at careful transcription and patchy at genuinely new
@@ -1474,7 +1474,7 @@ def render_submit(s: Site) -> str:
   <code>$&hellip;$</code> is rendered. If you know Lean, you may add a Lean
   statement, but you do not have to.</p>
 
-  <h2>What happens next</h2>
+  <h3>What happens next</h3>
   <ol class="flow">
     <li><strong>Review.</strong> A maintainer reads every submission before the
     machine spends anything on it, since every attempt costs tokens. Accepted
@@ -1488,17 +1488,17 @@ def render_submit(s: Site) -> str:
     gets stuck it splits the statement into lemmas, and the problem shows as
     <em>needs help</em>, with the exact statement it is stuck on.</li>
     <li><strong>Publication.</strong> When everything answering your problem is
-    proved, it appears under <a href="{root}problems/">Problems</a> and in the
+    proved, it appears on this page and in the
     knowledgebase, with its full proof, and the issue is updated.</li>
   </ol>
 
-  <h2>Credit</h2>
+  <h3>Credit</h3>
   <p>Your GitHub handle is shown on the problem as the person who posed it.
   Everything the machine produces is public and free to use; by submitting,
   you agree that your statement may be published, reformulated and built on
   by anyone.</p>
 
-  <h2>Challenging a result</h2>
+  <h3>Challenging a result</h3>
   <p>Whether a proof is correct is not up for debate: it elaborates and
   <code>#print axioms</code> is clean, or it is not on this site. Everything else
   is. If a declaration's name claims more than it proves, if a statement is
@@ -1506,12 +1506,11 @@ def render_submit(s: Site) -> str:
   <a href="{e(s.new_verdict())}">open a challenge</a>. Every declaration page
   has a button for it too.</p>
 
-  <h2>Just want to talk?</h2>
+  <h3>Just want to talk?</h3>
   <p>Questions, ideas for the curriculum and results you built on top of the
   knowledgebase belong in <a href="{e(s.discussions())}">the discussions</a>.</p>
 </section>
 """
-    return page(s, title="Submit a problem", root=root, active="submit/", body=body)
 
 
 def week_span(r: dict) -> str:
@@ -1659,7 +1658,7 @@ def build(
     write("knowledgebase/index.html", render_kb(s))
     write("results/index.html", render_moved(s, "knowledgebase/"))
     write("problems/index.html", render_problems(s))
-    write("submit/index.html", render_submit(s))
+    write("submit/index.html", render_moved(s, "problems/#submit"))
     write("news/index.html", render_moved(s, "#news"))
     write("weekly/index.html", render_weekly_index(s))
     for i, r in enumerate(s.weekly):

@@ -32,8 +32,11 @@ Pages:
     problems/<number>/          one reviewed problem and what answers it
     news/                       the address the news first had, forwarding to the
                                 home page's News section
-    weekly/                     every weekly report, newest first
+    reports/                    the summary reports: every weekly report, newest
+                                first (monthly and yearly ones would join it)
     weekly/<week>/              one week: what was settled, what is open
+    weekly/                     the old address of the reports, forwarding to
+                                reports/
     submit/                     the old address of the submission guide,
                                 forwarding to problems/#submit
 
@@ -332,7 +335,7 @@ NAME = "AFTD"
 FULL_NAME = "Auto-Formalizing Theoretical Domains"
 NAV = [
     ("knowledgebase/", "Knowledgebase"),
-    ("weekly/", "Weekly"),
+    ("reports/", "Summary Report"),
     ("problems/", "Open Problems"),
 ]
 
@@ -416,7 +419,7 @@ def page(
       <a href="{root}knowledgebase/#graph">Dependency graph</a>
       <a href="{root}problems/">Open Problems</a>
       <a href="{root}index.html#news">News</a>
-      <a href="{root}weekly/">Weekly reports</a>
+      <a href="{root}reports/">Summary Report</a>
       <a href="{root}problems/#submit">Submit a problem</a>
     </div>
     <div class="foot-col">
@@ -1581,14 +1584,16 @@ def outcome_badge(r: dict, x: dict) -> str:
     return badge(label, f"wk-{x['outcome']}")
 
 
-def render_weekly_index(s: Site) -> str:
+def render_reports(s: Site) -> str:
+    """The summary reports, by period. Only weekly ones so far; a monthly or
+    yearly series would be one more section."""
     root = "../"
     items = "".join(
         f'<article class="news-item" id="{e(r["week"])}">'
         f'<p class="news-when"><span>{e(r["week"])}</span>'
         f'<span class="small">{e(week_span(r))}</span>'
         f'<span class="small">{r.get("minutes", "?")} min read</span></p>'
-        f'<div class="news-main"><h3><a href="{e(r["week"])}/">{e(r["title"])}</a></h3>'
+        f'<div class="news-main"><h3><a href="{root}weekly/{e(r["week"])}/">{e(r["title"])}</a></h3>'
         f'<p class="prose">{e(r.get("summary", ""))}</p>'
         + "".join(f'<p class="wk-hl">{outcome_badge(r, x)} {e(x["headline"])}</p>'
                   for x in weekly_highlights(r))
@@ -1597,16 +1602,17 @@ def render_weekly_index(s: Site) -> str:
     )
     body = f"""
 <header class="phead">
-  <p class="eyebrow">Weekly reports</p>
-  <h1>What each week settled</h1>
-  <p class="lead">Once a week, the theorems Lean accepted, told in about ten
+  <p class="eyebrow">What Lean accepted, period by period</p>
+  <h1>Summary Report</h1>
+  <p class="lead">The theorems Lean accepted over a period, told in about ten
   minutes: what was settled, in which fields, from which papers, and what is still
   open. Every theorem a report names links to its Lean proof.</p>
 </header>
-<section class="band">
+<section class="band" id="weekly">
+  <header class="shead"><h2>Weekly Reports</h2><span class="n">{len(s.weekly)}</span></header>
   {f'<div class="news-list">{items}</div>' if items else '<p class="prose">No weekly report yet.</p>'}
 </section>"""
-    return page(s, title="Weekly reports", root=root, active="weekly/", body=body,
+    return page(s, title="Summary Report", root=root, active="reports/", body=body,
                 description="What Lean accepted each week, in ten minutes.")
 
 
@@ -1696,7 +1702,7 @@ def render_weekly(s: Site, i: int) -> str:
     newer = s.weekly[i - 1] if i > 0 else None
     pager = (
         f'<nav class="pager" aria-label="Weekly reports">{side(older, "prev", "&larr; Earlier week")}'
-        f'<a class="pos" href="{root}weekly/"><span class="small">All weekly reports</span></a>'
+        f'<a class="pos" href="{root}reports/"><span class="small">All reports</span></a>'
         f'{side(newer, "next", "Later week &rarr;")}</nav>'
     )
     partial = " (so far: the week is not over)" if r.get("partial") else ""
@@ -1721,7 +1727,7 @@ def render_weekly(s: Site, i: int) -> str:
   <p class="small"><em>{e(r.get("disclaimer", ""))}</em></p>
   {pager}
 </section>"""
-    return page(s, title=f"Weekly report {r['week']}", root=root, active="weekly/",
+    return page(s, title=f"Weekly report {r['week']}", root=root, active="reports/",
                 body=body, description=r.get("summary", ""))
 
 
@@ -1785,7 +1791,8 @@ def build(
     write("problems/index.html", render_problems(s))
     write("submit/index.html", render_moved(s, "problems/#submit"))
     write("news/index.html", render_moved(s, "#news"))
-    write("weekly/index.html", render_weekly_index(s))
+    write("reports/index.html", render_reports(s))
+    write("weekly/index.html", render_moved(s, "reports/"))
     for i, r in enumerate(s.weekly):
         write(f"weekly/{r['week']}/index.html", render_weekly(s, i))
     write("404.html", render_404(s))

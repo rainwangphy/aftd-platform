@@ -270,7 +270,8 @@ def main() -> int:
               < prob.find('class="facts"'))
         check("Submit is no longer a tab of its own",
               not re.search(r'<nav[^>]*>.*?>Submit<', pages["index.html"], re.S))
-        moved = {"results/index.html", "news/index.html", "submit/index.html"}
+        moved = {"results/index.html", "news/index.html", "submit/index.html",
+                 "weekly/index.html"}
         site_pages = {k: v for k, v in pages.items() if k != "404.html" and k not in moved}
         no_nav = [k for k, v in site_pages.items()
                   if not re.search(
@@ -393,7 +394,7 @@ def main() -> int:
         pages = {p.relative_to(out).as_posix(): p.read_text(encoding="utf-8")
                  for p in out.rglob("*.html")}
         wk = pages.get("weekly/2026-W40/index.html", "")
-        idx = pages.get("weekly/index.html", "")
+        idx = pages.get("reports/index.html", "")
         check("each report has a page, and there is an index", wk != "" and idx != ""
               and "weekly/2026-W39/index.html" in pages)
         check("the counts include the reports", n.get("weekly") == 2, str(n))
@@ -418,10 +419,13 @@ def main() -> int:
               'href="../../weekly/2026-W39/"' in wk and "Earlier week" in wk)
         check("the weekly News item links to its report",
               'href="weekly/2026-W40/"' in pages["index.html"] and "Weekly report" in pages["index.html"])
-        check("every page's navigation links the weekly reports",
-              all(re.search(r'href="(?:\.\./)*weekly/"[^>]*>Weekly<', v)
+        check("every page's navigation links the summary reports",
+              all(re.search(r'href="(?:\.\./)*reports/"[^>]*>Summary Report<', v)
                   for k, v in pages.items() if k not in {"404.html", "results/index.html",
-                                                          "news/index.html", "submit/index.html"}))
+                                                          "news/index.html", "submit/index.html",
+                                                          "weekly/index.html"}))
+        check("the old address of the reports forwards to them",
+              "reports/" in pages.get("weekly/index.html", "") and "Moved" in pages["weekly/index.html"])
 
     def wrefused(reports: list[dict], news: list[dict] | None = None) -> str:
         try:

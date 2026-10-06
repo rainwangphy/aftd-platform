@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-06T01:09:55Z",
+ "generated": "2026-10-06T01:27:49Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -33815,6 +33815,690 @@
    "rationale": "This is a well-known conjecture about a famous topological game, and it is supported by massive computation. Outcomes are known for all $n\\le62$ plus 27 larger cases up to $n=104$ ('Massively Parallel Proof-Number Search for Impartial Games and Beyond', arXiv:2511.10339), up from $n\\le 44$ with a few sporadic larger values (earlier work, e.g. 'Computer analysis of Sprouts with nimbers', arXiv:1008.2320). There is no theoretical approach to the mod-6 pattern.",
    "links": [],
    "added": 1791246209
+  },
+  {
+   "id": 43,
+   "ref": "OP-43",
+   "title": "The Shield-Core conjecture for stable marriage",
+   "statement": "Consider the stable marriage problem with n men and n women and strict, complete preference lists. For a preference profile S let beta(S) be the largest number of blocking pairs of a complete matching of S, and let the shield number sigma(n) be the minimum of beta(S) over all such profiles. The cyclic Hollow-Shell profile C_n has man g rank woman h at position ((h - g) mod n) + 1 and woman h rank man g at position n - ((h - g) mod n). Is sigma(n) = beta(C_n) = floor((n - 1)^2 / 4) for every n? Equivalently: (a) every complete matching of C_n has at most floor((n - 1)^2 / 4) blocking pairs, and (b) every profile has a complete matching with at least floor((n - 1)^2 / 4) blocking pairs.",
+   "status": "formalized",
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2609.17418",
+   "source_title": "A Quadratic Lower Bound for the Shield Number of the Stable Marriage Problem: Rearrangement, Extremal Construction, and Biclique Realizability",
+   "location": "Sec. 1.1 (Shield-Core conjecture); Sec. 7.1 and Sec. 8 (the upper bound on beta(C_n) is left open)",
+   "rationale": "The paper proves sigma(n) >= ceil(n(n - 2)/6) by a rearrangement argument and constructs a matching of C_n with exactly floor((n - 1)^2/4) blocking pairs (Theorem 5.3). It explicitly does not claim the upper bound beta(C_n) <= floor((n - 1)^2/4) or the exact equality; a related Hall-type biclique property is verified exhaustively for n <= 4.",
+   "links": [
+    {
+     "node": "hollow_shell_blocking_pairs_ncard_le",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 44,
+   "ref": "OP-44",
+   "title": "Weakly consecutive sequences begin or end with 1",
+   "statement": "A permutation sigma of {1, ..., k} is weakly consecutive if for all positions i, j and all integers m, whenever m divides sigma(i) and m divides i - j, then m divides sigma(j). Does every weakly consecutive sequence satisfy sigma(1) = 1 or sigma(k) = 1?",
+   "status": "formalized",
+   "topic": "elementary_number_theory",
+   "domain": "number_theory",
+   "source": "arXiv:2401.09497",
+   "source_title": "Weakly Consecutive Sequences",
+   "location": "Conjecture 5.2 (Sec. 5)",
+   "rationale": "The paper generates weakly consecutive sequences from four starting sequences by three rules and conjectures that these produce every such sequence (Conjecture 5.1), which would imply this statement; the authors report that they could not prove it directly from the definition.",
+   "links": [
+    {
+     "node": "weakly_consecutive_one_at_end",
+     "role": "statement"
+    },
+    {
+     "node": "weakly_consecutive_one_at_end_of_isPrimePow",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 45,
+   "ref": "OP-45",
+   "title": "Does MXS imply EEF1 for additive goods?",
+   "statement": "Notation as in the source: n agents, a set M of indivisible goods, valuations v_i with v_i(empty) = 0. An allocation is MXS-fair to agent i (minimum EFX share) if v_i(A_i) >= v_i(B_i) for some allocation B that is EFX-fair to i. An allocation A is EEF1-fair (epistemic EF1) to agent i if there is an allocation B with B_i = A_i that is EF1-fair to i, i.e. for every j there is a good g in B_j with v_i(B_i) >= v_i(B_j minus g). For additive goods and equal entitlements, is every allocation that is MXS-fair to agent i also EEF1-fair to agent i?",
+   "status": "settled_in_lean",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2502.02815",
+   "source_title": "Exploring Relations among Fairness Notions in Discrete Fair Division",
+   "location": "Sec. 6, open problem 1",
+   "rationale": "The implication holds for two agents (Lemma 22 of the source). Its inference engine settles almost every other implication among the 22 notions in this setting; this is the one left unresolved there.",
+   "links": [
+    {
+     "node": "mxs_fair_not_imp_eef1_fair",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 46,
+   "ref": "OP-46",
+   "title": "Does APS imply PROP1 for additive goods with unequal entitlements?",
+   "statement": "Additive goods, entitlements w_i > 0 summing to 1. Agent i's AnyPrice share is APS_i = min over price vectors p in R^m of the max of v_i(S) over bundles S with p(S) <= w_i p(M); an allocation is APS-fair to i if v_i(A_i) >= APS_i. It is PROP1-fair to i if v_i(A_i) >= w_i v_i(M), or v_i(A_i plus g) > w_i v_i(M) for some good g not in A_i (the source uses strict inequality). Is every allocation that is APS-fair to agent i also PROP1-fair to agent i?",
+   "status": "settled_in_lean",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2502.02815",
+   "source_title": "Exploring Relations among Fairness Notions in Discrete Fair Division",
+   "location": "Sec. 6, open problem 2",
+   "rationale": "The source maps implications among 22 fairness notions with an inference engine; for additive goods with unequal entitlements this implication is left open, even for two agents.",
+   "links": [
+    {
+     "node": "aps_fair_not_imp_prop1_fair",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 47,
+   "ref": "OP-47",
+   "title": "Does MXS imply PROP1 for submodular goods?",
+   "statement": "Notation as in the source: n agents, a set M of indivisible goods, valuations v_i with v_i(empty) = 0. An allocation is MXS-fair to agent i (minimum EFX share) if v_i(A_i) >= v_i(B_i) for some allocation B that is EFX-fair to i. An allocation is PROP1-fair to i if v_i(A_i) >= v_i(M)/n or v_i(A_i plus g) > v_i(M)/n for some good g not in A_i. For monotone submodular valuations over goods and equal entitlements, is every allocation that is MXS-fair to agent i also PROP1-fair to agent i?",
+   "status": "settled_in_lean",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2502.02815",
+   "source_title": "Exploring Relations among Fairness Notions in Discrete Fair Division",
+   "location": "Sec. 6, open problem 3",
+   "rationale": "The implication holds for submodular valuations with binary marginals (Lemma 68 of the source).",
+   "links": [
+    {
+     "node": "mxs_fair_imp_prop1_fair_of_submodular",
+     "role": "statement"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 48,
+   "ref": "OP-48",
+   "title": "Does pairwise MMS imply MMS for submodular goods with binary marginals?",
+   "statement": "Equal entitlements, n agents, valuations submodular with binary marginals (v_i(S plus g) - v_i(S) in {0, 1}). Agent i's maximin share MMS_i is the max over partitions of M into n bundles of the min bundle value. An allocation is pairwise-MMS-fair to i if for every other agent j, A_i is worth at least i's 2-agent maximin share of A_i union A_j. Is every allocation that is pairwise-MMS-fair to every agent also MMS-fair to every agent?",
+   "status": "settled_in_lean",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2502.02815",
+   "source_title": "Exploring Relations among Fairness Notions in Discrete Fair Division",
+   "location": "Sec. 6, open problem 4",
+   "rationale": "The source maps implications among 22 fairness notions; for submodular goods with binary marginals this implication is one of the four it could not resolve.",
+   "links": [
+    {
+     "node": "pmms_fair_not_imp_mms_fair",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 49,
+   "ref": "OP-49",
+   "title": "Swing rigidity of weighted voting games",
+   "statement": "For a simple game on n players and a player i, the swing table entry T(i, k) is the number of coalitions S of size k not containing i such that S is losing and S plus i is winning. Is every weighted voting game determined by its swing table among all simple games, i.e. if f is weighted and g is any simple game with the same swing table, must f = g?",
+   "status": "settled_in_lean",
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2607.07013",
+   "source_title": "What Semivalues Cannot See: The Information Content of Anonymous Marginal Values",
+   "location": "Conjecture 10.2 (Sec. 10); first of the open problems in Sec. 11",
+   "rationale": "Distinct non-weighted simple games can share a swing table, so semivalues cannot tell them apart. An exhaustive census at n = 5 and searches at n = 6, 7 found no weighted game sharing its swing table with another game.",
+   "links": [
+    {
+     "node": "weighted_game_eq_of_swing_table_eq",
+     "role": "statement"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 50,
+   "ref": "OP-50",
+   "title": "Are the RAT-degree bounds 3 and 5 for deferred acceptance tight?",
+   "statement": "In a mechanism with agent set N, a manipulation by agent a_i is safe given known agents K and their preferences if it is weakly better than truth for every preference profile of the unknown agents, and profitable if it is strictly better for some. The RAT-degree is the least k such that some agent, for some k-set of known agents and some preferences of theirs, has a safe and profitable manipulation (n if none). For men-proposing deferred acceptance, with women as potential manipulators, the source shows RAT-degree at most 3 when truncation is allowed and at most 5 when only complete rankings may be reported. Are these bounds tight, i.e. is the RAT-degree exactly 3 with truncation and exactly 5 without truncation?",
+   "status": "formalized",
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2502.18805",
+   "source_title": "It’s Not All Black and White: Degree of Truthfulness for Risk-Avoiding Agents",
+   "location": "Sec. 8.1 (before Lemma 8.5 and Theorem 8.6)",
+   "rationale": "Lemmas 8.2 and 8.3 give safe profitable manipulations with 3 known agents (truncation) and 5 known agents (reordering only); Lemma 8.5 shows no agent has a safe manipulation with no knowledge, so the RAT-degree is at least 1.",
+   "links": [
+    {
+     "node": "da_three_by_three_three_known_safely_manipulable",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 51,
+   "ref": "OP-51",
+   "title": "Exact subsidy for envy-free orientations of multigraphs",
+   "statement": "Agents are the vertices of a multigraph and items are its edges; each edge can only go to one of its two endpoints (an orientation). Valuations are monotone, an agent values only edges incident to her, and the largest marginal value of any edge is at most 1. What is the worst-case minimum total subsidy needed to make some orientation envy-free, as a function of the number n of agents? The known bounds are n - 2 (lower) and n - 1 (upper).",
+   "status": "formalized",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2502.13671",
+   "source_title": "On the Subsidy of Envy-Free Orientations in Graphs",
+   "location": "Sec. 1.1 (Table 1) and Sec. 7, first open problem",
+   "rationale": "A total subsidy of n - 1 always suffices (Theorem 9), and a simple-graph instance needs n - 2 (Example 20), which is tight for simple graphs (Theorem 21). For additive valuations on multigraphs the answer is n/2.",
+   "links": [
+    {
+     "node": "multigraph_orientation_subsidy_three_halves",
+     "role": "partial"
+    },
+    {
+     "node": "multigraph_orientation_subsidy_four_agents",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 52,
+   "ref": "OP-52",
+   "title": "EF1 and Pareto optimality for connected chores on a path",
+   "statement": "Indivisible chores are arranged on a path and each agent must receive a connected bundle (an interval); costs are additive and strictly positive. An allocation is EF1 if for every agents i, j, removing some chore from i's bundle makes i not envy j. Pareto optimality is taken among connected allocations. Does a connected allocation that is both EF1 and Pareto optimal always exist?",
+   "status": "settled_in_lean",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2609.32545",
+   "source_title": "Connected EF1 Allocations Exist in Discrete Chore Cutting",
+   "location": "Sec. 4 (Conclusion)",
+   "rationale": "Connected EF1 (even EF1outer) allocations of chores always exist for monotone costs (the source's main result). Without connectivity, EF1 and PO are compatible for additive chores.",
+   "links": [
+    {
+     "node": "connected_ef1_po_chores_incompatible",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 53,
+   "ref": "OP-53",
+   "title": "Existence of PROPm orientations",
+   "statement": "In the orientation model, items (goods) are edges of a multigraph whose vertices are the agents, each item is relevant only to its two endpoints and must be given to one of them. An agent's proportional share is the sum over relevant items e of v_i(e)/n_e, where n_e = 2 is the number of agents to whom e is relevant. PROPm relaxes proportionality by the minimax-item slack (between PROP1 and PROPX). Does every instance with nonnegative additive valuations admit a PROPm orientation?",
+   "status": "formalized",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2602.18098",
+   "source_title": "Fair Orientations: Proportionality and Equitability",
+   "location": "Sec. 6 (Conclusion)",
+   "rationale": "PROP1 orientations always exist for goods on multigraphs, while PROPX orientations need not exist and deciding their existence is NP-complete (results of the source).",
+   "links": [
+    {
+     "node": "propm_orientation_exists_of_le_five",
+     "role": "partial"
+    },
+    {
+     "node": "propm_orientation_of_out_degree_two",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 54,
+   "ref": "OP-54",
+   "title": "Sybil-proof, ex-post safe procurement without winner-take-all equilibria",
+   "statement": "A buyer procures one unit of divisible work from agents with private linear costs c_i; a mechanism maps bids (an agent may submit several bids under different identities) to allocations x_i and payments p_i, with utility p_i - c_i x_i. It is Sybil-proof if every multi-bid strategy is weakly dominated by a single-bid strategy, and ex-post safe if each agent has a bidding strategy guaranteeing nonnegative utility against all others' bids and positive utility against some. Is there a procurement mechanism that is Sybil-proof and ex-post safe and whose pure Nash equilibria (under complete information) are not winner-take-all, i.e. give work to at least two agents?",
+   "status": "formalized",
+   "topic": "mechanism_design",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2603.27779",
+   "source_title": "Beyond Winner-Take-All Procurement Auctions",
+   "location": "Sec. 6 (Conclusion)",
+   "rationale": "In the source, the DSIC proportional mechanism is not Sybil-proof, Tullock contests are Sybil-proof but not ex-post safe, and the paid-as-bid mechanism is ex-post safe but not Sybil-proof.",
+   "links": [
+    {
+     "node": "exists_sybil_proof_ex_post_safe_non_winner_take_all_procurement",
+     "role": "partial"
+    },
+    {
+     "node": "stake_share_pne_exists_and_non_winner_take_all",
+     "role": "partial"
+    },
+    {
+     "node": "proportional_share_no_pne_of_safe_all_costs",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 55,
+   "ref": "OP-55",
+   "title": "Concavity of the QA weight-score without convex exposure",
+   "statement": "Given a proper scoring rule s and expert forecasts p_1..p_m, the quasi-arithmetic (QA) pool with weights w averages the forecasts in the exposure (gradient) space of s. Theorem 5.1 of the source shows that if s has convex exposure, then for every outcome j the weight-score WS_j(w) = s(QA pool of (p_i, w_i); j) is concave in w. Does this concavity hold for every proper scoring rule, without the convex-exposure assumption?",
+   "status": "settled_in_lean",
+   "topic": "mechanism_design",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2102.07081",
+   "source_title": "From Proper Scoring Rules to Max-Min Optimal Forecast Aggregation",
+   "location": "Sec. 7 (Conclusions and future work), third bullet",
+   "rationale": "Every proper scoring rule for binary outcomes has convex exposure, as do the logarithmic and quadratic rules and several power families (App. D), so a counterexample needs at least three outcomes and a rule outside these classes.",
+   "links": [
+    {
+     "node": "tsallis_three_qa_weight_score_not_concave",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 56,
+   "ref": "OP-56",
+   "title": "Optimal receiver-utility constant in bit-string persuasion",
+   "statement": "The state is a bit string X drawn from a prior mu; a sender observes X and commits to a signaling scheme; the receiver guesses every bit and is paid the number of correct guesses; the sender wants as many bits as possible guessed as 1. Let R_0(mu) be the receiver's utility from the prior alone and R_max(mu) the largest receiver utility among sender-optimal schemes. What is the least constant c such that R_max(mu) <= c R_0(mu) for every prior mu?",
+   "status": "settled_in_lean",
+   "topic": "mechanism_design",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2606.22226",
+   "source_title": "Quantifying Theoretical AI Alignment Guarantees: Receiver-Utility Bounds in Bayesian Persuasion",
+   "location": "Sec. 5 (Future Work), first open direction",
+   "rationale": "The source proves c <= 3/2 (Theorem 4.5) and gives a six-bit prior with ratio 39/31 > 5/4, so the optimal constant lies in [39/31, 3/2].",
+   "links": [
+    {
+     "node": "persuasion_receiver_ratio_optimal_constant",
+     "role": "statement"
+    },
+    {
+     "node": "persuasion_slice_ratio",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 57,
+   "ref": "OP-57",
+   "title": "Does the Monroe rule satisfy Droop-JR when k does not divide n?",
+   "statement": "Approval-based committee elections with n voters and committee size k. The Hare Monroe rule assigns each winner a group of about n/k voters and maximizes the number of voters who approve their assigned winner; Droop Monroe does the same with groups of n/(k + 1) voters. A rule satisfies an axiom if it always outputs an outcome providing it. Droop-JR requires that for every group of more than n/(k + 1) voters who all approve a common candidate, some voter in the group approves a member of the committee. The (Hare) Monroe rule satisfies Droop-JR when k divides n. Does it satisfy Droop-JR for all n and k?",
+   "status": "settled_in_lean",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2508.00811",
+   "source_title": "Justified Representation: From Hare to Droop",
+   "location": "Appendix, discussion before Proposition 3; Table 1, note d",
+   "rationale": "Proposition 3 of the source proves it when k divides n. Hare Monroe fails Droop-PJR even when k or k + 1 divides n, and Hare Greedy Monroe can fail Droop-JR depending on tie-breaking.",
+   "links": [
+    {
+     "node": "hare_monroe_satisfies_droop_jr",
+     "role": "statement"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 58,
+   "ref": "OP-58",
+   "title": "Droop-PJR+ for the Droop Monroe rule",
+   "statement": "Approval-based committee elections with n voters and committee size k. The Hare Monroe rule assigns each winner a group of about n/k voters and maximizes the number of voters who approve their assigned winner; Droop Monroe does the same with groups of n/(k + 1) voters. A rule satisfies an axiom if it always outputs an outcome providing it. Droop-PJR+ is the Droop-quota version of the PJR+ axiom (groups of more than l n/(k + 1) voters with l commonly approved candidates must be represented, with the \"+\" strengthening that compares against any commonly approved unelected candidate). Droop Monroe satisfies Droop-PJR when k + 1 divides n. When k + 1 divides n, does Droop Monroe satisfy Droop-PJR+?",
+   "status": "settled_in_lean",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2508.00811",
+   "source_title": "Justified Representation: From Hare to Droop",
+   "location": "Table 1, note a",
+   "rationale": "Droop Monroe and Droop Greedy Monroe satisfy Droop-PJR and even Droop-FPJR when k + 1 divides n (Theorem 4), and can violate them otherwise (Proposition 4).",
+   "links": [
+    {
+     "node": "droop_monroe_satisfies_droop_pjr_plus",
+     "role": "statement"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 59,
+   "ref": "OP-59",
+   "title": "Droop-EJR+ and Droop-FJR for the Droop Monroe rule",
+   "statement": "Approval-based committee elections with n voters and committee size k. The Hare Monroe rule assigns each winner a group of about n/k voters and maximizes the number of voters who approve their assigned winner; Droop Monroe does the same with groups of n/(k + 1) voters. A rule satisfies an axiom if it always outputs an outcome providing it. Table 1 of the source leaves open whether Droop Monroe satisfies the Droop versions of EJR+ and FJR. Does every committee output by the Droop Monroe rule (in particular when k + 1 divides n) provide Droop-EJR+ and Droop-FJR?",
+   "status": "settled_in_lean",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2508.00811",
+   "source_title": "Justified Representation: From Hare to Droop",
+   "location": "Table 1 (\"?\" entries in the EJR+ and FJR columns for Droop Monroe); Conclusion",
+   "rationale": "PAV and Droop MES/EES satisfy Droop-EJR+ and Droop GCR satisfies Droop-FJR, so both axioms are satisfiable; for Droop Monroe the source has no positive or negative result.",
+   "links": [
+    {
+     "node": "droop_monroe_tie_violates_droop_ejr_plus_fjr",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 60,
+   "ref": "OP-60",
+   "title": "Does Droop-FJR imply BFJR in temporal voting?",
+   "statement": "Temporal approval voting: n voters, l rounds, one candidate chosen per round; voter i approves the set a_{i,r} in round r and her satisfaction is the number of rounds whose chosen candidate she approves. Droop-FJR (Definition A.6 of the source) and base full justified representation BFJR (Definition A.5, an FJR analogue from the general approval-voting model with feasibility constraints) are both defined there, and BFJR implies Droop-FJR (Proposition A.7). Does the converse hold, i.e. does every outcome providing Droop-FJR provide BFJR, possibly under some additional assumption such as no voter approving every candidate in a round?",
+   "status": "settled_in_lean",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2505.22513",
+   "source_title": "Strengthening Proportionality in Temporal Voting",
+   "location": "Appendix A.3 (before Proposition A.7)",
+   "rationale": "BFJR implies Droop-FJR (Proposition A.7). For the EJR analogues, Droop-EJR implies BEJR once no voter approves all candidates in some round (Proposition A.4).",
+   "links": [
+    {
+     "node": "temporal_droop_fjr_not_imp_bfjr",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 61,
+   "ref": "OP-61",
+   "title": "Uniqueness of equilibrium in the publication choice problem with many types",
+   "statement": "Researchers of types theta_1 < ... < theta_k with population densities mu_i choose publication amounts a_{i,j} >= 0 at venues j to maximize sum_j a_{i,j}^alpha v_j^beta (alpha in (0,1), beta > 1) subject to the budget sum_j c_{i,j} a_{i,j} <= 1; venue impact v_j is the average type of the papers published there. A pure-strategy equilibrium is a best-response profile consistent with the impacts it induces. Venue 1 is non-competitive: c_{i,1} is the same for all types. With more than two types, is the pure-strategy equilibrium always unique?",
+   "status": "settled_in_lean",
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2511.13678",
+   "source_title": "The Publication Choice Problem",
+   "location": "Conjecture 4.2 (Sec. 4.1)",
+   "rationale": "The source states uniqueness for two types under a non-competitive venue (Theorem 4.1) and reports simulations with five types consistent with uniqueness (App. A.2).",
+   "links": [
+    {
+     "node": "publication_choice_many_type_equilibrium_not_unique",
+     "role": "negation"
+    },
+    {
+     "node": "publication_choice_three_types_three_equilibria",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 62,
+   "ref": "OP-62",
+   "title": "Can a static threshold be 1/2-robust under strategic reward signaling?",
+   "statement": "Prophet inequality with strategic players: each reward X_i ~ H_i belongs to a player who commits to a signaling scheme to maximize the chance of being selected; the searcher sees only the signals and uses a threshold stopping policy. A policy is alpha-robust if it is an alpha-approximation to E[max X_i] when players signal strategically (in equilibrium) and a 1/2-approximation in the standard non-strategic setting. Is there a static (single) threshold, possibly outside the usual spectrum of 1/2-approximate thresholds, that is 1/2-robust for every instance?",
+   "status": "settled_in_lean",
+   "topic": "mechanism_design",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2409.18269",
+   "source_title": "Intrinsic Robustness of Prophet Inequality to Strategic Reward Signaling",
+   "location": "Remark 4.1; Sec. 6 (Conclusion and Future Directions)",
+   "rationale": "Thresholds in the standard 1/2-approximation spectrum are (1 - 1/e)/2-robust and no threshold in that spectrum does better in general (Theorem 4.1, Proposition 4.2); 1/2-robustness is achievable for i.i.d. and for log-concave rewards.",
+   "links": [
+    {
+     "node": "strategic_prophet_no_half_robust_static_threshold",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 63,
+   "ref": "OP-63",
+   "title": "Is the deterministic lower bound for finding minimal elements of a poset tight?",
+   "statement": "Given n elements of an unknown partial order of width at most w, accessible through a comparison oracle, a deterministic algorithm must output all minimal elements. The source proves that at least (w + 1)n/2 - w queries are needed in the worst case and that wn queries suffice. Is the lower bound tight, i.e. is the deterministic query complexity (w + 1)n/2 - w up to lower-order terms?",
+   "status": "settled_in_lean",
+   "topic": "algorithms",
+   "domain": "tcs",
+   "source": "arXiv:0707.1532",
+   "source_title": "Sorting and Selection in Posets",
+   "location": "Sec. 4 (introduction to the k-selection problem); Theorems 11 and 16",
+   "rationale": "Theorem 16 gives the adversary lower bound (w + 1)n/2 - w and Theorem 11 an algorithm with at most wn queries, so the leading constant is known only up to a factor of about 2.",
+   "links": [
+    {
+     "node": "pm_conjecture_false",
+     "role": "negation"
+    },
+    {
+     "node": "pm_exact_complexity",
+     "role": "partial"
+    },
+    {
+     "node": "pm_lower_bound",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 64,
+   "ref": "OP-64",
+   "title": "Linear-in-s approximation for pure equilibria of anonymous games",
+   "statement": "In an anonymous game with n players and s strategies, each player's payoff depends on her own strategy and on how many others play each strategy; payoffs are in [0, 1] and lambda-Lipschitz in that count vector. The source shows that a pure f(s) lambda-approximate Nash equilibrium always exists, with f quadratic in s, and that epsilon < lambda is impossible in general. Can the bound be improved to linear in s, and is s lambda a lower bound (some game has no pure epsilon-equilibrium for epsilon < s lambda)?",
+   "status": "formalized",
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "source": "arXiv:0710.5582",
+   "source_title": "Computing Equilibria in Anonymous Games",
+   "location": "Sec. 4 (Open Problems); also Sec. 1 (\"We conjecture that the dependence on s can be improved to s lambda\")",
+   "rationale": "Every lambda-Lipschitz anonymous game has a pure f(s) lambda-approximate equilibrium with f(s) quadratic in s (proof via Brouwer on an interpolated best-response map); matching pennies shows epsilon cannot go below lambda.",
+   "links": [
+    {
+     "node": "ag_two_exact",
+     "role": "partial"
+    },
+    {
+     "node": "ag_three_lower",
+     "role": "partial"
+    },
+    {
+     "node": "ag_four_lower",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 65,
+   "ref": "OP-65",
+   "title": "Are strategyproof surjective facility-location mechanisms under scaling effects dictatorships?",
+   "statement": "One facility is placed at y in [0, 1]; agent i at x_i has cost d(x_i, y) q(y), where q is a continuous positive scaling function, so preferences need not be single-peaked. Are the deterministic mechanisms that are strategyproof and surjective (onto [0, 1]) under these preferences exactly the dictatorships?",
+   "status": "formalized",
+   "topic": "mechanism_design",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2402.18908",
+   "source_title": "Facility Location Games with Scaling Effects",
+   "location": "Sec. 8 (Discussion)",
+   "rationale": "For single-peaked preferences, strategyproof anonymous rules are the phantom-median mechanisms; for unrestricted preferences, strategyproof surjective rules are dictatorial. The source shows preferences stay single-peaked iff q(y) - |q'(y)| >= 0 wherever q is differentiable (Theorem 4).",
+   "links": [
+    {
+     "node": "fse_dictatorship_conjecture_false",
+     "role": "partial"
+    },
+    {
+     "node": "fse_scaling_oblivious_dictatorship",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 66,
+   "ref": "OP-66",
+   "title": "Best approximation ratio for temporal EFX under identical days",
+   "statement": "Goods arrive over rounds t = 1..T and are allocated irrevocably. An allocation sequence is alpha-TEFX if after every round the cumulative allocation is alpha-EFX: v_i(A_i) >= alpha v_i(A_j minus g) for all agents i, j and goods g in A_j. Under identical days the same multiset of goods (same values for every agent) arrives each round. What is the largest alpha such that an alpha-TEFX allocation always exists under identical days (for two agents, and in general)?",
+   "status": "formalized",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2607.17224",
+   "source_title": "Temporal Fair Division of Indivisible Goods with Structured Constraints",
+   "location": "Sec. 7 (Discussion and Future Works); Theorems 2 and 3",
+   "rationale": "Exact TEFX can fail under identical days when T > 2, even for two agents with identical valuations (Theorem 2); a 1/2-TEFX allocation exists and is computable in polynomial time for two agents (Theorem 3).",
+   "links": [
+    {
+     "node": "tfx_identical_days_upper_bound",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 67,
+   "ref": "OP-67",
+   "title": "Price of MNW for two agents",
+   "statement": "Two agents with additive, nonnegative valuations over indivisible goods, normalized so each values all goods at 1. The price of maximum Nash welfare (MNW) is the worst case, over instances, of the ratio between the optimal utilitarian welfare and the welfare of the best MNW allocation; the strong price uses the worst MNW allocation. The source shows both lie in [27/23, 5/4] for two agents. What are their exact values?",
+   "status": "settled_in_lean",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1905.04910",
+   "source_title": "The Price of Fairness for Indivisible Goods",
+   "location": "Theorem 5.4 and Table 1",
+   "rationale": "Theorem 5.4 of the source: for two agents the price and the strong price of MNW are at least 27/23 and at most 5/4. For general n the price of MNW is Theta(n).",
+   "links": [
+    {
+     "node": "mnw_two_agents_welfare_le",
+     "role": "statement"
+    },
+    {
+     "node": "mnw_two_agents_price_lower_bound",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 68,
+   "ref": "OP-68",
+   "title": "Linkedness and the two-agent price of connectivity",
+   "statement": "Goods are the vertices of a connected graph G; for two agents with an additive utility u, MMS(u, 2) is the best min-value over all bipartitions of the vertices and G-MMS(G, u, 2) the best over bipartitions into two connected parts. The price of connectivity PoC(G, 2) is the sup over u of MMS(u, 2)/G-MMS(G, u, 2). G is (a, b)-linked if for any disjoint vertex sets M_1, M_2 with |M_1| = a, |M_2| = b there are disjoint connected subgraphs containing them. For k >= 2, if G is (2, k - 1)-linked but not (2, k)-linked, is PoC(G, 2) = 2k/(2k - 1)?",
+   "status": "settled_in_lean",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1908.05433",
+   "source_title": "The Price of Connectivity in Fair Division",
+   "location": "Conjecture 3.10 (Sec. 3)",
+   "rationale": "Not being (2, k)-linked forces PoC(G, 2) >= 2k/(2k - 1) (Proposition 3.9). The case k = 2 holds (Corollary 3.6), and the conjecture holds for complete graphs minus a nonempty matching (Theorem 3.11).",
+   "links": [
+    {
+     "node": "poc_linkedness_conjecture_counterexample",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 69,
+   "ref": "OP-69",
+   "title": "Quota and population monotonicity for four states at a common house size",
+   "statement": "An apportionment solution assigns, to every population vector of four states (all positive) and every house size h, a seat vector summing to h. Quota: each state gets the floor or ceiling of its standard quota h p_i / sum p. Population monotonicity forbids a state whose population weakly increases from losing a seat to a state whose population weakly decreases. Is there a deterministic solution for four states satisfying quota and population monotonicity when monotonicity is only required between profiles with the same house size (no anonymity, order preservation or other regularity assumed)?",
+   "status": "settled_in_lean",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2608.02759",
+   "source_title": "Quota and Population Monotonicity Across House Sizes are Incompatible for Apportionment to Four States",
+   "location": "Sec. 5 (Conclusion and applications), first limitation",
+   "rationale": "Without order-preservation assumptions, quota and population monotonicity are incompatible for five states (arXiv:2202.11061) and for four states when comparisons may span house sizes (the source, using house sizes 3, 5, 8 and 10); for three states Webster's method is compatible with both.",
+   "links": [
+    {
+     "node": "quota_population_monotone_incompatible_four_states_common_house",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 70,
+   "ref": "OP-70",
+   "title": "Linear entropy of geometric Plackett–Luce models",
+   "statement": "The Plackett–Luce model with weights w_1, ..., w_m draws a ranking of m alternatives by repeatedly picking the next alternative with probability proportional to its weight among those remaining. For the geometric weights w = (1, phi, ..., phi^(m-1)) with a constant phi, is the Shannon entropy of the resulting distribution over rankings O(m) for every phi in (0, 1)?",
+   "status": "settled_in_lean",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "Preference Elicitation as Average-Case Sorting (AAAI 2021)",
+   "source_title": "Preference Elicitation as Average-Case Sorting",
+   "location": "Sec. 5, after Theorem 12",
+   "rationale": "Theorem 12 of the source proves entropy O(m) for phi in (0, 1/2]; its proof uses that removing entries does not increase the entropy of the weight vector, which needs phi <= 1/2.",
+   "links": [
+    {
+     "node": "plackett_luce_geometric_entropy_linear",
+     "role": "statement"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 71,
+   "ref": "OP-71",
+   "title": "Is leximin among EF1 allocations Pareto optimal?",
+   "statement": "Indivisible goods, additive nonnegative valuations. Among all EF1 allocations (each agent envies another only up to removing one good from the other's bundle), choose one that is leximin-optimal: it maximizes the smallest utility, then the second smallest, and so on. Is such an allocation always Pareto optimal?",
+   "status": "settled_in_lean",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "The Unreasonable Fairness of Maximum Nash Welfare (ACM TEAC 7(3), 2019)",
+   "source_title": "The Unreasonable Fairness of Maximum Nash Welfare",
+   "location": "Appendix B (The Elusive Combination of EF1 and PO)",
+   "rationale": "Maximizing egalitarian welfare subject to EF1 need not be PO (a three-agent example in the source); MNW allocations are always EF1 and PO, and leximin refines the egalitarian solution in that example.",
+   "links": [
+    {
+     "node": "leximin_ef1_not_pareto_optimal",
+     "role": "negation"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 72,
+   "ref": "OP-72",
+   "title": "Banzhaf veto distortion at simple majority with strict quota",
+   "statement": "Inverse power problem: given a target distribution m over players and quota q, choose voting weights whose p-propensity Banzhaf power is closest to m. The veto distortion of an instance is max{(1 - q) / (smallest m_i of a player who is a veto player under some optimal weights), 1}, and the veto distortion at quota q is its supremum over m. For q > 1/2 it is unbounded and for q = 1/2 with non-strict quota it equals 1. What is the veto distortion at q = 1/2 with strict quota (weights > 1/2 win); in particular, is it bounded?",
+   "status": "formalized",
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "source": "How Banzhaf Makes a Victor: Curing a Distortion Paradox in Weighted Voting (EC 2026)",
+   "source_title": "How Banzhaf Makes a Victor: Curing a Distortion Paradox in Weighted Voting",
+   "location": "Sec. 5 (Veto Distortion), after Theorem 5.2",
+   "rationale": "Theorem 5.1: for every q in (1/2, 1) and every propensity p the veto distortion is unbounded; Theorem 5.2: with non-strict quota at q = 1/2 there is no distortion. For strict quota 1/2 the target (5/12, 5/12, 2/12) gives distortion at least 6/5.",
+   "links": [
+    {
+     "node": "banzhaf_strict_majority_veto_distortion_ge_five_thirds",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
+  },
+  {
+   "id": 73,
+   "ref": "OP-73",
+   "title": "The Catch-Up conjecture",
+   "statement": "Catch-Up is played on a finite set S of positive integers: player 1 first removes one number; afterwards players alternate, and on a turn the mover keeps removing numbers (adding them to her score) until her score is at least the opponent's, staying strictly behind before her last pick; if she cannot catch up, she takes all remaining numbers and the game ends. Higher final score wins, equal scores draw. Is Catch-Up on {1, ..., N} a draw under optimal play exactly when N(N + 1)/2 is even (N = 0 or 3 mod 4)?",
+   "status": "formalized",
+   "topic": "combinatorial_games",
+   "domain": "game_theory_economics",
+   "source": "Game & Puzzle Design 1(2):38–49 (2015)",
+   "source_title": "Catch-Up: A Game in Which the Lead Alternates",
+   "location": "Sec. 3.1 (Optimal Play); Sec. 2.6 and Appendix 5.1 for the odd case",
+   "rationale": "When N(N + 1)/2 is odd no draw is possible, since the totals differ by an odd amount (proved in the source). For even N(N + 1)/2 the source computed optimal play up to N = 20 (all draws) and explored N = 23, 24, 27, 28 by Monte-Carlo tree search without contradiction.",
+   "links": [
+    {
+     "node": "catch_up_value_icc_eq_draw_of_even_triangular",
+     "role": "statement"
+    },
+    {
+     "node": "catch_up_value_icc_ne_draw_of_odd_triangular",
+     "role": "partial"
+    },
+    {
+     "node": "catch_up_value_icc_eleven",
+     "role": "partial"
+    },
+    {
+     "node": "catch_up_value_icc_eight",
+     "role": "partial"
+    }
+   ],
+   "added": 1791250037
   }
  ],
  "grants": []

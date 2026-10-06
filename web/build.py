@@ -56,7 +56,7 @@ from urllib.parse import quote, urlencode
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-from problems import PROBLEM_LABEL, STATUSES, VERDICT_LABEL, status  # noqa: E402
+from problems import PROBLEM_LABEL, STATUS_TITLES, STATUSES, VERDICT_LABEL, status  # noqa: E402
 import literature  # noqa: E402
 
 e = html.escape
@@ -321,7 +321,7 @@ FULL_NAME = "Auto-Formalizing Theoretical Domains"
 NAV = [
     ("knowledgebase/", "Knowledgebase"),
     ("weekly/", "Weekly"),
-    ("problems/", "Problems"),
+    ("problems/", "Open Problems"),
 ]
 
 
@@ -402,7 +402,7 @@ def page(
       <h2>Explore</h2>
       <a href="{root}knowledgebase/">Knowledgebase</a>
       <a href="{root}knowledgebase/#graph">Dependency graph</a>
-      <a href="{root}problems/">Community problems</a>
+      <a href="{root}problems/">Open Problems</a>
       <a href="{root}index.html#news">News</a>
       <a href="{root}weekly/">Weekly reports</a>
       <a href="{root}problems/#submit">Submit a problem</a>
@@ -863,7 +863,7 @@ def render_home(s: Site) -> str:
 
 <section class="wrap band split">
   <div>
-    <header class="shead"><h2>Community problems</h2><a href="problems/">All problems &rarr;</a></header>
+    <header class="shead"><h2>Community problems</h2><a href="problems/">All open problems &rarr;</a></header>
     {probs}
   </div>
   <div>
@@ -1405,13 +1405,13 @@ def render_problems(s: Site) -> str:
     counts = "".join(
         f'<div class="fact st-{k}"><span class="k">{e(v)}</span>'
         f'<span class="v">{len(groups[k])}</span></div>'
-        for k, v in STATUSES.items()
+        for k, v in STATUS_TITLES.items()
     )
     blurbs = {
-        "proved": "Formalized, checked against the English, and proved.",
-        "stuck": "Formalized, but the prover is stuck. A pointer to the right Mathlib lemma is the most useful thing you can offer.",
-        "formalized": "Stated in Lean and waiting for its proof.",
-        "accepted": "Not stated in Lean yet.",
+        "proved": "Answered by a Lean theorem that settles the question, one way or the other.",
+        "stuck": "Stated in Lean, but the prover is stuck. A pointer to the right Mathlib lemma is the most useful thing you can offer.",
+        "formalized": "Stated in Lean, with partial results where there are any; the main question is not yet proved or refuted.",
+        "accepted": "Listed, but no Lean statement of the question yet.",
     }
     secs = []
     for k in ("proved", "stuck", "formalized", "accepted"):
@@ -1431,7 +1431,7 @@ def render_problems(s: Site) -> str:
         else:
             inner = "".join(html_ for _, html_ in items)
         secs.append(
-            f'<section class="pgroup" id="{k}"><header class="shead"><h2>{e(STATUSES[k])}</h2>'
+            f'<section class="pgroup" id="{k}"><header class="shead"><h2>{e(STATUS_TITLES[k])}</h2>'
             f'<span class="n">{len(items)}</span></header><p class="small">{e(blurbs[k])}</p>'
             + inner
             + "</section>"
@@ -1455,7 +1455,9 @@ def render_problems(s: Site) -> str:
             f'<ul class="list">{items}</ul></details>'
         )
 
-    loose = [n for n in s.open if n.get("problem") is None]
+    # A statement that belongs to a listed problem is shown on that problem's card.
+    listed = {l["node"] for p in s.literature for l in p.get("links") or []}
+    loose = [n for n in s.open if n.get("problem") is None and n["name"] not in listed]
     if loose:
         cards = "".join(
             f'<article class="card"><div class="card-top"><code class="decl">{e(n["name"])}</code>'
@@ -1466,33 +1468,36 @@ def render_problems(s: Site) -> str:
             for n in loose
         )
         secs.append(
-            '<section class="pgroup" id="open"><header class="shead"><h2>Open in the knowledgebase</h2>'
-            f'<span class="n">{len(loose)}</span></header>'
-            '<p class="small">Statements the machine posed itself and has not proved yet. '
-            f'If you can see how, say so in <a href="{e(s.discussions())}">the discussions</a>.</p>'
+            '<section class="pgroup" id="unproved"><header class="shead">'
+            f'<h2>Other unproved Lean statements</h2><span class="n">{len(loose)}</span></header>'
+            '<p class="small">Statements in the knowledgebase that Lean has checked as '
+            'well-formed but nobody has proved, and that belong to none of the problems '
+            'above: the machine\'s own conjectures and the steps it filed towards other '
+            'results. If you can see how to prove one, say so in '
+            f'<a href="{e(s.discussions())}">the discussions</a>.</p>'
             f"{cards}</section>"
         )
     body = f"""
 <header class="phead" id="submit">
-  <p class="eyebrow">Open problems</p>
-  <h1>Problems</h1>
+  <p class="eyebrow">From papers, books and you</p>
+  <h1>Open Problems</h1>
   <p class="lead">Open problems the machine works on, from papers and books or
-  submitted by you. A problem counts as proved when every declaration answering
-  it has passed Lean and the round trip.</p>
+  submitted by you. A problem counts as settled when a Lean theorem answers it,
+  one way or the other, and that theorem has passed the round trip.</p>
   <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a></div>
   {submit_guide(s)}
 </header>
 <div class="facts">{counts}</div>
 {"".join(secs)}
 """
-    return page(s, title="Problems", root=root, active="problems/", body=body, math=True)
+    return page(s, title="Open Problems", root=root, active="problems/", body=body, math=True)
 
 
 def render_problem(s: Site, p: dict) -> str:
     root = "../../"
     f = p["fields"]
     parts = [
-        f'<nav class="crumbs"><a href="{root}problems/">Problems</a> / #{p["number"]}</nav>',
+        f'<nav class="crumbs"><a href="{root}problems/">Open Problems</a> / #{p["number"]}</nav>',
         f'<header class="phead"><h1>{e(p["title"])}</h1><div class="badges">'
         f'{status_badge(p["status"])}'
         + (badge(f["domain"], "dom") if f.get("domain") else "")

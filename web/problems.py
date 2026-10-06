@@ -45,11 +45,21 @@ VERDICT_FIELDS = {
 }
 
 # The order statuses are shown in, with the words the site uses for them.
+# A problem's status, as its badge says it: short, since it sits on every card.
 STATUSES = {
-    "proved": "Proved",
+    "proved": "Settled",
     "stuck": "Needs help",
-    "formalized": "In progress",
-    "accepted": "Open",
+    "formalized": "In Lean",
+    "accepted": "Not in Lean",
+    "pending": "Awaiting review",
+    "declined": "Declined",
+}
+# ... and as the Open Problems page heads its group: where the problem stands in Lean.
+STATUS_TITLES = {
+    "proved": "Settled in Lean",
+    "stuck": "Stated in Lean, prover stuck",
+    "formalized": "Stated in Lean, not yet proved",
+    "accepted": "Not yet stated in Lean",
     "pending": "Awaiting review",
     "declined": "Declined",
 }

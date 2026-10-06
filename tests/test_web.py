@@ -223,6 +223,9 @@ def main() -> int:
           "attempts": 3, "deps": [], "problem": 13},
          {"name": "machine_open", "kind": "theorem", "status": "stated", "topic": "t1",
           "domain": "d1", "informal": "", "statement": "theorem machine_open : True",
+          "attempts": 0, "deps": [], "problem": None},
+         {"name": "loose_open", "kind": "theorem", "status": "stated", "topic": "t1",
+          "domain": "d1", "informal": "", "statement": "theorem loose_open : True",
           "attempts": 0, "deps": [], "problem": None}],
     )
     data["literature"] = [
@@ -301,9 +304,11 @@ def main() -> int:
         check("an unproved statement is listed in the knowledgebase, marked unproved",
               "machine_open" in kbpage and "not yet proved" in kbpage
               and 'href="../d/machine_open/"' not in kbpage)
-        machine = pages["problems/index.html"].split('id="open"', 1)[-1]
-        check("a stuck lemma of a problem is not listed again as machine-posed",
-              "machine_open" in machine and "stuck_lemma" not in machine)
+        machine = pages["problems/index.html"].split('id="unproved"', 1)[-1]
+        check("an unproved statement of no problem is listed on its own",
+              "loose_open" in machine)
+        check("... but a statement of a problem only on that problem's card",
+              "machine_open" not in machine and "stuck_lemma" not in machine)
         probs = pages["problems/index.html"]
         lit = probs.split('id="formalized"', 1)[-1].split("</section>", 1)[0]
         check("an open problem from the list sits under its status, like a community one",

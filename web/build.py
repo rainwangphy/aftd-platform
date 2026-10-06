@@ -1718,12 +1718,12 @@ def render_weekly(s: Site, i: int) -> str:
   &middot; {r.get("minutes", "?")} min read</p>
   <h1>{e(r["title"])}</h1>
 </header>
-<section class="doc">
+<section class="wk">
   <div class="wk-minute">
-    <p class="small">The week in one minute</p>
-    <p>{e(r.get("summary", ""))}</p>
+    <p class="wk-label">The week in one minute</p>
+    <p class="wk-sum">{e(r.get("summary", ""))}</p>
     <ul class="wk-hls">{hl}</ul>
-    <p class="small">{e(r.get("numbers", ""))}</p>
+    <p class="wk-num">{e(r.get("numbers", ""))}</p>
   </div>
   <h2>At a glance</h2>
   <div class="wk-table-wrap"><table class="wk-table">

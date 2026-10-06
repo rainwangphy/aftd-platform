@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.CondorcetWinner
 
 Topic: social_choice   Node: bcb6be0afeff
 
+Provenance: original. Related work: machine-posed degenerate case of the Condorcet-winner definition (at most one alternative); trivial, no novelty claimed
+
 When the set of alternatives is a subsingleton, any alternative is a Condorcet winner under any preference profile.
 -/
 

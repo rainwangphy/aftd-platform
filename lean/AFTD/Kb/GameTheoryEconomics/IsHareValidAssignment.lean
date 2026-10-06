@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: d1f8be3c1fc8
 
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Def. 16 (valid Monroe assignment, Hare quota)
+
 A Hare-valid Monroe assignment (arXiv:2508.00811, Def. 16): W has k members, π sends every voter into W, and every c ∈ W receives between ⌊n/k⌋ and ⌈n/k⌉ voters.
 -/
 

@@ -10,6 +10,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcome
 
 Topic: combinatorial_games   Node: 4b5a5d4205fe
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 For any nonempty finite set S of pieces, Player 1 does not get outcome loss from equal scores 0 if and only if there exists an opening move x in S after which Player 2 does not get outcome win.
 -/
 

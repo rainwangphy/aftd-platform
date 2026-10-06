@@ -12,6 +12,8 @@ import AFTD.Kb.GameTheoryEconomics.DroopMonroeScoreLe
 
 Topic: social_choice   Node: 88556ff5abe9
 
+Provenance: original. Related work: answers the open Droop-EJR+ / Droop-FJR entries for Droop Monroe in Justified Representation: From Hare to Droop, arXiv:2508.00811, Table 1, negatively when ties are broken adversarially (n = 3, k = 2); whether some winning committee always satisfies them remains open
+
 With ties, the Droop Monroe rule can output a committee violating Droop-EJR+ and Droop-FJR even when k + 1 divides n: n = 3, k = 2, ballots {0,1,3}, {0,1,3}, {0,2,3}, winning committee {1, 2}.
 -/
 

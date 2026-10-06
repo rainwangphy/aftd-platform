@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.MarriageMarket
 
 Topic: matching_markets   Node: b3d5bd66d9fd
 
+Provenance: formalization of a published result. Source: standard textbook observation (matching markets: with at most one man and irreflexive preferences every matching is stable); folklore
+
 In a marriage market market with agent types M and W where M is a subsingleton (Subsingleton M), if men's preferences are irreflexive (∀ (m : M) (w : W), ¬ market.pref_m m w w), then any matching equivalence μ : M ≃ W has no blocking pairs, meaning that for all m : M and w : W, ¬ (market.pref_m m w (μ m) ∧ market.pref_w w m (μ.symm w)).
 -/
 

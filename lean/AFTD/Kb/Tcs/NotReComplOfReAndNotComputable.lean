@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: computability   Node: c4b375378e83
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: Post's theorem, a set is decidable iff it and its complement are RE)
+
 If a predicate is recursively enumerable but undecidable, then its complement is not recursively enumerable (Post's theorem).
 -/
 

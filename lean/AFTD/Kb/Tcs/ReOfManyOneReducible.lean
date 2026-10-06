@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: computability   Node: cd7cda917b08
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: many-one reductions preserve recursive enumerability)
+
 If `p` is many-one reducible to `q` and `q` is recursively enumerable, then `p` is recursively enumerable.
 -/
 

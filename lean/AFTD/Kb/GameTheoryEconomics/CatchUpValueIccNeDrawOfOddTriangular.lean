@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcome
 
 Topic: combinatorial_games   Node: 53328de102bf
 
+Provenance: formalization of a published result. Source: Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 2.6 and Appendix 5.1 (an odd total cannot be split evenly, so no draw)
+
 For any natural number N such that N(N+1)/2 is odd, catch_up_value (Finset.Icc 1 N) ≠ CatchUpOutcome.draw.
 -/
 

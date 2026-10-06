@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: 3490d10b8aea
 
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Def. 16 (Monroe score of an assignment)
+
 The Monroe score of an assignment π: the number of voters i with π(i) ∈ A_i.
 -/
 

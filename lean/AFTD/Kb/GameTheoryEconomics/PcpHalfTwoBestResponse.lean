@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.PcpIsBestResponse
 
 Topic: equilibria   Node: 2cd4807a89f0
 
+Provenance: formalization of a published result. Source: The Publication Choice Problem, AAAI 2026 (arXiv:2511.13678v2), Lemma 3.1 (closed-form best response to Program (1)); special case alpha = 1/2, beta = 2
+
 For alpha = 1/2 and beta = 2 with positive costs, the closed form of Lemma 3.1, a_j = v_j^4 / (c_j^2 sum_l v_l^4/c_l), solves the researcher's Program (1) (Cauchy-Schwarz / AM-GM).
 -/
 

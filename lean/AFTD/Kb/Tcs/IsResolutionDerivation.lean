@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.CnfLit
 
 Topic: proof_complexity   Node: 65c39a4f6239
 
+Provenance: formalization of a published result. Source: Short Resolution Refutations for CNFs with Bounded Weighted Incidence Treewidth, arXiv:2610.02047, Sec. 3.1 (resolution derivations with weakening; standard textbook notion in proof complexity)
+
 A resolution derivation from a CNF formula F (a finite set of clauses, each a finite set of literals) is a sequence of clauses C_1, ..., C_s in which each C_i is in F, or is a weakening C_i = C_j or E (C_j a subset of C_i) of an earlier clause, or is the resolvent C or D of earlier clauses C_j = C or x and C_k = D or not x.
 -/
 

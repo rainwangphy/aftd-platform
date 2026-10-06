@@ -9,6 +9,8 @@ import AFTD.Kb.Tcs.IsValidMatrix3Decomposition
 
 Topic: algebraic_complexity   Node: b2e30785d32d
 
+Provenance: formalization of a published result. Source: A noncommutative algorithm for multiplying matrices using 23 multiplications (1976), as cited in Lower Bound of 22 for 3x3 Matrix Multiplication over the Integers, arXiv:2610.01639, Sec. 1 and Sec. 7 (upper bound 23); the integer coefficients 0, 1, -1 make it valid over every commutative ring
+
 Over every commutative ring R, 3x3 matrix multiplication has a valid bilinear decomposition with 23 products (the classical 23-multiplication algorithm with integer coefficients 0, 1, -1); hence its rank over R is at most 23.
 -/
 

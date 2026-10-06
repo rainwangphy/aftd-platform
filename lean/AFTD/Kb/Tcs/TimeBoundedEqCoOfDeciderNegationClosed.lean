@@ -8,6 +8,8 @@ import AFTD.Kb.Tcs.DeciderClassEqCo
 
 Topic: complexity_basics   Node: a236acef0d50
 
+Provenance: formalization of a published result. Source: standard textbook result (complexity theory: a time-bounded decider class closed under negation equals its complement class)
+
 Let T be a time bound and suppose the family of deciders computable within T steps is closed under Boolean negation, i.e. for every f : List Γ → Bool computed in time T there is g computed in time T with g w = !f w. Then the time-bounded class C = TimeBounded Γ T equals its complement class CoClass C: for every language L, L is decidable in time T if and only if its complement is.
 -/
 

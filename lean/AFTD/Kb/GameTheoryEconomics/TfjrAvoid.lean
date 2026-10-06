@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: d86c6ffb712d
 
+Provenance: helper lemma. step towards temporal_droop_fjr_not_imp_bfjr (Droop-FJR vs BFJR, arXiv:2505.22513, App. A.3)
+
 Any two rounds out of six miss some round among 0-2 and some round among 3-5 (checked by decide).
 -/
 

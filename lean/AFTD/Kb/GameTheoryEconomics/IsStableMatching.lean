@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.IsBlockingPair
 
 Topic: matching_markets   Node: 66d97a46dd60
 
+Provenance: formalization of a published result. Source: College Admissions and the Stability of Marriage (1962): stable matching; standard textbook definition (matching markets)
+
 In a marriage market with agent types M and W, a matching μ : M ≃ W is stable when no man m and woman w form a blocking pair, that is, when for every m and every w it is not the case that m prefers w to μ m and w prefers m to μ.symm w.
 -/
 

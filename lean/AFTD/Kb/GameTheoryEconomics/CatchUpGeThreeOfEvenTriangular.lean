@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: combinatorial_games   Node: 94f04ef956ed
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 If N > 0 and the triangular number N(N+1)/2 is even, then N ≥ 3.
 -/
 

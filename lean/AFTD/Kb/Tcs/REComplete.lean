@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: computability   Node: 46abfd6ae5ef
 
+Provenance: formalization of a published result. Source: standard textbook definition (computability theory: RE-completeness under many-one reductions)
+
 A predicate `p` is RE-complete if it is recursively enumerable and every recursively enumerable predicate many-one reduces to `p`.
 -/
 

@@ -8,6 +8,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeBest
 
 Topic: combinatorial_games   Node: f16eb038974d
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 In Catch-Up, adding a constant c to both the mover's and the opponent's score leaves the game value unchanged, because only score comparisons and differences govern the game.
 -/
 

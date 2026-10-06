@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: 5162717430fc
 
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Def. 16 (valid Monroe assignment, Droop quota with a dummy candidate)
+
 A Droop-valid Monroe assignment (arXiv:2508.00811, Def. 16): |W| = k, each voter goes to a member of W or to the dummy (none), each c ∈ W gets between ⌊n/(k+1)⌋ and ⌈n/(k+1)⌉ voters and the dummy exactly ⌊n/(k+1)⌋.
 -/
 

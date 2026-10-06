@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: f8410501bab3
 
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Def. 10 (Droop-FJR)
+
 Droop-FJR (arXiv:2508.00811, Def. 10): every Droop weakly (ℓ, T)-cohesive group (each member approves ≥ ℓ members of T and |S| > |T|n/(k+1)) has a member approving at least ℓ members of W.
 -/
 

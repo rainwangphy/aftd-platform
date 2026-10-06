@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.CnfLit
 
 Topic: np_completeness   Node: 200a95af7c81
 
+Provenance: formalization of a published result. Source: standard textbook result (propositional logic: a CNF containing the empty clause is unsatisfiable)
+
 A CNF formula containing the empty clause cannot be satisfied by any assignment because the empty clause contains no literals to be made true.
 -/
 

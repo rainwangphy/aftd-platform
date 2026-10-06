@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.Pmms3cVerifySound
 
 Topic: fair_division   Node: 8ff86cec309a
 
+Provenance: original. Related work: answers the three-agent chores case left open by arXiv:2609.10493 (Sec. 1 and Sec. 5); related: the EFX-based impossibility there needs at least four agents; the costs are 101 minus the values of that paper's three-agent goods instance
+
 PMMS allocations of chores need not exist already for three agents: there are strictly positive additive costs of three agents for nine chores such that no allocation is pairwise-MMS for every agent. arXiv:2609.10493 obtains non-existence for chores only through EFX non-existence, which needs at least four agents; with two agents a PMMS allocation always exists, so three is the least number of agents.
 -/
 

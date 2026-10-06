@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeNegEqWinIff
 
 Topic: combinatorial_games   Node: 1794badce5b7
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 When N ≥ 3, Player 2 does not win after Player 1 opens with 1 iff for every response y from {2, ..., N}, Player 1 does not lose from the resulting position with scores (1, y).
 -/
 

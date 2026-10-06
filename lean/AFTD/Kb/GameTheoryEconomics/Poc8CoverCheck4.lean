@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.Poc8CoverOk
 
 Topic: fair_division   Node: 12f315a6406d
 
+Provenance: helper lemma. step towards poc_linkedness_conjecture_counterexample (counterexample to arXiv:1908.05433, Conjecture 3.10; kernel-checked certificate)
+
 Kernel check of the cover condition for all terminal tuples with first terminal x = 4.
 -/
 

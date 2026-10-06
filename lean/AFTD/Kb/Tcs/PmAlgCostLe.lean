@@ -9,6 +9,8 @@ import AFTD.Kb.Tcs.PmAlgCost
 
 Topic: algorithms   Node: b5c763115cf0
 
+Provenance: formalization of a published result. Source: Sorting and Selection in Posets, SODA 2009 / SIAM J. Comput. 2011 (arXiv:0707.1532), Section 4, Theorem 11 (at most wn queries, here w = 2); counted exactly for the same algorithm as at most 2n - 3 (the first element needs no query, the second one)
+
 The algorithm makes at most 2n − 3 queries (for n ≥ 2).
 -/
 

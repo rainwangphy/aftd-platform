@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: algorithms   Node: 175ebf8a32f3
 
+Provenance: formalization of a published result. Source: standard textbook result (data structures: a binary tree of height h has at most 2^h leaves)
+
 The number of leaves of any binary tree is at most 2 raised to its height.
 -/
 

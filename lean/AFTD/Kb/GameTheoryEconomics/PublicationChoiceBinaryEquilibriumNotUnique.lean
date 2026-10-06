@@ -10,6 +10,8 @@ import AFTD.Kb.GameTheoryEconomics.PublicationChoiceThreeEquilibria
 
 Topic: equilibria   Node: 500588ac1693
 
+Provenance: erratum. Corrects: The Publication Choice Problem, AAAI 2026 (arXiv:2511.13678v2), Theorem 4.1 (a binary-type problem satisfying the standing assumptions and Assumptions 1-2 has a unique pure-strategy equilibrium): false; counterexample alpha = 1/2, beta = 2, two venues, types (1, 8), three equilibria
+
 Theorem 4.1 of arXiv:2511.13678 is false: not every binary-type Publication Choice Problem satisfying the standing assumptions, Assumption 1 and Assumption 2 has a unique pure-strategy equilibrium.
 -/
 

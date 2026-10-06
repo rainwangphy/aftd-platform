@@ -12,6 +12,8 @@ import AFTD.Kb.GameTheoryEconomics.SpiTwoPointCore
 
 Topic: mechanism_design   Node: 5e61c8e048db
 
+Provenance: formalization of a published result. Source: Intrinsic Robustness of Prophet Inequality to Strategic Reward Signaling, NeurIPS 2024 (arXiv:2409.18269), Proposition 3.1 (optimal information revealing strategy under threshold T); special case of two-point rewards, finite signal sets
+
 For a two-point reward, every scheme's acceptance probability is at most spi_two_point_max_prob, and if it attains it the accepted value equals spi_two_point_max_value.
 -/
 

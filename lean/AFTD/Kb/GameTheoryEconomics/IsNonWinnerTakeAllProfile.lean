@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.ProcurementOthersBids
 
 Topic: mechanism_design   Node: f1467b96444b
 
+Provenance: formalization of a published result. Source: arXiv:2603.27779 v1, Sec. 6 (non-winner-take-all equilibria: the notion in its open question)
+
 A bid profile is not winner-take-all if at least two distinct agents receive a positive amount of work.
 -/
 

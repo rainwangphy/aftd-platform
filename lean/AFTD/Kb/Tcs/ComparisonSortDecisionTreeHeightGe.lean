@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.BinaryTreeNumLeavesLePowHeight
 
 Topic: algorithms   Node: 6d222261097f
 
+Provenance: formalization of a published result. Source: standard textbook result (algorithms: decision-tree lower bound for comparison sorting)
+
 If a binary decision tree has at least n! leaves, then 2^(height) >= n!, establishing the comparison sorting lower bound.
 -/
 

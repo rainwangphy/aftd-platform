@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: 2d6b8c93695a
 
+Provenance: formalization of a published result. Source: arXiv:2505.22513, App. A (satisfaction of a voter in a temporal election over a set of rounds)
+
 Satisfaction of voter i in a temporal election from outcome o restricted to rounds R: the number of rounds r in R with o(r) approved by i in round r.
 -/
 

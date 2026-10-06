@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeNeg
 
 Topic: combinatorial_games   Node: 43dbc564028c
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 For any nonempty set S of pieces, the auxiliary Catch-Up value from scores (0, 0) is the best outcome among all opening moves x ∈ S.
 -/
 

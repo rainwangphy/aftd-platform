@@ -8,6 +8,8 @@ import AFTD.Kb.Tcs.CnfLit
 
 Topic: proof_complexity   Node: 15c8b37b1b33
 
+Provenance: formalization of a published result. Source: Short Resolution Refutations for CNFs with Bounded Weighted Incidence Treewidth, arXiv:2610.02047, Sec. 3.2 (incidence treewidth)
+
 The incidence treewidth tw*(F) of a CNF formula F: the treewidth of its incidence graph.
 -/
 

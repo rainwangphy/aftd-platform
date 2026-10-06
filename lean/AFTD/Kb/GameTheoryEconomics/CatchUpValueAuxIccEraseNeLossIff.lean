@@ -10,6 +10,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcome
 
 Topic: combinatorial_games   Node: 951760d87a75
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 After Player 1 opens with x from {1, ..., N} (with even triangular sum), Player 2 does not lose if and only if there exists a response move y in {1, ..., N} \ {x} that avoids a win for Player 1 (if y ≥ x) or avoids a loss for Player 2 (if y < x).
 -/
 

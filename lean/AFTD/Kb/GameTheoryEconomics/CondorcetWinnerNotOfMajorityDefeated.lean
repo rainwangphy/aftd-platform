@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.CondorcetWinner
 
 Topic: social_choice   Node: 948cd01017d9
 
+Provenance: formalization of a published result. Source: standard textbook observation (social choice: a Condorcet winner is not beaten by a strict pairwise majority)
+
 If an alternative y is strictly preferred to alternative x by more voters than prefer x to y, then x cannot be a Condorcet winner.
 -/
 

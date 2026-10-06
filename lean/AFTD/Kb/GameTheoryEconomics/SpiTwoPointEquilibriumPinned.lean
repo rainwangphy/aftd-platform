@@ -16,6 +16,8 @@ import AFTD.Kb.GameTheoryEconomics.SpiIsTwoPointInstance
 
 Topic: mechanism_design   Node: fa9f855613e8
 
+Provenance: formalization of a published result. Source: Intrinsic Robustness of Prophet Inequality to Strategic Reward Signaling, NeurIPS 2024 (arXiv:2409.18269), Proposition 3.1 with Remark 3.2 (equilibrium play is the optimal threshold signaling); special case of two-point rewards, finite signal sets
+
 In every equilibrium of a two-point instance, every player reached with positive probability is accepted with probability spi_two_point_max_prob and contributes spi_two_point_max_value.
 -/
 

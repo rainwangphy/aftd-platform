@@ -14,6 +14,8 @@ import AFTD.Kb.GameTheoryEconomics.GpaPath3Indep
 
 Topic: mechanism_design   Node: 73d3e4b28c0a
 
+Provenance: erratum. Corrects: Generalized Principal-Agency: Contracts, Information, Games and Beyond, WINE 2024 (arXiv:2209.01146v2), Section 5.3, Eq. (5.4) in the proof of Theorem 5 (max over the simplex of u* - h equals (1/k) max over the cube of u*): false; on the 3-vertex path the two sides are 5/6 and 2/3
+
 Eq. (5.4) in the proof of Theorem 5 (hardness of costly information acquisition) of arXiv:2209.01146 is false: it is not true that for every 0/1 matrix e the maximum of u*(σ) - h(σ) over the simplex equals (1/k) times the maximum of u* over the cube. On the path with three vertices the left side is 5/6 and the right side is 2/3.
 -/
 

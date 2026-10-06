@@ -12,6 +12,8 @@ import AFTD.Kb.GameTheoryEconomics.GpaPath3Indep
 
 Topic: mechanism_design   Node: b07e79b077db
 
+Provenance: erratum. Corrects: Generalized Principal-Agency: Contracts, Information, Games and Beyond, WINE 2024 (arXiv:2209.01146v2), Section 5.3 / Appendix 13.2: the auxiliary claim max over [0,1]^k of u* <= 1 used to derive Eq. (5.4) is false (value 2 on the 3-vertex path)
+
 The auxiliary claim max_{x ∈ [0,1]^k} u*(x) ≤ 1 used in the proof of Eq. (5.4) of arXiv:2209.01146 is false: on the path with three vertices the maximum is 2.
 -/
 

@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: combinatorial_games   Node: 8477ad3cf37a
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 When N(N+1)/2 is even and x is in {1, ..., N}, erasing x leaves a nonempty set.
 -/
 

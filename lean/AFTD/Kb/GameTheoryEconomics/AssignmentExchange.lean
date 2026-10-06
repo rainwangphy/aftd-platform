@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.MonroePermSwapFinsets
 
 Topic: social_choice   Node: 37bc1835ff22
 
+Provenance: helper lemma. step towards hare_monroe_satisfies_droop_jr (Monroe and Droop-JR, open case of Justified Representation: From Hare to Droop, arXiv:2508.00811)
+
 Generic exchange step: for an assignment π of voters to β, a set S of voters each satisfied by c′ but not by π, and the renaming c ↦ c′ after a suitable permutation σ of the voters, the number of satisfied voters grows by at least min(|π⁻¹(c)|, |S|) - |π⁻¹(c) \ S|.
 -/
 

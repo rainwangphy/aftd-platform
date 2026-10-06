@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.MonroeScore
 
 Topic: social_choice   Node: 118f69dea2f3
 
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Def. 16 (Monroe rule, Hare quota)
+
 W is a winning committee of the (Hare) Monroe rule: some Hare-valid assignment for W has Monroe score at least that of every Hare-valid assignment of every size-k committee.
 -/
 

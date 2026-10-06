@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: computability   Node: 829d21ca55f9
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: undecidability of the halting problem, diagonal form)
+
 The diagonal halting problem is not computable.
 -/
 

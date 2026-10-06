@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.IsPureNashEquilibrium
 
 Topic: equilibria   Node: 5ee569e07872
 
+Provenance: original. Related work: machine-posed degenerate case of pure Nash equilibrium (singleton strategy sets); trivial, no novelty claimed
+
 In a strategic game where every player has a subsingleton strategy set, every strategy profile is a pure Nash equilibrium.
 -/
 

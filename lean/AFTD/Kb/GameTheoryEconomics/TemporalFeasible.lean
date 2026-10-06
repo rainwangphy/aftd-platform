@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: a420c6c76480
 
+Provenance: formalization of a published result. Source: arXiv:2505.22513, App. A (general-approval embedding of a temporal election: feasible sets of (candidate, round) pairs)
+
 A set of (candidate, round) pairs is feasible in the general-approval embedding of a temporal election if it uses every round at most once.
 -/
 

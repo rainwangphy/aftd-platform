@@ -10,6 +10,8 @@ import AFTD.Kb.GameTheoryEconomics.CyclicOffsetEqIte
 
 Topic: matching_markets   Node: d0b32f67859c
 
+Provenance: original. Related work: answers the upper half of the Shield-Core conjecture, left open in A Quadratic Lower Bound for the Shield Number of the Stable Marriage Problem (2026), arXiv:2609.17418, Sec. 7.1; related: its Theorem 5.3 (a matching of C_n with floor((n-1)^2/4) blocking pairs) and Prop. 5.1 (displacement form); the lower half (sigma(n) >= floor((n-1)^2/4) for every profile) remains open
+
 The upper half of the Shield-Core conjecture (arXiv:2609.17418, open): in the cyclic Hollow-Shell market C_n, every complete matching has at most floor((n-1)^2/4) blocking pairs. Theorem 5.3 of that paper gives a matching attaining floor((n-1)^2/4), so this would make it the exact maximum.
 -/
 

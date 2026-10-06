@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.BundleOf
 
 Topic: fair_division   Node: cd2e1ba558ce
 
+Provenance: formalization of a published result. Source: arXiv:2609.10493, Sec. 2 (pairwise maximin share for chores)
+
 Pairwise maximin share (PMMS) for chores: allocation σ is PMMS for agent i if, for every other agent j and every way of splitting X_i ∪ X_j into two parts T and (X_i ∪ X_j) \ T, agent i's cost for her own bundle is at most her cost for the more costly of the two parts. Equivalently c_i(X_i) is at most the minimum over two-way splits of the larger part.
 -/
 

@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: equilibria   Node: 300e55968013
 
+Provenance: formalization of a published result. Source: The Publication Choice Problem, AAAI 2026 (arXiv:2511.13678v2), Lemma 3.1 (closed-form action profile); special case alpha = 1/2, beta = 2
+
 The closed-form action profile of Lemma 3.1 for alpha = 1/2, beta = 2: type i publishes v_j^4 / (c_ij^2 sum_l v_l^4 / c_il) at venue j.
 -/
 

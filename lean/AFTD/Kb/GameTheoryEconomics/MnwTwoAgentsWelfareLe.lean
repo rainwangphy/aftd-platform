@@ -11,6 +11,8 @@ import AFTD.Kb.GameTheoryEconomics.Mnw2BundleValue
 
 Topic: fair_division   Node: 4f5efdbb9eb6
 
+Provenance: original. Related work: settles the two-agent gap of The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4 (price and strong price of MNW in [27/23, 5/4]): the upper bound 27/23 is new, so the value is exactly 27/23
+
 For two agents with additive, nonnegative, normalized valuations (v_i(M) = 1) over any number m of goods, every maximum Nash welfare allocation N satisfies 23 · SW(O) ≤ 27 · SW(N) for every allocation O. Hence the price of MNW and the strong price of MNW for two agents are at most 27/23, improving the upper bound 5/4 of arXiv:1905.04910 Theorem 5.4 and matching its lower bound. Proof: group the goods by their owners under O and N and apply the core inequality to the constraints that N beats O and the four allocations giving agent 0 exactly A, C, A∪B∪C and A∪C∪D.
 -/
 

@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.CoClass
 
 Topic: complexity_basics   Node: bdc460c22b60
 
+Provenance: formalization of a published result. Source: standard textbook result (complexity theory: taking complement classes preserves inclusion)
+
 If a complexity class C₁ is contained in a complexity class C₂, then co(C₁) is contained in co(C₂).
 -/
 

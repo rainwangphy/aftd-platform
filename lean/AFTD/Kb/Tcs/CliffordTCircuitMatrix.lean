@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.CliffordTGate
 
 Topic: quantum   Node: ff44ed3292f2
 
+Provenance: formalization of a published result. Source: Exact T-counts of Toffoli Layers from an Isotropy Bound, arXiv:2610.01024, Sec. A.3 (unitary of a Clifford+T circuit)
+
 The unitary of a Clifford+T circuit given as a list of gates, the first gate of the list acting first: g_k ... g_2 g_1.
 -/
 

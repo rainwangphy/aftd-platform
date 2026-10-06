@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.GraphMatchingEncardLeVertexCoverEncard
 
 Topic: graphs   Node: 701578ae21df
 
+Provenance: formalization of a published result. Source: standard textbook result (graph theory: matching number <= vertex cover number, the easy half of König's theorem)
+
 In any simple graph G, the matching number is at most the vertex cover number.
 -/
 

@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.CnfLit
 
 Topic: np_completeness   Node: ff407c555510
 
+Provenance: formalization of a published result. Source: standard textbook definition (propositional logic: satisfiability of a CNF formula)
+
 A CNF formula (a list of clauses, each a list of literals) is satisfiable if there is a truth assignment such that every clause contains at least one true literal.
 -/
 

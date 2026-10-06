@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.CliffordTGate
 
 Topic: quantum   Node: 52c7cb9c439c
 
+Provenance: formalization of a published result. Source: Exact T-counts of Toffoli Layers from an Isotropy Bound, arXiv:2610.01024, abstract and Sec. 1 (implementing the parallel CCZ layer with clean ancillas, the setting of its open problem on circuits with Hadamards)
+
 A Clifford+T circuit on 3m + a qubits implements the layer U_m of m disjoint CCZ gates with a clean ancillas if, for some global phase e^{i theta} and every input x of 3m bits, it maps |x, 0^a> to e^{i theta} (-1)^{#{j : x_{3j} = x_{3j+1} = x_{3j+2} = 1}} |x, 0^a> (all other output amplitudes zero), so the ancillas return to |0>.
 -/
 

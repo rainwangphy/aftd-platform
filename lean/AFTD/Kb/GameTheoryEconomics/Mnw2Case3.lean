@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.Mnw2Case3Key
 
 Topic: fair_division   Node: 82d814de2836
 
+Provenance: helper lemma. step towards mnw_two_agents_welfare_le (upper bound 27/23 for the price of MNW with two agents, The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4; Positivstellensatz certificate found by computer)
+
 Goods are grouped by their owners under an allocation O and an allocation N: A = (O:0, N:0), B = (O:1, N:0), C = (O:0, N:1), D = (O:1, N:1); agent 0 values the four groups p, q, r, s and agent 1 values them α, β, γ, δ. If p ≤ γ + δ, δ ≤ p + q, the valuations are normalized, and the five MNW constraints (N beats O and the allocations giving agent 0 exactly A, C, A∪B∪C, A∪C∪D) hold, then 23 SW(O) ≤ 27 SW(N), where SW(O) = p + r + β + δ and SW(N) = p + q + γ + δ.
 -/
 

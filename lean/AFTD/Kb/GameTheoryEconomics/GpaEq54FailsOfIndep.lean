@@ -11,6 +11,8 @@ import AFTD.Kb.GameTheoryEconomics.GpaRhsIsGreatest
 
 Topic: mechanism_design   Node: a124e3e6157f
 
+Provenance: erratum. Corrects: Generalized Principal-Agency: Contracts, Information, Games and Beyond, WINE 2024 (arXiv:2209.01146v2), Section 5.3, Eq. (5.4) in the proof of Theorem 5: fails for every graph with independence number 2 <= alpha < k (sides 1 - 1/alpha + 1/k and alpha/k)
+
 Eq. (5.4) of arXiv:2209.01146 (max_{Δ_k} (u* - h) = (1/k) max_{[0,1]^k} u*) fails on every graph whose independence number α satisfies 2 ≤ α < k: the two sides are 1 - 1/α + 1/k and α/k, and the first is strictly larger.
 -/
 

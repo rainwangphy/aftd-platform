@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: fair_division   Node: 57d149305344
 
+Provenance: helper lemma. step towards mnw_two_agents_welfare_le (upper bound 27/23 for the price of MNW with two agents, The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4; Positivstellensatz certificate found by computer)
+
 A specific cubic polynomial with positive coefficients (plus the constant 1) in ten nonnegative variables is strictly positive. It is the multiplier of the Positivstellensatz certificate in the hard case of the two-agent price-of-MNW upper bound.
 -/
 

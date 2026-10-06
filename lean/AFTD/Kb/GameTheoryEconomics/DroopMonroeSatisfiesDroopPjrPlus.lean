@@ -8,6 +8,8 @@ import AFTD.Kb.GameTheoryEconomics.DroopMonroeUnsatisfiedGroup
 
 Topic: social_choice   Node: 74137c0da414
 
+Provenance: original. Related work: settles the PJR+ entry for Droop Monroe that Justified Representation: From Hare to Droop, arXiv:2508.00811, Table 1 note a, leaves open (case k + 1 divides n); uses its Lemma 2
+
 If k + 1 divides n, every committee selected by the Droop Monroe rule satisfies Droop-PJR+. This settles the PJR+ entry for Droop Monroe that arXiv:2508.00811 (Table 1, note a) leaves open.
 -/
 

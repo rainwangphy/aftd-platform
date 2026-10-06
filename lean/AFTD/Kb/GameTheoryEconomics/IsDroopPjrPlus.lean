@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: d78de85480db
 
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Def. 11 (Droop-PJR+)
+
 Droop-PJR+ (arXiv:2508.00811, Def. 11): for every ℓ ∈ [k], every group S with |S| > ℓn/(k+1) jointly approving a candidate outside W collectively approves at least ℓ members of W.
 -/
 

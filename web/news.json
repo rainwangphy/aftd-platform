@@ -455,7 +455,7 @@
    "date": "2026-10-02",
    "kind": "proof",
    "title": "Catch-Up on {1, …, N} is a draw for N = 3, 4, 7, 8 and 11",
-   "body": "Catch-Up, introduced in 2015, is a two-player game: players take numbers from a shared set, and on each turn a player keeps taking until their total catches up with or passes the other's, and the higher total at the end wins. The open conjecture is that with perfect play the game on {1, …, N} is a draw exactly when 1 + 2 + … + N is even.\n\nThe Lean kernel now confirms a draw for every N up to 11 with an even total: N = 3, 4, 7, 8 and 11. Each case is checked with `decide +kernel` (no `native_decide`) through a pruned search, `catch_up_search`, which is proved to agree with the game's value. Together with the parity theorem announced the day before, the conjecture holds in Lean for every N ≤ 11. The general case is still open.\n\nThe search, its correctness proof and the split of the conjecture into these steps came from the operator rather than the agents; the agents proved the rest of the ladder.",
+   "body": "Catch-Up, introduced in 2015, is a two-player game: players take numbers from a shared set, and on each turn a player keeps taking until their total catches up with or passes the other's, and the higher total at the end wins. The paper that introduced it computed optimal play on {1, …, N} for every N up to 20 and found a draw exactly when 1 + 2 + … + N is even (its Table 2). The open conjecture is that this holds for every N.\n\nThis entry is a formalization of the paper's computation, not a new result: the Lean kernel now checks its draws for N = 3, 4, 7, 8 and 11. Each case is checked with `decide +kernel` (no `native_decide`) through a pruned search, `catch_up_search`, which is proved to agree with the game's value. Together with the parity theorem the day before, the paper's computed values are checked in Lean for every N ≤ 11. The general case is still open.\n\nThe search, its correctness proof and the split of the conjecture into these steps came from the operator rather than the agents; the agents proved the rest of the ladder.\n\nCorrected on 6 October 2026: an earlier version of this entry did not say that the paper had already computed these values.",
    "declarations": [
     "catch_up_value_icc_three",
     "catch_up_value_icc_four",
@@ -469,7 +469,7 @@
    "date": "2026-10-01",
    "kind": "proof",
    "title": "Catch-Up: no draw when the total is odd",
-   "body": "On any finite set of numbers whose sum is odd, Catch-Up cannot end in a draw: the two totals always differ by an odd amount. On {1, …, N} this settles one half of the conjecture above, for every N at once.",
+   "body": "On any finite set of numbers whose sum is odd, Catch-Up cannot end in a draw: the two totals always differ by an odd amount. The 2015 paper that introduced the game already makes this observation (Sec. 2.6 and Appendix 5.1); this is a formalization of it. On {1, …, N} it is the easy half of the conjecture above, for every N at once.\n\nCorrected on 6 October 2026: an earlier version presented this as settling half of the conjecture, without saying the paper already proves it.",
    "declarations": [
     "catch_up_value_ne_draw_of_odd_sum",
     "catch_up_value_icc_ne_draw_of_odd_triangular"

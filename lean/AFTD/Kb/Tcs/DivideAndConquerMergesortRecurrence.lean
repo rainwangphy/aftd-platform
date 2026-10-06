@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.DivideAndConquerEqualRootsRecurrence
 
 Topic: algorithms   Node: 77a6cbe516b5
 
+Provenance: formalization of a published result. Source: standard textbook result (algorithms: the mergesort recurrence)
+
 The mergesort recurrence T(k+1) = 2*T(k) + c*2^(k+1) with base cost T(0) = d has exact solution T(k) = d*2^k + c*k*2^k.
 -/
 

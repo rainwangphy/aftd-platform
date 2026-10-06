@@ -16,6 +16,8 @@ import AFTD.Kb.GameTheoryEconomics.SpiReachProbNonneg
 
 Topic: mechanism_design   Node: f0abcb1881ca
 
+Provenance: formalization of a published result. Source: Intrinsic Robustness of Prophet Inequality to Strategic Reward Signaling, NeurIPS 2024 (arXiv:2409.18269), Proposition 3.1 with Remark 3.2 (each player's equilibrium strategy depends only on T, so the profile of optimal schemes is an equilibrium); special case of two-point rewards, finite signal sets
+
 Existence of equilibrium (Proposition 3.1 for two-point rewards): for every static threshold and S >= 2 signals, all players using the two-point scheme is an equilibrium.
 -/
 

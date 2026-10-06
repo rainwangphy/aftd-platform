@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: automata   Node: e3681f83e3af
 
+Provenance: formalization of a published result. Source: standard textbook result (automata theory: closure of regular languages under difference)
+
 The difference L1 \\ L2 of two regular languages is regular.
 -/
 

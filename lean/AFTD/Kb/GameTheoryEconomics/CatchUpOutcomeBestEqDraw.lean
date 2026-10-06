@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeBest
 
 Topic: combinatorial_games   Node: f037d33980e1
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 Under Catch-Up's best-outcome aggregation on a list of outcomes, the aggregated outcome is a draw if and only if no win appears in the list and at least one draw appears.
 -/
 

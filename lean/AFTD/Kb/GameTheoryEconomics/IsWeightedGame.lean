@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: general_equilibrium   Node: 3d9ce6ecd565
 
+Provenance: formalization of a published result. Source: What Semivalues Cannot See: The Information Content of Anonymous Marginal Values, arXiv:2607.07013, Sec. 10 (simple game, weighted game as in the monograph Simple Games: Desirability Relations, Trading, Pseudoweightings (1999), swing table)
+
 A game is weighted if there are nonnegative player weights w and a quota q such that a coalition wins exactly when its total weight is at least q.
 -/
 

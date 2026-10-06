@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.DroopMonroeScore
 
 Topic: social_choice   Node: 3c362ba26f47
 
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Def. 16 (Droop Monroe rule)
+
 W is a winning committee of the Droop Monroe rule: some Droop-valid assignment for W scores at least as much as every Droop-valid assignment of every size-k committee.
 -/
 

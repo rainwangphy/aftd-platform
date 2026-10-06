@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.Pmms3cTree
 
 Topic: fair_division   Node: 99cfebcc95d5
 
+Provenance: helper lemma. step towards pmms_chores_three_agents_may_not_exist (three-agent chores PMMS, left open by arXiv:2609.10493) (kernel-checked violation certificates over all 3^9 allocations)
+
 A table giving, for every one of the 3^9 = 19683 allocations of the nine chores to the three agents, an agent i, another agent j and a split T of X_i ∪ X_j witnessing that the allocation is not PMMS for i.
 -/
 

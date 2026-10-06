@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeNeg
 
 Topic: combinatorial_games   Node: dcbfe197ed7f
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 In Catch-Up with nonempty remaining pieces and score plus remaining sum at least opponent's score, the mover does not lose if and only if there exists a move y such that the resulting position is not a win for opponent (if turn passes) or not a loss for mover (if turn continues).
 -/
 

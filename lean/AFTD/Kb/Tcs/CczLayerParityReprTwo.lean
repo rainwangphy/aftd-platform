@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.CczLayerSyndrome
 
 Topic: quantum   Node: 2eb65cd0091e
 
+Provenance: formalization of a published result. Source: Exact T-counts of Toffoli Layers from an Isotropy Bound, arXiv:2610.01024, Theorem 40 (upper bound via Proposition 47 / Lemma 46: a parity representation of weight 6m + 1); special case m = 2, the value 13 also reported earlier by the synthillation construction cited there
+
 Two disjoint CCZ gates have a parity representation with 13 = 6 * 2 + 1 parities, so the Hadamard-free T-count of the layer with m = 2 is at most 13.
 -/
 

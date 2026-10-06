@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: 896cbe52ea01
 
+Provenance: helper lemma. step towards hare_monroe_satisfies_droop_jr (Monroe and Droop-JR, open case of Justified Representation: From Hare to Droop, arXiv:2508.00811)
+
 For disjoint finite sets P, Q of equal size there is a permutation sending P into Q, Q into P, and fixing everything else.
 -/
 

@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.CliffordTGate
 
 Topic: quantum   Node: bc8b89a82e72
 
+Provenance: formalization of a published result. Source: Exact T-counts of Toffoli Layers from an Isotropy Bound, arXiv:2610.01024, Sec. A.3 (T-count of a Clifford+T circuit)
+
 The T-count of a Clifford+T circuit: the number of T gates in its gate list.
 -/
 

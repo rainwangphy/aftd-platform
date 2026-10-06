@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: computability   Node: f05e2671ffe7
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: undecidability transfers along many-one reductions)
+
 If `p` is many-one reducible to `q` and `p` is undecidable (not computable), then `q` is undecidable.
 -/
 

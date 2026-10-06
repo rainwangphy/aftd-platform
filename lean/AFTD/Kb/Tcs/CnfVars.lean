@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.CnfLit
 
 Topic: proof_complexity   Node: aef5910fe5e7
 
+Provenance: formalization of a published result. Source: Short Resolution Refutations for CNFs with Bounded Weighted Incidence Treewidth, arXiv:2610.02047, Sec. 3.1 (variables of a CNF formula)
+
 The set var(F) of variables occurring in a CNF formula F, given as a finite set of clauses, each a finite set of literals.
 -/
 

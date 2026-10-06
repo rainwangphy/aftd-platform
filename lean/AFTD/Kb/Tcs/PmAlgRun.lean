@@ -17,6 +17,8 @@ import AFTD.Kb.Tcs.PmMemMinPre
 
 Topic: algorithms   Node: fb2b02376079
 
+Provenance: formalization of a published result. Source: Sorting and Selection in Posets, SODA 2009 / SIAM J. Comput. 2011 (arXiv:0707.1532), Section 4, Theorem 11 (correctness of the candidate-set algorithm); special case width 2
+
 Correctness of the candidate-list algorithm on width-2 posets.
 -/
 

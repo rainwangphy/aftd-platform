@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.IsWeightedGame
 
 Topic: general_equilibrium   Node: e439e9416cd4
 
+Provenance: formalization of a published result. Source: Chow's theorem (1961), On the characterization of threshold functions: a threshold function is determined by its Chow parameters among all Boolean functions; stated here for simple games with threshold = quota
+
 Chow's theorem for games: if f is weighted and g is any 0/1-valued function on coalitions with the same number of winning coalitions and, for every player, the same number of winning coalitions containing that player, then f = g.
 -/
 

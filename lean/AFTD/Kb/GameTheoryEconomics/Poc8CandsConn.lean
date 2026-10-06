@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.Poc8Connb
 
 Topic: fair_division   Node: 5154a9a1958c
 
+Provenance: helper lemma. step towards poc_linkedness_conjecture_counterexample (counterexample to arXiv:1908.05433, Conjecture 3.10; kernel-checked certificate)
+
 Each of the 47 stored masks and its complement pass the Boolean connectivity test (kernel computation).
 -/
 

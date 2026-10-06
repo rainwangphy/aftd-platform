@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.GraphMatchingNum
 
 Topic: graphs   Node: f90900af1815
 
+Provenance: formalization of a published result. Source: standard textbook result (graph theory: the empty graph has matching number 0)
+
 The matching number of the empty graph (bot) is 0.
 -/
 

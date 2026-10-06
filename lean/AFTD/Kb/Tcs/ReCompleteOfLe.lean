@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.REComplete
 
 Topic: computability   Node: e730d1b2e16a
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: an RE set that an RE-complete set reduces to is RE-complete)
+
 If p is RE-complete, q is recursively enumerable, and p many-one reduces to q, then q is RE-complete.
 -/
 

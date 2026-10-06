@@ -8,6 +8,8 @@ import AFTD.Kb.GameTheoryEconomics.WomanStrictlyPrefers
 
 Topic: matching_markets   Node: 21e57f8c55d2
 
+Provenance: formalization of a published result. Source: College Admissions and the Stability of Marriage (1962), men-proposing deferred acceptance; It's Not All Black and White: Degree of Truthfulness for Risk-Avoiding Agents, arXiv:2502.18805 v3, Def. 3.1 and Sec. 8.1
+
 In men-proposing deferred acceptance with nm men, nw women and complete rankings (no truncation), some woman who knows the rankings of k other agents has a misreport that is safe (never worse, whatever the unknown agents rank) and profitable (strictly better for some rankings of the unknown agents); arXiv:2502.18805, Def. 3.1.
 -/
 

@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: automata   Node: b198789f8cee
 
+Provenance: formalization of a published result. Source: standard textbook result (automata theory: the empty language is regular)
+
 The empty language is regular.
 -/
 

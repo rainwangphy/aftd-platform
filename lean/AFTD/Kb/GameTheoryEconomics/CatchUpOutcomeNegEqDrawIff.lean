@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeNeg
 
 Topic: combinatorial_games   Node: 1a7d918344ee
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 Negating an outcome yields a draw if and only if the original outcome is a draw.
 -/
 

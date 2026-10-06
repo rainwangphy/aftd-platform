@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: ab11ca9a54de
 
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Sec. 2 (Droop-JR)
+
 Droop-JR: every group S of voters with |S| > n/(k+1) that jointly approves some candidate contains a voter who approves some member of W.
 -/
 

@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.TemporalSat
 
 Topic: social_choice   Node: 7ae19962678d
 
+Provenance: formalization of a published result. Source: arXiv:2505.22513, Def. A.6 (Droop-FJR for temporal elections)
+
 Droop-FJR for temporal elections (arXiv:2505.22513, Def. A.6): for every nonempty group S and set of rounds T there is R ⊆ T of size ⌈(|T|+1)|S|/n⌉ - 1 such that for every outcome o′ some i ∈ S has sat_i(o) ≥ min over j ∈ S of sat_j(o′ restricted to R).
 -/
 

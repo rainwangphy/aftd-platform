@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.CnfLit
 
 Topic: proof_complexity   Node: 3117fd3e7bd4
 
+Provenance: formalization of a published result. Source: Short Resolution Refutations for CNFs with Bounded Weighted Incidence Treewidth, arXiv:2610.02047, Sec. 3.1 (variable of a literal)
+
 The variable of a literal: var(x) = var(not x) = x.
 -/
 

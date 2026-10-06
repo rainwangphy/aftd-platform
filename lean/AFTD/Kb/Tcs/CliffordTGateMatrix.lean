@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.CliffordTGate
 
 Topic: quantum   Node: 938baf61de31
 
+Provenance: formalization of a published result. Source: Exact T-counts of Toffoli Layers from an Isotropy Bound, arXiv:2610.01024, Sec. A.3 (gate matrices of Clifford+T circuits)
+
 The matrix of a Clifford+T gate in the computational basis indexed by bit strings x : Fin N -> Bool: H on qubit i has entry (-1)^{x_i y_i}/sqrt 2 when x and y agree off i and 0 otherwise; S and T are diagonal with phase i, resp. e^{i pi/4}, when qubit i is 1; CNOT(c, t) is the permutation matrix of y -> y with bit t flipped by bit c.
 -/
 

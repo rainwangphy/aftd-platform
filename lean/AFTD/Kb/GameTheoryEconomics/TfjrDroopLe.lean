@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: a9d7650f5195
 
+Provenance: helper lemma. step towards temporal_droop_fjr_not_imp_bfjr (Droop-FJR vs BFJR, arXiv:2505.22513, App. A.3)
+
 ⌈(t+1)s/n⌉ - 1 ≤ t whenever s ≤ n.
 -/
 

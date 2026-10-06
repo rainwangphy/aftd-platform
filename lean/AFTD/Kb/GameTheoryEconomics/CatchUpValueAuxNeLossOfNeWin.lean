@@ -10,6 +10,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcome
 
 Topic: combinatorial_games   Node: 77b2534ee4ef
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 In Catch-Up from equal scores 0, if an opening move x in S leads to a position where the second player does not win, then the first player does not lose from the start.
 -/
 

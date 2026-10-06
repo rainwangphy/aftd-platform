@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: automata   Node: eadfa37c281e
 
+Provenance: formalization of a published result. Source: standard textbook result (automata theory: closure of regular languages under left quotient by a word)
+
 For any word w and regular language L, the left quotient L / w = { u | w ++ u ∈ L } is regular.
 -/
 

@@ -10,6 +10,8 @@ import AFTD.Kb.Tcs.IsValidMatrix3Decomposition
 
 Topic: algebraic_complexity   Node: 9f47e6980f17
 
+Provenance: formalization of a published result. Source: Lower Bound of 22 for 3x3 Matrix Multiplication over the Integers, arXiv:2610.01639, Sec. 5.3 (reading an integer algorithm modulo 2), generalised to any surjective homomorphism of commutative semirings
+
 If f : R → S is a surjective homomorphism of commutative semirings and 3x3 matrix multiplication over R has a valid triad decomposition with at most r products, then so does 3x3 matrix multiplication over S (apply f to every coefficient).
 -/
 

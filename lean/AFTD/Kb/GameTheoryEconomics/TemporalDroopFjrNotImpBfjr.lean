@@ -14,6 +14,8 @@ import AFTD.Kb.GameTheoryEconomics.TfjrDroopLe
 
 Topic: social_choice   Node: 05826c7fc003
 
+Provenance: original. Related work: answers the question of arXiv:2505.22513, App. A.3 (BFJR implies Droop-FJR; does the converse hold, possibly under extra assumptions?) negatively, even when no voter approves every candidate in a round
+
 Droop-FJR does not imply BFJR in temporal voting, even when no voter approves every candidate in a round. Four voters, six rounds, two candidates: the outcome choosing candidate 1 in every round provides Droop-FJR, but S = {0, 1} is (2, 1)-BFJR-cohesive and gets satisfaction 0. This answers the question left open in arXiv:2505.22513, App. A.3.
 -/
 

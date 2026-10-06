@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.IsConnectedVertexSet
 
 Topic: fair_division   Node: ed9f202255a6
 
+Provenance: formalization of a published result. Source: arXiv:1908.05433, Definition 3.8 ((a,b)-linked graphs)
+
 A graph G is (a,b)-linked if for any disjoint vertex sets M1, M2 with |M1| = a and |M2| = b there are disjoint vertex sets S1 ⊇ M1 and S2 ⊇ M2, each inducing a connected subgraph.
 -/
 

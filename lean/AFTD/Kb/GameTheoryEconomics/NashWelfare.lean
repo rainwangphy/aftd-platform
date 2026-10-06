@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.BundleOf
 
 Topic: fair_division   Node: 57b6289d1d2d
 
+Provenance: formalization of a published result. Source: The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Sec. 2 (Nash welfare / utilitarian social welfare of an allocation, additive valuations)
+
 Nash welfare of an allocation σ of m goods to n agents with additive valuations v_i: NW(σ) = ∏_i v_i(X_i), where X_i is the bundle of agent i under σ.
 -/
 

@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.DroopMonroeScore
 
 Topic: social_choice   Node: 30fe04db1a57
 
+Provenance: helper lemma. step towards droop_monroe_satisfies_droop_pjr_plus (Droop Monroe and Droop-PJR+, Justified Representation: From Hare to Droop, arXiv:2508.00811, Table 1 note a)
+
 Exchange step for Droop assignments: swapping c₀ ∈ W for c ∉ W approved by all of S (no member of S satisfied) gives a Droop-valid assignment scoring at least score(π) + min(|π⁻¹(c₀)|, |S|) - |π⁻¹(c₀) \ S|.
 -/
 

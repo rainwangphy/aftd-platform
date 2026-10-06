@@ -11,6 +11,8 @@ import AFTD.Kb.GameTheoryEconomics.UtilitarianWelfare
 
 Topic: fair_division   Node: 825a575b5e00
 
+Provenance: formalization of a published result. Source: The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4 (for n = 2 the price of MNW is at least 27/23)
+
 For every c < 27/23 there are two agents with additive, nonnegative, normalized valuations over three goods and an allocation O such that an MNW allocation exists and every MNW allocation N has c · SW(N) < SW(O). Together with the upper bound, the price of MNW and the strong price of MNW for two agents equal exactly 27/23. Instance: the lower-bound instance of arXiv:1905.04910 Theorem 5.4 with ε small, where SW(O)/SW(N) = (9/7)/(23/21 + ε) → 27/23.
 -/
 

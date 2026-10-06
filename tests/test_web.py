@@ -304,12 +304,13 @@ def main() -> int:
         machine = pages["problems/index.html"].split('id="open"', 1)[-1]
         check("a stuck lemma of a problem is not listed again as machine-posed",
               "machine_open" in machine and "stuck_lemma" not in machine)
-        lit = pages["problems/index.html"].split('id="literature"', 1)[-1].split("</section>", 1)[0]
-        check("the Problems page lists the open problems from the literature",
-              "OP-7" in lit and "LIT-WHY" in lit and 'href="#literature"' in pages["problems/index.html"])
-        check("a literature entry links its arXiv source",
+        probs = pages["problems/index.html"]
+        lit = probs.split('id="formalized"', 1)[-1].split("</section>", 1)[0]
+        check("an open problem from the list sits under its status, like a community one",
+              "OP-7" in lit and "LIT-WHY" in lit and 'id="literature"' not in probs)
+        check("a listed problem links its arXiv source",
               'href="https://arxiv.org/abs/2208.08782"' in lit)
-        check("a literature entry links a verified declaration, and names an unproved one unlinked",
+        check("a listed problem links a verified declaration, and names an unproved one unlinked",
               'href="../d/answer_ten/"' in lit and "<code>machine_open</code>" in lit)
         check("the counts returned match",
               n == {"declarations": 2, "problems": 2, "news": 6, "weekly": 0}, str(n))

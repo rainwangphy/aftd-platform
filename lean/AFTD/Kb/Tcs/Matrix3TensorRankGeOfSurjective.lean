@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.Matrix3TensorRankLeOfSurjective
 
 Topic: algebraic_complexity   Node: 6561b3883a4f
 
+Provenance: formalization of a published result. Source: Lower Bound of 22 for 3x3 Matrix Multiplication over the Integers, arXiv:2610.01639, Sec. 5.3 (lower bounds over the two-element field transfer to the integers), generalised to any surjective homomorphism of commutative semirings
+
 If f : R → S is a surjective homomorphism of commutative semirings and every valid triad decomposition of 3x3 matrix multiplication over S has at least r products, then the same holds over R.
 -/
 

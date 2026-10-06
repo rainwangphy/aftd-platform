@@ -8,6 +8,8 @@ import AFTD.Kb.GameTheoryEconomics.Ef1costAlphaLtHalf
 
 Topic: fair_division   Node: 04a50d9ca814
 
+Provenance: erratum. Corrects: A Fair Allocation is Approximately Optimal for Indivisible Chores, or Is It?, arXiv:2410.15738 v1, Theorem 7 ('the cost of EF1 is at most 1 and at least 1 - 1/n'): false at n = 2, where the cost is at most 3 - 2 sqrt 2 < 1/2; the lower-bound construction needs EF1 among agents 1, 3, ..., n and so a third agent
+
 The cost of EF1 for two agents is less than 1 - 1/2.
 -/
 

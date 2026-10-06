@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.SauerShelahCardLeSumChoose
 
 Topic: combinatorics   Node: a3c42c72f720
 
+Provenance: formalization of a published result. Source: Sauer-Shelah lemma (1972), polynomial form |A| <= (d+1) n^d; standard textbook result (learning theory)
+
 Polynomial form of the Sauer–Shelah lemma. Let 𝒜 be a finite family of subsets of a finite set α with n = |α| ≥ 1. If the VC-dimension of 𝒜 is at most d, then |𝒜| ≤ (d + 1)·n^d.
 -/
 

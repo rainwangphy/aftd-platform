@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.Gf8OracleSyndrome
 
 Topic: quantum   Node: 2f59a68020ca
 
+Provenance: formalization of a published result. Source: Exact T-counts of Toffoli Layers from an Isotropy Bound, arXiv:2610.01024, Open Problem 10: the best published circuit for the GF(8) oracle already has T-count 23, so this bound 29 is weaker than the published one; the 29-parity certificate itself was found here by SAT search
+
 The GF(8) multiplication oracle has a parity representation with 29 parities, so its T-count delta(U_3) in Hadamard-free {CNOT, T} circuits is at most 29 (an explicit certificate found by SAT search; the merged schoolbook expansion has 36).
 -/
 

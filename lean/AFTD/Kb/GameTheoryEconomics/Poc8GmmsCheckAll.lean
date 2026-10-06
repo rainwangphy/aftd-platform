@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.Poc8GmmsOk
 
 Topic: fair_division   Node: 6316b2d3f76e
 
+Provenance: helper lemma. step towards poc_linkedness_conjecture_counterexample (counterexample to arXiv:1908.05433, Conjecture 3.10; kernel-checked certificate)
+
 Kernel check of the bipartition condition for all 256 Boolean membership vectors of the eight vertices.
 -/
 

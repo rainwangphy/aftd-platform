@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.CnfLit
 
 Topic: proof_complexity   Node: ef64c86d0e5f
 
+Provenance: formalization of a published result. Source: Short Resolution Refutations for CNFs with Bounded Weighted Incidence Treewidth, arXiv:2610.02047, Sec. 3.1 (resolution refutation and its length)
+
 A resolution refutation of F is a resolution derivation from F whose last clause is the empty clause; its length is the number of clauses in the sequence.
 -/
 

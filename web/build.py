@@ -167,6 +167,22 @@ _WEEK = re.compile(r"^\d{4}-W\d{2}$")
 _DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
+def check_news_provenance(s: Site, where: str, n: dict, names: list[str]) -> None:
+    """A proof announcement must not pass off someone else's result as ours: if
+    every theorem it names formalizes a published one, it has to say so, and an
+    erratum has to say that it is one. (Most entries mix the paper's results
+    with new ones; the result pages label each declaration.)"""
+    text = f'{n["title"]} {n["body"]}'
+    provs = {s.by_name[x].get("provenance") for x in names
+             if not s.by_name[x]["is_def"]} - {"lemma"}
+    if provs == {"literature"} and not re.search(r"formali[sz]", text, re.I):
+        raise ValueError(f"{where}: every theorem it names formalizes a published "
+                         "result; the entry must say it is a formalization")
+    if "erratum" in provs and not re.search(r"erratum|errata|correct|false|fail|wrong", text, re.I):
+        raise ValueError(f"{where}: it names an erratum; the entry must say that a "
+                         "published claim fails, and which")
+
+
 def check_news(s: Site, entries: list[dict]) -> list[dict]:
     """The announcements, newest first, each with the anchor it is linked by.
 
@@ -194,6 +210,8 @@ def check_news(s: Site, entries: list[dict]) -> list[dict]:
             unverified = [x for x in names if not s.verified(s.by_name[x])]
             if unverified:
                 raise ValueError(f"{where}: not a verified theorem: {', '.join(unverified)}")
+        if n["kind"] == "proof":
+            check_news_provenance(s, where, n, names)
         if n["kind"] == "weekly" and n.get("week") not in {r["week"] for r in s.weekly}:
             raise ValueError(f"{where}: no weekly report for {n.get('week')!r} in weekly/")
         nid = "n-" + n["date"] + "-" + (re.sub(r"[^a-z0-9]+", "-", n["title"].lower()).strip("-")[:48] or "x")
@@ -438,12 +456,33 @@ def kind_badge(d: dict) -> str:
     return badge(d["kind"], "kind def" if d["is_def"] else "kind thm")
 
 
+# Where a result comes from (aftd/kb/provenance.py), as the reader sees it:
+# label, badge class, what the badge means, and what the citation is to it.
+PROVENANCE = {
+    "literature": ("formalization", "prov-lit",
+                   "A published result, restated and proved in Lean. The result is the "
+                   "cited source's; Lean checks this statement of it.", "Formalizes"),
+    "original": ("original", "orig",
+                 "Not taken from a source: stated and proved here. The related work we "
+                 "found is cited; it may still turn out to be known.", "Related work"),
+    "erratum": ("erratum", "prov-err",
+                "Lean shows the cited published claim to be false or incomplete", "Corrects"),
+}
+
+
+def provenance_badge(d: dict) -> list[str]:
+    """The provenance badge of a declaration, if it has one. A transcribed
+    definition gets none: there is no result to credit, only its citation."""
+    p = PROVENANCE.get(d.get("provenance") or "")
+    if not p or (p[0] == "formalization" and d.get("is_def")):
+        return []
+    return [badge(p[0], p[1], p[2])]
+
+
 def decl_card(s: Site, d: dict, root: str, *, sig: bool = True) -> str:
     """One declaration in a list: what it says in words first, the Lean name
     and signature second, and the whole card is the link to the rest."""
-    tags = [kind_badge(d)]
-    if d.get("provenance") == "original":
-        tags.append(badge("original", "orig", "Proposed by the machine, not transcribed from the literature"))
+    tags = [kind_badge(d), *provenance_badge(d)]
     if d.get("problem") is not None:
         tags.append(badge(f"problem #{d['problem']}", "comm"))
     if d.get("explanation"):
@@ -485,9 +524,7 @@ def open_card(s: Site, n: dict, root: str) -> str:
     st = "stuck" if n.get("status") == "stuck" else "open"
     tags = [badge(n["kind"], "kind thm"),
             badge("needs help" if st == "stuck" else "not yet proved", "st-unproved",
-                  "Stated and type-checked in Lean, not proved")]
-    if n.get("provenance") == "original":
-        tags.append(badge("original", "orig", "Proposed by the machine, not transcribed from the literature"))
+                  "Stated and type-checked in Lean, not proved"), *provenance_badge(n)]
     meta = [f'<span class="m-topic">{e(s.topic_title(n["topic"]))}</span>']
     if n.get("citation"):
         meta.append(f'<span class="m-src" title="{e(n["citation"])}">{e(clip(n["citation"], 80))}</span>')
@@ -879,6 +916,22 @@ def render_home(s: Site) -> str:
     return page(s, title=NAME, root=root, active="", body=body, math=bool(shown), wide=True)
 
 
+def provenance_key(s: Site) -> str:
+    """What the provenance badges mean, with how many theorems carry each."""
+    n = {k: sum(1 for d in s.decls if not d["is_def"] and d.get("provenance") == k)
+         for k in PROVENANCE}
+    return (
+        f'<p class="small prov-key">{provenance_badge({"provenance": "literature"})[0]} '
+        f'{n["literature"]} theorems formalize a published result: the result is the '
+        f'cited source\'s, and Lean checks our statement of it. '
+        f'{provenance_badge({"provenance": "original"})[0]} {n["original"]} were stated '
+        f'here, not taken from a source, with the related work cited where we found any. '
+        + (f'{provenance_badge({"provenance": "erratum"})[0]} {n["erratum"]} show a '
+           f'published claim false or incomplete. ' if n["erratum"] else "")
+        + "The other theorems are helper lemmas towards these.</p>"
+    )
+
+
 def render_kb(s: Site) -> str:
     root = "../"
     by_dom: dict[str, dict[str, list[dict]]] = {}
@@ -948,6 +1001,7 @@ def render_kb(s: Site) -> str:
   Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. The graph
   shows what each one builds on; the list below has them all, by topic.
   {f"It also lists, marked <em>not yet proved</em>, the {len(unproved)} statements the machine has posed and not proved: they type-check in Lean, and nothing more is claimed for them." if unproved else ""}</p>
+  {provenance_key(s)}
 </header>
 {graph_section(s, root)}
 <h2 class="rhead" id="list">Every declaration</h2>
@@ -1138,8 +1192,7 @@ def render_decl(s: Site, d: dict) -> str:
     badges = [kind_badge(d)]
     if s.verified(d):
         badges.append(badge("verified", "ok", "Lean accepted it, and #print axioms lists only trusted axioms"))
-    if d.get("provenance") == "original":
-        badges.append(badge("original", "orig", "Proposed by the machine, not transcribed from the literature"))
+    badges += provenance_badge(d)
     parts = [
         f'<nav class="crumbs"><a href="{root}knowledgebase/">Knowledgebase</a> / '
         f'<a href="{root}knowledgebase/#d-{e(d["domain"])}">{e(s.domain_title(d["domain"]))}</a> / '
@@ -1270,10 +1323,14 @@ def decl_facts(s: Site, d: dict, root: str) -> str:
             else '<span class="small">none listed</span>'
         )
     rows = []
+    prov = PROVENANCE.get(d.get("provenance") or "")
     if d.get("citation"):
-        rows.append(("Source", e(d["citation"])))
+        label = prov[3] if prov else "Source"
+        if label == "Formalizes" and d["is_def"]:
+            label = "Defined in"
+        rows.append((label, e(d["citation"])))
     elif d.get("provenance") == "original":
-        rows.append(("Source", "Proposed by the machine; not transcribed from the literature"))
+        rows.append(("Source", "Stated here; not taken from a source"))
     elif d.get("provenance") == "lemma":
         rows.append(("Source", "Filed by the prover as a step towards another result"))
     rows.append(("Verified", e(day(d["proved_at"]))))
@@ -1314,10 +1371,28 @@ def pager(s: Site, d: dict, root: str) -> str:
 
 
 def render_problems(s: Site) -> str:
+    """Every open problem in one list, by status, wherever it comes from: the
+    community's issues and the knowledgebase's open-problem list alike."""
     root = "../"
-    groups: dict[str, list[dict]] = {k: [] for k in STATUSES}
+
+    def decl_href(name: str) -> str | None:
+        return f"{root}d/{slug(name)}/" if name in s.by_name else None
+
+    # status -> [(topic, card)], community problems newest first, then the list.
+    groups: dict[str, list[tuple[str, str]]] = {k: [] for k in STATUSES}
+    declined = []
     for p in sorted(s.problems, key=lambda p: -p["number"]):
-        groups[p["status"]].append(p)
+        if p["status"] == "declined":
+            declined.append(p)
+        f = p["fields"]
+        groups[p["status"]].append((f.get("topic") or f.get("domain") or "Other",
+                                    problem_card(s, p, root)))
+    for p in s.literature:
+        st = literature.status(p)
+        topic = s.topic_title(p.get("topic") or "") or "Other"
+        groups[st].append(
+            (topic, literature.card(p, status_badge(st) + badge(topic, "dom"), decl_href))
+        )
     counts = "".join(
         f'<div class="fact st-{k}"><span class="k">{e(v)}</span>'
         f'<span class="v">{len(groups[k])}</span></div>'
@@ -1326,17 +1401,30 @@ def render_problems(s: Site) -> str:
     blurbs = {
         "proved": "Formalized, checked against the English, and proved.",
         "stuck": "Formalized, but the prover is stuck. A pointer to the right Mathlib lemma is the most useful thing you can offer.",
-        "formalized": "The statement is in the knowledgebase and waiting for its proof.",
-        "accepted": "Reviewed and queued. The machine has not formalized it yet.",
+        "formalized": "Stated in Lean and waiting for its proof.",
+        "accepted": "Not stated in Lean yet.",
     }
     secs = []
     for k in ("proved", "stuck", "formalized", "accepted"):
-        if not groups[k]:
+        items = groups[k]
+        if not items:
             continue
+        if len(items) > 8:
+            # A long group is folded by topic, so the page stays scannable.
+            by_topic: dict[str, list[str]] = {}
+            for topic, html_ in items:
+                by_topic.setdefault(topic, []).append(html_)
+            inner = "".join(
+                f'<details class="lit-topic"><summary><span>{e(t)}</span>'
+                f'<span class="small">{len(cs)}</span></summary>{"".join(cs)}</details>'
+                for t, cs in sorted(by_topic.items(), key=lambda kv: kv[0].lower())
+            )
+        else:
+            inner = "".join(html_ for _, html_ in items)
         secs.append(
             f'<section class="pgroup" id="{k}"><header class="shead"><h2>{e(STATUSES[k])}</h2>'
-            f'<span class="n">{len(groups[k])}</span></header><p class="small">{e(blurbs[k])}</p>'
-            + "".join(problem_card(s, p, root) for p in groups[k])
+            f'<span class="n">{len(items)}</span></header><p class="small">{e(blurbs[k])}</p>'
+            + inner
             + "</section>"
         )
     if groups["pending"]:
@@ -1347,27 +1435,16 @@ def render_problems(s: Site) -> str:
             "Submissions appear here once a maintainer has read them: every attempt "
             "costs tokens, and the site does not republish unreviewed text.</p>"
         )
-    if groups["declined"]:
+    if declined:
         items = "".join(
             f'<li><a href="{e(p["url"])}">#{p["number"]} {e(p["title"])}</a></li>'
-            for p in groups["declined"]
+            for p in declined
         )
         secs.append(
-            f'<details class="declined"><summary>Declined ({len(groups["declined"])})</summary>'
+            f'<details class="declined"><summary>Declined ({len(declined)})</summary>'
             f'<p class="small">Out of scope, ill-posed or duplicated. The reason is on each issue.</p>'
             f'<ul class="list">{items}</ul></details>'
         )
-
-    secs.append(literature.section(
-        s.literature, root, domain_title=s.domain_title, topic_title=s.topic_title,
-        decl_href=lambda n: f"{root}d/{slug(n)}/" if n in s.by_name else None,
-    ))
-
-    lit_lead = (
-        f' Below them are <a href="#literature">{len(s.literature)} open problems from '
-        "the literature</a> the machine works from."
-        if s.literature else ""
-    )
 
     loose = [n for n in s.open if n.get("problem") is None]
     if loose:
@@ -1388,18 +1465,18 @@ def render_problems(s: Site) -> str:
         )
     body = f"""
 <header class="phead" id="submit">
-  <p class="eyebrow">Open verdict by the community</p>
-  <h1>Community problems</h1>
-  <p class="lead">Statements submitted by people, attempted by the machine. A
-  problem counts as proved when every declaration answering it has passed Lean
-  and the round trip.{lit_lead}</p>
+  <p class="eyebrow">Open problems</p>
+  <h1>Problems</h1>
+  <p class="lead">Open problems the machine works on, from papers and books or
+  submitted by you. A problem counts as proved when every declaration answering
+  it has passed Lean and the round trip.</p>
   <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a></div>
   {submit_guide(s)}
 </header>
 <div class="facts">{counts}</div>
 {"".join(secs)}
 """
-    return page(s, title="Community problems", root=root, active="problems/", body=body, math=True)
+    return page(s, title="Problems", root=root, active="problems/", body=body, math=True)
 
 
 def render_problem(s: Site, p: dict) -> str:

@@ -13,6 +13,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpValueAux
 
 Topic: combinatorial_games   Node: 7ded50731067
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 The outcome of Catch-Up on a nonempty set S is a draw if and only if Player 1 does not lose from the initial position and Player 2 does not lose after any opening move from S.
 -/
 

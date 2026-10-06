@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.NashWelfare
 
 Topic: fair_division   Node: 9530834418d8
 
+Provenance: formalization of a published result. Source: The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4, lower-bound instance (m = 3, utilities (2/3, 1/3, 0) and (4/7 - eps, 1/7 + eps, 2/7), 0 < eps < 1/7)
+
 For 0 < ε < 1/7, the allocation N = (0, 1, 1) (good 0 to agent 0, goods 1 and 2 to agent 1) has Nash welfare (2/3)(3/7 + ε), the largest among all eight allocations, so it is an MNW allocation.
 -/
 

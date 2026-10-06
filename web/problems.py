@@ -49,7 +49,7 @@ STATUSES = {
     "proved": "Proved",
     "stuck": "Needs help",
     "formalized": "In progress",
-    "accepted": "Accepted",
+    "accepted": "Open",
     "pending": "Awaiting review",
     "declined": "Declined",
 }

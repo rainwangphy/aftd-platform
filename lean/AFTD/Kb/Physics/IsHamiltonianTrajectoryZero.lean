@@ -6,6 +6,8 @@ import AFTD.Kb.Physics.IsHamiltonianTrajectory
 
 Topic: classical_mechanics   Node: 3eed057312c8
 
+Provenance: original. Related work: machine-posed sanity check of is_hamiltonian_trajectory (zero Hamiltonian, constant trajectory); trivial, no novelty claimed
+
 The constant zero trajectory is a Hamiltonian trajectory for the zero Hamiltonian.
 -/
 

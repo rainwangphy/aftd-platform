@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.Matrix3TensorRankGe
 
 Topic: algebraic_complexity   Node: 0eb8bdedf1bd
 
+Provenance: formalization of a published result. Source: Lower Bound of 22 for 3x3 Matrix Multiplication over the Integers, arXiv:2610.01639, Sec. 5.3 (lower bounds over the two-element field bound algorithms with integer constants)
+
 A lower bound r on the number of products of every bilinear algorithm for 3x3 matrix multiplication over the two-element field is also a lower bound over the integers.
 -/
 

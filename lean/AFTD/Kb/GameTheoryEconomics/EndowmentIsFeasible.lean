@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.IsFeasibleAllocation
 
 Topic: general_equilibrium   Node: 59433021866c
 
+Provenance: original. Related work: machine-posed degenerate case of feasibility in a pure exchange economy (the endowment itself); trivial, no novelty claimed
+
 In any pure exchange economy with finite agents, the initial endowment allocation is feasible.
 -/
 

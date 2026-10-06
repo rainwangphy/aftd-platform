@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: general_equilibrium   Node: 200d23d5417d
 
+Provenance: formalization of a published result. Source: What Semivalues Cannot See: The Information Content of Anonymous Marginal Values, arXiv:2607.07013, Sec. 10 (simple game, weighted game as in the monograph Simple Games: Desirability Relations, Trading, Pseudoweightings (1999), swing table)
+
 A simple game on n players is a monotone function v from coalitions to {0,1} with v(empty) = 0 and v(all players) = 1; the coalitions with value 1 are winning.
 -/
 

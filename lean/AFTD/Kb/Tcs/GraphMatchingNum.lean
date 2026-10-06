@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: graphs   Node: 711dbd073ac0
 
+Provenance: formalization of a published result. Source: standard textbook definition (graph theory: matching number)
+
 The matching number of a graph G is the supremum of the cardinalities of the edge sets of all matchings in G.
 -/
 

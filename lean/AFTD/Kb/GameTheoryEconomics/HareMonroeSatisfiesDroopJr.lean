@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.MonroeExchange
 
 Topic: social_choice   Node: cf22b0956cf0
 
+Provenance: original. Related work: answers the open case of Justified Representation: From Hare to Droop, arXiv:2508.00811, App., after Prop. 2 / Table 1 note d (Monroe satisfies Droop-JR when k divides n; other n, k open): holds for all n and k
+
 Every committee selected by the (Hare) Monroe rule satisfies Droop-JR, for all n and k. This answers the open question of Justified Representation: From Hare to Droop (arXiv:2508.00811, App., after Prop. 2), which proved it only when k divides n.
 -/
 

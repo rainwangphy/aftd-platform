@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.Mnw2Case3AuxNonneg4
 
 Topic: fair_division   Node: 48abba6acfc7
 
+Provenance: helper lemma. step towards mnw_two_agents_welfare_le (upper bound 27/23 for the price of MNW with two agents, The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4; Positivstellensatz certificate found by computer)
+
 With e3 = γ + δ − p ≥ 0 and e4 = p + q − δ ≥ 0, the product of 27 SW(N) − 23 SW(O) with the positive multiplier polynomial equals an explicit nonnegative combination of the five MNW slacks, the normalizations and the auxiliary nonnegative quartic; hence it is nonnegative.
 -/
 

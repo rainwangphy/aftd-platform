@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: computability   Node: 7f85288ffbcb
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: RE sets are closed under intersection)
+
 If p and q are recursively enumerable predicates, then their conjunction fun a => p a ∧ q a is recursively enumerable.
 -/
 

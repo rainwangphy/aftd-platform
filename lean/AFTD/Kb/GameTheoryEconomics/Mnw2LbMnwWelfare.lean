@@ -10,6 +10,8 @@ import AFTD.Kb.GameTheoryEconomics.UtilitarianWelfare
 
 Topic: fair_division   Node: 9dd57ccf2317
 
+Provenance: formalization of a published result. Source: The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4, lower-bound instance (m = 3, utilities (2/3, 1/3, 0) and (4/7 - eps, 1/7 + eps, 2/7), 0 < eps < 1/7)
+
 For 0 < ε < 1/7, the allocation (0, 1, 1) is the unique MNW allocation of the three-good instance (all seven other allocations have strictly smaller Nash welfare), so every MNW allocation has social welfare 2/3 + (1/7 + ε + 2/7) = 23/21 + ε.
 -/
 

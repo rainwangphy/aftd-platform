@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.AssignmentExchange
 
 Topic: social_choice   Node: 223276faa4fe
 
+Provenance: helper lemma. step towards hare_monroe_satisfies_droop_jr (Monroe and Droop-JR, open case of Justified Representation: From Hare to Droop, arXiv:2508.00811)
+
 Exchange step: replacing c ∈ W by c ∉ W approved by all of S (no member of S being satisfied by π) yields a Hare-valid assignment whose score is at least score(π) + min(|π⁻¹(c)|, |S|) - |π⁻¹(c) \ S|.
 -/
 

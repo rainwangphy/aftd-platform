@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: fair_division   Node: 72591deb961c
 
+Provenance: helper lemma. step towards mnw_two_agents_welfare_le (upper bound 27/23 for the price of MNW with two agents, The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4; Positivstellensatz certificate found by computer)
+
 For nonnegative reals P, r, g, d with P + r ≤ 1, r(1 − g) ≤ P(g + d) and r d ≤ P g, we have 23 r ≤ 4P + 27 g + 4 d. (Case 23P ≤ 4 is linear after two product estimates; otherwise multiply the target by P² + Pr + r² and write the product as a nonnegative combination of the hypotheses.)
 -/
 

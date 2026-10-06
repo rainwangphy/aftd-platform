@@ -9,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcome
 
 Topic: combinatorial_games   Node: 757618379ecb
 
+Provenance: formalization of a published result. Source: Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 2.6 and Appendix 5.1 (an odd total cannot be split evenly, so no draw); general finite S
+
 For any finite set S of natural numbers whose sum is odd, the game value catch_up_value S is not a draw.
 -/
 

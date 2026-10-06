@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.HasTreeDecompositionOfWidthLe
 
 Topic: proof_complexity   Node: 6a07987f046a
 
+Provenance: formalization of a published result. Source: Short Resolution Refutations for CNFs with Bounded Weighted Incidence Treewidth, arXiv:2610.02047, Sec. 3.2 (treewidth)
+
 The treewidth of a graph: the least w such that it has a tree decomposition of width at most w.
 -/
 

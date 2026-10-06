@@ -15,6 +15,8 @@ import AFTD.Kb.GameTheoryEconomics.SpiTwoPointSchemeProbEq
 
 Topic: mechanism_design   Node: de7fe4d7199c
 
+Provenance: formalization of a published result. Source: Intrinsic Robustness of Prophet Inequality to Strategic Reward Signaling, NeurIPS 2024 (arXiv:2409.18269), Proposition 3.1 (the threshold-signaling scheme attains the optimum); special case of two-point rewards, finite signal sets
+
 For S >= 2 the two-point scheme is a valid scheme and a player using it is accepted with probability exactly spi_two_point_max_prob.
 -/
 

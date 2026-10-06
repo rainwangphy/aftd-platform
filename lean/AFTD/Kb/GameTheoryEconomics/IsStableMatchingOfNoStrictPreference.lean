@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.IsStableMatching
 
 Topic: matching_markets   Node: cea1b719721e
 
+Provenance: helper lemma. sanity check of the definition is_stable_matching (College Admissions and the Stability of Marriage, 1962)
+
 In the marriage market on M and W whose two preference relations are identically false, so that no agent strictly prefers anyone to anyone, every matching μ : M ≃ W is stable.
 -/
 

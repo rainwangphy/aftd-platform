@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.MonroeCeilLeFloorSucc
 
 Topic: social_choice   Node: b2d37f3fc204
 
+Provenance: helper lemma. step towards hare_monroe_satisfies_droop_jr (Monroe and Droop-JR, open case of Justified Representation: From Hare to Droop, arXiv:2508.00811)
+
 Counting step: if (W, π) is Hare-valid and |S| > n/(k+1), then some c ∈ W satisfies |π⁻¹(c)| < min(|π⁻¹(c)|, |S|) + |π⁻¹(c) ∩ S|.
 -/
 

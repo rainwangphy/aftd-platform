@@ -8,6 +8,8 @@ import AFTD.Kb.Tcs.CnfLit
 
 Topic: proof_complexity   Node: ecd3a348a937
 
+Provenance: formalization of a published result. Source: Short Resolution Refutations for CNFs with Bounded Weighted Incidence Treewidth, arXiv:2610.02047, Sec. 3.2 (incidence graph of a CNF formula)
+
 The incidence graph G*(F) of a CNF formula F: the bipartite graph whose vertices are the variables of F and the clauses of F, a variable x adjacent to a clause C iff x occurs in C.
 -/
 

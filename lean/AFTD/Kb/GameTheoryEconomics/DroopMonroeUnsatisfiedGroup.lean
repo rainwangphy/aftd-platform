@@ -8,6 +8,8 @@ import AFTD.Kb.GameTheoryEconomics.DroopMonroeExchange
 
 Topic: social_choice   Node: e4dec9eeef49
 
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Lemma 2 (k + 1 divides n, optimal Droop-valid assignment: a group of more than n/(k+1) unsatisfied voters jointly approves only members of W)
+
 Lemma 2 of arXiv:2508.00811: if (k+1) divides n and π is an optimal Droop-valid assignment for W, no group of more than n/(k+1) voters, all unsatisfied by π, jointly approves a candidate outside W.
 -/
 

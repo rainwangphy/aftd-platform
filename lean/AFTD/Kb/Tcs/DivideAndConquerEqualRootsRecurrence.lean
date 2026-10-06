@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: algorithms   Node: 7ce803c2a01e
 
+Provenance: formalization of a published result. Source: standard textbook result (algorithms: solving the linear recurrence T(k+1) = a T(k) + c a^(k+1), the equal-roots case of the master method)
+
 For any real branching factor a, base value d and step cost c, the recurrence T(k+1) = a*T(k) + c*a^(k+1) has exact solution T(k) = d*a^k + c*k*a^k.
 -/
 

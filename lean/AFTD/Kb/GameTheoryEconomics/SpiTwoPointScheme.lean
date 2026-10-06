@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.SpiTwoPointPoolProb
 
 Topic: mechanism_design   Node: 83232cc16de8
 
+Provenance: formalization of a published result. Source: Intrinsic Robustness of Prophet Inequality to Strategic Reward Signaling, NeurIPS 2024 (arXiv:2409.18269), Proposition 3.1 (threshold signaling scheme); two-point case embedded in S signals
+
 The optimal scheme of Proposition 3.1 for a two-point reward embedded in S signals: high value sends signal 0, low value sends signal 0 with the pooling probability and signal 1 otherwise.
 -/
 

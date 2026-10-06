@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.IsBfjrCohesive
 
 Topic: social_choice   Node: 90061f728c39
 
+Provenance: formalization of a published result. Source: arXiv:2505.22513, Def. A.5 (BFJR)
+
 BFJR for a temporal outcome o (arXiv:2505.22513, Def. A.5): every (α, β)-BFJR-cohesive group has a member with satisfaction at least β from W = {(o(r), r)}.
 -/
 

@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: np_completeness   Node: 98a4cc058c1d
 
+Provenance: formalization of a published result. Source: standard textbook definition (propositional logic: literals of a CNF formula)
+
 A CNF literal over a variable type V is either a positive variable or a negated variable.
 -/
 

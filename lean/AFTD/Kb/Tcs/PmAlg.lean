@@ -7,6 +7,8 @@ import AFTD.Kb.Tcs.PMTree
 
 Topic: algorithms   Node: 771b9b91b597
 
+Provenance: formalization of a published result. Source: Sorting and Selection in Posets, SODA 2009 / SIAM J. Comput. 2011 (arXiv:0707.1532), Section 4, Theorem 11 (the candidate-set algorithm for the minimal elements); specialised to width 2
+
 The candidate-list algorithm (Theorem 11 of arXiv 0707.1532, for width 2): scan the elements in order, keeping the (at most two) minimal elements of the prefix; a new element is compared with the candidates one by one. m is the number of elements still to scan.
 -/
 

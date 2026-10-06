@@ -15,6 +15,8 @@ import AFTD.Kb.Tcs.TeamThm4Part2Exists
 
 Topic: algorithms   Node: 773fa800b7ff
 
+Provenance: erratum. Corrects: The Team Order Problem: Maximizing the Probability of Matching Being Large Enough, SAGT 2024 (arXiv:2605.21234), Section 6, Theorem 4(2), even in its existential reading (some maximum-weight matching satisfies the bound): false for every o(1) function; unique all-1/2 maximum-weight matching, gap at least 1/40
+
 Even the existential reading of Theorem 4 (2) of arXiv:2605.21234 is false, for every function ε in place of o(1): on the (2m+3)-player strengthened instance the all-1/2 identity is the unique maximum-weight matching (so the error term is 0), it wins with probability 1/2, and the optimal line-up wins with probability at least 1/2 + 1/40.
 -/
 

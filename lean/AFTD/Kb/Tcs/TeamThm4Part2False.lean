@@ -15,6 +15,8 @@ import AFTD.Kb.Tcs.TeamRotWinProb
 
 Topic: algorithms   Node: a911059aecce
 
+Provenance: erratum. Corrects: The Team Order Problem: Maximizing the Probability of Matching Being Large Enough, SAGT 2024 (arXiv:2605.21234), Section 6, Theorem 4(2) (near weight n/2 an optimal line-up beats a maximum-weight matching M* by at most (4 + o(1))/(n+1) * sum over M* of (p_e - 1/2)^2): false for every choice of the o(1) term; (2m+3)-player instance with an all-1/2 maximum-weight matching and a gap of 1/16
+
 Theorem 4 (2) of arXiv:2605.21234 is false, whatever function is used for its o(1) term: for every m, on the (2m+3)-player instance the identity line-up is a maximum-weight matching with all edge probabilities 1/2 (so w(M*) = n/2 and the error term vanishes) and wins with probability 1/2, while the optimal line-up wins with probability at least 9/16.
 -/
 

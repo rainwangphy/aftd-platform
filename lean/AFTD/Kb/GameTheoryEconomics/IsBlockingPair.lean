@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.MarriageMarket
 
 Topic: matching_markets   Node: 80c15dd36650
 
+Provenance: formalization of a published result. Source: College Admissions and the Stability of Marriage (1962): blocking pair of a matching in the marriage market; standard textbook definition (matching markets)
+
 In a marriage market with agent types M and W and a matching μ : M ≃ W, a man m and a woman w form a blocking pair when m strictly prefers w to his assigned partner μ m, and w strictly prefers m to her assigned partner μ.symm w.
 -/
 

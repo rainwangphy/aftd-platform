@@ -16,6 +16,8 @@ import AFTD.Kb.GameTheoryEconomics.Poc8Val
 
 Topic: fair_division   Node: 47cebf431911
 
+Provenance: original. Related work: refutes arXiv:1908.05433, Conjecture 3.10 (a (2,k-1)- but not (2,k)-linked graph has two-agent price of connectivity 2k/(2k-1)); 8-vertex graph, (2,3)- but not (2,4)-linked, price at least 15/13 > 8/7
+
 Counterexample to arXiv:1908.05433 Conjecture 3.10 for two agents: there is a graph G on 8 vertices that is (2,3)-linked but not (2,4)-linked, so the conjecture (with k = 4) predicts PoC(G,2) = 8/7, yet with u = (5,5,5,1,1,1,12,0) the maximin share is 15 (split {0,1,2,7} versus the rest) while every bipartition of G into two connected parts gives the poorer part at most 13. Hence PoC(G,2) ≥ 15/13 > 8/7.
 -/
 

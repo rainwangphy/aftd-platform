@@ -6,6 +6,8 @@ import AFTD.Kb.GameTheoryEconomics.TfjrBallot
 
 Topic: social_choice   Node: 44e59b8d5c00
 
+Provenance: helper lemma. step towards temporal_droop_fjr_not_imp_bfjr (Droop-FJR vs BFJR, arXiv:2505.22513, App. A.3)
+
 In the counterexample, every nonempty group either contains voter 2 or 3, or has a member who approves nothing in at least ⌈(|T|+1)|S|/4⌉ - 1 rounds of T (checked by decide).
 -/
 

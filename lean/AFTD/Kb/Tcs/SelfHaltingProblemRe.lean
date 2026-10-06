@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: computability   Node: 0b4dc027f2c7
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: the diagonal halting set is RE)
+
 The diagonal halting problem, consisting of codes c such that c halts on its own code, is recursively enumerable.
 -/
 

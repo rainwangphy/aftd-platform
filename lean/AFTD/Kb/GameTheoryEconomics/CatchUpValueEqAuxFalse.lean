@@ -8,6 +8,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpValueAux
 
 Topic: combinatorial_games   Node: 27c37de35000
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 The game value catch_up_value S is equal to catch_up_value_aux S 0 0 false.
 -/
 

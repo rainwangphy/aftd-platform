@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: quantum   Node: ac096165b355
 
+Provenance: formalization of a published result. Source: Exact T-counts of Toffoli Layers from an Isotropy Bound, arXiv:2610.01024, Sec. A.3 (Clifford+T circuits)
+
 A gate of a Clifford+T circuit on N qubits: a Hadamard H on qubit i, a phase gate S on qubit i, a CNOT with control c and target t (c different from t), or a T gate on qubit i.
 -/
 

@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: fair_division   Node: 91fc7fdcbc61
 
+Provenance: helper lemma. step towards mnw_two_agents_welfare_le (upper bound 27/23 for the price of MNW with two agents, The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4; Positivstellensatz certificate found by computer)
+
 A specific quartic polynomial with nonnegative coefficients in ten nonnegative variables is nonnegative. It is part 3 of 4 of the slack term of the Positivstellensatz certificate in the hard case of the two-agent price-of-MNW upper bound (split only to keep elaboration fast).
 -/
 

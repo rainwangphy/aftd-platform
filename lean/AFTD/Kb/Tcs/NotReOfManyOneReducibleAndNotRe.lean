@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.ReOfManyOneReducible
 
 Topic: computability   Node: 19c2634ce754
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: non-RE-ness transfers along many-one reductions)
+
 If p is many-one reducible to q and p is not recursively enumerable, then q is not recursively enumerable.
 -/
 

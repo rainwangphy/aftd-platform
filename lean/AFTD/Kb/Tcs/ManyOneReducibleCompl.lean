@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: computability   Node: 5c64349aff2a
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: a many-one reduction also reduces the complements)
+
 If a predicate p many-one reduces to q, then the complement of p many-one reduces to the complement of q.
 -/
 

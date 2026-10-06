@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.IsDominantStrategyIncentiveCompatible
 
 Topic: mechanism_design   Node: 0fef50d750f6
 
+Provenance: original. Related work: machine-posed degenerate case of DSIC (constant mechanism); trivial, folklore in mechanism design, no novelty claimed
+
 A constant direct mechanism, which chooses a fixed allocation and charges a fixed payment regardless of reports, is dominant-strategy incentive-compatible for any valuation function.
 -/
 

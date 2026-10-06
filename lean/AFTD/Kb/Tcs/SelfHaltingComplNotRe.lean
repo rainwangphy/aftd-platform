@@ -8,6 +8,8 @@ import AFTD.Kb.Tcs.SelfHaltingProblemUndecidable
 
 Topic: computability   Node: 18954e079701
 
+Provenance: formalization of a published result. Source: standard textbook result (computability theory: the complement of the halting set is not RE)
+
 The complement of the diagonal halting problem is not recursively enumerable.
 -/
 

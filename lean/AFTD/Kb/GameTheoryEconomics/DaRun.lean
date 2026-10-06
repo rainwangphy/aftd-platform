@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: matching_markets   Node: 48cc1eae1219
 
+Provenance: formalization of a published result. Source: College Admissions and the Stability of Marriage (1962), men-proposing deferred acceptance; It's Not All Black and White: Degree of Truthfulness for Risk-Avoiding Agents, arXiv:2502.18805 v3, Def. 3.1 and Sec. 8.1
+
 One run of men-proposing deferred acceptance with a step budget: each step the first free man with proposals left proposes to his next woman, who keeps whichever of him and her current man she ranks better.
 -/
 

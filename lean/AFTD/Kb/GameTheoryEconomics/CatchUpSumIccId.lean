@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: combinatorial_games   Node: 29b2f4c6451f
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 The sum of numbers in the interval {1, ..., N} equals the N-th triangular number N(N+1)/2.
 -/
 

@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: fair_division   Node: f1c45e631faf
 
+Provenance: helper lemma. step towards poc_linkedness_conjecture_counterexample (counterexample to arXiv:1908.05433, Conjecture 3.10; kernel-checked certificate)
+
 47 vertex bitmasks, each the first part of a connected bipartition of G; together they separate every pair (M1, M2) of disjoint sets with |M1| = 2, |M2| = 3.
 -/
 

@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: fair_division   Node: cd4664d3f854
 
+Provenance: formalization of a published result. Source: The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4, lower-bound instance (m = 3, utilities (2/3, 1/3, 0) and (4/7 - eps, 1/7 + eps, 2/7), 0 < eps < 1/7)
+
 Valuations of two agents over three goods, depending on a parameter ε: agent 0 has values (2/3, 1/3, 0) and agent 1 has values (4/7 − ε, 1/7 + ε, 2/7). For 0 < ε < 1/7 both are nonnegative and sum to 1.
 -/
 

@@ -6,6 +6,8 @@ import AFTD.Kb.Tcs.GraphMatchingNum
 
 Topic: graphs   Node: 2b71fe52b2d1
 
+Provenance: formalization of a published result. Source: standard textbook result (graph theory: every matching is at most as large as every vertex cover)
+
 For any matching M and any vertex cover c of a simple graph G, the number of edges in M is at most the number of vertices in c.
 -/
 

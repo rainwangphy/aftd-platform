@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: general_equilibrium   Node: d06ea308b97a
 
+Provenance: formalization of a published result. Source: What Semivalues Cannot See: The Information Content of Anonymous Marginal Values, arXiv:2607.07013, Sec. 10 (simple game, weighted game as in the monograph Simple Games: Desirability Relations, Trading, Pseudoweightings (1999), swing table)
+
 The swing table of a game: T(i, k) is the number of coalitions S of size k not containing i such that S together with i wins while S loses.
 -/
 

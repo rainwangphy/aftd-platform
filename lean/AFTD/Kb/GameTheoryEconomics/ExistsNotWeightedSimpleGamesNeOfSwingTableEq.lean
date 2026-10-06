@@ -10,6 +10,8 @@ import AFTD.Kb.GameTheoryEconomics.WeightedGameEqOfSwingTableEq
 
 Topic: general_equilibrium   Node: f483139ee703
 
+Provenance: formalization of a published result. Source: What Semivalues Cannot See: The Information Content of Anonymous Marginal Values, arXiv:2607.07013, Example 10.1 (the displayed pair, which the paper states is 'both non-weighted' and has equal swing tables); our Lean proof derives non-weightedness from weighted_game_eq_of_swing_table_eq
+
 The weighted hypothesis in swing rigidity cannot be dropped: there are two different five-player simple games, neither of them weighted, with the same swing table.
 -/
 

@@ -10,6 +10,8 @@ import AFTD.Kb.Tcs.PmAlgRun
 
 Topic: algorithms   Node: 44a0874aa024
 
+Provenance: formalization of a published result. Source: Sorting and Selection in Posets, SODA 2009 / SIAM J. Comput. 2011 (arXiv:0707.1532), Section 4, Theorem 11 (correctness of the candidate-set algorithm); special case width 2
+
 The algorithm is correct on every width-2 poset.
 -/
 

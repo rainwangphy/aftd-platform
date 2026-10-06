@@ -11,6 +11,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcome
 
 Topic: combinatorial_games   Node: 0c02e681390e
 
+Provenance: formalization of a published result. Source: Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 2.6 and Appendix 5.1 (an odd total cannot be split evenly, so no draw); stated for arbitrary positions (scores plus remaining sum odd)
+
 In Catch-Up, if the sum of remaining piece values and player scores is odd, the mover cannot achieve a draw.
 -/
 

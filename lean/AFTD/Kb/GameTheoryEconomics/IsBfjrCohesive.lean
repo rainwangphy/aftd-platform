@@ -7,6 +7,8 @@ import AFTD.Kb.GameTheoryEconomics.TemporalEmbedSat
 
 Topic: social_choice   Node: 3c09aa1c37bb
 
+Provenance: formalization of a published result. Source: arXiv:2505.22513, Def. A.5 ((alpha, beta)-BFJR-cohesive groups)
+
 (α, β)-BFJR-cohesiveness (arXiv:2505.22513, Def. A.5) in the embedding of a temporal election: for every feasible X, either some Y with |Y| = α giving every member of S satisfaction at least β has X ∪ Y feasible, or |S|/n > α/(|X| + α).
 -/
 

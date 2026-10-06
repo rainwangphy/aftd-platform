@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: proof_complexity   Node: a8e06e8b6e0b
 
+Provenance: formalization of a published result. Source: Short Resolution Refutations for CNFs with Bounded Weighted Incidence Treewidth, arXiv:2610.02047, Sec. 3.2 (tree decompositions; standard textbook notion in graph theory)
+
 A graph G has a tree decomposition of width at most w: a finite tree T and bags chi(t), subsets of the vertices of G, such that every vertex lies in some bag, both ends of every edge lie in a common bag, for every vertex v the nodes whose bags contain v induce a connected subtree, and every bag has at most w + 1 vertices.
 -/
 

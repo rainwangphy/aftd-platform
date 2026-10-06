@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: 3f66ef62458b
 
+Provenance: helper lemma. step towards hare_monroe_satisfies_droop_jr (Monroe and Droop-JR, open case of Justified Representation: From Hare to Droop, arXiv:2508.00811)
+
 Precomposing an assignment with a permutation of the voters does not change how many voters each candidate receives.
 -/
 

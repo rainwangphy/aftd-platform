@@ -8,6 +8,8 @@ import AFTD.Kb.GameTheoryEconomics.UtilitarianWelfare
 
 Topic: fair_division   Node: f6d191c656eb
 
+Provenance: formalization of a published result. Source: The Price of Fairness for Indivisible Goods, arXiv:1905.04910, Theorem 5.4, lower-bound instance (m = 3, utilities (2/3, 1/3, 0) and (4/7 - eps, 1/7 + eps, 2/7), 0 < eps < 1/7)
+
 Giving goods 0 and 1 to agent 0 and good 2 to agent 1 yields social welfare 2/3 + 1/3 + 2/7 = 9/7.
 -/
 

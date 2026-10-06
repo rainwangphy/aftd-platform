@@ -5,6 +5,8 @@ import AFTD.Prelude
 
 Topic: social_choice   Node: 07e97c10c01a
 
+Provenance: helper lemma. step towards temporal_droop_fjr_not_imp_bfjr (Droop-FJR vs BFJR, arXiv:2505.22513, App. A.3)
+
 Ballots of the Droop-FJR vs BFJR counterexample: voter 0 approves candidate 0 in rounds 0-2, voter 1 approves candidate 0 in rounds 3-5, voters 2 and 3 approve candidate 1 in every round.
 -/
 

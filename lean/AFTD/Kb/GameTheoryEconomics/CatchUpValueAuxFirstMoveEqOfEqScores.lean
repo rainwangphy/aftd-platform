@@ -8,6 +8,8 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeBest
 
 Topic: combinatorial_games   Node: 203745db447b
 
+Provenance: helper lemma. step towards the Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates (Game & Puzzle Design 1(2), 2015), Sec. 3.1; formal-conjectures CatchUpConjecture.lean) (Catch-Up ladder step)
+
 In a Catch-Up position where player scores are equal, every pick ends the mover's turn, so the game value with isFirstMove = true equals that with isFirstMove = false.
 -/
 

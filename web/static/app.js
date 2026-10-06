@@ -1,5 +1,6 @@
 // Search, filters and order on the knowledgebase page; search and filters on
-// the Summary Reports page; copy buttons on Lean blocks; math on the problem pages.
+// the Summary Reports page; copy buttons on Lean blocks; share buttons on the
+// reports; math on the problem pages.
 
 (function knowledgebase() {
   const root = document.getElementById('kb');
@@ -239,6 +240,32 @@
         btn.textContent = 'Copy failed';
       }
       setTimeout(() => { btn.textContent = 'Copy'; }, 1600);
+    });
+  }
+})();
+
+(function shareButtons() {
+  // A report, its story or one result: on a phone, the share sheet; elsewhere
+  // the text and the link to it, copied, ready to paste into a post.
+  const coarse = window.matchMedia && matchMedia('(pointer: coarse)').matches;
+  for (const btn of document.querySelectorAll('button.share')) {
+    if (!navigator.clipboard && !(coarse && navigator.share)) continue;
+    btn.hidden = false;
+    const label = btn.textContent;
+    btn.addEventListener('click', async () => {
+      const url = location.origin + location.pathname + (btn.dataset.anchor ? '#' + btn.dataset.anchor : '');
+      const text = btn.dataset.text;
+      if (coarse && navigator.share) {
+        try { await navigator.share({title: document.title, text, url}); } catch (_) { /* dismissed */ }
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text + '\n' + url);
+        btn.textContent = btn.dataset.done || 'Copied';
+      } catch (_) {
+        btn.textContent = 'Copy failed';
+      }
+      setTimeout(() => { btn.textContent = label; }, 1600);
     });
   }
 })();

@@ -249,7 +249,7 @@ def check_news(s: Site, entries: list[dict]) -> list[dict]:
     return sorted(out, key=lambda n: n["date"], reverse=True)
 
 
-WEEKLY_FORMAT = 2
+WEEKLY_FORMATS = (2, 3)  # 3 adds the story, plain words, before/now and Chinese
 WEEKLY_OUTCOMES = ("proved", "disproved", "partial", "new", "formalized")
 
 
@@ -264,9 +264,9 @@ def check_weekly(s: Site, reports: list[dict], period: str = "week") -> list[dic
             raise ValueError(f"{where}: its label must be {P['format']}")
         if r.get("period", "week") != period:
             raise ValueError(f"{where}: it is a {r.get('period')} report, not a {P['news']} one")
-        if r.get("format") != WEEKLY_FORMAT:
+        if r.get("format") not in WEEKLY_FORMATS:
             raise ValueError(f"{where}: format {r.get('format')!r}, this build reads "
-                             f"{WEEKLY_FORMAT}; regenerate it with `aftd interpret --{period}`")
+                             f"{WEEKLY_FORMATS}; regenerate it with `aftd interpret --{period}`")
         if r["week"] in seen:
             raise ValueError(f"{where}: two reports for one {P['noun']}")
         seen.add(r["week"])
@@ -284,6 +284,10 @@ def check_weekly(s: Site, reports: list[dict], period: str = "week") -> list[dic
                 raise ValueError(f"{where}: not a verified theorem: {', '.join(bad)}")
             if x.get("main") not in names:
                 raise ValueError(f"{where}: {x.get('main')!r} is not among its declarations")
+        z = r.get("zh")
+        if z and len(z.get("results") or []) != len(results):
+            raise ValueError(f"{where}: its Chinese version has {len(z.get('results') or [])} "
+                             f"results, the report {len(results)}")
         out.append(r)
     return sorted(out, key=lambda r: r["week"], reverse=True)
 
@@ -377,7 +381,11 @@ def page(
     math: bool = False,
     script: bool = False,
     wide: bool = False,
+    lang: str = "en",
+    alternate: str = "",
 ) -> str:
+    """`lang` is the page's language; `alternate` the relative address of the
+    same page in the other language (English and Chinese reports)."""
     current = ' aria-current="page"'
     links = "".join(
         f'<a href="{root}{href}"{current if href == active else ""}>{label}</a>'
@@ -394,14 +402,16 @@ def page(
         f'<script src="{root}static/app.js"></script>' if (script or math or wide) else ""
     )
     full = f"{title} · {NAME}" if title != NAME else f"{NAME} · {FULL_NAME}"
+    alt = (f'\n<link rel="alternate" hreflang="{"en" if lang != "en" else "zh-CN"}" '
+           f'href="{e(alternate)}">' if alternate else "")
     t = s.kb["totals"]
     main = f'<main class="home">{body}</main>' if wide else f'<main class="wrap">{body}</main>'
     return f"""<!doctype html>
-<html lang="en">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{e(full)}</title>
+<title>{e(full)}</title>{alt}
 <meta name="description" content="{e(description or s.cfg.get('description', ''))}">
 <meta property="og:title" content="{e(full)}">
 <meta property="og:description" content="{e(description or s.cfg.get('description', ''))}">
@@ -1643,7 +1653,10 @@ def render_reports(s: Site) -> str:
             f'data-q="{e(hay)}">'
             f'<p class="news-when">{badge(P["tag"], f"rp-{period}")}<span>{e(r["week"])}</span>'
             f'<span class="small">{e(week_span(r))}</span>'
-            f'<span class="small">{r.get("minutes", "?")} min read</span></p>'
+            f'<span class="small">{r.get("minutes", "?")} min read</span>'
+            + (f'<a class="small" href="{root}{P["dir"]}/{e(r["week"])}/zh/" lang="zh-CN">中文版</a>'
+               if r.get("zh") else "")
+            + "</p>"
             f'<div class="news-main"><h3><a href="{root}{P["dir"]}/{e(r["week"])}/">'
             f'{e(r["title"])}</a></h3>'
             f'<p class="prose">{e(r.get("summary", ""))}</p>'
@@ -1701,25 +1714,72 @@ def _n_reports(k: int) -> str:
     return f"{k} report{'s' if k != 1 else ''}"
 
 
+def result_id(x: dict) -> str:
+    """A result's anchor: its main theorem, so a shared link survives a
+    regenerated report that orders the results differently."""
+    return "r-" + re.sub(r"[^A-Za-z0-9_-]+", "-", x["main"])
+
+
+def share_button(text: str, anchor: str = "", label: str = "Share",
+                 done: str = "Copied") -> str:
+    """Copies the text and the page's address (to the anchor), or opens the
+    phone's share sheet. Hidden until app.js wires it up."""
+    a = f' data-anchor="{e(anchor)}"' if anchor else ""
+    return (f'<button type="button" class="share linkish" hidden data-text="{e(text)}"{a} '
+            f'data-done="{e(done)}">{e(label)}</button>')
+
+
+def scoreboard(r: dict, labels: dict, open_label: str) -> str:
+    """What the period's results amount to, by outcome, from the report itself."""
+    results = [x for f in r["fields"] for x in f["results"]]
+    chips = [
+        f'<li class="wk-chip wk-{k}"><strong>{n}</strong> {e(labels.get(k, k))}</li>'
+        for k in WEEKLY_OUTCOMES
+        if (n := sum(x["outcome"] == k for x in results))
+    ]
+    if r.get("outlook"):
+        chips.append(f'<li class="wk-chip"><strong>{len(r["outlook"])}</strong> '
+                     f'{e(open_label)}</li>')
+    return f'<ul class="wk-score">{"".join(chips)}</ul>'
+
+
+def paragraphs(text: str) -> str:
+    return "".join(f"<p>{e(p)}</p>" for p in re.split(r"\n\s*\n", text or "") if p.strip())
+
+
+def example_table(caption: str, header: list[str], rows: list[list[str]]) -> str:
+    if not header:
+        return ""
+    head = "".join(f'<th scope="col">{e(c)}</th>' for c in header)
+    body = "".join("<tr>" + "".join(f"<td>{e(c)}</td>" for c in row) + "</tr>" for row in rows)
+    return (f'<div class="wk-table-wrap"><table class="wk-ex"><caption>{e(caption)}</caption>'
+            f"<thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>")
+
+
 def render_weekly(s: Site, i: int, period: str = "week") -> str:
-    """One week (or month), laid out for a ten-minute read: the week in one
-    minute, every result at a glance, then one card per result by field, what
-    is still open and the terms. The reports are newest first, so the previous
-    week is the next item."""
+    """One week (or month), in layers that a reader can stop after: the week
+    in one minute with its highlights in plain words, the story of the week,
+    every result at a glance, one card per result by field, what is still
+    open and the terms. The reports are newest first, so the previous week is
+    the next item. A report written before the layers (format 2) shows what
+    it has."""
     P = PERIODS[period]
     reports = s.reports(period)
     r = reports[i]
     root = "../../"
-    n = 0
     anchors: list[tuple[dict, dict, str]] = []
     for f in r["fields"]:
         for x in f["results"]:
-            n += 1
-            anchors.append((f, x, f"r{n}"))
+            anchors.append((f, x, result_id(x)))
     aid = {id(x): a for _, x, a in anchors}
+    labels = r.get("outcomes") or {}
+    label = lambda x: labels.get(x["outcome"], x["outcome"].title())
+
+    def plain(x: dict) -> str:
+        return f'<p class="wk-plain">{e(x["plain"])}</p>' if x.get("plain") else ""
 
     hl = "".join(
-        f'<li>{outcome_badge(r, x)} <a href="#{aid[id(x)]}">{e(x["headline"])}</a></li>'
+        f'<li>{outcome_badge(r, x)} <a href="#{aid[id(x)]}">{e(x["headline"])}</a>{plain(x)}</li>'
         for x in weekly_highlights(r)
     )
     rows, last = [], None
@@ -1752,16 +1812,25 @@ def render_weekly(s: Site, i: int, period: str = "week") -> str:
         )
         # A formalization is the paper's result: the card says what is checked,
         # not what "we showed".
-        shown = "What is checked" if x["outcome"] == "formalized" else "What we showed"
-        rowsd = [("The question", x["question"]), (shown, x["answer"]),
-                 ("Why it matters", x["why"])]
+        shown = "What is checked" if x["outcome"] == "formalized" else "Now"
+        if x.get("before"):
+            change = (f'<div class="wk-change"><div><p class="wk-label">Before</p>'
+                      f'<p>{e(x["before"])}</p></div><div><p class="wk-label">{shown}</p>'
+                      f'<p>{e(x["answer"])}</p></div></div>')
+            rowsd = [("Why it matters", x["why"])]
+        else:  # format 2
+            change = ""
+            rowsd = [("The question", x.get("question", "")), (shown, x["answer"]),
+                     ("Why it matters", x["why"])]
         if x.get("idea"):
             rowsd.append(("The idea", x["idea"]))
         dl = "".join(f"<dt>{k}</dt><dd>{e(v)}</dd>" for k, v in rowsd)
+        text = f'{label(x)}: {x["headline"]}.' + (f' {x["plain"]}' if x.get("plain") else "")
         return (
             f'<article class="wk-card" id="{a}">'
-            f'<p class="badges">{outcome_badge(r, x)}</p>'
-            f'<h3>{e(x["headline"])}</h3><dl class="wk-dl">{dl}</dl>'
+            f'<p class="badges">{outcome_badge(r, x)}'
+            f'{share_button(text + " Checked in Lean.", a)}</p>'
+            f'<h3>{e(x["headline"])}</h3>{plain(x)}{change}<dl class="wk-dl">{dl}</dl>'
             f'<p class="news-links">{"".join(links)}</p>{more}</article>'
         )
 
@@ -1777,6 +1846,22 @@ def render_weekly(s: Site, i: int, period: str = "week") -> str:
                     + "".join(f'<dt>{e(g["term"])}</dt><dd>{e(g["meaning"])}</dd>'
                               for g in r["glossary"]) + "</dl>")
 
+    noun = P["noun"]
+    lead = ""
+    ld = r.get("lead") or {}
+    if ld.get("story"):
+        x = next((x for _, x, _ in anchors if x["main"] == ld.get("main")), None)
+        ex = ld.get("example") or {}
+        links = (f'<a href="#{aid[id(x)]}">The result in full &rarr;</a>'
+                 f'<a href="{root}d/{slug(x["main"])}/">Lean proof &rarr;</a>' if x else "")
+        lead = (
+            f'<article class="wk-lead" id="story"><p class="wk-label">The story of the {noun}'
+            f'{share_button(ld["title"] + ".", "story")}</p>'
+            f'<h2>{e(ld["title"])}</h2><div class="wk-story">{paragraphs(ld["story"])}</div>'
+            f'{example_table(ex.get("caption", ""), ex.get("header") or [], ex.get("rows") or [])}'
+            f'<p class="news-links">{links}</p></article>'
+        )
+
     def side(x: dict | None, cls: str, label: str) -> str:
         if not x:
             return f'<span class="{cls}"></span>'
@@ -1787,7 +1872,6 @@ def render_weekly(s: Site, i: int, period: str = "week") -> str:
 
     older = reports[i + 1] if i + 1 < len(reports) else None
     newer = reports[i - 1] if i > 0 else None
-    noun = P["noun"]
     pager = (
         f'<nav class="pager" aria-label="{P["tag"]} reports">'
         f'{side(older, "prev", f"&larr; Earlier {noun}")}'
@@ -1795,19 +1879,25 @@ def render_weekly(s: Site, i: int, period: str = "week") -> str:
         f'{side(newer, "next", f"Later {noun} &rarr;")}</nav>'
     )
     partial = f" (so far: the {noun} is not over)" if r.get("partial") else ""
+    times = (f'<span>Short version: {r["short_minutes"]} min</span>'
+             f'<span>Full report: {r.get("minutes", "?")} min</span>'
+             if r.get("short_minutes") else f'<span>{r.get("minutes", "?")} min read</span>')
+    zh = '<a href="zh/" lang="zh-CN" hreflang="zh-CN">中文版</a>' if r.get("zh") else ""
     body = f"""
 <header class="phead">
-  <p class="eyebrow">{P["tag"]} report &middot; {e(r["week"])} &middot; {e(week_span(r))}{partial}
-  &middot; {r.get("minutes", "?")} min read</p>
+  <p class="eyebrow">{P["tag"]} report &middot; {e(r["week"])} &middot; {e(week_span(r))}{partial}</p>
   <h1>{e(r["title"])}</h1>
+  <p class="wk-meta">{times}{zh}{share_button(r["title"] + ". " + r.get("summary", ""), label=f"Share this {noun}")}</p>
 </header>
 <section class="wk">
   <div class="wk-minute">
     <p class="wk-label">The {noun} in one minute</p>
-    <p class="wk-sum">{e(r.get("summary", ""))}</p>
+    <div class="wk-sum-col"><p class="wk-sum">{e(r.get("summary", ""))}</p>
+    {scoreboard(r, labels, "still open")}</div>
     <ul class="wk-hls">{hl}</ul>
     <p class="wk-num">{e(r.get("numbers", ""))}</p>
   </div>
+  {lead}
   <h2>At a glance</h2>
   <div class="wk-table-wrap"><table class="wk-table">
     <thead><tr><th>Result</th><th>Outcome</th><th>Paper</th></tr></thead>
@@ -1817,7 +1907,93 @@ def render_weekly(s: Site, i: int, period: str = "week") -> str:
   {pager}
 </section>"""
     return page(s, title=f"{P['tag']} report {r['week']}", root=root, active="reports/",
-                body=body, description=r.get("summary", ""))
+                body=body, description=r.get("summary", ""), script=True,
+                alternate="zh/" if r.get("zh") else "")
+
+
+ZH_PERIOD = {"week": ("周报", "本周"), "month": ("月报", "本月")}
+
+
+def zh_span(r: dict) -> str:
+    a = time.strptime(r["start"], "%Y-%m-%d")
+    b = time.strptime(r["end"], "%Y-%m-%d")
+    if r.get("period") == "month":
+        return f"{a.tm_year}年{a.tm_mon}月"
+    tail = f"{b.tm_mon}月{b.tm_mday}日" if a.tm_mon != b.tm_mon else f"{b.tm_mday}日"
+    return f"{a.tm_year}年{a.tm_mon}月{a.tm_mday}日至{tail}"
+
+
+def render_weekly_zh(s: Site, i: int, period: str = "week") -> str:
+    """The Chinese version of a report: its short layers, translated from the
+    checked English. Every result is listed, each linking to its English card
+    and its Lean proof; the full cards stay in English."""
+    P = PERIODS[period]
+    r = s.reports(period)[i]
+    z = r["zh"]
+    root = "../../../"
+    kind, this = ZH_PERIOD[period]
+    labels = r.get("zh_outcomes") or {}
+    results = [x for f in r["fields"] for x in f["results"]]
+    zr = z.get("results") or []
+
+    def zbadge(x: dict) -> str:
+        return badge(labels.get(x["outcome"], x["outcome"]), f"wk-{x['outcome']}")
+
+    items = []
+    for x, t in zip(results, zr):
+        a = result_id(x)
+        share = f'【{labels.get(x["outcome"], "")}】{t["headline"]}：{t["plain"]}（Lean 已验证）'
+        items.append(
+            f'<li class="wk-zh-item" id="{a}"><p class="badges">{zbadge(x)}'
+            f'{share_button(share, a, "分享", "已复制")}</p>'
+            f'<h3>{e(t["headline"])}</h3><p class="wk-plain">{e(t["plain"])}</p>'
+            f'<p class="news-links"><a href="../#{a}" lang="en">英文详情 &rarr;</a>'
+            f'<a href="{root}d/{slug(x["main"])}/">Lean 证明 &rarr;</a></p></li>'
+        )
+    lead = ""
+    ld = z.get("lead") or {}
+    if ld.get("story"):
+        main = (r.get("lead") or {}).get("main")
+        x = next((x for x in results if x["main"] == main), None)
+        links = (f'<a href="../#{result_id(x)}" lang="en">英文详情 &rarr;</a>'
+                 f'<a href="{root}d/{slug(x["main"])}/">Lean 证明 &rarr;</a>' if x else "")
+        lead = (
+            f'<article class="wk-lead" id="story"><p class="wk-label">{this}故事'
+            f'{share_button(ld["title"], "story", "分享", "已复制")}</p>'
+            f'<h2>{e(ld["title"])}</h2><div class="wk-story">{paragraphs(ld["story"])}</div>'
+            f'{example_table(ld.get("caption", ""), ld.get("header") or [], ld.get("rows") or [])}'
+            f'<p class="news-links">{links}</p></article>'
+        )
+    secs = []
+    if z.get("outlook"):
+        secs.append("<h2>仍未解决</h2><ul>" + "".join(f"<li>{e(x)}</li>" for x in z["outlook"])
+                    + "</ul>")
+    if z.get("glossary"):
+        secs.append('<h2>术语</h2><dl class="wk-terms">'
+                    + "".join(f'<dt>{e(g["term"])}</dt><dd>{e(g["meaning"])}</dd>'
+                              for g in z["glossary"]) + "</dl>")
+    body = f"""
+<header class="phead" lang="zh-CN">
+  <p class="eyebrow">{kind} &middot; {e(r["week"])} &middot; {e(zh_span(r))}</p>
+  <h1>{e(z["title"])}</h1>
+  <p class="wk-meta"><a href="../" lang="en" hreflang="en">English</a>{share_button(z["title"] + "。" + z["summary"], label="分享" + kind, done="已复制")}</p>
+</header>
+<section class="wk wk-zh" lang="zh-CN">
+  <div class="wk-minute">
+    <p class="wk-label">一分钟看{this}</p>
+    <div class="wk-sum-col"><p class="wk-sum">{e(z["summary"])}</p>
+    {scoreboard(r, labels, "仍未解决")}</div>
+  </div>
+  {lead}
+  <h2>{this}全部结果</h2>
+  <ol class="wk-zh-list">{"".join(items)}</ol>
+  {"".join(secs)}
+  <p class="small"><em>{e(r.get("zh_disclaimer", ""))}</em></p>
+  <nav class="pager" aria-label="{kind}"><span class="prev"></span>
+  <a class="pos" href="{root}reports/"><span class="small">全部报告</span></a><span class="next"></span></nav>
+</section>"""
+    return page(s, title=f"{kind} {r['week']}", root=root, active="reports/", body=body,
+                description=z["summary"], script=True, lang="zh-CN", alternate="../")
 
 
 def render_moved(s: Site, to: str) -> str:
@@ -2075,6 +2251,8 @@ def build(
     for period, P in PERIODS.items():
         for i, r in enumerate(s.reports(period)):
             write(f"{P['dir']}/{r['week']}/index.html", render_weekly(s, i, period))
+            if r.get("zh"):
+                write(f"{P['dir']}/{r['week']}/zh/index.html", render_weekly_zh(s, i, period))
     write("chat/index.html", render_chat(s))
     index, detail = chat_data(s)
     write(CHAT_INDEX, json.dumps(index, ensure_ascii=False, separators=(",", ":")))

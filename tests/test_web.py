@@ -417,6 +417,66 @@ def main() -> int:
     mnews = [{"date": "2026-10-01", "kind": "monthly", "month": "2026-09",
               "title": "September 2026: ten", "body": "MONTHLY-LEDE",
               "links": [{"label": "Read the monthly report", "href": "monthly/2026-09/"}]}]
+    card3 = {**{k: v for k, v in card.items() if k != "question"},
+             "plain": "WEEKLY-PLAIN", "before": "WEEKLY-BEFORE"}
+    zh = {"title": "十是答案", "summary": "ZH-SUMMARY",
+          "lead": {"title": "ZH-LEAD", "story": "ZH-P1\n\nZH-P2", "caption": "ZH-CAP",
+                   "header": ["甲", "乙"], "rows": [["1", "2"]]},
+          "results": [{"headline": "ZH-HEADLINE", "plain": "ZH-PLAIN"}],
+          "outlook": ["ZH-OUTLOOK"], "glossary": [{"term": "EF1", "meaning": "ZH-TERM"}]}
+    report3 = {**report, "week": "2026-W41", "start": "2026-10-05", "end": "2026-10-11",
+               "format": 3, "title": "Ten, in plain words",
+               "fields": [{"name": "Domain One", "context": "WEEKLY-CONTEXT", "results": [card3]}],
+               "lead": {"main": "answer_ten", "title": "LEAD-TITLE", "story": "LEAD-P1\n\nLEAD-P2",
+                        "example": {"caption": "LEAD-CAPTION", "header": ["Agent", "Value"],
+                                    "rows": [["one", "10"]]}},
+               "short_minutes": 2, "minutes": 9, "zh": zh,
+               "zh_outcomes": {"proved": "证明"}, "zh_disclaimer": "ZH-DISCLAIMER"}
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "_site"
+        n = build(data, [], cfg, out, wnews, [report3, report], [])
+        pages = {p.relative_to(out).as_posix(): p.read_text(encoding="utf-8")
+                 for p in out.rglob("*.html")}
+        w3 = pages.get("weekly/2026-W41/index.html", "")
+        z3 = pages.get("weekly/2026-W41/zh/index.html", "")
+        check("format 3: the minute, then the story, then the cards",
+              0 < w3.find("WEEKLY-SUMMARY") < w3.find("LEAD-TITLE") < w3.find("At a glance")
+              < w3.find("WEEKLY-BEFORE"), "")
+        check("the story keeps its paragraphs and its example table",
+              "<p>LEAD-P1</p><p>LEAD-P2</p>" in w3 and "<caption>LEAD-CAPTION</caption>" in w3
+              and "<td>10</td>" in w3 and 'href="#r-answer_ten">The result in full' in w3)
+        check("a highlight carries its plain line; a card shows before and now",
+              w3.count("WEEKLY-PLAIN") >= 2 and "wk-change" in w3 and ">Before<" in w3
+              and ">Now<" in w3 and "The question" not in w3)
+        check("the scoreboard counts outcomes and what is still open",
+              '<strong>1</strong> Proved' in w3 and "<strong>1</strong> still open" in w3)
+        check("both reading times; share buttons, hidden without the script",
+              "Short version: 2 min" in w3 and "Full report: 9 min" in w3
+              and 'class="share linkish" hidden' in w3 and 'data-anchor="r-answer_ten"' in w3
+              and "app.js" in w3)
+        check("the English page links its Chinese version, both ways",
+              'href="zh/" lang="zh-CN"' in w3 and 'hreflang="zh-CN" href="zh/"' in w3
+              and 'hreflang="en" href="../"' in z3)
+        check("the Chinese page: its language, summary, story, every result, open, terms",
+              '<html lang="zh-CN">' in z3 and all(x in z3 for x in (
+                  "十是答案", "ZH-SUMMARY", "<p>ZH-P1</p><p>ZH-P2</p>", "<caption>ZH-CAP</caption>",
+                  "ZH-HEADLINE", "ZH-PLAIN", "ZH-OUTLOOK", "ZH-TERM", "ZH-DISCLAIMER",
+                  "badge wk-proved\">证明")), z3[:200])
+        check("each Chinese result links its English card and its Lean proof",
+              'href="../#r-answer_ten" lang="en">英文详情' in z3
+              and 'href="../../../d/answer_ten/"' in z3 and 'id="r-answer_ten"' in z3)
+        check("a format 2 report still builds, without a Chinese page",
+              "weekly/2026-W40/index.html" in pages and "weekly/2026-W40/zh/index.html" not in pages
+              and "The question" in pages["weekly/2026-W40/index.html"])
+        check("the index offers the Chinese version", 'href="../weekly/2026-W41/zh/"'
+              in pages.get("reports/index.html", ""))
+        try:
+            build(data, [], cfg, Path(tmp) / "bad", wnews,
+                  [{**report3, "zh": {**zh, "results": []}}, report], [])
+            check("a Chinese version that drops results stops the build", False)
+        except ValueError as ex:
+            check("a Chinese version that drops results stops the build", "Chinese" in str(ex))
+
     with tempfile.TemporaryDirectory() as tmp:
         out = Path(tmp) / "_site"
         n = build(data, [], cfg, out, wnews + mnews, [older, report], [month])
@@ -435,7 +495,7 @@ def main() -> int:
               "1 supporting theorem<" in wk and 'href="../../d/plain_one/"' in wk)
         check("the week in one minute comes first, with its highlights",
               0 < wk.find("WEEKLY-SUMMARY") < wk.find("At a glance") < wk.find("WEEKLY-QUESTION")
-              and 'href="#r1">Ten is the answer<' in wk)
+              and 'href="#r-answer_ten">Ten is the answer<' in wk)
         check("every result is in the at-a-glance table, with its outcome",
               'class="wk-field"' in wk and ">Domain One</th>" in wk and "wk-proved" in wk)
         check("a card has the question, the answer and why it matters",

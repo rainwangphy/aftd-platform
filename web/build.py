@@ -57,6 +57,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from problems import PROBLEM_LABEL, STATUSES, VERDICT_LABEL, status  # noqa: E402
+import literature  # noqa: E402
 
 e = html.escape
 _SAFE_NAME = re.compile(r"^[A-Za-z0-9_]+$")
@@ -92,6 +93,7 @@ class Site:
         self.domains = {d["name"]: d for d in kb["domains"]}
         self.topics = {t["name"]: t for d in kb["domains"] for t in d["topics"]}
         self.grants = {g["id"]: g for g in kb.get("grants") or []}
+        self.literature = kb.get("literature") or []
 
         self.problems = [i for i in issues if i["kind"] == PROBLEM_LABEL]
         self.verdicts = [i for i in issues if i["kind"] == VERDICT_LABEL]
@@ -1356,6 +1358,17 @@ def render_problems(s: Site) -> str:
             f'<ul class="list">{items}</ul></details>'
         )
 
+    secs.append(literature.section(
+        s.literature, root, domain_title=s.domain_title, topic_title=s.topic_title,
+        decl_href=lambda n: f"{root}d/{slug(n)}/" if n in s.by_name else None,
+    ))
+
+    lit_lead = (
+        f' Below them are <a href="#literature">{len(s.literature)} open problems from '
+        "the literature</a> the machine works from."
+        if s.literature else ""
+    )
+
     loose = [n for n in s.open if n.get("problem") is None]
     if loose:
         cards = "".join(
@@ -1379,7 +1392,7 @@ def render_problems(s: Site) -> str:
   <h1>Community problems</h1>
   <p class="lead">Statements submitted by people, attempted by the machine. A
   problem counts as proved when every declaration answering it has passed Lean
-  and the round trip.</p>
+  and the round trip.{lit_lead}</p>
   <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a></div>
   {submit_guide(s)}
 </header>

@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-05T23:17:48Z",
+ "generated": "2026-10-06T00:34:54Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -33061,6 +33061,760 @@
    "provenance": "original",
    "citation": "Schwartz 1980 / Zippel 1979 together with the union bound; the simultaneous form of the identity test as in Motwani & Raghavan, Randomized Algorithms, ch. 7. Concepts anchored by Mathlib `MvPolynomial.schwartz_zippel_totalDegree` and the knowledge-base node `schwartz_zippel_exists_nonzero_eval`.",
    "created": 1789092902
+  }
+ ],
+ "literature": [
+  {
+   "id": 1,
+   "ref": "OP-1",
+   "title": "Existence of a 22-multiplication algorithm for 3x3 matrix multiplication over ℤ",
+   "statement": "Does there exist an algorithm for 3x3 matrix multiplication with integer constants that can be applied recursively (or equivalently, a bilinear decomposition of the 3x3 matrix multiplication tensor over ℤ) using 22 multiplications, or is 23 multiplications the minimum?",
+   "status": "formalized",
+   "topic": "algebraic_complexity",
+   "domain": "tcs",
+   "source": "arXiv:2610.01639",
+   "source_title": "Lower Bound of 22 for 3x3 Matrix Multiplication over the Integers",
+   "location": "Sec. 8",
+   "rationale": "The authors prove a lower bound of 22 multiplications for any recursive 3x3 algorithm with integer constants, improving the previous bound of 21. Laderman's 1976 algorithm provides an upper bound of 23. Whether 22 is achievable over the integers remains unresolved.",
+   "links": [
+    {
+     "node": "matrix3_tensor_rank_z_ge_22",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_z_le_23",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_z_dichotomy",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_z_22_exact",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_le_23_of_comm_ring",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_ge_of_surjective",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_int_ge_of_zmod2",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_int_le_22",
+     "role": "statement"
+    }
+   ],
+   "added": 1791091861
+  },
+  {
+   "id": 2,
+   "ref": "OP-2",
+   "title": "Tensor rank of 3x3 matrix multiplication over F2",
+   "statement": "Is the tensor rank of 3x3 matrix multiplication over the finite field F2 equal to 22 or 23? That is, does there exist a set of 22 triad products whose F2-linear combinations compute the product of two arbitrary 3x3 matrices over F2, or is the rank at least 23?",
+   "status": "formalized",
+   "topic": "algebraic_complexity",
+   "domain": "tcs",
+   "source": "arXiv:2610.01639",
+   "source_title": "Lower Bound of 22 for 3x3 Matrix Multiplication over the Integers",
+   "location": "Sec. 7, Table 1 (row 0)",
+   "rationale": "The paper proves in Lean that the tensor rank of 3x3 matrix multiplication over F2 is at least 22 (class 495 in Wang's table), improving on the lower bound of 21 from Wang (2026) and Yang et al. (2026). Laderman's 1976 decomposition yields an upper bound of 23 over F2. Thus the exact rank over F2 is either 22 or 23, leaving a gap of exactly one.",
+   "links": [
+    {
+     "node": "matrix3_tensor_rank_f2_le_23",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_f2_dichotomy",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_not_le_22_iff_ge_23",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_le_of_surjective",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_zmod2_le_of_int",
+     "role": "partial"
+    },
+    {
+     "node": "matrix3_tensor_rank_zmod2_le_22",
+     "role": "statement"
+    },
+    {
+     "node": "matrix3_tensor_rank_zmod2_ge_22",
+     "role": "partial"
+    }
+   ],
+   "added": 1791091861
+  },
+  {
+   "id": 3,
+   "ref": "OP-3",
+   "title": "T-count of parallel CCZ gates in general Clifford+T with Hadamards",
+   "statement": "Let m ≥ 2 be an integer, and let U_m = ⨂_{j=1}^m CCZ_{3j-2, 3j-1, 3j} be the unitary operator on 3m qubits that acts as the three-qubit Controlled-Controlled-Z gate CCZ = diag(1, 1, 1, 1, 1, 1, 1, -1) on each disjoint triplet of qubits (3j-2, 3j-1, 3j). In a general Clifford+T quantum circuit with an arbitrary number a ≥ 0 of clean ancilla qubits (initialized and returned to |0⟩), where gates may be arbitrary single-qubit Hadamards H, phase gates S = diag(1, i), CNOT gates, and T = diag(1, e^{iπ/4}) gates: can U_m be implemented using strictly fewer than 6m + 1 gates of type T?",
+   "status": "formalized",
+   "topic": "quantum",
+   "domain": "tcs",
+   "source": "arXiv:2610.01024",
+   "source_title": "Exact $T$-counts of Toffoli layers from an isotropy bound",
+   "location": "Abstract (line 11 / 45)",
+   "rationale": "The paper proves that every Hadamard-free Clifford+T circuit with clean ancillas implementing m disjoint CCZ gates requires at least 6m+1 T gates, which matches the Campbell-Howard construction. However, general Clifford+T circuits may place Hadamard gates freely between T gates. For m = 1, it is known that CCZ requires 7 T gates even with Hadamards, but for m ≥ 2 it is unknown whether intermediate Hadamard gates can reduce the T-count below 6m+1.",
+   "links": [
+    {
+     "node": "ccz_layer_parity_repr_card_ge",
+     "role": "partial"
+    },
+    {
+     "node": "ccz_layer_parity_repr_two",
+     "role": "partial"
+    },
+    {
+     "node": "ccz_layer_t_count_below_6m_plus_1_with_hadamards",
+     "role": "statement"
+    }
+   ],
+   "added": 1791091915
+  },
+  {
+   "id": 4,
+   "ref": "OP-4",
+   "title": "Exact T-count of the line cubic phase gate family",
+   "statement": "For an integer n ≥ 5, let f_n : (ZMod 2)^n → ZMod 2 be the cubic form f_n(x_1, ..., x_n) = ∑_{i=1}^{n-2} x_i x_{i+1} x_{i+2}, and let U_{f_n} be the diagonal n-qubit gate acting by |x⟩ ↦ (-1)^{f_n(x)} |x⟩. Let δ(U_{f_n}) denote the minimum number of T gates required to implement U_{f_n} in a Hadamard-free {CNOT, T} circuit with diagonal Clifford gates free. By Proposition 65, δ(U_{f_n}) ≥ 2n + 1 for all n ≥ 5, with equality δ(U_{f_n}) = 2n + 1 known to hold for 5 ≤ n ≤ 12. Does δ(U_{f_n}) = 2n + 1 hold for all n ≥ 5?",
+   "status": "formalized",
+   "topic": "quantum",
+   "domain": "tcs",
+   "source": "arXiv:2610.01024",
+   "source_title": "Exact $T$-counts of Toffoli layers from an isotropy bound",
+   "location": "Appendix K.2, item 1",
+   "rationale": "",
+   "links": [
+    {
+     "node": "line_cubic_t_count_lower_bound",
+     "role": "partial"
+    },
+    {
+     "node": "line_cubic_t_count_five",
+     "role": "partial"
+    },
+    {
+     "node": "line_cubic_t_count_six",
+     "role": "partial"
+    },
+    {
+     "node": "open_problem_line_cubic_t_count",
+     "role": "statement"
+    }
+   ],
+   "added": 1791092191
+  },
+  {
+   "id": 5,
+   "ref": "OP-5",
+   "title": "Exact T-count of the GF(8) multiplication oracle",
+   "statement": "Let U_3 be the reversible multiplication oracle for the finite field GF(8) = GF(2^3) acting on 9 qubits by |a, b, c⟩ ↦ |a, b, c ⊕ (a · b)⟩ for a, b, c ∈ GF(8). Under Clifford equivalence to a diagonal level-three gate, its T-count δ(U_3) in Hadamard-free {CNOT, T} circuits with clean ancillas is known to satisfy 20 ≤ δ(U_3) ≤ 23, where 20 is the slice-rank lower bound (Proposition 59) and 23 is achieved by known compiled circuits. What is the exact T-count δ(U_3) of the GF(8) oracle? Specifically, is it 20, 23, or an intermediate value (21 or 22)?",
+   "status": "formalized",
+   "topic": "quantum",
+   "domain": "tcs",
+   "source": "arXiv:2610.01024",
+   "source_title": "Exact $T$-counts of Toffoli layers from an isotropy bound",
+   "location": "Open Problem 10",
+   "rationale": "",
+   "links": [
+    {
+     "node": "slice_rank_floor_three",
+     "role": "partial"
+    },
+    {
+     "node": "gf8_oracle_t_count_le_23",
+     "role": "statement"
+    },
+    {
+     "node": "gf8_oracle_t_count_ge_24",
+     "role": "negation"
+    },
+    {
+     "node": "gf8_oracle_t_count_le_29",
+     "role": "partial"
+    },
+    {
+     "node": "gf8_oracle_t_count_ge_20",
+     "role": "partial"
+    }
+   ],
+   "added": 1791092191
+  },
+  {
+   "id": 6,
+   "ref": "OP-6",
+   "title": "FPT-sized resolution refutations parameterized by incidence treewidth",
+   "statement": "Does every unsatisfiable CNF formula have an FPT-sized resolution refutation parameterized by its incidence treewidth? Precisely: do there exist a computable function $g: \\mathbb{N} \\to \\mathbb{N}$ and a constant $c \\ge 1$ such that for every unsatisfiable CNF formula $F$ with $n$ variables and $m$ clauses, there exists a resolution refutation of $F$ of length at most $g(\\mathrm{tw}^*(F)) (n+m)^c$? Here, a CNF formula $F$ is a finite set of clauses over a finite set of Boolean variables $V$, where each clause is a finite disjunction of literals (variables or their negations); the incidence graph $G^*(F)$ is the bipartite graph with vertex set $V \\cup F$ and edges $\\{x, C\\}$ for every variable $x \\in \\mathrm{var}(C)$; $\\mathrm{tw}^*(F)$ is the treewidth of $G^*(F)$; and a resolution refutation is a sequence of clauses ending in $\\bot$ derived by weakening and resolution.",
+   "status": "formalized",
+   "topic": "proof_complexity",
+   "domain": "tcs",
+   "source": "arXiv:2610.02047",
+   "source_title": "Short Resolution Refutations for CNFs with Bounded Weighted Incidence Treewidth",
+   "location": "Sec. 8",
+   "rationale": "Central open question in parameterized proof complexity, explicitly highlighted in the paper's abstract, introduction, and conclusion.",
+   "links": [
+    {
+     "node": "resolution_refutation_exists_of_unsat",
+     "role": "partial"
+    },
+    {
+     "node": "resolution_fpt_incidence_treewidth",
+     "role": "statement"
+    }
+   ],
+   "added": 1791093617
+  },
+  {
+   "id": 7,
+   "ref": "OP-7",
+   "title": "EFX existence for four or more agents with additive goods",
+   "statement": "There are $n$ agents $N=\\{1,\\dots,n\\}$ and a finite set $M$ of $m$ indivisible goods. Agent $i$ has an additive valuation $v_i(S)=\\sum_{g\\in S} v_i(g)$ with $v_i(g)\\ge 0$. An allocation is an ordered partition $A=(A_1,\\dots,A_n)$ of $M$ (every good is allocated; bundles may be empty). The allocation is EFX (envy-free up to any good) if for all agents $i\\ne j$ and every good $g\\in A_j$ we have $v_i(A_i)\\ge v_i(A_j\\setminus\\{g\\})$. Question: for every $n\\ge 4$, every $m$ and every additive valuation profile, does an EFX allocation exist? (Some papers quantify only over $g$ with $v_i(g)>0$; for strictly positive values the two versions coincide, and both are open. The smallest open case is $n=4$.)",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2208.08782",
+   "source_title": "Fair Division of Indivisible Goods: Recent Progress and Open Questions",
+   "location": "Sec. 4.1, Open Problem 2 (EFX itself first proposed in 'The Unreasonable Fairness of Maximum Nash Welfare', ACM TEAC 2019, DOI:10.1145/3355902, which left existence open)",
+   "rationale": "Widely called the central open problem of discrete fair division. Known: $n=2$ (cut-and-choose, arXiv:1707.04769); $n=3$ with additive valuations ('EFX Exists for Three Agents', arXiv:2002.05119), extended to three agents when at least one valuation is additive/MMS-feasible (arXiv:2205.07638); EFX with at most one unallocated good for $n=4$ (arXiv:2102.10654); EFX with at most $n-2$ unallocated goods in general (arXiv:2102.10654, arXiv:2107.09901); complete EFX when $m\\le n+3$ and, for $n=4$, when $m\\le 9$ (arXiv:2608.08590, computer-assisted); EFX for up to three valuation types ('EFX Exists for Three Types of Agents', EC 2025); EF2X for four agents (arXiv:2412.00254); EFX on multigraph instances (arXiv:2606.18665). On the negative side, EFX fails for three agents with monotone submodular valuations (arXiv:2604.18216, arXiv:2605.06451) and for $n\\ge 4$ additive chores (arXiv:2606.08872), but no additive-goods counterexample is known.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 8,
+   "ref": "OP-8",
+   "title": "EFX for three agents with additive chores",
+   "statement": "There are $3$ agents and a finite set $M$ of $m$ indivisible chores. Agent $i$ has an additive cost function $c_i(S)=\\sum_{e\\in S}c_i(e)$ with $c_i(e)\\ge 0$. An allocation is a partition $A=(A_1,A_2,A_3)$ of $M$ (all chores assigned). It is EFX for chores if for all agents $i\\ne j$ and every chore $e\\in A_i$, $c_i(A_i\\setminus\\{e\\})\\le c_i(A_j)$. Question: does every such 3-agent instance admit an EFX allocation? (Variant quantifying only over $e$ with $c_i(e)>0$ is equally open; with strictly positive costs they coincide.)",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2606.08872",
+   "source_title": "EFX for Additive Chores: Nonexistence, Pareto Incompatibility, and Bi-Valued Existence",
+   "location": "Sec. 1 (introduction) and Sec. 6 (open problems); the n=3 gap is also the explicit frontier in arXiv:2609.10585",
+   "rationale": "After the 2026 counterexample for every $n\\ge 4$ (tri-valued costs, two agent types, three chore types; arXiv:2606.08872), three agents is the only remaining number of agents for which EFX existence under additive costs is undecided (two agents is easy by cut-and-choose). Known for $n=3$: all instances with $m\\le 8$ chores (arXiv:2609.10585, SMT-verified); personalized bi-valued instances; EFX together with fractional Pareto optimality for bi-valued costs; instances with $m\\le 2n$; two chore types. Approximate EFX results exist (e.g. arXiv:2410.18655). A small-$n$ question with a finite search frontier ($m=9$ next), so it is a natural target for computer-assisted search and Lean-checked certificates.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 9,
+   "ref": "OP-9",
+   "title": "Best universal approximation ratio for maximin share with additive goods",
+   "statement": "There are $n$ agents $N=\\{1,\\dots,n\\}$ and a finite set $M$ of $m$ indivisible goods. Agent $i$ has an additive valuation $v_i(S)=\\sum_{g\\in S} v_i(g)$ with $v_i(g)\\ge 0$. An allocation is an ordered partition $A=(A_1,\\dots,A_n)$ of $M$ (every good is allocated; bundles may be empty). The maximin share of agent $i$ is $\\mu_i=\\max_{(P_1,\\dots,P_n)}\\min_k v_i(P_k)$, the maximum over all partitions of $M$ into $n$ bundles. For $\\alpha\\in(0,1]$ an allocation is $\\alpha$-MMS if $v_i(A_i)\\ge\\alpha\\,\\mu_i$ for every $i$. Let $\\alpha^*$ be the supremum of $\\alpha$ such that every instance (any $n$, $m$, additive $v$) admits an $\\alpha$-MMS allocation. Question: determine $\\alpha^*$; currently $7/9\\le\\alpha^*\\le 20/21$.",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2208.08782",
+   "source_title": "Fair Division of Indivisible Goods: Recent Progress and Open Questions",
+   "location": "Sec. 5, Open Problem 5",
+   "rationale": "Exact MMS allocations need not exist for $n\\ge 3$, so the right constant is a central question. Lower bounds: $3/4+3/3836$ (arXiv:2307.07304), $10/13$ (arXiv:2510.10423), and $7/9$ with an FPTAS for $7/9-\\varepsilon$ (arXiv:2511.13056). Upper bounds: $39/40$ for three agents (arXiv:2104.04977), improved to $20/21$ with four agents and eleven goods, together with an asymptotic bound $1-\\Omega((\\log n)^{-2})$ (arXiv:2609.15085). The gap $[0.778, 0.952]$ remains wide.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 10,
+   "ref": "OP-10",
+   "title": "Best universal approximation ratio for maximin share with additive chores",
+   "statement": "There are $n$ agents and a finite set $M$ of indivisible chores; agent $i$ has an additive cost $c_i(S)=\\sum_{e\\in S}c_i(e)$ with $c_i(e)\\ge 0$. An allocation partitions $M$ into $(A_1,\\dots,A_n)$. The maximin share (for chores) is $\\mu_i=\\min_{(P_1,\\dots,P_n)}\\max_k c_i(P_k)$ over all partitions of $M$ into $n$ bundles. For $\\beta\\ge 1$ an allocation is $\\beta$-MMS if $c_i(A_i)\\le\\beta\\,\\mu_i$ for all $i$. Let $\\beta^*$ be the infimum of $\\beta$ such that every instance admits a $\\beta$-MMS allocation. Question: determine $\\beta^*$; currently $31/30\\le\\beta^*\\le 13/11$.",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1604.01435",
+   "source_title": "Approximation Algorithms for Max-Min Share Allocations of Indivisible Chores and Goods",
+   "location": "",
+   "rationale": "The chores counterpart of OP-9, introduced in arXiv:1604.01435 (which showed exact MMS can fail for chores and gave a 2-approximation). Existence bound $13/11$ through a reduction to the MultiFit job-scheduling algorithm (arXiv:2302.04581), with better bounds for small $n$ ($15/13$ for $n=3$ there; $19/18$ for three agents in arXiv:2205.05363). Impossibility $44/43$ with three agents (arXiv:2104.04977), improved to $31/30$ with four agents and eleven chores, plus asymptotic $1+\\Omega((\\log n)^{-2})$ (arXiv:2609.15085).",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 11,
+   "ref": "OP-11",
+   "title": "Maximin share approximation for three agents with additive goods",
+   "statement": "Same model as the general MMS problem (see OP-9) with exactly $n=3$ agents: finite goods set $M$, additive $v_i\\ge 0$, $\\mu_i=\\max$ over partitions of $M$ into 3 bundles of the minimum bundle value, and an allocation is $\\alpha$-MMS if $v_i(A_i)\\ge\\alpha\\mu_i$ for $i=1,2,3$. Let $\\alpha_3^*$ be the largest $\\alpha$ such that every 3-agent instance admits an $\\alpha$-MMS allocation. Question: determine $\\alpha_3^*$; currently $11/12\\le\\alpha_3^*\\le 39/40$.",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2205.05363",
+   "source_title": "Improved maximin fair allocation of indivisible items to three agents",
+   "location": "",
+   "rationale": "The smallest case where exact MMS can fail. The $11/12$ guarantee (arXiv:2205.05363) is shown best possible for a restricted kind of allocation (one prespecified agent gets her full proportional share), so improving it needs new ideas. The $39/40$ example (three agents, nine goods; arXiv:2104.04977) is proven to be the worst possible among instances with fewer than six more items than agents, so any better impossibility needs at least ten goods. With three agents the problem is small enough for computer-assisted search on the impossibility side.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 12,
+   "ref": "OP-12",
+   "title": "Polynomial-time computation of EF1 and Pareto-optimal allocations of goods",
+   "statement": "There are $n$ agents $N=\\{1,\\dots,n\\}$ and a finite set $M$ of $m$ indivisible goods. Agent $i$ has an additive valuation $v_i(S)=\\sum_{g\\in S} v_i(g)$ with $v_i(g)\\ge 0$. An allocation is an ordered partition $A=(A_1,\\dots,A_n)$ of $M$ (every good is allocated; bundles may be empty). Values are given as nonnegative integers (or rationals) in binary. An allocation is EF1 if for all $i\\ne j$ with $A_j\\ne\\emptyset$ there is $g\\in A_j$ with $v_i(A_i)\\ge v_i(A_j\\setminus\\{g\\})$, and Pareto optimal (PO) if no allocation $B$ has $v_i(B_i)\\ge v_i(A_i)$ for all $i$ with strict inequality for some $i$. An EF1+PO allocation always exists (e.g. a maximum Nash welfare allocation). Question: is there an algorithm that outputs an EF1+PO allocation in time polynomial in $n$, $m$ and the bit length of the values?",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2208.08782",
+   "source_title": "Fair Division of Indivisible Goods: Recent Progress and Open Questions",
+   "location": "Sec. 3, Open Problem 1",
+   "rationale": "Existence follows from maximum Nash welfare ('The Unreasonable Fairness of Maximum Nash Welfare'), but computing that allocation is APX-hard. A market-based pseudo-polynomial algorithm finds EF1+PO (arXiv:1707.04731); polynomial time is known for a fixed number of agents (arXiv:2411.01810), for binary and other few-valued instances, and for EF1+fPO under extra structure. For chores, EF1+PO existence was settled in 2025 (arXiv:2507.09544), but only with polynomial time for constant $n$. A general polynomial algorithm, or evidence of hardness (e.g. PLS/PPAD), is open.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 13,
+   "ref": "OP-13",
+   "title": "EF1 and Pareto optimality for mixed goods and chores",
+   "statement": "There are $n$ agents and a finite set $M$ of indivisible items. Agent $i$ has an additive valuation $v_i(S)=\\sum_{o\\in S}v_i(o)$ with $v_i(o)\\in\\mathbb{R}$ of arbitrary sign (an item may be a good for one agent and a chore for another). An allocation is a partition $(A_1,\\dots,A_n)$ of $M$. It is EF1 if for all $i\\ne j$, either $v_i(A_i)\\ge v_i(A_j)$ or there is an item $o\\in A_i\\cup A_j$ with $v_i(A_i\\setminus\\{o\\})\\ge v_i(A_j\\setminus\\{o\\})$. It is Pareto optimal if no allocation $B$ has $v_i(B_i)\\ge v_i(A_i)$ for all $i$ with strict inequality for some $i$. Question: does every such instance (for every $n\\ge 3$) admit an allocation that is both EF1 and Pareto optimal?",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1807.10684",
+   "source_title": "Fair allocation of combinations of indivisible goods and chores",
+   "location": "",
+   "rationale": "For goods, maximum Nash welfare gives EF1+PO; for chores, existence was proven only in 2025 by a fixed-point argument (arXiv:2507.09544). For mixed manna, EF1 alone is easy (a double round-robin) and EF1+PO is known for two agents (arXiv:1807.10684), but the general case is open, even for three agents. Partial progress: PO with introspective EF1 (arXiv:2509.18673) and PO with envy-freeness up to $n-1$ reallocations (arXiv:2507.03946). A positive answer would unify the goods and chores theories.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 14,
+   "ref": "OP-14",
+   "title": "Query complexity of envy-free cake cutting",
+   "statement": "The cake is $[0,1]$. Each of $n$ agents has a valuation $v_i$: a nonatomic probability measure on $[0,1]$ (additive, $v_i([0,1])=1$, single points have measure 0). In the Robertson–Webb query model a protocol may ask $\\mathrm{Eval}_i(x,y)=v_i([x,y])$ and $\\mathrm{Cut}_i(x,\\alpha)=$ some $y$ with $v_i([x,y])=\\alpha$. It must output an allocation: disjoint pieces $A_1,\\dots,A_n$, each a finite union of intervals, covering $[0,1]$, that is envy-free ($v_i(A_i)\\ge v_i(A_j)$ for all $i,j$). Let $T(n)$ be the minimum, over protocols, of the worst-case number of queries. Question: is $T(n)$ bounded by a polynomial in $n$? More generally, determine the growth of $T(n)$.",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1604.03655",
+   "source_title": "A Discrete and Bounded Envy-Free Cake Cutting Protocol for Any Number of Agents",
+   "location": "",
+   "rationale": "Bounded protocols were found only in 2015-16: four agents (arXiv:1508.05143, improved to about 171 queries in arXiv:1807.00317) and any $n$ with a tower of exponentials (arXiv:1604.03655). A later sharper analysis gave $n^{O(n^2)}$, and a September 2026 preprint claims $n^{O(1)}2^n$ (arXiv:2609.05191; not yet peer-reviewed). The only lower bound is $\\Omega(n^2)$ ('Thou Shalt Covet Thy Neighbor's Cake'). Even for $n=4$ the exact query complexity is unknown. With connected pieces, exact envy-freeness cannot be reached by any finite protocol, and the connected approximate version is a separate open question (see OP-18).",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 15,
+   "ref": "OP-15",
+   "title": "Best approximation factor for EFX with additive goods",
+   "statement": "There are $n$ agents $N=\\{1,\\dots,n\\}$ and a finite set $M$ of $m$ indivisible goods. Agent $i$ has an additive valuation $v_i(S)=\\sum_{g\\in S} v_i(g)$ with $v_i(g)\\ge 0$. An allocation is an ordered partition $A=(A_1,\\dots,A_n)$ of $M$ (every good is allocated; bundles may be empty). For $\\alpha\\in(0,1]$ an allocation is $\\alpha$-EFX if for all $i\\ne j$ and all $g\\in A_j$, $v_i(A_i)\\ge\\alpha\\,v_i(A_j\\setminus\\{g\\})$. Let $\\alpha^*$ be the supremum of $\\alpha$ such that every instance (any $n$, $m$) admits an $\\alpha$-EFX allocation. Currently $\\varphi-1=(\\sqrt5-1)/2\\approx0.618\\le\\alpha^*\\le 1$. Question: determine $\\alpha^*$; in particular, does a $2/3$-EFX allocation (or any $\\alpha>\\varphi-1$) always exist for every $n$?",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2208.08782",
+   "source_title": "Fair Division of Indivisible Goods: Recent Progress and Open Questions",
+   "location": "Sec. 4.2, Open Problem 3",
+   "rationale": "Envy-cycle elimination gives $1/2$-EFX, and the golden-ratio bound $\\varphi-1$ comes from combining round-robin with envy-cycle elimination ('Multiple Birds with One Stone: Beating 1/2 for EFX and GMMS via Envy Cycle Elimination', arXiv:1909.07650). $2/3$-EFX is known for at most seven agents, for valuations with at most three distinct values, and for multigraph instances (arXiv:2406.12413), and $(1-\\varepsilon)$-EFX holds if a sublinear number of goods may stay unallocated (arXiv:2205.07638). If OP-7 were refuted, this question would become the main open problem about EFX.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 16,
+   "ref": "OP-16",
+   "title": "EFX together with Pareto optimality for positive additive goods",
+   "statement": "There are $n\\ge 3$ agents and a finite set $M$ of goods; agent $i$ has an additive valuation with strictly positive item values $v_i(g)>0$. An allocation $(A_1,\\dots,A_n)$ partitions $M$. It is EFX if $v_i(A_i)\\ge v_i(A_j\\setminus\\{g\\})$ for all $i\\ne j$ and $g\\in A_j$, and Pareto optimal if no allocation $B$ has $v_i(B_i)\\ge v_i(A_i)$ for all $i$ with strict inequality for some $i$. Question: does every such instance admit an allocation that is simultaneously EFX and Pareto optimal? (The case $n=3$, where EFX alone is known to exist, is already open.)",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1707.04769",
+   "source_title": "Almost Envy-Freeness with General Valuations",
+   "location": "Sec. 5 (Thm. 5.1) and concluding section",
+   "rationale": "With zero values EFX and PO can be incompatible even for two agents (arXiv:1707.04769), so strict positivity is the natural assumption; with it, EFX+PO holds for two agents via leximin. Known: bi-valued instances (EFX with fractional PO); two types of goods (arXiv:2601.03438). For chores the analog fails for every $n\\ge 4$ even with positive bi-valued costs (arXiv:2606.08872), which raises the question of whether goods behave differently. A counterexample for $n=3$ would be a finite object, which makes this attractive for search plus Lean verification.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 17,
+   "ref": "OP-17",
+   "title": "Exact EFX with a sublinear number of unallocated goods",
+   "statement": "There are $n$ agents $N=\\{1,\\dots,n\\}$ and a finite set $M$ of $m$ indivisible goods. Agent $i$ has an additive valuation $v_i(S)=\\sum_{g\\in S} v_i(g)$ with $v_i(g)\\ge 0$. A partial allocation is a tuple of pairwise disjoint bundles $X_1,\\dots,X_n\\subseteq M$; the unallocated goods form $P=M\\setminus\\bigcup_i X_i$. $X$ is EFX if $v_i(X_i)\\ge v_i(X_j\\setminus\\{g\\})$ for all $i\\ne j$, $g\\in X_j$, and no agent envies the pool if $v_i(X_i)\\ge v_i(P)$ for all $i$. It is known that some EFX partial allocation with no envy toward the pool always has $|P|\\le n-2$ (for $n\\ge 2$). Question: is there a function $f(n)=o(n)$ such that every additive instance admits an EFX partial allocation with $|P|\\le f(n)$ and no agent envying the pool?",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2208.08782",
+   "source_title": "Fair Division of Indivisible Goods: Recent Progress and Open Questions",
+   "location": "Sec. 4.2, Open Problem 4",
+   "rationale": "EFX with charity was introduced in arXiv:1902.04319, with the bound of $n-1$ unallocated goods in arXiv:1907.04596, improved to $n-2$ (arXiv:2102.10654; arXiv:2107.09901 for general monotone valuations). Through the rainbow-cycle-number connection, $(1-\\varepsilon)$-EFX holds with sublinearly many unallocated goods ($\\tilde O((n/\\varepsilon)^{1/2})$, arXiv:2205.07638), but for exact EFX nothing sublinear is known. A positive answer to OP-7 would give $f\\equiv0$, so this is a weaker stepping stone toward OP-7.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 18,
+   "ref": "OP-18",
+   "title": "Connected approximately envy-free cake cutting for five monotone agents",
+   "statement": "The cake is $[0,1]$. Each of $n=5$ agents has a valuation $v_i$ assigning a value in $[0,1]$ to every interval $I\\subseteq[0,1]$. It is monotone ($I\\subseteq J\\Rightarrow v_i(I)\\le v_i(J)$), Lipschitz-continuous in the endpoints, and accessible only through value queries $v_i([a,b])$. A connected allocation is given by cut points $0\\le x_1\\le\\dots\\le x_4\\le 1$, which form 5 consecutive intervals, together with a bijection assigning them to agents. It is $\\varepsilon$-envy-free if $v_i(I_{\\sigma(i)})\\ge v_i(I_{\\sigma(j)})-\\varepsilon$ for all $i,j$. Such allocations always exist. Question: can one be found with $\\mathrm{poly}(\\log(1/\\varepsilon))$ value queries, or is $\\mathrm{poly}(1/\\varepsilon)$ queries necessary?",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2311.02075",
+   "source_title": "Envy-Free Cake-Cutting for Four Agents",
+   "location": "Sec. 'Open problems and future directions'",
+   "rationale": "For monotone valuations an efficient algorithm ($\\mathrm{poly}(\\log 1/\\varepsilon)$ queries) was known for three agents ('Algorithmic Solutions for Envy-Free Cake Cutting', Operations Research 2012, which posed four or more agents as open), and arXiv:2311.02075 solved four agents. Without monotonicity the problem becomes PPAD-hard with $\\mathrm{poly}(1/\\varepsilon)$ query lower bounds for four agents (arXiv:2311.02075), and in 2026 also for three agents (arXiv:2606.13980). Five monotone agents is the next frontier, and it decides whether monotonicity keeps the problem tractable for every $n$.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 19,
+   "ref": "OP-19",
+   "title": "Condorcet dimension of elections: do 3 candidates always suffice?",
+   "statement": "Let $N$ be a finite nonempty set of $n$ voters and $C$ a finite set of candidates; each voter $v$ has a strict linear order $\\succ_v$ on $C$. A set $S \\subseteq C$ is a Condorcet winning set if for every candidate $a \\in C \\setminus S$, strictly fewer than $n/2$ voters rank $a$ above every member of $S$ (equivalently, a strict majority of voters prefers some member of $S$ to $a$). The Condorcet dimension of the election is the minimum size of a Condorcet winning set. Question: is the Condorcet dimension of every election at most 3? (Weaker open form: at most 4.) It is known that every election has dimension at most 5, and that there exist elections of dimension exactly 3.",
+   "status": "open",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "Social Choice and Welfare 44(3):493-517 (2015)",
+   "source_title": "Condorcet winning sets",
+   "location": "",
+   "rationale": "The concept was introduced in the paper 'Condorcet winning sets', which exhibited elections needing 3 candidates and conjectured unbounded dimension. 'Six Candidates Suffice to Win a Voter Majority' (arXiv:2411.03390) gave the first constant bound (6) via the minimax theorem and maximal lotteries; 'A few good choices' (arXiv:2506.22133) improved it to 5 (exposition: arXiv:2606.14666). 'Is Four Enough? Automated Reasoning Approaches and Dual Bounds for Condorcet Dimensions of Elections' (arXiv:2604.19851) reports extensive SAT/computational search finding no election of dimension > 3 and states the gap 3 <= k <= 5 as open. Special cases: dimension <= 3 for l1 and l_inf metric elections (arXiv:2410.09201) and for planar Euclidean metric elections (arXiv:2608.27653). Closing the gap is a central question in committee selection and connects to approximately dominating sets (arXiv:2504.20372, arXiv:2608.06872).",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 20,
+   "ref": "OP-20",
+   "title": "Optimal metric distortion of randomized ordinal voting rules",
+   "statement": "Voters $V$ ($|V|=n$) and candidates $C$ ($|C|=m$) lie in a common (pseudo)metric space $d$. Each voter reports a strict ranking of $C$ consistent with $d$ (if $d(v,a)<d(v,b)$ then $v$ ranks $a$ above $b$). A randomized ordinal rule $f$ maps each ranking profile $\\sigma$ to a probability distribution over $C$. Social cost: $SC_d(c)=\\sum_{v\\in V} d(v,c)$. The distortion of $f$ is $\\sup_{n,m,\\sigma}\\ \\sup_{d \\text{ consistent with } \\sigma} \\mathbb{E}_{c\\sim f(\\sigma)}[SC_d(c)] / \\min_{c'} SC_d(c')$. Question: determine $\\alpha^* = \\inf_f \\mathrm{dist}(f)$. Known: $2.1126 \\le \\alpha^* \\le 2.13713$ (deterministic rules: optimal value is exactly 3).",
+   "status": "open",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2111.03694",
+   "source_title": "Metric Distortion Bounds for Randomized Social Choice",
+   "location": "",
+   "rationale": "A natural conjecture that randomized rules achieve distortion 2 was refuted by the lower bound approaching 2.1126 as the number of candidates grows ('Metric Distortion Bounds for Randomized Social Choice', arXiv:2111.03694). The first constant separation from 3 was 2.753 ('Breaking the Metric Voting Distortion Barrier', arXiv:2306.17838). In Aug-Sep 2026 the upper bound dropped rapidly: 5/2 ('An improved bound for the randomized metric distortion problem', arXiv:2608.17863), 2.1441 ('Improving Randomized Metric Distortion to 2.1441', arXiv:2608.29308), and 2.13713 ('Stable Voting Rules on the Edge of Optimal Metric Distortion', arXiv:2609.08259), within 0.025 of the lower bound. The exact optimum, and whether the lower-bound construction is tight, remain open. The m=3 case is resolved exactly in arXiv:2111.03694.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 21,
+   "ref": "OP-21",
+   "title": "Maximum size of a Condorcet domain",
+   "statement": "A Condorcet domain on the alternative set $[n]=\\{1,\\dots,n\\}$ is a set $D$ of linear orders on $[n]$ such that for every finite profile of voters with an odd number of voters, each voter's order taken from $D$, the pairwise strict-majority relation is transitive. Equivalently, for every three alternatives $a,b,c$, the restrictions of the orders in $D$ to $\\{a,b,c\\}$ satisfy a never-condition: some $x\\in\\{a,b,c\\}$ and some position $p\\in\\{1,2,3\\}$ such that $x$ never appears at position $p$ in any restriction. Let $f(n)$ be the maximum $|D|$. Questions: (a) determine $f(9)$ (known $492 \\le f(9)$); (b) determine $\\lim_{n\\to\\infty} f(n)^{1/n}$ (known to be at least $2.198139$ and finite).",
+   "status": "open",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2601.07336",
+   "source_title": "Improved lower bounds for the maximum size of Condorcet domains",
+   "location": "Introduction (exact maximum only known for n <= 8)",
+   "rationale": "The maximum size of acyclic sets of linear orders is a classical question going back to the early 1990s literature on Condorcet domains. Exact values are known only up to n=8, where f(8)=224 with a unique extremal domain ('The Largest Condorcet Domains on 8 Alternatives', arXiv:2303.15002). Heuristic and supercomputer searches ('New Record-Breaking Condorcet Domains on 10 and 11 Alternatives', arXiv:2303.06524; arXiv:2601.07336) give f(9)>=492, f(10)>=1104, f(11)>=2452 and an asymptotic lower bound Omega(2.198139^n). An exponential upper bound c^n is known but with an implicit constant that gives no realistic value, so the growth rate is wide open. The n=9 case is a finite but very large search.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 22,
+   "ref": "OP-22",
+   "title": "Committee monotonicity versus EJR in approval-based committee voting",
+   "statement": "Let $N=\\{1,\\dots,n\\}$ be voters and $C$ a finite set of $m$ candidates; voter $i$ approves a set $A_i\\subseteq C$. For a committee size $k$, a group $G\\subseteq N$ is $\\ell$-cohesive if $|G|\\ge \\ell n/k$ and $|\\bigcap_{i\\in G}A_i|\\ge \\ell$. A committee $W\\subseteq C$ with $|W|=k$ satisfies Extended Justified Representation (EJR) if for every $\\ell\\ge 1$ and every $\\ell$-cohesive group $G$ there is $i\\in G$ with $|A_i\\cap W|\\ge \\ell$. Question: does every approval profile admit an ordering $c_1,c_2,\\dots,c_m$ of all candidates such that for every $k\\in\\{1,\\dots,m\\}$ the prefix $\\{c_1,\\dots,c_k\\}$ satisfies EJR for committee size $k$? (Equivalently: does there exist a resolute committee-monotonic approval-based committee rule satisfying EJR?)",
+   "status": "open",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2007.01795",
+   "source_title": "Multi-Winner Voting with Approval Preferences",
+   "location": "Open problems chapter, Q2 (Committee monotonicity and proportionality)",
+   "rationale": "Committee monotonicity (W(k) ⊆ W(k+1)) is essential for ranking candidates/excellence lists. Sequential Phragmén is committee monotonic and satisfies the weaker PJR, while all known EJR rules (PAV, Method of Equal Shares) violate committee monotonicity. The survey states no impossibility is known and only partial answers exist: a positive answer is known for approval-based party-list elections ('Approval-Based Apportionment', arXiv:1911.08365). Because a resolute rule may be defined profile-by-profile, the question is exactly the per-profile chain-existence statement above, so a counterexample is a finite object that could be found by SAT search; a positive answer would require a new construction.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 23,
+   "ref": "OP-23",
+   "title": "Do 2-approximately stable committees always exist?",
+   "statement": "There are $n$ voters and a finite candidate set $C$ with unit weights; a committee is a subset $S\\subseteq C$. Each voter $v$ has a complete transitive (weak) preference $\\succeq_v$ over all subsets of $C$ that is monotone: $S_1\\subseteq S_2 \\Rightarrow S_2\\succeq_v S_1$. Fix a size limit $K\\ge1$. For $c\\ge1$, a committee $S$ with $|S|\\le K$ is $c$-approximately stable if for every committee $S'$ (of any size $K'=|S'|$), the number of voters who strictly prefer $S'$ to $S$ is strictly less than $c\\,\\frac{K'}{K}\\,n$. ($c=1$ is the core.) Question: for every such instance, does a 2-approximately stable committee exist? It is known that $c$ cannot be below 2 in general, and that $c=32$ always suffices (16 when exactly stable lotteries exist).",
+   "status": "open",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1910.14008",
+   "source_title": "Approximately Stable Committee Selection",
+   "location": "Sec. 5 (Open Questions), last bullet; companion question: exactly stable lotteries (first bullet)",
+   "rationale": "Stability (core) is the strongest group-fairness notion for committee selection and covers participatory budgeting, facility location and ranking-based committee voting as special cases. Exactly stable committees can fail to exist (cyclic preferences), and Appendix A of arXiv:1910.14008 shows (2-eps)-stable committees may fail to exist even in the ranking setting with unit weights; the same paper proves an O(1) bound (32, improvable to 16 when exactly stable lotteries exist, e.g. ranking and approval settings via 'Group Fairness in Committee Selection', arXiv:1905.04438) and conjectures 2 is tight. In the approval special case the constant has been driven to 2 ('Sequential Phragmén Guarantees 2-Approximate Core Stability', arXiv:2609.29646) and an exact core is claimed (arXiv:2609.11912), so the open frontier is general monotone and ranking preferences. Related open question from the same section: does an exactly stable lottery exist for all monotone preferences (known only for K <= 3)?",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 24,
+   "ref": "OP-24",
+   "title": "Maximum number of stable matchings",
+   "statement": "A stable-marriage instance of size $n$ has $n$ men and $n$ women, each with a strict total order over all agents of the other side. A perfect matching is stable if no man-woman pair strictly prefer each other to their partners. Let $M(n)$ be the maximum, over all instances of size $n$, of the number of stable matchings. Since $M(a+b)\\ge M(a)M(b)$, the limit $\\beta=\\lim_n M(n)^{1/n}$ exists. Question: determine $\\beta$; known $2.28 \\lesssim \\beta \\le 3.55$. In particular, is the classical lower-bound construction (base $\\approx 2.28$) optimal?",
+   "status": "open",
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2011.00915",
+   "source_title": "At most 3.55^n stable matchings",
+   "location": "Introduction",
+   "rationale": "One of the classical open questions on stable marriage from the 1970s literature. For decades the best upper bound was super-exponential; 'A Simply Exponential Upper Bound on the Maximum Number of Stable Matchings' (arXiv:1711.01032) gave c^n with a huge constant, and 'At most 3.55^n stable matchings' (arXiv:2011.00915) brought it to 3.55^n via an entropy method. The best lower bound, Omega(2.28^n), comes from a recursive construction for n a power of 2 and has stood since the 1980s. Exact M(n) is known only for small n.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 25,
+   "ref": "OP-25",
+   "title": "Approximately counting stable matchings (FPRAS)",
+   "statement": "Given a stable-marriage instance with $n$ men and $n$ women having complete strict preferences, let $\\#SM$ be its number of stable matchings. Question: is there a fully polynomial randomized approximation scheme (FPRAS) for $\\#SM$, i.e. a randomized algorithm that, given the instance and $\\varepsilon>0$, outputs $Z$ with $\\Pr[(1-\\varepsilon)\\#SM \\le Z \\le (1+\\varepsilon)\\#SM]\\ge 3/4$ in time polynomial in $n$ and $1/\\varepsilon$? This is equivalent (under approximation-preserving reductions) to the existence of an FPRAS for counting independent sets in bipartite graphs (#BIS); it is conjectured that none exists.",
+   "status": "open",
+   "topic": "matching_markets",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1004.1836",
+   "source_title": "The Complexity of Approximately Counting Stable Matchings",
+   "location": "Abstract / Introduction",
+   "rationale": "Exact counting is #P-complete (classical, 1980s). Stable matchings correspond bijectively to downsets (closed sets) of the rotation poset, and every finite poset arises this way, so approximate counting is #BIS-equivalent; 'The Complexity of Approximately Counting Stable Matchings' (arXiv:1004.1836) shows equivalence persists even in restricted attribute models and identifies easy special cases. Resolving it either way would settle the #BIS question, one of the central open problems in approximate counting.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 26,
+   "ref": "OP-26",
+   "title": "Is computing an exact Hylland–Zeckhauser equilibrium FIXP-hard?",
+   "statement": "A Hylland–Zeckhauser (HZ) market has $n$ agents and $n$ goods, each good with unit supply, and nonnegative utilities $u_{ij}$; every agent has budget 1. An HZ equilibrium is a price vector $p\\in\\mathbb{R}_{\\ge0}^n$ and a fractional allocation $x\\in[0,1]^{n\\times n}$ with $\\sum_j x_{ij}=1$ for each agent and $\\sum_i x_{ij}=1$ for each good, such that each row $x_i$ maximizes $\\sum_j u_{ij}y_j$ over $\\{y\\ge0: \\sum_j y_j=1, \\sum_j p_j y_j\\le 1\\}$ and, among maximizers, minimizes cost $\\sum_j p_j y_j$. Equilibria always exist (by a fixed-point argument) but may be irrational. Question: is the problem of computing an exact HZ equilibrium FIXP-hard (hence FIXP-complete, since membership in FIXP is known)?",
+   "status": "open",
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2004.01348",
+   "source_title": "Computational Complexity of the Hylland-Zeckhauser Scheme for One-Sided Matching Markets",
+   "location": "Abstract and Sec. 1 ('We leave open the problem of determining if HZ is FIXP-hard')",
+   "rationale": "The HZ scheme is the canonical pricing-based mechanism for one-sided matching with cardinal utilities. arXiv:2004.01348 shows equilibria can be irrational and puts the problem in FIXP; 'Computational Hardness of the Hylland-Zeckhauser Scheme' (arXiv:2107.05746) proves PPAD-hardness of computing approximate equilibria (even with 4-valued utilities), settling the approximate case, but leaves exact FIXP-completeness and the 3-valued-utility case open. 'Hardness of approximate Hylland-Zeckhauser equilibria' (arXiv:2606.00951, 2026) extends approximate hardness conditionally. The exact case remains open; few natural market problems are known to be FIXP-complete.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 27,
+   "ref": "OP-27",
+   "title": "Core of simple symmetric fractional hedonic games on bipartite graphs",
+   "statement": "Let $G=(N,E)$ be a finite simple undirected graph. In the associated simple symmetric fractional hedonic game, a partition $\\pi$ of $N$ gives each player $i$ utility $u_i(\\pi(i)) = |\\{j\\in \\pi(i): \\{i,j\\}\\in E\\}| / |\\pi(i)|$, where $\\pi(i)$ is $i$'s block. A nonempty coalition $S\\subseteq N$ blocks $\\pi$ if $u_i(S) > u_i(\\pi(i))$ for every $i\\in S$; $\\pi$ is in the core if no coalition blocks it. Question: if $G$ is bipartite, is the core always nonempty?",
+   "status": "open",
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1705.10116",
+   "source_title": "Fractional Hedonic Games",
+   "location": "Sec. 5.5 (Bipartite graphs)",
+   "rationale": "For general simple symmetric fractional hedonic games the core can be empty (a 40-player example in arXiv:1705.10116) and deciding non-emptiness is computationally hard. Non-emptiness is known for graphs of maximum degree at most 2, forests, complete multipartite graphs, graphs of girth at least 5, bipartite graphs with a perfect matching, and regular bipartite graphs; the K_{4,10} example shows star-packing methods that work for girth >= 5 fail for bipartite graphs. Bipartite graphs (girth >= 4) are the natural boundary case. A counterexample would be a finite graph, so computer search plus Lean verification is plausible; a positive proof needs a new idea.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 28,
+   "ref": "OP-28",
+   "title": "Constant-Factor Truthful Mechanism for XOS/Submodular Combinatorial Auctions",
+   "statement": "There are $n$ bidders and a set $M$ of $m$ items. Each bidder $i$ has a private valuation $v_i:2^M\\to\\mathbb{R}_{\\ge0}$ with $v_i(\\emptyset)=0$. It is monotone and XOS, meaning $v_i(S)=\\max_{\\ell} \\sum_{j\\in S} a^{i}_{\\ell j}$ for finitely many nonnegative additive clauses $a^i_\\ell$. Submodular valuations are a special case. A mechanism learns about valuations only through value queries ($S\\mapsto v_i(S)$) and demand queries (prices $p\\in\\mathbb{R}^M_{\\ge0}\\mapsto$ some $S\\in\\arg\\max_S v_i(S)-\\sum_{j\\in S}p_j$). It may use at most $\\mathrm{poly}(n,m)$ queries and computation. It outputs a partition of items to bidders and payments. It is universally truthful if it is a probability distribution over deterministic mechanisms in each of which truthful reporting is a dominant strategy for every bidder. Its approximation ratio is $\\sup_{v} \\mathrm{OPT}(v)/\\mathbb{E}[\\sum_i v_i(A_i)]$. Question: is there a universally truthful (or at least truthful-in-expectation) mechanism of this kind whose approximation ratio is $O(1)$, independent of $n$ and $m$? Equivalently, can truthful mechanisms match the constant-factor approximation that non-truthful polynomial-query algorithms achieve?",
+   "status": "open",
+   "topic": "mechanism_design",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2010.01420",
+   "source_title": "Improved Truthful Mechanisms for Subadditive Combinatorial Auctions: Breaking the Logarithmic Barrier",
+   "location": "",
+   "rationale": "This is the central open problem on the price of truthfulness in combinatorial auctions. Without incentives, constant factors are easy: $1-1/e$ for XOS with demand queries. Truthful mechanisms went from $O(\\log m\\log\\log m)$ and $O(\\sqrt{\\log m})$ to $O((\\log\\log m)^3)$ for submodular/XOS bidders (arXiv:1911.02716) and to $O((\\log\\log m)^3)$ for subadditive bidders (arXiv:2010.01420). With value queries alone, polynomially many queries provably cannot give better than an $m^{\\Omega(1)}$ ratio (see the discussion in arXiv:1911.02716 and 'Limitations of randomized mechanisms for combinatorial auctions', arXiv:1109.1055). The demand-query case is wide open: no super-constant lower bound for truthful mechanisms is known, and no communication separation between truthful mechanisms and algorithms is known either.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 29,
+   "ref": "OP-29",
+   "title": "Optimal Truthful-in-Expectation Mechanism for Unrelated-Machine Scheduling",
+   "statement": "There are $n$ machines and $m$ jobs. Machine $i$ privately knows its processing times $t_i=(t_{i1},\\dots,t_{im})\\in\\mathbb{R}_{\\ge0}^m$. A randomized mechanism maps a reported profile $t$ to a probability distribution over assignments $\\sigma:[m]\\to[n]$ and to payments $P_i(t)$. Machine $i$'s expected utility is $P_i(t)-\\mathbb{E}_\\sigma[\\sum_{j:\\sigma(j)=i} t_{ij}]$ when evaluated at its true times. The mechanism is truthful in expectation (TIE) if no machine can raise its expected utility by misreporting, whatever the others report. Its approximation ratio is $\\rho=\\sup_t \\mathbb{E}_\\sigma[\\max_i \\sum_{j:\\sigma(j)=i} t_{ij}] / \\mathrm{OPT}(t)$, where $\\mathrm{OPT}(t)$ is the minimum makespan. Question: determine $\\rho^*_{\\mathrm{TIE}}(n)=\\inf$ over TIE mechanisms of $\\rho$. Is it bounded by a constant, or does it grow linearly in $n$? The case $n=2$ is also open: find the exact optimal ratio for two machines.",
+   "status": "open",
+   "topic": "mechanism_design",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2301.11905",
+   "source_title": "A proof of the Nisan-Ronen conjecture",
+   "location": "Sec. 1.1 (Further related work)",
+   "rationale": "The deterministic Nisan–Ronen conjecture (ratio $n$) was proved in arXiv:2301.11905, so randomization is now the main open question in truthful scheduling. Known bounds: $2-1/n\\le\\rho^*_{\\mathrm{TIE}}(n)\\le (n+5)/2$, and fractional mechanisms achieve $(n+1)/2$. For universally truthful mechanisms, 'Universally truthful mechanisms for scheduling' (arXiv:2609.12621) shows a lower bound of $n/12-o(n)$ for discrete-support mechanisms and an upper bound of $n/2+o(n)$. That separates them from the TIE question, which is still open. For $n=2$ the bounds are $1.5$ and about $1.587$ ('Copula-based Randomized Mechanisms for Truthful Scheduling on Two Unrelated Machines', arXiv:1306.3909).",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 30,
+   "ref": "OP-30",
+   "title": "Optimal Competitive Ratio for Prophet Secretary",
+   "statement": "Let $X_1,\\dots,X_n$ be independent nonnegative random variables with known distributions $F_1,\\dots,F_n$. A uniformly random permutation $\\pi$ is drawn and the values are revealed in the order $X_{\\pi(1)},X_{\\pi(2)},\\dots$. After each value is revealed, an online algorithm must irrevocably either stop and receive that value or continue. It may use the distributions, the past values and the identities of the variables seen so far. Let $\\alpha^*=\\inf_{n,F_1,\\dots,F_n}\\sup_{\\mathrm{ALG}} \\mathbb{E}[\\mathrm{ALG}]/\\mathbb{E}[\\max_i X_i]$. Question: determine $\\alpha^*$. Known: $0.688\\le\\alpha^*\\le 0.7235$.",
+   "status": "open",
+   "topic": "online_algorithms",
+   "domain": "tcs",
+   "source": "arXiv:1507.01155",
+   "source_title": "Prophet Secretary",
+   "location": "",
+   "rationale": "This is the canonical random-order prophet inequality. It sits between the adversarial-order prophet inequality, where $1/2$ is tight, and the i.i.d. case, where the constant $\\approx0.745$ is tight. The original paper (arXiv:1507.01155) gave $1-1/e$. 'Prophet Secretary and Matching: the Significance of the Largest Item' (arXiv:2411.01191) gives $0.688$, beating the $0.675$ barrier for blind strategies. 'Prophet Inequalities: Separating Random Order from Order Selection' (arXiv:2304.04024) gives the upper bound $0.7235$. The gap is still about $0.035$.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 31,
+   "ref": "OP-31",
+   "title": "Free-Order (Order-Selection) Prophet Inequality Constant",
+   "statement": "Let $X_1,\\dots,X_n$ be independent nonnegative random variables with known distributions. Before any value is revealed, the gambler chooses a permutation $\\pi$ (it may depend on the distributions). Values $X_{\\pi(1)},X_{\\pi(2)},\\dots$ are then revealed one by one and the gambler stops irrevocably at most once, receiving the current value. Let $\\beta^*=\\inf_{n,F}\\sup_{\\pi,\\tau}\\mathbb{E}[X_{\\pi(\\tau)}]/\\mathbb{E}[\\max_i X_i]$, where $\\tau$ ranges over stopping times. Let $\\gamma\\approx0.7451$ be the i.i.d. prophet constant: the unique $\\gamma$ with $\\int_0^1 \\big(y(1-\\ln y)+1/\\gamma-1\\big)^{-1}dy=1$. Then $\\beta^*\\le\\gamma$. Question: is $\\beta^*=\\gamma$, i.e., is the worst case for free order attained by i.i.d. instances? Known: $0.7258\\le\\beta^*\\le\\gamma$.",
+   "status": "open",
+   "topic": "online_algorithms",
+   "domain": "tcs",
+   "source": "arXiv:2204.01425",
+   "source_title": "Order Selection Prophet Inequality: From Threshold Optimization to Arrival Time Design",
+   "location": "",
+   "rationale": "This is a natural and well-known question: does the power to choose the order fully recover the i.i.d. guarantee? 'Order Selection Prophet Inequality: From Threshold Optimization to Arrival Time Design' (arXiv:2204.01425) raised the lower bound from 0.669 to 0.725. 'Prophet Inequality: Order selection beats random order' (arXiv:2211.04145) gives 0.7258. 'Prophet Inequalities: Separating Random Order from Order Selection' (arXiv:2304.04024) shows random order is strictly worse (at most 0.7235). It is open whether $\\beta^*$ equals $\\approx0.745$.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 32,
+   "ref": "OP-32",
+   "title": "Exact Approximation Ratio of the Random-Offerer Mechanism",
+   "statement": "There is one seller with value $s\\sim F_S$ and one buyer with value $b\\sim F_B$, drawn independently with known distributions on $\\mathbb{R}_{\\ge0}$. In the seller-offering mechanism, the seller posts $p_S(s)\\in\\arg\\max_p (p-s)(1-F_B(p))$ and trade happens iff $b\\ge p_S(s)$. In the buyer-offering mechanism, the buyer posts $p_B(b)\\in\\arg\\max_p (b-p)F_S(p)$ and trade happens iff $s\\le p_B(b)$. The random-offerer mechanism (RO) runs each with probability $1/2$. Its gains from trade are $\\mathrm{RO}=\\mathbb{E}[(b-s)\\mathbf 1_{\\text{trade}}]$, and $\\mathrm{FB}=\\mathbb{E}[(b-s)^+]$. Question: determine $R^*=\\sup_{F_S,F_B}\\mathrm{FB}/\\mathrm{RO}$. Known: $2.1728\\lesssim R^*\\le\\pi$. Ties in the argmax may be broken in favour of trade.",
+   "status": "open",
+   "topic": "mechanism_design",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2111.03611",
+   "source_title": "Approximately Efficient Bilateral Trade",
+   "location": "",
+   "rationale": "The second-best ratio is now settled at exactly $1/2$ ('Second-Best Bilateral Trade is 1/2 Efficient', arXiv:2606.03849). The tight constant for the simplest dominant-strategy, budget-balanced, IR mechanism is still unknown. The upper bound on $R^*$ went from $8.23$ (arXiv:2111.03611) to $3.15$ ('Improved Approximation to First-Best Gains-from-Trade', arXiv:2205.00140; also 'A Geometric Analysis of Gains from Trade', arXiv:2508.06469) to $\\pi$ ('Tighter Bounds for the Random-Offerer Mechanism in Bilateral Trade', arXiv:2607.13959). Lower-bound instances give $2.0749$ ('A New Lower Bound for the Random Offerer Mechanism in Bilateral Trade using AI-Guided Evolutionary Search', arXiv:2603.08679) and about $2.1728$ (arXiv:2607.13959). This kind of question is well suited to explicit-instance certificates in Lean.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 33,
+   "ref": "OP-33",
+   "title": "Strong Matroid Secretary Conjecture (1/e for Every Matroid)",
+   "statement": "Let $M=(E,\\mathcal I)$ be a matroid on $n$ elements with distinct (adversarial) weights $w:E\\to\\mathbb{R}_{>0}$. Elements arrive in a uniformly random order. On arrival of an element, the algorithm learns how it compares in weight with all previously arrived elements (ordinal model), or its weight. It may query independence of subsets of arrived elements and must irrevocably accept or reject it, keeping the accepted set in $\\mathcal I$. Conjecture: for every matroid there is such an algorithm with $\\mathbb{E}[w(\\mathrm{ALG})]\\ge \\frac1e\\, w(\\mathrm{OPT})$. A stronger form asks that every element of the max-weight basis $\\mathrm{OPT}$ is accepted with probability $\\ge 1/e$. The constant $1/e$ would be best possible, as the rank-1 uniform matroid (classical secretary problem) shows.",
+   "status": "open",
+   "topic": "online_algorithms",
+   "domain": "tcs",
+   "source": "Matroids, Secretary Problems, and Online Mechanisms (SODA 2007); restated as Conjecture 1.1 in arXiv:2609.19118",
+   "source_title": "Matroids, Secretary Problems, and Online Mechanisms",
+   "location": "Conjecture 1.1 of arXiv:2609.19118",
+   "rationale": "The constant-ratio matroid secretary conjecture was claimed resolved in September 2026 ('The Matroid Secretary Conjecture is True', arXiv:2609.14555, ratio $1/4$; improved to $1/3.1462$ in arXiv:2609.17782). The sharp constant $1/e$ is the remaining well-known target. 'On the Strong Matroid Secretary Conjecture and Beyond' (arXiv:2609.19118) and 'The Strong Secretary Conjecture is True for Linear Matroids' (arXiv:2609.20797) prove it for linear matroids. These cover graphic, regular and transversal matroids and gammoids. General matroids are open, and so are non-representable families such as sparse paving matroids.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 34,
+   "ref": "OP-34",
+   "title": "Polynomial-Time ε-Nash Equilibria for Bimatrix Games with ε < 1/3",
+   "statement": "A bimatrix game is a pair of matrices $A,B\\in[0,1]^{n\\times n}$ with rational entries. A pair of mixed strategies $(x,y)$ in the simplices $\\Delta_n\\times\\Delta_n$ is an $\\varepsilon$-Nash equilibrium if $x^\\top A y\\ge \\max_i (Ay)_i-\\varepsilon$ and $x^\\top B y\\ge \\max_j (x^\\top B)_j-\\varepsilon$. Question: is there a constant $\\varepsilon<1/3$ and a polynomial-time algorithm (in the bit size of $A,B$) that outputs an $\\varepsilon$-Nash equilibrium of every bimatrix game?",
+   "status": "open",
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2204.11525",
+   "source_title": "A Polynomial-Time Algorithm for 1/3-Approximate Nash Equilibria in Bimatrix Games",
+   "location": "",
+   "rationale": "Computing exact Nash equilibria is PPAD-complete. Polynomial-time approximation progressed through $3/4, 1/2, 0.38, 0.36, 0.3393$, and then $1/3+\\delta$ ('A Polynomial-Time Algorithm for 1/3-Approximate Nash Equilibria in Bimatrix Games', arXiv:2204.11525). On the hardness side, 'Settling the complexity of computing approximate two-player Nash equilibria' (arXiv:1606.04550) shows that, under ETH for PPAD, some small constant $\\varepsilon$ needs $n^{\\log^{1-o(1)}n}$ time. A quasi-polynomial algorithm exists for every constant $\\varepsilon$. Whether $1/3$ is a natural barrier for polynomial time is open, and so is what the true threshold is.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 35,
+   "ref": "OP-35",
+   "title": "Query Complexity of Tarski Fixed Points on the Grid",
+   "statement": "For $n,k\\ge1$, let $L=[n]^k$ with the componentwise partial order, where $[n]=\\{1,\\dots,n\\}$. TARSKI$(n,k)$ is the problem: given oracle access to a monotone map $f:L\\to L$ ($x\\le y\\Rightarrow f(x)\\le f(y)$), find some $x$ with $f(x)=x$. One exists by Tarski's theorem. Let $Q(n,k)$ be the deterministic query complexity (worst-case number of oracle calls). Questions: (a) is $Q(n,k)=O(\\log^2 n)$ for every fixed $k$? In particular, is $Q(n,5)=O(\\log^2 n)$? (b) Is $Q(n,k)\\le \\mathrm{poly}(k,\\log n)$, i.e., with an exponent of $\\log n$ independent of $k$? (c) In the white-box model, where $f$ is given by a Boolean circuit, can a fixed point be found in polynomial time?",
+   "status": "open",
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "source": "arXiv:1909.03210",
+   "source_title": "Tarski's Theorem, Supermodular Games, and the Complexity of Equilibria",
+   "location": "",
+   "rationale": "Tarski fixed points capture equilibria of supermodular games and several stochastic game problems, and lie in PLS ∩ PPAD. Known bounds: $Q(n,k)=\\Theta(\\log^2 n)$ for $k=2,3,4$. The $k=4$ case and the bound $O(\\log^{\\lceil (k-1)/3\\rceil+1} n)$ for general $k$ are from 'The Mystery Deepens: On the Query Complexity of Tarski Fixed Points' (arXiv:2604.00268). The earlier $O(\\log^{\\lceil (k+1)/2\\rceil}n)$ is from 'A faster algorithm for finding Tarski fixed points' (arXiv:2010.02618) and successors. The best lower bound is $\\Omega(k\\log^2 n/\\log k)$, even for randomized algorithms ('Tarski Lower Bounds from Multi-Dimensional Herringbones', arXiv:2502.16679). Whether the complexity grows with dimension at all beyond the $k$ factor is open; the field calls this a mystery.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 36,
+   "ref": "OP-36",
+   "title": "Are Simple Stochastic Games Solvable in Polynomial Time?",
+   "statement": "A simple stochastic game (SSG) is a finite directed graph whose vertices are partitioned into MAX, MIN and AVERAGE vertices, plus two sink vertices, $0$-sink and $1$-sink. Every non-sink vertex has two out-edges. A token moves from a start vertex. MAX (resp. MIN) chooses the successor at MAX (resp. MIN) vertices, and at AVERAGE vertices the successor is chosen uniformly at random. MAX wins if the token reaches the $1$-sink. The value $v(u)$ is the probability that MAX wins from $u$ under optimal play. It exists, and positional (memoryless deterministic) optimal strategies exist. Question: is there a polynomial-time algorithm that, given an SSG and a vertex $u$, decides whether $v(u)>1/2$ (equivalently, computes all values exactly as rationals)?",
+   "status": "open",
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "source": "The Complexity of Stochastic Games (Information and Computation 96(2), 1992)",
+   "source_title": "The Complexity of Stochastic Games",
+   "location": "",
+   "rationale": "This is a famous problem in NP ∩ coNP that is not known to be in P. Parity, mean-payoff and discounted games all reduce to it in polynomial time. The best algorithms are randomized subexponential ($2^{O(\\sqrt n)}$) or fixed-parameter in the number of AVERAGE vertices. Strategy-improvement methods have exponential lower bounds. Stopping SSGs lie in UEOPL ('Unique End of Potential Line', arXiv:1811.03841). 'Reducing Stochastic Games to Semidefinite Programming' (arXiv:2411.09646) gives a polynomial reduction to SDP feasibility, but SDP feasibility is not known to be in P.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 37,
+   "ref": "OP-37",
+   "title": "Are Parity Games Solvable in Polynomial Time?",
+   "statement": "A parity game is a finite directed graph $G=(V,E)$ where every vertex has at least one successor. $V=V_0\\sqcup V_1$ is partitioned between players Even and Odd, and there is a priority function $p:V\\to\\{0,\\dots,d\\}$. From a start vertex, the owner of the current vertex picks a successor, forever. The resulting infinite play is won by Even iff $\\max\\{p(v): v \\text{ occurs infinitely often}\\}$ is even. Parity games are positionally determined. Question: is there an algorithm that, given $(G,p)$ and a vertex $v$, decides which player has a winning strategy from $v$ in time polynomial in $|V|+|E|$ (with $d\\le|V|$)?",
+   "status": "open",
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "source": "Deciding Parity Games in Quasipolynomial Time (STOC 2017)",
+   "source_title": "Deciding Parity Games in Quasipolynomial Time",
+   "location": "",
+   "rationale": "This is the central open problem of infinite-duration games and the algorithmic core of μ-calculus model checking and LTL synthesis. It is in NP ∩ coNP and UP ∩ coUP. Since 2017 there have been quasi-polynomial algorithms ($n^{O(\\log d)}$), e.g. 'An Ordered Approach to Solving Parity Games in Quasi Polynomial Time and Quasi Linear Space' (arXiv:1703.01296). 'Universal trees grow inside separating automata: Quasi-polynomial lower bounds for parity games' (arXiv:1807.10546) shows that every separating-automaton approach is inherently quasi-polynomial. A November 2025 preprint (arXiv:2511.03752) claims a polynomial algorithm, but it has not been validated by the community.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 38,
+   "ref": "OP-38",
+   "title": "Sylver Coinage After the Opening Move 16",
+   "statement": "Sylver coinage is a two-player game. Players alternately name a positive integer that is not a sum of nonnegative integer multiples of the integers named so far. The player who names $1$ loses. Equivalently, $1$ is excluded and a player with no other legal move loses. Every play is finite, so every position is either a first-player win (N) or a second-player win (P). Question: after the first player opens with $16$, does the player to move (the second player) have a winning reply? That is, is the position $\\{16\\}$ an N-position or a P-position? If it is N, which replies win?",
+   "status": "open",
+   "topic": "combinatorial_games",
+   "domain": "game_theory_economics",
+   "source": "Winning Ways for your Mathematical Plays (Vol. 3, 2nd ed.); also 'Unsolved Problems in Combinatorial Games' (Games of No Chance, MSRI Publ. 29, 1996)",
+   "source_title": "Winning Ways for your Mathematical Plays",
+   "location": "",
+   "rationale": "This is a famous prize problem in combinatorial game theory. All openings below $16$ have known outcomes, and every prime $p\\ge5$ is a known winning opening (a classical theorem on 'ender' primes). The game has infinitely many options until the named set has gcd $1$, so plain search does not apply directly. Positions with gcd $1$ reduce to numerical semigroups with finitely many gaps. Recent computational campaigns (2025-2026) have certified hundreds of thousands of sub-positions under $\\{16\\}$, but they report that the opening remains undecided.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 39,
+   "ref": "OP-39",
+   "title": "Periodicity of Grundy's Game",
+   "statement": "In Grundy's game a position is a multiset of heap sizes. A move picks one heap of size $n$ and splits it into two nonempty heaps of different sizes $a+b=n$, $a\\ne b$. A player with no move loses (normal play). The Grundy value of a single heap is $g(n)=\\operatorname{mex}\\{g(a)\\oplus g(b): a+b=n,\\ 1\\le a<b\\}$, where $\\oplus$ is bitwise XOR and $g(1)=g(2)=0$. Question: is the sequence $g$ eventually periodic, i.e., are there $N$ and $p\\ge1$ with $g(n+p)=g(n)$ for all $n\\ge N$?",
+   "status": "open",
+   "topic": "combinatorial_games",
+   "domain": "game_theory_economics",
+   "source": "Winning Ways for your Mathematical Plays",
+   "source_title": "Winning Ways for your Mathematical Plays",
+   "location": "",
+   "rationale": "Grundy's game is the best-known test case for (non-)periodicity of impartial heap games. It is conjectured to be eventually periodic. Very long computations (the first $2^{35}$ values have been reported) show no period, but the values grow very slowly and show strong structure, e.g. almost all values are $0,1,2$ mod small patterns. No proof technique is known in either direction.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 40,
+   "ref": "OP-40",
+   "title": "Guy's Conjecture: Finite Octal Games Are Eventually Periodic",
+   "statement": "A finite octal game is given by a code $0.d_1d_2\\dots d_k$ with digits $d_j\\in\\{0,\\dots,7\\}$. On a position (a multiset of heaps), a move takes one heap of size $h$ and removes $j\\le h$ tokens from it. The remainder $h-j$ is left as zero heaps if bit $1$ of $d_j$ is set (requires $h=j$). It is left as one nonempty heap if bit $2$ is set (requires $h>j$). It is left as two nonempty heaps $a+b=h-j$, $a,b\\ge1$, if bit $4$ is set. Under normal play, the single-heap Grundy values are $G(h)=\\operatorname{mex}$ of $G(h-j)$ (bit 2), of $0$ (bit 1, $h=j$) and of $G(a)\\oplus G(b)$ (bit 4). Conjecture: for every finite octal code, the sequence $G$ is eventually periodic. The smallest unresolved examples include $0.007$.",
+   "status": "open",
+   "topic": "combinatorial_games",
+   "domain": "game_theory_economics",
+   "source": "Winning Ways for your Mathematical Plays; 'Unsolved Problems in Combinatorial Games' (Games of No Chance, MSRI Publ. 29, 1996)",
+   "source_title": "Winning Ways for your Mathematical Plays",
+   "location": "",
+   "rationale": "This is the central conjecture of impartial heap games. The octal periodicity theorem makes eventual periodicity checkable for a single game once a long enough periodic stretch is observed. Many octal games have been settled this way, but several small codes ($0.007$ and others) show no period after hundreds of millions of values. Proving it for even a single such game, or finding a non-periodic finite octal game, would be a landmark.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 41,
+   "ref": "OP-41",
+   "title": "Hex: Classify All Opening Moves on the 10×10 Board",
+   "statement": "Hex on an $n\\times n$ rhombic board of hexagonal cells: Black owns the top and bottom sides and White owns the left and right sides. Players alternately place a stone of their colour on an empty cell, with Black moving first. A player wins on forming a connected chain of their stones joining their two sides. Draws are impossible, and the first player wins on an empty board, by a non-constructive strategy-stealing argument. For each cell $c$, let $\\mathrm{Win}_n(c)$ mean that Black, after opening at $c$, has a winning strategy (with White to move next and no swap rule). Question: determine $\\mathrm{Win}_{10}(c)$ for all 100 cells $c$. More ambitiously, exhibit any explicit winning opening and strategy on the $11\\times11$ board.",
+   "status": "open",
+   "topic": "combinatorial_games",
+   "domain": "game_theory_economics",
+   "source": "Scalable Parallel DFPN Search (Computers and Games 2013, LNCS 8427)",
+   "source_title": "Scalable Parallel DFPN Search",
+   "location": "",
+   "rationale": "Hex is the classical example of a game where strategy stealing proves a first-player win without a strategy. Every opening is solved for $n\\le9$, while for $n=10$ only a handful are, including the centre. Nothing is known constructively for the standard $11\\times11$ board. Progress is purely computational (proof-number search with virtual-connection and inferior-cell pruning), which makes certificate-checking in a proof assistant an interesting, if very large, target.",
+   "links": [],
+   "added": 1791246209
+  },
+  {
+   "id": 42,
+   "ref": "OP-42",
+   "title": "The Sprouts Conjecture",
+   "statement": "Sprouts starts with $n$ spots in the plane. A move draws a simple curve joining two spots, or a spot to itself, that crosses no existing curve or spot. The player then places a new spot on the interior of the new curve. Each spot may be the endpoint of at most three curve-ends; a loop counts twice. A player unable to move loses (normal play). The game always ends within $3n-1$ moves. Conjecture: the first player has a winning strategy in $n$-spot Sprouts iff $n\\equiv 3,4,5 \\pmod 6$.",
+   "status": "open",
+   "topic": "combinatorial_games",
+   "domain": "game_theory_economics",
+   "source": "Computer Analysis of Sprouts (Carnegie Mellon Univ. tech. report CMU-CS-91-144, 1991); Winning Ways for your Mathematical Plays",
+   "source_title": "Computer Analysis of Sprouts",
+   "location": "",
+   "rationale": "This is a well-known conjecture about a famous topological game, and it is supported by massive computation. Outcomes are known for all $n\\le62$ plus 27 larger cases up to $n=104$ ('Massively Parallel Proof-Number Search for Impartial Games and Beyond', arXiv:2511.10339), up from $n\\le 44$ with a few sporadic larger values (earlier work, e.g. 'Computer analysis of Sprouts with nimbers', arXiv:1008.2320). There is no theoretical approach to the mod-6 pattern.",
+   "links": [],
+   "added": 1791246209
   }
  ],
  "grants": []

@@ -84,6 +84,7 @@ footer.site{border-top:1px solid var(--rule);background:var(--panel);color:var(-
 .phead h1{margin:0;font-family:var(--prose);font-size:38px;font-weight:600;letter-spacing:-.015em;line-height:1.15}
 h1.mono{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.01em;word-break:break-word}
 .lead{margin:0;font-family:var(--prose);font-size:18.5px;line-height:1.6;color:var(--ink-2);max-width:64ch}
+.lead.full{max-width:none;font-size:17.5px}
 main h2{margin:12px 0 0;font-size:19px;font-weight:700;letter-spacing:-.01em}
 main h3{margin:0;font-size:15px;font-weight:600}
 .prose{margin:0;font-family:var(--prose);font-size:16px;line-height:1.6;max-width:70ch}

@@ -1042,7 +1042,7 @@ def render_kb(s: Site) -> str:
 <header class="phead">
   <p class="eyebrow">Verified in Lean&nbsp;4</p>
   <h1>Knowledgebase</h1>
-  <p class="lead">{t["declarations"]} declarations &mdash; {t["theorems"]} theorems and
+  <p class="lead full">{t["declarations"]} declarations &mdash; {t["theorems"]} theorems and
   {t["definitions"]} definitions in {t["topics"]} topics &mdash; each elaborated by
   Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. The graph
   shows what each one builds on; the list below has them all, by topic.
@@ -1506,7 +1506,7 @@ def render_problems(s: Site) -> str:
 <header class="phead" id="submit">
   <p class="eyebrow">From papers, books and you</p>
   <h1>Open Problems</h1>
-  <p class="lead">Open problems the machine works on, from papers and books or
+  <p class="lead full">Open problems the machine works on, from papers and books or
   submitted by you. A problem counts as settled when a Lean theorem answers it,
   one way or the other, and that theorem has passed the round trip.</p>
   <div class="cta"><a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a></div>
@@ -1674,7 +1674,7 @@ def render_reports(s: Site) -> str:
 <header class="phead">
   <p class="eyebrow">What Lean accepted, period by period</p>
   <h1>Summary Report</h1>
-  <p class="lead">The theorems Lean accepted over a week or a month, told in about
+  <p class="lead full">The theorems Lean accepted over a week or a month, told in about
   ten minutes: what was settled, in which fields, from which papers, and what is
   still open. Every theorem a report names links to its Lean proof.</p>
 </header>

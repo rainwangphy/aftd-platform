@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-06T03:51:25Z",
+ "generated": "2026-10-06T04:08:29Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 4,
   "open": 49,
   "rejected": 7,
-  "spend": 38.67,
+  "spend": 38.86,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 51905557,
-   "output": 7310524,
-   "cache_read": 109760797
+   "input": 52185721,
+   "output": 7336414,
+   "cache_read": 110247452
   },
   "models": [
    "deepseek-flash",
@@ -34664,6 +34664,66 @@
    "rationale": "",
    "links": [],
    "added": 1791258595
+  },
+  {
+   "id": 85,
+   "ref": "OP-85",
+   "title": "Existence of a Strong Equilibrium in Unweighted Max-k-Cut Games",
+   "statement": "Let $G = (V, E)$ be a finite simple unweighted graph and let $k \\ge 3$ be an integer. In the unweighted Max-$k$-Cut game on $(G, k)$, each player $v \\in V$ chooses a strategy $\\sigma(v) \\in \\{1, \\dots, k\\}$, and player $v$'s utility is $u_v(\\sigma) = |\\{w \\in N(v) : \\sigma(w) \\neq \\sigma(v)\\}|$, where $N(v)$ denotes the open neighborhood of $v$ in $G$. A strong deviation from a strategy profile $\\sigma: V \\to \\{1, \\dots, k\\}$ is a non-empty coalition $S \\subseteq V$ and a profile $\\tau: V \\to \\{1, \\dots, k\\}$ such that $\\tau(v) = \\sigma(v)$ for all $v \\in V \\setminus S$ and $u_v(\\tau) > u_v(\\sigma)$ for all $v \\in S$. A profile $\\sigma$ is a strong equilibrium if it admits no strong deviation. Does every finite simple unweighted graph admit a strong equilibrium in the Max-$k$-Cut game for every $k \\ge 3$?",
+   "status": "open",
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2610.04948",
+   "source_title": "Social Optimality Does Not Imply Coalitional Stability in Unweighted Max-k-Cut Games",
+   "location": "Sec. 4, para. 3",
+   "rationale": "While the paper exhibits an unweighted graph where an optimal coloring admits a profitable coalitional deviation, the coalition deviates to another optimal coloring that may itself be stable, leaving the universal existence of strong equilibria unresolved.",
+   "links": [],
+   "added": 1791258751
+  },
+  {
+   "id": 86,
+   "ref": "OP-86",
+   "title": "Maximum Degree Threshold for Coalitional Stability of Optimal Colorings",
+   "statement": "For an integer $k \\ge 3$, let $\\Delta^*(k)$ denote the largest integer $D$ such that for every finite simple unweighted graph $G = (V, E)$ with maximum degree $\\Delta(G) \\le D$, every cut-maximizing coloring $\\sigma: V \\to \\{1, \\dots, k\\}$ in the unweighted Max-$k$-Cut game is a strong equilibrium. It is known that $\\Delta^*(k) \\ge 2k - 1$ (which gives $\\Delta^*(3) \\ge 5$). What is the exact value of $\\Delta^*(k)$ for each $k \\ge 3$, and in particular, what is the exact value of $\\Delta^*(3)$?",
+   "status": "open",
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2610.04948",
+   "source_title": "Social Optimality Does Not Imply Coalitional Stability in Unweighted Max-k-Cut Games",
+   "location": "after Cor. 9",
+   "rationale": "Corollary 9 shows that every optimal coloring is a strong equilibrium whenever the maximum degree satisfies $\\Delta(G) \\le 2k - 1$ (recovering a known bound), while Theorem 2 provides a counterexample where $\\Delta(G) > 2k - 1$. The paper leaves open the sharp maximum degree threshold separating graphs where all optimal colorings are coalitionally stable from those admitting unstable optima.",
+   "links": [],
+   "added": 1791258751
+  },
+  {
+   "id": 87,
+   "ref": "OP-87",
+   "title": "Tight asymptotic threshold for MMS allocations with monotone goods",
+   "statement": "Let M be a set of m indivisible items and N = {1, ..., n} a set of n ≥ 2 agents. Each agent i ∈ N has a monotone valuation function v_i : 2^M → ℝ with v_i(∅) = 0 and v_i(S) ≤ v_i(T) whenever S ⊆ T ⊆ M. The maximin share of agent i is MMS(M, v_i, n) = max_{P} min_{j ∈ [n]} v_i(P_j), where the maximum is over all partitions P = (P_1, ..., P_n) of M into n bundles. An allocation A = (A_1, ..., A_n) of M is an MMS allocation if v_i(A_i) ≥ MMS(M, v_i, n) for all i ∈ N. Define μ(n) to be the largest integer m such that every instance with n agents, at most m goods, and monotone valuations has an MMS allocation. Is μ(n) = n + log_2 n + o(log_2 n) as n → ∞?",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2610.06125",
+   "source_title": "On MMS allocations with few items",
+   "location": "Sec. 3",
+   "rationale": "The paper establishes that μ(n) = n + Θ(log n), showing the upper bound μ(n) ≤ n + log_2 n + O(log log n) in Theorem 6 and the lower bound μ(n) ≥ n + c log_2 n for c ≈ 0.93 in Lemma 9 and Lemma 8. Closing the gap to determine whether the leading constant is 1 remains open.",
+   "links": [],
+   "added": 1791258871
+  },
+  {
+   "id": 88,
+   "ref": "OP-88",
+   "title": "Universal Constant for General-to-Internal Collage System Conversion",
+   "statement": "Let $\\Sigma$ be a finite alphabet. A collage system $\\mathcal{C}$ over $\\Sigma$ is an acyclic sequence of nonterminal definitions $X_1, \\dots, X_m$, where each nonterminal $X_i$ is defined by exactly one rule of the following types:\n1. an atomic character: $X_i \\to a$ for $a \\in \\Sigma$;\n2. a concatenation: $X_i \\to Y Z$ where $Y, Z \\in \\{X_1, \\dots, X_{i-1}\\}$;\n3. a repetition: $X_i \\to Y^r$ with integer $r > 2$ and $Y \\in \\{X_1, \\dots, X_{i-1}\\}$;\n4. a substring truncation: $X_i \\to Y[b..e)$ with $1 \\le b < e \\le |\\langle Y \\rangle| + 1$ and $Y \\in \\{X_1, \\dots, X_{i-1}\\}$, where $\\langle Y \\rangle$ is the string derived by $Y$.\n\nThe size of $\\mathcal{C}$ is $|\\mathcal{C}| = m$. The string generated by $\\mathcal{C}$ is $\\langle X_m \\rangle$. A nonterminal $X_j$ is structurally reachable from $X_m$ if there is a directed path from $X_m$ to $X_j$ in the dependency graph consisting exclusively of concatenation and repetition edges (truncation edges $X \\to Y[b..e)$ do not expose $Y$). A collage system is internal if every nonterminal $X_1, \\dots, X_m$ is structurally reachable from $X_m$.\n\nFor a nonempty string $T \\in \\Sigma^+$, let $c(T)$ denote the minimum size of a collage system generating $T$, and let $\\widehat{c}(T)$ denote the minimum size of an internal collage system generating $T$.\n\nCan the universal conversion constant 5 be strictly reduced? That is, does there exist a constant $C < 5$ such that for all nonempty strings $T$, $\\widehat{c}(T) \\le C \\cdot c(T)$?",
+   "status": "open",
+   "topic": "automata",
+   "domain": "tcs",
+   "source": "arXiv:2610.04520",
+   "source_title": "A Factor-5 Conversion to Internal Collage Systems",
+   "location": "Sec. 7, para. 2",
+   "rationale": "The paper proves an upper bound of $5m$ (and more precisely $4m+a-b$, where $a$ is the number of original truncation rules and $b$ is the breaker count) for converting an arbitrary collage system of size $m$ into an equivalent internal collage system. The proof intentionally allows worst-case helper charges to each lineage, suggesting that a tighter accounting could further reduce the constant.",
+   "links": [],
+   "added": 1791259030
   }
  ],
  "grants": []

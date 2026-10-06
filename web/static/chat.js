@@ -1,4 +1,4 @@
-// Chat with the Knowledgebase (experimental): a chat that runs entirely in this
+// Chat with Knowledgebase (experimental): a chat that runs entirely in this
 // page, opened from the button beside the dependency graph.
 // The reader's own API key goes straight from the browser to the provider they
 // pick -- AFTD has no server -- and the knowledgebase is searched here, in two

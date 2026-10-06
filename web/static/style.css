@@ -420,11 +420,16 @@ a.stretch::after{content:"";position:absolute;inset:0;border-radius:var(--radius
 .pgroup{display:flex;flex-direction:column;gap:10px}
 details.declined summary{cursor:pointer;font-weight:600;color:var(--ink-2)}
 details.declined[open]{display:flex;flex-direction:column;gap:8px}
-details.lit-topic{border-bottom:1px solid var(--rule)}
-details.lit-topic summary{cursor:pointer;display:flex;align-items:baseline;gap:10px;padding:9px 0;
-  font-weight:600;color:var(--ink)}
-details.lit-topic summary .small{margin-left:auto;font-weight:400}
-details.lit-topic[open]{display:flex;flex-direction:column;gap:10px;padding-bottom:12px}
+/* a group of problems folds under its heading */
+.pgroup>details[open]{display:flex;flex-direction:column;gap:10px}
+.pgroup>details>p.small{margin:0}
+summary.shead{cursor:pointer;list-style:none}
+summary.shead::-webkit-details-marker{display:none}
+summary.shead::before{content:"";align-self:center;width:0;height:0;border-style:solid;
+  border-width:5px 0 5px 7px;border-color:transparent transparent transparent var(--ink-3);
+  transition:transform .15s}
+.pgroup>details[open]>summary.shead::before{transform:rotate(90deg)}
+summary.shead:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .card.lit{display:flex;flex-direction:column;gap:8px}
 .card.lit .prose,.card.lit p.small{margin:0}
 details.lit-more summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent);width:max-content}

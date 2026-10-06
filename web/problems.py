@@ -57,10 +57,10 @@ STATUSES = {
 # ... and as the Open Problems page heads its group: where the problem stands in Lean.
 STATUS_TITLES = {
     "proved": "Settled in Lean",
-    "stuck": "Stated in Lean, prover stuck",
-    "formalized": "Stated in Lean, not yet proved",
-    "accepted": "Not yet stated in Lean",
-    "pending": "Awaiting review",
+    "stuck": "Stated in Lean, Prover Stuck",
+    "formalized": "Stated in Lean, Not Yet Proved",
+    "accepted": "Not Yet Stated in Lean",
+    "pending": "Awaiting Review",
     "declined": "Declined",
 }
 

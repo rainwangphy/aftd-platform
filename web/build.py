@@ -1425,29 +1425,20 @@ def render_problems(s: Site) -> str:
         "formalized": "Stated in Lean, with partial results where there are any; the main question is not yet proved or refuted.",
         "accepted": "Listed, but no Lean statement of the question yet.",
     }
+    def section(sid: str, title: str, n: int, blurb: str, inner: str) -> str:
+        # Each group folds under its heading; the cards carry their own topic.
+        return (
+            f'<section class="pgroup" id="{sid}"><details open>'
+            f'<summary class="shead"><h2>{e(title)}</h2><span class="n">{n}</span></summary>'
+            f'<p class="small">{blurb}</p>{inner}</details></section>'
+        )
+
     secs = []
     for k in ("proved", "stuck", "formalized", "accepted"):
         items = groups[k]
-        if not items:
-            continue
-        if len(items) > 8:
-            # A long group is folded by topic, so the page stays scannable.
-            by_topic: dict[str, list[str]] = {}
-            for topic, html_ in items:
-                by_topic.setdefault(topic, []).append(html_)
-            inner = "".join(
-                f'<details class="lit-topic"><summary><span>{e(t)}</span>'
-                f'<span class="small">{len(cs)}</span></summary>{"".join(cs)}</details>'
-                for t, cs in sorted(by_topic.items(), key=lambda kv: kv[0].lower())
-            )
-        else:
-            inner = "".join(html_ for _, html_ in items)
-        secs.append(
-            f'<section class="pgroup" id="{k}"><header class="shead"><h2>{e(STATUS_TITLES[k])}</h2>'
-            f'<span class="n">{len(items)}</span></header><p class="small">{e(blurbs[k])}</p>'
-            + inner
-            + "</section>"
-        )
+        if items:
+            secs.append(section(k, STATUS_TITLES[k], len(items), e(blurbs[k]),
+                                "".join(html_ for _, html_ in items)))
     if groups["pending"]:
         n = len(groups["pending"])
         secs.append(
@@ -1479,16 +1470,13 @@ def render_problems(s: Site) -> str:
             + f'<pre class="sig lean">{highlight_lean(n["statement"])}</pre></article>'
             for n in loose
         )
-        secs.append(
-            '<section class="pgroup" id="unproved"><header class="shead">'
-            f'<h2>Other unproved Lean statements</h2><span class="n">{len(loose)}</span></header>'
-            '<p class="small">Statements in the knowledgebase that Lean has checked as '
-            'well-formed but nobody has proved, and that belong to none of the problems '
-            'above: the machine\'s own conjectures and the steps it filed towards other '
-            'results. If you can see how to prove one, say so in '
-            f'<a href="{e(s.discussions())}">the discussions</a>.</p>'
-            f"{cards}</section>"
-        )
+        secs.append(section(
+            "unproved", "Other Unproved Lean Statements", len(loose),
+            "Statements in the knowledgebase that Lean has checked as well-formed but "
+            "nobody has proved, and that belong to none of the problems above: the "
+            "machine's own conjectures and the steps it filed towards other results. "
+            f'If you can see how to prove one, say so in <a href="{e(s.discussions())}">'
+            "the discussions</a>.", cards))
     body = f"""
 <header class="phead" id="submit">
   <p class="eyebrow">From papers, books and you</p>

@@ -694,6 +694,9 @@ main.wrap>*,.pgroup>*,.split>div>*,.topic>*,.domain>*,.hero-grid>*{min-width:0}
 /* ------------------------------------------------------------ chat (experimental)
    Ask the Knowledgebase: settings card, the conversation, the composer. */
 .chat{display:flex;flex-direction:column;gap:18px;max-width:880px;width:100%}
+.chat-privacy{border-left-color:var(--proved);max-width:880px;width:100%}
+.chat-privacy p{margin:0;font-size:14px;line-height:1.55;color:var(--ink-2)}
+.chat-privacy strong{color:var(--proved)}
 .chat-set{gap:12px}
 .chat-set:hover{box-shadow:none}
 .chat-set summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;cursor:pointer;list-style:none}
@@ -710,7 +713,8 @@ main.wrap>*,.pgroup>*,.split>div>*,.topic>*,.domain>*,.hero-grid>*{min-width:0}
 .chat-grid input:focus,.chat-grid select:focus,.chat-form textarea:focus{outline:none;border-color:var(--accent);
   box-shadow:0 0 0 3px var(--accent-soft)}
 .chat-grid input.want{border-color:var(--bad);box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 22%,transparent)}
-#chat-model,#chat-key{font-family:var(--mono);font-size:13px}
+#chat-other,#chat-key{font-family:var(--mono);font-size:13px}
+.chat-opts .switch.off{opacity:.55;cursor:not-allowed}
 .chat-opts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin:12px 0 8px}
 .chat-opts a.small{color:var(--accent);margin-left:auto}
 .chat-log{display:flex;flex-direction:column;gap:18px;min-height:120px}

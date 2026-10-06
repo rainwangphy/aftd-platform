@@ -292,6 +292,8 @@ def main() -> int:
               "static/chat.js" in chat
               and 'class="btn primary g-chat" href="../chat/"' in pages["knowledgebase/index.html"]
               and not re.search(r'<nav aria-label="Site">[^\n]*chat/', everything))
+        check("the chat page says plainly that the API key is not collected",
+              "We do not collect your API key." in chat and "web/static/chat.js" in chat)
         index_raw = (out / "chat" / "kb-index.json").read_text(encoding="utf-8")
         detail = json.loads((out / "chat" / "kb-detail.json").read_text(encoding="utf-8"))
         by = {x["name"]: x for x in json.loads(index_raw)["entries"]}

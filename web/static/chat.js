@@ -228,14 +228,92 @@ async function post(url, headers, body, signal) {
   return data;
 }
 
+// The OpenAI-compatible chat-completions API, which DeepSeek and OpenRouter
+// both speak. `webPlugin` is how the provider adds web search, if it can.
+function chatCompletions({label, url, model, models, keyUrl, webPlugin}) {
+  return {
+    label, model, models, keyUrl,
+    web: !!webPlugin,
+    fromTranscript: turns => turns.map(t => ({role: t.role, content: t.text})),
+    async run(c) {
+      const tools = TOOLS.map(t => ({type: 'function',
+        function: {name: t.name, description: t.description, parameters: t.parameters}}));
+      c.history.push({role: 'user', content: c.question});
+      const out = {text: '', sources: [], usage: {input: 0, output: 0}};
+      let web = c.web && webPlugin;
+      for (let round = 0; round < MAX_ROUNDS; round++) {
+        const body = {model: c.model, messages: [{role: 'system', content: c.system}, ...c.history], tools};
+        if (web) Object.assign(body, webPlugin);
+        let data;
+        try {
+          data = await post(url, {authorization: 'Bearer ' + c.key}, body, c.signal);
+        } catch (err) {
+          // A model that cannot take the web plugin still answers from the knowledgebase.
+          if (web && err.status === 400 && /plugin|web/i.test(err.message)) {
+            web = false;
+            round--;
+            c.step({kind: 'note', text: 'web search is not available for this model'});
+            continue;
+          }
+          throw err;
+        }
+        if (data.error) throw new Error(data.error.message || String(data.error));
+        const u = data.usage || {};
+        out.usage.input += u.prompt_tokens || 0;
+        out.usage.output += u.completion_tokens || 0;
+        const choice = (data.choices || [])[0];
+        if (!choice) throw new Error(`${label} returned no answer.`);
+        const msg = choice.message || {role: 'assistant', content: ''};
+        // Sent back as it came, reasoning included: DeepSeek needs its
+        // reasoning back while a tool call is in progress.
+        c.history.push(msg);
+        for (const a of msg.annotations || []) {
+          const ci = a.url_citation || a;
+          if (a.type === 'url_citation' && ci.url) out.sources.push({url: ci.url, title: ci.title || ci.url});
+        }
+        const calls = msg.tool_calls || [];
+        if (!calls.length) {
+          out.text = typeof msg.content === 'string' ? msg.content
+            : (msg.content || []).map(x => x.text || '').join('');
+          if (choice.finish_reason === 'length') out.text += '\n\n_The answer was cut off at the length limit._';
+          return out;
+        }
+        for (const call of calls) {
+          const name = call.function && call.function.name;
+          let args = {};
+          try { args = JSON.parse((call.function && call.function.arguments) || '{}') || {}; } catch (_) {}
+          c.step({kind: name, text: describe(name, args)});
+          const r = await c.tool(name, args);
+          c.history.push({role: 'tool', tool_call_id: call.id, content: JSON.stringify(r)});
+        }
+      }
+      out.text = '_Stopped after too many tool calls; ask again more narrowly._';
+      return out;
+    },
+  };
+}
+
 // Each provider keeps the conversation in its own format (`history`, appended
 // to and never edited) and can rebuild one from the plain transcript when the
 // reader switches provider. `c` carries: key, model, web, system, question,
-// history, signal, tool(name, args), step({kind, text}).
+// history, signal, tool(name, args), step({kind, text}). `models` are the ones
+// offered in the menu, each checked against the provider's API with these
+// tools and web search; the reader can also type any other model id.
 const PROVIDERS = {
   gemini: {
     label: 'Google Gemini',
     model: 'gemini-3.8-flash',
+    models: [
+      ['gemini-3.8-flash', 'Gemini 3.8 Flash'],
+      ['gemini-3.1-pro-preview', 'Gemini 3.1 Pro (preview)'],
+      ['gemini-pro-latest', 'Gemini Pro (latest)'],
+      ['gemini-3.7-flash', 'Gemini 3.7 Flash'],
+      ['gemini-3.6-flash', 'Gemini 3.6 Flash'],
+      ['gemini-3.5-flash', 'Gemini 3.5 Flash'],
+      ['gemini-3.5-flash-lite', 'Gemini 3.5 Flash-Lite'],
+      ['gemini-3.1-flash-lite', 'Gemini 3.1 Flash-Lite'],
+    ],
+    web: true,
     keyUrl: 'https://aistudio.google.com/apikey',
     fromTranscript: turns => turns.map(t => ({role: t.role === 'user' ? 'user' : 'model', parts: [{text: t.text}]})),
     async run(c) {
@@ -293,15 +371,23 @@ const PROVIDERS = {
   anthropic: {
     label: 'Anthropic Claude',
     model: 'claude-opus-5-5',
+    models: [
+      ['claude-opus-5-5', 'Claude Opus 5.5'],
+      ['claude-fable-5-1', 'Claude Fable 5.1'],
+      ['claude-sonnet-5-5', 'Claude Sonnet 5.5'],
+      ['claude-opus-5', 'Claude Opus 5'],
+      ['claude-haiku-4-5', 'Claude Haiku 4.5'],
+    ],
+    web: true,
     keyUrl: 'https://console.anthropic.com/settings/keys',
     fromTranscript: turns => turns.map(t => ({role: t.role, content: t.text})),
     async run(c) {
       const tools = TOOLS.map(t => ({name: t.name, description: t.description, input_schema: t.parameters}));
-      if (c.web) {
-        // The dynamic-filtering web search needs a recent model; older ones get the basic one.
-        const recent = /claude-(opus-(4-[6-9]|5)|sonnet-(4-6|5)|fable)/.test(c.model);
-        tools.push({type: recent ? 'web_search_20260209' : 'web_search_20250305', name: 'web_search', max_uses: 5});
-      }
+      // The dynamic-filtering web search needs a recent model; older ones get
+      // the basic one, and so does a model that turns the newer one down.
+      const search = {type: /claude-(opus-(4-[6-9]|5)|sonnet-(4-6|5)|fable)/.test(c.model)
+        ? 'web_search_20260209' : 'web_search_20250305', name: 'web_search', max_uses: 5};
+      if (c.web) tools.push(search);
       // Server-side fallback when a safety classifier declines, on the models that have it.
       let fallbacks = /claude-(fable-5-1|opus-5|sonnet-5-5)/.test(c.model);
       c.history.push({role: 'user', content: c.question});
@@ -324,6 +410,11 @@ const PROVIDERS = {
         } catch (err) {
           if (fallbacks && err.status === 400 && /fallback|beta/i.test(err.message)) {
             fallbacks = false;
+            round--;
+            continue;
+          }
+          if (c.web && search.type !== 'web_search_20250305' && err.status === 400 && /web_search/.test(err.message)) {
+            search.type = 'web_search_20250305';
             round--;
             continue;
           }
@@ -367,6 +458,17 @@ const PROVIDERS = {
   openai: {
     label: 'OpenAI',
     model: 'gpt-5.5',
+    models: [
+      ['gpt-5.5', 'GPT-5.5'],
+      ['gpt-6.1-sol', 'GPT-6.1 Sol'],
+      ['gpt-6-sol', 'GPT-6 Sol'],
+      ['gpt-6-luna', 'GPT-6 Luna'],
+      ['gpt-6-astra', 'GPT-6 Astra'],
+      ['gpt-5.6-sol', 'GPT-5.6 Sol'],
+      ['gpt-5.4', 'GPT-5.4'],
+      ['gpt-5.4-mini', 'GPT-5.4 mini'],
+    ],
+    web: true,
     keyUrl: 'https://platform.openai.com/api-keys',
     fromTranscript: turns => turns.map(t => ({role: t.role, content: t.text})),
     async run(c) {
@@ -421,6 +523,41 @@ const PROVIDERS = {
       return out;
     },
   },
+
+  // DeepSeek has no web search of its own.
+  deepseek: chatCompletions({
+    label: 'DeepSeek',
+    url: 'https://api.deepseek.com/chat/completions',
+    model: 'deepseek-flash',
+    models: [
+      ['deepseek-flash', 'DeepSeek V4.1 Flash'],
+      ['deepseek-v4-pro', 'DeepSeek V4 Pro'],
+    ],
+    keyUrl: 'https://platform.deepseek.com/api_keys',
+  }),
+
+  // One key for many vendors' models; web search through its web plugin.
+  openrouter: chatCompletions({
+    label: 'OpenRouter',
+    url: 'https://openrouter.ai/api/v1/chat/completions',
+    model: 'anthropic/claude-opus-5.5',
+    models: [
+      ['anthropic/claude-opus-5.5', 'Claude Opus 5.5'],
+      ['anthropic/claude-sonnet-5.5', 'Claude Sonnet 5.5'],
+      ['anthropic/claude-fable-5.1', 'Claude Fable 5.1'],
+      ['openai/gpt-6.1-sol', 'GPT-6.1 Sol'],
+      ['openai/gpt-6-luna', 'GPT-6 Luna'],
+      ['google/gemini-3.8-flash', 'Gemini 3.8 Flash'],
+      ['x-ai/grok-4.7', 'Grok 4.7'],
+      ['qwen/qwen3.8-max-prime', 'Qwen3.8 Max Prime'],
+      ['z-ai/glm-5.3-prime', 'GLM 5.3 Prime'],
+      ['deepseek/deepseek-v4.1-flash', 'DeepSeek V4.1 Flash'],
+      ['xiaomi/mimo-v2.6-pro', 'MiMo V2.6 Pro'],
+      ['meta/muse-spark-1.3', 'Muse Spark 1.3'],
+    ],
+    keyUrl: 'https://openrouter.ai/keys',
+    webPlugin: {plugins: [{id: 'web', max_results: 5}]},
+  }),
 };
 
 function describe(tool, args) {
@@ -456,6 +593,7 @@ if (!root) return;
 const $ = id => document.getElementById(id);
 const el = {
   set: $('chat-set'), sum: $('chat-set-sum'), provider: $('chat-provider'), model: $('chat-model'),
+  other: $('chat-other'), otherRow: $('chat-other-row'), webRow: $('chat-web-row'),
   key: $('chat-key'), web: $('chat-web'), remember: $('chat-remember'), keylink: $('chat-keylink'),
   log: $('chat-log'), empty: $('chat-empty'), form: $('chat-form'), q: $('chat-q'),
   send: $('chat-send'), fresh: $('chat-new'), usage: $('chat-usage'),
@@ -480,26 +618,53 @@ function saveKey() {
   store.set('sessionStorage', 'key:' + p, k || null);
   store.set('localStorage', 'key:' + p, el.remember.checked && k ? k : null);
 }
+// The model menu lists the provider's models and "Other model…", which opens
+// a field for any model id the provider offers.
+const OTHER = '';
+function currentModel() {
+  const p = PROVIDERS[el.provider.value];
+  return el.model.value === OTHER ? (el.other.value.trim() || p.model) : el.model.value;
+}
+function webOn() {
+  return el.web.checked && PROVIDERS[el.provider.value].web;
+}
 function saveSettings() {
   settings.provider = el.provider.value;
-  settings.models[el.provider.value] = el.model.value.trim();
+  settings.models[el.provider.value] = currentModel();
   settings.web = el.web.checked;
   settings.remember = el.remember.checked;
   store.set('localStorage', 'settings', JSON.stringify(settings));
 }
+function showOther() {
+  el.otherRow.hidden = el.model.value !== OTHER;
+}
 function showProvider() {
-  const p = el.provider.value;
-  el.model.value = settings.models[p] || PROVIDERS[p].model;
-  el.model.placeholder = PROVIDERS[p].model;
+  const p = el.provider.value, P = PROVIDERS[p];
+  el.model.replaceChildren(...P.models.map(([id, label]) => {
+    const o = new Option(label, id);
+    o.title = id;
+    return o;
+  }), new Option('Other model…', OTHER));
+  const saved = settings.models[p] || P.model;
+  if (P.models.some(([id]) => id === saved)) {
+    el.model.value = saved;
+  } else {
+    el.model.value = OTHER;
+    el.other.value = saved;
+  }
+  showOther();
+  el.web.disabled = !P.web;
+  el.webRow.classList.toggle('off', !P.web);
+  el.webRow.title = P.web ? '' : `${P.label} has no web search; it answers from the knowledgebase`;
   el.key.value = keyFor(p);
-  el.keylink.href = PROVIDERS[p].keyUrl;
-  el.keylink.textContent = `Get a ${PROVIDERS[p].label} key`;
+  el.keylink.href = P.keyUrl;
+  el.keylink.textContent = `Get a ${P.label} key`;
   summary();
 }
 function summary() {
   const k = el.key.value.trim();
-  el.sum.textContent = `${PROVIDERS[el.provider.value].label} · ${el.model.value.trim() || PROVIDERS[el.provider.value].model}` +
-    (el.web.checked ? ' · web' : '') + (k ? ' · key set' : ' · no key yet');
+  el.sum.textContent = `${PROVIDERS[el.provider.value].label} · ${currentModel()}` +
+    (webOn() ? ' · web' : '') + (k ? ' · key set' : ' · no key yet');
 }
 
 el.provider.value = PROVIDERS[settings.provider] ? settings.provider : 'gemini';
@@ -508,7 +673,14 @@ el.remember.checked = !!settings.remember;
 showProvider();
 if (el.key.value) el.set.open = false;
 el.provider.addEventListener('change', () => { showProvider(); saveSettings(); });
-el.model.addEventListener('change', () => { saveSettings(); summary(); });
+el.model.addEventListener('change', () => {
+  showOther();
+  if (el.model.value === OTHER) el.other.focus();
+  saveSettings();
+  summary();
+});
+el.other.addEventListener('change', () => { saveSettings(); summary(); });
+el.other.addEventListener('input', summary);
 el.web.addEventListener('change', () => { saveSettings(); summary(); });
 el.key.addEventListener('input', () => { saveKey(); summary(); });
 el.remember.addEventListener('change', () => { saveKey(); saveSettings(); });
@@ -622,12 +794,13 @@ const STEP_WORDS = {
   search_knowledgebase: 'Searched the knowledgebase for',
   get_entry: 'Read',
   web: 'Searched the web for',
+  note: 'Note:',
 };
 
 function stepsHtml(steps) {
   if (!steps || !steps.length) return '';
   return `<ul class="chat-steps">${steps.map(s =>
-    `<li data-kind="${esc(s.kind)}">${esc(STEP_WORDS[s.kind] || s.kind)} ${s.kind === 'get_entry' ? `<code>${esc(s.text)}</code>` : (s.text ? `“${esc(s.text)}”` : '')}</li>`).join('')}</ul>`;
+    `<li data-kind="${esc(s.kind)}">${esc(STEP_WORDS[s.kind] || s.kind)} ${s.kind === 'get_entry' ? `<code>${esc(s.text)}</code>` : s.kind === 'note' ? esc(s.text) : (s.text ? `“${esc(s.text)}”` : '')}</li>`).join('')}</ul>`;
 }
 
 function sourcesHtml(sources) {
@@ -684,7 +857,8 @@ async function submit(question) {
   if (!question) return;
   const provider = el.provider.value;
   const key = el.key.value.trim();
-  const model = el.model.value.trim() || PROVIDERS[provider].model;
+  const model = currentModel();
+  const web = webOn();
   if (!key) {
     el.set.open = true;
     el.key.focus();
@@ -719,8 +893,8 @@ async function submit(question) {
     const today = new Date().toISOString().slice(0, 10);
     const out = await ask({
       provider, key, model, kb,
-      web: el.web.checked,
-      system: systemPrompt(kb, el.web.checked, today),
+      web,
+      system: systemPrompt(kb, web, today),
       question,
       history: native.history,
       signal: ctrl.signal,

@@ -1971,6 +1971,13 @@ def render_chat(s: Site) -> str:
   you, links every entry it uses, and can search the web for what the knowledgebase
   does not cover. It runs on your own API key.</p>
 </header>
+<aside class="note chat-privacy" aria-label="Your API key">
+  <p><strong>We do not collect your API key.</strong> AFTD has no server behind this
+  page: it runs in your browser, and your key goes only to the provider you choose,
+  straight from your browser over HTTPS. Your key, your questions and the answers are
+  never sent to us, stored by us or logged by us. You can check this in
+  <a href="{e(s.blob("web/static/chat.js"))}">the page&rsquo;s code</a>.</p>
+</aside>
 <div class="chat" id="chat" data-index="{root}{CHAT_INDEX}" data-detail="{root}{CHAT_DETAIL}">
   <details class="card chat-set" id="chat-set" open>
     <summary><span class="chat-set-h">Model and key</span>
@@ -1981,23 +1988,27 @@ def render_chat(s: Site) -> str:
           <option value="gemini">Google Gemini</option>
           <option value="anthropic">Anthropic Claude</option>
           <option value="openai">OpenAI</option>
+          <option value="openrouter">OpenRouter (many vendors, one key)</option>
+          <option value="deepseek">DeepSeek</option>
         </select></label>
-      <label>Model <input id="chat-model" type="text" spellcheck="false" autocomplete="off"></label>
+      <label>Model <select id="chat-model"></select></label>
+      <label class="wide" id="chat-other-row" hidden>Model id
+        <input id="chat-other" type="text" spellcheck="false" autocomplete="off"
+               placeholder="Any model id the provider offers"></label>
       <label class="wide">API key
         <input id="chat-key" type="password" spellcheck="false" autocomplete="off"
-               placeholder="Paste your key"></label>
+               placeholder="Paste your key; it stays in your browser"></label>
     </div>
     <div class="chat-opts">
-      <label class="switch"><input type="checkbox" id="chat-web" checked> Search the web too</label>
+      <label class="switch" id="chat-web-row"><input type="checkbox" id="chat-web" checked> Search the web too</label>
       <label class="switch"><input type="checkbox" id="chat-remember"> Remember the key on this device</label>
       <a class="small" id="chat-keylink" href="#" target="_blank" rel="noopener noreferrer">Get a key</a>
     </div>
-    <p class="small">The key never reaches AFTD: this page sends your questions, with the
-    knowledgebase entries the model asks for, straight from your browser to the provider
-    you pick, and the provider bills your account. Unless you tick <em>Remember</em>, the
-    key is forgotten when you close the tab. Answers come from a language model: check
-    what it says against the linked entries, and treat only an entry marked
-    <em>verified in Lean</em> as proved.</p>
+    <p class="small">The provider bills your account for what you ask. Unless you tick
+    <em>Remember</em>, the key is kept only in this tab and forgotten when you close it;
+    with <em>Remember</em> it stays in this browser, on this device, until you clear it.
+    Answers come from a language model: check what it says against the linked entries,
+    and treat only an entry marked <em>verified in Lean</em> as proved.</p>
   </details>
   <section class="chat-log" id="chat-log" aria-live="polite">
     <div class="chat-empty" id="chat-empty">

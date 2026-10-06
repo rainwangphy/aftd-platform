@@ -33,6 +33,9 @@ Pages:
     problems/<number>/          one reviewed problem and what answers it
     news/                       the address the news first had, forwarding to the
                                 home page's News section
+    chat/                       ask the knowledgebase (experimental): a chat that
+                                runs in the browser on the reader's own API key,
+                                reading chat/kb-index.json and chat/kb-detail.json
     reports/                    the summary reports, weekly and monthly, newest
                                 first, tagged by period, with search and filters
     weekly/<week>/              one week: what was settled, what is open
@@ -359,6 +362,7 @@ NAV = [
     ("knowledgebase/", "Knowledgebase"),
     ("reports/", "Summary Report"),
     ("problems/", "Open Problems"),
+    ("chat/", "Ask"),
 ]
 
 
@@ -442,6 +446,7 @@ def page(
       <a href="{root}problems/">Open Problems</a>
       <a href="{root}index.html#news">News</a>
       <a href="{root}reports/">Summary Report</a>
+      <a href="{root}chat/">Ask the Knowledgebase</a>
       <a href="{root}problems/#submit">Submit a problem</a>
     </div>
     <div class="foot-col">
@@ -1045,7 +1050,8 @@ def render_kb(s: Site) -> str:
   <p class="lead full">{t["declarations"]} declarations &mdash; {t["theorems"]} theorems and
   {t["definitions"]} definitions in {t["topics"]} topics &mdash; each elaborated by
   Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. The graph
-  shows what each one builds on; the list below has them all, by topic.
+  shows what each one builds on; the list below has them all, by topic. You can
+  also <a href="{root}chat/">ask it questions</a> in plain words (experimental).
   {f"It also lists, marked <em>not yet proved</em>, the {len(unproved)} statements the machine has posed and not proved: they type-check in Lean, and nothing more is claimed for them." if unproved else ""}</p>
   {provenance_key(s)}
 </header>
@@ -1847,6 +1853,183 @@ def render_404(s: Site) -> str:
     return page(s, title="Not found", root=base, active="", body=body)
 
 
+# --------------------------------------------------------------------- chat
+# The chat page (experimental) runs in the reader's browser with the reader's
+# own API key. The model reads the knowledgebase through two tools that
+# static/chat.js answers from these files: a search index of everything the
+# site lists, and the long fields of each declaration, fetched only when the
+# model asks for one.
+CHAT_INDEX = "chat/kb-index.json"
+CHAT_DETAIL = "chat/kb-detail.json"
+CHAT_STATEMENT = 1500  # characters of a Lean statement kept in the index
+
+
+def chat_data(s: Site) -> tuple[dict, dict]:
+    entries = []
+    for d in s.decls:
+        entries.append({
+            "type": "declaration",
+            "name": d["name"],
+            "kind": d["kind"],
+            "status": ("definition" if d["is_def"] else
+                       "verified in Lean" if s.verified(d) else "uses untrusted axioms"),
+            "domain": s.domain_title(d["domain"]),
+            "topic": s.topic_title(d["topic"]),
+            "informal": d.get("informal") or "",
+            "statement": (d.get("statement") or "")[:CHAT_STATEMENT],
+            "provenance": PROVENANCE.get(d.get("provenance") or "", ("",))[0],
+            "citation": d.get("citation") or "",
+            "problem": d.get("problem"),
+            "url": f"d/{slug(d['name'])}/",
+        })
+    for n in s.open:
+        entries.append({
+            "type": "declaration",
+            "name": n["name"],
+            "kind": n.get("kind") or "theorem",
+            "status": "stated in Lean, not yet proved",
+            "domain": s.domain_title(n.get("domain") or ""),
+            "topic": s.topic_title(n.get("topic") or ""),
+            "informal": n.get("informal") or "",
+            "statement": (n.get("statement") or "")[:CHAT_STATEMENT],
+            "provenance": "",
+            "citation": n.get("citation") or "",
+            "problem": n.get("problem"),
+            "url": f"knowledgebase/?q={quote(n['name'])}&kind=open",
+        })
+    for p in s.literature:
+        entries.append({
+            "type": "open_problem",
+            "name": p["ref"],
+            "title": p["title"],
+            "status": STATUS_TITLES[literature.status(p)],
+            "domain": s.domain_title(p.get("domain") or ""),
+            "topic": s.topic_title(p.get("topic") or ""),
+            "statement": p.get("statement") or "",
+            "source": ", ".join(x for x in (p.get("source"), p.get("location")) if x),
+            "source_title": p.get("source_title") or "",
+            "known": p.get("rationale") or "",
+            "lean": [{"name": l["node"], "role": l["role"]} for l in p.get("links") or []],
+            "url": f"problems/#{quote(p['ref'])}",
+        })
+    for p in s.problems:
+        if p["status"] in ("pending", "declined"):
+            continue  # unreviewed or declined submissions are never published
+        entries.append({
+            "type": "community_problem",
+            "name": f"#{p['number']}",
+            "title": p["title"],
+            "status": STATUS_TITLES.get(p["status"], p["status"]),
+            "domain": p["fields"].get("domain") or "",
+            "topic": p["fields"].get("topic") or "",
+            "statement": p["fields"].get("statement") or "",
+            "lean": [{"name": n["name"], "role": "answer"}
+                     for n in s.answers.get(p["number"], [])],
+            "url": f"problems/{p['number']}/",
+        })
+    t = s.kb["totals"]
+    index = {
+        "generated": s.kb["generated"],
+        "trusted_axioms": s.kb["trusted_axioms"],
+        "totals": {k: t[k] for k in ("declarations", "theorems", "definitions", "topics")
+                   if k in t},
+        "domains": [
+            {"title": dm["title"],
+             "topics": [tp["title"] for tp in dm["topics"]]}
+            for dm in s.kb["domains"]
+        ],
+        "entries": entries,
+    }
+    detail = {
+        d["name"]: {
+            "source": d.get("source") or "",
+            "reading": d.get("reading") or "",
+            "explanation": d.get("explanation") or "",
+            "deps": d.get("deps") or [],
+            "used_by": d.get("used_by") or [],
+            "axioms": d.get("axioms") or [],
+            "lean_path": d.get("lean_path") or "",
+            "source_url": s.blob(d["lean_path"]) if d.get("lean_path") else "",
+        }
+        for d in s.decls
+    }
+    return index, detail
+
+
+def render_chat(s: Site) -> str:
+    root = "../"
+    t = s.kb["totals"]
+    body = f"""
+<header class="phead">
+  <p class="eyebrow">Experimental</p>
+  <h1>Ask the Knowledgebase</h1>
+  <p class="lead full">Ask in plain words about the {t["declarations"]} declarations, the
+  open problems and what Lean has settled. The model searches the knowledgebase for
+  you, links every entry it uses, and can search the web for what the knowledgebase
+  does not cover. It runs on your own API key.</p>
+</header>
+<div class="chat" id="chat" data-index="{root}{CHAT_INDEX}" data-detail="{root}{CHAT_DETAIL}">
+  <details class="card chat-set" id="chat-set" open>
+    <summary><span class="chat-set-h">Model and key</span>
+    <span class="small" id="chat-set-sum"></span></summary>
+    <div class="chat-grid">
+      <label>Provider
+        <select id="chat-provider">
+          <option value="gemini">Google Gemini</option>
+          <option value="anthropic">Anthropic Claude</option>
+          <option value="openai">OpenAI</option>
+        </select></label>
+      <label>Model <input id="chat-model" type="text" spellcheck="false" autocomplete="off"></label>
+      <label class="wide">API key
+        <input id="chat-key" type="password" spellcheck="false" autocomplete="off"
+               placeholder="Paste your key"></label>
+    </div>
+    <div class="chat-opts">
+      <label class="switch"><input type="checkbox" id="chat-web" checked> Search the web too</label>
+      <label class="switch"><input type="checkbox" id="chat-remember"> Remember the key on this device</label>
+      <a class="small" id="chat-keylink" href="#" target="_blank" rel="noopener noreferrer">Get a key</a>
+    </div>
+    <p class="small">The key never reaches AFTD: this page sends your questions, with the
+    knowledgebase entries the model asks for, straight from your browser to the provider
+    you pick, and the provider bills your account. Unless you tick <em>Remember</em>, the
+    key is forgotten when you close the tab. Answers come from a language model: check
+    what it says against the linked entries, and treat only an entry marked
+    <em>verified in Lean</em> as proved.</p>
+  </details>
+  <section class="chat-log" id="chat-log" aria-live="polite">
+    <div class="chat-empty" id="chat-empty">
+      <p class="prose">Try one of these, or ask your own question.</p>
+      <div class="chat-starters">
+        <button type="button" class="chip">What has been proved here about envy-free allocation of chores?</button>
+        <button type="button" class="chip">Which open problems from the literature are settled in Lean, and how?</button>
+        <button type="button" class="chip">Explain the Lean statement of condorcet_winner_unique and what it depends on.</button>
+        <button type="button" class="chip">What is the best known approximation for maximin share allocations, and which parts of it are in the knowledgebase?</button>
+      </div>
+    </div>
+  </section>
+  <form class="chat-form" id="chat-form">
+    <label class="vh" for="chat-q">Your question</label>
+    <textarea id="chat-q" rows="2" placeholder="Ask about a theorem, a topic or an open problem"></textarea>
+    <div class="chat-acts">
+      <button type="button" class="linkish" id="chat-new">New chat</button>
+      <span class="small" id="chat-usage"></span>
+      <button type="submit" class="btn primary" id="chat-send">Ask</button>
+    </div>
+  </form>
+</div>
+<script defer src="{root}static/chat.js"></script>
+"""
+    return page(
+        s,
+        title="Ask the Knowledgebase",
+        root=root,
+        active="chat/",
+        body=body,
+        math=True,
+        description="Chat with the AFTD knowledgebase, with your own API key (experimental).",
+    )
+
+
 # -------------------------------------------------------------------- build
 def build(
     kb: dict,
@@ -1878,6 +2061,10 @@ def build(
     for period, P in PERIODS.items():
         for i, r in enumerate(s.reports(period)):
             write(f"{P['dir']}/{r['week']}/index.html", render_weekly(s, i, period))
+    write("chat/index.html", render_chat(s))
+    index, detail = chat_data(s)
+    write(CHAT_INDEX, json.dumps(index, ensure_ascii=False, separators=(",", ":")))
+    write(CHAT_DETAIL, json.dumps(detail, ensure_ascii=False, separators=(",", ":")))
     write("404.html", render_404(s))
     for d in s.decls:
         write(f"d/{slug(d['name'])}/index.html", render_decl(s, d))

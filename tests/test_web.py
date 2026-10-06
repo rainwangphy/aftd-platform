@@ -286,6 +286,26 @@ def main() -> int:
         check("a declined problem gets no page of its own",
               "problems/12/index.html" not in pages and "DECLINED-BODY" not in everything)
         check("the pending count links to GitHub", "awaiting review" in pages["problems/index.html"])
+        print("chat")
+        chat = pages.get("chat/index.html", "")
+        check("the chat page is built and in the navigation",
+              "static/chat.js" in chat and 'href="../chat/" aria-current="page">Ask<' in chat)
+        index_raw = (out / "chat" / "kb-index.json").read_text(encoding="utf-8")
+        detail = json.loads((out / "chat" / "kb-detail.json").read_text(encoding="utf-8"))
+        by = {x["name"]: x for x in json.loads(index_raw)["entries"]}
+        check("the chat index holds every declaration, unproved statement and problem",
+              {"answer_ten", "plain_one", "machine_open", "OP-7", "#10"} <= set(by), str(sorted(by)))
+        check("the chat index keeps statuses exact",
+              by["answer_ten"]["status"] == "verified in Lean"
+              and by["machine_open"]["status"].startswith("stated")
+              and by["#10"]["lean"] == [{"name": "answer_ten", "role": "answer"}])
+        check("the chat index links entries relative to the site root",
+              by["answer_ten"]["url"] == "d/answer_ten/" and by["OP-7"]["url"] == "problems/#OP-7")
+        check("an unreviewed or declined submission never reaches the chat index",
+              "#11" not in by and "#12" not in by and "UNREVIEWED-TEXT-MARKER" not in index_raw
+              and "DECLINED-BODY" not in index_raw)
+        check("the chat detail holds each declaration's Lean source",
+              set(detail) == {"answer_ten", "plain_one"} and "source" in detail["answer_ten"])
         prob = pages.get("problems/10/index.html", "")
         check("a problem page links the declaration that answers it",
               'href="../../d/answer_ten/"' in prob)

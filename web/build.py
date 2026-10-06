@@ -33,7 +33,8 @@ Pages:
     problems/<number>/          one reviewed problem and what answers it
     news/                       the address the news first had, forwarding to the
                                 home page's News section
-    chat/                       ask the knowledgebase (experimental): a chat that
+    chat/                       chat with the knowledgebase (experimental), opened
+                                from the button beside the dependency graph: a chat that
                                 runs in the browser on the reader's own API key,
                                 reading chat/kb-index.json and chat/kb-detail.json
     reports/                    the summary reports, weekly and monthly, newest
@@ -362,7 +363,6 @@ NAV = [
     ("knowledgebase/", "Knowledgebase"),
     ("reports/", "Summary Report"),
     ("problems/", "Open Problems"),
-    ("chat/", "Ask"),
 ]
 
 
@@ -446,7 +446,7 @@ def page(
       <a href="{root}problems/">Open Problems</a>
       <a href="{root}index.html#news">News</a>
       <a href="{root}reports/">Summary Report</a>
-      <a href="{root}chat/">Ask the Knowledgebase</a>
+      <a href="{root}chat/">Chat with the Knowledgebase</a>
       <a href="{root}problems/#submit">Submit a problem</a>
     </div>
     <div class="foot-col">
@@ -1050,8 +1050,7 @@ def render_kb(s: Site) -> str:
   <p class="lead full">{t["declarations"]} declarations &mdash; {t["theorems"]} theorems and
   {t["definitions"]} definitions in {t["topics"]} topics &mdash; each elaborated by
   Lean&nbsp;4 against Mathlib, with nothing outside the trusted axioms. The graph
-  shows what each one builds on; the list below has them all, by topic. You can
-  also <a href="{root}chat/">ask it questions</a> in plain words (experimental).
+  shows what each one builds on; the list below has them all, by topic.
   {f"It also lists, marked <em>not yet proved</em>, the {len(unproved)} statements the machine has posed and not proved: they type-check in Lean, and nothing more is claimed for them." if unproved else ""}</p>
   {provenance_key(s)}
 </header>
@@ -1187,9 +1186,12 @@ def graph_section(s: Site, root: str) -> str:
     )
     return f"""
 <section class="g-sec" id="graph" aria-labelledby="graph-h">
-<div class="g-title"><h2 id="graph-h">Dependency graph</h2>
+<div class="g-title"><div class="g-title-text"><h2 id="graph-h">Dependency graph</h2>
 <p class="small">One node per declaration, with an arrow to each result its proof uses.
 Click a node to follow its chain; double-click to open its proof.</p></div>
+<a class="btn primary g-chat" href="{root}chat/"
+  title="Ask questions about the knowledgebase in plain words, with your own API key">Chat with the
+  Knowledgebase <span class="g-chat-tag">Experimental</span></a></div>
 <div class="g-bar">
   <div class="search g-search">
     <label class="vh" for="g-q">Find a declaration</label>
@@ -1961,8 +1963,9 @@ def render_chat(s: Site) -> str:
     t = s.kb["totals"]
     body = f"""
 <header class="phead">
+  <nav class="crumbs"><a href="{root}knowledgebase/#graph">Knowledgebase</a> / Chat</nav>
   <p class="eyebrow">Experimental</p>
-  <h1>Ask the Knowledgebase</h1>
+  <h1>Chat with the Knowledgebase</h1>
   <p class="lead full">Ask in plain words about the {t["declarations"]} declarations, the
   open problems and what Lean has settled. The model searches the knowledgebase for
   you, links every entry it uses, and can search the web for what the knowledgebase
@@ -2021,9 +2024,9 @@ def render_chat(s: Site) -> str:
 """
     return page(
         s,
-        title="Ask the Knowledgebase",
+        title="Chat with the Knowledgebase",
         root=root,
-        active="chat/",
+        active="knowledgebase/",
         body=body,
         math=True,
         description="Chat with the AFTD knowledgebase, with your own API key (experimental).",

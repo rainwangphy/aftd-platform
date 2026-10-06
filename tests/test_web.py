@@ -288,8 +288,10 @@ def main() -> int:
         check("the pending count links to GitHub", "awaiting review" in pages["problems/index.html"])
         print("chat")
         chat = pages.get("chat/index.html", "")
-        check("the chat page is built and in the navigation",
-              "static/chat.js" in chat and 'href="../chat/" aria-current="page">Ask<' in chat)
+        check("the chat page is built, and opened from the graph, not the navigation",
+              "static/chat.js" in chat
+              and 'class="btn primary g-chat" href="../chat/"' in pages["knowledgebase/index.html"]
+              and not re.search(r'<nav aria-label="Site">[^\n]*chat/', everything))
         index_raw = (out / "chat" / "kb-index.json").read_text(encoding="utf-8")
         detail = json.loads((out / "chat" / "kb-detail.json").read_text(encoding="utf-8"))
         by = {x["name"]: x for x in json.loads(index_raw)["entries"]}

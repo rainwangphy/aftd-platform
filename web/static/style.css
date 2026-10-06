@@ -492,6 +492,12 @@ main.wrap>*,.pgroup>*,.split>div>*,.topic>*,.domain>*,.hero-grid>*{min-width:0}
 /* ------------------------------------------------------------ graph */
 .g-sec{display:flex;flex-direction:column;gap:12px;scroll-margin-top:72px}
 .g-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.g-title:has(.g-chat){flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:12px 20px}
+.g-title-text{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;min-width:0}
+.g-chat{flex:none;padding:8px 16px;font-size:14px}
+@media (max-width:720px){.g-title:has(.g-chat){flex-wrap:wrap;align-items:flex-start}}
+.g-chat-tag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  padding:1px 6px;border-radius:999px;border:1px solid currentColor;opacity:.85}
 .g-title h2,.rhead{margin:0;font-family:var(--prose);font-size:24px;font-weight:600;letter-spacing:-.01em}
 .rhead{margin-top:10px;margin-bottom:-12px;scroll-margin-top:72px}
 .g-bar{display:flex;flex-wrap:wrap;align-items:center;gap:9px 14px}

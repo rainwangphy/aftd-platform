@@ -706,6 +706,7 @@ def render_home(s: Site) -> str:
     n_topics = sum(len(d["topics"]) for d in doms)
     target = sum(tp["target"] for d in doms for tp in d["topics"])
     opened = sum(1 for d in doms if any(tp["proved"] for tp in d["topics"]))
+    prov = provenance_counts(s)
     per = t["spend"] / t["declarations"] if t["declarations"] else 0.0
 
     recent = sorted(s.decls, key=lambda d: (-d["proved_at"], -d["seq"]))[:5]
@@ -888,11 +889,14 @@ def render_home(s: Site) -> str:
   </div>
   <div class="rules not">
     <h2>What this is not</h2>
-    <p>It is not an attempt on open problems, and not a claim that mathematicians
-    are replaceable. Most of the knowledgebase is known mathematics, carefully
-    transcribed and machine-checked, plus a growing minority of modest original
-    statements. The value is in the aggregate &mdash; verified, open and
-    cumulative &mdash; not in any single line of it.</p>
+    <p>It is not a claim that mathematicians are replaceable, and it takes no
+    credit for other people's results. Most of the knowledgebase is known mathematics:
+    {prov["literature"]} theorems formalize a published result, and each one says so
+    and credits its source. {prov["original"]} were stated here, most of them answers
+    to questions that papers leave open; they cite the related work we found and
+    may still turn out to be known.{f' {prov["erratum"]} show a published claim to be false or incomplete.' if prov["erratum"] else ""}
+    The value is in the aggregate &mdash; verified, open and cumulative &mdash; not
+    in any single line of it.</p>
     <p>No one on this side takes an author line, and there will be no paper.</p>
   </div>
 </section>
@@ -916,10 +920,15 @@ def render_home(s: Site) -> str:
     return page(s, title=NAME, root=root, active="", body=body, math=bool(shown), wide=True)
 
 
+def provenance_counts(s: Site) -> dict[str, int]:
+    """How many theorems carry each provenance badge."""
+    return {k: sum(1 for d in s.decls if not d["is_def"] and d.get("provenance") == k)
+            for k in PROVENANCE}
+
+
 def provenance_key(s: Site) -> str:
     """What the provenance badges mean, with how many theorems carry each."""
-    n = {k: sum(1 for d in s.decls if not d["is_def"] and d.get("provenance") == k)
-         for k in PROVENANCE}
+    n = provenance_counts(s)
     return (
         f'<p class="small prov-key">{provenance_badge({"provenance": "literature"})[0]} '
         f'{n["literature"]} theorems formalize a published result: the result is the '

@@ -1444,14 +1444,19 @@ def render_problem(s: Site, p: dict) -> str:
 
 
 def submit_guide(s: Site) -> str:
-    """How submitting works, in one paragraph under the Submit button at the
-    top of the Problems page (where the old submit/ address lands)."""
-    return f"""<p class="small">Submit one precise statement as a GitHub issue; Lean is
+    """How submitting works, one paragraph folded under the Submit button at
+    the top of the Problems page. The old submit/ address lands on #submit,
+    which opens it."""
+    return f"""<details class="submit-guide" id="submit-guide">
+  <summary>How submitting works</summary>
+  <p class="small">Submit one precise statement as a GitHub issue; Lean is
   optional. Once a maintainer accepts it, the machine states it in Lean, checks
   that the statement says what you said, and tries to prove it. A proved problem
   appears here, credited to you. To dispute a result,
   <a href="{e(s.new_verdict())}">open a challenge</a>; for anything else, use
   <a href="{e(s.discussions())}">the discussions</a>.</p>
+</details>
+<script>if (location.hash === "#submit") document.getElementById("submit-guide").open = true;</script>
 """
 
 

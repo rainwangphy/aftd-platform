@@ -1,5 +1,5 @@
-// Search, filters and order on the knowledgebase page; copy buttons on Lean
-// blocks; math on the problem pages.
+// Search, filters and order on the knowledgebase page; search and filters on
+// the Summary Report page; copy buttons on Lean blocks; math on the problem pages.
 
 (function knowledgebase() {
   const root = document.getElementById('kb');
@@ -162,6 +162,67 @@
 
   readUrl();
   syncControls();
+  apply();
+})();
+
+(function reports() {
+  // The Summary Report page: search, the period tag and the month.
+  const list = document.getElementById('r-list');
+  if (!list) return;
+  const items = [...list.querySelectorAll('.rp')];
+  const q = document.getElementById('rq');
+  const month = document.getElementById('r-month');
+  const periods = [...document.querySelectorAll('.seg [data-period]')];
+  const count = document.getElementById('r-count');
+  const clear = document.getElementById('r-clear');
+  const empty = document.getElementById('r-empty');
+  const DEFAULTS = {q: '', period: 'all', month: 'all'};
+  const state = {...DEFAULTS};
+  const norm = t => t.toLowerCase().replace(/[_.\s]+/g, ' ').trim();
+
+  function apply() {
+    const words = norm(state.q).split(' ').filter(Boolean);
+    let shown = 0;
+    for (const el of items) {
+      const ok = (state.period === 'all' || el.dataset.period === state.period)
+        && (state.month === 'all' || el.dataset.months.split(' ').includes(state.month))
+        && words.every(w => el.dataset.q.includes(w));
+      el.hidden = !ok;
+      if (ok) shown++;
+    }
+    const filtered = Object.keys(DEFAULTS).some(k => state[k] !== DEFAULTS[k]);
+    const noun = n => `${n} report${n === 1 ? '' : 's'}`;
+    count.textContent = filtered ? `${shown} of ${noun(items.length)}` : noun(items.length);
+    clear.hidden = !filtered;
+    empty.hidden = shown !== 0;
+    const p = new URLSearchParams(location.search);
+    for (const [k, v] of Object.entries(state)) if (v !== DEFAULTS[k]) p.set(k, v); else p.delete(k);
+    const s = p.toString();
+    try { history.replaceState(null, '', (s ? '?' + s : location.pathname) + location.hash); } catch (_) {}
+  }
+  function sync() {
+    q.value = state.q;
+    month.value = [...month.options].some(o => o.value === state.month) ? state.month : 'all';
+    state.month = month.value;
+    for (const b of periods) b.setAttribute('aria-pressed', String(b.dataset.period === state.period));
+  }
+  function reset() { Object.assign(state, DEFAULTS); sync(); apply(); }
+
+  const p = new URLSearchParams(location.search);
+  for (const k of Object.keys(DEFAULTS)) if (p.has(k)) state[k] = p.get(k);
+  q.addEventListener('input', () => { state.q = q.value; apply(); });
+  q.addEventListener('keydown', ev => { if (ev.key === 'Escape' && q.value) { ev.preventDefault(); state.q = ''; q.value = ''; apply(); } });
+  month.addEventListener('change', () => { state.month = month.value; apply(); });
+  for (const b of periods) b.addEventListener('click', () => { state.period = b.dataset.period; sync(); apply(); });
+  clear.addEventListener('click', reset);
+  empty.querySelector('[data-clear]').addEventListener('click', reset);
+  document.addEventListener('keydown', ev => {
+    if (ev.key !== '/' || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    if (ev.target.closest && ev.target.closest('input, textarea, select, [contenteditable]')) return;
+    ev.preventDefault();
+    q.focus();
+  });
+  sync();
   apply();
 })();
 

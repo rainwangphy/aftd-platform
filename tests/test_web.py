@@ -319,7 +319,7 @@ def main() -> int:
         check("a listed problem links a verified declaration, and names an unproved one unlinked",
               'href="../d/answer_ten/"' in lit and "<code>machine_open</code>" in lit)
         check("the counts returned match",
-              n == {"declarations": 2, "problems": 2, "news": 6, "weekly": 0}, str(n))
+              n == {"declarations": 2, "problems": 2, "news": 6, "weekly": 0, "monthly": 0}, str(n))
 
         print("news")
         home = pages["index.html"]
@@ -388,9 +388,14 @@ def main() -> int:
     wnews = [{"date": "2026-10-05", "kind": "weekly", "week": "2026-W40",
               "title": "Week of 28 Sep - 4 Oct 2026: ten", "body": "WEEKLY-LEDE",
               "links": [{"label": "Read the weekly report", "href": "weekly/2026-W40/"}]}]
+    month = {**report, "week": "2026-09", "start": "2026-09-01", "end": "2026-09-30",
+             "period": "month", "title": "MONTHLY-TITLE", "summary": "MONTHLY-SUMMARY"}
+    mnews = [{"date": "2026-10-01", "kind": "monthly", "month": "2026-09",
+              "title": "September 2026: ten", "body": "MONTHLY-LEDE",
+              "links": [{"label": "Read the monthly report", "href": "monthly/2026-09/"}]}]
     with tempfile.TemporaryDirectory() as tmp:
         out = Path(tmp) / "_site"
-        n = build(data, [], cfg, out, wnews, [older, report])
+        n = build(data, [], cfg, out, wnews + mnews, [older, report], [month])
         pages = {p.relative_to(out).as_posix(): p.read_text(encoding="utf-8")
                  for p in out.rglob("*.html")}
         wk = pages.get("weekly/2026-W40/index.html", "")
@@ -426,6 +431,26 @@ def main() -> int:
                                                           "weekly/index.html"}))
         check("the old address of the reports forwards to them",
               "reports/" in pages.get("weekly/index.html", "") and "Moved" in pages["weekly/index.html"])
+        mo = pages.get("monthly/2026-09/index.html", "")
+        check("a monthly report has its page, laid out like a week's",
+              "Monthly report" in mo and "The month in one minute" in mo
+              and "MONTHLY-SUMMARY" in mo and "September 2026" in mo
+              and 'href="../../d/answer_ten/"' in mo)
+        check("the counts include the monthly reports", n.get("monthly") == 1, str(n))
+        check("the index lists every report in one list, each tagged by its period",
+              idx.count('class="news-item rp"') == 3 and "badge rp-week" in idx
+              and "badge rp-month" in idx and 'href="../monthly/2026-09/"' in idx
+              and "<h2>Weekly Reports</h2>" not in idx)
+        check("the index is newest first across periods",
+              0 < idx.find("weekly/2026-W40/") < idx.find("monthly/2026-09/") < idx.find("weekly/2026-W39/"))
+        check("the index has a search box, a period filter and a month filter",
+              'id="rq"' in idx and 'data-period="week"' in idx and 'data-period="month"' in idx
+              and '<option value="2026-09">September 2026</option>' in idx
+              and '<option value="2026-10">October 2026</option>' in idx and "app.js" in idx)
+        check("a week that straddles two months is under both",
+              'data-period="week" data-months="2026-09 2026-10"' in idx)
+        check("a monthly News item links to its report",
+              'href="monthly/2026-09/"' in pages["index.html"] and "Monthly report" in pages["index.html"])
 
     def wrefused(reports: list[dict], news: list[dict] | None = None) -> str:
         try:
@@ -453,6 +478,20 @@ def main() -> int:
           "format" in wrefused([{**report, "format": 1}]))
     check("a malformed week is refused", wrefused([{**report, "week": "2026-40"}]) != "")
     check("a weekly News item needs its report", "2026-W40" in wrefused([], wnews))
+
+    def mrefused(reports: list[dict], news: list[dict] | None = None) -> str:
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                build(data, [], cfg, Path(tmp) / "_site", news or [], [], reports)
+        except ValueError as ex:
+            return str(ex)
+        return ""
+
+    check("a well-formed monthly report builds", mrefused([month]) == "")
+    check("a monthly report needs a YYYY-MM label", mrefused([{**month, "week": "2026-W39"}]) != "")
+    check("a weekly report is not filed as a monthly one",
+          "not a monthly" in mrefused([{**month, "period": "week"}]))
+    check("a monthly News item needs its report", "2026-09" in mrefused([], mnews))
 
     def refused(entry: dict) -> str:
         try:

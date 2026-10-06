@@ -13,7 +13,8 @@ Inputs, all under `web/`:
 * `news.json` -- announcements, written by hand: launches and newly proved
   results. A proof announcement must name only declarations Lean verified, or
   the build stops.
-* `weekly/<week>.json` -- the weekly reports (`aftd interpret --week`): what
+* `weekly/<week>.json`, `monthly/<month>.json` -- the summary reports
+  (`aftd interpret --week` / `--month`): what
   Lean accepted that week, in words. Same rule: every declaration a report
   names must be verified, or the build stops.
 
@@ -32,9 +33,10 @@ Pages:
     problems/<number>/          one reviewed problem and what answers it
     news/                       the address the news first had, forwarding to the
                                 home page's News section
-    reports/                    the summary reports: every weekly report, newest
-                                first (monthly and yearly ones would join it)
+    reports/                    the summary reports, weekly and monthly, newest
+                                first, tagged by period, with search and filters
     weekly/<week>/              one week: what was settled, what is open
+    monthly/<month>/            one month, laid out the same way
     weekly/                     the old address of the reports, forwarding to
                                 reports/
     submit/                     the old address of the submission guide,
@@ -84,6 +86,7 @@ class Site:
         cfg: dict,
         news: list[dict] | None = None,
         weekly: list[dict] | None = None,
+        monthly: list[dict] | None = None,
     ):
         self.kb = kb
         self.cfg = cfg
@@ -119,7 +122,11 @@ class Site:
         for d in self.decls:
             self.in_topic.setdefault(d["topic"], []).append(d)
         self.weekly = check_weekly(self, weekly or [])
+        self.monthly = check_weekly(self, monthly or [], "month")
         self.news = check_news(self, news or [])
+
+    def reports(self, period: str) -> list[dict]:
+        return self.monthly if period == "month" else self.weekly
 
     def verified(self, d: dict) -> bool:
         """Whether a theorem's axioms are all trusted. An empty list is the
@@ -165,8 +172,18 @@ NEWS_KINDS = {
     "proof": "Proved",
     "daily": "Daily reading",
     "weekly": "Weekly report",
+    "monthly": "Monthly report",
 }
 _WEEK = re.compile(r"^\d{4}-W\d{2}$")
+_MONTH = re.compile(r"^\d{4}-(0[1-9]|1[0-2])$")
+# What a weekly and a monthly report differ in, on the site. A report's label
+# is stored under "week" for both (2026-W40, 2026-10).
+PERIODS = {
+    "week": {"dir": "weekly", "tag": "Weekly", "noun": "week", "label": _WEEK,
+             "format": "YYYY-Www", "news": "weekly", "key": "week"},
+    "month": {"dir": "monthly", "tag": "Monthly", "noun": "month", "label": _MONTH,
+              "format": "YYYY-MM", "news": "monthly", "key": "month"},
+}
 _DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -215,8 +232,10 @@ def check_news(s: Site, entries: list[dict]) -> list[dict]:
                 raise ValueError(f"{where}: not a verified theorem: {', '.join(unverified)}")
         if n["kind"] == "proof":
             check_news_provenance(s, where, n, names)
-        if n["kind"] == "weekly" and n.get("week") not in {r["week"] for r in s.weekly}:
-            raise ValueError(f"{where}: no weekly report for {n.get('week')!r} in weekly/")
+        for period, P in PERIODS.items():
+            if n["kind"] == P["news"] and n.get(P["key"]) not in {r["week"] for r in s.reports(period)}:
+                raise ValueError(f"{where}: no {P['news']} report for {n.get(P['key'])!r} "
+                                 f"in {P['dir']}/")
         nid = "n-" + n["date"] + "-" + (re.sub(r"[^a-z0-9]+", "-", n["title"].lower()).strip("-")[:48] or "x")
         if nid in seen:
             raise ValueError(f"{where}: two entries on the same day share a title")
@@ -230,19 +249,22 @@ WEEKLY_FORMAT = 2
 WEEKLY_OUTCOMES = ("proved", "disproved", "partial", "new", "formalized")
 
 
-def check_weekly(s: Site, reports: list[dict]) -> list[dict]:
-    """The weekly reports, newest first. Held to the News rule: a report that
-    names a declaration Lean has not verified stops the build."""
+def check_weekly(s: Site, reports: list[dict], period: str = "week") -> list[dict]:
+    """The weekly (or monthly) reports, newest first. Held to the News rule: a
+    report that names a declaration Lean has not verified stops the build."""
+    P = PERIODS[period]
     out, seen = [], set()
     for r in reports:
-        where = f"weekly report {r.get('week', '?')!r}"
-        if not _WEEK.match(r.get("week", "")):
-            raise ValueError(f"{where}: week must be YYYY-Www")
+        where = f"{P['news']} report {r.get('week', '?')!r}"
+        if not P["label"].match(r.get("week", "")):
+            raise ValueError(f"{where}: its label must be {P['format']}")
+        if r.get("period", "week") != period:
+            raise ValueError(f"{where}: it is a {r.get('period')} report, not a {P['news']} one")
         if r.get("format") != WEEKLY_FORMAT:
             raise ValueError(f"{where}: format {r.get('format')!r}, this build reads "
-                             f"{WEEKLY_FORMAT}; regenerate it with `aftd interpret --week`")
+                             f"{WEEKLY_FORMAT}; regenerate it with `aftd interpret --{period}`")
         if r["week"] in seen:
-            raise ValueError(f"{where}: two reports for one week")
+            raise ValueError(f"{where}: two reports for one {P['noun']}")
         seen.add(r["week"])
         for k in ("start", "end"):
             time.strptime(r.get(k, ""), "%Y-%m-%d")
@@ -1570,6 +1592,8 @@ def submit_guide(s: Site) -> str:
 def week_span(r: dict) -> str:
     a = time.strptime(r["start"], "%Y-%m-%d")
     b = time.strptime(r["end"], "%Y-%m-%d")
+    if r.get("period") == "month":
+        return time.strftime("%B %Y", a)
     if a.tm_mon == b.tm_mon:
         return f"{a.tm_mday}–{b.tm_mday} {time.strftime('%b %Y', b)}"
     return f"{a.tm_mday} {time.strftime('%b', a)} – {b.tm_mday} {time.strftime('%b %Y', b)}"
@@ -1584,44 +1608,99 @@ def outcome_badge(r: dict, x: dict) -> str:
     return badge(label, f"wk-{x['outcome']}")
 
 
+def report_months(r: dict) -> list[str]:
+    """The calendar months a report covers, as YYYY-MM: a week can straddle two."""
+    a, b = r["start"][:7], r["end"][:7]
+    return [a] if a == b else [a, b]
+
+
 def render_reports(s: Site) -> str:
-    """The summary reports, by period. Only weekly ones so far; a monthly or
-    yearly series would be one more section."""
+    """Every summary report in one list, newest first, each tagged by its
+    period, with a search box and filters for the period and the month. app.js
+    does the filtering; without JavaScript the whole list shows."""
     root = "../"
-    items = "".join(
-        f'<article class="news-item" id="{e(r["week"])}">'
-        f'<p class="news-when"><span>{e(r["week"])}</span>'
-        f'<span class="small">{e(week_span(r))}</span>'
-        f'<span class="small">{r.get("minutes", "?")} min read</span></p>'
-        f'<div class="news-main"><h3><a href="{root}weekly/{e(r["week"])}/">{e(r["title"])}</a></h3>'
-        f'<p class="prose">{e(r.get("summary", ""))}</p>'
-        + "".join(f'<p class="wk-hl">{outcome_badge(r, x)} {e(x["headline"])}</p>'
-                  for x in weekly_highlights(r))
-        + "</div></article>"
-        for r in s.weekly
+    reports = sorted(
+        [(p, r) for p in PERIODS for r in s.reports(p)],
+        key=lambda pr: (pr[1]["end"], pr[0] == "month"), reverse=True,
     )
+
+    def item(period: str, r: dict) -> str:
+        P = PERIODS[period]
+        hls = weekly_highlights(r)
+        hay = searchable(r["title"], r.get("summary", ""), r["week"], week_span(r),
+                         *(x["headline"] for x in hls))
+        return (
+            f'<article class="news-item rp" id="{e(period)}-{e(r["week"])}" '
+            f'data-period="{period}" data-months="{" ".join(report_months(r))}" '
+            f'data-q="{e(hay)}">'
+            f'<p class="news-when">{badge(P["tag"], f"rp-{period}")}<span>{e(r["week"])}</span>'
+            f'<span class="small">{e(week_span(r))}</span>'
+            f'<span class="small">{r.get("minutes", "?")} min read</span></p>'
+            f'<div class="news-main"><h3><a href="{root}{P["dir"]}/{e(r["week"])}/">'
+            f'{e(r["title"])}</a></h3>'
+            f'<p class="prose">{e(r.get("summary", ""))}</p>'
+            + "".join(f'<p class="wk-hl">{outcome_badge(r, x)} {e(x["headline"])}</p>'
+                      for x in hls)
+            + "</div></article>"
+        )
+
+    items = "".join(item(p, r) for p, r in reports)
+    months = sorted({m for _, r in reports for m in report_months(r)}, reverse=True)
+    month_opts = "".join(
+        f'<option value="{m}">{time.strftime("%B %Y", time.strptime(m, "%Y-%m"))}</option>'
+        for m in months
+    )
+    seg = "".join(
+        f'<button type="button" data-period="{k}" aria-pressed="{"true" if k == "all" else "false"}">'
+        f"{v}</button>"
+        for k, v in [("all", "All"), *((p, P["tag"]) for p, P in PERIODS.items())]
+    )
+    toolbar = f"""
+  <div class="toolbar">
+    <div class="search">
+      <label class="vh" for="rq">Search the reports</label>
+      <input id="rq" type="search" placeholder="Search the reports" autocomplete="off">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Period">{seg}</div>
+      <label class="vh" for="r-month">Month</label>
+      <select id="r-month"><option value="all">Any time</option>{month_opts}</select>
+    </div>
+  </div>
+  <p class="rcount"><span id="r-count" aria-live="polite">{_n_reports(len(reports))}</span>
+  <button type="button" class="linkish" id="r-clear" hidden>Clear filters</button></p>"""
     body = f"""
 <header class="phead">
   <p class="eyebrow">What Lean accepted, period by period</p>
   <h1>Summary Report</h1>
-  <p class="lead">The theorems Lean accepted over a period, told in about ten
-  minutes: what was settled, in which fields, from which papers, and what is still
-  open. Every theorem a report names links to its Lean proof.</p>
+  <p class="lead">The theorems Lean accepted over a week or a month, told in about
+  ten minutes: what was settled, in which fields, from which papers, and what is
+  still open. Every theorem a report names links to its Lean proof.</p>
 </header>
-<section class="band" id="weekly">
-  <header class="shead"><h2>Weekly Reports</h2><span class="n">{len(s.weekly)}</span></header>
-  {f'<div class="news-list">{items}</div>' if items else '<p class="prose">No weekly report yet.</p>'}
+<section class="rp-wrap" id="reports">
+  {toolbar if reports else ""}
+  {f'<div class="news-list" id="r-list">{items}</div>' if items else '<p class="prose">No report yet.</p>'}
+  <p class="prose" id="r-empty" hidden>No report matches.
+  <button type="button" class="linkish" data-clear>Clear filters</button></p>
 </section>"""
     return page(s, title="Summary Report", root=root, active="reports/", body=body,
-                description="What Lean accepted each week, in ten minutes.")
+                script=bool(reports),
+                description="What Lean accepted each week and each month, in ten minutes.")
 
 
-def render_weekly(s: Site, i: int) -> str:
-    """One week, laid out for a ten-minute read: the week in one minute, every
-    result at a glance, then one card per result by field, what is still open
-    and the terms. `s.weekly` is newest first, so the previous week is the next
-    item."""
-    r = s.weekly[i]
+def _n_reports(k: int) -> str:
+    return f"{k} report{'s' if k != 1 else ''}"
+
+
+def render_weekly(s: Site, i: int, period: str = "week") -> str:
+    """One week (or month), laid out for a ten-minute read: the week in one
+    minute, every result at a glance, then one card per result by field, what
+    is still open and the terms. The reports are newest first, so the previous
+    week is the next item."""
+    P = PERIODS[period]
+    reports = s.reports(period)
+    r = reports[i]
     root = "../../"
     n = 0
     anchors: list[tuple[dict, dict, str]] = []
@@ -1694,27 +1773,29 @@ def render_weekly(s: Site, i: int) -> str:
         if not x:
             return f'<span class="{cls}"></span>'
         return (
-            f'<a class="{cls}" href="{root}weekly/{e(x["week"])}/"><span class="small">{label}</span>'
+            f'<a class="{cls}" href="{root}{P["dir"]}/{e(x["week"])}/"><span class="small">{label}</span>'
             f'<span class="mono">{e(x["week"])}</span></a>'
         )
 
-    older = s.weekly[i + 1] if i + 1 < len(s.weekly) else None
-    newer = s.weekly[i - 1] if i > 0 else None
+    older = reports[i + 1] if i + 1 < len(reports) else None
+    newer = reports[i - 1] if i > 0 else None
+    noun = P["noun"]
     pager = (
-        f'<nav class="pager" aria-label="Weekly reports">{side(older, "prev", "&larr; Earlier week")}'
+        f'<nav class="pager" aria-label="{P["tag"]} reports">'
+        f'{side(older, "prev", f"&larr; Earlier {noun}")}'
         f'<a class="pos" href="{root}reports/"><span class="small">All reports</span></a>'
-        f'{side(newer, "next", "Later week &rarr;")}</nav>'
+        f'{side(newer, "next", f"Later {noun} &rarr;")}</nav>'
     )
-    partial = " (so far: the week is not over)" if r.get("partial") else ""
+    partial = f" (so far: the {noun} is not over)" if r.get("partial") else ""
     body = f"""
 <header class="phead">
-  <p class="eyebrow">Weekly report &middot; {e(r["week"])} &middot; {e(week_span(r))}{partial}
+  <p class="eyebrow">{P["tag"]} report &middot; {e(r["week"])} &middot; {e(week_span(r))}{partial}
   &middot; {r.get("minutes", "?")} min read</p>
   <h1>{e(r["title"])}</h1>
 </header>
 <section class="wk">
   <div class="wk-minute">
-    <p class="wk-label">The week in one minute</p>
+    <p class="wk-label">The {noun} in one minute</p>
     <p class="wk-sum">{e(r.get("summary", ""))}</p>
     <ul class="wk-hls">{hl}</ul>
     <p class="wk-num">{e(r.get("numbers", ""))}</p>
@@ -1727,7 +1808,7 @@ def render_weekly(s: Site, i: int) -> str:
   <p class="small"><em>{e(r.get("disclaimer", ""))}</em></p>
   {pager}
 </section>"""
-    return page(s, title=f"Weekly report {r['week']}", root=root, active="reports/",
+    return page(s, title=f"{P['tag']} report {r['week']}", root=root, active="reports/",
                 body=body, description=r.get("summary", ""))
 
 
@@ -1774,8 +1855,9 @@ def build(
     out: Path,
     news: list[dict] | None = None,
     weekly: list[dict] | None = None,
+    monthly: list[dict] | None = None,
 ) -> dict[str, int]:
-    s = Site(kb, issues, cfg, news, weekly)
+    s = Site(kb, issues, cfg, news, weekly, monthly)
     if out.exists():
         shutil.rmtree(out)
     shutil.copytree(HERE / "static", out / "static")
@@ -1793,8 +1875,9 @@ def build(
     write("news/index.html", render_moved(s, "#news"))
     write("reports/index.html", render_reports(s))
     write("weekly/index.html", render_moved(s, "reports/"))
-    for i, r in enumerate(s.weekly):
-        write(f"weekly/{r['week']}/index.html", render_weekly(s, i))
+    for period, P in PERIODS.items():
+        for i, r in enumerate(s.reports(period)):
+            write(f"{P['dir']}/{r['week']}/index.html", render_weekly(s, i, period))
     write("404.html", render_404(s))
     for d in s.decls:
         write(f"d/{slug(d['name'])}/index.html", render_decl(s, d))
@@ -1809,6 +1892,7 @@ def build(
         "problems": len(published),
         "news": len(s.news),
         "weekly": len(s.weekly),
+        "monthly": len(s.monthly),
     }
 
 
@@ -1820,6 +1904,7 @@ def main() -> int:
     ap.add_argument("--config", default=str(HERE / "site.json"))
     ap.add_argument("--news", default=str(HERE / "news.json"))
     ap.add_argument("--weekly", default=str(HERE / "weekly"))
+    ap.add_argument("--monthly", default=str(HERE / "monthly"))
     args = ap.parse_args()
     kb = json.loads(Path(args.kb).read_text(encoding="utf-8"))
     cfg = json.loads(Path(args.config).read_text(encoding="utf-8"))
@@ -1829,15 +1914,17 @@ def main() -> int:
     news = (
         json.loads(news_path.read_text(encoding="utf-8"))["entries"] if news_path.is_file() else []
     )
-    wd = Path(args.weekly)
-    weekly = [
-        json.loads(f.read_text(encoding="utf-8")) for f in sorted(wd.glob("*.json"))
-    ] if wd.is_dir() else []
-    n = build(kb, issues, cfg, Path(args.out), news, weekly)
+    def reports(d: str) -> list[dict]:
+        p = Path(d)
+        return [json.loads(f.read_text(encoding="utf-8"))
+                for f in sorted(p.glob("*.json"))] if p.is_dir() else []
+
+    n = build(kb, issues, cfg, Path(args.out), news, reports(args.weekly),
+              reports(args.monthly))
     print(
         f"wrote {args.out}  ({n['declarations']} declaration pages, "
         f"{n['problems']} problem pages, {n['news']} news entries, "
-        f"{n['weekly']} weekly reports)"
+        f"{n['weekly']} weekly and {n['monthly']} monthly reports)"
     )
     return 0
 

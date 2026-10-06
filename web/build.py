@@ -361,7 +361,7 @@ NAME = "AFTD"
 FULL_NAME = "Auto-Formalizing Theoretical Domains"
 NAV = [
     ("knowledgebase/", "Knowledgebase"),
-    ("reports/", "Summary Report"),
+    ("reports/", "Summary Reports"),
     ("problems/", "Open Problems"),
 ]
 
@@ -445,7 +445,7 @@ def page(
       <a href="{root}knowledgebase/#graph">Dependency graph</a>
       <a href="{root}problems/">Open Problems</a>
       <a href="{root}index.html#news">News</a>
-      <a href="{root}reports/">Summary Report</a>
+      <a href="{root}reports/">Summary Reports</a>
       <a href="{root}chat/">Chat with the Knowledgebase</a>
       <a href="{root}problems/#submit">Submit a problem</a>
     </div>
@@ -1681,7 +1681,7 @@ def render_reports(s: Site) -> str:
     body = f"""
 <header class="phead">
   <p class="eyebrow">What Lean accepted, period by period</p>
-  <h1>Summary Report</h1>
+  <h1>Summary Reports</h1>
   <p class="lead full">The theorems Lean accepted over a week or a month, told in about
   ten minutes: what was settled, in which fields, from which papers, and what is
   still open. Every theorem a report names links to its Lean proof.</p>
@@ -1692,7 +1692,7 @@ def render_reports(s: Site) -> str:
   <p class="prose" id="r-empty" hidden>No report matches.
   <button type="button" class="linkish" data-clear>Clear filters</button></p>
 </section>"""
-    return page(s, title="Summary Report", root=root, active="reports/", body=body,
+    return page(s, title="Summary Reports", root=root, active="reports/", body=body,
                 script=bool(reports),
                 description="What Lean accepted each week and each month, in ten minutes.")
 

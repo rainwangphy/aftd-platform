@@ -1,5 +1,5 @@
 // Search, filters and order on the knowledgebase page; search and filters on
-// the Summary Report page; copy buttons on Lean blocks; math on the problem pages.
+// the Summary Reports page; copy buttons on Lean blocks; math on the problem pages.
 
 (function knowledgebase() {
   const root = document.getElementById('kb');
@@ -166,7 +166,7 @@
 })();
 
 (function reports() {
-  // The Summary Report page: search, the period tag and the month.
+  // The Summary Reports page: search, the period tag and the month.
   const list = document.getElementById('r-list');
   if (!list) return;
   const items = [...list.querySelectorAll('.rp')];

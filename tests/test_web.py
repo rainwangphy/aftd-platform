@@ -448,8 +448,10 @@ def main() -> int:
               'href="../../weekly/2026-W39/"' in wk and "Earlier week" in wk)
         check("the weekly News item links to its report",
               'href="weekly/2026-W40/"' in pages["index.html"] and "Weekly report" in pages["index.html"])
+        check('the reports page is "Summary Reports", never the singular',
+              not re.search(r"Summary Report(?!s)", everything))
         check("every page's navigation links the summary reports",
-              all(re.search(r'href="(?:\.\./)*reports/"[^>]*>Summary Report<', v)
+              all(re.search(r'href="(?:\.\./)*reports/"[^>]*>Summary Reports<', v)
                   for k, v in pages.items() if k not in {"404.html", "results/index.html",
                                                           "news/index.html", "submit/index.html",
                                                           "weekly/index.html"}))

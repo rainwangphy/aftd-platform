@@ -2,6 +2,20 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-05",
+   "kind": "weekly",
+   "week": "2026-W40",
+   "title": "Week of 28 Sep – 4 Oct 2026: Swing Rigidity Proved, Fairness Map Settled, and Uniqueness Refuted in Publication Choice",
+   "body": "This week settled open problems across game theory and fair division. In cooperative games, Chow's theorem confirmed that a weighted voting game is determined by its swing table. In fair division, all four open implications in a 22-notion fairness map were resolved, alongside new chore allocation bounds. Published uniqueness claims for publication choice equilibria were overturned, and the optimal receiver ratio in bit-string Bayesian persuasion was proved to be 3/2.\n\nProved. A weighted voting game is uniquely determined by its swing table\n\nProved. The Monroe rule satisfies Droop justified representation for all instances\n\nProved. The receiver-utility constant in bit-string persuasion is 3/2\n\nDisproved. Publication choice problems can admit multiple pure-strategy equilibria\n\nLean accepted 175 new theorems this week, drawn from 18 papers and 8 topics. Of these, 51 are new here, 3 correct a published claim, 30 formalize a published result and 91 are helper lemmas. 25 statements posed this week are not yet proved. The reading covered 3 new papers. This report covers 23 results in 8 fields.",
+   "declarations": [],
+   "links": [
+    {
+     "label": "Read the weekly report (10 min)",
+     "href": "weekly/2026-W40/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-06",
    "kind": "proof",
    "title": "PMMS for chores with three agents, the price of MNW, and the linkedness conjecture",
@@ -24,20 +38,6 @@
     {
      "label": "arXiv:1908.05433",
      "href": "https://arxiv.org/abs/1908.05433"
-    }
-   ]
-  },
-  {
-   "date": "2026-10-05",
-   "kind": "weekly",
-   "week": "2026-W40",
-   "title": "Week of 28 Sep – 4 Oct 2026: Swing table rigidity, publication choice multiplicity, and bounds in fair division and persuasion",
-   "body": "The swing-rigidity conjecture in simple games is confirmed, showing that a weighted voting game is uniquely determined by its swing table. In strategic behavior, uniqueness of pure-strategy equilibria fails in the Publication Choice Problem, and static thresholds cannot achieve a 1/2-competitive prophet inequality under strategic reward signaling. In fair division and information design, the optimal receiver-utility ratio in bit-string persuasion is settled at 3/2, while all four open fairness implications in discrete fair division are resolved. Further results establish bounds on blocking pairs in cyclic marriage markets, characterize Droop representation for the Monroe rule, and verify Catch-Up draws on small initial segments.\n\nLean accepted 175 new theorems this week, drawn from 16 papers and 8 topics; 25 statements posed this week are not yet proved. The reading covered 3 new papers.",
-   "declarations": [],
-   "links": [
-    {
-     "label": "Read the weekly report",
-     "href": "weekly/2026-W40/"
     }
    ]
   },

@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-06T00:51:32Z",
+ "generated": "2026-10-06T01:09:55Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -32213,8 +32213,8 @@
     "catch_up_value_aux_icc_erase_ne_loss_of_ge"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_aux_icc_after_opening_ne_loss (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790866792
   },
   {
@@ -32232,8 +32232,8 @@
     "catch_up_value_aux_icc_erase_max_ne_loss_iff"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_aux_icc_after_opening_ne_loss (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790866799
   },
   {
@@ -32258,8 +32258,8 @@
     "catch_up_value_aux_icc_erase_max_ne_loss_iff"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_icc_eq_draw_of_even_triangular (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790862415
   },
   {
@@ -32277,8 +32277,8 @@
     "catch_up_value_aux_icc_erase_ne_loss_iff"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_aux_icc_after_opening_ne_loss (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790866810
   },
   {
@@ -32296,8 +32296,8 @@
     "catch_up_value_aux_icc_erase_ne_loss_iff"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_aux_icc_after_opening_ne_loss (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790866805
   },
   {
@@ -32320,8 +32320,8 @@
     "catch_up_value_aux_icc_opening_one_ne_win"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_icc_eq_draw_of_even_triangular (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790862411
   },
   {
@@ -32343,8 +32343,8 @@
     "catch_up_value_aux_icc_opening_one_response_lt_ne_loss"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_aux_icc_initial_ne_loss (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790865305
   },
   {
@@ -32363,8 +32363,8 @@
     "catch_up_value_aux_singleton"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_aux_icc_opening_one_ne_win (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790867881
   },
   {
@@ -32381,8 +32381,8 @@
     "CatchUpOutcome"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_aux_icc_opening_one_ne_win (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790867896
   },
   {
@@ -32399,8 +32399,8 @@
     "CatchUpOutcome"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "lemma",
+   "citation": "step towards catch_up_value_aux_icc_opening_one_ne_win (Catch-Up conjecture (Catch-Up: A Game in Which the Lead Alternates, 2015, Sec. 3.1))",
    "created": 1790867891
   },
   {
@@ -32509,8 +32509,8 @@
     "WaveEquation1D"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "original",
+   "citation": "machine-posed sanity statement for the one-dimensional wave equation; no novelty claimed",
    "created": 1789135588
   },
   {
@@ -32593,8 +32593,8 @@
     "matrix3_tensor_rank_le"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.01639 Sec. 8",
+   "provenance": "original",
+   "citation": "the open problem of arXiv:2610.01639, Sec. 8 (a 22-product integer algorithm for 3x3 matrix multiplication), stated as posed",
    "created": 1791174895
   },
   {
@@ -32627,8 +32627,8 @@
     "matrix3_tensor_rank_ge"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.01639 Sec. 3 and Sec. 7",
+   "provenance": "literature",
+   "citation": "arXiv:2610.01639, Sec. 3 and Sec. 7, Table 1, row 0: the paper's main lower bound of 22 over the two-element field",
    "created": 1791174895
   },
   {
@@ -32644,8 +32644,8 @@
     "matrix3_tensor_rank_le"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.01639 Sec. 7, Table 1",
+   "provenance": "original",
+   "citation": "the open problem of arXiv:2610.01639, Sec. 7, Table 1, row 0 (rank over the two-element field in [22, 23]), stated as posed",
    "created": 1791174895
   },
   {
@@ -32659,8 +32659,8 @@
    "attempts": 1,
    "deps": [],
    "problem": null,
-   "provenance": "",
-   "citation": "",
+   "provenance": "literature",
+   "citation": "standard textbook result (automata theory): {ε} is regular",
    "created": 1788687997
   },
   {
@@ -32779,8 +32779,8 @@
     "CnfSatisfiable"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.02047 Sec. 8",
+   "provenance": "original",
+   "citation": "the open problem of arXiv:2610.02047, abstract and Sec. 8 (FPT-sized resolution refutations parameterized by incidence treewidth), stated as posed",
    "created": 1791185215
   },
   {
@@ -32797,8 +32797,8 @@
     "CnfSatisfiable"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.02047 Sec. 3.1 (resolution is refutationally complete)",
+   "provenance": "literature",
+   "citation": "standard textbook result (proof complexity): refutational completeness of resolution, as recalled in arXiv:2610.02047, Sec. 3.1",
    "created": 1791179664
   },
   {
@@ -32815,8 +32815,8 @@
     "ccz_layer_syndrome"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.01024 Corollary 83",
+   "provenance": "literature",
+   "citation": "arXiv:2610.01024, Corollary 83 (Hadamard-free floor of 6m + 1 for m disjoint CCZ gates)",
    "created": 1791178206
   },
   {
@@ -32833,8 +32833,8 @@
     "clifford_t_circuit_t_count"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.01024 Abstract",
+   "provenance": "original",
+   "citation": "the open problem of arXiv:2610.01024, abstract and Sec. 1 (fewer than 6m + 1 T gates with Hadamards and ancillas), stated as posed; related: its Corollary 83",
    "created": 1791184167
   },
   {
@@ -32885,8 +32885,8 @@
     "gf8_oracle_syndrome"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.01024 Proposition 59",
+   "provenance": "literature",
+   "citation": "arXiv:2610.01024, Proposition 59 (slice-rank floor), special case k = 3",
    "created": 1791176815
   },
   {
@@ -32903,8 +32903,8 @@
     "gf8_oracle_syndrome"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.01024 Open Problem 10",
+   "provenance": "original",
+   "citation": "would refute the premise of Open Problem 10 of arXiv:2610.01024 (T-count in [20, 23]); related: its Proposition 59 floor of 20",
    "created": 1791176604
   },
   {
@@ -32921,8 +32921,8 @@
     "gf8_oracle_syndrome"
    ],
    "problem": null,
-   "provenance": "",
-   "citation": "arXiv:2610.01024 Open Problem 10",
+   "provenance": "original",
+   "citation": "the premise of Open Problem 10 of arXiv:2610.01024 (T-count of the GF(8) multiplication oracle in [20, 23]), upper end, stated as posed",
    "created": 1791176604
   },
   {

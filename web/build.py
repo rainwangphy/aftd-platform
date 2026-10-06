@@ -223,6 +223,10 @@ def check_news(s: Site, entries: list[dict]) -> list[dict]:
     return sorted(out, key=lambda n: n["date"], reverse=True)
 
 
+WEEKLY_FORMAT = 2
+WEEKLY_OUTCOMES = ("proved", "disproved", "partial", "new", "formalized")
+
+
 def check_weekly(s: Site, reports: list[dict]) -> list[dict]:
     """The weekly reports, newest first. Held to the News rule: a report that
     names a declaration Lean has not verified stops the build."""
@@ -231,18 +235,26 @@ def check_weekly(s: Site, reports: list[dict]) -> list[dict]:
         where = f"weekly report {r.get('week', '?')!r}"
         if not _WEEK.match(r.get("week", "")):
             raise ValueError(f"{where}: week must be YYYY-Www")
+        if r.get("format") != WEEKLY_FORMAT:
+            raise ValueError(f"{where}: format {r.get('format')!r}, this build reads "
+                             f"{WEEKLY_FORMAT}; regenerate it with `aftd interpret --week`")
         if r["week"] in seen:
             raise ValueError(f"{where}: two reports for one week")
         seen.add(r["week"])
         for k in ("start", "end"):
             time.strptime(r.get(k, ""), "%Y-%m-%d")
-        if not (r.get("title") or "").strip() or not r.get("sections"):
-            raise ValueError(f"{where}: needs a title and sections")
-        for sec in r["sections"]:
-            names = sec.get("declarations") or []
-            bad = [x for x in names if x not in s.by_name or not s.verified(s.by_name[x])]
+        results = [x for f in r.get("fields") or [] for x in f.get("results") or []]
+        if not (r.get("title") or "").strip() or not results:
+            raise ValueError(f"{where}: needs a title and results")
+        for x in results:
+            if x.get("outcome") not in WEEKLY_OUTCOMES:
+                raise ValueError(f"{where}: unknown outcome {x.get('outcome')!r}")
+            names = x.get("declarations") or []
+            bad = [n for n in names if n not in s.by_name or not s.verified(s.by_name[n])]
             if bad:
                 raise ValueError(f"{where}: not a verified theorem: {', '.join(bad)}")
+            if x.get("main") not in names:
+                raise ValueError(f"{where}: {x.get('main')!r} is not among its declarations")
         out.append(r)
     return sorted(out, key=lambda r: r["week"], reverse=True)
 
@@ -1572,52 +1584,117 @@ def week_span(r: dict) -> str:
     return f"{a.tm_mday} {time.strftime('%b', a)} – {b.tm_mday} {time.strftime('%b %Y', b)}"
 
 
+def weekly_highlights(r: dict) -> list[dict]:
+    return [x for f in r["fields"] for x in f["results"] if x.get("highlight")]
+
+
+def outcome_badge(r: dict, x: dict) -> str:
+    label = (r.get("outcomes") or {}).get(x["outcome"], x["outcome"].title())
+    return badge(label, f"wk-{x['outcome']}")
+
+
 def render_weekly_index(s: Site) -> str:
     root = "../"
     items = "".join(
         f'<article class="news-item" id="{e(r["week"])}">'
         f'<p class="news-when"><span>{e(r["week"])}</span>'
-        f'<span class="small">{e(week_span(r))}</span></p>'
+        f'<span class="small">{e(week_span(r))}</span>'
+        f'<span class="small">{r.get("minutes", "?")} min read</span></p>'
         f'<div class="news-main"><h3><a href="{e(r["week"])}/">{e(r["title"])}</a></h3>'
-        f'<p class="prose">{inline_code(" ".join(r.get("lede", "").split()))}</p>'
-        f'<p class="small">{e(r.get("numbers", ""))}</p></div></article>'
+        f'<p class="prose">{e(r.get("summary", ""))}</p>'
+        + "".join(f'<p class="wk-hl">{outcome_badge(r, x)} {e(x["headline"])}</p>'
+                  for x in weekly_highlights(r))
+        + "</div></article>"
         for r in s.weekly
     )
     body = f"""
 <header class="phead">
   <p class="eyebrow">Weekly reports</p>
   <h1>What each week settled</h1>
-  <p class="lead">Once a week, the theorems Lean accepted are told in words: which
-  questions they settle, which papers they come from and what is still open.
-  Every declaration a report names links to its Lean proof.</p>
+  <p class="lead">Once a week, the theorems Lean accepted, told in about ten
+  minutes: what was settled, in which fields, from which papers, and what is still
+  open. Every theorem a report names links to its Lean proof.</p>
 </header>
 <section class="band">
   {f'<div class="news-list">{items}</div>' if items else '<p class="prose">No weekly report yet.</p>'}
 </section>"""
     return page(s, title="Weekly reports", root=root, active="weekly/", body=body,
-                description="What Lean accepted each week, in words.")
+                description="What Lean accepted each week, in ten minutes.")
 
 
 def render_weekly(s: Site, i: int) -> str:
-    """One week's report. `s.weekly` is newest first, so the previous week is
-    the next item."""
+    """One week, laid out for a ten-minute read: the week in one minute, every
+    result at a glance, then one card per result by field, what is still open
+    and the terms. `s.weekly` is newest first, so the previous week is the next
+    item."""
     r = s.weekly[i]
     root = "../../"
-    secs = []
-    for sec in r["sections"]:
-        paras = "".join(f"<p>{p}</p>" for p in news_paras(sec.get("body", "")))
-        decls = sec.get("declarations") or []
-        secs.append(
-            f'<h2>{e(sec.get("heading", ""))}</h2>{paras}'
-            + (
-                '<div class="news-decls"><span class="small">Verified in Lean</span>'
-                + related(s, decls, root) + "</div>"
-                if decls else ""
-            )
+    n = 0
+    anchors: list[tuple[dict, dict, str]] = []
+    for f in r["fields"]:
+        for x in f["results"]:
+            n += 1
+            anchors.append((f, x, f"r{n}"))
+    aid = {id(x): a for _, x, a in anchors}
+
+    hl = "".join(
+        f'<li>{outcome_badge(r, x)} <a href="#{aid[id(x)]}">{e(x["headline"])}</a></li>'
+        for x in weekly_highlights(r)
+    )
+    rows, last = [], None
+    for f, x, a in anchors:
+        if f is not last:
+            rows.append(f'<tr class="wk-field"><th colspan="3" scope="colgroup">'
+                        f'{e(f["name"])}</th></tr>')
+            last = f
+        rows.append(
+            f'<tr><td><a href="#{a}">{e(x["headline"])}</a></td>'
+            f"<td>{outcome_badge(r, x)}</td>"
+            f'<td class="mono">{e(x.get("source") or "—")}</td></tr>'
         )
-    outlook = "".join(f"<p>{p}</p>" for p in news_paras(r.get("outlook", "")))
-    if outlook:
-        secs.append(f"<h2>Still open</h2>{outlook}")
+    rows = "".join(rows)
+
+    def card(x: dict, a: str) -> str:
+        src = x.get("source") or ""
+        links = []
+        if src:
+            links.append(f'<a href="https://arxiv.org/abs/{e(src.removeprefix("arXiv:"))}">'
+                         f"{e(src)} &rarr;</a>")
+        links.append(f'<a href="{root}d/{slug(x["main"])}/">Lean: '
+                     f'<span class="mono">{e(x["main"])}</span> &rarr;</a>')
+        rest = [d for d in x["declarations"] if d != x["main"]]
+        more = (
+            f'<details class="news-more"><summary>{len(rest)} supporting '
+            f'theorem{"s" if len(rest) != 1 else ""}</summary>'
+            f'<div class="news-decls">{related(s, rest, root)}</div></details>'
+            if rest else ""
+        )
+        # A formalization is the paper's result: the card says what is checked,
+        # not what "we showed".
+        shown = "What is checked" if x["outcome"] == "formalized" else "What we showed"
+        rowsd = [("The question", x["question"]), (shown, x["answer"]),
+                 ("Why it matters", x["why"])]
+        if x.get("idea"):
+            rowsd.append(("The idea", x["idea"]))
+        dl = "".join(f"<dt>{k}</dt><dd>{e(v)}</dd>" for k, v in rowsd)
+        return (
+            f'<article class="wk-card" id="{a}">'
+            f'<p class="badges">{outcome_badge(r, x)}</p>'
+            f'<h3>{e(x["headline"])}</h3><dl class="wk-dl">{dl}</dl>'
+            f'<p class="news-links">{"".join(links)}</p>{more}</article>'
+        )
+
+    secs = []
+    for f in r["fields"]:
+        cards = "".join(card(x, aid[id(x)]) for x in f["results"])
+        secs.append(f'<h2>{e(f["name"])}</h2><p>{e(f.get("context", ""))}</p>{cards}')
+    if r.get("outlook"):
+        secs.append("<h2>Still open</h2><ul>"
+                    + "".join(f"<li>{e(x)}</li>" for x in r["outlook"]) + "</ul>")
+    if r.get("glossary"):
+        secs.append('<h2>Terms</h2><dl class="wk-terms">'
+                    + "".join(f'<dt>{e(g["term"])}</dt><dd>{e(g["meaning"])}</dd>'
+                              for g in r["glossary"]) + "</dl>")
 
     def side(x: dict | None, cls: str, label: str) -> str:
         if not x:
@@ -1637,18 +1714,27 @@ def render_weekly(s: Site, i: int) -> str:
     partial = " (so far: the week is not over)" if r.get("partial") else ""
     body = f"""
 <header class="phead">
-  <p class="eyebrow">Weekly report &middot; {e(r["week"])} &middot; {e(week_span(r))}{partial}</p>
+  <p class="eyebrow">Weekly report &middot; {e(r["week"])} &middot; {e(week_span(r))}{partial}
+  &middot; {r.get("minutes", "?")} min read</p>
   <h1>{e(r["title"])}</h1>
-  <p class="lead">{inline_code(" ".join(r.get("lede", "").split()))}</p>
-  <p class="small">{e(r.get("numbers", ""))}</p>
 </header>
 <section class="doc">
+  <div class="wk-minute">
+    <p class="small">The week in one minute</p>
+    <p>{e(r.get("summary", ""))}</p>
+    <ul class="wk-hls">{hl}</ul>
+    <p class="small">{e(r.get("numbers", ""))}</p>
+  </div>
+  <h2>At a glance</h2>
+  <div class="wk-table-wrap"><table class="wk-table">
+    <thead><tr><th>Result</th><th>Outcome</th><th>Paper</th></tr></thead>
+    <tbody>{rows}</tbody></table></div>
   {"".join(secs)}
   <p class="small"><em>{e(r.get("disclaimer", ""))}</em></p>
   {pager}
 </section>"""
     return page(s, title=f"Weekly report {r['week']}", root=root, active="weekly/",
-                body=body, description=r.get("lede", ""))
+                body=body, description=r.get("summary", ""))
 
 
 def render_moved(s: Site, to: str) -> str:

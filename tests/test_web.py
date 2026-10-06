@@ -368,13 +368,19 @@ def main() -> int:
         check("the graph script ships with the site", (out / "static" / "graph.js").is_file())
 
     print("weekly")
+    card = {"headline": "Ten is the answer", "outcome": "proved",
+            "question": "WEEKLY-QUESTION", "answer": "WEEKLY-ANSWER", "why": "WEEKLY-WHY",
+            "idea": "", "source": "arXiv:2609.10493", "main": "answer_ten",
+            "declarations": ["answer_ten", "plain_one"], "highlight": True}
     report = {
         "week": "2026-W40", "start": "2026-09-28", "end": "2026-10-04", "partial": False,
-        "title": f"Ten is the answer {evil}", "lede": "WEEKLY-LEDE with `answer_ten`.",
-        "sections": [{"heading": "The answer", "body": "Para one.\n\nPara two.",
-                      "declarations": ["answer_ten"]}],
-        "outlook": "WEEKLY-OUTLOOK", "numbers": "Lean accepted 1 new theorem(s) this week.",
+        "format": 2, "title": f"Ten is the answer {evil}", "summary": "WEEKLY-SUMMARY",
+        "fields": [{"name": "Domain One", "context": "WEEKLY-CONTEXT", "results": [card]}],
+        "outlook": ["WEEKLY-OUTLOOK"], "glossary": [{"term": "EF1", "meaning": "WEEKLY-TERM"}],
+        "numbers": "Lean accepted 1 new theorem this week.", "minutes": 3,
         "disclaimer": "Written by a model.",
+        "outcomes": {"proved": "Proved", "disproved": "Disproved", "partial": "Partial",
+                     "new": "New result"},
     }
     older = {**report, "week": "2026-W39", "start": "2026-09-21", "end": "2026-09-27",
              "title": "An earlier week"}
@@ -393,11 +399,20 @@ def main() -> int:
         check("the counts include the reports", n.get("weekly") == 2, str(n))
         check("the index is newest first",
               0 < idx.find("2026-W40/") < idx.find("2026-W39/"))
-        check("a report links the declarations it names",
-              'href="../../d/answer_ten/"' in wk)
-        check("a report keeps its paragraphs, lede, outlook and numbers",
-              "<p>Para two.</p>" in wk and "WEEKLY-LEDE" in wk and "WEEKLY-OUTLOOK" in wk
-              and "Lean accepted 1 new theorem" in wk)
+        check("a result links its main theorem and its paper",
+              'href="../../d/answer_ten/"' in wk and "arxiv.org/abs/2609.10493" in wk)
+        check("supporting theorems are folded under the card",
+              "1 supporting theorem<" in wk and 'href="../../d/plain_one/"' in wk)
+        check("the week in one minute comes first, with its highlights",
+              0 < wk.find("WEEKLY-SUMMARY") < wk.find("At a glance") < wk.find("WEEKLY-QUESTION")
+              and 'href="#r1">Ten is the answer<' in wk)
+        check("every result is in the at-a-glance table, with its outcome",
+              'class="wk-field"' in wk and ">Domain One</th>" in wk and "wk-proved" in wk)
+        check("a card has the question, the answer and why it matters",
+              all(x in wk for x in ("WEEKLY-ANSWER", "WEEKLY-WHY", "The question")))
+        check("context, outlook, terms, numbers and reading time are kept",
+              all(x in wk for x in ("WEEKLY-CONTEXT", "WEEKLY-OUTLOOK", "WEEKLY-TERM",
+                                    "Lean accepted 1 new theorem", "3 min read")))
         check("a report's text is escaped", evil not in wk and evil not in idx)
         check("a report links the week before it",
               'href="../../weekly/2026-W39/"' in wk and "Earlier week" in wk)
@@ -417,9 +432,21 @@ def main() -> int:
         return ""
 
     check("a well-formed report builds", wrefused([report]) == "")
-    bad_sec = [{**report["sections"][0], "declarations": ["machine_open"]}]
+    def with_card(**kw) -> dict:
+        return {**report, "fields": [{**report["fields"][0], "results": [{**card, **kw}]}]}
+
     check("a report may not name an open statement as verified",
-          "machine_open" in wrefused([{**report, "sections": bad_sec}]))
+          "machine_open" in wrefused([with_card(declarations=["answer_ten", "machine_open"])]))
+    check("a result's main theorem must be among its declarations",
+          wrefused([with_card(main="plain_one", declarations=["answer_ten"])]) != "")
+    check("an unknown outcome is refused", wrefused([with_card(outcome="maybe")]) != "")
+    with tempfile.TemporaryDirectory() as tmp:
+        build(data, [], cfg, Path(tmp) / "_site", [], [with_card(outcome="formalized")])
+        fz = (Path(tmp) / "_site" / "weekly" / "2026-W40" / "index.html").read_text()
+    check("a formalization says what is checked, not what we showed",
+          "What is checked" in fz and "What we showed" not in fz and "wk-formalized" in fz)
+    check("a report in an older format is refused, not half-rendered",
+          "format" in wrefused([{**report, "format": 1}]))
     check("a malformed week is refused", wrefused([{**report, "week": "2026-40"}]) != "")
     check("a weekly News item needs its report", "2026-W40" in wrefused([], wnews))
 

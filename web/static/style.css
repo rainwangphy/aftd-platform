@@ -658,7 +658,7 @@ main.wrap>*,.pgroup>*,.split>div>*,.topic>*,.domain>*,.hero-grid>*{min-width:0}
 .wk-hl{margin:0}
 @media (min-width:960px){
   .wk-minute{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px 40px}
-  .wk-minute .wk-label,.wk-minute .wk-num{grid-column:1/-1}
+  .wk-minute .wk-label,.wk-minute .wk-num,.wk-minute .wk-sum-col:last-child{grid-column:1/-1}
   .wk-minute .wk-num{padding-top:12px;border-top:1px solid var(--rule-2)}
 }
 .wk-meta{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;margin:10px 0 0;

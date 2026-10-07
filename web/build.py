@@ -2183,6 +2183,7 @@ def render_chat(s: Site) -> str:
     <p class="small">The provider bills your account for what you ask. Unless you tick
     <em>Remember</em>, the key is kept only in this tab and forgotten when you close it;
     with <em>Remember</em> it stays in this browser, on this device, until you clear it.
+    The conversation is not saved: leaving or reloading the page ends it.
     Answers come from a language model: check what it says against the linked entries,
     and treat only an entry marked <em>verified in Lean</em> as proved.</p>
   </details>

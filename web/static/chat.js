@@ -697,11 +697,12 @@ function loadKb() {
   return kbPromise;
 }
 
-// The conversation: what the reader sees (`turns`, kept for a reload) and the
-// provider's own record of it (`native`), rebuilt from the turns when the
-// provider or model changes.
+// The conversation: what the reader sees (`turns`) and the provider's own
+// record of it (`native`), rebuilt from the turns when the provider or model
+// changes. It lives only in this page: leaving or reloading it ends the chat,
+// so the next person to open the page starts with an empty one.
 let turns = [];
-try { turns = JSON.parse(store.get('localStorage', 'turns') || '[]') || []; } catch (_) {}
+store.set('localStorage', 'turns', null);  // left by earlier versions, which kept it
 let native = null;
 let busy = null;
 let spent = {input: 0, output: 0};
@@ -840,11 +841,6 @@ function renderAll(kb) {
   for (const t of turns) el.log.appendChild(turnNode(t, kb));
 }
 
-function saveTurns() {
-  // Keep the last 40 turns: enough to pick up where one left off.
-  store.set('localStorage', 'turns', JSON.stringify(turns.slice(-40)));
-}
-
 function setBusy(on) {
   el.send.textContent = on ? 'Stop' : 'Ask';
   el.send.classList.toggle('stop', on);
@@ -924,7 +920,6 @@ async function submit(question) {
   } finally {
     busy = null;
     setBusy(false);
-    saveTurns();
     el.q.focus();
   }
 }
@@ -948,14 +943,7 @@ el.fresh.addEventListener('click', () => {
   if (busy) busy.abort();
   turns = [];
   native = null;
-  saveTurns();
   renderAll(null);
   el.q.focus();
 });
-
-// A conversation left from an earlier visit is shown again, with its links.
-if (turns.length) {
-  renderAll(null);
-  loadKb().then(renderAll, () => {});
-}
 })();

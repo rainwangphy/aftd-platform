@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-07T09:25:07Z",
+ "generated": "2026-10-07T09:31:05Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 5,
   "open": 35,
   "rejected": 7,
-  "spend": 45.32,
+  "spend": 45.6,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 61449723,
-   "output": 8375908,
-   "cache_read": 124630150
+   "input": 61708873,
+   "output": 8452042,
+   "cache_read": 124887213
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1791364752
+  "last": 1791365464
  },
  "domains": [
   {
@@ -39078,12 +39078,117 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/TarskiQueryComplexityOneLeLog.lean",
-   "proved_at": 1791362211,
+   "proved_at": 1791365389,
    "provenance": "literature",
    "citation": "arXiv:2610.07055 (Tarski fixed points in quasi-FPT queries), Sec. 1 (the binary search baseline, which the recursive algorithm giving O(log^k n) builds on); the case k = 1",
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The one-dimensional Tarski fixed point theorem on {0, …, n−1} is proved by binary search. Given a monotone function f and an interval [lo, hi] with f(lo) ≥ lo and f(hi) ≤ hi, querying the midpoint either finds a fixed point immediately or preserves the boundary invariants on a subinterval of half the size. Initializing on [0, n−1] with fuel depth ⌊log₂ n⌋ ensures the search terminates at a fixed point within ⌊log₂ n⌋ + 1 queries.",
+    "steps": [
+     {
+      "claim": "The function tarski_one_pt embeds an index i into the chain Fin 1 → Fin (m + 1) as min(i, m).",
+      "explanation": "The point assigns to the single coordinate in Fin 1 the value min(i, m). Linear arithmetic verifies that min(i, m) < m + 1 so that it is a valid element of Fin (m + 1).",
+      "lemmas": [],
+      "automation": false,
+      "code": "/-- The point `min i m` of the chain `{0, …, m}`, as a point of `[m+1]^1`. -/\ndef tarski_one_pt (m i : ℕ) : Fin 1 → Fin (m + 1) := fun _ => ⟨min i m, by omega⟩"
+     },
+     {
+      "claim": "The embedding tarski_one_pt is monotone in the index.",
+      "explanation": "Given i ≤ j, we compare tarski_one_pt m i and tarski_one_pt m j pointwise at their single coordinate. Rewriting with tarski_one_pt_val reduces this to min(i, m) ≤ min(j, m), which holds by linear arithmetic.",
+      "lemmas": [
+       "tarski_one_pt_val"
+      ],
+      "automation": false,
+      "code": "theorem tarski_one_pt_mono (m : ℕ) {i j : ℕ} (h : i ≤ j) : tarski_one_pt m i ≤ tarski_one_pt m j := by\n  intro x\n  show ((tarski_one_pt m i x : Fin (m + 1)) : ℕ) ≤ tarski_one_pt m j x\n  simp only [tarski_one_pt_val]\n  omega"
+     },
+     {
+      "claim": "Any point x in Fin 1 → Fin (m + 1) whose single coordinate is i ≤ m equals tarski_one_pt m i.",
+      "explanation": "By function extensionality, it suffices to check the single coordinate j : Fin 1. Since Fin 1 is a subsingleton, Subsingleton.elim gives j = 0. By Fin.ext, the equality reduces to x(0) = min(i, m), which holds by tarski_one_pt_val and the assumption i ≤ m.",
+      "lemmas": [
+       "Subsingleton.elim",
+       "Fin.ext",
+       "tarski_one_pt_val"
+      ],
+      "automation": false,
+      "code": "theorem tarski_one_eq_pt (m i : ℕ) (hi : i ≤ m) (x : Fin 1 → Fin (m + 1)) (h : (x 0 : ℕ) = i) :\n    x = tarski_one_pt m i := by\n  funext j\n  have : j = 0 := Subsingleton.elim _ _\n  subst this\n  apply Fin.ext\n  rw [h, tarski_one_pt_val]\n  omega"
+     },
+     {
+      "claim": "Monotone maps preserve chain order, and the binary search specification tarski_one_bs_spec holds in the base case d = 0.",
+      "explanation": "Composing f with the monotone embedding tarski_one_pt_mono shows that f is monotone in the index. We proceed by induction on depth d. When d = 0, the length condition (hi - lo + 1) < 2 forces hi = lo. The boundary conditions lo ≤ f(lo)₀ and f(hi)₀ ≤ hi then sandwich f(lo)₀ = lo. By tarski_one_eq_pt, this point is a fixed point of f, and the query tree outputs it with cost 0 ≤ 0 + 1.",
+      "lemmas": [
+       "tarski_one_pt_mono",
+       "tarski_one_eq_pt"
+      ],
+      "automation": false,
+      "code": "theorem tarski_one_bs_spec (m : ℕ) (f : (Fin 1 → Fin (m + 1)) → (Fin 1 → Fin (m + 1)))\n    (hf : Monotone f) :\n    ∀ d lo hi, lo ≤ hi → hi ≤ m → hi - lo + 1 < 2 ^ (d + 1) →\n      lo ≤ (f (tarski_one_pt m lo) 0 : ℕ) → (f (tarski_one_pt m hi) 0 : ℕ) ≤ hi →\n      f ((tarski_one_bs m d lo hi).run f) = (tarski_one_bs m d lo hi).run f ∧\n        (tarski_one_bs m d lo hi).cost f ≤ d + 1 := by\n  have hmono : ∀ {i j : ℕ}, i ≤ j →\n      (f (tarski_one_pt m i) 0 : ℕ) ≤ f (tarski_one_pt m j) 0 :=\n    fun h => hf (tarski_one_pt_mono m h) 0\n  intro d\n  induction d with\n  | zero =>\n    intro lo hi hlh hhm hsz hlo hhi\n    have : hi = lo := by simp at hsz; omega\n    subst this\n    refine ⟨?_, ?_⟩\n    · simp only [tarski_one_bs, TarskiQueryTree.run]\n      exact tarski_one_eq_pt m hi hhm _ (by omega)\n    · simp [tarski_one_bs, TarskiQueryTree.cost]"
+     },
+     {
+      "claim": "In the inductive step, if the midpoint is already a fixed point, the search tree outputs it immediately.",
+      "explanation": "We query the midpoint mid = (lo + hi) / 2. If f(mid)₀ = mid, then tarski_one_eq_pt identifies mid as a fixed point of f. The tree outputs it using 1 query, which is at most (d + 1) + 1.",
+      "lemmas": [
+       "tarski_one_eq_pt"
+      ],
+      "automation": false,
+      "code": "  | succ d ih =>\n    intro lo hi hlh hhm hsz hlo hhi\n    have hP : 2 ^ (d + 1 + 1) = 2 * 2 ^ (d + 1) := by ring\n    by_cases h1 : (f (tarski_one_pt m ((lo + hi) / 2)) 0 : ℕ) = (lo + hi) / 2\n    · simp only [tarski_one_bs, TarskiQueryTree.run, TarskiQueryTree.cost, h1, if_true]\n      exact ⟨tarski_one_eq_pt m _ (by omega) _ h1, by omega⟩"
+     },
+     {
+      "claim": "If f(mid)₀ < mid, the search recurses on the lower subinterval [lo, mid - 1].",
+      "explanation": "When f(mid)₀ < mid, the boundary conditions lo ≤ f(lo)₀ and f(mid - 1)₀ ≤ mid - 1 are preserved by transitivity (le_trans) and monotonicity of f. The new subinterval has length strictly less than 2^(d + 1). Applying the induction hypothesis gives a fixed point with query cost at most d + 1, so the total cost including the midpoint query is at most d + 2.",
+      "lemmas": [
+       "le_trans"
+      ],
+      "automation": false,
+      "code": "    by_cases h2 : (f (tarski_one_pt m ((lo + hi) / 2)) 0 : ℕ) < (lo + hi) / 2\n    · have hl : lo ≤ (f (tarski_one_pt m ((lo + hi) / 2)) 0 : ℕ) :=\n        le_trans hlo (hmono (by omega))\n      have := ih lo ((lo + hi) / 2 - 1) (by omega) (by omega) (by omega) hlo\n        (by have := hmono (show (lo + hi) / 2 - 1 ≤ (lo + hi) / 2 by omega); omega)\n      simp only [tarski_one_bs, TarskiQueryTree.run, TarskiQueryTree.cost, h1, h2, if_false,\n        if_true]\n      exact ⟨this.1, by omega⟩"
+     },
+     {
+      "claim": "If f(mid)₀ > mid, the search recurses on the upper subinterval [mid + 1, hi].",
+      "explanation": "When f(mid)₀ > mid, the boundary conditions mid + 1 ≤ f(mid + 1)₀ and f(hi)₀ ≤ hi are preserved by transitivity (le_trans) and monotonicity. The new subinterval length is strictly less than 2^(d + 1). Applying the induction hypothesis yields a fixed point with total query cost at most d + 2.",
+      "lemmas": [
+       "le_trans"
+      ],
+      "automation": false,
+      "code": "    · have hh : (f (tarski_one_pt m ((lo + hi) / 2)) 0 : ℕ) ≤ hi := le_trans (hmono (by omega)) hhi\n      have := ih ((lo + hi) / 2 + 1) hi (by omega) hhm (by omega)\n        (by have := hmono (show (lo + hi) / 2 ≤ (lo + hi) / 2 + 1 by omega); omega) hhi\n      simp only [tarski_one_bs, TarskiQueryTree.run, TarskiQueryTree.cost, h1, h2, if_false]\n      exact ⟨this.1, by omega⟩"
+     },
+     {
+      "claim": "For the main theorem, rewrite n as m + 1 and instantiate the binary search tree on [0, m].",
+      "explanation": "Since n ≥ 1, we write n = m + 1 for m = n - 1. We choose the binary search tree tarski_one_bs with fuel depth ⌊log₂ (m + 1)⌋ on the initial interval [0, m].",
+      "lemmas": [],
+      "automation": false,
+      "code": "theorem tarski_query_complexity_one_le_log (n : ℕ) (hn : 1 ≤ n) :\n    tarski_query_complexity_le n 1 (Nat.log 2 n + 1) := by\n  obtain ⟨m, rfl⟩ : ∃ m, n = m + 1 := ⟨n - 1, by omega⟩\n  refine ⟨tarski_one_bs m (Nat.log 2 (m + 1)) 0 m, fun f hf => ?_⟩"
+     },
+     {
+      "claim": "The binary search tree finds a fixed point of f within ⌊log₂ n⌋ + 1 queries.",
+      "explanation": "We apply tarski_one_bs_spec on [0, m]. The interval size m + 1 is strictly less than 2^(⌊log₂ (m + 1)⌋ + 1) by Nat.lt_pow_succ_log_self. The lower boundary condition 0 ≤ f(0)₀ holds by Nat.zero_le, and the upper boundary condition f(m)₀ ≤ m holds because the codomain is Fin (m + 1) by Fin.isLt. Reflexivity le_rfl handles m ≤ m.",
+      "lemmas": [
+       "Nat.lt_pow_succ_log_self",
+       "tarski_one_bs_spec",
+       "Nat.zero_le",
+       "le_rfl",
+       "Fin.isLt"
+      ],
+      "automation": false,
+      "code": "  have hlt := Nat.lt_pow_succ_log_self (b := 2) (by norm_num) (m + 1)\n  exact tarski_one_bs_spec m f hf _ 0 m (Nat.zero_le _) le_rfl (by omega) (Nat.zero_le _)\n    (by have := (f (tarski_one_pt m m) 0).isLt; omega)"
+     }
+    ],
+    "glossary": {
+     "Fin.ext": "Two elements of `Fin n` are equal if and only if their underlying natural values are equal.",
+     "Fin.isLt": "The underlying natural value of any element of `Fin n` is strictly less than n.",
+     "le_rfl": "Reflexivity of less-than-or-equal: every element in a preorder is ≤ itself.",
+     "le_trans": "Transitivity of less-than-or-equal: if a ≤ b and b ≤ c, then a ≤ c.",
+     "Nat.lt_pow_succ_log_self": "For any base b > 1 and natural number x, x is strictly less than b^(⌊log_b x⌋ + 1).",
+     "Nat.zero_le": "Zero is less than or equal to any natural number.",
+     "Subsingleton.elim": "Any two elements of a subsingleton type are equal. In particular, any index j : Fin 1 is equal to 0.",
+     "tarski_one_bs_spec": "Given a monotone map f on the chain {0, …, m} and an interval [lo, hi] satisfying the boundary conditions lo ≤ f(lo)₀ and f(hi)₀ ≤ hi with length strictly less than 2^(d + 1), binary search of depth d returns a fixed point of f using at most d + 1 queries.",
+     "tarski_one_eq_pt": "For i ≤ m, any point x in Fin 1 → Fin (m + 1) with x(0) = i is equal to tarski_one_pt m i.",
+     "tarski_one_pt_mono": "Embedding indices into the 1-dimensional chain is monotone: if i ≤ j, then tarski_one_pt m i ≤ tarski_one_pt m j.",
+     "tarski_one_pt_val": "The value of the single coordinate of tarski_one_pt m i is min(i, m)."
+    },
+    "caveats": [
+     "The 1-dimensional chain of size n = m + 1 is formalized as functions `Fin 1 → Fin (m + 1)`, representing points on a grid with dimension 1. Consequently, points have a single coordinate at index 0."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -39111,12 +39216,166 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/KonigMatchingVertexCoverNum.lean",
-   "proved_at": 1791363174,
+   "proved_at": 1791365371,
    "provenance": "literature",
    "citation": "Diestel, Graph Theory, Theorem 2.1.1",
    "reading": "For any finite type $V$ and any simple graph $G$ on $V$, if $G$ is bipartite, then the matching number of $G$ (`graph_matching_num G`) equals the vertex cover number of $G$ (`G.vertexCoverNum`).",
    "roundtrip": "faithful",
-   "explanation": null,
+   "explanation": {
+    "summary": "König's theorem states that in any finite bipartite graph, the maximum size of a matching equals the minimum size of a vertex cover. One inequality is universal; for the reverse, let C be a minimum vertex cover and partition the bipartite sides into A and B. Hall's Marriage Theorem ensures that A ∩ C can be injectively matched into B \\ C (and symmetrically B ∩ C into A \\ C), because any violation would yield a strictly smaller vertex cover. These two independent matchings are vertex-disjoint and combine into a single matching of size |A ∩ C| + |B ∩ C| = |C|, witnessing that the matching number is at least the vertex cover number.",
+    "steps": [
+     {
+      "claim": "Set up the finite domain X = A ∩ C and the target neighborhood function t(a) = {b ∈ B \\ C | G.Adj a b} for each a ∈ X.",
+      "explanation": "We restrict attention to the finite set of vertices X representing A ∩ C, and define t(a) as the set of neighbors of a in B that lie outside C. We also note that every element of A ∩ C belongs to X.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  classical\n  let X : Finset V := Finset.univ.filter fun v => v ∈ A ∩ C\n  let t : X → Finset V := fun a => Finset.univ.filter fun b => b ∈ B ∧ b ∉ C ∧ G.Adj a b\n  have hX : ∀ v, v ∈ A ∩ C → v ∈ X := fun v hv => by simpa [X] using hv"
+     },
+     {
+      "claim": "Under the assumption that Hall's condition fails for some s ⊆ X, (C \\ s) ∪ N_B(s) is a vertex cover of G whose size is at least |C|.",
+      "explanation": "We argue by contradiction, assuming |s.biUnion t| < |s| for some s. Mapping s to a subset Sf ⊆ A ∩ C, bipartite_hall_step_is_vertex_cover establishes that removing Sf from C and adding its B \\ C neighbors produces a valid vertex cover. Minimality of C implies C.encard ≤ (vertex cover).encard.",
+      "lemmas": [
+       "bipartite_hall_step_is_vertex_cover"
+      ],
+      "automation": false,
+      "code": "  have hmarr : ∀ s : Finset X, s.card ≤ (s.biUnion t).card := by\n    intro s\n    by_contra hlt\n    push Not at hlt\n    let Sf : Finset V := s.map (Function.Embedding.subtype _)\n    have hS : (Sf : Set V) ⊆ A ∩ C := by\n      intro v hv\n      obtain ⟨x, -, rfl⟩ := Finset.mem_map.1 (Finset.mem_coe.1 hv)\n      have := x.2\n      simpa [X] using this\n    have hcov := bipartite_hall_step_is_vertex_cover G A B C Sf hdisj hadj hC hS\n    have hle := hcov.vertexCoverNum_le\n    rw [← hmin] at hle"
+     },
+     {
+      "claim": "The modified vertex cover is contained in the finset (Cf \\ Sf) ∪ s.biUnion t.",
+      "explanation": "Any vertex v in the modified vertex cover either belongs to C \\ Sf (hence to Cf \\ Sf) or is a neighbor in B \\ C of some vertex in Sf (hence belongs to t(x) for some x ∈ s).",
+      "lemmas": [],
+      "automation": false,
+      "code": "    let Cf : Finset V := Finset.univ.filter fun v => v ∈ C\n    have hCe : C.encard = (Cf.card : ℕ∞) := by\n      have hCf : C = (Cf : Set V) := by ext v; simp [Cf]\n      rw [hCf, Set.encard_coe_eq_coe_finsetCard]\n    have hsub : (C \\ (Sf : Set V)) ∪ {b ∈ B \\ C | ∃ a ∈ (Sf : Set V), G.Adj a b} ⊆\n        (((Cf \\ Sf) ∪ s.biUnion t : Finset V) : Set V) := by\n      rintro v (⟨hvC, hvS⟩ | ⟨⟨hvB, hvC⟩, a, haS, hav⟩)\n      · have : v ∈ Cf \\ Sf := Finset.mem_sdiff.2 ⟨by simp [Cf, hvC], fun h => hvS (Finset.mem_coe.2 h)⟩\n        exact Finset.mem_coe.2 (Finset.mem_union_left _ this)\n      · obtain ⟨x, hx, rfl⟩ := Finset.mem_map.1 (Finset.mem_coe.1 haS)\n        refine Finset.mem_coe.2 (Finset.mem_union_right _ (Finset.mem_biUnion.2 ⟨x, hx, ?_⟩))\n        simp only [t, Finset.mem_filter, Finset.mem_univ, true_and]\n        exact ⟨hvB, hvC, hav⟩"
+     },
+     {
+      "claim": "Hall's condition s.card ≤ (s.biUnion t).card holds for all s : Finset X.",
+      "explanation": "Combining the set inclusion with subadditivity of finset cardinality yields |Cf| ≤ |Cf \\ Sf ∪ s.biUnion t| ≤ |Cf| - |s| + |s.biUnion t| < |Cf|, a contradiction resolved by integer arithmetic.",
+      "lemmas": [
+       "Finset.card_union_le",
+       "Finset.card_sdiff_add_card_eq_card",
+       "Finset.card_map",
+       "le_trans"
+      ],
+      "automation": true,
+      "code": "    have h1 := Set.encard_le_encard hsub\n    rw [Set.encard_coe_eq_coe_finsetCard] at h1\n    have hSC : Sf ⊆ Cf := by\n      intro v hv\n      have := hS (Finset.mem_coe.2 hv)\n      simp [Cf, this.2]\n    have h2 := Finset.card_union_le (Cf \\ Sf) (s.biUnion t)\n    have h3 := Finset.card_sdiff_add_card_eq_card hSC\n    have h4 : Sf.card = s.card := Finset.card_map _\n    have h5 := le_trans hle h1\n    rw [hCe] at h5\n    norm_cast at h5\n    omega"
+     },
+     {
+      "claim": "There exists an injection F on A ∩ C matching each vertex to a neighbor in B \\ C.",
+      "explanation": "Hall's Marriage Theorem (Finset.all_card_le_biUnion_card_iff_exists_injective) gives an injective map f on X into the target sets t. Extending f by the identity outside X gives a function F that is injective on A ∩ C and sends each a ∈ A ∩ C to an adjacent vertex in B \\ C.",
+      "lemmas": [
+       "Finset.all_card_le_biUnion_card_iff_exists_injective",
+       "dif_pos",
+       "congrArg"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨f, hfi, hft⟩ := (Finset.all_card_le_biUnion_card_iff_exists_injective t).1 hmarr\n  refine ⟨fun v => if h : v ∈ X then f ⟨v, h⟩ else v, ?_, ?_⟩\n  · intro a ha b hb hab\n    dsimp only at hab\n    rw [dif_pos (hX a ha), dif_pos (hX b hb)] at hab\n    exact congrArg Subtype.val (hfi hab)\n  · intro a ha\n    dsimp only\n    rw [dif_pos (hX a ha)]\n    have := hft ⟨a, hX a ha⟩\n    simpa [t] using this"
+     },
+     {
+      "claim": "The vertices P and F(P) are disjoint, and we define a subgraph M with edges between each a ∈ P and F(a).",
+      "explanation": "Because P ⊆ D and F(P) is disjoint from D, no F(a) equals any b ∈ P. We define M on vertices P ∪ F '' P with symmetric edges between a and F(a) for all a ∈ P.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hsep : ∀ a ∈ P, ∀ b ∈ P, F a ≠ b := fun a ha b hb h => hFD a ha (h ▸ hPD hb)\n  let M : G.Subgraph :=\n    { verts := P ∪ F '' P\n      Adj := fun v w => ∃ a ∈ P, (v = a ∧ w = F a) ∨ (v = F a ∧ w = a)\n      adj_sub := by\n        rintro v w ⟨a, ha, ⟨h1, h2⟩ | ⟨h1, h2⟩⟩\n        · rw [h1, h2]; exact hadjF a ha\n        · rw [h1, h2]; exact (hadjF a ha).symm\n      edge_vert := by\n        rintro v w ⟨a, ha, ⟨h1, -⟩ | ⟨h1, -⟩⟩\n        · rw [h1]; exact Or.inl ha\n        · rw [h1]; exact Or.inr ⟨a, ha, rfl⟩\n      symm := ⟨fun v w ⟨a, ha, h⟩ =>\n        ⟨a, ha, h.symm.imp (fun h => ⟨h.2, h.1⟩) (fun h => ⟨h.2, h.1⟩)⟩⟩ }\n  have hMadj : ∀ v w, M.Adj v w ↔ ∃ a ∈ P, (v = a ∧ w = F a) ∨ (v = F a ∧ w = a) :=\n    fun v w => Iff.rfl"
+     },
+     {
+      "claim": "The subgraph M is a matching.",
+      "explanation": "We show every vertex in M has a unique incident edge in M. For v ∈ P, its only incident edge connects to F(v) by disjointness of P and F(P); for F(a) ∈ F(P), its only neighbor is a by injectivity of F and disjointness.",
+      "lemmas": [
+       "subset_rfl"
+      ],
+      "automation": false,
+      "code": "  refine ⟨M, ?_, subset_rfl, ?_⟩\n  · rintro v (hv | ⟨a, ha, rfl⟩)\n    · refine ⟨F v, (hMadj _ _).2 ⟨v, hv, Or.inl ⟨rfl, rfl⟩⟩, fun y hy => ?_⟩\n      obtain ⟨a, ha, h⟩ := (hMadj _ _).1 hy\n      rcases h with ⟨h1, h2⟩ | ⟨h1, h2⟩\n      · rw [h2, h1]\n      · exact absurd h1.symm (hsep a ha v hv)\n    · refine ⟨a, (hMadj _ _).2 ⟨a, ha, Or.inr ⟨rfl, rfl⟩⟩, fun y hy => ?_⟩\n      obtain ⟨b, hb, h⟩ := (hMadj _ _).1 hy\n      rcases h with ⟨h1, h2⟩ | ⟨h1, h2⟩\n      · exact absurd h1 (hsep a ha b hb)\n      · exact h2.trans (hinj hb ha h1.symm)"
+     },
+     {
+      "claim": "The edge set of M has extended cardinality equal to P.encard.",
+      "explanation": "Every edge of M is an unordered pair s(a, F(a)) for a uniquely determined a ∈ P. The assignment a ↦ s(a, F(a)) is injective because F(a) ∉ P, so the cardinality of M.edgeSet equals P.encard by Set.InjOn.encard_image.",
+      "lemmas": [
+       "Sym2.ind",
+       "SimpleGraph.Subgraph.mem_edgeSet",
+       "Set.mem_image",
+       "Sym2.eq_swap",
+       "Set.InjOn.encard_image"
+      ],
+      "automation": false,
+      "code": "  · have hE : M.edgeSet = (fun a => s(a, F a)) '' P := by\n      ext e\n      induction e using Sym2.ind with\n      | h v w =>\n        rw [SimpleGraph.Subgraph.mem_edgeSet, hMadj, Set.mem_image]\n        constructor\n        · rintro ⟨a, ha, h⟩\n          refine ⟨a, ha, ?_⟩\n          rcases h with ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩\n          · rfl\n          · exact Sym2.eq_swap\n        · rintro ⟨a, ha, he⟩\n          refine ⟨a, ha, ?_⟩\n          rcases Sym2.eq_iff.1 he with ⟨h1, h2⟩ | ⟨h1, h2⟩\n          · exact Or.inl ⟨h1.symm, h2.symm⟩\n          · exact Or.inr ⟨h2.symm, h1.symm⟩\n    rw [hE]\n    refine Set.InjOn.encard_image fun a ha b hb hab => ?_\n    rcases Sym2.eq_iff.1 hab with ⟨h1, -⟩ | ⟨h1, -⟩\n    · exact h1\n    · exact absurd h1.symm (hsep b hb a ha)"
+     },
+     {
+      "claim": "König's theorem reduces to showing vertexCoverNum ≤ graph_matching_num G; we choose a 2-coloring c and a minimum vertex cover C.",
+      "explanation": "By antisymmetry and the known inequality graph_matching_num G ≤ G.vertexCoverNum, it suffices to construct a matching of size at least |C|. We unpack the bipartite coloring c and the existence of a minimum vertex cover C.",
+      "lemmas": [
+       "le_antisymm",
+       "graph_matching_num_le_vertex_cover_num"
+      ],
+      "automation": false,
+      "code": "  classical\n  refine le_antisymm (graph_matching_num_le_vertex_cover_num G) ?_\n  obtain ⟨c⟩ := h\n  obtain ⟨C, hCe, hC⟩ := G.vertexCoverNum_exists"
+     },
+     {
+      "claim": "The color classes A and B form a partition of V such that all edges go between A and B.",
+      "explanation": "Vertices with color 0 define A and color 1 define B. They are disjoint and cover V because Fin 2 has only values 0 and 1. Any edge has endpoints of different colors, so it must connect A and B.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  let A : Set V := {v | c v = 0}\n  let B : Set V := {v | c v = 1}\n  have h01 : ∀ x : Fin 2, x = 0 ∨ x = 1 := by decide\n  have hdisj : Disjoint A B := by\n    refine Set.disjoint_left.2 fun v ha hb => ?_\n    have h1 : c v = 0 := ha\n    have h2 : c v = 1 := hb\n    rw [h1] at h2\n    exact absurd h2 (by decide)\n  have hAB : ∀ v, v ∈ A ∨ v ∈ B := fun v => h01 (c v)\n  have hadj : ∀ ⦃v w⦄, G.Adj v w → (v ∈ A ∧ w ∈ B) ∨ (v ∈ B ∧ w ∈ A) := by\n    intro v w hvw\n    have hne := c.valid hvw\n    rcases h01 (c v) with h1 | h1 <;> rcases h01 (c w) with h2 | h2\n    · exact absurd (h1.trans h2.symm) hne\n    · exact Or.inl ⟨h1, h2⟩\n    · exact Or.inr ⟨h1, h2⟩\n    · exact absurd (h1.trans h2.symm) hne\n  have hadj' : ∀ ⦃v w⦄, G.Adj v w → (v ∈ B ∧ w ∈ A) ∨ (v ∈ A ∧ w ∈ B) :=\n    fun v w h => (hadj h).symm"
+     },
+     {
+      "claim": "There exist matchings MA on (A ∩ C) ∪ FA(A ∩ C) and MB on (B ∩ C) ∪ FB(B ∩ C) of sizes |A ∩ C| and |B ∩ C|.",
+      "explanation": "Applying bipartite_min_cover_side_inj_neighbors to side A gives an injection FA from A ∩ C into B \\ C; by subgraph_matching_of_injOn_neighbors, this induces a matching MA of size |A ∩ C|. Symmetrically, we obtain FB from B ∩ C into A \\ C and a matching MB of size |B ∩ C|.",
+      "lemmas": [
+       "bipartite_min_cover_side_inj_neighbors",
+       "subgraph_matching_of_injOn_neighbors",
+       "Set.inter_subset_right"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨FA, hFAi, hFA⟩ := bipartite_min_cover_side_inj_neighbors G A B C hdisj hadj hC hCe\n  obtain ⟨FB, hFBi, hFB⟩ := bipartite_min_cover_side_inj_neighbors G B A C hdisj.symm hadj' hC hCe\n  obtain ⟨MA, hMA, hvA, heA⟩ := subgraph_matching_of_injOn_neighbors G (A ∩ C) C FA hFAi\n    (fun a ha => (hFA a ha).2.2) Set.inter_subset_right (fun a ha => (hFA a ha).2.1)\n  obtain ⟨MB, hMB, hvB, heB⟩ := subgraph_matching_of_injOn_neighbors G (B ∩ C) C FB hFBi\n    (fun a ha => (hFB a ha).2.2) Set.inter_subset_right (fun a ha => (hFB a ha).2.1)"
+     },
+     {
+      "claim": "The matchings MA and MB are vertex-disjoint, so their union MA ⊔ MB is a matching of size |MA| + |MB|.",
+      "explanation": "The vertices of MA lie in A ∪ (B \\ C) and those of MB lie in B ∪ (A \\ C). Their intersections are empty because A and B are disjoint, and C is disjoint from its complements. By isMatching_sup_disjoint_encard, their union is a matching whose edge count is the sum of edge counts.",
+      "lemmas": [
+       "isMatching_sup_disjoint_encard"
+      ],
+      "automation": false,
+      "code": "  have hd : Disjoint MA.verts MB.verts := by\n    refine Set.disjoint_left.2 fun v hva hvb => ?_\n    rcases hvA hva with hv1 | ⟨a, ha, rfl⟩ <;> rcases hvB hvb with hv2 | ⟨b, hb, hv2⟩\n    · exact Set.disjoint_left.1 hdisj hv1.1 hv2.1\n    · exact (hFB b hb).2.1 (by rw [hv2]; exact hv1.2)\n    · exact (hFA a ha).2.1 hv2.2\n    · exact Set.disjoint_left.1 hdisj (by rw [← hv2]; exact (hFB b hb).1) (hFA a ha).1\n  obtain ⟨hM, hcard⟩ := isMatching_sup_disjoint_encard MA MB hMA hMB hd"
+     },
+     {
+      "claim": "The matching number of G is at least the vertex cover number, completing the proof of König's theorem.",
+      "explanation": "We partition C into the disjoint sets A ∩ C and B ∩ C. Then |C| = |A ∩ C| + |B ∩ C| = |MA ⊔ MB|, which is at most graph_matching_num G by definition of the matching number as the supremum over all matchings. Together with the reverse inequality, this proves equality.",
+      "lemmas": [
+       "Set.inter_subset_left",
+       "Set.encard_union_eq",
+       "le_iSup₂"
+      ],
+      "automation": false,
+      "code": "  have hCsplit : C = (A ∩ C) ∪ (B ∩ C) := by\n    ext v\n    constructor\n    · intro hv\n      rcases hAB v with h | h\n      · exact Or.inl ⟨h, hv⟩\n      · exact Or.inr ⟨h, hv⟩\n    · rintro (⟨-, hv⟩ | ⟨-, hv⟩) <;> exact hv\n  have hCdisj : Disjoint (A ∩ C) (B ∩ C) :=\n    hdisj.mono Set.inter_subset_left Set.inter_subset_left\n  calc G.vertexCoverNum = C.encard := hCe.symm\n    _ = (A ∩ C).encard + (B ∩ C).encard := by rw [← Set.encard_union_eq hCdisj, ← hCsplit]\n    _ = (MA ⊔ MB).edgeSet.encard := by rw [hcard, heA, heB]\n    _ ≤ graph_matching_num G :=\n      le_iSup₂ (f := fun (M : G.Subgraph) (_ : M.IsMatching) => M.edgeSet.encard) (MA ⊔ MB) hM"
+     }
+    ],
+    "glossary": {
+     "bipartite_hall_step_is_vertex_cover": "In a bipartite graph with sides A and B, if C is a vertex cover and S ⊆ A ∩ C, replacing S with its B \\ C neighbors yields another vertex cover.",
+     "Finset.card_union_le": "The cardinality of a union of two finite sets is at most the sum of their cardinalities.",
+     "Finset.card_sdiff_add_card_eq_card": "If s ⊆ t, then |t \\ s| + |s| = |t| for finite sets.",
+     "Finset.card_map": "The image of a finite set under an embedding has the same cardinality.",
+     "le_trans": "If a ≤ b and b ≤ c, then a ≤ c in a preorder.",
+     "Finset.all_card_le_biUnion_card_iff_exists_injective": "Hall's Marriage Theorem: |s| ≤ |⋃_{x ∈ s} t(x)| for all s if and only if there exists an injective choice function f with f(x) ∈ t(x).",
+     "dif_pos": "Evaluating a dependent if-then-else on a true proposition yields the then-branch.",
+     "congrArg": "Congruence of application: equal inputs yield equal outputs under any function.",
+     "subset_rfl": "Every set is a subset of itself.",
+     "Sym2.ind": "Induction principle for unordered pairs: any property holding for all s(x, y) holds for every element of Sym2 α.",
+     "SimpleGraph.Subgraph.mem_edgeSet": "An unordered pair s(v, w) belongs to the edge set of a subgraph if and only if v and w are adjacent in the subgraph.",
+     "Set.mem_image": "An element belongs to the image f '' s if and only if it is the image of some element of s.",
+     "Sym2.eq_swap": "An unordered pair s(a, b) equals s(b, a).",
+     "Set.InjOn.encard_image": "If f is injective on s, the extended cardinality of the image f '' s equals that of s.",
+     "le_antisymm": "If a ≤ b and b ≤ a in a partial order, then a = b.",
+     "graph_matching_num_le_vertex_cover_num": "The matching number of any graph is at most its vertex cover number.",
+     "bipartite_min_cover_side_inj_neighbors": "In a finite bipartite graph, any minimum vertex cover C can be injectively matched from A ∩ C to neighbors in B \\ C.",
+     "subgraph_matching_of_injOn_neighbors": "An injective neighbor choice F on P ⊆ D with F(P) outside D induces a matching of size |P| on P ∪ F(P).",
+     "Set.inter_subset_right": "The intersection of two sets is a subset of the second set.",
+     "Set.inter_subset_left": "The intersection of two sets is a subset of the first set.",
+     "isMatching_sup_disjoint_encard": "The union of two vertex-disjoint matchings is a matching whose size is the sum of their sizes.",
+     "Set.encard_union_eq": "The extended cardinality of the union of two disjoint sets is the sum of their extended cardinalities.",
+     "le_iSup₂": "Any value in a doubly indexed family is at most its double supremum."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -39144,12 +39403,200 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/Gf8OracleTCountGe20.lean",
-   "proved_at": 1791364752,
+   "proved_at": 1791365464,
    "provenance": "literature",
    "citation": "arXiv:2610.01024, Proposition 59 (slice-rank floor), special case k = 3",
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The theorem proves that every parity representation S of the GF(8) multiplication oracle syndrome has cardinality at least 20. Representing parities injectively as indicator vectors in 𝔽₂⁹, every nonzero linear functional has weight at least 8 on the resulting point set because every nonzero slice of the multiplication tensor has rank 6 (giving weight ≥ 7) and singleton syndromes vanish (forcing the weight to be even). Applying the Griesmer bound for binary linear codes to this 9-dimensional point set with minimum distance 8 yields |S| ≥ G(3) = 20.",
+    "steps": [
+     {
+      "claim": "Define the ordered and symmetrized GF(8) oracle syndrome on triples of qubits.",
+      "explanation": "`gf8_syn_ord` defines the syndrome for qubits ordered across the three registers, using `Nat.mod_lt` (verified by `norm_num`) to ensure coordinate indices modulo 3 are strictly less than 3. `gf8_syn_sym` then sums over all six permutations of the three qubits.",
+      "lemmas": [
+       "Nat.mod_lt"
+      ],
+      "automation": false,
+      "code": "/-- One ordered term of the GF(8) oracle syndrome on triples: `T(q, r, l)` when the three\nqubits lie in registers x, y, z in this order. -/\ndef gf8_syn_ord (a b c : Fin 9) : ZMod 2 :=\n  if a.val / 3 = 0 ∧ b.val / 3 = 1 ∧ c.val / 3 = 2 then\n    gf8_mult_coeff ⟨a.val % 3, Nat.mod_lt _ (by norm_num)⟩ ⟨b.val % 3, Nat.mod_lt _ (by norm_num)⟩\n      ⟨c.val % 3, Nat.mod_lt _ (by norm_num)⟩\n  else 0\n\n/-- The GF(8) oracle syndrome on triples, symmetrized over the six orders. -/\ndef gf8_syn_sym (i j k : Fin 9) : ZMod 2 :=\n  gf8_syn_ord i j k + gf8_syn_ord i k j + gf8_syn_ord j i k + gf8_syn_ord j k i +\n    gf8_syn_ord k i j + gf8_syn_ord k j i\n"
+     },
+     {
+      "claim": "Basic evaluation of the syndrome on pairs, triples, and register indexing.",
+      "explanation": "By exhaustive check (`decide`), the syndrome vanishes on every pair of qubits (`gf8_syndrome_pair`), agrees with the symmetrized syndrome on triples (`gf8_syndrome_triple`), and elements of 𝔽₂ are 0 or 1 (`gf8_zmod2_cases`). The qubit indexing `gf8_row b t = 3 * b + t` is shown to stay strictly below 9 using integer arithmetic (`omega`).",
+      "lemmas": [],
+      "automation": true,
+      "code": "theorem gf8_syndrome_pair (i j : Fin 9) : gf8_oracle_syndrome {i, j} = 0 := by\n  revert i j; decide\n\ntheorem gf8_syndrome_triple (i j k : Fin 9) : gf8_oracle_syndrome {i, j, k} = gf8_syn_sym i j k := by\n  revert i j k; decide\n\n\ntheorem gf8_zmod2_cases (a : ZMod 2) : a = 0 ∨ a = 1 := by\n  revert a; decide\n\n/-- Qubit `t` of register `b` (x = 0, y = 1, z = 2). -/\ndef gf8_row (b t : Fin 3) : Fin 9 := ⟨3 * b.val + t.val, by omega⟩\n\n/-- The first register other than `β`. -/\ndef gf8_other1 (β : Fin 3) : Fin 3 := ![1, 0, 0] β\n\n/-- The second register other than `β`. -/\ndef gf8_other2 (β : Fin 3) : Fin 3 := ![2, 2, 1] β\n\n/-- The 3 × 3 block of a slice of the GF(8) syndrome tensor, contracted with `c` on register `β`,\nbetween the two other registers. -/\ndef gf8_amat (β : Fin 3) (c : Fin 3 → ZMod 2) : Matrix (Fin 3) (Fin 3) (ZMod 2) :=\n  Matrix.of fun q r => ∑ t, c t * gf8_syn_sym (gf8_row β t) (gf8_row (gf8_other1 β) q)\n    (gf8_row (gf8_other2 β) r)\n"
+     },
+     {
+      "claim": "Symmetry and vanishing of off-register syndrome values.",
+      "explanation": "The symmetrized syndrome `gf8_syn_sym` evaluates to 0 if one qubit lies outside the designated register β (`gf8_syn_sym_off`, by `decide`), or if two qubits lie in the same register (`gf8_syn_sym_same`, by `decide`). Swapping the last two qubit arguments is an invariance by ring symmetry (`gf8_syn_sym_swap`).",
+      "lemmas": [
+       "gf8_syn_sym"
+      ],
+      "automation": false,
+      "code": "theorem gf8_syn_sym_off (β : Fin 3) (i : Fin 9) (q r : Fin 3) (hi : i.val / 3 ≠ β.val) :\n    gf8_syn_sym i (gf8_row (gf8_other1 β) q) (gf8_row (gf8_other2 β) r) = 0 := by\n  revert β i q r; decide\n\ntheorem gf8_syn_sym_same (i j k : Fin 9) (h : j.val / 3 = k.val / 3) : gf8_syn_sym i j k = 0 := by\n  revert i j k; decide\n\ntheorem gf8_syn_sym_swap (i j k : Fin 9) : gf8_syn_sym i j k = gf8_syn_sym i k j := by\n  unfold gf8_syn_sym; ring\n"
+     },
+     {
+      "claim": "Every nonzero 3 × 3 slice of the syndrome tensor is invertible.",
+      "explanation": "Expanding the 3 × 3 determinant via `Matrix.det_fin_three`, finite exhaustion (`decide`) over all 3 × (2³ - 1) = 21 nonzero triples confirms that the determinant polynomial never vanishes on 𝔽₂. Therefore, whenever `c ≠ 0`, `det(gf8_amat β c) ≠ 0`.",
+      "lemmas": [
+       "Matrix.det_fin_three"
+      ],
+      "automation": false,
+      "code": "theorem gf8_amat_det (β : Fin 3) (c : Fin 3 → ZMod 2) (hc : c ≠ 0) : (gf8_amat β c).det ≠ 0 := by\n  have key : ∀ (β : Fin 3) (c0 c1 c2 : ZMod 2), ¬(c0 = 0 ∧ c1 = 0 ∧ c2 = 0) →\n      gf8_amat β ![c0, c1, c2] 0 0 * gf8_amat β ![c0, c1, c2] 1 1 * gf8_amat β ![c0, c1, c2] 2 2 -\n        gf8_amat β ![c0, c1, c2] 0 0 * gf8_amat β ![c0, c1, c2] 1 2 * gf8_amat β ![c0, c1, c2] 2 1 -\n        gf8_amat β ![c0, c1, c2] 0 1 * gf8_amat β ![c0, c1, c2] 1 0 * gf8_amat β ![c0, c1, c2] 2 2 +\n        gf8_amat β ![c0, c1, c2] 0 1 * gf8_amat β ![c0, c1, c2] 1 2 * gf8_amat β ![c0, c1, c2] 2 0 +\n        gf8_amat β ![c0, c1, c2] 0 2 * gf8_amat β ![c0, c1, c2] 1 0 * gf8_amat β ![c0, c1, c2] 2 1 -\n        gf8_amat β ![c0, c1, c2] 0 2 * gf8_amat β ![c0, c1, c2] 1 1 * gf8_amat β ![c0, c1, c2] 2 0 ≠ 0 := by\n    decide\n  have hc' : c = ![c 0, c 1, c 2] := by ext t; fin_cases t <;> rfl\n  rw [Matrix.det_fin_three, hc']\n  apply key\n  rintro ⟨h0, h1, h2⟩\n  apply hc\n  rw [hc']\n  ext t\n  fin_cases t <;> simp [h0, h1, h2]\n"
+     },
+     {
+      "claim": "Contracting the syndrome on register β recovers the block matrix gf8_amat.",
+      "explanation": "Using injectivity of `gf8_row β` (`Fin.ext`), the contraction over all 9 qubits is rewritten via `Finset.sum_image` and `Finset.sum_subset` as a sum over register β: all off-register terms vanish by `gf8_syn_sym_off`, matching the definition of `gf8_amat β c`.",
+      "lemmas": [
+       "Fin.ext",
+       "Finset.sum_image",
+       "Finset.sum_subset",
+       "gf8_syn_sym_off"
+      ],
+      "automation": false,
+      "code": "theorem gf8_block_sum (β : Fin 3) (lam : Fin 9 → ZMod 2) (q r : Fin 3) :\n    ∑ i, lam i * gf8_syn_sym i (gf8_row (gf8_other1 β) q) (gf8_row (gf8_other2 β) r) =\n      gf8_amat β (fun t => lam (gf8_row β t)) q r := by\n  classical\n  have hinj : ∀ x ∈ (Finset.univ : Finset (Fin 3)), ∀ y ∈ (Finset.univ : Finset (Fin 3)),\n      gf8_row β x = gf8_row β y → x = y := by\n    intro x _ y _ h\n    simp only [gf8_row, Fin.mk.injEq] at h\n    exact Fin.ext (by omega)\n  simp only [gf8_amat, Matrix.of_apply]\n  rw [← Finset.sum_image (f := fun i => lam i * gf8_syn_sym i (gf8_row (gf8_other1 β) q)\n    (gf8_row (gf8_other2 β) r)) hinj]\n  symm\n  apply Finset.sum_subset (Finset.subset_univ _)\n  intro i _ hi\n  have hne : i.val / 3 ≠ β.val := by\n    intro h\n    apply hi\n    refine Finset.mem_image.2 ⟨⟨i.val % 3, by omega⟩, Finset.mem_univ _, ?_⟩\n    ext\n    simp only [gf8_row]\n    omega\n  rw [gf8_syn_sym_off β i q r hne, mul_zero]\n"
+     },
+     {
+      "claim": "The parity representation sum over odd parities expresses the contracted syndrome.",
+      "explanation": "Using `Finset.sum_filter` and `Finset.sum_subset_zero_on_sdiff`, we split whether `i ∈ y`. Exchanging summations with `Finset.sum_comm`, each inner sum counts parities containing `insert i A`. By the defining property of a parity representation `hS`, this equals the syndrome value `gf8_oracle_syndrome (insert i A)`.",
+      "lemmas": [
+       "Finset.sum_filter",
+       "Finset.sum_mul",
+       "Finset.sum_subset_zero_on_sdiff",
+       "gf8_zmod2_cases",
+       "Finset.sum_boole"
+      ],
+      "automation": false,
+      "code": "/-- Counting the parities of a representation that a functional `lam` sees as odd, weighted by\n`A ⊆ y`, gives a contraction of the syndrome. -/\ntheorem gf8_W_sum (S : Finset (Finset (Fin 9))) (hS : is_parity_repr S gf8_oracle_syndrome)\n    (lam : Fin 9 → ZMod 2) (A : Finset (Fin 9)) (hA : A.card ≤ 2) :\n    ∑ y ∈ S.filter (fun y => ∑ i ∈ y, lam i = 1), (if A ⊆ y then (1 : ZMod 2) else 0) =\n      ∑ i, lam i * gf8_oracle_syndrome (insert i A) := by\n  classical\n  rw [Finset.sum_filter]\n  have h1 : ∀ y : Finset (Fin 9),\n      (if ∑ i ∈ y, lam i = 1 then (if A ⊆ y then (1 : ZMod 2) else 0) else 0) =\n        ∑ i, lam i * (if insert i A ⊆ y then 1 else 0) := by\n    intro y\n    have h2 : ∑ i, lam i * (if insert i A ⊆ y then (1 : ZMod 2) else 0) =\n        (∑ i ∈ y, lam i) * (if A ⊆ y then 1 else 0) := by\n      rw [Finset.sum_mul]\n      symm\n      apply Finset.sum_subset_zero_on_sdiff (Finset.subset_univ y)\n      · intro i hi\n        have : i ∉ y := (Finset.mem_sdiff.1 hi).2\n        simp [Finset.insert_subset_iff, this]\n      · intro i hi\n        simp [Finset.insert_subset_iff, hi]\n    rw [h2]\n    rcases gf8_zmod2_cases (∑ i ∈ y, lam i) with h | h <;> simp [h]\n  rw [Finset.sum_congr rfl fun y _ => h1 y, Finset.sum_comm]\n  refine Finset.sum_congr rfl fun i _ => ?_\n  rw [← Finset.mul_sum, Finset.sum_boole]\n  congr 1\n  apply hS.2\n  exact ⟨Finset.card_pos.2 (Finset.insert_nonempty _ _),\n    (Finset.card_insert_le _ _).trans (by omega)⟩\n"
+     },
+     {
+      "claim": "The 6 × 6 incidence Gram matrix Z * Zᵀ has rank 6.",
+      "explanation": "Choosing a register β where `lam` is non-trivial, we construct a 6 × |W| incidence matrix Z indexed by the other two registers. Evaluating entries using `gf8_W_sum` and `gf8_syndrome_triple` shows Z * Zᵀ is a 2 × 2 block matrix with anti-diagonal blocks A and Aᵀ (where A = `gf8_amat β c`). Since A is invertible by `gf8_amat_det`, the block matrix is invertible, so its rank is at least 6 by `Matrix.rank_mul_le_left`.",
+      "lemmas": [
+       "gf8_W_sum",
+       "gf8_syndrome_triple",
+       "gf8_amat_det",
+       "gf8_block_sum",
+       "gf8_syn_sym_swap",
+       "Matrix.rank_mul_le_left"
+      ],
+      "automation": false,
+      "code": "open Matrix in\ntheorem gf8_weight_ge_seven (S : Finset (Finset (Fin 9))) (hS : is_parity_repr S gf8_oracle_syndrome)\n    (lam : Fin 9 → ZMod 2) (hlam : lam ≠ 0) :\n    7 ≤ (S.filter fun y => ∑ i ∈ y, lam i = 1).card := by\n  classical\n  set W := S.filter fun y => ∑ i ∈ y, lam i = 1 with hW\n  have hsum := gf8_W_sum S hS lam\n  obtain ⟨i0, hi0⟩ := Function.ne_iff.1 hlam\n  let β : Fin 3 := ⟨i0.val / 3, by omega⟩\n  let c : Fin 3 → ZMod 2 := fun t => lam (gf8_row β t)\n  have hc : c ≠ 0 := by\n    intro h\n    apply hi0\n    have h' : gf8_row β ⟨i0.val % 3, by omega⟩ = i0 := by\n      ext\n      simp only [gf8_row, β]\n      omega\n    rw [← h']\n    exact congrFun h _\n  let rowof : Fin 3 ⊕ Fin 3 → Fin 9 := Sum.elim (gf8_row (gf8_other1 β)) (gf8_row (gf8_other2 β))\n  let Z : Matrix (Fin 3 ⊕ Fin 3) W (ZMod 2) := fun a y => if rowof a ∈ y.1 then 1 else 0\n  let A := gf8_amat β c\n  have hentry : ∀ a b, (Z * Zᵀ) a b = ∑ i, lam i * gf8_syn_sym i (rowof a) (rowof b) := by\n    intro a b\n    rw [Matrix.mul_apply]\n    have : ∀ y : W, Z a y * Zᵀ y b =\n        if ({rowof a, rowof b} : Finset (Fin 9)) ⊆ y.1 then 1 else 0 := by\n      intro y\n      show (if rowof a ∈ y.1 then (1 : ZMod 2) else 0) * (if rowof b ∈ y.1 then 1 else 0) = _\n      simp only [Finset.insert_subset_iff, Finset.singleton_subset_iff]\n      split_ifs <;> simp_all\n    rw [Finset.sum_congr rfl fun y _ => this y]\n    rw [Finset.sum_coe_sort W\n      (fun y => if ({rowof a, rowof b} : Finset (Fin 9)) ⊆ y then (1 : ZMod 2) else 0)]\n    rw [hsum _ Finset.card_le_two]\n    refine Finset.sum_congr rfl fun i _ => ?_\n    rw [gf8_syndrome_triple]\n  have hblk1 : ∀ q, (rowof (Sum.inl q)).val / 3 = (gf8_other1 β).val := by\n    intro q; simp only [rowof, Sum.elim_inl, gf8_row]; omega\n  have hblk2 : ∀ q, (rowof (Sum.inr q)).val / 3 = (gf8_other2 β).val := by\n    intro q; simp only [rowof, Sum.elim_inr, gf8_row]; omega\n  have hZZ : Z * Zᵀ = Matrix.fromBlocks 0 A Aᵀ 0 := by\n    ext a b\n    rw [hentry]\n    rcases a with q | q <;> rcases b with r | r\n    · rw [Matrix.fromBlocks_apply₁₁, Matrix.zero_apply]\n      exact Finset.sum_eq_zero fun i _ => by\n        rw [gf8_syn_sym_same _ _ _ (by rw [hblk1, hblk1]), mul_zero]\n    · rw [Matrix.fromBlocks_apply₁₂]\n      exact gf8_block_sum β lam q r\n    · rw [Matrix.fromBlocks_apply₂₁, Matrix.transpose_apply]\n      show _ = gf8_amat β c r q\n      rw [← gf8_block_sum β lam r q]\n      exact Finset.sum_congr rfl fun i _ => by rw [gf8_syn_sym_swap]; rfl\n    · rw [Matrix.fromBlocks_apply₂₂, Matrix.zero_apply]\n      exact Finset.sum_eq_zero fun i _ => by\n        rw [gf8_syn_sym_same _ _ _ (by rw [hblk2, hblk2]), mul_zero]\n  have hA : IsUnit A.det := isUnit_iff_ne_zero.2 (gf8_amat_det β c hc)\n  have hmul : Matrix.fromBlocks 0 A Aᵀ 0 * Matrix.fromBlocks 0 A⁻¹ᵀ A⁻¹ 0 = 1 := by\n    rw [Matrix.fromBlocks_multiply, ← Matrix.fromBlocks_one]\n    simp only [Matrix.zero_mul, Matrix.mul_zero, zero_add, add_zero, Matrix.mul_nonsing_inv _ hA,\n      ← Matrix.transpose_mul, Matrix.nonsing_inv_mul _ hA, Matrix.transpose_one]\n  have hN : 6 ≤ (Matrix.fromBlocks 0 A Aᵀ 0).rank := by\n    have := Matrix.rank_mul_le_left (Matrix.fromBlocks 0 A Aᵀ 0) (Matrix.fromBlocks 0 A⁻¹ᵀ A⁻¹ 0)\n    rw [hmul, Matrix.rank_one] at this\n    simpa using this"
+     },
+     {
+      "claim": "Any nonzero functional takes value 1 on at least 7 parities.",
+      "explanation": "The all-ones vector lies in the kernel of Z because contracting on singletons produces zero syndrome on pairs (`gf8_syndrome_pair`). By rank-nullity (`LinearMap.finrank_range_add_finrank_ker`), dim(ker Z) ≥ 1, so rank(Z) ≤ |W| - 1. Combining this with 6 ≤ rank(Z * Zᵀ) ≤ rank(Z) yields |W| ≥ 7.",
+      "lemmas": [
+       "gf8_syndrome_pair",
+       "LinearMap.finrank_range_add_finrank_ker",
+       "Matrix.rank_mul_le_left"
+      ],
+      "automation": false,
+      "code": "  have hcol : Z *ᵥ (fun _ => 1) = 0 := by\n    funext a\n    simp only [Matrix.mulVec, dotProduct, mul_one, Pi.zero_apply, Z]\n    rw [Finset.sum_coe_sort W (fun y => if rowof a ∈ y then (1 : ZMod 2) else 0)]\n    have := hsum {rowof a} (by simp)\n    simp only [Finset.singleton_subset_iff] at this\n    rw [this]\n    exact Finset.sum_eq_zero fun i _ => by rw [gf8_syndrome_pair, mul_zero]\n  have hrn := LinearMap.finrank_range_add_finrank_ker Z.mulVecLin\n  rw [Module.finrank_fintype_fun_eq_card, Fintype.card_coe] at hrn\n  have hker : 0 < W.card → 1 ≤ Module.finrank (ZMod 2) (LinearMap.ker Z.mulVecLin) := by\n    intro hpos\n    rw [Nat.one_le_iff_ne_zero]\n    intro h0\n    rw [Submodule.finrank_eq_zero] at h0\n    have hmem : (fun _ => (1 : ZMod 2)) ∈ LinearMap.ker Z.mulVecLin := by\n      rw [LinearMap.mem_ker, Matrix.mulVecLin_apply, hcol]\n    rw [h0, Submodule.mem_bot] at hmem\n    obtain ⟨y, hy⟩ := Finset.card_pos.1 hpos\n    have := congrFun hmem ⟨y, hy⟩\n    simp at this\n  have hle : (Z * Zᵀ).rank ≤ Z.rank := Matrix.rank_mul_le_left _ _\n  rw [hZZ] at hle\n  unfold Matrix.rank at hle\n  by_contra hlt\n  push Not at hlt\n  rcases Nat.eq_zero_or_pos W.card with h0 | hpos\n  · have : Module.finrank (ZMod 2) (LinearMap.range Z.mulVecLin) ≤ 0 := by omega\n    unfold Matrix.rank at hN\n    omega\n  · have := hker hpos\n    unfold Matrix.rank at hN\n    omega\n"
+     },
+     {
+      "claim": "Any nonzero functional takes value 1 on at least 8 parities.",
+      "explanation": "Applying `gf8_W_sum` with A = ∅ shows |W| mod 2 = ∑ i, lam i * syndrome({i}) = 0, because singletons have zero syndrome (`gf8_oracle_syndrome_singleton`). By `ZMod.natCast_eq_zero_iff_even`, |W| is even. Since |W| ≥ 7 by `gf8_weight_ge_seven`, it follows that |W| ≥ 8.",
+      "lemmas": [
+       "gf8_weight_ge_seven",
+       "gf8_W_sum",
+       "gf8_oracle_syndrome_singleton",
+       "ZMod.natCast_eq_zero_iff_even"
+      ],
+      "automation": false,
+      "code": "theorem gf8_weight_ge_eight (S : Finset (Finset (Fin 9))) (hS : is_parity_repr S gf8_oracle_syndrome)\n    (lam : Fin 9 → ZMod 2) (hlam : lam ≠ 0) :\n    8 ≤ (S.filter fun y => ∑ i ∈ y, lam i = 1).card := by\n  classical\n  have h7 := gf8_weight_ge_seven S hS lam hlam\n  have heven : ((S.filter fun y => ∑ i ∈ y, lam i = 1).card : ZMod 2) = 0 := by\n    have := gf8_W_sum S hS lam ∅ (by simp)\n    simp only [Finset.empty_subset, ite_true, Finset.sum_const, nsmul_eq_mul, mul_one] at this\n    rw [this]\n    exact Finset.sum_eq_zero fun i _ => by\n      rw [Finset.insert_empty, gf8_oracle_syndrome_singleton, mul_zero]\n  obtain ⟨m, hm⟩ := (ZMod.natCast_eq_zero_iff_even).1 heven\n  omega\n\n\n/-- The length bound `∑_{i<k} ⌈d / 2^i⌉` for binary linear codes, written recursively. -/\ndef binary_code_len_bound : ℕ → ℕ → ℕ\n  | 0, _ => 0\n  | k + 1, d => d + binary_code_len_bound k ((d + 1) / 2)\n\n/-- Length bound for binary linear codes (by residual codes), in the language of point sets: if every nonzero linear functional on a\n`k`-dimensional `𝔽₂`-space takes the value `1` on at least `d` points of `P`, then\n`P` has at least `∑_{i<k} ⌈d / 2^i⌉` points. -/"
+     },
+     {
+      "claim": "Griesmer bound induction: codimension-1 projection and minimal functional.",
+      "explanation": "By induction on k, we select a nonzero functional φ0 minimizing |{y ∈ P | φ0 y = 1}|. By duality (`Module.forall_dual_apply_eq_zero_iff`), such functionals exist. The hyperplane H = ker φ0 has dimension k by rank-nullity (`LinearMap.finrank_range_add_finrank_ker`), and P decomposes into P' = P ∩ H and points outside H.",
+      "lemmas": [
+       "Module.forall_dual_apply_eq_zero_iff",
+       "Nat.find_spec",
+       "LinearMap.finrank_range_add_finrank_ker"
+      ],
+      "automation": false,
+      "code": "theorem binary_points_len_bound : ∀ (k : ℕ) (V : Type) [AddCommGroup V] [Module (ZMod 2) V]\n    [FiniteDimensional (ZMod 2) V], Module.finrank (ZMod 2) V = k →\n    ∀ (P : Finset V) (d : ℕ),\n      (∀ φ : Module.Dual (ZMod 2) V, φ ≠ 0 → d ≤ (P.filter fun y => φ y = 1).card) →\n      binary_code_len_bound k d ≤ P.card := by\n  intro k\n  induction k with\n  | zero => intros; simp [binary_code_len_bound]\n  | succ k ih =>\n    intro V _ _ _ hk P d hP\n    classical\n    have hnt : Nontrivial V := Module.nontrivial_of_finrank_pos (R := ZMod 2) (by omega)\n    have hex : ∃ m, ∃ φ : Module.Dual (ZMod 2) V, φ ≠ 0 ∧\n        (P.filter fun y => φ y = 1).card = m := by\n      obtain ⟨v, hv⟩ := exists_ne (0 : V)\n      obtain ⟨φ, hφ⟩ : ∃ φ : Module.Dual (ZMod 2) V, φ v ≠ 0 := by\n        by_contra h\n        push Not at h\n        exact hv ((Module.forall_dual_apply_eq_zero_iff (ZMod 2) v).1 h)\n      exact ⟨_, φ, fun h => hφ (by simp [h]), rfl⟩\n    obtain ⟨φ0, hφ0, hw0⟩ := Nat.find_spec hex\n    have hmin : ∀ φ : Module.Dual (ZMod 2) V, φ ≠ 0 →\n        Nat.find hex ≤ (P.filter fun y => φ y = 1).card :=\n      fun φ hφ => Nat.find_min' hex ⟨φ, hφ, rfl⟩\n    have hdw : d ≤ Nat.find hex := hw0 ▸ hP φ0 hφ0\n    obtain ⟨v0, hv0⟩ : ∃ v, φ0 v ≠ 0 := by\n      by_contra h\n      push Not at h\n      exact hφ0 (LinearMap.ext h)\n    have hv01 : φ0 v0 = 1 := (gf8_zmod2_cases _).resolve_left hv0\n    let H := LinearMap.ker φ0\n    have hH : Module.finrank (ZMod 2) H = k := by\n      have h1 := LinearMap.finrank_range_add_finrank_ker φ0\n      have h2 : LinearMap.range φ0 = ⊤ := by\n        rw [LinearMap.range_eq_top]\n        intro b\n        rcases gf8_zmod2_cases b with rfl | rfl\n        · exact ⟨0, map_zero _⟩\n        · exact ⟨v0, hv01⟩\n      rw [h2, finrank_top, Module.finrank_self] at h1\n      show Module.finrank (ZMod 2) (LinearMap.ker φ0) = k\n      omega\n    let P' : Finset H := P.subtype (· ∈ H)\n    have hcount : ∀ (p q : V → Prop) [DecidablePred p] [DecidablePred q],\n        (∀ y, (if p y then 1 else 0) + (if q y then 1 else 0) = 1) →\n        (P.filter p).card + (P.filter q).card = P.card := by\n      intro p q _ _ h\n      rw [Finset.card_filter, Finset.card_filter, ← Finset.sum_add_distrib]\n      rw [Finset.card_eq_sum_ones]\n      exact Finset.sum_congr rfl fun y _ => h y\n    have hP' : P'.card = (P.filter fun y => φ0 y = 0).card := by\n      rw [Finset.card_subtype]\n      exact congrArg Finset.card (Finset.filter_congr fun y _ => LinearMap.mem_ker)\n    have hsplit : (P.filter fun y => φ0 y = 0).card + (P.filter fun y => φ0 y = 1).card =\n        P.card := by\n      apply hcount\n      intro y\n      rcases gf8_zmod2_cases (φ0 y) with h | h <;> simp [h]"
+     },
+     {
+      "claim": "Griesmer bound induction: inductive step via functional extension.",
+      "explanation": "Every nonzero functional ψ on H extends via `LinearMap.exists_extend` to two distinct functionals φ and φ + φ0 on V. Summing their weights on P shows 2 * |{y ∈ P' | ψ y = 1}| + |{y ∈ P | φ0 y = 1}| ≥ 2 * d, so ψ takes value 1 on at least ⌈d / 2⌉ points of P'. Applying the inductive hypothesis on H yields the bound.",
+      "lemmas": [
+       "LinearMap.exists_extend",
+       "LinearMap.add_apply",
+       "gf8_zmod2_cases"
+      ],
+      "automation": false,
+      "code": "    have hrec : ∀ ψ : Module.Dual (ZMod 2) H, ψ ≠ 0 →\n        (d + 1) / 2 ≤ (P'.filter fun y => ψ y = 1).card := by\n      intro ψ hψ\n      obtain ⟨φ, hφ⟩ := LinearMap.exists_extend ψ\n      have hφH : ∀ y : H, φ y = ψ y := fun y => by\n        rw [← hφ]\n        rfl\n      have hne1 : φ ≠ 0 := by\n        rintro rfl\n        apply hψ\n        ext y\n        rw [← hφH]\n        rfl\n      have hne2 : φ + φ0 ≠ 0 := by\n        intro h0\n        apply hψ\n        ext y\n        have : (φ + φ0) y = 0 := by rw [h0]; rfl\n        rw [LinearMap.add_apply, LinearMap.mem_ker.1 y.2, add_zero] at this\n        rw [← hφH, this]\n        rfl\n      have c1 := hmin φ hne1\n      have c2 := hmin (φ + φ0) hne2\n      have hmap : (P'.filter fun y => ψ y = 1).map (Function.Embedding.subtype _) =\n          P.filter fun y => φ0 y = 0 ∧ φ y = 1 := by\n        ext y\n        constructor\n        · intro hy\n          obtain ⟨y', hy', rfl⟩ := Finset.mem_map.1 hy\n          rw [Finset.mem_filter, Finset.mem_subtype] at hy'\n          refine Finset.mem_filter.2 ⟨hy'.1, LinearMap.mem_ker.1 y'.2, ?_⟩\n          show φ (y' : V) = 1\n          rw [hφH]\n          exact hy'.2\n        · intro hy\n          rw [Finset.mem_filter] at hy\n          refine Finset.mem_map.2 ⟨⟨y, LinearMap.mem_ker.2 hy.2.1⟩,\n            Finset.mem_filter.2 ⟨Finset.mem_subtype.2 hy.1, ?_⟩, rfl⟩\n          rw [← hφH]\n          exact hy.2.2\n      have hr : (P'.filter fun y => ψ y = 1).card =\n          (P.filter fun y => φ0 y = 0 ∧ φ y = 1).card := by\n        rw [← hmap, Finset.card_map]\n      have hsum : (P.filter fun y => φ y = 1).card + (P.filter fun y => (φ + φ0) y = 1).card =\n          2 * (P.filter fun y => φ0 y = 0 ∧ φ y = 1).card +\n            (P.filter fun y => φ0 y = 1).card := by\n        simp only [Finset.card_filter, ← Finset.sum_add_distrib, Finset.mul_sum]\n        refine Finset.sum_congr rfl fun y _ => ?_\n        rw [LinearMap.add_apply]\n        rcases gf8_zmod2_cases (φ y) with h1 | h1 <;> rcases gf8_zmod2_cases (φ0 y) with h2 | h2 <;>\n          simp [h1, h2]\n      rw [hr]\n      omega\n    have := ih H hH P' ((d + 1) / 2) hrec\n    show d + binary_code_len_bound k ((d + 1) / 2) ≤ P.card\n    omega\n"
+     },
+     {
+      "claim": "Embedding parities into 𝔽₂⁹ reduces the bound to the Griesmer point bound.",
+      "explanation": "Parity subsets are mapped to indicator vectors in 𝔽₂⁹ via `ind`. Injectivity of `ind` ensures |image ind S| = |S| (`Finset.card_image_of_injective`). Applying `binary_points_len_bound` with k = 9 and d = 8, and computing `binary_code_len_bound 9 8 = 20` by decision procedure, reduces the theorem to showing that every nonzero functional has weight at least 8.",
+      "lemmas": [
+       "congrFun",
+       "binary_points_len_bound",
+       "Module.finrank_fin_fun",
+       "Finset.card_image_of_injective",
+       "binary_code_len_bound"
+      ],
+      "automation": false,
+      "code": "theorem gf8_oracle_t_count_ge_20 (S : Finset (Finset (Fin 9))) (hS : is_parity_repr S gf8_oracle_syndrome) : 20 ≤ S.card := by\n  classical\n  let ind : Finset (Fin 9) → (Fin 9 → ZMod 2) := fun y i => if i ∈ y then 1 else 0\n  have hinj : Function.Injective ind := by\n    intro y y' h\n    ext i\n    have := congrFun h i\n    simp only [ind] at this\n    by_cases h1 : i ∈ y <;> by_cases h2 : i ∈ y' <;> simp_all\n  have hG := binary_points_len_bound 9 (Fin 9 → ZMod 2) (Module.finrank_fin_fun (ZMod 2))\n    (S.image ind) 8 ?_\n  · rw [Finset.card_image_of_injective _ hinj] at hG\n    have h20 : binary_code_len_bound 9 8 = 20 := by decide"
+     },
+     {
+      "claim": "Every nonzero functional has weight at least 8 on the embedded representation, concluding |S| ≥ 20.",
+      "explanation": "Every nonzero functional φ on 𝔽₂⁹ corresponds via `LinearMap.pi_apply_eq_sum_univ` to a nonzero vector `lam`. Under this correspondence, evaluating φ on the indicator of y gives the sum of `lam` over y. By `gf8_weight_ge_eight`, at least 8 parities in S have this sum equal to 1, completing the hypothesis of the Griesmer bound.",
+      "lemmas": [
+       "LinearMap.pi_apply_eq_sum_univ",
+       "LinearMap.ext",
+       "Finset.filter_image",
+       "Finset.card_image_of_injective",
+       "gf8_weight_ge_eight"
+      ],
+      "automation": false,
+      "code": "    omega\n  · intro φ hφ\n    let lam : Fin 9 → ZMod 2 := fun i => φ (fun j => if i = j then 1 else 0)\n    have hφv : ∀ x, φ x = ∑ i, x i * lam i := fun x => by\n      rw [LinearMap.pi_apply_eq_sum_univ]\n      rfl\n    have hlam : lam ≠ 0 := by\n      intro h\n      apply hφ\n      refine LinearMap.ext fun x => ?_\n      rw [hφv]\n      simp [h]\n    have hind : ∀ y, φ (ind y) = ∑ i ∈ y, lam i := by\n      intro y\n      rw [hφv]\n      simp only [ind, ite_mul, one_mul, zero_mul]\n      rw [Finset.sum_ite_mem, Finset.univ_inter]\n    rw [Finset.filter_image, Finset.card_image_of_injective _ hinj]\n    simp only [hind]\n    exact gf8_weight_ge_eight S hS lam hlam"
+     }
+    ],
+    "glossary": {
+     "binary_code_len_bound": "The recursive binary Griesmer length bound: bound 0 d = 0, and bound (k + 1) d = d + bound k ⌈d / 2⌉.",
+     "binary_points_len_bound": "For any point set P in a k-dimensional vector space over 𝔽₂, if every nonzero dual functional takes value 1 on at least d points of P, then P has at least binary_code_len_bound k d points.",
+     "congrFun": "Two functions are equal implies they take equal values on any input.",
+     "Fin.ext": "Two elements of Fin n are equal if their underlying natural values are equal.",
+     "Finset.card_image_of_injective": "The cardinality of the image of a finite set under an injective map equals the cardinality of the original set.",
+     "Finset.filter_image": "Filtering an image by a predicate equals the image of the set filtered by the precomposed predicate.",
+     "Finset.sum_boole": "The sum of boolean indicators over a finite set equals the cardinality of the filtered set.",
+     "Finset.sum_filter": "Summing over a filtered set equals summing over the whole set with an indicator conditional.",
+     "Finset.sum_image": "The sum of a function over the image of an injective map equals the sum over the domain.",
+     "Finset.sum_mul": "Right-distributivity of multiplication over a finite sum.",
+     "Finset.sum_subset": "If s₁ ⊆ s₂ and the summand vanishes on s₂ \\ s₁, the sum over s₁ equals the sum over s₂.",
+     "Finset.sum_subset_zero_on_sdiff": "Two finite sums agree if the terms agree on the subset and vanish on the set difference.",
+     "gf8_amat_det": "For any nonzero vector c in 𝔽₂³, the 3 × 3 slice matrix gf8_amat β c has nonzero determinant.",
+     "gf8_block_sum": "Contracting the symmetrized syndrome with lam on one register recovers the matrix entry of gf8_amat β c.",
+     "gf8_oracle_syndrome_singleton": "The GF(8) oracle syndrome evaluates to 0 on any single qubit.",
+     "gf8_syn_sym": "The symmetrized GF(8) multiplication syndrome on three qubits, summed over all six permutations of the triple.",
+     "gf8_syn_sym_off": "The symmetrized syndrome vanishes when one qubit does not lie in the expected register β for that slice.",
+     "gf8_syn_sym_swap": "The symmetrized syndrome is symmetric under swapping its second and third qubit arguments.",
+     "gf8_syndrome_pair": "The GF(8) oracle syndrome evaluates to 0 on any pair of qubits.",
+     "gf8_syndrome_triple": "The syndrome on any triple of qubits equals the symmetrized syndrome gf8_syn_sym.",
+     "gf8_W_sum": "Summing the indicator of A ⊆ y over odd parities of a functional lam computes the contracted syndrome ∑ i, lam i * syndrome(insert i A).",
+     "gf8_weight_ge_eight": "Every nonzero functional on 𝔽₂⁹ takes value 1 on at least 8 parities in any parity representation of the syndrome.",
+     "gf8_weight_ge_seven": "Every nonzero functional on 𝔽₂⁹ takes value 1 on at least 7 parities in any parity representation of the syndrome.",
+     "gf8_zmod2_cases": "Every element of ZMod 2 (𝔽₂) is either 0 or 1.",
+     "LinearMap.add_apply": "The evaluation of the sum of two linear maps on a vector is the sum of their individual evaluations.",
+     "LinearMap.exists_extend": "Any linear functional on a subspace can be extended to a linear functional on the whole ambient space.",
+     "LinearMap.ext": "Two linear maps are equal if they agree on all inputs.",
+     "LinearMap.finrank_range_add_finrank_ker": "The rank-nullity theorem: the dimension of the range plus the dimension of the kernel equals the dimension of the domain.",
+     "LinearMap.pi_apply_eq_sum_univ": "Any linear functional on a finite-dimensional coordinate space is given by the standard dot product with its basis values.",
+     "Matrix.det_fin_three": "The Leibniz determinant formula for a 3 × 3 matrix over a commutative ring.",
+     "Matrix.rank_mul_le_left": "The rank of a matrix product A * B is at most the rank of A.",
+     "Module.finrank_fin_fun": "The dimension of the function space Fin n → R over a field R is n.",
+     "Module.forall_dual_apply_eq_zero_iff": "A vector in a module is zero if and only if every linear functional evaluates to zero on it.",
+     "Nat.find_spec": "The least natural number satisfying an existential predicate satisfies that predicate.",
+     "Nat.mod_lt": "If 0 < y, then x % y < y for natural numbers.",
+     "ZMod.natCast_eq_zero_iff_even": "An integer cast to ZMod 2 is zero if and only if the integer is even."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   }

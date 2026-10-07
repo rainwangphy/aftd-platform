@@ -2,6 +2,62 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-07",
+   "kind": "daily",
+   "title": "Daily reading: 22 proved, 9 open",
+   "body": "The Proposer read 5 new paper(s), listed 10 open problem(s), and stated 6 of them in Lean, and posed 0 more from what the knowledgebase already holds (25 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 22 theorem(s); 9 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `catch_up_outcome_neg_eq_loss_iff`: Negating a Catch-Up outcome yields a loss if and only if the original outcome is a win.\n\nFormalized. `catch_up_value_eq_loss_iff` (Catch-Up: A Game in Which the Lead Alternates (2015)): For any nonempty finite set S of natural numbers, the game value catch_up_value S is CatchUpOutcome.loss if and only if for every element x ∈ S, the second player wins from the resulting position, i.e., catch_up_value_aux (S.erase x) 0 x false =…\n\nProved. `catch_up_value_aux_empty_eq_draw_iff`: In a Catch-Up position with an empty set of remaining pieces, the game value for the mover is CatchUpOutcome.draw if and only if the mover's score equals the opponent's score.\n\nProved. `graph_matching_num_two_mul_le_card`: In any finite simple graph G on vertex set V, twice the matching number is at most the number of vertices, 2 * graph_matching_num G ≤ |V|.\n\nFormalized. `konig_matching_vertex_cover_num` (Diestel, Graph Theory, Theorem 2.1.1): König's theorem: in any finite bipartite simple graph G, the matching number is equal to the vertex cover number.\n\nFormalized. `gf8_oracle_t_count_ge_20` (arXiv:2610.01024): The slice-rank floor of arXiv:2610.01024 Proposition 59 at k = 3: every parity representation of the GF(8) multiplication oracle's syndrome has at least G(3) = 20 parities (every nonzero slice of the multiplication tensor has rank 6, so the column code is an…\n\nProved. `matroid_strongly_base_orderable_freeOn`: A free matroid (every subset of the ground set independent) is strongly base-orderable.\n\nProved. `matroid_common_colorable_freeOn_one`: A free matroid paired with itself has a common coloring with one color.\n\nProved. `not_matroid_common_colorable_loopyOn_zero`: A nonempty ground set has no common coloring with zero colors.\n\nFormalized. `matroid_common_colorable_of_list_colorable` (arXiv:2610.07318): If (M₁, M₂) is k-list-colorable then it has a common coloring with k colors (take every list to be {0, …, k−1}); hence χ(M₁, M₂) ≤ χ_ℓ(M₁, M₂).\n\nFormalized. `matroid_common_list_colorable_one_of_colorable_one` (arXiv:2610.07318): If (M₁, M₂) has a common coloring with one color (the whole ground set is independent in both), then it is 1-list-colorable: χ_ℓ = χ when χ ≤ 1.\n\nProved. `k4_forest_aug`: The forests of K₄ satisfy the matroid augmentation axiom.\n\nOpen. `matroid_sbo_common_list_colorable_two` (arXiv:2610.07318): If M₁ and M₂ are strongly base-orderable matroids on a common finite ground set and (M₁, M₂) has a common coloring with two colors, then (M₁, M₂) is 2-list-colorable.\n\nOpen. `matroid_sbo_common_list_chromatic_eq` (arXiv:2610.07318): Open problem (arXiv:2610.07318, Question 3.2): for every two strongly base-orderable loopless matroids M₁, M₂ on a common finite ground set, the common list chromatic number equals the common chromatic number: χ_ℓ(M₁, M₂) = χ(M₁, M₂).\n\nOpen. `matroid_symmetry_gap_lt_eight_seventeenths` (arXiv:2610.07387): Open problem (arXiv:2610.07387, after Corollary 3.4): there is a strongly symmetric instance of non-negative submodular maximization under a matroid constraint — a matroid M on a finite ground set, a non-negative submodular f and a permutation group G —…\n\nOpen. `matroid_common_list_chromatic_additive_gap_bounded` (arXiv:2610.07318): Open problem (arXiv:2610.07318, Question 3.1): there is a constant C such that χ_ℓ(M₁, M₂) ≤ χ(M₁, M₂) + C for every two loopless matroids M₁, M₂ on a common finite ground set.\n\nOpen. `matroid_common_list_chromatic_le_chromatic_add_one`: Open question (arXiv:2610.07318, Question 3.1, second part): for every two loopless matroids M₁, M₂ on a common finite ground set, χ_ℓ(M₁, M₂) ≤ χ(M₁, M₂) + 1.\n\nOpen. `linear_flattening_potency_le` (arXiv:2610.08504): For n ≥ 2, every linear flattening L of ℂⁿ ⊗ ℂⁿ ⊗ ℂⁿ satisfies Pot(L) ≤ 2n − 2 + 2/(n+1) = 2n²/(n+1): for every tensor T some pure tensor x ⊗ y ⊗ z has (n + 1) · rank L(T) ≤ 2n² · rank L(x ⊗ y ⊗ z).\n\nOpen. `linear_flattening_potency_gt_even_exists` (arXiv:2610.08504): Open problem (arXiv:2610.08504, Sec. 1.2, question (ii)): for some even n ≥ 4 there is a linear flattening L : ℂⁿ ⊗ ℂⁿ ⊗ ℂⁿ → Mat_{u×v}(ℂ) with potency greater than 2n − 2, i.e. Π(n) > 2n − 2, so that the linear flattening method gives nontrivial equations…\n\nOpen. `tarski_query_complexity_five_le_log_sq` (arXiv:2610.07055): Open problem (arXiv:2610.07055, Sec. 1): Tarski(n, 5) = O(log² n), i.e. there is a constant C such that for all n ≥ 2 some deterministic algorithm finds a fixed point of every monotone map [n]^5 → [n]^5 with at most C (ln n)² queries.\n\nOpen. `spr_opt_diag_le_sqrt` (arXiv:2610.07623): Open problem (arXiv:2610.07623, after Theorem 4.1 and Remark 6.2): the labeler can guarantee opt(n, n) = O(√n), i.e. there is a constant C with opt(n, n) ≤ C √n for every n ≥ 1.",
+   "declarations": [
+    "catch_up_outcome_neg_eq_loss_iff",
+    "catch_up_value_eq_loss_iff",
+    "catch_up_value_aux_empty_eq_draw_iff",
+    "graph_matching_num_two_mul_le_card",
+    "konig_matching_vertex_cover_num",
+    "gf8_oracle_t_count_ge_20",
+    "matroid_strongly_base_orderable_freeOn",
+    "matroid_common_colorable_freeOn_one",
+    "not_matroid_common_colorable_loopyOn_zero",
+    "matroid_common_colorable_of_list_colorable",
+    "matroid_common_list_colorable_one_of_colorable_one",
+    "k4_forest_aug",
+    "k4_forest_subset",
+    "multilinear_extension_indicator",
+    "matroid_symmetry_gap_le_one",
+    "k4_cycle_matroid_indep",
+    "k4_two_forests",
+    "three_k4_partition_matroid_indep",
+    "matroid_common_list_colorable_two_not_of_colorable_two",
+    "linear_flattening_rank_sum_pure_le",
+    "tarski_query_complexity_one_le_log",
+    "spr_opt_two_two"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.07387",
+     "href": "https://arxiv.org/abs/2610.07387"
+    },
+    {
+     "label": "arXiv:2610.07055",
+     "href": "https://arxiv.org/abs/2610.07055"
+    },
+    {
+     "label": "arXiv:2610.07623",
+     "href": "https://arxiv.org/abs/2610.07623"
+    },
+    {
+     "label": "arXiv:2610.08504",
+     "href": "https://arxiv.org/abs/2610.08504"
+    },
+    {
+     "label": "arXiv:2610.07318",
+     "href": "https://arxiv.org/abs/2610.07318"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-05",
    "kind": "weekly",
    "week": "2026-W40",

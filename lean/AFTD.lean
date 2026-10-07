@@ -81,6 +81,7 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeBestEqWin
 import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeEqDrawIff
 import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeNeg
 import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeNegEqDrawIff
+import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeNegEqLossIff
 import AFTD.Kb.GameTheoryEconomics.CatchUpOutcomeNegEqWinIff
 import AFTD.Kb.GameTheoryEconomics.CatchUpScoreDiffEvenOfEvenSum
 import AFTD.Kb.GameTheoryEconomics.CatchUpScoreDiffOddOfOddSum
@@ -95,6 +96,7 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpValue
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueAux
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueAuxAddScores
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueAuxEmpty
+import AFTD.Kb.GameTheoryEconomics.CatchUpValueAuxEmptyEqDrawIff
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueAuxEqEvalList
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueAuxFirstMoveEqOfEqScores
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueAuxIccEraseMaxNeLossIff
@@ -115,6 +117,7 @@ import AFTD.Kb.GameTheoryEconomics.CatchUpValueEmpty
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueEqAuxFalse
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueEqDrawIffNotLoss
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueEqEvalList
+import AFTD.Kb.GameTheoryEconomics.CatchUpValueEqLossIff
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueEqWinIff
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueIccEight
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueIccEleven
@@ -730,6 +733,15 @@ import AFTD.Kb.NumberTheory.WeaklyConsecutiveLastDvd
 import AFTD.Kb.NumberTheory.WeaklyConsecutiveOneAtEndOfIsPrimePow
 import AFTD.Kb.NumberTheory.WeaklyConsecutiveRev
 
+-- optimization
+import AFTD.Kb.Optimization.FinsetIndicatorVec
+import AFTD.Kb.Optimization.IsStronglySymmetricInstance
+import AFTD.Kb.Optimization.MatroidPolytope
+import AFTD.Kb.Optimization.MatroidSymmetryGapLeOne
+import AFTD.Kb.Optimization.MultilinearExtension
+import AFTD.Kb.Optimization.MultilinearExtensionIndicator
+import AFTD.Kb.Optimization.PermGroupSymmetrize
+
 -- physics
 import AFTD.Kb.Physics.BoltzmannDistribution
 import AFTD.Kb.Physics.BoltzmannDistributionSumEqOne
@@ -815,6 +827,7 @@ import AFTD.Kb.Tcs.Gf8OracleSyndrome
 import AFTD.Kb.Tcs.Gf8OracleSyndromeSameRegister
 import AFTD.Kb.Tcs.Gf8OracleSyndromeSingleton
 import AFTD.Kb.Tcs.Gf8OracleSyndromeZeroZeroZero
+import AFTD.Kb.Tcs.Gf8OracleTCountGe20
 import AFTD.Kb.Tcs.Gf8OracleTCountLe29
 import AFTD.Kb.Tcs.GraphMatchingEncardLeVertexCoverEncard
 import AFTD.Kb.Tcs.GraphMatchingNum
@@ -822,6 +835,7 @@ import AFTD.Kb.Tcs.GraphMatchingNumBot
 import AFTD.Kb.Tcs.GraphMatchingNumLeEncardEdgeSet
 import AFTD.Kb.Tcs.GraphMatchingNumLeVertexCoverNum
 import AFTD.Kb.Tcs.GraphMatchingNumMono
+import AFTD.Kb.Tcs.GraphMatchingNumTwoMulLeCard
 import AFTD.Kb.Tcs.GraphTreewidth
 import AFTD.Kb.Tcs.HasTreeDecompositionOfWidthLe
 import AFTD.Kb.Tcs.HasTreeDecompositionSingleBag
@@ -851,8 +865,15 @@ import AFTD.Kb.Tcs.IsTemporalWalk
 import AFTD.Kb.Tcs.IsTreeIffIsAcyclicAndCard
 import AFTD.Kb.Tcs.IsValidMatrix3Decomposition
 import AFTD.Kb.Tcs.IsotropicSubspaceLowerBound
+import AFTD.Kb.Tcs.K4CycleMatroid
+import AFTD.Kb.Tcs.K4CycleMatroidIndep
+import AFTD.Kb.Tcs.K4Forest
+import AFTD.Kb.Tcs.K4ForestAug
+import AFTD.Kb.Tcs.K4ForestSubset
+import AFTD.Kb.Tcs.K4TwoForests
 import AFTD.Kb.Tcs.KarpReducible
 import AFTD.Kb.Tcs.KarpReducibleRefl
+import AFTD.Kb.Tcs.KonigMatchingVertexCoverNum
 import AFTD.Kb.Tcs.LineCubicForm
 import AFTD.Kb.Tcs.LineCubicParityReprEvalZero
 import AFTD.Kb.Tcs.LineCubicParityReprNonempty
@@ -862,6 +883,8 @@ import AFTD.Kb.Tcs.LineCubicTCountLowerBound
 import AFTD.Kb.Tcs.LineCubicTCountSix
 import AFTD.Kb.Tcs.LineSyndrome
 import AFTD.Kb.Tcs.LineSyndromeEmpty
+import AFTD.Kb.Tcs.LinearFlatteningPotencyGt
+import AFTD.Kb.Tcs.LinearFlatteningRankSumPureLe
 import AFTD.Kb.Tcs.ManyOneReducibleCompl
 import AFTD.Kb.Tcs.MasterTheoremPolynomialCaseOne
 import AFTD.Kb.Tcs.MasterTheoremPolynomialCaseThree
@@ -880,10 +903,21 @@ import AFTD.Kb.Tcs.Matrix3TensorRankZDichotomy
 import AFTD.Kb.Tcs.Matrix3TensorRankZLe23
 import AFTD.Kb.Tcs.Matrix3TensorRankZmod2LeOfInt
 import AFTD.Kb.Tcs.Matrix3Triad
+import AFTD.Kb.Tcs.MatroidCommonChromaticNumber
+import AFTD.Kb.Tcs.MatroidCommonColorable
+import AFTD.Kb.Tcs.MatroidCommonColorableFreeOnOne
+import AFTD.Kb.Tcs.MatroidCommonColorableOfListColorable
+import AFTD.Kb.Tcs.MatroidCommonListChromaticNumber
+import AFTD.Kb.Tcs.MatroidCommonListColorable
+import AFTD.Kb.Tcs.MatroidCommonListColorableOneOfColorableOne
+import AFTD.Kb.Tcs.MatroidCommonListColorableTwoNotOfColorableTwo
+import AFTD.Kb.Tcs.MatroidStronglyBaseOrderable
+import AFTD.Kb.Tcs.MatroidStronglyBaseOrderableFreeOn
 import AFTD.Kb.Tcs.NPHard
 import AFTD.Kb.Tcs.NfaAcceptsIsRegular
 import AFTD.Kb.Tcs.NondeterministicPolyTimeBounded
 import AFTD.Kb.Tcs.NotComputableOfManyOneReducible
+import AFTD.Kb.Tcs.NotMatroidCommonColorableLoopyOnZero
 import AFTD.Kb.Tcs.NotReComplOfReAndNotComputable
 import AFTD.Kb.Tcs.NotReOfManyOneReducibleAndNotRe
 import AFTD.Kb.Tcs.PMAns
@@ -959,6 +993,16 @@ import AFTD.Kb.Tcs.SelfHaltingProblemRe
 import AFTD.Kb.Tcs.SelfHaltingProblemUndecidable
 import AFTD.Kb.Tcs.SliceRankFloor
 import AFTD.Kb.Tcs.SliceRankFloorThree
+import AFTD.Kb.Tcs.SprMove
+import AFTD.Kb.Tcs.SprOpt
+import AFTD.Kb.Tcs.SprOptTwoTwo
+import AFTD.Kb.Tcs.SprSignCount
+import AFTD.Kb.Tcs.SprValue
+import AFTD.Kb.Tcs.TarskiQueryComplexityLe
+import AFTD.Kb.Tcs.TarskiQueryComplexityOneLeLog
+import AFTD.Kb.Tcs.TarskiQueryTree
+import AFTD.Kb.Tcs.TarskiQueryTreeCost
+import AFTD.Kb.Tcs.TarskiQueryTreeRun
 import AFTD.Kb.Tcs.Team2UniqueMaxWeight
 import AFTD.Kb.Tcs.TeamDual
 import AFTD.Kb.Tcs.TeamDual2
@@ -1024,6 +1068,11 @@ import AFTD.Kb.Tcs.TeamWins
 import AFTD.Kb.Tcs.TeamWinsCons
 import AFTD.Kb.Tcs.TemporalConnectedExploreSq
 import AFTD.Kb.Tcs.TemporalWalkExploresBy
+import AFTD.Kb.Tcs.Tensor3Pure
+import AFTD.Kb.Tcs.ThreeK4Matroid
+import AFTD.Kb.Tcs.ThreeK4PartitionClass
+import AFTD.Kb.Tcs.ThreeK4PartitionMatroid
+import AFTD.Kb.Tcs.ThreeK4PartitionMatroidIndep
 import AFTD.Kb.Tcs.TimeBounded
 import AFTD.Kb.Tcs.TimeBoundedEqCoOfDeciderNegationClosed
 import AFTD.Kb.Tcs.TimeBoundedMono

@@ -4,6 +4,40 @@
   {
    "date": "2026-10-08",
    "kind": "launch",
+   "title": "1921 declarations from EconCSLib and CSLib, each compiled here",
+   "body": "Two more Lean libraries came in through `aftd import`, under the same checks as TCSlib: each declaration is checked interactively and then built offline with `lake build`, and one that does not compile leaves no trace. Each carries the \"imported Lean\" badge, and its page names the authors, links the file at the commit we read, and gives the license.\n\nEconCSLib, a library of economics and computation, gave 1229 declarations, 603 of them theorems, in nine topics. Among them: von Neumann's minimax theorem for matrix games and the existence of a mixed Nash equilibrium; weak and strong duality of linear programming; Gale–Shapley, with stable matchings closed under join and meet; the revelation principle for Bayesian mechanisms; cut-and-choose is envy-free, and EFX implies EF1; the core of a coalitional game lies within its imputations.\n\nCSLib, the Lean community's computer science library, gave 692 declarations, 296 of them theorems, in nine topics. Among them: Shannon's bound that a perfectly secret scheme needs at least as many keys as messages, and the perfect secrecy of the one-time pad; reconstruction in Shamir's secret sharing; a URM program halts exactly when it is normalizable; the basics of PAC learning (version spaces, shattering, VC dimension, and how sample complexity moves with ε, δ and the class); and the algebra of formal languages and automata.\n\nThese are the libraries' own formalizations, not new results. Our part is compiling them again against our Lean and Mathlib: 1862 declarations compiled unchanged and 66 needed a change, shown on each page. To do this, imports now follow the exact dependency graph Lean reports, carry a library's local notation with the declarations that use it, join mutual definitions, and move a name we already had under the library's namespace.\n\nThis is a first pass. 940 of the 2169 declarations we asked of EconCSLib and 2301 of the 2993 of CSLib did not compile yet, most because something they depend on did not; the causes we found are fixed and a second pass is running. About 500 imported declarations have no docstring upstream, so their description is only the name for now.",
+   "declarations": [
+    "Minimax.minimax",
+    "MatrixGame.exists_mixed_nash_equilibrium",
+    "EconCSLib.LinearProgramming.lp_weak_duality",
+    "EconCSLib.LinearProgramming.lp_strong_duality",
+    "GS.stableJoin_isStable",
+    "GS.stableMeet_isStable",
+    "BayesianMechanismWithTransfers.exAnte_revelation_principle",
+    "SocialChoice.FairDivision.Divisible.cutAndChoose_isEnvyFree",
+    "SocialChoice.FairDivision.Indivisible.IsEFX.isEF1",
+    "CoalitionalGame.core_subset_imputations",
+    "Cslib.Crypto.Protocols.PerfectSecrecy.shannonKeySpace",
+    "Cslib.Crypto.Protocols.PerfectSecrecy.otp_perfectlySecret",
+    "Cslib.Crypto.Protocols.SecretSharing.Shamir.reconstruct_view_eq_secret",
+    "Cslib.URM.halts_iff_normalizable",
+    "Cslib.MachineLearning.PACLearning.hasFiniteVCDim_iff",
+    "Cslib.MachineLearning.PACLearning.mem_versionSpace_of_realizable"
+   ],
+   "links": [
+    {
+     "label": "EconCSLib on GitHub",
+     "href": "https://github.com/gametheoryinlean/EconCSLib"
+    },
+    {
+     "label": "CSLib on GitHub",
+     "href": "https://github.com/leanprover/cslib"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "launch",
    "title": "853 declarations from TCSlib, each compiled here",
    "body": "The knowledgebase now takes Lean written elsewhere. `aftd import` reads a declaration from another repository at a fixed commit and compiles it here under the same checks as a proof found by the Prover: first the interactive check, then an offline `lake build`. A declaration that does not compile leaves no trace. Each imported declaration carries an \"imported Lean\" badge, and its page names the authors, links the file at that commit, and gives the license.\n\nThe first source is TCSlib, a Lean library of theoretical computer science. We asked for 44 of its results and took each together with everything it depends on: 853 declarations in 13 topics, 509 of them theorems. 33 of the 44 results compiled here.\n\nBoolean function analysis: Parseval and Plancherel, Friedgut's junta theorem, Bonami's lemma, Arrow's theorem, BLR completeness, and degree at most decision-tree depth.\n\nCommunication complexity: the fooling-set, log-rank and discrepancy lower bounds, the exact complexities of equality, disjointness and one-way indexing, and Pinsker's inequality.\n\nCodes: the Singleton, Gilbert–Varshamov and binary Johnson bounds.\n\nOnline learning: the halving, weighted-majority and Hedge bounds, the minimax theorems, and no-regret play converging to coarse correlated equilibria.\n\nCryptography: completeness, special soundness and honest-verifier zero knowledge of Schnorr's protocol.\n\nReductions: 3-SAT to Clique and to 3-coloring, NAE-SAT to 3-coloring, and Subset Sum to Partition.\n\nThese are formalizations by TCSlib's authors, not new results. Our part is compiling them again against our newer Lean and Mathlib. 802 declarations compiled unchanged. 51 needed a change, for example because a Mathlib lemma had been renamed or a tactic now behaves differently. Each declaration's page shows what was changed.\n\nEleven of the 44 results are not imported yet. Three are left unproved (`sorry`) in TCSlib itself: KKL and both forms of the MRRW bound. The other eight do not yet compile against our Mathlib: the Hamming bound, list-decoding capacity, the quantum Hamming and Singleton bounds, BLR soundness, Newman's theorem, the optimality of Kruskal's algorithm, and Johnson–Lindenstrauss. They will be added as they are repaired.",
    "declarations": [

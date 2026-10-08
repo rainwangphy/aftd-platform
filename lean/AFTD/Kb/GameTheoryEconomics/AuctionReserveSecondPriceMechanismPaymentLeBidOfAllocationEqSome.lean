@@ -1,0 +1,32 @@
+import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.AuctionReserveSecondPriceAllocation
+import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
+import AFTD.Kb.GameTheoryEconomics.AuctionReserveSecondPriceMechanism
+import AFTD.Kb.GameTheoryEconomics.AuctionReserveSecondPriceClearingPrice
+import AFTD.Kb.GameTheoryEconomics.AuctionReserveSecondPriceMechanismPaymentOfAllocationEqSome
+import AFTD.Kb.GameTheoryEconomics.AuctionReserveSecondPriceClearingPriceLeBidOfAllocationEqSome
+import AFTD.Kb.GameTheoryEconomics.AuctionReserveSecondPriceMechanismAllocationRule
+import AFTD.Kb.GameTheoryEconomics.AuctionReserveSecondPriceMechanismPaymentRule
+
+/-!
+# Auction.ReserveSecondPrice.mechanism_payment_le_bid_of_allocation_eq_some
+
+Topic: mechanism_design   Node: b1b0a64f59dd
+
+Provenance: formalization of a published result. Source: EconCSLib, `Auction.ReserveSecondPrice.mechanism_payment_le_bid_of_allocation_eq_some`. Lean proof by xbei (from the file's git history), from https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/MechanismDesign/Auction/ReserveVickrey.lean (Copyright (c) 2026 EconCSLib contributors. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+The allocated bidder never pays more than her reported bid.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+variable {I : Type*} [Fintype I] [Nontrivial I] [DecidableEq I] in
+variable {U : Type*} [AddCommGroup U] [LinearOrder U] [IsOrderedAddMonoid U] in
+variable {reserve : U} {v : I → U} in
+omit [IsOrderedAddMonoid U] in
+/-- The allocated bidder never pays more than her reported bid. -/
+lemma Auction.ReserveSecondPrice.mechanism_payment_le_bid_of_allocation_eq_some {reserve : U} {b : I → U} {i : I}
+    (halloc : allocation reserve b = some i) :
+    (mechanism reserve).paymentRule b i ≤ b i := by
+  rw [mechanism_payment_of_allocation_eq_some halloc]
+  exact clearingPrice_le_bid_of_allocation_eq_some halloc

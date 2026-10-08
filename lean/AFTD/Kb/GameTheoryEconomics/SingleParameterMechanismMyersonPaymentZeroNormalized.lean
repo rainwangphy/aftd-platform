@@ -1,0 +1,22 @@
+import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanismZeroNormalized
+import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanismMyersonPayment
+
+/-!
+# SingleParameterMechanism.myersonPayment_zeroNormalized
+
+Topic: mechanism_design   Node: 773d6b153a4e
+
+Provenance: formalization of a published result. Source: EconCSLib, `SingleParameterMechanism.myersonPayment_zeroNormalized`. Lean proof by xbei (from the file's git history), from https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/MechanismDesign/Auction/Myerson.lean (Copyright (c) 2026 EconCSLib contributors. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+The canonical Myerson payment rule is zero-normalized.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+variable {I : Type*} in
+/-- The canonical Myerson payment rule is zero-normalized. -/
+theorem SingleParameterMechanism.myersonPayment_zeroNormalized [DecidableEq I] (x : (I → ℝ) → I → ℝ) :
+    ZeroNormalized (myersonPayment x) := by
+  intro i b
+  simp [myersonPayment]

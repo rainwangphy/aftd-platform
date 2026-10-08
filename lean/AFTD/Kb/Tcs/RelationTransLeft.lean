@@ -1,0 +1,18 @@
+import AFTD.Prelude
+
+/-!
+# Relation.transLeft
+
+Topic: computability   Node: decaafd232c5
+
+Provenance: formalization of a published result. Source: CSLib, `Relation.transLeft`. Lean proof by Fabrizio Montesi, Thomas Waring, Chris Henson, from https://github.com/leanprover/cslib/blob/3951377e5a3f5772737f11cd62bc5bb6a72f95d1/Cslib/Foundations/Relation/Defs.lean (Copyright (c) 2025 Fabrizio Montesi and Thomas Waring. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+A subrelation lifts to transitivity on the left of the relation.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+/-- A subrelation lifts to transitivity on the left of the relation. -/
+@[implicit_reducible]
+def Relation.transLeft (s r : α → α → Prop) [IsTrans α r] (h : s ≤ r) : Trans s r r where
+  trans hab hbc := _root_.trans (h _ _ hab) hbc

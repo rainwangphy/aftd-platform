@@ -391,6 +391,7 @@ def page(
         f'<a href="{root}{href}"{current if href == active else ""}>{label}</a>'
         for href, label in NAV
     )
+    math = math or bool(re.search(r'class="[^"]*\bmath\b', body))
     head_math = (
         f'<link rel="stylesheet" href="{KATEX}/katex.min.css">'
         f'<script defer src="{KATEX}/katex.min.js"></script>'
@@ -504,6 +505,58 @@ def inline_code(text: str) -> str:
     return re.sub(r"`([^`\n]+)`", r"<code>\1</code>", e(text))
 
 
+# Imported statements (TCSlib's) come with their informal text in LaTeX: math
+# between $...$ or \[...\], which KaTeX typesets in the browser (with the
+# macros in static/app.js), and a few text commands around it, set here.
+_MATH_SPAN = re.compile(r"\$\$.*?\$\$|\$[^$]*\$|\\\(.*?\\\)|\\\[.*?\\\]", re.S)
+_TEXT_CMD = {"emph": "em", "textit": "em", "textbf": "strong", "texttt": "code"}
+
+
+def _braced(text: str, i: int) -> int:
+    """Index just past the group that opens at text[i] == "{"; -1 if unbalanced."""
+    depth = 0
+    for j in range(i, len(text)):
+        depth += {"{": 1, "}": -1}.get(text[j], 0)
+        if depth == 0:
+            return j + 1
+    return -1
+
+
+def _tex_words(text: str) -> str:
+    """Escaped text, its LaTeX text commands as HTML. Math is not in it: it
+    stands there as placeholders, so a brace inside a formula is not counted."""
+    out, i = [], 0
+    for m in re.finditer(r"\\(emph|textit|textbf|texttt)\{", text):
+        if m.start() < i:
+            continue
+        end = _braced(text, m.end() - 1)
+        if end < 0:
+            break
+        tag = _TEXT_CMD[m.group(1)]
+        out += [_tex_plain(text[i:m.start()]),
+                f"<{tag}>{_tex_words(text[m.end():end - 1])}</{tag}>"]
+        i = end
+    out.append(_tex_plain(text[i:]))
+    return "".join(out)
+
+
+def _tex_plain(text: str) -> str:
+    text = re.sub(r"\\(?:begin|end)\{(?:itemize|enumerate)\}", " ", text)
+    text = re.sub(r"\\([_#%&{}$])", r"\1", text)
+    return e(text).replace("\\item", "<br>&bull;")
+
+
+def tex_prose(text: str) -> str:
+    """Informal text for an element marked `math`: escaped, math left to KaTeX."""
+    if "\\" not in text and "$" not in text:
+        return e(text)
+    text = re.sub(r"\\(abs|norm)\*", r"\\\1", text)
+    spans = [m.group(0) for m in _MATH_SPAN.finditer(text)]
+    held = _MATH_SPAN.sub(lambda m: "\0", text)
+    parts = _tex_words(held).split("\0")
+    return "".join(p + (e(spans[k]) if k < len(spans) else "") for k, p in enumerate(parts))
+
+
 def kind_badge(d: dict) -> str:
     return badge(d["kind"], "kind def" if d["is_def"] else "kind thm")
 
@@ -605,7 +658,6 @@ def decl_card(s: Site, d: dict, root: str, *, sig: bool = True) -> str:
         d["name"], d["informal"], s.topic_title(d["topic"]), s.domain_title(d["domain"]),
         d.get("citation") or "", d["statement"],
     )
-    words = d["informal"] or d["statement"]
     return (
         f'<article class="card entry" data-q="{e(hay)}" data-domain="{e(d["domain"])}" '
         f'data-kind="{"def" if d["is_def"] else "theorem"}" '
@@ -613,7 +665,8 @@ def decl_card(s: Site, d: dict, root: str, *, sig: bool = True) -> str:
         f'data-t="{d["proved_at"]}" data-seq="{d["seq"]}">'
         f'<div class="card-top"><a class="decl stretch" href="{root}d/{slug(d["name"])}/">{e(d["name"])}</a>'
         f'<span class="badges">{"".join(tags)}</span></div>'
-        f'<p class="prose">{e(words)}</p>'
+        + (f'<p class="prose math">{tex_prose(d["informal"])}</p>' if d["informal"]
+           else f'<p class="prose">{e(d["statement"])}</p>')
         + (f'<pre class="sig lean">{highlight_lean(d["statement"])}</pre>' if sig else "")
         + f'<p class="meta">{"".join(meta)}</p></article>'
     )
@@ -642,8 +695,9 @@ def open_card(s: Site, n: dict, root: str) -> str:
         f'data-t="{n.get("created") or 0}" data-seq="0">'
         f'<div class="card-top"><code class="decl">{e(n["name"])}</code>'
         f'<span class="badges">{"".join(tags)}</span></div>'
-        f'<p class="prose">{e(n["informal"] or n["statement"])}</p>'
-        f'<pre class="sig lean">{highlight_lean(n["statement"])}</pre>'
+        + (f'<p class="prose math">{tex_prose(n["informal"])}</p>' if n["informal"]
+           else f'<p class="prose">{e(n["statement"])}</p>')
+        + f'<pre class="sig lean">{highlight_lean(n["statement"])}</pre>'
         f'<p class="meta">{"".join(meta)}</p></article>'
     )
 
@@ -1324,7 +1378,7 @@ def render_decl(s: Site, d: dict) -> str:
             f'<a href="{root}problems/{d["problem"]}/">#{d["problem"]}{title}</a>.</p>'
         )
     if d["informal"]:
-        parts.append(f'<p class="prose big">{e(d["informal"])}</p>')
+        parts.append(f'<p class="prose big math">{tex_prose(d["informal"])}</p>')
     parts.append(
         f'<h2>Statement</h2>{codebox(highlight_lean(d["statement"]), "sig")}'
     )
@@ -1563,7 +1617,7 @@ def render_problems(s: Site) -> str:
             f'<article class="card"><div class="card-top"><code class="decl">{e(n["name"])}</code>'
             f'<span class="badges">{status_badge("stuck" if n["status"] == "stuck" else "formalized")}'
             f'{badge(s.topic_title(n["topic"]), "dom")}</span></div>'
-            + (f'<p class="prose">{e(n["informal"])}</p>' if n["informal"] else "")
+            + (f'<p class="prose math">{tex_prose(n["informal"])}</p>' if n["informal"] else "")
             + f'<pre class="sig lean">{highlight_lean(n["statement"])}</pre></article>'
             for n in loose
         )

@@ -290,15 +290,30 @@ window.addEventListener('DOMContentLoaded', () => {
   // KaTeX is loaded only on pages that show submitted statements, and only
   // elements marked .math are rendered, so a "$21" elsewhere stays a price.
   if (typeof renderMathInElement !== 'function') return;
-  for (const el of document.querySelectorAll('.math')) {
-    renderMathInElement(el, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '\\[', right: '\\]', display: true},
-        {left: '$', right: '$', display: false},
-        {left: '\\(', right: '\\)', display: false},
-      ],
-      throwOnError: false,
-    });
-  }
+  const render = (el) => renderMathInElement(el, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '\\[', right: '\\]', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+    ],
+    // What imported statements (TCSlib's) write that KaTeX does not know.
+    macros: {
+      '\\bbr': '\\mathbb{R}', '\\bbn': '\\mathbb{N}', '\\bbz': '\\mathbb{Z}',
+      '\\bbf': '\\mathbb{F}', '\\bbP': '\\mathbb{P}', '\\E': '\\mathbb{E}',
+      '\\abs': '\\left|#1\\right|', '\\norm': '\\left\\|#1\\right\\|',
+      '\\dist': '\\operatorname{dist}',
+    },
+    throwOnError: false,
+  });
+  // The knowledgebase lists every declaration: typeset each as it comes into
+  // view, not thousands of formulas before the page can scroll.
+  const els = document.querySelectorAll('.math');
+  if (!('IntersectionObserver' in window)) { els.forEach(render); return; }
+  const io = new IntersectionObserver((seen) => {
+    for (const x of seen) {
+      if (x.isIntersecting) { io.unobserve(x.target); render(x.target); }
+    }
+  }, {rootMargin: '600px 0px'});
+  els.forEach((el) => io.observe(el));
 });

@@ -88,7 +88,8 @@ h1.mono{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.
 main h2{margin:12px 0 0;font-size:19px;font-weight:700;letter-spacing:-.01em}
 main h3{margin:0;font-size:15px;font-weight:600}
 .prose{margin:0;font-family:var(--prose);font-size:16px;line-height:1.6;max-width:70ch}
-.prose.big{font-size:19px}
+.prose .katex-display{margin:.5em 0;overflow-x:auto;overflow-y:hidden}
+.prose.big{font-size:19px;max-width:none}
 .pre-wrap{white-space:pre-wrap}
 .small{margin:0;font-size:12.5px;color:var(--ink-3)}
 .empty{color:var(--ink-2);font-style:italic}
@@ -263,6 +264,8 @@ pre.pw-code{margin:0;background:transparent;border:0;border-radius:0;color:#e8e6
 .card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--radius);padding:14px 16px;
       display:flex;flex-direction:column;gap:8px;min-width:0;transition:border-color .15s,box-shadow .15s}
 .card:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--rule));box-shadow:var(--shadow)}
+/* A card's text runs the card's width, like the page around it. */
+.card .prose{max-width:none}
 .card-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;justify-content:space-between}
 a.decl,code.decl{font-family:var(--mono);font-size:13.5px;font-weight:600;word-break:break-word}
 a.decl{color:var(--ink);text-decoration:none}

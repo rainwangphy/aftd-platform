@@ -1,4 +1,5 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.LoomisMinmaxFromGeneral
 import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameEj
 import AFTD.Kb.GameTheoryEconomics.MatrixGameEi
@@ -7,9 +8,7 @@ import AFTD.Kb.Optimization.Wsum
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisExistsXxLam0
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisMu0
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisExistsYyMu0
-import AFTD.Kb.GameTheoryEconomics.LoomisMinmaxFromGeneral
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.Tcs.G
 
 /-!
 # MatrixGame.minimax_optimal_strategies

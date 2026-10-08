@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibFreeM
-import AFTD.Kb.Tcs.F
 
 /-!
 # Cslib.FreeM.instPure

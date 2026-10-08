@@ -1,8 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsAntisymmetric
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsAntisymmetricQuadformZero
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsAntisymmetric
 
 /-!
 # EconCSLib.StrategicGame.antisymmetric_self_pairing_zero

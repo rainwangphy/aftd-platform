@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibURMInstr
-import AFTD.Kb.Tcs.CslibURMInstrReadsFrom
 
 /-!
 # Cslib.URM.Instr.writesTo

@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionDivisibleCakeValuation
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionDivisibleAllocation
-import AFTD.Kb.Tcs.V
 
 /-!
 # SocialChoice.FairDivision.Divisible.IsEnvyFree

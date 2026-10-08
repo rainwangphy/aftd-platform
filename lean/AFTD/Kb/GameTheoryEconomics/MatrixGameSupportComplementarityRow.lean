@@ -1,4 +1,5 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalColumnStrategiesIffELe
 import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalRowStrategies
 import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalColumnStrategies
@@ -6,12 +7,10 @@ import AFTD.Kb.GameTheoryEconomics.MatrixGameEi
 import AFTD.Kb.GameTheoryEconomics.MatrixGameValue
 import AFTD.Kb.GameTheoryEconomics.MatrixGameE
 import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalRowStrategiesIffEGe
-import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalColumnStrategiesIffELe
 import AFTD.Kb.Optimization.StdSimplexPure
 import AFTD.Kb.Optimization.Wsum
 import AFTD.Kb.Optimization.WsumPureApply
 import AFTD.Kb.Optimization.StdSimplexPureApply
-import AFTD.Kb.Tcs.G
 
 /-!
 # MatrixGame.support_complementarity_row

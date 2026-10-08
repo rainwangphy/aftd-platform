@@ -1,8 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.SATtoColorClause
 import AFTD.Kb.Tcs.SATtoColorLiteral
-import AFTD.Kb.Tcs.F
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.SATtoColorClause
 
 /-!
 # SATtoColor.OutputVertex

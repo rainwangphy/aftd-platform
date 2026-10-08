@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.KruskalWEdge
 import AFTD.Kb.Tcs.KruskalReach
-import AFTD.Kb.Tcs.F
 
 /-!
 # Kruskal.SpansLike

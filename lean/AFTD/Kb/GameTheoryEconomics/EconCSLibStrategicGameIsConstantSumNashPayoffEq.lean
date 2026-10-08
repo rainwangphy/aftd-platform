@@ -9,9 +9,6 @@ import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSelf
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateOfNe
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsZeroSumDecidable
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.GameTheoryEconomics.Profile
-import AFTD.Kb.GameTheoryEconomics.Deviate
 
 /-!
 # EconCSLib.StrategicGame.IsConstantSum.nash_payoff_eq

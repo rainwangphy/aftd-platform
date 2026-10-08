@@ -1,7 +1,7 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.AuctionSecondPriceUtility
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
+import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfersToStrategicGame
 
 /-!
 # Auction.SecondPrice.game

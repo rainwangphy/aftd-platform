@@ -1,10 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocolComputes
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocolCost
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayCommunicationComplexity
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComputes
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicLeCommunicationComplexityIff
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayCommunicationComplexity
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocolComputes
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocol
 
 /-!
 # CommunicationComplexity.Deterministic.OneWay.le_communicationComplexity_iff

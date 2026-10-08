@@ -1,13 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeM
-import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstPureOfZero
-import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMPure
-import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstBindOfAdd
 import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstFunctor
-import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstSeqOfAdd
-import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstSeqLeftOfAdd
 import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstSeqRightOfAdd
+import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstPureOfZero
+import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstSeqOfAdd
+import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstBindOfAdd
+import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeM
 import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstMonadOfAddZero
+import AFTD.Kb.Tcs.CslibAlgorithmsLeanTimeMInstSeqLeftOfAdd
 
 /-!
 # Cslib.Algorithms.Lean.TimeM.ret_pure

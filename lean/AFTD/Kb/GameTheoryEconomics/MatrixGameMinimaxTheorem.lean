@@ -1,10 +1,9 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.LoomisMinmaxFromGeneral
 import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameMaximin
 import AFTD.Kb.GameTheoryEconomics.MatrixGameMinimax
-import AFTD.Kb.GameTheoryEconomics.LoomisMinmaxFromGeneral
 import AFTD.Kb.GameTheoryEconomics.MinimaxMinimax
-import AFTD.Kb.Tcs.G
 
 /-!
 # MatrixGame.minimax_theorem

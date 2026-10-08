@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.HalvingVoteFor
-import AFTD.Kb.Tcs.V
 
 /-!
 # Halving.voteFor_false_add_true

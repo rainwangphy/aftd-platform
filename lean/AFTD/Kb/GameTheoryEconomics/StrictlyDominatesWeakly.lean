@@ -1,13 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
-import AFTD.Kb.GameTheoryEconomics.StrictlyDominates
 import AFTD.Kb.GameTheoryEconomics.WeaklyDominates
+import AFTD.Kb.GameTheoryEconomics.StrictlyDominates
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfile
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameDeviate
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSelf
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateOfNe
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
 
 /-!
 # StrictlyDominates.weakly

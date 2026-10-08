@@ -1,13 +1,11 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWF
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWFUnanimity
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWFIsDictator
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWFIsDictator
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
 import AFTD.Kb.GameTheoryEconomics.InstCoeFunPrefForallForallProp
-import AFTD.Kb.Tcs.F
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingUnanimity
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWFUnanimity
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWF
 
 /-!
 # SocialChoice.Voting.singleton_unanimity_isDictator

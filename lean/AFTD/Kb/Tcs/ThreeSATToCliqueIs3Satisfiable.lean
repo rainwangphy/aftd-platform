@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.ThreeSATToCliqueAssignment
-import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3
 import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3Satisfied
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3
+import AFTD.Kb.Tcs.ThreeSATToCliqueAssignment
 
 /-!
 # ThreeSATToClique.is3Satisfiable

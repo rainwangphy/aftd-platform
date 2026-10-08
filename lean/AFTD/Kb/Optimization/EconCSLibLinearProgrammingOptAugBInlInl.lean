@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugB
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugRow
 
 /-!
 # EconCSLib.LinearProgramming.optAugB_inl_inl

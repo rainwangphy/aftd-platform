@@ -1,13 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxHypotheses
-import AFTD.Kb.GameTheoryEconomics.OnlineLearningMinimaxSublevel
-import AFTD.Kb.GameTheoryEconomics.OnlineLearningFiniteUpperImage
 import AFTD.Kb.GameTheoryEconomics.OnlineLearningFiniteUpperImageConvex
+import AFTD.Kb.GameTheoryEconomics.OnlineLearningSeparatingWeightSumPos
 import AFTD.Kb.GameTheoryEconomics.OnlineLearningFiniteUpperImageIsOpen
 import AFTD.Kb.GameTheoryEconomics.OnlineLearningSeparatingCoordinateNonpos
+import AFTD.Kb.GameTheoryEconomics.OnlineLearningMinimaxSublevel
+import AFTD.Kb.GameTheoryEconomics.OnlineLearningFiniteUpperImage
+import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxHypotheses
 import AFTD.Kb.GameTheoryEconomics.OnlineLearningSeparatingFunctionalNormalizedLe
-import AFTD.Kb.GameTheoryEconomics.OnlineLearningSeparatingWeightSumPos
-import AFTD.Kb.Tcs.Regret
 
 /-!
 # OnlineLearning.finite_sublevel_intersections_by_separation

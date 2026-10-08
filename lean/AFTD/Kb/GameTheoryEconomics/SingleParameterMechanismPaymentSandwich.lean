@@ -1,15 +1,13 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanismIsDSIC
+import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfersIsDSIC
 import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanism
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfersToStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameDeviate
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfile
-import AFTD.Kb.GameTheoryEconomics.IsWeaklyDominant
-import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfersIsDSIC
 import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanismPayment
-import AFTD.Kb.GameTheoryEconomics.WeaklyDominates
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSelf
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateOfNe

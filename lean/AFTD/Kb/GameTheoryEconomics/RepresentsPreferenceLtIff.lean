@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.RepresentsPreference
-import AFTD.Kb.GameTheoryEconomics.Strict
 
 /-!
 # RepresentsPreference.lt_iff

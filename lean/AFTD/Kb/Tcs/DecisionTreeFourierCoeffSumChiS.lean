@@ -1,14 +1,13 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
-import AFTD.Kb.Tcs.BooleanAnalysisChiS
-import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeff
-import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeffChi
-import AFTD.Kb.Tcs.BooleanAnalysisInnerProduct
 import AFTD.Kb.Tcs.BooleanAnalysisUniformWeight
+import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeffChi
+import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeff
 import AFTD.Kb.Tcs.BooleanAnalysisChiSSingleton
 import AFTD.Kb.Tcs.BooleanAnalysisInnerProductChiSelf
+import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
+import AFTD.Kb.Tcs.BooleanAnalysisInnerProduct
+import AFTD.Kb.Tcs.BooleanAnalysisChiS
 import AFTD.Kb.Tcs.BooleanAnalysisFlipBitFlipBit
-import AFTD.Kb.Tcs.DecisionTree
 
 /-!
 # DecisionTree.fourierCoeff_sum_chiS

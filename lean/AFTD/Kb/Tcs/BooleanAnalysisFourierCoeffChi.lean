@@ -1,12 +1,11 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
-import AFTD.Kb.Tcs.BooleanAnalysisChiS
-import AFTD.Kb.Tcs.BooleanAnalysisChiSMulChiS
-import AFTD.Kb.Tcs.BooleanAnalysisExpect
-import AFTD.Kb.Tcs.BooleanAnalysisInnerProduct
 import AFTD.Kb.Tcs.BooleanAnalysisUniformWeight
-import AFTD.Kb.Tcs.BooleanAnalysisSumChiS
+import AFTD.Kb.Tcs.BooleanAnalysisChiSMulChiS
 import AFTD.Kb.Tcs.BooleanAnalysisChiSSingleton
+import AFTD.Kb.Tcs.BooleanAnalysisSumChiS
+import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
+import AFTD.Kb.Tcs.BooleanAnalysisInnerProduct
+import AFTD.Kb.Tcs.BooleanAnalysisChiS
 
 /-!
 # BooleanAnalysis.fourier_coeff_chi

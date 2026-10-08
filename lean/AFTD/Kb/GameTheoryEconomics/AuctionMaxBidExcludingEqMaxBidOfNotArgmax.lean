@@ -1,10 +1,9 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.AuctionArgmaxBid
-import AFTD.Kb.GameTheoryEconomics.AuctionMaxBidExcluding
-import AFTD.Kb.GameTheoryEconomics.AuctionMaxBid
 import AFTD.Kb.GameTheoryEconomics.AuctionMaxBidExcludingLeMaxBid
+import AFTD.Kb.GameTheoryEconomics.AuctionMaxBidExcluding
 import AFTD.Kb.GameTheoryEconomics.AuctionArgmaxBidEqMaxBid
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.GameTheoryEconomics.AuctionMaxBid
 
 /-!
 # Auction.maxBidExcluding_eq_maxBid_of_not_argmax

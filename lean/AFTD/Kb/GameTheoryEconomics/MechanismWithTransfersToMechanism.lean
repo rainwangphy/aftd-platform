@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
 import AFTD.Kb.GameTheoryEconomics.Mechanism
-import AFTD.Kb.Tcs.V
 
 /-!
 # MechanismWithTransfers.toMechanism

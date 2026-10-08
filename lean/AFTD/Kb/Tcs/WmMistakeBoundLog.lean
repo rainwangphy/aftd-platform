@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.Potential
 
 /-!
 # wm_mistake_bound_log

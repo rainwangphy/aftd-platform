@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.AuctionMaxBidExcluding
 import AFTD.Kb.GameTheoryEconomics.AuctionMaxBid
-import AFTD.Kb.Tcs.V
 
 /-!
 # Auction.maxBidExcluding_le_maxBid

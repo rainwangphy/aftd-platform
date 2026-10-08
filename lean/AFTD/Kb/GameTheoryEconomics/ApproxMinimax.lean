@@ -1,11 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.HedgeConstruction
+import AFTD.Kb.GameTheoryEconomics.PureVsPayoff
 import AFTD.Kb.GameTheoryEconomics.MixedStrategy
 import AFTD.Kb.GameTheoryEconomics.ZeroSumGame
+import AFTD.Kb.GameTheoryEconomics.HedgeConstruction
 import AFTD.Kb.GameTheoryEconomics.PayoffVsPure
-import AFTD.Kb.GameTheoryEconomics.PureVsPayoff
-import AFTD.Kb.Tcs.Rate
-import AFTD.Kb.Tcs.Regret
 
 /-!
 # approx_minimax

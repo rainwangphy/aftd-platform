@@ -1,6 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.F
-import AFTD.Kb.Tcs.Weight
 
 /-!
 # IsKKMCover

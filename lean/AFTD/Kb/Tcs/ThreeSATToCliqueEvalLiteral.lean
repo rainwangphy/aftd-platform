@@ -1,7 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.ThreeSATToCliqueAssignment
 import AFTD.Kb.Tcs.ThreeSATToCliqueLiteral
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.ThreeSATToCliqueAssignment
 
 /-!
 # ThreeSATToClique.evalLiteral

@@ -1,9 +1,8 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComplexity
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComap
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComplexity
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolComplexity
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolComap
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolAuxCard
 
 /-!
 # CommunicationComplexity.Deterministic.Protocol.comap_complexity

@@ -1,8 +1,7 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameUniformMixed
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedProfile
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameUniformMixed
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
 
 /-!
 # EconCSLib.StrategicGame.uniformMixedProfile

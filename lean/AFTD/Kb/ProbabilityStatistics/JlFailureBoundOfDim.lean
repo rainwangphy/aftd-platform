@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.V
 
 /-!
 # jl_failure_bound_of_dim

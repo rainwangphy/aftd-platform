@@ -2,7 +2,6 @@ import AFTD.Prelude
 import AFTD.Kb.Tcs.SATtoColorEdgeRelation
 import AFTD.Kb.Tcs.SATtoColorOutputVertex
 import AFTD.Kb.Tcs.SATtoColorSat3
-import AFTD.Kb.Tcs.V
 
 /-!
 # SATtoColor.ReductionGraph

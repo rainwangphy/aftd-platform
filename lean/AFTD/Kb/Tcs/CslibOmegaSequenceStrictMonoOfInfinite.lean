@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibOmegaSequence
 
 /-!
 # Cslib.ωSequence.strictMono_of_infinite

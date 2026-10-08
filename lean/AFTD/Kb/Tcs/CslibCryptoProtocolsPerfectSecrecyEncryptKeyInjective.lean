@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibCryptoProtocolsPerfectSecrecyEncScheme
-import AFTD.Kb.Tcs.Support
 
 /-!
 # Cslib.Crypto.Protocols.PerfectSecrecy.encrypt_key_injective

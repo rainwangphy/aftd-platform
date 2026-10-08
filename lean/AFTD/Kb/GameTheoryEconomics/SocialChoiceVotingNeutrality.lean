@@ -1,10 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingVotingRule
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPermuteCandidates
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPermuteWinners
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPermuteCandidates
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
-import AFTD.Kb.GameTheoryEconomics.Profile
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingVotingRule
 
 /-!
 # SocialChoice.Voting.Neutrality

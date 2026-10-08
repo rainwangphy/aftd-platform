@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CommunicationComplexityRectangleIsRectangle
 import AFTD.Kb.Tcs.CommunicationComplexityDiscrepancy
+import AFTD.Kb.Tcs.CommunicationComplexityRectangleIsRectangle
 import AFTD.Kb.Tcs.CommunicationComplexityFiniteProbabilitySpace
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
 
 /-!
 # CommunicationComplexity.Deterministic.Protocol.nonneg_of_discrepancy_bound

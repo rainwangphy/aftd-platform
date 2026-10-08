@@ -1,7 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.PrefixHedgeWeight
 import AFTD.Kb.GameTheoryEconomics.ZeroSumGame
-import AFTD.Kb.Tcs.Potential
+import AFTD.Kb.GameTheoryEconomics.PrefixHedgeWeight
 
 /-!
 # prefixPotential

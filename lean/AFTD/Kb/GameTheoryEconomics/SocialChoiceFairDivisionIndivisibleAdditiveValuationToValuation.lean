@@ -1,8 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleAdditiveValuation
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleValuation
-import AFTD.Kb.Tcs.G
-import AFTD.Kb.Tcs.Weight
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleAdditiveValuation
 
 /-!
 # SocialChoice.FairDivision.Indivisible.AdditiveValuation.toValuation

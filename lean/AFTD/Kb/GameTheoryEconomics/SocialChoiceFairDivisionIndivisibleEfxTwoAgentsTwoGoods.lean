@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleValuation
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleAllocation
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleIsEFX
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleIsEFXOfSingletonBundle
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleValuation
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleIsEFX
 
 /-!
 # SocialChoice.FairDivision.Indivisible.efx_two_agents_two_goods

@@ -1,11 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3
-import AFTD.Kb.Tcs.ThreeSATToCliqueThreeSATToCliqueCompleteness
 import AFTD.Kb.Tcs.ThreeSATToCliqueThreeSATToCliqueSoundness
+import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3
 import AFTD.Kb.Tcs.ThreeSATToCliqueHasClique
 import AFTD.Kb.Tcs.ThreeSATToCliqueIs3Satisfiable
+import AFTD.Kb.Tcs.ThreeSATToCliqueThreeSATToCliqueCompleteness
 import AFTD.Kb.Tcs.ThreeSATToCliqueToCliqueGraph
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.ThreeSATToCliqueClause3
+import AFTD.Kb.Tcs.ThreeSATToCliqueCliqueVertex
 
 /-!
 # ThreeSATToClique.ThreeSAT_to_Clique_equivalence

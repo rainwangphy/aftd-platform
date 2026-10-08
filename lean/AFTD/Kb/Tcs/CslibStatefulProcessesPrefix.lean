@@ -2,7 +2,6 @@ import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibMechExpr
 import AFTD.Kb.Tcs.CslibMechInstCoeExpr
 import AFTD.Kb.Tcs.CslibMechInstCoeExpr1
-import AFTD.Kb.Tcs.CslibLanguagesMechPrefix
 
 /-!
 # Cslib.StatefulProcesses.Prefix

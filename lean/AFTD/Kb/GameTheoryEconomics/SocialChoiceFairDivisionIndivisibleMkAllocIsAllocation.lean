@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleIsAllocation
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleMkAlloc
-import AFTD.Kb.Tcs.G
 
 /-!
 # SocialChoice.FairDivision.Indivisible.mkAlloc_isAllocation

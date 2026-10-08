@@ -1,18 +1,17 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
+import AFTD.Kb.GameTheoryEconomics.GameTreeIVariant
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcome
 import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.GameTreeStrategy
 import AFTD.Kb.GameTheoryEconomics.GameTree
 import AFTD.Kb.GameTheoryEconomics.GameTreeSubtree
-import AFTD.Kb.GameTheoryEconomics.GameTreeIVariant
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcome
 import AFTD.Kb.GameTheoryEconomics.GameTreeChildren
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueLeaf
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueNode
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListNil
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListCons
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
-import AFTD.Kb.Tcs.G
 
 /-!
 # GameTree.IsSubgamePerfectOn

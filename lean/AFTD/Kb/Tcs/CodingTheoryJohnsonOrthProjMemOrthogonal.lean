@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CodingTheoryJohnsonOrthProj
-import AFTD.Kb.Tcs.V
 
 /-!
 # CodingTheory.Johnson.orthProj_mem_orthogonal

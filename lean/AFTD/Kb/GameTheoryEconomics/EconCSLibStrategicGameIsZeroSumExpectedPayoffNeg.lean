@@ -1,13 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsZeroSum
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedProfile
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameExpectedPayoff
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfile
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedStrategy
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsZeroSumNeg
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsZeroSum
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfile
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsZeroSumDecidable
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameExpectedPayoff
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedProfile
 
 /-!
 # EconCSLib.StrategicGame.IsZeroSum.expectedPayoff_neg

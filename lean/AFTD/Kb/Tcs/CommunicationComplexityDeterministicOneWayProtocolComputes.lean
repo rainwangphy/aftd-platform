@@ -1,10 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocol
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocolRun
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolRun
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComputes
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolRun
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocol
 
 /-!
 # CommunicationComplexity.Deterministic.OneWay.Protocol.Computes

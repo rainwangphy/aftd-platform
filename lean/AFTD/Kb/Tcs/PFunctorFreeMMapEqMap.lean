@@ -1,9 +1,8 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.CslibFreeMMapEqMap
 import AFTD.Kb.Tcs.PFunctorFreeM
 import AFTD.Kb.Tcs.PFunctorFreeMMap
 import AFTD.Kb.Tcs.PFunctorFreeMInstFunctor
-import AFTD.Kb.Tcs.CslibFreeMMap
-import AFTD.Kb.Tcs.CslibFreeMMapEqMap
 
 /-!
 # PFunctor.FreeM.map_eq_map

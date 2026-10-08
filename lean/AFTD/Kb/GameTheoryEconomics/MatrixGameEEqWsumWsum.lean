@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.MatrixGame
-import AFTD.Kb.GameTheoryEconomics.MatrixGameE
 import AFTD.Kb.Optimization.Wsum
+import AFTD.Kb.GameTheoryEconomics.MatrixGameE
+import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.Tcs.G
 
 /-!
 # MatrixGame.E_eq_wsum_wsum

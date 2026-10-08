@@ -1,8 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleValuation
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleAllocation
-import AFTD.Kb.Tcs.G
-import AFTD.Kb.Tcs.Weight
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleValuation
 
 /-!
 # SocialChoice.FairDivision.Indivisible.isEFX_of_singleton_bundle

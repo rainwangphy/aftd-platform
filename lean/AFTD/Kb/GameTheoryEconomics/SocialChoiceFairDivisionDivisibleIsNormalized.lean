@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionDivisibleCakeValuation
-import AFTD.Kb.Tcs.V
 
 /-!
 # SocialChoice.FairDivision.Divisible.IsNormalized

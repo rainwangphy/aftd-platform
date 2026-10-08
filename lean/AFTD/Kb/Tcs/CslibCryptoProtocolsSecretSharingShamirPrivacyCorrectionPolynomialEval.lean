@@ -1,8 +1,7 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPointsInjOnSubtype
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirParams
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPrivacyCorrectionPolynomial
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPointsInjOnSubtype
-import AFTD.Kb.Tcs.F
 
 /-!
 # Cslib.Crypto.Protocols.SecretSharing.Shamir.privacyCorrectionPolynomial_eval

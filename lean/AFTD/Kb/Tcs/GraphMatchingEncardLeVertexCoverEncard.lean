@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.GraphMatchingNum
 
 /-!
 # graph_matching_encard_le_vertex_cover_encard

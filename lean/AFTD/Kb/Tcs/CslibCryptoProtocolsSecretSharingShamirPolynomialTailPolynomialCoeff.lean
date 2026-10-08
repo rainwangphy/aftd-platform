@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialTailPolynomial
-import AFTD.Kb.Tcs.F
 
 /-!
 # Cslib.Crypto.Protocols.SecretSharing.Shamir.Polynomial.tailPolynomial_coeff

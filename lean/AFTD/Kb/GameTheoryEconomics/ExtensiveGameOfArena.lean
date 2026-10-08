@@ -1,15 +1,14 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.Arena
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGame
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGameOfControlledGame
-import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArena
-import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArenaToArena
-import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArenaInit
-import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArenaMover
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameOfControlledGameToControlledGame
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGameOfControlledGamePayoff
+import AFTD.Kb.GameTheoryEconomics.Arena
+import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArenaToArena
+import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArenaMover
+import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArenaInit
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameOfControlledGameToControlledGameSelf
-import AFTD.Kb.GameTheoryEconomics.ControlledGame
+import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArena
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGameOfControlledGamePayoff
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGameOfControlledGame
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGame
 
 /-!
 # ExtensiveGame.ofArena

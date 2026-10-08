@@ -1,10 +1,9 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GameTreeSizeMemTailLt
 import AFTD.Kb.GameTheoryEconomics.GameTree
 import AFTD.Kb.GameTheoryEconomics.GameTreeChildren
 import AFTD.Kb.GameTheoryEconomics.GameTreeSize
 import AFTD.Kb.GameTheoryEconomics.GameTreeSizeHeadLt
-import AFTD.Kb.GameTheoryEconomics.GameTreeSizeMemTailLt
-import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeSize
 
 /-!
 # GameTree.size_mem_children_lt

@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.SpiSignalMass
 import AFTD.Kb.GameTheoryEconomics.SpiSignalValue
-import AFTD.Kb.GameTheoryEconomics.SpiAccepted
 import AFTD.Kb.GameTheoryEconomics.SpiAcceptProb
 import AFTD.Kb.GameTheoryEconomics.SpiIsScheme
 import AFTD.Kb.GameTheoryEconomics.SpiTwoPointMaxProb

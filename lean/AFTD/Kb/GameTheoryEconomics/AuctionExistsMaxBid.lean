@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.AuctionMaxBid
-import AFTD.Kb.Tcs.V
 
 /-!
 # Auction.exists_maxBid

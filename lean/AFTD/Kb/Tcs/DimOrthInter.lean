@@ -1,17 +1,16 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.F
-import AFTD.Kb.Tcs.V
-import AFTD.Kb.Tcs.VSub
-import AFTD.Kb.Tcs.DimVSub
-import AFTD.Kb.Tcs.OrthInterEqOrthSubImage
-import AFTD.Kb.Tcs.RE
-import AFTD.Kb.Tcs.SymFormSub
-import AFTD.Kb.Tcs.SymFormSubIsRefl
-import AFTD.Kb.Tcs.SymFormSubNondegenerate
 import AFTD.Kb.Tcs.SymOrth
+import AFTD.Kb.Tcs.SymFormSubIsRefl
+import AFTD.Kb.Tcs.OrthInterEqOrthSubImage
 import AFTD.Kb.Tcs.SymBApply
+import AFTD.Kb.Tcs.SymFormSub
+import AFTD.Kb.Tcs.DimVSub
+import AFTD.Kb.Tcs.VSub
+import AFTD.Kb.Tcs.RE
 import AFTD.Kb.Tcs.SymFormSubApply
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.F
+import AFTD.Kb.Tcs.SymFormSubNondegenerate
 
 /-!
 # dim_orth_inter

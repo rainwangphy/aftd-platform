@@ -1,13 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameGFunctionNonneg
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedS
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameNashMapAux
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameGFunction
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameOneLeSumG
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameGFunctionNonneg
-import AFTD.Kb.Optimization.StdSimplexPureApply
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
+import AFTD.Kb.Optimization.StdSimplexPureApply
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameGFunction
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameOneLeSumG
 
 /-!
 # EconCSLib.StrategicGame.nash_map_cert

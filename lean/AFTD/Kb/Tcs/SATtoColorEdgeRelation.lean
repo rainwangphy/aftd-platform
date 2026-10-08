@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.SATtoColorClause
-import AFTD.Kb.Tcs.SATtoColorLiteral
 import AFTD.Kb.Tcs.SATtoColorOutputVertex
+import AFTD.Kb.Tcs.SATtoColorLiteral
+import AFTD.Kb.Tcs.SATtoColorClause
 import AFTD.Kb.Tcs.SATtoColorSat3
-import AFTD.Kb.Tcs.V
 
 /-!
 # SATtoColor.EdgeRelation

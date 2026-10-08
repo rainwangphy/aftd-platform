@@ -1,10 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.SATtoColorClause
-import AFTD.Kb.Tcs.SATtoColorLiteral
 import AFTD.Kb.Tcs.SATtoColorOutputVertex
+import AFTD.Kb.Tcs.SATtoColorLiteral
 import AFTD.Kb.Tcs.SATtoColorSatisfiesLiteral
+import AFTD.Kb.Tcs.SATtoColorClause
 import AFTD.Kb.Tcs.SATtoColorClauseGadgetColor
-import AFTD.Kb.Tcs.V
 
 /-!
 # SATtoColor.sat3Coloring

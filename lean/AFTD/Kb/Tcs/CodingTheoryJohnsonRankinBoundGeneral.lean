@@ -1,14 +1,13 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CodingTheoryJohnsonCardFilterAddTwo
-import AFTD.Kb.Tcs.CodingTheoryJohnsonFinrankOrthogonalSpanSingleton
-import AFTD.Kb.Tcs.CodingTheoryJohnsonNormNormalizedOrthProj
-import AFTD.Kb.Tcs.CodingTheoryJohnsonNormalizedOrthProjInjective
 import AFTD.Kb.Tcs.CodingTheoryJohnsonNormalizedOrthProjInnerNonpos
 import AFTD.Kb.Tcs.CodingTheoryJohnsonOrthProj
-import AFTD.Kb.Tcs.CodingTheoryJohnsonOrthProjNeZero
-import AFTD.Kb.Tcs.CodingTheoryJohnsonMkProj
 import AFTD.Kb.Tcs.CodingTheoryJohnsonMkProjVal
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.CodingTheoryJohnsonFinrankOrthogonalSpanSingleton
+import AFTD.Kb.Tcs.CodingTheoryJohnsonNormNormalizedOrthProj
+import AFTD.Kb.Tcs.CodingTheoryJohnsonMkProj
+import AFTD.Kb.Tcs.CodingTheoryJohnsonNormalizedOrthProjInjective
+import AFTD.Kb.Tcs.CodingTheoryJohnsonCardFilterAddTwo
+import AFTD.Kb.Tcs.CodingTheoryJohnsonOrthProjNeZero
 
 /-!
 # CodingTheory.Johnson.rankin_bound_general

@@ -1,7 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfersIsExPostIR
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
 
 /-!
 # MechanismWithTransfers.isQuasiLinearExPostIR

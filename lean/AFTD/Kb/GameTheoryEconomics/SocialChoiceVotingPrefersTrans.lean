@@ -1,11 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefers
-import AFTD.Kb.GameTheoryEconomics.TotalPreorder
-import AFTD.Kb.GameTheoryEconomics.LinearOrderToTotalPreorder
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
-import AFTD.Kb.GameTheoryEconomics.Profile
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
+import AFTD.Kb.GameTheoryEconomics.TotalPreorder
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
+import AFTD.Kb.GameTheoryEconomics.LinearOrderToTotalPreorder
 
 /-!
 # SocialChoice.Voting.prefers_trans

@@ -1,11 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.MatrixGame
-import AFTD.Kb.GameTheoryEconomics.MatrixGameIsMixedNashEq
 import AFTD.Kb.GameTheoryEconomics.MinimaxMinimax
-import AFTD.Kb.GameTheoryEconomics.MatrixGameIsMixedNashEqOfPure
 import AFTD.Kb.Optimization.Wsum
+import AFTD.Kb.GameTheoryEconomics.MatrixGameIsMixedNashEqOfPure
+import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.GameTheoryEconomics.MatrixGameIsMixedNashEq
 
 /-!
 # MatrixGame.exists_mixed_nash_equilibrium

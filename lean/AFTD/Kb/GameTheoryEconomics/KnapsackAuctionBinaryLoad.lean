@@ -2,7 +2,6 @@ import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.KnapsackAuction
 import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionBinaryAllocation
 import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionBinaryToAllocation
-import AFTD.Kb.Tcs.Weight
 
 /-!
 # KnapsackAuction.binaryLoad

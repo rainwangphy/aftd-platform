@@ -1,10 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGame
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGameNoChance
 import AFTD.Kb.GameTheoryEconomics.Arena
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGameNoChance
 import AFTD.Kb.GameTheoryEconomics.ControlledGame
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameTreeShapedFrom
-import AFTD.Kb.GameTheoryEconomics.GameTree
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGame
 
 /-!
 # ExtensiveGame.FiniteExtractable

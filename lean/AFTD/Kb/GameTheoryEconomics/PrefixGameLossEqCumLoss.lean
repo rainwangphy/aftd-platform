@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CumLoss
-import AFTD.Kb.GameTheoryEconomics.ZeroSumGameToLossSeq
 import AFTD.Kb.GameTheoryEconomics.PrefixGameLoss
 import AFTD.Kb.GameTheoryEconomics.ZeroSumGame
-import AFTD.Kb.Tcs.LossSeq
+import AFTD.Kb.GameTheoryEconomics.ZeroSumGameToLossSeq
+import AFTD.Kb.Tcs.CumLoss
 
 /-!
 # prefixGameLoss_eq_cumLoss

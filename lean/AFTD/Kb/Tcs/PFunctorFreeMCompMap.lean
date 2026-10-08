@@ -1,11 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.PFunctorFreeM
-import AFTD.Kb.Tcs.PFunctorFreeMMap
-import AFTD.Kb.Tcs.PFunctorFreeMMapEqMap
-import AFTD.Kb.Tcs.PFunctorFreeMBindPureComp
-import AFTD.Kb.Tcs.PFunctorFreeMIdMap
-import AFTD.Kb.Tcs.G
 import AFTD.Kb.Tcs.CslibFreeMCompMap
+import AFTD.Kb.Tcs.PFunctorFreeMIdMap
+import AFTD.Kb.Tcs.PFunctorFreeMMapEqMap
+import AFTD.Kb.Tcs.PFunctorFreeM
+import AFTD.Kb.Tcs.PFunctorFreeMBindPureComp
+import AFTD.Kb.Tcs.PFunctorFreeMMap
 
 /-!
 # PFunctor.FreeM.comp_map

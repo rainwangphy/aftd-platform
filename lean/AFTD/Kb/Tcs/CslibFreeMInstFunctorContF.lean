@@ -1,20 +1,18 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibFreeMContF
-import AFTD.Kb.Tcs.CslibFreeMMap
-import AFTD.Kb.Tcs.CslibFreeMBindEqBind
-import AFTD.Kb.Tcs.CslibFreeMMapEqMap
-import AFTD.Kb.Tcs.CslibFreeMBindPure
-import AFTD.Kb.Tcs.CslibFreeMBindPureComp
-import AFTD.Kb.Tcs.CslibFreeMMapPure
-import AFTD.Kb.Tcs.CslibFreeMMapBind
-import AFTD.Kb.Tcs.CslibFreeMIdMap
-import AFTD.Kb.Tcs.CslibFreeMInstPure
-import AFTD.Kb.Tcs.CslibFreeMInstBind
+import AFTD.Kb.Tcs.CslibFreeMInstMonad
 import AFTD.Kb.Tcs.CslibFreeMInstFunctor
 import AFTD.Kb.Tcs.CslibFreeMInstLawfulFunctor
-import AFTD.Kb.Tcs.CslibFreeMInstMonad
+import AFTD.Kb.Tcs.CslibFreeMBindPure
+import AFTD.Kb.Tcs.CslibFreeMBindEqBind
+import AFTD.Kb.Tcs.CslibFreeMInstBind
+import AFTD.Kb.Tcs.CslibFreeMContF
+import AFTD.Kb.Tcs.CslibFreeMMapEqMap
+import AFTD.Kb.Tcs.CslibFreeMMapBind
+import AFTD.Kb.Tcs.CslibFreeMMapPure
+import AFTD.Kb.Tcs.CslibFreeMIdMap
 import AFTD.Kb.Tcs.CslibFreeMInstLawfulMonad
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.CslibFreeMInstPure
+import AFTD.Kb.Tcs.CslibFreeMBindPureComp
 
 /-!
 # Cslib.FreeM.instFunctorContF

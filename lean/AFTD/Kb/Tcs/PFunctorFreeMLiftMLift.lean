@@ -30,8 +30,6 @@ import AFTD.Kb.Tcs.PFunctorFreeMLiftMMap
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMSeq
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMSeqLeft
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMSeqRight
-import AFTD.Kb.Tcs.CslibFreeMLift
-import AFTD.Kb.Tcs.CslibFreeMLiftM
 
 /-!
 # PFunctor.FreeM.liftM_lift

@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleValuation
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleAllocation
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionEgalitarianWelfare
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleAllocation
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleValuation
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionUtilitarianWelfareUnique
-import AFTD.Kb.Tcs.G
 
 /-!
 # SocialChoice.FairDivision.Indivisible.egalitarianWelfare

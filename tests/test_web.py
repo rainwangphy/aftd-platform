@@ -18,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "web"))
 
-from build import build  # noqa: E402
+from build import build, clip_prose, lean_from_html, tex_prose  # noqa: E402
 from problems import (  # noqa: E402
     PROBLEM_FIELDS,
     VERDICT_FIELDS,
@@ -152,6 +152,27 @@ def kb(decls: list[dict], open_nodes: list[dict]) -> dict:
 
 
 def main() -> int:
+    print("imported prose")
+    got = tex_prose("**Matrix games have a mixed NE.** Packages `Minimax.minimax`.")
+    check("Markdown bold in a docstring is set bold",
+          got.startswith("<strong>Matrix games have a mixed NE.</strong>"), got)
+    check("a backticked name is set as code", "<code>Minimax.minimax</code>" in got, got)
+    check("a product a*b*c stays as written", tex_prose("a*b*c") == "a*b*c")
+    got = tex_prose("The \\emph{support} $\\mathrm{supp}(p)$ of **p**")
+    check("Markdown next to LaTeX, the formula left to KaTeX",
+          "<em>support</em>" in got and "$\\mathrm{supp}(p)$" in got and "<strong>p</strong>" in got, got)
+    long = "Let $f:\\{0,1\\}^n\\to\\mathbb{R}$ be a Boolean function of arity $n$, and so on " * 3
+    for n in (20, 45, 70, 140):
+        c = clip_prose(long, n)
+        check(f"a clip at {n} never ends inside a formula", c.count("$") % 2 == 0, c)
+    check("a short text is not clipped", clip_prose("short $x$", 140) == "short $x$")
+    got = lean_from_html({"repo": "https://github.com/a/b", "commit": "0" * 40,
+                          "url": "https://github.com/a/b/blob/" + "0" * 40 + "/F.lean",
+                          "decls": [{"name": "A.b", "from": "A.b", "path": "F.lean", "line": 3,
+                                     "status": "verbatim"}]})
+    check("the import record is one line per declaration, not the dependency list's layout",
+          '<ul class="imp">' in got and 'class="rel"' not in got, got)
+
     print("issue forms")
     forms = ROOT / ".github" / "ISSUE_TEMPLATE"
     labels, ids = form_labels(forms / "problem.yml")

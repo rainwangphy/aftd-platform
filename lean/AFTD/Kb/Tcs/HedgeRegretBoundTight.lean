@@ -1,12 +1,11 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.LossSeq
+import AFTD.Kb.Tcs.LogPotentialStepTight
 import AFTD.Kb.Tcs.LossSeqValid
 import AFTD.Kb.Tcs.HedgeLoss
-import AFTD.Kb.Tcs.Potential
 import AFTD.Kb.Tcs.Regret
-import AFTD.Kb.Tcs.LogPotentialStepTight
+import AFTD.Kb.Tcs.Potential
 import AFTD.Kb.Tcs.RegretLeOfLogPotentialStep
-import AFTD.Kb.Tcs.Rate
+import AFTD.Kb.Tcs.LossSeq
 
 /-!
 # hedge_regret_bound_tight

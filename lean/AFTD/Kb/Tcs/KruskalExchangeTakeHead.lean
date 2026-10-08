@@ -1,11 +1,11 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.KruskalWEdge
-import AFTD.Kb.Tcs.KruskalReach
-import AFTD.Kb.Tcs.KruskalReachLift
 import AFTD.Kb.Tcs.KruskalReachMono
 import AFTD.Kb.Tcs.KruskalReachOfMem
 import AFTD.Kb.Tcs.KruskalReachSymm
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.KruskalWEdge
+import AFTD.Kb.Tcs.KruskalReachLift
+import AFTD.Kb.Tcs.KruskalReach
+import AFTD.Kb.Tcs.KruskalSymAdj
 
 /-!
 # Kruskal.exchange_take_head

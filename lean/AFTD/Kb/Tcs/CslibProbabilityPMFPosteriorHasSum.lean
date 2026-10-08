@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibProbabilityPMFBindPairTsumFst
-import AFTD.Kb.Tcs.Support
 
 /-!
 # Cslib.Probability.PMF.posterior_hasSum

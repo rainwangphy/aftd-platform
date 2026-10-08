@@ -1,9 +1,8 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameUniformMixedPos
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameUniformMixed
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsCompletelyMixed
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameUniformMixed
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameUniformMixedPos
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
 
 /-!
 # EconCSLib.StrategicGame.uniformMixed_isCompletelyMixed

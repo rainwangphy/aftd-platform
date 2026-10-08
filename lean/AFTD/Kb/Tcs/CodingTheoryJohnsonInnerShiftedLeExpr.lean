@@ -1,15 +1,16 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CodingTheoryJohnsonBitVec
-import AFTD.Kb.Tcs.CodingTheoryJohnsonHdist
-import AFTD.Kb.Tcs.CodingTheoryJohnsonInnerOnesOnes
-import AFTD.Kb.Tcs.CodingTheoryJohnsonInnerPmOneOnes
-import AFTD.Kb.Tcs.CodingTheoryJohnsonInnerPmOnePmOne
 import AFTD.Kb.Tcs.CodingTheoryJohnsonInnerShiftedExpand
-import AFTD.Kb.Tcs.CodingTheoryJohnsonShifted
+import AFTD.Kb.Tcs.CodingTheoryJohnsonInnerOnesOnes
+import AFTD.Kb.Tcs.CodingTheoryJohnsonBitVec
+import AFTD.Kb.Tcs.CodingTheoryJohnsonInnerPmOnePmOne
 import AFTD.Kb.Tcs.CodingTheoryJohnsonWt
-import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyFalse
 import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyTrue
-import AFTD.Kb.Tcs.Wt
+import AFTD.Kb.Tcs.CodingTheoryJohnsonInnerPmOneOnes
+import AFTD.Kb.Tcs.CodingTheoryJohnsonHdist
+import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyFalse
+import AFTD.Kb.Tcs.CodingTheoryJohnsonShifted
+import AFTD.Kb.Tcs.CodingTheoryJohnsonOnes
+import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOne
 
 /-!
 # CodingTheory.Johnson.inner_shifted_le_expr

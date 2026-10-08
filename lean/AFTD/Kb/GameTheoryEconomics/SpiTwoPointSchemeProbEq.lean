@@ -3,12 +3,13 @@ import AFTD.Kb.GameTheoryEconomics.SpiTwoPointMaxProb
 import AFTD.Kb.GameTheoryEconomics.SpiTwoPointPoolProb
 import AFTD.Kb.GameTheoryEconomics.SpiTwoPointPoolProbMem
 import AFTD.Kb.GameTheoryEconomics.SpiIteNullSignal
-import AFTD.Kb.GameTheoryEconomics.SpiTwoPointScheme
 
 /-!
 # spi_two_point_scheme_prob_eq
 
 Topic: mechanism_design   Node: d0ef36912648
+
+Provenance: helper lemma. step towards strategic_prophet_no_half_robust_static_threshold (no static threshold is 1/2-robust, open in Intrinsic Robustness of Prophet Inequality to Strategic Reward Signaling, NeurIPS 2024 (arXiv:2409.18269), Remark 4.1 and Sec. 6)
 
 Real-arithmetic part of the optimality of the two-point scheme: its two signals give acceptance probability exactly spi_two_point_max_prob.
 -/

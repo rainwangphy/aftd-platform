@@ -1,8 +1,7 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingMarginPos
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
-import AFTD.Kb.GameTheoryEconomics.Profile
 
 /-!
 # SocialChoice.Voting.MajorityPrefers

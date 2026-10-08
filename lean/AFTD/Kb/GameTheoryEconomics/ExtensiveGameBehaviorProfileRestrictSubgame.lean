@@ -1,16 +1,14 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGame
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGameReachableSubgameAtActionFintype
 import AFTD.Kb.GameTheoryEconomics.Arena
-import AFTD.Kb.GameTheoryEconomics.ControlledGame
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGameBehaviorProfile
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGameSubgameAtIsEmptyDecidable
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameSubgameAt
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameSubgameAtActionFintype
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGameBehaviorStrategyRestrictSubgame
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGameBehaviorStrategy
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGameIsTerminal
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGameSubgameAtIsEmptyDecidable
-import AFTD.Kb.GameTheoryEconomics.ExtensiveGameReachableSubgameAtActionFintype
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGameBehaviorProfile
+import AFTD.Kb.GameTheoryEconomics.ControlledGame
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameReachableSubgameAtIsEmptyDecidable
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGameBehaviorStrategyRestrictSubgame
+import AFTD.Kb.GameTheoryEconomics.ExtensiveGame
 
 /-!
 # ExtensiveGame.BehaviorProfile.restrictSubgame

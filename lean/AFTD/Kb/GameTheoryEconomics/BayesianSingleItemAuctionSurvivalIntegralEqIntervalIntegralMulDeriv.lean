@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.F
 
 /-!
 # BayesianSingleItemAuction.survivalIntegral_eq_intervalIntegral_mul_deriv

@@ -1,10 +1,9 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingTopRank
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingTopChoice
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
-import AFTD.Kb.GameTheoryEconomics.Profile
 
 /-!
 # SocialChoice.Voting.topChoice_topRank

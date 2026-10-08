@@ -1,13 +1,12 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
+import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingTopRank
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingTopChoice
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingTopChoiceTopRank
-import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.LinearOrderToTotalPreorder
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
-import AFTD.Kb.GameTheoryEconomics.Profile
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingTopChoice
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingTopChoiceTopRank
 
 /-!
 # SocialChoice.Voting.topRank_eq_topChoice

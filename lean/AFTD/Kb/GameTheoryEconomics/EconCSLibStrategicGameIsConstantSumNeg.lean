@@ -1,9 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsConstantSum
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfile
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.GameTheoryEconomics.Profile
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsConstantSum
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 
 /-!
 # EconCSLib.StrategicGame.IsConstantSum.neg

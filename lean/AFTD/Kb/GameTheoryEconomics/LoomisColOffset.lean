@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.LoomisXA
-import AFTD.Kb.GameTheoryEconomics.LoomisXB
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.Optimization.Wsum
+import AFTD.Kb.GameTheoryEconomics.LoomisXB
+import AFTD.Kb.GameTheoryEconomics.LoomisXA
 
 /-!
 # Loomis.colOffset

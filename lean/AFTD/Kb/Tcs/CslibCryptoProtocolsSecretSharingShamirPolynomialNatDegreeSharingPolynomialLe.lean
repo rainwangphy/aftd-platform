@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialSharingPolynomial
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialSharingPolynomialEval
-import AFTD.Kb.Tcs.F
 
 /-!
 # Cslib.Crypto.Protocols.SecretSharing.Shamir.Polynomial.natDegree_sharingPolynomial_le

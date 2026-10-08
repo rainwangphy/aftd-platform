@@ -1,9 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanism
 import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanismQuasiLinearUtility
+import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanism
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfersQuasiLinearUtility
-import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
-import AFTD.Kb.Tcs.V
 
 /-!
 # SingleParameterMechanism.quasiLinearUtility_eq_transferQuasiLinearUtility

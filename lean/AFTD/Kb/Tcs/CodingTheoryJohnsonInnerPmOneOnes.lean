@@ -1,12 +1,11 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CodingTheoryJohnsonBitVec
 import AFTD.Kb.Tcs.CodingTheoryJohnsonOnes
+import AFTD.Kb.Tcs.CodingTheoryJohnsonBitVec
 import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOne
-import AFTD.Kb.Tcs.CodingTheoryJohnsonWt
 import AFTD.Kb.Tcs.CodingTheoryJohnsonOnesApply
-import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyFalse
+import AFTD.Kb.Tcs.CodingTheoryJohnsonWt
 import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyTrue
-import AFTD.Kb.Tcs.Wt
+import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyFalse
 
 /-!
 # CodingTheory.Johnson.inner_pmOne_ones

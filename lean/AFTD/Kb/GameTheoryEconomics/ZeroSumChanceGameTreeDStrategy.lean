@@ -1,10 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeStrategy
 import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTree
 import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceSelect
-import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeValue
 import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceInstInhabitedGameTree
-import AFTD.Kb.GameTheoryEconomics.GameTree
+import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeValue
+import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeStrategy
 
 /-!
 # ZeroSumChance.GameTree.DStrategy

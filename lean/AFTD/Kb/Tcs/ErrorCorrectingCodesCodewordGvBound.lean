@@ -1,12 +1,9 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordExistenceBound
 import AFTD.Kb.Tcs.ErrorCorrectingCodesCodeword
 import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordHammingBall
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordWeight
 import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordZero
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordExistenceBound
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordAdd
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordSub
-import AFTD.Kb.Tcs.Weight
+import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordWeight
 
 /-!
 # ErrorCorrectingCodes.Codeword.gv_bound

@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
 
 /-!
 # EconCSLib.StrategicGame

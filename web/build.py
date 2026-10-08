@@ -543,13 +543,40 @@ def _tex_words(text: str) -> str:
 def _tex_plain(text: str) -> str:
     text = re.sub(r"\\(?:begin|end)\{(?:itemize|enumerate)\}", " ", text)
     text = re.sub(r"\\([_#%&{}$])", r"\1", text)
-    return e(text).replace("\\item", "<br>&bull;")
+    return _md_inline(e(text).replace("\\item", "<br>&bull;"))
+
+
+def _md_inline(html: str) -> str:
+    """Escaped text with the Markdown its docstrings use (EconCSLib's and
+    CSLib's): `code` and **bold**. Single asterisks stay, since a*b is
+    arithmetic more often than emphasis."""
+    html = re.sub(r"`([^`\n]+)`", r"<code>\1</code>", html)
+    return re.sub(r"\*\*(?=\S)(.+?)(?<=\S)\*\*", r"<strong>\1</strong>", html)
+
+
+def clip_prose(text: str, n: int) -> str:
+    """`clip`, never inside a formula or a code span: a cut `$...` would be
+    typeset to the end of the line, or not at all."""
+    text = " ".join((text or "").split())
+    if len(text) <= n:
+        return text
+    cut = clip(text, n)[:-1]
+    for m in _MATH_SPAN.finditer(text):
+        if m.start() < len(cut) < m.end():
+            cut = text[: m.start()].rstrip()
+            break
+    tail = cut[cut.rfind("$") + 1:] if cut.count("$") % 2 else ""
+    if tail:  # an unbalanced dollar the spans did not match
+        cut = cut[: len(cut) - len(tail) - 1].rstrip()
+    if cut.count("`") % 2:
+        cut = cut[: cut.rfind("`")].rstrip()
+    return cut + "…"
 
 
 def tex_prose(text: str) -> str:
     """Informal text for an element marked `math`: escaped, math left to KaTeX."""
     if "\\" not in text and "$" not in text:
-        return e(text)
+        return _md_inline(e(text))
     text = re.sub(r"\\(abs|norm)\*", r"\\\1", text)
     spans = [m.group(0) for m in _MATH_SPAN.finditer(text)]
     held = _MATH_SPAN.sub(lambda m: "\0", text)
@@ -632,7 +659,7 @@ def lean_from_html(lf: dict) -> str:
             diffs.append(f'<details><summary>What was changed in <code>{e(d.get("name", ""))}</code></summary>'
                          f'<pre class="lean">{e(d["diff"])}</pre></details>')
     if items:
-        out.append(f'<ul class="rel">{"".join(items)}</ul>')
+        out.append(f'<ul class="imp">{"".join(items)}</ul>')
     return "".join(out) + "".join(diffs)
 
 
@@ -1469,7 +1496,8 @@ def related(s: Site, names: list[str], root: str) -> str:
     items = []
     for n in names:
         d = s.by_name.get(n)
-        words = f'<span class="rel-w">{e(clip(d["informal"], 140))}</span>' if d and d["informal"] else ""
+        words = (f'<span class="rel-w math">{tex_prose(clip_prose(d["informal"], 140))}</span>'
+                 if d and d["informal"] else "")
         items.append(f"<li>{decl_link(root, n)}{words}</li>")
     return f'<ul class="rel">{"".join(items)}</ul>'
 

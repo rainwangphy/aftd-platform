@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibMachineLearningPACLearningConceptClass
-import AFTD.Kb.Tcs.CslibMachineLearningPACLearningVersionSpaces
 import AFTD.Kb.Tcs.CslibMachineLearningPACLearningLabeledSample
+import AFTD.Kb.Tcs.CslibMachineLearningPACLearningVersionSpaces
 import AFTD.Kb.Tcs.CslibMachineLearningPACLearningVersionSpace
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.CslibMachineLearningPACLearningConceptClass
 
 /-!
 # Cslib.MachineLearning.PACLearning.mem_versionSpaces_iff

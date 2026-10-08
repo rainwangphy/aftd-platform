@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.PFunctorFreeM
 import AFTD.Kb.Tcs.PFunctorFreeMInstPure
-import AFTD.Kb.Tcs.CslibFreeMLift
 
 /-!
 # PFunctor.FreeM.lift

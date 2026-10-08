@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionDivisibleCardinalInstance
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionCardinalInstance
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionAllocation
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionDivisibleIsAllocation
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionDivisibleCardinalInstanceFeasible
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionAllocation
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionDivisibleCardinalInstance
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionUtilitarianWelfareUnique
 
 /-!

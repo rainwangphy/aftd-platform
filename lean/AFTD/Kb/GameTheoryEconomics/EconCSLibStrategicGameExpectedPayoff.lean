@@ -1,10 +1,8 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedStrategy
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfile
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedProfile
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfile
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedStrategy
-import AFTD.Kb.GameTheoryEconomics.Profile
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
 
 /-!
 # EconCSLib.StrategicGame.expectedPayoff

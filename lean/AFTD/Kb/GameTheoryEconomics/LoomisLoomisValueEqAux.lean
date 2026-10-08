@@ -44,8 +44,6 @@ import AFTD.Kb.GameTheoryEconomics.LoomisRowOffsetMix
 import AFTD.Kb.GameTheoryEconomics.LoomisMuBAuxLtOfRowOffsetPos
 import AFTD.Kb.Optimization.StdSimplexMixApply
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.Tcs.Hn
-import AFTD.Kb.GameTheoryEconomics.Strict
 
 /-!
 # Loomis.loomis_value_eq_aux

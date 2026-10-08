@@ -1,18 +1,18 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CodingTheoryJohnsonBitVec
-import AFTD.Kb.Tcs.CodingTheoryJohnsonJ2
-import AFTD.Kb.Tcs.CodingTheoryJohnsonAlpha
 import AFTD.Kb.Tcs.CodingTheoryJohnsonAlphaLtOneOfHd1
-import AFTD.Kb.Tcs.CodingTheoryJohnsonAlphaNonneg
-import AFTD.Kb.Tcs.CodingTheoryJohnsonBinaryJohnsonCardBoundParametric
-import AFTD.Kb.Tcs.CodingTheoryJohnsonHdist
+import AFTD.Kb.Tcs.CodingTheoryJohnsonAlpha
+import AFTD.Kb.Tcs.CodingTheoryJohnsonBitVec
 import AFTD.Kb.Tcs.CodingTheoryJohnsonJohnsonArith
-import AFTD.Kb.Tcs.CodingTheoryJohnsonShifted
+import AFTD.Kb.Tcs.CodingTheoryJohnsonBinaryJohnsonCardBoundParametric
 import AFTD.Kb.Tcs.CodingTheoryJohnsonShiftedNeZeroOfAlphaLtOne
 import AFTD.Kb.Tcs.CodingTheoryJohnsonWt
-import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyFalse
 import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyTrue
-import AFTD.Kb.Tcs.Wt
+import AFTD.Kb.Tcs.CodingTheoryJohnsonHdist
+import AFTD.Kb.Tcs.CodingTheoryJohnsonAlphaNonneg
+import AFTD.Kb.Tcs.CodingTheoryJohnsonJ2
+import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyFalse
+import AFTD.Kb.Tcs.CodingTheoryJohnsonShifted
+import AFTD.Kb.Tcs.CodingTheoryJohnsonEuc
 
 /-!
 # CodingTheory.Johnson.binary_johnson_card_bound

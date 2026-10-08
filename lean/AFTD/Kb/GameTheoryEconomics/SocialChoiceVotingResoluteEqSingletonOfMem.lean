@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingVotingRule
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingResolute
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
-import AFTD.Kb.GameTheoryEconomics.Profile
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingVotingRule
 
 /-!
 # SocialChoice.Voting.resolute_eq_singleton_of_mem

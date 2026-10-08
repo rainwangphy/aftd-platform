@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.GameTreeValue
+import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.GameTree
-import AFTD.Kb.GameTheoryEconomics.GameTreeChildren
 
 /-!
 # GameTree.value_Leaf

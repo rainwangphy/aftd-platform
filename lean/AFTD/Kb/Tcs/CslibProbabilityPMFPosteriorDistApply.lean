@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibProbabilityPMFPosteriorDist
-import AFTD.Kb.Tcs.Support
 
 /-!
 # Cslib.Probability.PMF.posteriorDist_apply

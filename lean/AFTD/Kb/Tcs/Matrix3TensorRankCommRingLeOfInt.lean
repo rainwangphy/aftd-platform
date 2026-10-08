@@ -1,9 +1,9 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.Matrix3TensorRankLe
-import AFTD.Kb.Tcs.G
 import AFTD.Kb.Tcs.Matrix3Triad
 import AFTD.Kb.Tcs.EvalMatrix3Decomposition
 import AFTD.Kb.Tcs.Matrix3TensorRankLeOfSurjective
+import AFTD.Kb.Tcs.IsValidMatrix3Decomposition
 
 /-!
 # matrix3_tensor_rank_comm_ring_le_of_int

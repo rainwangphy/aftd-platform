@@ -1,4 +1,9 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GameTreeIsSubgamePerfectOn
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
+import AFTD.Kb.GameTheoryEconomics.GameTreeIsNashAt
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
+import AFTD.Kb.GameTheoryEconomics.GameTreeIsSubgamePerfectOnToNashAt
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGame
 import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.Arena
@@ -6,9 +11,6 @@ import AFTD.Kb.GameTheoryEconomics.ControlledGame
 import AFTD.Kb.GameTheoryEconomics.GameTree
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameExtractsGameTree
 import AFTD.Kb.GameTheoryEconomics.GameTreeStrategy
-import AFTD.Kb.GameTheoryEconomics.GameTreeIsSubgamePerfectOn
-import AFTD.Kb.GameTheoryEconomics.GameTreeIsNashAt
-import AFTD.Kb.GameTheoryEconomics.GameTreeIsSubgamePerfectOnToNashAt
 import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArenaToArena
 import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArenaInit
 import AFTD.Kb.GameTheoryEconomics.ControlledGameOfArenaMover
@@ -27,15 +29,11 @@ import AFTD.Kb.GameTheoryEconomics.ExtensiveGameReachableSubgameAtInit
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameReachableSubgameAtMover
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameReachableSubgameAtPayoff
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameReachableSubgameAtNext
-import AFTD.Kb.GameTheoryEconomics.GameTreeChildren
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueLeaf
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueNode
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListNil
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListCons
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameStrategy
-import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeStrategy
 
 /-!
 # ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at

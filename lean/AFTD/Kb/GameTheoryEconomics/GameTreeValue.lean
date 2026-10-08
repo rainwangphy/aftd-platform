@@ -2,8 +2,6 @@ import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.GameTree
 import AFTD.Kb.GameTheoryEconomics.ListArgMaxOn
-import AFTD.Kb.GameTheoryEconomics.GameTreeChildren
-import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeValue
 
 /-!
 # GameTree.value

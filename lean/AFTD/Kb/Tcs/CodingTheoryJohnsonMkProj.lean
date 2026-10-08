@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CodingTheoryJohnsonOrthProj
 import AFTD.Kb.Tcs.CodingTheoryJohnsonOrthProjMemOrthogonal
-import AFTD.Kb.Tcs.V
 
 /-!
 # CodingTheory.Johnson.mkProj

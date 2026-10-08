@@ -1,16 +1,14 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolRun
-import AFTD.Kb.Tcs.CommunicationComplexityBoolSign
-import AFTD.Kb.Tcs.CommunicationComplexityDiscrepancy
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolLeafRectanglesFinset
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolRectangleSign
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolSumIndicatorLeafRectanglesEq
-import AFTD.Kb.Tcs.CommunicationComplexityFiniteProbabilitySpace
 import AFTD.Kb.Tcs.CommunicationComplexityBoolSignXor
-import AFTD.Kb.Tcs.G
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolRun
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocolRun
+import AFTD.Kb.Tcs.CommunicationComplexityDiscrepancy
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolSumIndicatorLeafRectanglesEq
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolLeafRectanglesFinset
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
+import AFTD.Kb.Tcs.CommunicationComplexityBoolSign
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolRun
+import AFTD.Kb.Tcs.CommunicationComplexityFiniteProbabilitySpace
+import AFTD.Kb.Tcs.CommunicationComplexityFiniteMeasureSpace
 
 /-!
 # CommunicationComplexity.Deterministic.Protocol.signedBias_eq_sum_rectangles

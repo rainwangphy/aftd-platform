@@ -1,11 +1,11 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.PFunctorFreeMLiftMLift
 import AFTD.Kb.Tcs.PFunctorFreeMLiftM
 import AFTD.Kb.Tcs.PFunctorFreeMLiftObj
 import AFTD.Kb.Tcs.PFunctorFreeM
 import AFTD.Kb.Tcs.PFunctorFreeMInstFunctor
 import AFTD.Kb.Tcs.PFunctorFreeMLift
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMMap
-import AFTD.Kb.Tcs.PFunctorFreeMLiftMLift
 import AFTD.Kb.Tcs.PFunctorFreeMPureEqPure
 import AFTD.Kb.Tcs.PFunctorFreeMLiftNePure
 import AFTD.Kb.Tcs.PFunctorFreeMPureNeLift
@@ -29,7 +29,6 @@ import AFTD.Kb.Tcs.PFunctorFreeMLiftMBind
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMSeq
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMSeqLeft
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMSeqRight
-import AFTD.Kb.Tcs.CslibFreeMLiftM
 
 /-!
 # PFunctor.FreeM.liftM_liftObj

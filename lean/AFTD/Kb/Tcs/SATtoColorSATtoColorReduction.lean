@@ -1,11 +1,11 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.SATtoColorIs3Colorable
-import AFTD.Kb.Tcs.SATtoColorIsSatisfiable
-import AFTD.Kb.Tcs.SATtoColorReductionGraph
-import AFTD.Kb.Tcs.SATtoColorSATtoColorCompleteness
 import AFTD.Kb.Tcs.SATtoColorSATtoColorSoundness
+import AFTD.Kb.Tcs.SATtoColorIsSatisfiable
+import AFTD.Kb.Tcs.SATtoColorIs3Colorable
+import AFTD.Kb.Tcs.SATtoColorSATtoColorCompleteness
+import AFTD.Kb.Tcs.SATtoColorReductionGraph
 import AFTD.Kb.Tcs.SATtoColorSat3
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.SATtoColorOutputVertex
 
 /-!
 # SATtoColor.SATtoColorReduction

@@ -1,8 +1,7 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionSortedAgentsByRatio
 import AFTD.Kb.GameTheoryEconomics.KnapsackAuction
 import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionFractionalGreedyList
-import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionSortedAgentsByRatio
-import AFTD.Kb.Tcs.Weight
 
 /-!
 # KnapsackAuction.fractionalGreedyAllocation

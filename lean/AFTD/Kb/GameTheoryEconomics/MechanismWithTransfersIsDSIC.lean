@@ -5,7 +5,6 @@ import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfersToStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSelf
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateOfNe
-import AFTD.Kb.Tcs.V
 
 /-!
 # MechanismWithTransfers.isDSIC

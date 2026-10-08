@@ -1,11 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.PFunctorFreeM
-import AFTD.Kb.Tcs.PFunctorFreeMInterprets
+import AFTD.Kb.Tcs.PFunctorFreeMInterpretsLiftM
 import AFTD.Kb.Tcs.PFunctorFreeMLiftM
 import AFTD.Kb.Tcs.PFunctorFreeMInterpretsEq
-import AFTD.Kb.Tcs.PFunctorFreeMInterpretsLiftM
+import AFTD.Kb.Tcs.PFunctorFreeM
+import AFTD.Kb.Tcs.PFunctorFreeMInterprets
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMLiftBind
-import AFTD.Kb.Tcs.CslibFreeMLiftM
 
 /-!
 # PFunctor.FreeM.Interprets.iff

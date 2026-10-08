@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibSKI
 import AFTD.Kb.Tcs.CslibSKICoeTermPolynomial
-import AFTD.Kb.GameTheoryEconomics.TT
 
 /-!
 # Cslib.SKI.TT

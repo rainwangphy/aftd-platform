@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
-import AFTD.Kb.Tcs.V
 
 /-!
 # MultipleParameterMechanism

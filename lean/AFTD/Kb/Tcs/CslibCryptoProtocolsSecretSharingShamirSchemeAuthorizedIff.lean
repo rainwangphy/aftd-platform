@@ -1,13 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirParams
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialTailPolynomialCoeff
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirSchemeWithAuthorizedIff
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingScheme
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirRandomness
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirScheme
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirParams
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingSchemeViewApply
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialTailPolynomialCoeff
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirScheme
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialSharingPolynomialEval
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirSchemeWithAuthorizedIff
-import AFTD.Kb.Tcs.F
 
 /-!
 # Cslib.Crypto.Protocols.SecretSharing.Shamir.scheme_authorized_iff

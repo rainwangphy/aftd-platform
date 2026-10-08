@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameEj
-import AFTD.Kb.GameTheoryEconomics.MatrixGameMaximin
 
 /-!
 # MatrixGame.IsPlayerIGuarantee

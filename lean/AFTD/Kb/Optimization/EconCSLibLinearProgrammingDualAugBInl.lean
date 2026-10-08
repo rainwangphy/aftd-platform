@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Optimization.EconCSLibLinearProgrammingDualAugB
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingDualAugRow
 
 /-!
 # EconCSLib.LinearProgramming.dualAugB_inl

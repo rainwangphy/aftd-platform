@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.G
 
 /-!
 # matrix_permanent_from_blocks_anti_diagonal_of_ne_card

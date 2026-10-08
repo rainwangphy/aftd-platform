@@ -1,10 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.GameTree
-import AFTD.Kb.GameTheoryEconomics.GameTreeIsZeroSum
-import AFTD.Kb.GameTheoryEconomics.GameTreeSubtree
-import AFTD.Kb.GameTheoryEconomics.GameTreeIsZeroSumHead
 import AFTD.Kb.GameTheoryEconomics.GameTreeIsZeroSumTailMem
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.GameTheoryEconomics.GameTreeIsZeroSumHead
+import AFTD.Kb.GameTheoryEconomics.GameTreeSubtree
+import AFTD.Kb.GameTheoryEconomics.GameTreeIsZeroSum
+import AFTD.Kb.GameTheoryEconomics.GameTree
 
 /-!
 # GameTree.IsZeroSum.of_subtree

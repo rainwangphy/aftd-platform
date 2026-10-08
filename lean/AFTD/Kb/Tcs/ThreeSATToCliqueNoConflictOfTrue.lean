@@ -1,9 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.ThreeSATToCliqueAssignment
 import AFTD.Kb.Tcs.ThreeSATToCliqueLiteral
 import AFTD.Kb.Tcs.ThreeSATToCliqueEvalLiteral
+import AFTD.Kb.Tcs.ThreeSATToCliqueAssignment
 import AFTD.Kb.Tcs.ThreeSATToCliqueLiteralsConflict
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.ThreeSATToCliqueLiteralsConflictSymm
 
 /-!
 # ThreeSATToClique.no_conflict_of_true

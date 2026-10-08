@@ -1,8 +1,7 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.CslibFreeMInstBind
 import AFTD.Kb.Tcs.PFunctorFreeM
 import AFTD.Kb.Tcs.PFunctorFreeMBind
-import AFTD.Kb.Tcs.CslibFreeMBind
-import AFTD.Kb.Tcs.CslibFreeMInstBind
 
 /-!
 # PFunctor.FreeM.instBind

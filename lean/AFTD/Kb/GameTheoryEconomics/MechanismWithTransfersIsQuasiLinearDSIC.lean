@@ -1,10 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfersIsDSIC
+import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSelf
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateOfNe
-import AFTD.Kb.Tcs.V
 
 /-!
 # MechanismWithTransfers.isQuasiLinearDSIC

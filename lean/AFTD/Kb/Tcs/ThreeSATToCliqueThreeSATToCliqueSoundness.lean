@@ -1,15 +1,19 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.ThreeSATToCliqueAssignment
-import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3
-import AFTD.Kb.Tcs.ThreeSATToCliqueLiteral
-import AFTD.Kb.Tcs.ThreeSATToCliqueCliqueVerticesChooseOnePerClause
-import AFTD.Kb.Tcs.ThreeSATToCliqueEvalLiteral
 import AFTD.Kb.Tcs.ThreeSATToCliqueGetLitAt
+import AFTD.Kb.Tcs.ThreeSATToCliqueCliqueVerticesChooseOnePerClause
+import AFTD.Kb.Tcs.ThreeSATToCliqueLiteral
+import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3
 import AFTD.Kb.Tcs.ThreeSATToCliqueGetLitAtMemClause
 import AFTD.Kb.Tcs.ThreeSATToCliqueHasClique
 import AFTD.Kb.Tcs.ThreeSATToCliqueIs3Satisfiable
+import AFTD.Kb.Tcs.ThreeSATToCliqueEvalLiteral
+import AFTD.Kb.Tcs.ThreeSATToCliqueAssignment
 import AFTD.Kb.Tcs.ThreeSATToCliqueToCliqueGraph
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.ThreeSATToCliqueCliqueVertex
+import AFTD.Kb.Tcs.ThreeSATToCliqueLiteralsConflict
+import AFTD.Kb.Tcs.ThreeSATToCliqueClause3Satisfied
+import AFTD.Kb.Tcs.ThreeSATToCliqueClause3
+import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3Satisfied
 
 /-!
 # ThreeSATToClique.ThreeSAT_to_Clique_soundness

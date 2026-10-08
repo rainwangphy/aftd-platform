@@ -1,4 +1,5 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.MatrixGameMinimaxTheorem
 import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameIsPlayerIGuarantee
 import AFTD.Kb.GameTheoryEconomics.MatrixGameIsPlayerIIGuarantee
@@ -13,10 +14,8 @@ import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisLamAuxBddAbove
 import AFTD.Kb.GameTheoryEconomics.MatrixGameMinimax
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisMuAux
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisMuAuxBddBelow
-import AFTD.Kb.GameTheoryEconomics.MatrixGameMinimaxTheorem
 import AFTD.Kb.GameTheoryEconomics.MatrixGameValueEqMaximin
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.Tcs.G
 import AFTD.Kb.GameTheoryEconomics.LoomisLamBAuxBddAbove
 import AFTD.Kb.GameTheoryEconomics.LoomisMuBAuxBddBelow
 

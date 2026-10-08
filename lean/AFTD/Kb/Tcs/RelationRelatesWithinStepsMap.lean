@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.RelationRelatesWithinSteps
-import AFTD.Kb.Tcs.RelationRelatesInSteps
 import AFTD.Kb.Tcs.RelationRelatesInStepsMap
+import AFTD.Kb.Tcs.RelationRelatesWithinSteps
 import AFTD.Kb.Tcs.RelationRelatesWithinStepsZeroIff
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.RelationRelatesInSteps
 
 /-!
 # Relation.RelatesWithinSteps.map

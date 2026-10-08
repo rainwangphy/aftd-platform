@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.AuctionBidProfileInBox
 import AFTD.Kb.GameTheoryEconomics.AuctionBidProfileInSet
-import AFTD.Kb.Tcs.V
 
 /-!
 # Auction.BidProfile.inBox_iff_inSet_Icc

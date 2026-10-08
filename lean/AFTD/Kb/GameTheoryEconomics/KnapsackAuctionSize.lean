@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.KnapsackAuction
-import AFTD.Kb.Tcs.Weight
 
 /-!
 # KnapsackAuction.size

@@ -1,11 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibLTSBounded
-import AFTD.Kb.Tcs.CslibLTSExampleCountdownLTS
-import AFTD.Kb.Tcs.CslibLTSBoundedUpTo
-import AFTD.Kb.Tcs.CslibLTSExampleCountdownLTSMTr
 import AFTD.Kb.Tcs.CslibLTSMTrNilIff
+import AFTD.Kb.Tcs.CslibLTSExampleCountdownLTSMTr
+import AFTD.Kb.Tcs.CslibLTSBounded
 import AFTD.Kb.Tcs.CslibLTSMTrSingletonIff
-import AFTD.Kb.Tcs.CslibLTS
+import AFTD.Kb.Tcs.CslibLTSBoundedUpTo
+import AFTD.Kb.Tcs.CslibLTSExampleCountdownLTS
 
 /-!
 # Cslib.LTS.Example.countdownLTS_not_bounded

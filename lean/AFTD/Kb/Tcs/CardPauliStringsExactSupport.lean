@@ -1,13 +1,13 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.PauliBasis
-import AFTD.Kb.Tcs.PauliNZ
 import AFTD.Kb.Tcs.PauliNZToBasis
-import AFTD.Kb.Tcs.MkWithSupport
-import AFTD.Kb.Tcs.PauliStringsExactSupport
-import AFTD.Kb.Tcs.Support
 import AFTD.Kb.Tcs.SupportMkWithSupport
+import AFTD.Kb.Tcs.MkWithSupport
+import AFTD.Kb.Tcs.Support
+import AFTD.Kb.Tcs.PauliNZ
+import AFTD.Kb.Tcs.PauliStringsExactSupport
 import AFTD.Kb.Tcs.InstFintypePauliString
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.PauliBasis
+import AFTD.Kb.Tcs.PauliString
 
 /-!
 # card_pauliStringsExactSupport

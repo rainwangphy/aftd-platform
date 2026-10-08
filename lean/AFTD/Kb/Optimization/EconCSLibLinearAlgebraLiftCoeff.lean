@@ -1,14 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFMRowIndex
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFmA
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraZeroRows
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraPosRows
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraNegRows
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFmAInl
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFmAInr
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraPosRows
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFmBInl
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFmAInr
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFmAInl
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraZeroRows
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFmBInr
-import AFTD.Kb.Tcs.Weight
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFMRowIndex
 
 /-!
 # EconCSLib.LinearAlgebra.liftCoeff

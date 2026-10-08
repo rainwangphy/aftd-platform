@@ -1,20 +1,18 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
+import AFTD.Kb.GameTheoryEconomics.GameTreeIsSubgamePerfect
+import AFTD.Kb.GameTheoryEconomics.GameTreeIsNashEquilibrium
+import AFTD.Kb.GameTheoryEconomics.GameTreeKuhnExistsSPE
+import AFTD.Kb.GameTheoryEconomics.GameTreeIsSubgamePerfectToNE
 import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.GameTree
 import AFTD.Kb.GameTheoryEconomics.GameTreeStrategy
-import AFTD.Kb.GameTheoryEconomics.GameTreeIsNashEquilibrium
-import AFTD.Kb.GameTheoryEconomics.GameTreeIsSubgamePerfect
-import AFTD.Kb.GameTheoryEconomics.GameTreeKuhnExistsSPE
-import AFTD.Kb.GameTheoryEconomics.GameTreeIsSubgamePerfectToNE
 import AFTD.Kb.GameTheoryEconomics.GameTreeChildren
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueLeaf
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueNode
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListNil
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListCons
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
-import AFTD.Kb.Tcs.G
-import AFTD.Kb.GameTheoryEconomics.IsNashEquilibrium
 
 /-!
 # GameTree.Kuhn_exists_NE

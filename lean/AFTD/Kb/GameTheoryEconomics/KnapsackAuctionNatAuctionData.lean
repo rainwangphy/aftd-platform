@@ -1,9 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.KnapsackAuction
 import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanism
+import AFTD.Kb.GameTheoryEconomics.KnapsackAuction
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
-import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionCapacity
-import AFTD.Kb.Tcs.Weight
 
 /-!
 # KnapsackAuction.natAuctionData

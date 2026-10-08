@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibLambdaCalculusNamedTerm
-import AFTD.Kb.Tcs.CslibLambdaCalculusNamedTermFv
 
 /-!
 # Cslib.LambdaCalculus.Named.Term.bv

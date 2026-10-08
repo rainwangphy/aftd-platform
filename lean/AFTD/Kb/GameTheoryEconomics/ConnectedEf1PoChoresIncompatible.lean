@@ -2,7 +2,6 @@ import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.IsConnectedAllocation
 import AFTD.Kb.GameTheoryEconomics.IsEf1Chores
 import AFTD.Kb.GameTheoryEconomics.IsConnectedPoChores
-import AFTD.Kb.GameTheoryEconomics.IsPathConnected
 import AFTD.Kb.GameTheoryEconomics.AdditiveValuation
 import AFTD.Kb.GameTheoryEconomics.BundleOf
 
@@ -10,6 +9,8 @@ import AFTD.Kb.GameTheoryEconomics.BundleOf
 # connected_ef1_po_chores_incompatible
 
 Topic: fair_division   Node: e24dcb0089ca
+
+Provenance: original. Related work: operator (Claude), 2026-10-03: answers the question of arXiv:2609.32545 v1, Sec. 4 (are EF1 and PO compatible for connected chores?) negatively; counterexample found by a search agent, checked independently and in the Lean kernel
 
 For chores on a path with additive, strictly positive costs, EF1 and Pareto optimality (among connected allocations) can be incompatible: with three agents and five chores, costs (4,2,1,2,2) for agent 0 and (1,4,1,2,2) for agents 1 and 2, each of the 12 connected EF1 allocations is Pareto-dominated by a connected allocation with cost vector (5,1,2), (2,1,5) or (2,5,1). Since EF1outer implies EF1, EF1outer and PO are incompatible as well.
 -/

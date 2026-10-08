@@ -1,11 +1,11 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalColumnStrategiesIffELe
 import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalColumnStrategies
 import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalColumnSet
 import AFTD.Kb.GameTheoryEconomics.MatrixGameValue
 import AFTD.Kb.GameTheoryEconomics.MatrixGameE
 import AFTD.Kb.Optimization.StdSimplexPure
-import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalColumnStrategiesIffELe
 import AFTD.Kb.Optimization.Wsum
 import AFTD.Kb.Optimization.WsumPureApply
 import AFTD.Kb.Optimization.LeIffSimplexLe
@@ -15,7 +15,6 @@ import AFTD.Kb.GameTheoryEconomics.MatrixGameToMixedProfileOne
 import AFTD.Kb.GameTheoryEconomics.MatrixGameInstDecidableEqStrategyFinOfNatNatToStrategicGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameInstFintypeStrategyFinOfNatNatToStrategicGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameInstNonemptyStrategyFinOfNatNatToStrategicGame
-import AFTD.Kb.Tcs.G
 
 /-!
 # MatrixGame.image_optimalColumnStrategies_eq

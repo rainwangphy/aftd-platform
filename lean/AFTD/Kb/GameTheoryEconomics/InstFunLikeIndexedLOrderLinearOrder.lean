@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.IndexedLOrder
-import AFTD.Kb.Tcs.G
 
 /-!
 # instFunLikeIndexedLOrderLinearOrder

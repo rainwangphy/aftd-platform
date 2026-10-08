@@ -1,9 +1,8 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionRatioTieKey
 import AFTD.Kb.GameTheoryEconomics.KnapsackAuction
 import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.LinearOrderToTotalPreorder
-import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionRatioTieKey
-import AFTD.Kb.Tcs.Weight
 
 /-!
 # KnapsackAuction.sortedAgentsByRatio

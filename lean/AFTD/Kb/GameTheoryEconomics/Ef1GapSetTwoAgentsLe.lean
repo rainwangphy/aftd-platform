@@ -3,12 +3,13 @@ import AFTD.Kb.GameTheoryEconomics.Ef1GapLeTwoAgents
 import AFTD.Kb.GameTheoryEconomics.IsNormalizedChoresInstance
 import AFTD.Kb.GameTheoryEconomics.OptEf1SocialCost
 import AFTD.Kb.GameTheoryEconomics.OptSocialCost
-import AFTD.Kb.GameTheoryEconomics.CostOfEf1
 
 /-!
 # ef1_gap_set_two_agents_le
 
 Topic: fair_division   Node: 3062ffb7768a
+
+Provenance: helper lemma. step towards cost_of_ef1_two_le / one_sixth_le_cost_of_ef1_two (cost of EF1 for two agents lies in [1/6, 3 - 2 sqrt 2]; A Fair Allocation is Approximately Optimal for Indivisible Chores, or Is It?, arXiv:2410.15738 v1, Thm 7 states the lower bound 1 - 1/n, whose construction needs n >= 3)
 
 The set of gaps whose supremum is `cost_of_ef1 2` is bounded by `3 - 2√2`.
 -/

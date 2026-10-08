@@ -1,6 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.Weight
-import AFTD.Kb.Tcs.G
 
 /-!
 # SocialChoice.FairDivision.Indivisible.AdditiveValuation

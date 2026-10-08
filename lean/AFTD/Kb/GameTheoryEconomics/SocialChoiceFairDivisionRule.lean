@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionInstance
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionAllocation
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceRule
 
 /-!
 # SocialChoice.FairDivision.Rule

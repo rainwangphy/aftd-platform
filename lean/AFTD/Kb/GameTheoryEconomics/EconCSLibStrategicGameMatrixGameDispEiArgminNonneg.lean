@@ -1,14 +1,12 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsStochasticMatrix
 import AFTD.Kb.GameTheoryEconomics.MatrixGameEi
-import AFTD.Kb.GameTheoryEconomics.MatrixGame
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMatrixGameDisp
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMatrixGameDispEi
 import AFTD.Kb.GameTheoryEconomics.MatrixGameInstDecidableEqStrategyFinOfNatNatToStrategicGame
-import AFTD.Kb.GameTheoryEconomics.MatrixGameInstFintypeStrategyFinOfNatNatToStrategicGame
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMatrixGameDisp
+import AFTD.Kb.GameTheoryEconomics.MatrixGame
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMatrixGameDispEi
 import AFTD.Kb.GameTheoryEconomics.MatrixGameInstNonemptyStrategyFinOfNatNatToStrategicGame
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
+import AFTD.Kb.GameTheoryEconomics.MatrixGameInstFintypeStrategyFinOfNatNatToStrategicGame
 
 /-!
 # EconCSLib.StrategicGame.MatrixGame.disp_Ei_argmin_nonneg

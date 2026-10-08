@@ -1,15 +1,14 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibLTS
-import AFTD.Kb.Tcs.CslibLTSAcyclic
-import AFTD.Kb.Tcs.CslibLTSBoundedUpTo
 import AFTD.Kb.Tcs.CslibLTSMTr
 import AFTD.Kb.Tcs.CslibLTSExecution
-import AFTD.Kb.Tcs.CslibLTSExecutionOfMTr
-import AFTD.Kb.Tcs.CslibLTSUnlabelledTr
-import AFTD.Kb.Tcs.CslibLTSExecutionIsChain
 import AFTD.Kb.Tcs.CslibLTSMTrNilIff
+import AFTD.Kb.Tcs.CslibLTSExecutionIsChain
+import AFTD.Kb.Tcs.CslibLTSAcyclic
+import AFTD.Kb.Tcs.CslibLTSExecutionOfMTr
 import AFTD.Kb.Tcs.CslibLTSMTrSingletonIff
-import AFTD.Kb.Tcs.RelationAcyclic
+import AFTD.Kb.Tcs.CslibLTSBoundedUpTo
+import AFTD.Kb.Tcs.CslibLTS
+import AFTD.Kb.Tcs.CslibLTSUnlabelledTr
 
 /-!
 # Cslib.LTS.Acyclic.toBoundedUpTo

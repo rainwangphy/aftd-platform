@@ -2,7 +2,6 @@ import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.AuctionArgmaxBid
 import AFTD.Kb.GameTheoryEconomics.AuctionMaxBid
 import AFTD.Kb.GameTheoryEconomics.AuctionExistsMaxBid
-import AFTD.Kb.Tcs.V
 
 /-!
 # Auction.argmaxBid_eq_maxBid

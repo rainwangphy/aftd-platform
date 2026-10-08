@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersAsymm
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
-import AFTD.Kb.GameTheoryEconomics.Profile
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersAsymm
 
 /-!
 # SocialChoice.Voting.Prefers.asymm

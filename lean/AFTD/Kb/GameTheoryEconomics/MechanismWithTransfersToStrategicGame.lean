@@ -1,8 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
-import AFTD.Kb.Tcs.V
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
 
 /-!
 # MechanismWithTransfers.toStrategicGame

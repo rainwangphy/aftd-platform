@@ -1,18 +1,17 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.PFunctorFreeM
-import AFTD.Kb.Tcs.PFunctorFreeMBind
-import AFTD.Kb.Tcs.PFunctorFreeMLiftObj
-import AFTD.Kb.Tcs.PFunctorFreeMLiftNePure
-import AFTD.Kb.Tcs.PFunctorFreeMPureNeLift
 import AFTD.Kb.Tcs.PFunctorFreeMBindEqBind
-import AFTD.Kb.Tcs.PFunctorFreeMMapEqMap
-import AFTD.Kb.Tcs.PFunctorFreeMLiftBindEq
+import AFTD.Kb.Tcs.PFunctorFreeMPureNeLift
+import AFTD.Kb.Tcs.PFunctorFreeMLiftObj
 import AFTD.Kb.Tcs.PFunctorFreeMLiftObjNePure
-import AFTD.Kb.Tcs.PFunctorFreeMPureNeLiftObj
-import AFTD.Kb.Tcs.PFunctorFreeMBindPure
-import AFTD.Kb.Tcs.PFunctorFreeMBindPureComp
 import AFTD.Kb.Tcs.PFunctorFreeMLiftBindBind
-import AFTD.Kb.Tcs.CslibFreeMBind
+import AFTD.Kb.Tcs.PFunctorFreeMMapEqMap
+import AFTD.Kb.Tcs.PFunctorFreeMPureNeLiftObj
+import AFTD.Kb.Tcs.PFunctorFreeMLiftBindEq
+import AFTD.Kb.Tcs.PFunctorFreeMBindPure
+import AFTD.Kb.Tcs.PFunctorFreeMLiftNePure
+import AFTD.Kb.Tcs.PFunctorFreeM
+import AFTD.Kb.Tcs.PFunctorFreeMBindPureComp
+import AFTD.Kb.Tcs.PFunctorFreeMBind
 
 /-!
 # PFunctor.FreeM.liftObj_bind

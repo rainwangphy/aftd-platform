@@ -1,6 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.Strict
-import AFTD.Kb.GameTheoryEconomics.Profile
 
 /-!
 # SocialChoice.Voting.Profile

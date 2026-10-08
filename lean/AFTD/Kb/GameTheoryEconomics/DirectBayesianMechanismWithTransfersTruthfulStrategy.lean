@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.BayesianMechanismStrategy
 import AFTD.Kb.GameTheoryEconomics.BayesianMechanismWithTransfersStrategyProfile
 
 /-!

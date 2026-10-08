@@ -1,14 +1,13 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.PFunctorFreeM
-import AFTD.Kb.Tcs.PFunctorFreeMLiftM
-import AFTD.Kb.Tcs.PFunctorFreeMInstFunctor
-import AFTD.Kb.Tcs.PFunctorFreeMInstMonad
 import AFTD.Kb.Tcs.PFunctorFreeMInstLawfulMonad
+import AFTD.Kb.Tcs.PFunctorFreeMLiftM
+import AFTD.Kb.Tcs.PFunctorFreeMInstMonad
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMBind
-import AFTD.Kb.Tcs.PFunctorFreeMLiftMPure
+import AFTD.Kb.Tcs.PFunctorFreeM
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMLiftBind
 import AFTD.Kb.Tcs.CslibFreeMBindPureComp
-import AFTD.Kb.Tcs.CslibFreeMLiftM
+import AFTD.Kb.Tcs.PFunctorFreeMLiftMPure
+import AFTD.Kb.Tcs.PFunctorFreeMInstFunctor
 
 /-!
 # PFunctor.FreeM.liftM_map

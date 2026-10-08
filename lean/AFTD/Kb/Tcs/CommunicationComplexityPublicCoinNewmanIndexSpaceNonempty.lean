@@ -1,11 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CommunicationComplexityPublicCoinFiniteMessageProtocolDerandomizationSamples
-import AFTD.Kb.Tcs.CommunicationComplexityPublicCoinNewmanIndexSpace
 import AFTD.Kb.Tcs.CommunicationComplexityPublicCoinNewmanIndexSpaceFintype
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityPrivateCoinFiniteMessageProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityPublicCoinFiniteMessageProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityPublicCoinProtocol
+import AFTD.Kb.Tcs.CommunicationComplexityPublicCoinNewmanIndexSpace
+import AFTD.Kb.Tcs.CommunicationComplexityPublicCoinFiniteMessageProtocolDerandomizationSamples
 
 /-!
 # CommunicationComplexity.PublicCoin.newmanIndexSpace.nonempty

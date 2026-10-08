@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedS
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameEvaluateAtMixed
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 
 /-!
 # EconCSLib.StrategicGame.mixedNashEquilibrium

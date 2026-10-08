@@ -1,12 +1,11 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
+import AFTD.Kb.GameTheoryEconomics.InstCoeFunPrefForallForallProp
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWF
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingIsDecisiveFor
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingIsWeaklyDecisiveFor
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingPrefers
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
-import AFTD.Kb.GameTheoryEconomics.InstCoeFunPrefForallForallProp
-import AFTD.Kb.Tcs.F
 
 /-!
 # SocialChoice.Voting.isWeaklyDecisiveFor_of_isDecisiveFor

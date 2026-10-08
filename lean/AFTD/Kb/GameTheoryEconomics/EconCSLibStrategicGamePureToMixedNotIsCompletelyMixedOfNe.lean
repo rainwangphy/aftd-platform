@@ -1,9 +1,8 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedStrategy
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGamePureToMixed
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsCompletelyMixed
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGamePureToMixed
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedStrategy
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
 
 /-!
 # EconCSLib.StrategicGame.pureToMixed_not_isCompletelyMixed_of_ne

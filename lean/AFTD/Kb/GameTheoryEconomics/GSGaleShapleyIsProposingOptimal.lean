@@ -1,21 +1,19 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GSFinalStateNoAchievableRejection
+import AFTD.Kb.GameTheoryEconomics.FinalHoldingInjective
+import AFTD.Kb.GameTheoryEconomics.FinalAllWomenHold
+import AFTD.Kb.GameTheoryEconomics.HoldinvFinalState
+import AFTD.Kb.GameTheoryEconomics.GsBijective
 import AFTD.Kb.GameTheoryEconomics.GSPreferences
 import AFTD.Kb.GameTheoryEconomics.GSGs
-import AFTD.Kb.GameTheoryEconomics.GsBijective
 import AFTD.Kb.GameTheoryEconomics.GSDAState
 import AFTD.Kb.GameTheoryEconomics.GSFinalState
 import AFTD.Kb.GameTheoryEconomics.Matching
 import AFTD.Kb.GameTheoryEconomics.MatchingIsStable
 import AFTD.Kb.GameTheoryEconomics.MatchingMarketOfEquivData
 import AFTD.Kb.GameTheoryEconomics.GSIsAchievable
-import AFTD.Kb.GameTheoryEconomics.FinalAllWomenHold
 import AFTD.Kb.GameTheoryEconomics.GSPrefListMem
-import AFTD.Kb.GameTheoryEconomics.HoldinvFinalState
-import AFTD.Kb.GameTheoryEconomics.GSFinalStateNoAchievableRejection
-import AFTD.Kb.GameTheoryEconomics.FinalHoldingInjective
 import AFTD.Kb.GameTheoryEconomics.InstCoeFunPrefForallForallProp
-import AFTD.Kb.GameTheoryEconomics.MatchingMarket
-import AFTD.Kb.GameTheoryEconomics.HoldInv
 
 /-!
 # GS.galeShapley_isProposingOptimal

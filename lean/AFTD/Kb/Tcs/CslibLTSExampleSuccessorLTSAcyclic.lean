@@ -3,7 +3,6 @@ import AFTD.Kb.Tcs.CslibLTSAcyclic
 import AFTD.Kb.Tcs.CslibLTSExampleSuccessorLTS
 import AFTD.Kb.Tcs.CslibLTSUnlabelledTr
 import AFTD.Kb.Tcs.CslibLTSExampleSuccessorLTSTransGenLt
-import AFTD.Kb.Tcs.CslibLTS
 
 /-!
 # Cslib.LTS.Example.successorLTS_acyclic

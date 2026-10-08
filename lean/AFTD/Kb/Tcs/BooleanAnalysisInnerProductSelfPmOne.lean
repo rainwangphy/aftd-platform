@@ -1,10 +1,9 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.BooleanAnalysisUniformWeight
 import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
-import AFTD.Kb.Tcs.BooleanAnalysisBooleanFunc
-import AFTD.Kb.Tcs.BooleanAnalysisExpect
 import AFTD.Kb.Tcs.BooleanAnalysisInnerProduct
 import AFTD.Kb.Tcs.BooleanAnalysisIsPmOne
-import AFTD.Kb.Tcs.BooleanAnalysisUniformWeight
+import AFTD.Kb.Tcs.BooleanAnalysisBooleanFunc
 
 /-!
 # BooleanAnalysis.innerProduct_self_pm_one

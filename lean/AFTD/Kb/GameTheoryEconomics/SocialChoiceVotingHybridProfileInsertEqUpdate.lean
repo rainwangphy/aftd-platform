@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingHybridProfile
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingUpdateProfile
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfileExt
-import AFTD.Kb.GameTheoryEconomics.Profile
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingProfile
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingUpdateProfile
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingHybridProfile
 
 /-!
 # SocialChoice.Voting.hybridProfile_insert_eq_update

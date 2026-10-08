@@ -1,12 +1,10 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.CombinatorialAuction
+import AFTD.Kb.GameTheoryEconomics.MultipleParameterMechanism
 import AFTD.Kb.GameTheoryEconomics.MultipleParameterMechanismValuation
 import AFTD.Kb.GameTheoryEconomics.CombinatorialAllocation
 import AFTD.Kb.GameTheoryEconomics.MultiItemBundleToFinset
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
-import AFTD.Kb.GameTheoryEconomics.MultipleParameterMechanism
-import AFTD.Kb.Tcs.V
-import AFTD.Kb.GameTheoryEconomics.MultiItemBundle
 
 /-!
 # CombinatorialAuction.IsFeasible

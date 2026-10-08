@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Optimization.StdSimplexAffineCombination
-import AFTD.Kb.Tcs.V
 
 /-!
 # stdSimplex.affineCombination_eq_linearCombination

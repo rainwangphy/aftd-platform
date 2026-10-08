@@ -1,20 +1,19 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalRowStrategies
-import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalRowSet
 import AFTD.Kb.GameTheoryEconomics.MatrixGameValue
-import AFTD.Kb.GameTheoryEconomics.MatrixGameE
-import AFTD.Kb.Optimization.StdSimplexPure
-import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalRowStrategiesIffEGe
+import AFTD.Kb.GameTheoryEconomics.MatrixGameInstDecidableEqStrategyFinOfNatNatToStrategicGame
 import AFTD.Kb.Optimization.Wsum
+import AFTD.Kb.Optimization.StdSimplexPure
+import AFTD.Kb.GameTheoryEconomics.MatrixGameE
+import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.Optimization.WsumPureApply
 import AFTD.Kb.Optimization.WsumWsumComm
-import AFTD.Kb.Optimization.GeIffSimplexGe
 import AFTD.Kb.Optimization.StdSimplexPureApply
-import AFTD.Kb.GameTheoryEconomics.MatrixGameInstDecidableEqStrategyFinOfNatNatToStrategicGame
-import AFTD.Kb.GameTheoryEconomics.MatrixGameInstFintypeStrategyFinOfNatNatToStrategicGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameInstNonemptyStrategyFinOfNatNatToStrategicGame
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalRowSet
+import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalRowStrategiesIffEGe
+import AFTD.Kb.GameTheoryEconomics.MatrixGameInstFintypeStrategyFinOfNatNatToStrategicGame
+import AFTD.Kb.Optimization.GeIffSimplexGe
 
 /-!
 # MatrixGame.image_optimalRowStrategies_eq

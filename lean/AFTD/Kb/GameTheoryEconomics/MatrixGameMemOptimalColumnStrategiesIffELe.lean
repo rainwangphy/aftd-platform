@@ -1,4 +1,5 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.MatrixGameValueEqMinimax
 import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalColumnStrategies
 import AFTD.Kb.GameTheoryEconomics.MatrixGameE
@@ -10,13 +11,10 @@ import AFTD.Kb.Optimization.LeIffSimplexLe
 import AFTD.Kb.Optimization.StdSimplexPure
 import AFTD.Kb.Optimization.WsumPureApply
 import AFTD.Kb.GameTheoryEconomics.MatrixGameMinimax
-import AFTD.Kb.GameTheoryEconomics.MatrixGameValueEqMinimax
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisMuAux
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisMuAuxBddBelow
 import AFTD.Kb.Optimization.StdSimplexPureApply
-import AFTD.Kb.Tcs.G
 import AFTD.Kb.GameTheoryEconomics.LoomisMuBAuxBddBelow
-import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisE
 
 /-!
 # MatrixGame.mem_optimalColumnStrategies_iff_E_le

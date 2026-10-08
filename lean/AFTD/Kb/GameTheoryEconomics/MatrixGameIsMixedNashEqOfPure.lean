@@ -1,14 +1,13 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.MatrixGame
-import AFTD.Kb.Optimization.Wsum
-import AFTD.Kb.GameTheoryEconomics.MatrixGameIsMixedNashEq
-import AFTD.Kb.GameTheoryEconomics.MatrixGameE
 import AFTD.Kb.GameTheoryEconomics.MatrixGameEEqWsumWsum
+import AFTD.Kb.Optimization.Wsum
 import AFTD.Kb.Optimization.WsumLeWsum
-import AFTD.Kb.Optimization.WsumConst
-import AFTD.Kb.GameTheoryEconomics.MatrixGameEEqWsumWsumSwap
+import AFTD.Kb.GameTheoryEconomics.MatrixGameE
+import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.GameTheoryEconomics.MatrixGameIsMixedNashEq
+import AFTD.Kb.GameTheoryEconomics.MatrixGameEEqWsumWsumSwap
+import AFTD.Kb.Optimization.WsumConst
 
 /-!
 # MatrixGame.isMixedNashEq_of_pure

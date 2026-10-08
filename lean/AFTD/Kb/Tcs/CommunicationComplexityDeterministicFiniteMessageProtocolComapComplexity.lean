@@ -2,10 +2,7 @@ import AFTD.Prelude
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocol
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolComap
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolComplexity
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComplexity
-import AFTD.Kb.Tcs.CommunicationComplexityPrivateCoinFiniteMessageProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityPublicCoinFiniteMessageProtocol
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolToProtocolExists
 
 /-!
 # CommunicationComplexity.Deterministic.FiniteMessage.Protocol.comap_complexity

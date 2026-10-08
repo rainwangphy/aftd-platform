@@ -1,12 +1,11 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.Hn
-import AFTD.Kb.Tcs.PauliString
+import AFTD.Kb.Tcs.CodeProjApply
 import AFTD.Kb.Tcs.CodeProj
-import AFTD.Kb.Tcs.PauliOp
 import AFTD.Kb.Tcs.PauliOpAdjoint
 import AFTD.Kb.Tcs.Weight
-import AFTD.Kb.Tcs.CodeProjApply
-import AFTD.Kb.Tcs.F
+import AFTD.Kb.Tcs.PauliString
+import AFTD.Kb.Tcs.PauliOp
 
 /-!
 # KnillLaflamme

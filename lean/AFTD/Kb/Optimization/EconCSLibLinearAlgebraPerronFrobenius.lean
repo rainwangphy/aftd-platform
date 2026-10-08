@@ -1,4 +1,5 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.LoomisLoomisTheorem
 import AFTD.Kb.Optimization.Wsum
 import AFTD.Kb.GameTheoryEconomics.LoomisIsPositive
 import AFTD.Kb.GameTheoryEconomics.LoomisXB
@@ -6,13 +7,11 @@ import AFTD.Kb.GameTheoryEconomics.LoomisXA
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraIdMat
 import AFTD.Kb.GameTheoryEconomics.LoomisAy
 import AFTD.Kb.GameTheoryEconomics.LoomisBy
-import AFTD.Kb.GameTheoryEconomics.LoomisLoomisTheorem
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraXAIdMat
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraAyIdMat
 import AFTD.Kb.GameTheoryEconomics.LoomisByPos
 import AFTD.Kb.GameTheoryEconomics.LoomisXBPos
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.GameTheoryEconomics.Strict
 
 /-!
 # EconCSLib.LinearAlgebra.perron_frobenius

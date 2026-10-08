@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibURMInstr
-import AFTD.Kb.Tcs.CslibURMInstrIsJump
 import AFTD.Kb.Tcs.CslibURMInstrInstDecidableIsJump
 
 /-!

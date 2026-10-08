@@ -1,12 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameMixedS
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameEvaluateAtMixed
 import AFTD.Kb.Optimization.StdSimplexPure
-import AFTD.Kb.Optimization.StdSimplexPureApply
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.Tcs.Weight
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameEvaluateAtMixed
+import AFTD.Kb.Optimization.StdSimplexPureApply
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 
 /-!
 # EconCSLib.StrategicGame.g_function

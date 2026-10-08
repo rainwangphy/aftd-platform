@@ -1,12 +1,11 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWF
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWFUnanimity
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingExistsNonemptyDecisiveOfSize
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingIsDecisive
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingUnanimityUnivIsDecisive
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingUnanimityUnivIsDecisive
 import AFTD.Kb.GameTheoryEconomics.InstCoeFunPrefForallForallProp
-import AFTD.Kb.Tcs.F
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWFUnanimity
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWF
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingIsDecisive
 
 /-!
 # SocialChoice.Voting.exists_minimal_decisive_coalition

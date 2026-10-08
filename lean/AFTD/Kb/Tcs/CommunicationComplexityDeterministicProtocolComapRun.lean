@@ -1,11 +1,10 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComap
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolRun
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolRun
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolComap
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolComapRun
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicOneWayProtocolRun
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComap
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComapComplexity
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolAuxMono
 
 /-!
 # CommunicationComplexity.Deterministic.Protocol.comap_run

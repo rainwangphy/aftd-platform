@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.DirectMechanism
-import AFTD.Kb.GameTheoryEconomics.InducedDirectMechanism
 import AFTD.Kb.GameTheoryEconomics.IsDominantStrategyEquilibrium
 import AFTD.Kb.GameTheoryEconomics.IsDominantStrategyIncentiveCompatible
 import AFTD.Kb.GameTheoryEconomics.RevelationPrincipleDominantStrategy
@@ -9,6 +8,8 @@ import AFTD.Kb.GameTheoryEconomics.RevelationPrincipleDominantStrategy
 # dsic_iff_truthful_dominant_strategy
 
 Topic: mechanism_design   Node: c87f37ab4976
+
+Provenance: formalization of a published result. Source: Tilman Borgers, An Introduction to the Theory of Mechanism Design, Oxford University Press, 2015, Section 2.3
 
 For any direct mechanism M and valuation profile v, truthful reporting (the identity strategy profile fun _ => id) is a dominant-strategy equilibrium of M if and only if M is dominant-strategy incentive-compatible.
 -/

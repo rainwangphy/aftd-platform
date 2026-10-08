@@ -1,9 +1,8 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.Lottery
-import AFTD.Kb.GameTheoryEconomics.LotteryExpectedValue
 import AFTD.Kb.Optimization.WsumLeWsum
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.GameTheoryEconomics.LotteryExpectedValue
 
 /-!
 # Lottery.expectedValue_mono

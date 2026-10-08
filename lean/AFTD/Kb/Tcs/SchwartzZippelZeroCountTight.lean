@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CardPiFinsetFilterApplyMem
-import AFTD.Kb.Tcs.F
 
 /-!
 # schwartz_zippel_zero_count_tight

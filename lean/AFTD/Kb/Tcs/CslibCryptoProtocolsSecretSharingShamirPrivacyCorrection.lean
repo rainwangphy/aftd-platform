@@ -1,10 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirParams
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirRandomness
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPrivacyCorrectionPolynomial
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPrivacyCorrectionPolynomialDegreeLt
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirRandomness
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirParams
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingSchemeViewApply
-import AFTD.Kb.Tcs.F
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPrivacyCorrectionPolynomial
 
 /-!
 # Cslib.Crypto.Protocols.SecretSharing.Shamir.privacyCorrection

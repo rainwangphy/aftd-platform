@@ -1,9 +1,8 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibLTSCat
-import AFTD.Kb.Tcs.CslibLTSMorphism
 import AFTD.Kb.Tcs.CslibLTS
 import AFTD.Kb.Tcs.CslibLTSWithIdle
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.CslibLTSMorphism
 
 /-!
 # Cslib.LTS.Morphism.comp

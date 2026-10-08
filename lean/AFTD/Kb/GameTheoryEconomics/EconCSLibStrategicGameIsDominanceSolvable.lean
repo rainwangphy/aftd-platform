@@ -1,12 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfile
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameSurvives
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateOfNe
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSelf
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSame
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateOfNe
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.GameTheoryEconomics.Profile
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameSurvives
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 
 /-!
 # EconCSLib.StrategicGame.IsDominanceSolvable

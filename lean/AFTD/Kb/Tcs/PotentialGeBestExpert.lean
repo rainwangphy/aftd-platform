@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.LossSeq
-import AFTD.Kb.Tcs.BestExpertLoss
 import AFTD.Kb.Tcs.CumLoss
-import AFTD.Kb.Tcs.HedgeWeight
 import AFTD.Kb.Tcs.Potential
+import AFTD.Kb.Tcs.BestExpertLoss
+import AFTD.Kb.Tcs.LossSeq
 
 /-!
 # potential_ge_best_expert

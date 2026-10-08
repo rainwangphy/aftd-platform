@@ -1,11 +1,11 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.Hn
-import AFTD.Kb.Tcs.PauliErrorsLe
-import AFTD.Kb.Tcs.PauliOp
 import AFTD.Kb.Tcs.CodeProjApply
-import AFTD.Kb.Tcs.InstFintypePauliString
+import AFTD.Kb.Tcs.PauliErrorsLe
 import AFTD.Kb.Tcs.InstFiniteDimensionalComplexSubtypeHnMemSubmodule
-import AFTD.Kb.Tcs.Weight
+import AFTD.Kb.Tcs.InstFintypePauliString
+import AFTD.Kb.Tcs.PauliOp
+import AFTD.Kb.Tcs.PauliString
 
 /-!
 # ErrorSphere

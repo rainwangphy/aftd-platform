@@ -1,17 +1,14 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GameTreeSizeMemChildrenLt
 import AFTD.Kb.GameTheoryEconomics.GameTree
 import AFTD.Kb.GameTheoryEconomics.GameTreeStrategy
 import AFTD.Kb.GameTheoryEconomics.GameTreeSize
-import AFTD.Kb.GameTheoryEconomics.GameTreeSizeMemChildrenLt
 import AFTD.Kb.GameTheoryEconomics.GameTreeChildren
 import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueLeaf
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueNode
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListNil
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListCons
-import AFTD.Kb.Tcs.G
-import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeSize
-import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeOutcome
 
 /-!
 # GameTree.outcome

@@ -1,15 +1,15 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.NAEtoColorNAEclause
+import AFTD.Kb.Tcs.NAEtoColorClauseNodeColor
+import AFTD.Kb.Tcs.NAEtoColorOutputVertex
+import AFTD.Kb.Tcs.NAEtoColorSatisfiesClause
+import AFTD.Kb.Tcs.NAEtoColorNaeColoring
+import AFTD.Kb.Tcs.NAEtoColorNAESat3
+import AFTD.Kb.Tcs.NAEtoColorReductionGraph
+import AFTD.Kb.Tcs.NAEtoColorIsSatisfiable
 import AFTD.Kb.Tcs.NAEtoColorEdgeRelation
 import AFTD.Kb.Tcs.NAEtoColorIs3Colorable
-import AFTD.Kb.Tcs.NAEtoColorIsSatisfiable
-import AFTD.Kb.Tcs.NAEtoColorNAESat3
-import AFTD.Kb.Tcs.NAEtoColorNAEclause
-import AFTD.Kb.Tcs.NAEtoColorOutputVertex
-import AFTD.Kb.Tcs.NAEtoColorReductionGraph
-import AFTD.Kb.Tcs.NAEtoColorSatisfiesClause
-import AFTD.Kb.Tcs.NAEtoColorClauseNodeColor
-import AFTD.Kb.Tcs.NAEtoColorNaeColoring
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.NAEtoColorSatisfiesNAE3
 
 /-!
 # NAEtoColor.NAEtoColorCompleteness

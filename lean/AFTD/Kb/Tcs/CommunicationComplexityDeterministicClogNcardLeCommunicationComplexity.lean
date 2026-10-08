@@ -2,7 +2,6 @@ import AFTD.Prelude
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicCommunicationComplexity
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFoolingSetNcardLePowOfCommunicationComplexityLe
 import AFTD.Kb.Tcs.CommunicationComplexityRectangleIsFoolingSet
-import AFTD.Kb.Tcs.G
 
 /-!
 # CommunicationComplexity.Deterministic.clog_ncard_le_communicationComplexity

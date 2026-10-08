@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibProbabilityPMFPosteriorDist
 import AFTD.Kb.Tcs.CslibProbabilityPMFPosteriorDistApply
 import AFTD.Kb.Tcs.CslibProbabilityPMFBindPairApply
-import AFTD.Kb.Tcs.Support
+import AFTD.Kb.Tcs.CslibProbabilityPMFPosteriorDist
 
 /-!
 # Cslib.Probability.PMF.posteriorDist_eq_prior_of_outputIndist

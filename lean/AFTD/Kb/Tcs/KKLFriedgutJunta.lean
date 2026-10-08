@@ -1,21 +1,22 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
-import AFTD.Kb.Tcs.BooleanAnalysisBooleanFunc
-import AFTD.Kb.Tcs.BooleanAnalysisExpect
-import AFTD.Kb.Tcs.BooleanAnalysisIsPmOne
-import AFTD.Kb.Tcs.BooleanAnalysisTotalInfluence
 import AFTD.Kb.Tcs.BooleanAnalysisTotalInfluenceEqSumSqDeg
 import AFTD.Kb.Tcs.BooleanAnalysisUniformWeight
-import AFTD.Kb.Tcs.KKLIsJunta
+import AFTD.Kb.Tcs.BooleanAnalysisExpect
+import AFTD.Kb.Tcs.KKLLowDegreePart
+import AFTD.Kb.Tcs.BooleanAnalysisChiSSingleton
+import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
 import AFTD.Kb.Tcs.KKLInfluentialCoords
 import AFTD.Kb.Tcs.KKLInfluentialCoordsCard
-import AFTD.Kb.Tcs.KKLL2DistSq
-import AFTD.Kb.Tcs.KKLLowDegreePart
+import AFTD.Kb.Tcs.BooleanAnalysisIsPmOne
+import AFTD.Kb.Tcs.BooleanAnalysisTotalInfluence
 import AFTD.Kb.Tcs.KKLLowDegreePartDependsOnInfluential
+import AFTD.Kb.Tcs.KKLIsJunta
+import AFTD.Kb.Tcs.KKLL2DistSq
+import AFTD.Kb.Tcs.BooleanAnalysisBooleanFunc
 import AFTD.Kb.Tcs.KKLLowDegreeApprox
-import AFTD.Kb.Tcs.BooleanAnalysisChiSSingleton
 import AFTD.Kb.Tcs.BooleanAnalysisFlipBitFlipBit
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeff
+import AFTD.Kb.Tcs.BooleanAnalysisInfluence
 
 /-!
 # KKL.friedgut_junta

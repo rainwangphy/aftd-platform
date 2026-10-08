@@ -1,7 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.Pref
 import AFTD.Kb.GameTheoryEconomics.InstCoeFunPrefForallForallProp
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.GameTheoryEconomics.Pref
 
 /-!
 # MatchingMarket

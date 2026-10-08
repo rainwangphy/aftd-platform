@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.ProbabilityStatistics.JLDistortion
-import AFTD.Kb.Tcs.V
 
 /-!
 # IsJLEmbedding

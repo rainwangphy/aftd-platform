@@ -1,7 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.HalvingMistakes
 import AFTD.Kb.Tcs.HalvingMistakesBound
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.HalvingMistakes
 
 /-!
 # Halving.halving_bound

@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWF
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingIsDecisive
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingBallotPrefersBallotFromInjective
 import AFTD.Kb.GameTheoryEconomics.InstCoeFunPrefForallForallProp
-import AFTD.Kb.Tcs.F
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingSWF
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingIsDecisive
 
 /-!
 # SocialChoice.Voting.exists_nonempty_decisive_of_size

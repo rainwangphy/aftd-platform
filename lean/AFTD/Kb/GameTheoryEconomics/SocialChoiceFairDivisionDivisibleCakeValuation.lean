@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.V
 
 /-!
 # SocialChoice.FairDivision.Divisible.CakeValuation

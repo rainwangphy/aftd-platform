@@ -3,7 +3,6 @@ import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanism
 import AFTD.Kb.GameTheoryEconomics.OpponentTypeProfile
 import AFTD.Kb.GameTheoryEconomics.ContinuousTypeProfile
 import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
-import AFTD.Kb.Tcs.Support
 
 /-!
 # BayesianSingleItemAuction

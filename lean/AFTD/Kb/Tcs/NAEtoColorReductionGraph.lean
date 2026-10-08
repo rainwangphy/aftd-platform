@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.NAEtoColorEdgeRelation
-import AFTD.Kb.Tcs.NAEtoColorNAESat3
 import AFTD.Kb.Tcs.NAEtoColorOutputVertex
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.NAEtoColorNAESat3
+import AFTD.Kb.Tcs.NAEtoColorEdgeRelation
 
 /-!
 # NAEtoColor.ReductionGraph

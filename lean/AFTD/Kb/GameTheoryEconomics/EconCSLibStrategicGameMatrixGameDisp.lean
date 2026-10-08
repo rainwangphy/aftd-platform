@@ -1,7 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.GameTheoryEconomics.MatrixGame
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 
 /-!
 # EconCSLib.StrategicGame.MatrixGame.disp

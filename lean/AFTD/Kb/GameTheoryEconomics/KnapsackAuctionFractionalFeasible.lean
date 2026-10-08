@@ -2,7 +2,6 @@ import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.KnapsackAuction
 import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 import AFTD.Kb.GameTheoryEconomics.LinearOrderToTotalPreorder
-import AFTD.Kb.Tcs.Weight
 
 /-!
 # KnapsackAuction.fractionalFeasible

@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFMRowIndex
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFmA
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraZeroRows
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraPosRows
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraNegRows
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraPosRows
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraZeroRows
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFMRowIndex
 
 /-!
 # EconCSLib.LinearAlgebra.fmB

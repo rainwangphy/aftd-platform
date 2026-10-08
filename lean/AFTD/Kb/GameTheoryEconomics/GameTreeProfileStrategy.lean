@@ -1,4 +1,6 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
 import AFTD.Kb.GameTheoryEconomics.GameTreePlayerStrategy
 import AFTD.Kb.GameTheoryEconomics.GameTreeStrategy
 import AFTD.Kb.GameTheoryEconomics.GameTree
@@ -7,9 +9,6 @@ import AFTD.Kb.GameTheoryEconomics.GameTreeValueLeaf
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueNode
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListNil
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListCons
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
-import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeStrategy
 
 /-!
 # GameTree.profileStrategy

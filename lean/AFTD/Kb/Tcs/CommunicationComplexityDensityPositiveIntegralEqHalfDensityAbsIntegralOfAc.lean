@@ -1,13 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CommunicationComplexityDensityAbsIntegral
-import AFTD.Kb.Tcs.CommunicationComplexityDensityPositiveIntegral
 import AFTD.Kb.Tcs.CommunicationComplexityDensityPositiveSet
-import AFTD.Kb.Tcs.CommunicationComplexityIntegrableRnDensitySubOne
-import AFTD.Kb.Tcs.CommunicationComplexityIntegralNonnegPartEqHalfIntegralAbsOfIntegralEqZero
-import AFTD.Kb.Tcs.CommunicationComplexityIntegralRnDensitySubOneEqZeroOfAc
-import AFTD.Kb.Tcs.CommunicationComplexityMeasurableRnDensity
 import AFTD.Kb.Tcs.CommunicationComplexityRnDensity
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.CommunicationComplexityMeasurableRnDensity
+import AFTD.Kb.Tcs.CommunicationComplexityIntegrableRnDensitySubOne
+import AFTD.Kb.Tcs.CommunicationComplexityDensityPositiveIntegral
+import AFTD.Kb.Tcs.CommunicationComplexityDensityAbsIntegral
+import AFTD.Kb.Tcs.CommunicationComplexityIntegralRnDensitySubOneEqZeroOfAc
+import AFTD.Kb.Tcs.CommunicationComplexityIntegralNonnegPartEqHalfIntegralAbsOfIntegralEqZero
 
 /-!
 # CommunicationComplexity.densityPositiveIntegral_eq_half_densityAbsIntegral_of_ac

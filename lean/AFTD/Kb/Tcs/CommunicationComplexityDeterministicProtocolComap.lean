@@ -1,7 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolComap
-import AFTD.Kb.Tcs.CommunicationComplexityPrivateCoinFiniteMessageProtocolAlice
 
 /-!
 # CommunicationComplexity.Deterministic.Protocol.comap

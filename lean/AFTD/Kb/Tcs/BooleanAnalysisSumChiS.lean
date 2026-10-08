@@ -1,14 +1,13 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
+import AFTD.Kb.Tcs.BooleanAnalysisSumBoolToSign
 import AFTD.Kb.Tcs.BooleanAnalysisBoolToSign
-import AFTD.Kb.Tcs.BooleanAnalysisChiS
-import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignFalse
-import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignTrue
-import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignSq
 import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignMulSelf
 import AFTD.Kb.Tcs.BooleanAnalysisChiSSingleton
-import AFTD.Kb.Tcs.BooleanAnalysisSumBoolToSign
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
+import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignTrue
+import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignFalse
+import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignSq
+import AFTD.Kb.Tcs.BooleanAnalysisChiS
 
 /-!
 # BooleanAnalysis.sum_chiS

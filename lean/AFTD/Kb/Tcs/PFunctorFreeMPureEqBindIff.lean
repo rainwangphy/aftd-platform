@@ -1,11 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.PFunctorFreeM
-import AFTD.Kb.Tcs.PFunctorFreeMInstPure
-import AFTD.Kb.Tcs.PFunctorFreeMBind
 import AFTD.Kb.Tcs.PFunctorFreeMBindEqBind
 import AFTD.Kb.Tcs.PFunctorFreeMBindPure
+import AFTD.Kb.Tcs.PFunctorFreeM
+import AFTD.Kb.Tcs.PFunctorFreeMInstPure
 import AFTD.Kb.Tcs.PFunctorFreeMBindPureComp
-import AFTD.Kb.Tcs.CslibFreeMBind
+import AFTD.Kb.Tcs.PFunctorFreeMBind
 
 /-!
 # PFunctor.FreeM.pure_eq_bind_iff

@@ -1,15 +1,14 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibFreeM
-import AFTD.Kb.Tcs.CslibFreeMBind
-import AFTD.Kb.Tcs.CslibFreeMInduction
-import AFTD.Kb.Tcs.CslibFreeMInstPure
-import AFTD.Kb.Tcs.CslibFreeMLift
+import AFTD.Kb.Tcs.CslibFreeMInstFunctor
 import AFTD.Kb.Tcs.CslibFreeMLiftBindEq
 import AFTD.Kb.Tcs.CslibFreeMBindEqBind
 import AFTD.Kb.Tcs.CslibFreeMInstBind
-import AFTD.Kb.Tcs.CslibFreeMInstFunctor
-import AFTD.Kb.Tcs.F
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.CslibFreeMInduction
+import AFTD.Kb.Tcs.CslibFreeMBind
+import AFTD.Kb.Tcs.CslibFreeMInstPure
+import AFTD.Kb.Tcs.CslibFreeMLift
+import AFTD.Kb.Tcs.CslibFreeM
+import AFTD.Kb.Tcs.CslibFreeMBindPure
 
 /-!
 # Cslib.FreeM.bind_assoc

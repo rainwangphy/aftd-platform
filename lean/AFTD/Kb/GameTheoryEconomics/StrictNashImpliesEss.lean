@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.IsESS
-import AFTD.Kb.GameTheoryEconomics.Strict
 
 /-!
 # strict_nash_implies_ess

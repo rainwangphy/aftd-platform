@@ -1,14 +1,12 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.IsNashEquilibrium
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsNashEquilibriumSurvives
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfile
-import AFTD.Kb.GameTheoryEconomics.IsNashEquilibrium
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsRationalizable
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsNashEquilibriumSurvives
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSelf
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateSame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameProfileDeviateOfNe
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.GameTheoryEconomics.Profile
 
 /-!
 # EconCSLib.StrategicGame.IsNashEquilibrium.isRationalizable

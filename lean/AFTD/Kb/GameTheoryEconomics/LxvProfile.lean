@@ -1,11 +1,12 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.LxvVal
-import AFTD.Kb.GameTheoryEconomics.LxvValues
 
 /-!
 # lxv_profile
 
 Topic: fair_division   Node: 479960cdfdfd
+
+Provenance: helper lemma. step towards leximin_ef1_not_pareto_optimal (conjecture of The Unreasonable Fairness of Maximum Nash Welfare, ACM TEAC 7(3), 2019, App. B)
 
 Integer leximin profile (sorted own-bundle values) of an allocation in the instance lxv_values.
 -/

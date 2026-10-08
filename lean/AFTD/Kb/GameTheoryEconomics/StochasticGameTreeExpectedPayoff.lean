@@ -1,10 +1,9 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
+import AFTD.Kb.GameTheoryEconomics.StochasticGameTreeExpectedPayoffWithFuel
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
 import AFTD.Kb.GameTheoryEconomics.StochasticGameTreeStrategy
 import AFTD.Kb.GameTheoryEconomics.StochasticGameTree
-import AFTD.Kb.GameTheoryEconomics.StochasticGameTreeExpectedPayoffWithFuel
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
-import AFTD.Kb.Tcs.G
 
 /-!
 # StochasticGameTree.expectedPayoff

@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.HalvingPredict
-import AFTD.Kb.Tcs.HalvingUpdate
-import AFTD.Kb.Tcs.HalvingVoteFor
 import AFTD.Kb.Tcs.HalvingVoteForFalseAddTrue
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.HalvingUpdate
+import AFTD.Kb.Tcs.HalvingPredict
+import AFTD.Kb.Tcs.HalvingVoteFor
 
 /-!
 # Halving.mistake_halves

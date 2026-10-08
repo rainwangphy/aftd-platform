@@ -1,7 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.SATtoColorSat3
 import AFTD.Kb.Tcs.SATtoColorSatisfiesSat3
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.SATtoColorSat3
 
 /-!
 # SATtoColor.IsSatisfiable

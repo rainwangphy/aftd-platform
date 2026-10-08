@@ -1,10 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibFreeM
-import AFTD.Kb.Tcs.CslibFreeMBind
 import AFTD.Kb.Tcs.CslibFreeMBindEqBind
-import AFTD.Kb.Tcs.CslibFreeMInstPure
 import AFTD.Kb.Tcs.CslibFreeMInstBind
-import AFTD.Kb.Tcs.F
+import AFTD.Kb.Tcs.CslibFreeMInstPure
+import AFTD.Kb.Tcs.CslibFreeM
 
 /-!
 # Cslib.FreeM.map

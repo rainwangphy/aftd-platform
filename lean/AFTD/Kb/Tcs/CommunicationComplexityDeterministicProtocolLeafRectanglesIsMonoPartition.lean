@@ -1,13 +1,14 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComputes
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolLeafRectangles
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolLeafRectanglesCover
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolLeafRectanglesDisjoint
+import AFTD.Kb.Tcs.CommunicationComplexityRectangleIsMonoPartition
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolLeafRectangles
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComputes
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolLeafRectanglesIsRectangle
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolLeafRectanglesMono
-import AFTD.Kb.Tcs.CommunicationComplexityRectangleIsMonoPartition
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.CommunicationComplexityRectangleIsRectangle
+import AFTD.Kb.Tcs.CommunicationComplexityRectangleIsMonochromatic
 
 /-!
 # CommunicationComplexity.Deterministic.Protocol.leafRectangles_isMonoPartition

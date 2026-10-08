@@ -1,8 +1,7 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.CslibFreeMInstFunctor
 import AFTD.Kb.Tcs.PFunctorFreeM
 import AFTD.Kb.Tcs.PFunctorFreeMMap
-import AFTD.Kb.Tcs.CslibFreeMMap
-import AFTD.Kb.Tcs.CslibFreeMInstFunctor
 
 /-!
 # PFunctor.FreeM.instFunctor

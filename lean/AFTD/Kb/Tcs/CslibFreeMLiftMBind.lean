@@ -1,4 +1,5 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.CslibFreeMLiftMLift
 import AFTD.Kb.Tcs.CslibFreeM
 import AFTD.Kb.Tcs.CslibFreeMLiftM
 import AFTD.Kb.Tcs.CslibFreeMInstBind
@@ -20,12 +21,9 @@ import AFTD.Kb.Tcs.CslibFreeMBindPureComp
 import AFTD.Kb.Tcs.CslibFreeMMapPure
 import AFTD.Kb.Tcs.CslibFreeMMapBind
 import AFTD.Kb.Tcs.CslibFreeMIdMap
-import AFTD.Kb.Tcs.CslibFreeMLiftMLift
 import AFTD.Kb.Tcs.CslibFreeMInstFunctor
 import AFTD.Kb.Tcs.CslibFreeMInstLawfulFunctor
-import AFTD.Kb.Tcs.F
 import AFTD.Kb.Tcs.PFunctorFreeMPureBind
-import AFTD.Kb.Tcs.PFunctorFreeMLiftM
 import AFTD.Kb.Tcs.PFunctorFreeMLiftMBind
 
 /-!

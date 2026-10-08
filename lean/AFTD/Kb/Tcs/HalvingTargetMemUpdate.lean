@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.HalvingUpdate
 import AFTD.Kb.Tcs.HalvingVoteFor
-import AFTD.Kb.Tcs.V
 
 /-!
 # Halving.target_mem_update

@@ -407,6 +407,8 @@ a.stretch::after{content:"";position:absolute;inset:0;border-radius:var(--radius
 .rel{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
 .rel li{display:flex;flex-direction:column;gap:1px}
 .rel-w{font-family:var(--prose);font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.imp{list-style:none;margin:8px 0 0;padding:0;font-size:14px;line-height:1.5}
+.imp li{margin:3px 0;overflow-wrap:anywhere}
 .reading code{font-size:.82em;padding:0 3px;border-radius:4px;background:var(--panel-2)}
 .pager{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;
        border-top:1px solid var(--rule);padding-top:18px;margin-top:6px}

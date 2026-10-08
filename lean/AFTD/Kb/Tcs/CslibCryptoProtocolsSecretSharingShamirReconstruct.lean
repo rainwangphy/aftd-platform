@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirParams
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialReconstruct
-import AFTD.Kb.Tcs.F
 
 /-!
 # Cslib.Crypto.Protocols.SecretSharing.Shamir.reconstruct

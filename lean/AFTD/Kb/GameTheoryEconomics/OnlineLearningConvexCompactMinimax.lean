@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxHypotheses
-import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxStatement
 import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxBySeparation
-import AFTD.Kb.Tcs.Regret
+import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxStatement
+import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxHypotheses
 
 /-!
 # OnlineLearning.convex_compact_minimax

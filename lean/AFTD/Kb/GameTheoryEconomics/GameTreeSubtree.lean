@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.GameTree
-import AFTD.Kb.Tcs.G
 
 /-!
 # GameTree.Subtree

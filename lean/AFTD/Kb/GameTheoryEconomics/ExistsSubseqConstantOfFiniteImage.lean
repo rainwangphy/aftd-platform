@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.MkSubseq
-import AFTD.Kb.Tcs.G
 
 /-!
 # exists_subseq_constant_of_finite_image

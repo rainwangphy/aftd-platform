@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.RelationRelatesInSteps
-import AFTD.Kb.Tcs.G
 
 /-!
 # Relation.RelatesInSteps.map

@@ -1,15 +1,14 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.CodingTheoryJohnsonRankinFinsetBound
 import AFTD.Kb.Tcs.CodingTheoryJohnsonBitVec
+import AFTD.Kb.Tcs.CodingTheoryJohnsonInnerShiftedLeExpr
+import AFTD.Kb.Tcs.CodingTheoryJohnsonWt
+import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyTrue
 import AFTD.Kb.Tcs.CodingTheoryJohnsonEuc
 import AFTD.Kb.Tcs.CodingTheoryJohnsonHdist
-import AFTD.Kb.Tcs.CodingTheoryJohnsonInnerShiftedLeExpr
-import AFTD.Kb.Tcs.CodingTheoryJohnsonNormalize
-import AFTD.Kb.Tcs.CodingTheoryJohnsonRankinFinsetBound
-import AFTD.Kb.Tcs.CodingTheoryJohnsonShifted
-import AFTD.Kb.Tcs.CodingTheoryJohnsonWt
 import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyFalse
-import AFTD.Kb.Tcs.CodingTheoryJohnsonPmOneApplyTrue
-import AFTD.Kb.Tcs.Wt
+import AFTD.Kb.Tcs.CodingTheoryJohnsonShifted
+import AFTD.Kb.Tcs.CodingTheoryJohnsonNormalize
 
 /-!
 # CodingTheory.Johnson.binary_johnson_card_bound_parametric

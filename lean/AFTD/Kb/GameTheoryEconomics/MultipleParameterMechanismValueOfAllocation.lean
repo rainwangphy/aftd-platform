@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.MultipleParameterMechanismValuation
-import AFTD.Kb.Tcs.V
 
 /-!
 # MultipleParameterMechanism.valueOfAllocation

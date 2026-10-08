@@ -1,9 +1,8 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsZeroSumDecidable
 import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameIsZeroSumDecidable
 import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.Tcs.G
 
 /-!
 # MatrixGame.toStrategicGame

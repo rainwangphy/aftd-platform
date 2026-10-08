@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingScheme
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingSchemeViewDist
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingSchemePosteriorSecretDist
 import AFTD.Kb.Tcs.CslibProbabilityPMFPosteriorDistApply
-import AFTD.Kb.Tcs.Support
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingScheme
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingSchemePosteriorSecretDist
 
 /-!
 # Cslib.Crypto.Protocols.SecretSharing.Scheme.posteriorSecretDist_apply

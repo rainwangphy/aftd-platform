@@ -1,9 +1,8 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTree
-import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeSize
 import AFTD.Kb.GameTheoryEconomics.ZeroSumChancePlayer
 import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceInstInhabitedGameTree
-import AFTD.Kb.GameTheoryEconomics.GameTree
+import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeSize
 
 /-!
 # ZeroSumChance.GameTree.size_pos

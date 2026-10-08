@@ -1,7 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.SATtoColorClause
 import AFTD.Kb.Tcs.SATtoColorSatisfiesLiteral
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.SATtoColorClause
 
 /-!
 # SATtoColor.SatisfiesClause

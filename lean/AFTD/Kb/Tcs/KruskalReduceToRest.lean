@@ -1,16 +1,15 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.KruskalMergeNoop
+import AFTD.Kb.Tcs.KruskalUFSamePartitionTrans
 import AFTD.Kb.Tcs.KruskalUF
+import AFTD.Kb.Tcs.KruskalUFSamePartitionRfl
+import AFTD.Kb.Tcs.KruskalTotalWeightNil
+import AFTD.Kb.Tcs.KruskalUFFindDef
+import AFTD.Kb.Tcs.KruskalWEdge
 import AFTD.Kb.Tcs.KruskalUFSamePartition
+import AFTD.Kb.Tcs.KruskalTotalWeight
 import AFTD.Kb.Tcs.KruskalUFMerge
 import AFTD.Kb.Tcs.KruskalUFMergeAll
-import AFTD.Kb.Tcs.KruskalWEdge
-import AFTD.Kb.Tcs.KruskalTotalWeight
-import AFTD.Kb.Tcs.KruskalUFSamePartitionRfl
-import AFTD.Kb.Tcs.KruskalUFSamePartitionTrans
-import AFTD.Kb.Tcs.KruskalMergeNoop
-import AFTD.Kb.Tcs.KruskalUFFindDef
-import AFTD.Kb.Tcs.KruskalTotalWeightNil
-import AFTD.Kb.Tcs.Weight
 
 /-!
 # Kruskal.reduce_to_rest

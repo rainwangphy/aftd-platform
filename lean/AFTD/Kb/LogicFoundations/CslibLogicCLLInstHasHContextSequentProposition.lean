@@ -1,16 +1,15 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibHasHContext
-import AFTD.Kb.LogicFoundations.CslibLogicCLLSequent
-import AFTD.Kb.LogicFoundations.CslibLogicCLLProposition
-import AFTD.Kb.LogicFoundations.CslibLogicCLLSequentContext
-import AFTD.Kb.LogicFoundations.CslibLogicCLLSequentContextFill
-import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionContextFill
-import AFTD.Kb.LogicFoundations.CslibLogicCLLInstZeroProposition
-import AFTD.Kb.LogicFoundations.CslibLogicCLLInstOneProposition
-import AFTD.Kb.LogicFoundations.CslibLogicCLLInstTopProposition
 import AFTD.Kb.LogicFoundations.CslibLogicCLLInstBotProposition
-import AFTD.Kb.LogicFoundations.CslibLogicCLLInstHasContextProposition
 import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionPositiveDecidable
+import AFTD.Kb.LogicFoundations.CslibLogicCLLProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstZeroProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLSequent
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstOneProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLSequentContextFill
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstHasContextProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLSequentContext
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstTopProposition
+import AFTD.Kb.Tcs.CslibHasHContext
 import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionNegativeDecidable
 
 /-!

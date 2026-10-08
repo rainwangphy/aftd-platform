@@ -1,7 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirParams
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirAuthorized
-import AFTD.Kb.Tcs.F
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirParams
 
 /-!
 # Cslib.Crypto.Protocols.SecretSharing.Shamir.authorized_univ

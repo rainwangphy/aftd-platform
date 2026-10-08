@@ -1,9 +1,8 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxHypotheses
 import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxStatement
+import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxHypotheses
 import AFTD.Kb.GameTheoryEconomics.OnlineLearningConvexCompactMinimaxOfFiniteSublevelIntersections
 import AFTD.Kb.GameTheoryEconomics.OnlineLearningFiniteSublevelIntersectionsBySeparation
-import AFTD.Kb.Tcs.Regret
 
 /-!
 # OnlineLearning.convex_compact_minimax_by_separation

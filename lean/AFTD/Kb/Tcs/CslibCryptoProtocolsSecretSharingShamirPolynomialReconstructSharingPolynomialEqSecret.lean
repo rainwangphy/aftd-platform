@@ -1,10 +1,9 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialSharingPolynomial
-import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialReconstruct
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialReconstructEqConstantCoeffOfEvalEq
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialConstantCoeffSharingPolynomial
+import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialReconstruct
 import AFTD.Kb.Tcs.CslibCryptoProtocolsSecretSharingShamirPolynomialSharingPolynomialEval
-import AFTD.Kb.Tcs.F
 
 /-!
 # Cslib.Crypto.Protocols.SecretSharing.Shamir.Polynomial.reconstruct_sharingPolynomial_eq_secret

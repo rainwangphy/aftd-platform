@@ -1,21 +1,20 @@
 import AFTD.Prelude
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingDualFeasible
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugRow
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugB
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugA
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugFeasibleIff
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingLpWeakDuality
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraIsFeasible
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraRowEval
-import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFarkasLemma
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugAInlInl
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugAInlInr
 import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugAInr
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugBInlInl
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugBInlInr
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugBInr
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugAInlInl
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingLpWeakDuality
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugFeasibleIff
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraIsFeasible
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraFarkasLemma
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugRow
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraRowEvalDef
-import AFTD.Kb.GameTheoryEconomics.Strict
+import AFTD.Kb.Optimization.EconCSLibLinearAlgebraRowEval
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingDualFeasible
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugAInlInr
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugBInlInl
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugA
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugBInr
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugBInlInr
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingOptAugB
 
 /-!
 # EconCSLib.LinearProgramming.exists_row_strict_pair

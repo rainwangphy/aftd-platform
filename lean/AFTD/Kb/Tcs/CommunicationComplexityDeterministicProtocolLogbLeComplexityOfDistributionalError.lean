@@ -1,13 +1,11 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolComplexity
-import AFTD.Kb.Tcs.CommunicationComplexityRectangleIsRectangle
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolOneSubTwoDistributionalErrorLeTwoPowMul
 import AFTD.Kb.Tcs.CommunicationComplexityDiscrepancy
-import AFTD.Kb.Tcs.CommunicationComplexityFiniteProbabilitySpace
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolOneSubTwoDistributionalErrorLeTwoPowMul
+import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocol
 import AFTD.Kb.Tcs.CommunicationComplexityDeterministicProtocolDistributionalError
-import AFTD.Kb.Tcs.G
-import AFTD.Kb.Tcs.CommunicationComplexityDeterministicFiniteMessageProtocolComplexity
+import AFTD.Kb.Tcs.CommunicationComplexityRectangleIsRectangle
+import AFTD.Kb.Tcs.CommunicationComplexityFiniteProbabilitySpace
 
 /-!
 # CommunicationComplexity.Deterministic.Protocol.logb_le_complexity_of_distributionalError

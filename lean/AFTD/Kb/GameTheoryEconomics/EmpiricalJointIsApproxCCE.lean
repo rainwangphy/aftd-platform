@@ -1,13 +1,16 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.Game
-import AFTD.Kb.GameTheoryEconomics.IsApproxCoarseCorrelatedEquilibrium
 import AFTD.Kb.GameTheoryEconomics.EmpiricalJoint
-import AFTD.Kb.GameTheoryEconomics.EmpiricalJointColDeviationLe
-import AFTD.Kb.GameTheoryEconomics.EmpiricalJointRowDeviationLe
 import AFTD.Kb.GameTheoryEconomics.MixedStrategy
-import AFTD.Kb.GameTheoryEconomics.EmpiricalJointRowMarginal
 import AFTD.Kb.GameTheoryEconomics.EmpiricalJointColMarginal
-import AFTD.Kb.Tcs.Regret
+import AFTD.Kb.GameTheoryEconomics.EmpiricalJointRowDeviationLe
+import AFTD.Kb.GameTheoryEconomics.EmpiricalJointRowMarginal
+import AFTD.Kb.GameTheoryEconomics.IsApproxCoarseCorrelatedEquilibrium
+import AFTD.Kb.GameTheoryEconomics.EmpiricalJointColDeviationLe
+import AFTD.Kb.GameTheoryEconomics.Game
+import AFTD.Kb.GameTheoryEconomics.JointDistributionColDeviationUtility
+import AFTD.Kb.GameTheoryEconomics.JointDistributionColExpectedUtility
+import AFTD.Kb.GameTheoryEconomics.JointDistributionRowDeviationUtility
+import AFTD.Kb.GameTheoryEconomics.JointDistributionRowExpectedUtility
 
 /-!
 # empiricalJoint_isApproxCCE

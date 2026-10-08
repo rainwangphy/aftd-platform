@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.IsSinglePeaked
-import AFTD.Kb.Tcs.V
 
 /-!
 # single_peaked_median_defeats_less

@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.Arena
-import AFTD.Kb.GameTheoryEconomics.ArenaPlay
 
 /-!
 # Arena.finalState

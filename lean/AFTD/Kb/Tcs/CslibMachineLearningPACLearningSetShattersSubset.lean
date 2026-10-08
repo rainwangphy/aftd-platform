@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibMachineLearningPACLearningConceptClass
 import AFTD.Kb.Tcs.CslibMachineLearningPACLearningSetShatters
-import AFTD.Kb.Tcs.V
 
 /-!
 # Cslib.MachineLearning.PACLearning.SetShatters.subset

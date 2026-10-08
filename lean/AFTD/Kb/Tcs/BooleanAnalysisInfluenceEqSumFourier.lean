@@ -1,21 +1,20 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
-import AFTD.Kb.Tcs.BooleanAnalysisBooleanFunc
-import AFTD.Kb.Tcs.BooleanAnalysisChiS
-import AFTD.Kb.Tcs.BooleanAnalysisExpect
-import AFTD.Kb.Tcs.BooleanAnalysisFlipBit
-import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeff
-import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeffChi
-import AFTD.Kb.Tcs.BooleanAnalysisInfluence
-import AFTD.Kb.Tcs.BooleanAnalysisInnerProduct
-import AFTD.Kb.Tcs.BooleanAnalysisParseval
-import AFTD.Kb.Tcs.BooleanAnalysisUniformWeight
 import AFTD.Kb.Tcs.BooleanAnalysisWalshExpansion
+import AFTD.Kb.Tcs.BooleanAnalysisUniformWeight
+import AFTD.Kb.Tcs.BooleanAnalysisExpect
 import AFTD.Kb.Tcs.BooleanAnalysisChiSFlipBit
+import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeffChi
+import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeff
+import AFTD.Kb.Tcs.BooleanAnalysisInfluence
 import AFTD.Kb.Tcs.BooleanAnalysisChiSSingleton
+import AFTD.Kb.Tcs.BooleanAnalysisFlipBit
 import AFTD.Kb.Tcs.BooleanAnalysisInnerProductChiSelf
+import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
+import AFTD.Kb.Tcs.BooleanAnalysisInnerProduct
+import AFTD.Kb.Tcs.BooleanAnalysisChiS
+import AFTD.Kb.Tcs.BooleanAnalysisBooleanFunc
+import AFTD.Kb.Tcs.BooleanAnalysisParseval
 import AFTD.Kb.Tcs.BooleanAnalysisFlipBitFlipBit
-import AFTD.Kb.Tcs.G
 
 /-!
 # BooleanAnalysis.influence_eq_sum_fourier

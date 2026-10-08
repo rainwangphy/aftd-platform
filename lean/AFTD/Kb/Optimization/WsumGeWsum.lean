@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Optimization.Wsum
 import AFTD.Kb.Optimization.WsumLeWsum
-import AFTD.Kb.Tcs.G
 
 /-!
 # wsum_ge_wsum

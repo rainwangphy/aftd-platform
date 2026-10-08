@@ -1,8 +1,7 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionWelfareMaximizingAllocationRule
 import AFTD.Kb.GameTheoryEconomics.KnapsackAuction
 import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanismMyersonPayment
-import AFTD.Kb.GameTheoryEconomics.KnapsackAuctionWelfareMaximizingAllocationRule
-import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanism
 
 /-!
 # KnapsackAuction.welfareMaximizingPaymentRule

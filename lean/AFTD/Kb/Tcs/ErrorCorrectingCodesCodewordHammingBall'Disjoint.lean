@@ -1,12 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodeword
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordCode
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordDistance
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordHammingBall
 import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordHammingBallNonIntersect
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordAdd
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordSub
-import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordZero
+import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordCode
+import AFTD.Kb.Tcs.ErrorCorrectingCodesCodeword
+import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordHammingBall
+import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordDistance
+import AFTD.Kb.Tcs.ErrorCorrectingCodesCodewordHammingDistance
 
 /-!
 # ErrorCorrectingCodes.Codeword.hamming_ball'_disjoint

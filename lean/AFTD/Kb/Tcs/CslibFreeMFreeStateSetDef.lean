@@ -1,6 +1,13 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibFreeMFreeState
+import AFTD.Kb.Tcs.CslibFreeMLiftMSeqLeft
+import AFTD.Kb.Tcs.CslibFreeMLiftMBind
 import AFTD.Kb.Tcs.CslibFreeMFreeStateInstMonadStateOf
+import AFTD.Kb.Tcs.CslibFreeMLiftMSeqRight
+import AFTD.Kb.Tcs.CslibFreeMLiftMLift
+import AFTD.Kb.Tcs.CslibFreeMLiftMSeq
+import AFTD.Kb.Tcs.CslibFreeMLiftMMap
+import AFTD.Kb.Tcs.CslibFreeMFreeStateGetDef
+import AFTD.Kb.Tcs.CslibFreeMFreeState
 import AFTD.Kb.Tcs.CslibFreeMLift
 import AFTD.Kb.Tcs.CslibFreeMStateF
 import AFTD.Kb.Tcs.CslibFreeMPureEqPure
@@ -15,21 +22,12 @@ import AFTD.Kb.Tcs.CslibFreeMMapBind
 import AFTD.Kb.Tcs.CslibFreeMIdMap
 import AFTD.Kb.Tcs.CslibFreeMLiftMPure
 import AFTD.Kb.Tcs.CslibFreeMLiftMLiftBind
-import AFTD.Kb.Tcs.CslibFreeMLiftMLift
-import AFTD.Kb.Tcs.CslibFreeMLiftMBind
-import AFTD.Kb.Tcs.CslibFreeMLiftMMap
-import AFTD.Kb.Tcs.CslibFreeMLiftMSeq
-import AFTD.Kb.Tcs.CslibFreeMLiftMSeqLeft
-import AFTD.Kb.Tcs.CslibFreeMLiftMSeqRight
-import AFTD.Kb.Tcs.CslibFreeMFreeStateGetDef
 import AFTD.Kb.Tcs.CslibFreeMInstPure
 import AFTD.Kb.Tcs.CslibFreeMInstBind
 import AFTD.Kb.Tcs.CslibFreeMInstFunctor
 import AFTD.Kb.Tcs.CslibFreeMInstLawfulFunctor
 import AFTD.Kb.Tcs.CslibFreeMInstMonad
 import AFTD.Kb.Tcs.CslibFreeMInstLawfulMonad
-import AFTD.Kb.Tcs.CslibFreeM
-import AFTD.Kb.Tcs.PFunctorFreeMLift
 
 /-!
 # Cslib.FreeM.FreeState.set_def

@@ -20,8 +20,6 @@ import AFTD.Kb.Tcs.CslibFreeMInstFunctor
 import AFTD.Kb.Tcs.CslibFreeMInstLawfulFunctor
 import AFTD.Kb.Tcs.CslibFreeMInstMonad
 import AFTD.Kb.Tcs.CslibFreeMInstLawfulMonad
-import AFTD.Kb.Tcs.F
-import AFTD.Kb.Tcs.PFunctorFreeMLiftM
 
 /-!
 # Cslib.FreeM.liftM_lift

@@ -1,4 +1,6 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.MatrixGameValueEqMinimax
+import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalColumnStrategiesIffELe
 import AFTD.Kb.GameTheoryEconomics.MatrixGame
 import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalRowStrategies
 import AFTD.Kb.GameTheoryEconomics.MatrixGameOptimalColumnStrategies
@@ -6,7 +8,6 @@ import AFTD.Kb.GameTheoryEconomics.MatrixGameIsSaddlePoint
 import AFTD.Kb.GameTheoryEconomics.MatrixGameValue
 import AFTD.Kb.GameTheoryEconomics.MatrixGameE
 import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalRowStrategiesIffEGe
-import AFTD.Kb.GameTheoryEconomics.MatrixGameMemOptimalColumnStrategiesIffELe
 import AFTD.Kb.GameTheoryEconomics.MatrixGameEj
 import AFTD.Kb.Optimization.StdSimplexPure
 import AFTD.Kb.Optimization.Wsum
@@ -17,14 +18,11 @@ import AFTD.Kb.GameTheoryEconomics.MatrixGameGuaranteeII
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisLamAux
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisLamAuxBddAbove
 import AFTD.Kb.GameTheoryEconomics.MatrixGameMinimax
-import AFTD.Kb.GameTheoryEconomics.MatrixGameValueEqMinimax
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisMuAux
 import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisMuAuxBddBelow
 import AFTD.Kb.Optimization.StdSimplexPureApply
-import AFTD.Kb.Tcs.G
 import AFTD.Kb.GameTheoryEconomics.LoomisLamBAuxBddAbove
 import AFTD.Kb.GameTheoryEconomics.LoomisMuBAuxBddBelow
-import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisE
 
 /-!
 # MatrixGame.optimal_pairs_iff_saddle_point

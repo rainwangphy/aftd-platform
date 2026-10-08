@@ -1,10 +1,9 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibCryptoProtocolsPerfectSecrecyEncScheme
-import AFTD.Kb.Tcs.CslibCryptoProtocolsPerfectSecrecyEncSchemeMarginalCiphertextDist
-import AFTD.Kb.Tcs.CslibProbabilityPMFPosteriorDist
 import AFTD.Kb.Tcs.CslibCryptoProtocolsPerfectSecrecyEncSchemeCiphertextDist
+import AFTD.Kb.Tcs.CslibCryptoProtocolsPerfectSecrecyEncSchemeMarginalCiphertextDist
+import AFTD.Kb.Tcs.CslibCryptoProtocolsPerfectSecrecyEncScheme
 import AFTD.Kb.Tcs.CslibProbabilityPMFPosteriorDistApply
-import AFTD.Kb.Tcs.Support
+import AFTD.Kb.Tcs.CslibProbabilityPMFPosteriorDist
 
 /-!
 # Cslib.Crypto.Protocols.PerfectSecrecy.EncScheme.posteriorMsgDist

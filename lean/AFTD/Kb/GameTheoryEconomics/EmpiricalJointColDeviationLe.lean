@@ -1,14 +1,13 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.Game
-import AFTD.Kb.GameTheoryEconomics.JointDistributionColDeviationUtility
-import AFTD.Kb.GameTheoryEconomics.JointDistributionColExpectedUtility
 import AFTD.Kb.GameTheoryEconomics.EmpiricalJoint
-import AFTD.Kb.GameTheoryEconomics.EmpiricalJointColDeviationUtility
-import AFTD.Kb.GameTheoryEconomics.EmpiricalJointColExpectedUtility
 import AFTD.Kb.GameTheoryEconomics.MixedStrategy
-import AFTD.Kb.GameTheoryEconomics.EmpiricalJointRowMarginal
+import AFTD.Kb.GameTheoryEconomics.JointDistributionColDeviationUtility
 import AFTD.Kb.GameTheoryEconomics.EmpiricalJointColMarginal
-import AFTD.Kb.Tcs.Regret
+import AFTD.Kb.GameTheoryEconomics.JointDistributionColExpectedUtility
+import AFTD.Kb.GameTheoryEconomics.EmpiricalJointRowMarginal
+import AFTD.Kb.GameTheoryEconomics.EmpiricalJointColExpectedUtility
+import AFTD.Kb.GameTheoryEconomics.EmpiricalJointColDeviationUtility
+import AFTD.Kb.GameTheoryEconomics.Game
 
 /-!
 # empiricalJoint_col_deviation_le

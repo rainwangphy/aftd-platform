@@ -1,7 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.TypeCDF
-import AFTD.Kb.Tcs.Support
-import AFTD.Kb.Tcs.F
 
 /-!
 # ContinuousTypeProfile

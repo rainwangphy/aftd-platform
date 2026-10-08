@@ -1,14 +1,13 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibHasContext
-import AFTD.Kb.LogicFoundations.CslibLogicCLLProposition
-import AFTD.Kb.Tcs.CslibHasHContext
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstBotProposition
 import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionContext
-import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionContextFill
+import AFTD.Kb.LogicFoundations.CslibLogicCLLProposition
+import AFTD.Kb.Tcs.CslibHasContext
 import AFTD.Kb.LogicFoundations.CslibLogicCLLInstZeroProposition
 import AFTD.Kb.LogicFoundations.CslibLogicCLLInstOneProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionContextFill
 import AFTD.Kb.LogicFoundations.CslibLogicCLLInstTopProposition
-import AFTD.Kb.LogicFoundations.CslibLogicCLLInstBotProposition
-import AFTD.Kb.Tcs.CslibHasContextContext
+import AFTD.Kb.Tcs.CslibHasHContext
 
 /-!
 # Cslib.Logic.CLL.instHasContextProposition

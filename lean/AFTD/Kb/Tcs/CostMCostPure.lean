@@ -1,14 +1,13 @@
 import AFTD.Prelude
+import AFTD.Kb.Tcs.CostMInstBind
+import AFTD.Kb.Tcs.CostMInstSeqRight
+import AFTD.Kb.Tcs.CostMInstFunctor
+import AFTD.Kb.Tcs.CostMRetPure
+import AFTD.Kb.Tcs.CostMInstSeq
 import AFTD.Kb.Tcs.CostM
 import AFTD.Kb.Tcs.CostMInstPure
-import AFTD.Kb.Tcs.CostMPure
-import AFTD.Kb.Tcs.CostMRetPure
-import AFTD.Kb.Tcs.CostMInstBind
-import AFTD.Kb.Tcs.CostMInstFunctor
-import AFTD.Kb.Tcs.CostMInstSeq
-import AFTD.Kb.Tcs.CostMInstSeqLeft
-import AFTD.Kb.Tcs.CostMInstSeqRight
 import AFTD.Kb.Tcs.CostMInstMonad
+import AFTD.Kb.Tcs.CostMInstSeqLeft
 
 /-!
 # CostM.cost_pure

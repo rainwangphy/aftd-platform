@@ -31,7 +31,6 @@ import AFTD.Kb.GameTheoryEconomics.ExtensiveGameSubgameAtActionFintype
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameSubgameAtIsEmptyDecidable
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameReachableSubgameAtActionFintype
 import AFTD.Kb.GameTheoryEconomics.ExtensiveGameReachableSubgameAtIsEmptyDecidable
-import AFTD.Kb.GameTheoryEconomics.Deviate
 
 /-!
 # ExtensiveGame.BehaviorProfile.deviate_same

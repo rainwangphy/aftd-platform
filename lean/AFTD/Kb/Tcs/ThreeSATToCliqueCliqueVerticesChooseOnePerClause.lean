@@ -1,8 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.ThreeSATToCliqueCliqueVertex
 import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3
+import AFTD.Kb.Tcs.ThreeSATToCliqueCliqueVertex
 import AFTD.Kb.Tcs.ThreeSATToCliqueToCliqueGraph
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.ThreeSATToCliqueLiteralsConflict
+import AFTD.Kb.Tcs.ThreeSATToCliqueClause3
+import AFTD.Kb.Tcs.ThreeSATToCliqueGetLitAt
 
 /-!
 # ThreeSATToClique.clique_vertices_choose_one_per_clause

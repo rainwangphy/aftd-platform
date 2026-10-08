@@ -1,13 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.GSPreferences
-import AFTD.Kb.GameTheoryEconomics.Matching
 import AFTD.Kb.GameTheoryEconomics.MatchingIsStable
-import AFTD.Kb.GameTheoryEconomics.MatchingMarketOfEquivData
 import AFTD.Kb.GameTheoryEconomics.Strict
-import AFTD.Kb.GameTheoryEconomics.Pref
-import AFTD.Kb.GameTheoryEconomics.MatchingMarket
+import AFTD.Kb.GameTheoryEconomics.Matching
 import AFTD.Kb.GameTheoryEconomics.InstCoeFunPrefForallForallProp
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.GameTheoryEconomics.GSPreferences
+import AFTD.Kb.GameTheoryEconomics.MatchingMarket
+import AFTD.Kb.GameTheoryEconomics.MatchingMarketOfEquivData
+import AFTD.Kb.GameTheoryEconomics.Pref
 
 /-!
 # GS.stable_matching_perfect

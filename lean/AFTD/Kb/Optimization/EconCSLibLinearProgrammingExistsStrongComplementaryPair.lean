@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.Optimization.EconCSLibLinearProgrammingDualFeasible
 import AFTD.Kb.Optimization.EconCSLibLinearProgrammingExistsRowStrictPair
+import AFTD.Kb.Optimization.EconCSLibLinearProgrammingDualFeasible
 import AFTD.Kb.Optimization.EconCSLibLinearProgrammingExistsColStrictPair
-import AFTD.Kb.GameTheoryEconomics.Strict
 
 /-!
 # EconCSLib.LinearProgramming.exists_strong_complementary_pair

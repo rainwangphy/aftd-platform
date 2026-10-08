@@ -1,8 +1,7 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.PauliString
-import AFTD.Kb.Tcs.Weight
 import AFTD.Kb.Tcs.InstFintypePauliString
-import AFTD.Kb.Tcs.Support
+import AFTD.Kb.Tcs.Weight
+import AFTD.Kb.Tcs.PauliString
 
 /-!
 # PauliErrorsLe

@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.SATtoColorClause
-import AFTD.Kb.Tcs.V
 
 /-!
 # SATtoColor.Sat3

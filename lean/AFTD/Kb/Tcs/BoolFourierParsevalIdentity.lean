@@ -1,11 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.BoolFourierBoolFun
+import AFTD.Kb.Tcs.BoolFourierParsevalIdentityAuxHL2
+import AFTD.Kb.Tcs.BoolFourierFourierCoeffEq
 import AFTD.Kb.Tcs.BoolFourierL2NormSq
 import AFTD.Kb.Tcs.BoolFourierFourierCoeff
-import AFTD.Kb.Tcs.BoolFourierFourierCoeffEq
-import AFTD.Kb.Tcs.BoolFourierParsevalIdentityAuxHL2
+import AFTD.Kb.Tcs.BoolFourierBoolFun
 import AFTD.Kb.Tcs.BooleanAnalysisParseval
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.BooleanAnalysisFourierCoeff
+import AFTD.Kb.Tcs.BooleanAnalysisInnerProduct
 
 /-!
 # BoolFourier.parseval_identity

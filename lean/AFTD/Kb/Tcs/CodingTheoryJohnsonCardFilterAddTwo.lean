@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.V
 
 /-!
 # CodingTheory.Johnson.card_filter_add_two

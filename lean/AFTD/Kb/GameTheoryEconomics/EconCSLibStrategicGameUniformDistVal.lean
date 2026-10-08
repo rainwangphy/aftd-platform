@@ -1,7 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGameUniformDist
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
-import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 
 /-!
 # EconCSLib.StrategicGame.uniformDist_val

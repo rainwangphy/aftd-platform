@@ -1,9 +1,8 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleAllocation
+import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleIsEF1
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleValuation
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleIsEFX
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionIndivisibleIsEF1
-import AFTD.Kb.Tcs.G
 
 /-!
 # SocialChoice.FairDivision.Indivisible.IsEFX.isEF1

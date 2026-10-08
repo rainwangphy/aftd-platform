@@ -1,12 +1,11 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstCoeDirectBayesianMechanismWithTransfersRealForall
 import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuction
 import AFTD.Kb.GameTheoryEconomics.TypeCDF
 import AFTD.Kb.GameTheoryEconomics.ContinuousTypeProfile
 import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertSelf
 import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertOfNe
 import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstIsProbabilityMeasureOpponentTypeProfileOpponentPrior
-import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstCoeDirectBayesianMechanismWithTransfersRealForall
-import AFTD.Kb.Tcs.F
 
 /-!
 # BayesianSingleItemAuction.typeDensity

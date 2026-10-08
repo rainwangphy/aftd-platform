@@ -1,19 +1,18 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.LoomisIsPositive
-import AFTD.Kb.GameTheoryEconomics.LoomisLamB0
-import AFTD.Kb.GameTheoryEconomics.LoomisMuB0
-import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisSingletonOfCardOne
-import AFTD.Kb.GameTheoryEconomics.LoomisLamBAux
-import AFTD.Kb.GameTheoryEconomics.LoomisColRatio
-import AFTD.Kb.GameTheoryEconomics.LoomisXA
-import AFTD.Kb.GameTheoryEconomics.LoomisXB
-import AFTD.Kb.Optimization.Wsum
-import AFTD.Kb.GameTheoryEconomics.LoomisMuBAux
-import AFTD.Kb.GameTheoryEconomics.LoomisRowRatio
-import AFTD.Kb.GameTheoryEconomics.LoomisAy
 import AFTD.Kb.GameTheoryEconomics.LoomisBy
+import AFTD.Kb.GameTheoryEconomics.LoomisAy
+import AFTD.Kb.Optimization.Wsum
+import AFTD.Kb.GameTheoryEconomics.LoomisColRatio
+import AFTD.Kb.GameTheoryEconomics.LoomisLamBAux
+import AFTD.Kb.GameTheoryEconomics.LoomisMuB0
 import AFTD.Kb.Optimization.WsumPureApply
-import AFTD.Kb.Tcs.Hn
+import AFTD.Kb.GameTheoryEconomics.LoomisXB
+import AFTD.Kb.GameTheoryEconomics.LoomisXA
+import AFTD.Kb.GameTheoryEconomics.MinimaxLoomisSingletonOfCardOne
+import AFTD.Kb.GameTheoryEconomics.LoomisIsPositive
+import AFTD.Kb.GameTheoryEconomics.LoomisRowRatio
+import AFTD.Kb.GameTheoryEconomics.LoomisMuBAux
+import AFTD.Kb.GameTheoryEconomics.LoomisLamB0
 
 /-!
 # Loomis.loomis_value_IJ_2

@@ -1,10 +1,10 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.ThreeSATToCliqueCliqueVertex
-import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3
 import AFTD.Kb.Tcs.ThreeSATToCliqueGetLitAt
+import AFTD.Kb.Tcs.ThreeSATToCliqueFormula3
+import AFTD.Kb.Tcs.ThreeSATToCliqueCliqueVertex
 import AFTD.Kb.Tcs.ThreeSATToCliqueLiteralsConflict
 import AFTD.Kb.Tcs.ThreeSATToCliqueLiteralsConflictSymm
-import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.ThreeSATToCliqueClause3
 
 /-!
 # ThreeSATToClique.toCliqueGraph

@@ -1,19 +1,18 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.BoolBLRLiftPm1
+import AFTD.Kb.Tcs.BooleanAnalysisSumBoolToSign
+import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignMulSelf
+import AFTD.Kb.Tcs.BooleanAnalysisChiSSingleton
+import AFTD.Kb.Tcs.BooleanAnalysisInstModuleRealBooleanFunc
 import AFTD.Kb.Tcs.BoolFourierBoolToPM1
 import AFTD.Kb.Tcs.BoolFourierHypercube
 import AFTD.Kb.Tcs.BooleanAnalysisBoolCube
-import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignFalse
 import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignTrue
-import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignSq
-import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignMulSelf
-import AFTD.Kb.Tcs.BooleanAnalysisChiSSingleton
-import AFTD.Kb.Tcs.BooleanAnalysisSumBoolToSign
-import AFTD.Kb.Tcs.BooleanAnalysisFlipBitFlipBit
+import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignFalse
 import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignNot
+import AFTD.Kb.Tcs.BooleanAnalysisBoolToSignSq
+import AFTD.Kb.Tcs.BoolBLRLiftPm1
 import AFTD.Kb.Tcs.BooleanAnalysisInstAddCommGroupBooleanFunc
-import AFTD.Kb.Tcs.BooleanAnalysisInstModuleRealBooleanFunc
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.BooleanAnalysisFlipBitFlipBit
 
 /-!
 # BoolBLR.fourier_coeff_le_of_dist_ge_aux_h_lift_pm1

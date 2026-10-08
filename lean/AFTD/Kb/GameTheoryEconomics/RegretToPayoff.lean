@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.ZeroSumGame
-import AFTD.Kb.Tcs.Regret
 
 /-!
 # regret_to_payoff

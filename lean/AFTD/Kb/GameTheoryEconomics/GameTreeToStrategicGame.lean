@@ -1,18 +1,16 @@
 import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
+import AFTD.Kb.GameTheoryEconomics.GameTreeProfileStrategy
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcome
 import AFTD.Kb.GameTheoryEconomics.GameTree
 import AFTD.Kb.GameTheoryEconomics.EconCSLibStrategicGame
 import AFTD.Kb.GameTheoryEconomics.GameTreePlayerStrategy
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcome
-import AFTD.Kb.GameTheoryEconomics.GameTreeProfileStrategy
 import AFTD.Kb.GameTheoryEconomics.GameTreeChildren
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueLeaf
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueNode
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListNil
 import AFTD.Kb.GameTheoryEconomics.GameTreeValueListCons
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
-import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
-import AFTD.Kb.Tcs.G
-import AFTD.Kb.GameTheoryEconomics.StrategicGame
 
 /-!
 # GameTree.toStrategicGame

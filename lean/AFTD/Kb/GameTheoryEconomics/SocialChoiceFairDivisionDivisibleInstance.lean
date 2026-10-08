@@ -1,8 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.GameTheoryEconomics.Pref
 import AFTD.Kb.GameTheoryEconomics.InstCoeFunPrefForallForallProp
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceInstance
-import AFTD.Kb.GameTheoryEconomics.SocialChoiceFairDivisionInstance
+import AFTD.Kb.GameTheoryEconomics.Pref
 
 /-!
 # SocialChoice.FairDivision.Divisible.Instance

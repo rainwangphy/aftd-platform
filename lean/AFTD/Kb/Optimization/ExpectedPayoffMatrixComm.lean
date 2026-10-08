@@ -1,8 +1,7 @@
 import AFTD.Prelude
 import AFTD.Kb.Optimization.ExpectedPayoffMatrix
-import AFTD.Kb.Optimization.WsumWsumComm
-import AFTD.Kb.Optimization.Wsum
 import AFTD.Kb.Optimization.WsumPureApply
+import AFTD.Kb.Optimization.WsumWsumComm
 
 /-!
 # expectedPayoffMatrix_comm

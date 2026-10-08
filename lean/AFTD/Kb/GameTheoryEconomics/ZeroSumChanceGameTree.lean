@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.GameTheoryEconomics.ZeroSumChancePlayer
-import AFTD.Kb.GameTheoryEconomics.GameTree
 
 /-!
 # ZeroSumChance.GameTree

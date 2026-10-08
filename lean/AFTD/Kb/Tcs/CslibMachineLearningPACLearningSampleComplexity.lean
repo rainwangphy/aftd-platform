@@ -1,7 +1,6 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CslibMachineLearningPACLearningLearnerModel
 import AFTD.Kb.Tcs.CslibMachineLearningPACLearningConceptClass
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.CslibMachineLearningPACLearningLearnerModel
 
 /-!
 # Cslib.MachineLearning.PACLearning.sampleComplexity

@@ -1,5 +1,4 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.Support
 
 /-!
 # Cslib.Crypto.Protocols.PerfectSecrecy.EncScheme

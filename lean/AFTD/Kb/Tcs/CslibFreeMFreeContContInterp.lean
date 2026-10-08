@@ -1,7 +1,6 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.CslibFreeMContF
 import AFTD.Kb.Tcs.CslibFreeMInstFunctorContF
-import AFTD.Kb.Tcs.G
 
 /-!
 # Cslib.FreeM.FreeCont.contInterp

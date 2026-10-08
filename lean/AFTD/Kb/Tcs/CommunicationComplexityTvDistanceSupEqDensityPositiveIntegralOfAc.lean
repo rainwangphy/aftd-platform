@@ -1,14 +1,12 @@
 import AFTD.Prelude
-import AFTD.Kb.Tcs.CommunicationComplexityDensityPositiveIntegral
-import AFTD.Kb.Tcs.CommunicationComplexityDensityPositiveSet
-import AFTD.Kb.Tcs.CommunicationComplexityIntegrableRnDensitySubOne
-import AFTD.Kb.Tcs.CommunicationComplexityIntegralRnDensitySubOneEqZeroOfAc
-import AFTD.Kb.Tcs.CommunicationComplexityMeasurableRnDensity
-import AFTD.Kb.Tcs.CommunicationComplexityMeasureRealSubEqSetIntegralRnDensitySubOne
-import AFTD.Kb.Tcs.CommunicationComplexityRnDensity
-import AFTD.Kb.Tcs.CommunicationComplexitySSupAbsSetIntegralEqNonnegPartOfIntegralEqZero
 import AFTD.Kb.Tcs.CommunicationComplexityTvDistanceSup
-import AFTD.Kb.Tcs.G
+import AFTD.Kb.Tcs.CommunicationComplexityRnDensity
+import AFTD.Kb.Tcs.CommunicationComplexityMeasurableRnDensity
+import AFTD.Kb.Tcs.CommunicationComplexityIntegrableRnDensitySubOne
+import AFTD.Kb.Tcs.CommunicationComplexityDensityPositiveIntegral
+import AFTD.Kb.Tcs.CommunicationComplexityMeasureRealSubEqSetIntegralRnDensitySubOne
+import AFTD.Kb.Tcs.CommunicationComplexityIntegralRnDensitySubOneEqZeroOfAc
+import AFTD.Kb.Tcs.CommunicationComplexitySSupAbsSetIntegralEqNonnegPartOfIntegralEqZero
 
 /-!
 # CommunicationComplexity.tvDistanceSup_eq_densityPositiveIntegral_of_ac

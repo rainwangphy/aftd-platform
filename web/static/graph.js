@@ -20,8 +20,18 @@
 
   // ------------------------------------------------------------ model
   const norm = s => s.toLowerCase().replace(/[_.\s]+/g, ' ').trim();
+  // On the canvas a node is labelled by the end of its name: as many dotted
+  // parts as fit in LABEL characters, a longer last part cut short. The full
+  // name is in the tooltip and the side panel.
+  const LABEL = 24;
+  const short = name => {
+    const parts = name.split('.');
+    let out = parts.pop();
+    while (parts.length && out.length + parts[parts.length - 1].length + 1 <= LABEL) out = parts.pop() + '.' + out;
+    return out.length > LABEL ? out.slice(0, LABEL - 1) + '…' : out;
+  };
   const N = D.nodes.map(([name, def, dom, topic, words, slug], i) => ({
-    i, name, def: !!def, dom, topic, words, slug,
+    i, name, label: short(name), def: !!def, dom, topic, words, slug,
     deps: [], users: [], x: 0, y: 0, vx: 0, vy: 0, fx: null, fy: null, placed: false,
     hay: norm(name + ' ' + words + ' ' + topic),
   }));
@@ -347,7 +357,7 @@
     let placed = 0;
     for (const n of order) {
       if (!visible[n.i] || placed > 220) continue;
-      const gap = Math.max(1.6, n.r * k) + 5, w = ctx.measureText(n.name).width, y = sy(n);
+      const gap = Math.max(1.6, n.r * k) + 5, w = ctx.measureText(n.label).width, y = sy(n);
       // A label that would run off the right edge goes on the node's left.
       let x = sx(n) + gap;
       if (x + w > W - 6) x = sx(n) - gap - w;
@@ -355,8 +365,8 @@
       const b = [x - 2, y - 8, x + w + 2, y + 8];
       if (n.i !== focus && boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1])) continue;
       boxes.push(b); placed++;
-      ctx.lineWidth = 3.5; ctx.strokeStyle = C.panel; ctx.strokeText(n.name, x, y);
-      ctx.fillStyle = n.i === focus ? C.ink : C.ink2; ctx.fillText(n.name, x, y);
+      ctx.lineWidth = 3.5; ctx.strokeStyle = C.panel; ctx.strokeText(n.label, x, y);
+      ctx.fillStyle = n.i === focus ? C.ink : C.ink2; ctx.fillText(n.label, x, y);
     }
   }
 

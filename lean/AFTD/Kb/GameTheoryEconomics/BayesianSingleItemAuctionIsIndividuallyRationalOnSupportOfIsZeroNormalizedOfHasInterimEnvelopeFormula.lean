@@ -1,0 +1,61 @@
+import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuction
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionIsZeroNormalized
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionHasInterimEnvelopeFormula
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionHasNonnegativeInterimAllocationIntegralOnSupport
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionIsIndividuallyRationalOnSupport
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInterimExpectedPayment
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionIsIndividuallyRationalOnSupportIffInterimExpectedPaymentZeroNonpos
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInterimExpectedPaymentZeroOfIsZeroNormalized
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertOfNe
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionReportProfileSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionReportProfileOfNe
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionUpdateReportProfileSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivApplyFst
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivApplySnd
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivSymmApply
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionExpectedSellerRevenueInEnvironmentSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanismAllocationRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanismPaymentRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionAllocationRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionPaymentRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionOpponentPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionTypeData
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionToSingleParameterMechanism
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionToDirectBayesianMechanismWithTransfers
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstIsProbabilityMeasureOpponentTypeProfileOpponentPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstCoeDirectBayesianMechanismWithTransfersRealForall
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProductPriorIsProbabilityMeasure
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionOpponentProductPriorIsProbabilityMeasure
+import AFTD.Kb.Tcs.Support
+
+/-!
+# BayesianSingleItemAuction.isIndividuallyRationalOnSupport_of_isZeroNormalized_of_hasInterimEnvelopeFormula
+
+Topic: mechanism_design   Node: b35a356a9211
+
+Provenance: formalization of a published result. Source: EconCSLib, `BayesianSingleItemAuction.isIndividuallyRationalOnSupport_of_isZeroNormalized_of_hasInterimEnvelopeFormula`. Lean proof by xbei (from the file's git history), from https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/MechanismDesign/Auction/OptimalSingleItem.lean (Copyright (c) 2026 EconCSLib contributors. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+Under the interim envelope formula and nonnegative envelope increments, zero normalization implies support-restricted interim IR.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+open BayesianSingleItemAuction in
+open scoped BigOperators in
+open MeasureTheory in
+variable {I : Type*} in
+/-- Under the interim envelope formula and nonnegative envelope increments, zero normalization implies support-restricted interim IR. -/
+theorem BayesianSingleItemAuction.isIndividuallyRationalOnSupport_of_isZeroNormalized_of_hasInterimEnvelopeFormula
+    [DecidableEq I] (B : BayesianSingleItemAuction I)
+    (hzero : B.IsZeroNormalized)
+    (henv : B.HasInterimEnvelopeFormula)
+    (hint_nonneg : B.HasNonnegativeInterimAllocationIntegralOnSupport) :
+    B.IsIndividuallyRationalOnSupport := by
+  exact
+    (B.isIndividuallyRationalOnSupport_iff_interimExpectedPayment_zero_nonpos
+      henv hint_nonneg).2
+      (fun i => by
+        rw [B.interimExpectedPayment_zero_of_isZeroNormalized hzero i])

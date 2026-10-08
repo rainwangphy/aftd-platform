@@ -1,0 +1,37 @@
+import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GameTree
+import AFTD.Kb.GameTheoryEconomics.GameTreeValue0
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcome
+import AFTD.Kb.GameTheoryEconomics.GameTreeOptStrategy
+import AFTD.Kb.GameTheoryEconomics.LinearOrderToTotalPreorder
+import AFTD.Kb.GameTheoryEconomics.GameTreeValue
+import AFTD.Kb.GameTheoryEconomics.GameTreeIsZeroSum
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeOptStrategyEqValue
+import AFTD.Kb.GameTheoryEconomics.GameTreeStrategy
+import AFTD.Kb.GameTheoryEconomics.GameTreeChildren
+import AFTD.Kb.GameTheoryEconomics.GameTreeValueLeaf
+import AFTD.Kb.GameTheoryEconomics.GameTreeValueNode
+import AFTD.Kb.GameTheoryEconomics.GameTreeValueListNil
+import AFTD.Kb.GameTheoryEconomics.GameTreeValueListCons
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeLeaf
+import AFTD.Kb.GameTheoryEconomics.GameTreeOutcomeNode
+import AFTD.Kb.Tcs.G
+import AFTD.Kb.GameTheoryEconomics.ZeroSumChanceGameTreeValue
+
+/-!
+# GameTree.value₀_eq_optStrategy_outcome
+
+Topic: equilibria   Node: b4cc3f2bf062
+
+Provenance: formalization of a published result. Source: EconCSLib, `GameTree.value₀_eq_optStrategy_outcome`. Lean proof by xbei (from the file's git history), from https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/GameTheory/ExtensiveGame/Zermelo.lean (Copyright (c) 2026 EconCSLib contributors. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+The backward-induction strategy realizes `value₀` for player 0.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+/-- The backward-induction strategy realizes `value₀` for player 0. -/
+theorem GameTree.value₀_eq_optStrategy_outcome (g : GameTree (Fin 2) ℚ) :
+    value₀ g = outcome (optStrategy : Strategy (Fin 2) ℚ) g 0 := by
+  unfold value₀
+  rw [outcome_optStrategy_eq_value]

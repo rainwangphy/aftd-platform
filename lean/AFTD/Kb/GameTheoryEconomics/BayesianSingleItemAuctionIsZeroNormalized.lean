@@ -1,0 +1,46 @@
+import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuction
+import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanismZeroNormalized
+import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
+import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanism
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertOfNe
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionReportProfileSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionReportProfileOfNe
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionUpdateReportProfileSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivApplyFst
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivApplySnd
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivSymmApply
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionExpectedSellerRevenueInEnvironmentSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanismAllocationRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanismPaymentRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionAllocationRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionPaymentRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionOpponentPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionTypeData
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionToSingleParameterMechanism
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionToDirectBayesianMechanismWithTransfers
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstIsProbabilityMeasureOpponentTypeProfileOpponentPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstCoeDirectBayesianMechanismWithTransfersRealForall
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProductPriorIsProbabilityMeasure
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionOpponentProductPriorIsProbabilityMeasure
+
+/-!
+# BayesianSingleItemAuction.IsZeroNormalized
+
+Topic: mechanism_design   Node: 00b23fb559f5
+
+Provenance: formalization of a published result. Source: EconCSLib, `BayesianSingleItemAuction.IsZeroNormalized`. Lean proof by xbei (from the file's git history), from https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/MechanismDesign/Auction/OptimalSingleItem.lean (Copyright (c) 2026 EconCSLib contributors. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+Zero normalization for a Bayesian single-item auction's payment rule: reporting `0` gives payment `0`, holding the other reports fixed.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+open scoped BigOperators in
+open MeasureTheory in
+variable {I : Type*} in
+/-- Zero normalization for a Bayesian single-item auction's payment rule: reporting `0` gives payment `0`, holding the other reports fixed. -/
+def BayesianSingleItemAuction.IsZeroNormalized [DecidableEq I] (B : BayesianSingleItemAuction I) : Prop :=
+  SingleParameterMechanism.ZeroNormalized B.paymentRule

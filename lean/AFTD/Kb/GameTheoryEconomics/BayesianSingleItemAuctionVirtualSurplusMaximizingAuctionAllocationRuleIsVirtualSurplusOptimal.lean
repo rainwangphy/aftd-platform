@@ -1,0 +1,55 @@
+import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuction
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionIsVirtualSurplusOptimalAllocationRule
+import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
+import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanism
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuction
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAllocationRuleIsVirtualSurplusOptimalAllocationRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanism
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertOfNe
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionReportProfileSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionReportProfileOfNe
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionUpdateReportProfileSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivApplyFst
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivApplySnd
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivSymmApply
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionExpectedSellerRevenueInEnvironmentSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanismAllocationRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanismPaymentRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionAllocationRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionPaymentRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionOpponentPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionTypeData
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionToSingleParameterMechanism
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionToDirectBayesianMechanismWithTransfers
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstIsProbabilityMeasureOpponentTypeProfileOpponentPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstCoeDirectBayesianMechanismWithTransfersRealForall
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProductPriorIsProbabilityMeasure
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionOpponentProductPriorIsProbabilityMeasure
+
+/-!
+# BayesianSingleItemAuction.virtualSurplusMaximizingAuction_allocationRule_isVirtualSurplusOptimal
+
+Topic: mechanism_design   Node: fb4d91e6f2e7
+
+Provenance: formalization of a published result. Source: EconCSLib, `BayesianSingleItemAuction.virtualSurplusMaximizingAuction_allocationRule_isVirtualSurplusOptimal`. Lean proof by xbei (from the file's git history), from https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/MechanismDesign/Auction/OptimalSingleItem.lean (Copyright (c) 2026 EconCSLib contributors. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+The allocation rule of the constructed Bayesian single-item auction is virtual-surplus optimal.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+open BayesianSingleItemAuction in
+open scoped BigOperators in
+open MeasureTheory in
+variable {I : Type*} in
+/-- The allocation rule of the constructed Bayesian single-item auction is virtual-surplus optimal. -/
+theorem BayesianSingleItemAuction.virtualSurplusMaximizingAuction_allocationRule_isVirtualSurplusOptimal
+    [Fintype I] [Nontrivial I] [DecidableEq I] [LinearOrder I]
+    (A : BayesianSingleItemAuction I) :
+    A.IsVirtualSurplusOptimalAllocationRule
+      (A.virtualSurplusMaximizingAuction).allocationRule := by
+  simpa [virtualSurplusMaximizingAuction, virtualSurplusMaximizingMechanism] using
+    A.virtualSurplusMaximizingAllocationRule_isVirtualSurplusOptimalAllocationRule

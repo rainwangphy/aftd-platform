@@ -1,0 +1,62 @@
+import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuction
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionHasExpectedRevenueVirtualSurplusIdentity
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionExpectedVirtualSurplus
+import AFTD.Kb.GameTheoryEconomics.MechanismWithTransfers
+import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanism
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionExpectedSellerRevenueInEnvironment
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileInsertOfNe
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionReportProfileSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionReportProfileOfNe
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionUpdateReportProfileSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivApplyFst
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivApplySnd
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProfileSplitMeasurableEquivSymmApply
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionExpectedSellerRevenueInEnvironmentSelf
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanismAllocationRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanismPaymentRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionAllocationRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionPaymentRule
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionOpponentPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionTypeData
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionToSingleParameterMechanism
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionToDirectBayesianMechanismWithTransfers
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingMechanismEqWithMyersonPayment
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingPaymentRuleEq
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionVirtualSurplusMaximizingAuctionHasSameSellingEnvironment
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstIsProbabilityMeasureOpponentTypeProfileOpponentPrior
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionInstCoeDirectBayesianMechanismWithTransfersRealForall
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionProductPriorIsProbabilityMeasure
+import AFTD.Kb.GameTheoryEconomics.BayesianSingleItemAuctionOpponentProductPriorIsProbabilityMeasure
+
+/-!
+# BayesianSingleItemAuction.expectedSellerRevenueInEnvironment_le_of_expectedVirtualSurplus_le
+
+Topic: mechanism_design   Node: 4799261093b1
+
+Provenance: formalization of a published result. Source: EconCSLib, `BayesianSingleItemAuction.expectedSellerRevenueInEnvironment_le_of_expectedVirtualSurplus_le`. Lean proof by xbei (from the file's git history), from https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/MechanismDesign/Auction/OptimalSingleItem.lean (Copyright (c) 2026 EconCSLib contributors. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+Virtual-surplus comparison gives revenue comparison under identity.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+open BayesianSingleItemAuction in
+open scoped BigOperators in
+open MeasureTheory in
+variable {I : Type*} in
+/-- Virtual-surplus comparison gives revenue comparison under identity. -/
+theorem BayesianSingleItemAuction.expectedSellerRevenueInEnvironment_le_of_expectedVirtualSurplus_le
+    [Fintype I] (A : BayesianSingleItemAuction I)
+    {B C : BayesianSingleItemAuction I}
+    (hB : A.HasExpectedRevenueVirtualSurplusIdentity B)
+    (hC : A.HasExpectedRevenueVirtualSurplusIdentity C)
+    (hvs :
+      A.expectedVirtualSurplus B.allocationRule ≤
+        A.expectedVirtualSurplus C.allocationRule) :
+    A.expectedSellerRevenueInEnvironment B ≤
+      A.expectedSellerRevenueInEnvironment C := by
+  rw [hB, hC]
+  exact hvs

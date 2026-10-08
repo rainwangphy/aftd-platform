@@ -1,0 +1,22 @@
+import AFTD.Prelude
+import AFTD.Kb.Tcs.CommunicationComplexityFiniteProbabilitySpace
+import AFTD.Kb.Tcs.CommunicationComplexityFiniteProbabilitySpaceOf
+
+/-!
+# CommunicationComplexity.instProd
+
+Topic: communication   Node: 3a906e7e0468
+
+Provenance: formalization of a published result. Source: TCSlib, `CommunicationComplexity.instProd`. Lean proof by Lucy Horowitz, Timothe Kasriel, Mihir Singhal, from https://github.com/Shilun-Allan-Li/tcslib/blob/c8a02591b1e51faa8cb90dd30cfe2d6a2d5032ea/TCSlib/CommunicationComplexity/NewmanTheorem/FiniteProbabilitySpace.lean (Copyright (c) 2026 Lucy Horowitz, Timothe Kasriel, and Mihir Singhal. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+CommunicationComplexity.instProd
+-/
+
+set_option relaxedAutoImplicit false in
+set_option autoImplicit false in
+open MeasureTheory in
+open scoped ProbabilityTheory in
+noncomputable instance CommunicationComplexity.instProd (Ω₁ Ω₂ : Type*)
+    [FiniteProbabilitySpace Ω₁] [FiniteProbabilitySpace Ω₂] :
+    FiniteProbabilitySpace (Ω₁ × Ω₂) :=
+  FiniteProbabilitySpace.of (Ω₁ × Ω₂)

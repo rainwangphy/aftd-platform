@@ -121,6 +121,7 @@ main h3{margin:0;font-size:15px;font-weight:600}
 .badge.orig{color:var(--grant);border-color:var(--grant)}
 .badge.prov-lit{color:var(--ink-2);border-color:var(--ink-3)}
 .badge.prov-err{color:var(--stuck);border-color:var(--stuck)}
+.badge.prov-imp{color:var(--ink-2);border-color:var(--ink-3);border-style:dashed}
 .prov-key .badge{margin-right:2px}
 .btn:focus-visible,.pw-tab:focus-visible,.seg button:focus-visible,.toolbar select:focus-visible,
 .switch input:focus-visible,.copy:focus-visible,.linkish:focus-visible,.toc a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}

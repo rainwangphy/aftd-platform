@@ -524,11 +524,63 @@ PROVENANCE = {
 
 def provenance_badge(d: dict) -> list[str]:
     """The provenance badge of a declaration, if it has one. A transcribed
-    definition gets none: there is no result to credit, only its citation."""
+    definition gets none: there is no result to credit, only its citation.
+    A proof written by someone else and compiled here says so as well."""
     p = PROVENANCE.get(d.get("provenance") or "")
-    if not p or (p[0] == "formalization" and d.get("is_def")):
-        return []
-    return [badge(p[0], p[1], p[2])]
+    out = [] if not p or (p[0] == "formalization" and d.get("is_def")) else [badge(p[0], p[1], p[2])]
+    lf = d.get("lean_from")
+    if lf:
+        out.append(badge("imported Lean", "prov-imp",
+                         f"The Lean was written by {lf.get('authors') or 'others'}, not here; "
+                         "it was compiled here against our Lean and Mathlib"))
+    return out
+
+
+def https(url: str) -> str:
+    """`url` if it is an https link, else '' (it goes into an href)."""
+    return url if isinstance(url, str) and url.startswith("https://") else ""
+
+
+IMPORT_STATUS = {
+    "verbatim": ("as in the source, up to comments, layout, and the file's context "
+                 "(open, variable, namespace) written out in front"),
+    "adapted": "changed to compile here; the diff is below",
+    "added": "written here, not in the source",
+}
+
+
+def lean_from_html(lf: dict) -> str:
+    """Whose Lean this is: authors, the file at the commit, the license, and
+    for each declaration whether it is theirs verbatim, adapted or ours."""
+    repo, commit = lf.get("repo") or "", lf.get("commit") or ""
+    link = https(lf.get("url") or "")
+    where = (f'<a href="{e(link)}">{e(repo.split("://")[-1])}</a>' if link else e(repo))
+    out = [f'By {e(lf.get("authors") or "unknown authors")}, from {where} at '
+           f'<code>{e(commit[:12])}</code>']
+    terms = ", ".join(x for x in (lf.get("copyright", "").rstrip("."), lf.get("license", "")) if x)
+    if terms:
+        out.append(f' ({e(terms)})')
+    out.append(". Compiled here" + (f' against {e(lf["compiled_against"])}' if lf.get("compiled_against") else "")
+               + (f'; written for {e(lf["toolchain"])}' if lf.get("toolchain") else "") + ".")
+    items, diffs = [], []
+    for d in lf.get("decls") or []:
+        st = d.get("status", "")
+        src = ""
+        if d.get("from"):
+            base = https(lf.get("url") or "")
+            # Same repository and commit, the declaration's own file and line.
+            href = (f'{base.rsplit("/blob/", 1)[0]}/blob/{commit}/{d.get("path", "")}#L{d.get("line", 0)}'
+                    if base else "")
+            label = f'{d["from"]} ({d.get("path", "")}:{d.get("line", "")})'
+            src = f' &larr; <a href="{e(href)}">{e(label)}</a>' if href else f" &larr; {e(label)}"
+        items.append(f'<li><code>{e(d.get("name", ""))}</code>{src}: '
+                     f'<span title="{e(IMPORT_STATUS.get(st, ""))}">{e(st)}</span></li>')
+        if d.get("diff"):
+            diffs.append(f'<details><summary>What was changed in <code>{e(d.get("name", ""))}</code></summary>'
+                         f'<pre class="lean">{e(d["diff"])}</pre></details>')
+    if items:
+        out.append(f'<ul class="rel">{"".join(items)}</ul>')
+    return "".join(out) + "".join(diffs)
 
 
 def decl_card(s: Site, d: dict, root: str, *, sig: bool = True) -> str:
@@ -1397,6 +1449,8 @@ def decl_facts(s: Site, d: dict, root: str) -> str:
         rows.append(("Source", "Stated here; not taken from a source"))
     elif d.get("provenance") == "lemma":
         rows.append(("Source", "Filed by the prover as a step towards another result"))
+    if d.get("lean_from"):
+        rows.append(("Lean proof", lean_from_html(d["lean_from"])))
     rows.append(("Verified", e(day(d["proved_at"]))))
     rows.append(("Axioms", f'<span class="ax">{chips}</span>'))
     if d["deps"]:

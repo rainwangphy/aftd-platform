@@ -2,6 +2,53 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-08",
+   "kind": "launch",
+   "title": "853 declarations from TCSlib, each compiled here",
+   "body": "The knowledgebase now takes Lean written elsewhere. `aftd import` reads a declaration from another repository at a fixed commit and compiles it here under the same checks as a proof found by the Prover: first the interactive check, then an offline `lake build`. A declaration that does not compile leaves no trace. Each imported declaration carries an \"imported Lean\" badge, and its page names the authors, links the file at that commit, and gives the license.\n\nThe first source is TCSlib, a Lean library of theoretical computer science. We asked for 44 of its results and took each together with everything it depends on: 853 declarations in 13 topics, 509 of them theorems. 33 of the 44 results compiled here.\n\nBoolean function analysis: Parseval and Plancherel, Friedgut's junta theorem, Bonami's lemma, Arrow's theorem, BLR completeness, and degree at most decision-tree depth.\n\nCommunication complexity: the fooling-set, log-rank and discrepancy lower bounds, the exact complexities of equality, disjointness and one-way indexing, and Pinsker's inequality.\n\nCodes: the Singleton, Gilbert–Varshamov and binary Johnson bounds.\n\nOnline learning: the halving, weighted-majority and Hedge bounds, the minimax theorems, and no-regret play converging to coarse correlated equilibria.\n\nCryptography: completeness, special soundness and honest-verifier zero knowledge of Schnorr's protocol.\n\nReductions: 3-SAT to Clique and to 3-coloring, NAE-SAT to 3-coloring, and Subset Sum to Partition.\n\nThese are formalizations by TCSlib's authors, not new results. Our part is compiling them again against our newer Lean and Mathlib. 802 declarations compiled unchanged. 51 needed a change, for example because a Mathlib lemma had been renamed or a tactic now behaves differently. Each declaration's page shows what was changed.\n\nEleven of the 44 results are not imported yet. Three are left unproved (`sorry`) in TCSlib itself: KKL and both forms of the MRRW bound. The other eight do not yet compile against our Mathlib: the Hamming bound, list-decoding capacity, the quantum Hamming and Singleton bounds, BLR soundness, Newman's theorem, the optimality of Kruskal's algorithm, and Johnson–Lindenstrauss. They will be added as they are repaired.",
+   "declarations": [
+    "ErrorCorrectingCodes.Codeword.singleton_bound",
+    "ErrorCorrectingCodes.Codeword.gv_bound",
+    "CodingTheory.Johnson.binary_johnson_card_bound",
+    "BooleanAnalysis.parseval",
+    "BooleanAnalysis.plancherel",
+    "BooleanAnalysis.totalInfluence_eq_sum_sq_deg",
+    "KKL.friedgut_junta",
+    "Bonami.bonami_lemma",
+    "ArrowTheorem.arrow_theorem",
+    "BoolBLR.BLR_completeness",
+    "DecisionTree.degree_le_dtDepth",
+    "CommunicationComplexity.Deterministic.clog_ncard_le_communicationComplexity",
+    "CommunicationComplexity.Deterministic.Rank.clog_boolFunctionRank_le_communicationComplexity",
+    "CommunicationComplexity.Functions.Disjointness.communicationComplexity_eq",
+    "CommunicationComplexity.Functions.Equality.communicationComplexity_eq",
+    "CommunicationComplexity.Functions.Indexing.le_oneWayCommunicationComplexity",
+    "CommunicationComplexity.Deterministic.Protocol.logb_le_complexity_of_distributionalError",
+    "CommunicationComplexity.pinsker_inequality",
+    "Halving.halving_bound",
+    "wm_mistake_bound_log",
+    "hedge_regret_bound",
+    "minimax_approx_theorem",
+    "OnlineLearning.finite_minimax_value",
+    "OnlineLearning.convex_compact_minimax",
+    "empiricalJoint_isApproxCCE",
+    "Schnorr.schnorr_completeness",
+    "Schnorr.schnorr_soundness",
+    "Schnorr.schnorr_hvzk",
+    "ThreeSATToClique.ThreeSAT_to_Clique_equivalence",
+    "SATtoColor.SATtoColorReduction",
+    "NAEtoColor.NAEtoColorReduction",
+    "SubsetSumToPartition.SubsetSumToPartitionSoundness",
+    "SubsetSumToPartition.SubsetSumToPartitionCompleteness"
+   ],
+   "links": [
+    {
+     "label": "TCSlib on GitHub",
+     "href": "https://github.com/Shilun-Allan-Li/tcslib"
+    }
+   ]
+  },
+  {
    "date": "2026-10-07",
    "kind": "daily",
    "title": "Daily reading: 22 proved, 9 open",

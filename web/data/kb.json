@@ -1,15 +1,15 @@
 {
  "schema": 1,
- "generated": "2026-10-08T12:41:06Z",
+ "generated": "2026-10-08T14:27:10Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 4848,
-  "definitions": 2093,
-  "theorems": 2755,
+  "declarations": 4883,
+  "definitions": 2107,
+  "theorems": 2776,
   "topics": 36,
   "domains": 7,
   "open": 35,
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1791462588
+  "last": 1791463449
  },
  "domains": [
   {
@@ -302,7 +302,7 @@
      "name": "equilibria",
      "title": "Equilibria in Games",
      "target": 20,
-     "proved": 685
+     "proved": 687
     },
     {
      "name": "social_choice",
@@ -332,7 +332,7 @@
      "name": "general_equilibrium",
      "title": "General Equilibrium & Cooperative Games",
      "target": 15,
-     "proved": 182
+     "proved": 215
     },
     {
      "name": "combinatorial_games",
@@ -2091,6 +2091,7 @@
     "EconCSLib.StrategicGame.IsZeroSum.nash_payoff_eq",
     "EconCSLib.StrategicGame.IsDominanceSolvable",
     "EconCSLib.StrategicGame.g_function_nonneg",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "EconCSLib.StrategicGame.MixedS",
     "EconCSLib.StrategicGame.wsum_magic_ineq",
     "EconCSLib.StrategicGame.IsZeroSum.neg",
@@ -100382,6 +100383,7 @@
    ],
    "used_by": [
     "IsBestResponse",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "EconCSLib.StrategicGame.IsZeroSum.nash_payoff_eq",
     "Profile.deviate_same",
     "ExtensiveGame.BehaviorProfile.deviate",
@@ -105614,6 +105616,7 @@
     "ExtensiveGame.BehaviorStrategy.IsCompletelyMixed",
     "Arena.Reachable.trans",
     "ExtensiveGame.BehaviorStrategy.restrictReachableSubgame",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.BehaviorStrategy.liftSubgame_eq_self",
     "ExtensiveGame.actions",
     "Arena.finalState_zero",
@@ -105772,6 +105775,7 @@
     "ExtensiveGame.reachableSubgameAt_next",
     "ExtensiveGame.BehaviorStrategy.IsCompletelyMixed",
     "ExtensiveGame.BehaviorStrategy.restrictReachableSubgame",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.controlledGame",
     "ExtensiveGame.BehaviorStrategy.liftSubgame_eq_self",
     "ExtensiveGame.actions",
@@ -105922,6 +105926,7 @@
     "ExtensiveGame.reachableSubgameAt_next",
     "ExtensiveGame.BehaviorStrategy.IsCompletelyMixed",
     "ExtensiveGame.BehaviorStrategy.restrictReachableSubgame",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.controlledGame",
     "ExtensiveGame.BehaviorStrategy.liftSubgame_eq_self",
     "ExtensiveGame.actions",
@@ -106113,6 +106118,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ofArena_payoff",
     "ExtensiveGame.ofControlledGame_toControlledGame_self",
     "ExtensiveGame.ofArena_mover",
@@ -106175,6 +106181,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ofArena_payoff",
     "ExtensiveGame.ofControlledGame_toControlledGame_self",
     "ExtensiveGame.ofArena_mover",
@@ -106237,6 +106244,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ofArena_payoff",
     "ExtensiveGame.ofArena_mover",
     "ExtensiveGame.ofArena",
@@ -106350,6 +106358,7 @@
     "ControlledGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ofArena_payoff",
     "ControlledGame.ofArena_mover",
     "ControlledGame.ofArena_init",
@@ -106411,6 +106420,7 @@
     "ControlledGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ofArena_payoff",
     "ControlledGame.ofArena_mover",
     "ExtensiveGame.ofArena_mover",
@@ -106472,6 +106482,7 @@
     "ControlledGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ofArena_payoff",
     "ExtensiveGame.ofArena_mover",
     "ExtensiveGame.ofArena",
@@ -106601,6 +106612,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ofArena_payoff",
     "ExtensiveGame.ofArena_mover",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at",
@@ -106665,6 +106677,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ofArena_payoff",
     "ExtensiveGame.ofArena_mover",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
@@ -106729,6 +106742,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ofArena_payoff",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
@@ -106792,6 +106806,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameOfArenaPayoff.lean",
@@ -107240,6 +107255,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameIsPlayerStateIffToControlledGame.lean",
@@ -107405,6 +107421,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameIsNonPlayerStateIffToControlledGame.lean",
@@ -107670,6 +107687,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameNoChanceIffToControlledGame.lean",
@@ -107792,7 +107810,9 @@
     "ControlledGame",
     "ExtensiveGame"
    ],
-   "used_by": [],
+   "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameSubgameAtInit.lean",
    "proved_at": 1791433778,
    "provenance": "literature",
@@ -107844,7 +107864,9 @@
     "ControlledGame",
     "ExtensiveGame"
    ],
-   "used_by": [],
+   "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameSubgameAtMover.lean",
    "proved_at": 1791433778,
    "provenance": "literature",
@@ -107896,7 +107918,9 @@
     "ControlledGame",
     "ExtensiveGame"
    ],
-   "used_by": [],
+   "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameSubgameAtPayoff.lean",
    "proved_at": 1791433778,
    "provenance": "literature",
@@ -107948,7 +107972,9 @@
     "ControlledGame",
     "ExtensiveGame"
    ],
-   "used_by": [],
+   "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameSubgameAtNext.lean",
    "proved_at": 1791433778,
    "provenance": "literature",
@@ -108005,6 +108031,7 @@
     "ExtensiveGame.expectedPayoff",
     "ExtensiveGame.BehaviorStrategy.IsCompletelyMixed",
     "ExtensiveGame.BehaviorStrategy.restrictReachableSubgame",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.BehaviorStrategy.liftSubgame_eq_self",
     "ExtensiveGame.reachableSubgameAt_action_fintype",
     "ExtensiveGame.subgameAt_isEmpty_decidable",
@@ -108095,6 +108122,7 @@
     "ExtensiveGame.expectedPayoff",
     "ExtensiveGame.BehaviorStrategy.IsCompletelyMixed",
     "ExtensiveGame.BehaviorStrategy.restrictReachableSubgame",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.BehaviorStrategy.liftSubgame_eq_self",
     "ExtensiveGame.reachableSubgameAt_action_fintype",
     "ExtensiveGame.BehaviorStrategy.restrictSubgame_liftSubgame",
@@ -108428,6 +108456,7 @@
     "ExtensiveGame.expectedPayoff",
     "ExtensiveGame.BehaviorStrategy.IsCompletelyMixed",
     "ExtensiveGame.BehaviorStrategy.restrictReachableSubgame",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.BehaviorStrategy.liftSubgame_eq_self",
     "ExtensiveGame.BehaviorStrategy.restrictSubgame_liftSubgame",
     "ExtensiveGame.BehaviorProfile.probAt",
@@ -108519,6 +108548,7 @@
     "ExtensiveGame.expectedPayoff",
     "ExtensiveGame.BehaviorStrategy.IsCompletelyMixed",
     "ExtensiveGame.BehaviorStrategy.restrictReachableSubgame",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.BehaviorStrategy.liftSubgame_eq_self",
     "ExtensiveGame.BehaviorStrategy.restrictSubgame_liftSubgame",
     "ExtensiveGame.BehaviorProfile.probAt",
@@ -108608,6 +108638,7 @@
     "ExtensiveGame.BehaviorProfile.restrictSubgame_eq_self",
     "ExtensiveGame.BehaviorStrategy.IsCompletelyMixed",
     "ExtensiveGame.BehaviorStrategy.restrictReachableSubgame",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.BehaviorStrategy.liftSubgame_eq_self",
     "ExtensiveGame.BehaviorStrategy.restrictSubgame_liftSubgame",
     "ExtensiveGame.BehaviorProfile.deviate",
@@ -108681,6 +108712,7 @@
    "used_by": [
     "ExtensiveGame.BehaviorProfile.restrictSubgame_eq_self",
     "ExtensiveGame.expectedPayoff",
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.BehaviorProfile.probAt",
     "ExtensiveGame.BehaviorProfile.deviate",
     "ExtensiveGame.BehaviorProfile.actionProb",
@@ -109197,7 +109229,9 @@
     "ExtensiveGame.reachableSubgameAt_isEmpty_decidable",
     "ExtensiveGame"
    ],
-   "used_by": [],
+   "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameBehaviorProfileDeviate.lean",
    "proved_at": 1791433780,
    "provenance": "literature",
@@ -110802,6 +110836,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameIsReachableIffToControlledGame.lean",
@@ -112325,6 +112360,7 @@
     "EconCSLib.StrategicGame.IsZeroSum.nash_payoff_eq",
     "EconCSLib.StrategicGame.IsDominanceSolvable",
     "EconCSLib.StrategicGame.g_function_nonneg",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "EconCSLib.StrategicGame.MixedS",
     "EconCSLib.StrategicGame.wsum_magic_ineq",
     "EconCSLib.StrategicGame.IsZeroSum.neg",
@@ -112686,6 +112722,7 @@
     "EconCSLib.StrategicGame.IsZeroSum.nash_payoff_eq",
     "EconCSLib.StrategicGame.IsDominanceSolvable",
     "SingleParameterMechanism.payment_difference_bound",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "BayesianMechanismWithTransfers.ExAnteRevelationPrincipleConclusion",
     "SingleParameterMechanism.IsDSIC",
     "MechanismWithTransfers.isQuasiLinearDSIC",
@@ -112807,6 +112844,7 @@
     "EconCSLib.StrategicGame.IsZeroSum.nash_payoff_eq",
     "EconCSLib.StrategicGame.IsDominanceSolvable",
     "SingleParameterMechanism.payment_difference_bound",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "BayesianMechanismWithTransfers.ExAnteRevelationPrincipleConclusion",
     "SingleParameterMechanism.IsDSIC",
     "MechanismWithTransfers.isQuasiLinearDSIC",
@@ -112928,6 +112966,7 @@
     "EconCSLib.StrategicGame.IsZeroSum.nash_payoff_eq",
     "EconCSLib.StrategicGame.IsDominanceSolvable",
     "SingleParameterMechanism.payment_difference_bound",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "BayesianMechanismWithTransfers.ExAnteRevelationPrincipleConclusion",
     "SingleParameterMechanism.IsDSIC",
     "MechanismWithTransfers.isQuasiLinearDSIC",
@@ -115004,6 +115043,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameReachableSubgameAtInit.lean",
@@ -115059,6 +115099,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameReachableSubgameAtMover.lean",
@@ -115114,6 +115155,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameReachableSubgameAtPayoff.lean",
@@ -115170,6 +115212,7 @@
     "ExtensiveGame"
    ],
    "used_by": [
+    "ExtensiveGame.BehaviorProfile.deviate_same",
     "ExtensiveGame.ExtractsGameTree.spe_on_to_nash_at"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameReachableSubgameAtNext.lean",
@@ -116876,6 +116919,7 @@
    "used_by": [
     "EconCSLib.StrategicGame.pureToMixed_not_isCompletelyMixed_of_ne",
     "MatrixGame.expectedPayoff_toStrategicGame_zero",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "EconCSLib.StrategicGame.pureToMixed",
     "EconCSLib.StrategicGame.deviateMixed",
     "EconCSLib.StrategicGame.uniformMixed_pos",
@@ -116945,6 +116989,7 @@
    "used_by": [
     "EconCSLib.StrategicGame.IsCompletelyMixedProfile.player",
     "MatrixGame.expectedPayoff_toStrategicGame_zero",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "EconCSLib.StrategicGame.deviateMixed",
     "EconCSLib.StrategicGame.uniformMixedProfile",
     "EconCSLib.StrategicGame.IsZeroSum.expectedPayoff_neg",
@@ -117183,6 +117228,7 @@
    ],
    "used_by": [
     "EconCSLib.StrategicGame.pureToMixed_not_isCompletelyMixed_of_ne",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "EconCSLib.StrategicGame.deviateMixed",
     "EconCSLib.StrategicGame.pureProfileToMixed"
    ],
@@ -117705,6 +117751,7 @@
    ],
    "used_by": [
     "MatrixGame.expectedPayoff_toStrategicGame_zero",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "EconCSLib.StrategicGame.IsZeroSum.expectedPayoff_neg",
     "EconCSLib.StrategicGame.IsZeroSum.expectedPayoff_add_zero",
     "EconCSLib.StrategicGame.IsZeroSum.expectedPayoff_neg'",
@@ -117765,6 +117812,7 @@
     "StrategicGame"
    ],
    "used_by": [
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "EconCSLib.StrategicGame.IsMixedNashEq"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/EconCSLibStrategicGameDeviateMixed.lean",
@@ -117820,7 +117868,9 @@
     "EconCSLib.StrategicGame.MixedProfile",
     "StrategicGame"
    ],
-   "used_by": [],
+   "used_by": [
+    "MatrixGame.exists_strategic_game_nash_equilibrium"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/EconCSLibStrategicGameIsMixedNashEq.lean",
    "proved_at": 1791434702,
    "provenance": "literature",
@@ -120405,15 +120455,48 @@
    "deps": [],
    "used_by": [
     "IndexedLOrder.parity_lemma",
+    "IndexedLOrder.maximal_element_unique",
     "IndexedLOrder.image_erase_eq_erase_image_of_unique",
+    "IndexedLOrder.empty_Dominant",
+    "IndexedLOrder.Nonempty_of_Dominant",
+    "IndexedLOrder.isCell_of_door",
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.M_sets_disjoint",
     "instFunLikeIndexedLOrderLinearOrder",
+    "IndexedLOrder.NCdoors",
     "TT.ILO",
+    "IndexedLOrder.M_set",
+    "IndexedLOrder.NC_of_outsidedoor",
+    "IndexedLOrder.Dominant_of_subset",
     "IndexedLOrder.image_erase_collision_preserves",
     "IndexedLOrder.Finset.eq_of_mem_of_card_one",
     "TT.Ilt_keyprop",
+    "IndexedLOrder.isColorful",
+    "IndexedLOrder.Dominant_of_supset",
+    "IndexedLOrder.isInternalDoor",
+    "IndexedLOrder.m_element_is_maximal",
+    "IndexedLOrder.isTypedNC",
+    "IndexedLOrder.m_element",
+    "IndexedLOrder.collision_door_valid",
     "TT.Ilt_def",
     "IndexedLOrder.mini",
-    "IndexedLOrder.three_collision_card_bound"
+    "IndexedLOrder.is_maximal_in_M_set",
+    "IndexedLOrder.isDominant",
+    "IndexedLOrder.isNearlyColorful",
+    "IndexedLOrder.outsidedoor_singleton",
+    "IndexedLOrder.isRoom_of_Door",
+    "IndexedLOrder.sigma_nonempty_of_room",
+    "IndexedLOrder.isOutsideDoor",
+    "IndexedLOrder.not_colorful_of_TypedNC",
+    "IndexedLOrder.NC_or_C_of_door",
+    "IndexedLOrder.m_element_not_in_tau",
+    "IndexedLOrder.NCtype_of_door",
+    "IndexedLOrder.outsidedoor_is_singleton",
+    "IndexedLOrder.three_collision_card_bound",
+    "IndexedLOrder.NC_of_NCdoor",
+    "IndexedLOrder.isRoom",
+    "IndexedLOrder.isCell"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrder.lean",
    "proved_at": 1791434706,
@@ -121070,6 +121153,7 @@
     "MatrixGame.optimalColumnStrategies_image_isPolytope",
     "MatrixGame.dualityGap",
     "MatrixGame.AdmissibleSequence.mu",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.IsPlayerIIGuarantee",
     "MatrixGame.optimalColumnSet_isCompact",
     "MatrixGame.optimalRowStrategies",
@@ -121854,6 +121938,7 @@
     "MatrixGame.optimal_pairs_iff_saddle_point",
     "MatrixGame.E_eq_wsum_wsum",
     "MatrixGame.expectedPayoff_toStrategicGame_zero",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.image_optimalColumnStrategies_eq",
     "MatrixGame.support_complementarity_column",
     "MatrixGame.isMixedNashEq_of_pure",
@@ -121915,6 +122000,7 @@
     "MatrixGame"
    ],
    "used_by": [
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.isMixedNashEq_iff_isSaddlePoint",
     "MatrixGame.isMixedNashEq_of_pure",
     "MatrixGame.exists_mixed_nash_equilibrium",
@@ -124973,7 +125059,9 @@
     "MatrixGame.IsMixedNashEq",
     "g"
    ],
-   "used_by": [],
+   "used_by": [
+    "MatrixGame.exists_strategic_game_nash_equilibrium"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MatrixGameExistsMixedNashEquilibrium.lean",
    "proved_at": 1791434714,
    "provenance": "literature",
@@ -129858,6 +129946,7 @@
    "used_by": [
     "MatrixGame.expectedPayoff_toStrategicGame_zero",
     "EconCSLib.StrategicGame.IsZeroSum.nash_payoff_eq",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.toStrategicGame_isZeroSum",
     "MatrixGame.toStrategicGame",
     "MatrixGame.instDecidableEqStrategyFinOfNatNatToStrategicGame",
@@ -129929,6 +130018,7 @@
    ],
    "used_by": [
     "MatrixGame.expectedPayoff_toStrategicGame_zero",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.toStrategicGame_isZeroSum",
     "MatrixGame.instDecidableEqStrategyFinOfNatNatToStrategicGame",
     "MatrixGame.toMixedProfile_zero",
@@ -129995,6 +130085,7 @@
     "EconCSLib.StrategicGame.MatrixGame.disp_Ej",
     "MatrixGame.optimalColumnStrategies_image_isPolytope",
     "MatrixGame.AdmissibleSequence.mu",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.optimalColumnSet_isCompact",
     "MatrixGame.image_optimalColumnStrategies_eq",
     "MatrixGame.AdmissibleSequence.IsRowUsefulInWindow",
@@ -130081,6 +130172,7 @@
     "EconCSLib.StrategicGame.MatrixGame.disp_Ej",
     "MatrixGame.optimalColumnStrategies_image_isPolytope",
     "MatrixGame.AdmissibleSequence.mu",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.optimalColumnSet_isCompact",
     "MatrixGame.image_optimalColumnStrategies_eq",
     "MatrixGame.AdmissibleSequence.IsRowUsefulInWindow",
@@ -130167,6 +130259,7 @@
     "EconCSLib.StrategicGame.MatrixGame.disp_Ej",
     "MatrixGame.optimalColumnStrategies_image_isPolytope",
     "MatrixGame.AdmissibleSequence.mu",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.optimalColumnSet_isCompact",
     "MatrixGame.image_optimalColumnStrategies_eq",
     "MatrixGame.AdmissibleSequence.IsRowUsefulInWindow",
@@ -130896,6 +130989,7 @@
    ],
    "used_by": [
     "MatrixGame.expectedPayoff_toStrategicGame_zero",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.toStrategicGame_isZeroSum",
     "MatrixGame.toMixedProfile_zero",
     "MatrixGame.expectedPayoff_toStrategicGame_one",
@@ -132390,6 +132484,7 @@
     "StrategicGame"
    ],
    "used_by": [
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.toMixedProfile_zero",
     "MatrixGame.toMixedProfile_one"
    ],
@@ -132457,6 +132552,7 @@
    ],
    "used_by": [
     "MatrixGame.optimalColumnStrategies_image_isPolytope",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.image_optimalColumnStrategies_eq",
     "MatrixGame.optimalRowStrategies_image_isPolytope",
     "MatrixGame.optimalRowSet_nonempty",
@@ -132525,6 +132621,7 @@
    ],
    "used_by": [
     "MatrixGame.optimalColumnStrategies_image_isPolytope",
+    "MatrixGame.exists_strategic_game_nash_equilibrium",
     "MatrixGame.image_optimalColumnStrategies_eq",
     "MatrixGame.optimalRowStrategies_image_isPolytope",
     "MatrixGame.optimalRowSet_nonempty",
@@ -132597,7 +132694,9 @@
     "StrategicGame",
     "g"
    ],
-   "used_by": [],
+   "used_by": [
+    "MatrixGame.exists_strategic_game_nash_equilibrium"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MatrixGameExpectedPayoffToStrategicGameZero.lean",
    "proved_at": 1791435378,
    "provenance": "literature",
@@ -132666,7 +132765,9 @@
     "StrategicGame",
     "g"
    ],
-   "used_by": [],
+   "used_by": [
+    "MatrixGame.exists_strategic_game_nash_equilibrium"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MatrixGameExpectedPayoffToStrategicGameOne.lean",
    "proved_at": 1791435378,
    "provenance": "literature",
@@ -214624,14 +214725,47 @@
    ],
    "used_by": [
     "IndexedLOrder.parity_lemma",
+    "IndexedLOrder.maximal_element_unique",
     "IndexedLOrder.image_erase_eq_erase_image_of_unique",
+    "IndexedLOrder.empty_Dominant",
+    "IndexedLOrder.Nonempty_of_Dominant",
+    "IndexedLOrder.isCell_of_door",
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.M_sets_disjoint",
+    "IndexedLOrder.NCdoors",
     "TT.ILO",
+    "IndexedLOrder.M_set",
+    "IndexedLOrder.NC_of_outsidedoor",
+    "IndexedLOrder.Dominant_of_subset",
     "IndexedLOrder.image_erase_collision_preserves",
     "IndexedLOrder.Finset.eq_of_mem_of_card_one",
     "TT.Ilt_keyprop",
+    "IndexedLOrder.isColorful",
+    "IndexedLOrder.Dominant_of_supset",
+    "IndexedLOrder.isInternalDoor",
+    "IndexedLOrder.m_element_is_maximal",
+    "IndexedLOrder.isTypedNC",
+    "IndexedLOrder.m_element",
+    "IndexedLOrder.collision_door_valid",
     "TT.Ilt_def",
     "IndexedLOrder.mini",
-    "IndexedLOrder.three_collision_card_bound"
+    "IndexedLOrder.is_maximal_in_M_set",
+    "IndexedLOrder.isDominant",
+    "IndexedLOrder.isNearlyColorful",
+    "IndexedLOrder.outsidedoor_singleton",
+    "IndexedLOrder.isRoom_of_Door",
+    "IndexedLOrder.sigma_nonempty_of_room",
+    "IndexedLOrder.isOutsideDoor",
+    "IndexedLOrder.not_colorful_of_TypedNC",
+    "IndexedLOrder.NC_or_C_of_door",
+    "IndexedLOrder.m_element_not_in_tau",
+    "IndexedLOrder.NCtype_of_door",
+    "IndexedLOrder.outsidedoor_is_singleton",
+    "IndexedLOrder.three_collision_card_bound",
+    "IndexedLOrder.NC_of_NCdoor",
+    "IndexedLOrder.isRoom",
+    "IndexedLOrder.isCell"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/InstFunLikeIndexedLOrderLinearOrder.lean",
    "proved_at": 1791448939,
@@ -214737,7 +214871,11 @@
     "instFunLikeIndexedLOrderLinearOrder",
     "IndexedLOrder"
    ],
-   "used_by": [],
+   "used_by": [
+    "IndexedLOrder.M_sets_disjoint",
+    "IndexedLOrder.M_set",
+    "IndexedLOrder.m_element_not_in_tau"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderMini.lean",
    "proved_at": 1791448940,
    "provenance": "literature",
@@ -293015,6 +293153,2072 @@
       "line": 65,
       "status": "adapted",
       "diff": "--- Cslib/Languages/LambdaCalculus/LocallyNameless/Context.lean:65 (Cslib.LambdaCalculus.LocallyNameless.Context.haswellformed_def)\n+++ as compiled here\n@@ -1,3 +1,19 @@\n+set_option autoImplicit true in\n+set_option relaxedAutoImplicit true in\n+open Cslib Cslib.LambdaCalculus Cslib.LambdaCalculus.LocallyNameless Cslib.LambdaCalculus.LocallyNameless.Context in\n+universe u v in\n+variable {α : Type u} {β : Type v} in\n+variable [DecidableEq α] in\n+open List in\n+attribute [local grind =] Option.mem_def in\n+attribute [local grind _=_] List.append_eq in\n+attribute [local grind =] List.Nodup in\n+attribute [local grind _=_] List.singleton_append in\n+attribute [local grind =] Option.or_eq_some_iff in\n+attribute [local grind =] Option.or_eq_none_iff in\n+attribute [local grind _=_] List.mem_toFinset in\n+attribute [local grind =] List.nodupKeys_middle in\n+attribute [local grind →] List.perm_nodupKeys in\n omit [DecidableEq α] in\n-@[scoped grind _=_]\n-theorem haswellformed_def (Γ : Context α β) : Γ✓ = Γ.NodupKeys := by rfl\n+@[grind _=_]\n+theorem Cslib.LambdaCalculus.LocallyNameless.Context.haswellformed_def (Γ : Context α β) : Γ✓ = Γ.NodupKeys := by rfl"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "ExtensiveGame.BehaviorProfile.deviate_same",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "seq": 4849,
+   "informal": "ExtensiveGame.BehaviorProfile.deviate_same",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen ExtensiveGame ExtensiveGame.BehaviorProfile in\nvariable {iota U : Type*} in\n@[simp]\ntheorem ExtensiveGame.BehaviorProfile.deviate_same {G : ExtensiveGame iota U}\n    [(s : G.State) -> Fintype (G.Action s)] [DecidableEq iota]\n    (beta : G.BehaviorProfile) (who : iota) (beta' : G.BehaviorStrategy who) :\n    beta.deviate who beta' who = beta'",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen ExtensiveGame ExtensiveGame.BehaviorProfile in\nvariable {iota U : Type*} in\n@[simp]\ntheorem ExtensiveGame.BehaviorProfile.deviate_same {G : ExtensiveGame iota U}\n    [(s : G.State) -> Fintype (G.Action s)] [DecidableEq iota]\n    (beta : G.BehaviorProfile) (who : iota) (beta' : G.BehaviorStrategy who) :\n    beta.deviate who beta' who = beta' := by\n  unfold ExtensiveGame.BehaviorProfile.deviate\n  exact Function.update_self ..",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "ExtensiveGame",
+    "Arena",
+    "ControlledGame",
+    "ExtensiveGame.BehaviorProfile",
+    "ExtensiveGame.BehaviorStrategy",
+    "ExtensiveGame.BehaviorProfile.deviate",
+    "ControlledGame.ofArena_toArena",
+    "ControlledGame.ofArena_init",
+    "ControlledGame.ofArena_mover",
+    "ExtensiveGame.ofControlledGame_toControlledGame",
+    "ExtensiveGame.ofControlledGame_payoff",
+    "ExtensiveGame.ofControlledGame_toControlledGame_self",
+    "ExtensiveGame.ofArena_toArena",
+    "ExtensiveGame.ofArena_init",
+    "ExtensiveGame.ofArena_mover",
+    "ExtensiveGame.ofArena_payoff",
+    "ExtensiveGame.isPlayerState_iff_toControlledGame",
+    "ExtensiveGame.isNonPlayerState_iff_toControlledGame",
+    "ExtensiveGame.noChance_iff_toControlledGame",
+    "ExtensiveGame.isReachable_iff_toControlledGame",
+    "ExtensiveGame.reachableSubgameAt_init",
+    "ExtensiveGame.reachableSubgameAt_mover",
+    "ExtensiveGame.reachableSubgameAt_payoff",
+    "ExtensiveGame.reachableSubgameAt_next",
+    "ExtensiveGame.subgameAt_init",
+    "ExtensiveGame.subgameAt_mover",
+    "ExtensiveGame.subgameAt_payoff",
+    "ExtensiveGame.subgameAt_next",
+    "ExtensiveGame.subgameAt_action_fintype",
+    "ExtensiveGame.subgameAt_isEmpty_decidable",
+    "ExtensiveGame.reachableSubgameAt_action_fintype",
+    "ExtensiveGame.reachableSubgameAt_isEmpty_decidable",
+    "deviate"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/ExtensiveGameBehaviorProfileDeviateSame.lean",
+   "proved_at": 1791463441,
+   "provenance": "literature",
+   "citation": "EconCSLib, `ExtensiveGame.BehaviorProfile.deviate_same`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/GameTheory/ExtensiveGame/BehaviorStrategy.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/GameTheory/ExtensiveGame/BehaviorStrategy.lean",
+    "authors": "xbei, Lazyfill (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "ExtensiveGame.BehaviorProfile.deviate_same",
+      "from": "ExtensiveGame.BehaviorProfile.deviate_same",
+      "path": "EconCSLib/GameTheory/ExtensiveGame/BehaviorStrategy.lean",
+      "line": 212,
+      "status": "adapted",
+      "diff": "--- EconCSLib/GameTheory/ExtensiveGame/BehaviorStrategy.lean:212 (ExtensiveGame.BehaviorProfile.deviate_same)\n+++ as compiled here\n@@ -1,3 +1,7 @@\n+set_option autoImplicit true in\n+set_option relaxedAutoImplicit true in\n+open ExtensiveGame ExtensiveGame.BehaviorProfile in\n+variable {iota U : Type*} in\n @[simp]\n-theorem deviate_same {G : ExtensiveGame iota U}\n+theorem ExtensiveGame.BehaviorProfile.deviate_same {G : ExtensiveGame iota U}\n     [(s : G.State) -> Fintype (G.Action s)] [DecidableEq iota]\n@@ -5,2 +9,3 @@\n     beta.deviate who beta' who = beta' := by\n-  simp [deviate]\n+  unfold ExtensiveGame.BehaviorProfile.deviate\n+  exact Function.update_self .."
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isDominant",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4850,
+   "informal": "`σ` is **dominant** with respect to `C`: for every `y : T` there exists `i ∈ C` such that every element of `σ` is ≥[i] y — i.e., `σ` contains, in the order at `i`, a minimum that dominates `y`. This is the key structural invariant of Scarf's lemma. It generalises the notion that a simplex vertex set \"covers\" a given point in its convex hull.",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\ndef IndexedLOrder.isDominant",
+   "source": "set_option quotPrecheck false\nset_option hygiene false\nlocal notation  lhs \"<[\" i \"]\" rhs => (IST i).lt lhs rhs\nlocal notation  lhs \"≤[\" i \"]\" rhs => (IST i).le lhs rhs\nset_option hygiene true\n\nset_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\n/-- `σ` is **dominant** with respect to `C`: for every `y : T` there exists `i ∈ C` such that every element of `σ` is ≥[i] y — i.e., `σ` contains, in the order at `i`, a minimum that dominates `y`. This is the key structural invariant of Scarf's lemma. It generalises the notion that a simplex vertex set \"covers\" a given point in its convex hull. -/\ndef IndexedLOrder.isDominant :=\n  ∀ y, ∃ i ∈ C, ∀ x ∈ σ,  y ≤[i] x",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.empty_Dominant",
+    "IndexedLOrder.Nonempty_of_Dominant",
+    "IndexedLOrder.NC_of_outsidedoor",
+    "IndexedLOrder.Dominant_of_subset",
+    "IndexedLOrder.Dominant_of_supset",
+    "IndexedLOrder.outsidedoor_singleton",
+    "IndexedLOrder.isCell"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsDominant.lean",
+   "proved_at": 1791463441,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isDominant`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isDominant",
+      "from": "IndexedLOrder.isDominant",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 179,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isCell",
+   "kind": "abbrev",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4851,
+   "informal": "Alias for `isDominant σ C`: the cell predicate for the pair `(σ, C)`.",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nabbrev IndexedLOrder.isCell",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\n/-- Alias for `isDominant σ C`: the cell predicate for the pair `(σ, C)`. -/\nabbrev IndexedLOrder.isCell := isDominant σ C",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isDominant",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.isCell_of_door",
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.M_sets_disjoint",
+    "IndexedLOrder.NC_of_outsidedoor",
+    "IndexedLOrder.isColorful",
+    "IndexedLOrder.isTypedNC",
+    "IndexedLOrder.collision_door_valid",
+    "IndexedLOrder.isNearlyColorful",
+    "IndexedLOrder.outsidedoor_singleton",
+    "IndexedLOrder.isRoom_of_Door",
+    "IndexedLOrder.sigma_nonempty_of_room",
+    "IndexedLOrder.not_colorful_of_TypedNC",
+    "IndexedLOrder.NC_or_C_of_door",
+    "IndexedLOrder.m_element_not_in_tau",
+    "IndexedLOrder.outsidedoor_is_singleton",
+    "IndexedLOrder.isRoom"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsCell.lean",
+   "proved_at": 1791463441,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isCell`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isCell",
+      "from": "IndexedLOrder.isCell",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 250,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isColorful",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4852,
+   "informal": "`(σ, C)` is **colorful** under coloring `c : T → I`: it is a dominant cell and the coloring `c` maps `σ` **bijectively** onto `C` (i.e., `σ.image c = C`). A colorful room is the central object of Scarf's lemma: its existence is guaranteed for every coloring `c`.",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nnoncomputable def IndexedLOrder.isColorful : Prop",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\n/-- `(σ, C)` is **colorful** under coloring `c : T → I`: it is a dominant cell and the coloring `c` maps `σ` **bijectively** onto `C` (i.e., `σ.image c = C`). A colorful room is the central object of Scarf's lemma: its existence is guaranteed for every coloring `c`. -/\nnoncomputable def IndexedLOrder.isColorful : Prop := IST.isCell σ C ∧ σ.image c   = C",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.not_colorful_of_TypedNC",
+    "IndexedLOrder.NC_or_C_of_door",
+    "IndexedLOrder.NC_of_NCdoor"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsColorful.lean",
+   "proved_at": 1791463441,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isColorful`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isColorful",
+      "from": "IndexedLOrder.isColorful",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 1237,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isTypedNC",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4853,
+   "informal": "`(σ, C)` is a **typed nearly-colorful** cell of type `i`: a dominant cell where `i` is the unique color in `C` missing from `σ.image c`.",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nnoncomputable def IndexedLOrder.isTypedNC (i : I) (σ : Finset T) (C : Finset I): Prop",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\n/-- `(σ, C)` is a **typed nearly-colorful** cell of type `i`: a dominant cell where `i` is the unique color in `C` missing from `σ.image c`. -/\nnoncomputable def IndexedLOrder.isTypedNC (i : I) (σ : Finset T) (C : Finset I): Prop := IST.isCell σ C ∧ (C \\ (σ.image c)) = {i}",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.not_colorful_of_TypedNC",
+    "IndexedLOrder.NC_or_C_of_door",
+    "IndexedLOrder.NCtype_of_door",
+    "IndexedLOrder.NC_of_NCdoor"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsTypedNC.lean",
+   "proved_at": 1791463442,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isTypedNC`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isTypedNC",
+      "from": "IndexedLOrder.isTypedNC",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 1245,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isDoor",
+   "kind": "abbrev",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4854,
+   "informal": "`(σ, C)` is a **door**: a dominant cell with `|C| = |σ| + 1`. A door has one more color than points; it is adjacent to exactly two rooms in the Scarf complex. Doors are the \"walls\" between rooms in the parity argument.",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nabbrev IndexedLOrder.isDoor",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\n/-- `(σ, C)` is a **door**: a dominant cell with `|C| = |σ| + 1`. A door has one more color than points; it is adjacent to exactly two rooms in the Scarf complex. Doors are the \"walls\" between rooms in the parity argument. -/\nabbrev IndexedLOrder.isDoor :=  isCell σ C ∧ C.card = σ.card + 1",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.isCell_of_door",
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.M_sets_disjoint",
+    "IndexedLOrder.NC_of_outsidedoor",
+    "IndexedLOrder.isInternalDoor",
+    "IndexedLOrder.outsidedoor_singleton",
+    "IndexedLOrder.isRoom_of_Door",
+    "IndexedLOrder.isOutsideDoor",
+    "IndexedLOrder.NC_or_C_of_door",
+    "IndexedLOrder.m_element_not_in_tau",
+    "IndexedLOrder.outsidedoor_is_singleton"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsDoor.lean",
+   "proved_at": 1791463442,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isDoor`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isDoor",
+      "from": "IndexedLOrder.isDoor",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 269,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isDoorof",
+   "kind": "inductive",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4855,
+   "informal": "IndexedLOrder.isDoorof",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\ninductive IndexedLOrder.isDoorof (τ : Finset T) (D : Finset I) (σ : Finset T) (C : Finset I) : Prop",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\ninductive IndexedLOrder.isDoorof (τ : Finset T) (D : Finset I) (σ : Finset T) (C : Finset I) : Prop | idoor (h0 : isCell σ C) (h1 : isDoor τ D) (x :T) (h1 : x ∉ τ) (h2 : insert x τ = σ) (h3 : D = C)\n  | odoor (h0 : isCell σ C) (h1 : isDoor τ D) (j :I) (h1 : j ∉ C) (h2 : τ = σ) (h3 : D = insert j C)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.isCell_of_door",
+    "IndexedLOrder.NCdoors",
+    "IndexedLOrder.collision_door_valid",
+    "IndexedLOrder.isRoom_of_Door",
+    "IndexedLOrder.NC_or_C_of_door",
+    "IndexedLOrder.NCtype_of_door",
+    "IndexedLOrder.NC_of_NCdoor"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsDoorof.lean",
+   "proved_at": 1791463442,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isDoorof`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isDoorof",
+      "from": "IndexedLOrder.isDoorof",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 274,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isOutsideDoor",
+   "kind": "abbrev",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4856,
+   "informal": "IndexedLOrder.isOutsideDoor",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nvariable (τ D) in\nabbrev IndexedLOrder.isOutsideDoor",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nvariable (τ D) in\nabbrev IndexedLOrder.isOutsideDoor := IST.isDoor τ D ∧ τ = Finset.empty",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.NC_of_outsidedoor",
+    "IndexedLOrder.outsidedoor_singleton",
+    "IndexedLOrder.outsidedoor_is_singleton"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsOutsideDoor.lean",
+   "proved_at": 1791463442,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isOutsideDoor`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isOutsideDoor",
+      "from": "IndexedLOrder.isOutsideDoor",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 323,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.outsidedoor_singleton",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4857,
+   "informal": "IndexedLOrder.outsidedoor_singleton",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T] [DecidableEq T] [DecidableEq I] in\nlemma IndexedLOrder.outsidedoor_singleton (i : I) : IST.isOutsideDoor Finset.empty {i}",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T] [DecidableEq T] [DecidableEq I] in\nlemma IndexedLOrder.outsidedoor_singleton (i : I) : IST.isOutsideDoor Finset.empty {i} := by\n  constructor\n  · rw [isDoor,isCell,isDominant]\n    constructor\n    · intro y; use i\n      constructor\n      · exact Finset.mem_singleton.2 (rfl)\n      · intro x hx\n        contradiction\n    · simp only [Finset.card_singleton]\n      rfl\n  · rfl\n\n\n--variable (τ D) in",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isDominant",
+    "IndexedLOrder.isOutsideDoor",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderOutsidedoorSingleton.lean",
+   "proved_at": 1791463443,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.outsidedoor_singleton`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.outsidedoor_singleton",
+      "from": "IndexedLOrder.outsidedoor_singleton",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 330,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isNearlyColorful",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4858,
+   "informal": "`(σ, C)` is **nearly colorful**: a dominant cell where exactly one color in `C` is missing from the image of `c` on `σ`.",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nnoncomputable def IndexedLOrder.isNearlyColorful : Prop",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\n/-- `(σ, C)` is **nearly colorful**: a dominant cell where exactly one color in `C` is missing from the image of `c` on `σ`. -/\nnoncomputable def IndexedLOrder.isNearlyColorful : Prop := IST.isCell σ C ∧ (C \\ σ.image c).card = 1",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.NCdoors",
+    "IndexedLOrder.NC_of_outsidedoor"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsNearlyColorful.lean",
+   "proved_at": 1791463443,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isNearlyColorful`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isNearlyColorful",
+      "from": "IndexedLOrder.isNearlyColorful",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 1241,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.NC_of_outsidedoor",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4859,
+   "informal": "IndexedLOrder.NC_of_outsidedoor",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [Inhabited T] [DecidableEq T] in\nlemma IndexedLOrder.NC_of_outsidedoor (h : isOutsideDoor σ C) : isNearlyColorful c σ C",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [Inhabited T] [DecidableEq T] in\nlemma IndexedLOrder.NC_of_outsidedoor (h : isOutsideDoor σ C) : isNearlyColorful c σ C := by\n  cases h with\n  | intro hd he =>\n    unfold isNearlyColorful\n    unfold isCell\n    constructor\n    · exact hd.1\n    · rw [he]\n      have h_img : Finset.image c Finset.empty = Finset.empty := Finset.image_empty c\n      rw [h_img]\n      have h_disj : Disjoint C Finset.empty := Finset.disjoint_empty_right C\n      have h_sdiff : C \\ Finset.empty = C := Finset.sdiff_eq_self_of_disjoint h_disj\n      rw [h_sdiff]\n      unfold isDoor at hd\n      have h1 := hd.2\n      rw [he] at h1\n      exact h1\n\n/-Lemma 5-/",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isDominant",
+    "IndexedLOrder.isNearlyColorful",
+    "IndexedLOrder.isOutsideDoor",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderNCOfOutsidedoor.lean",
+   "proved_at": 1791463443,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.NC_of_outsidedoor`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.NC_of_outsidedoor",
+      "from": "IndexedLOrder.NC_of_outsidedoor",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 1304,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.outsidedoor_is_singleton",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4860,
+   "informal": "IndexedLOrder.outsidedoor_is_singleton",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T] [DecidableEq T] [DecidableEq I] in\nlemma IndexedLOrder.outsidedoor_is_singleton (h : IST.isOutsideDoor τ  D) :  τ = Finset.empty ∧  ∃ i, D = {i}",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T] [DecidableEq T] [DecidableEq I] in\nlemma IndexedLOrder.outsidedoor_is_singleton (h : IST.isOutsideDoor τ  D) :  τ = Finset.empty ∧  ∃ i, D = {i} := by\n  obtain ⟨h1, h2⟩ := h\n  subst h2\n  obtain ⟨_,h3⟩ := h1\n  replace h4 : D.card = 1 := by\n    simp_all\n    rfl\n  exact ⟨rfl, Finset.card_eq_one.1 h4⟩",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isOutsideDoor",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderOutsidedoorIsSingleton.lean",
+   "proved_at": 1791463443,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.outsidedoor_is_singleton`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.outsidedoor_is_singleton",
+      "from": "IndexedLOrder.outsidedoor_is_singleton",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 346,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isRoom",
+   "kind": "abbrev",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4861,
+   "informal": "`(σ, C)` is a **room**: a dominant cell with `|σ| = |C|`. In a room, the index set and the point set have the same cardinality. Colorful rooms (where the coloring maps `σ` bijectively onto `C`) are rooms.",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nabbrev IndexedLOrder.isRoom",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\n/-- `(σ, C)` is a **room**: a dominant cell with `|σ| = |C|`. In a room, the index set and the point set have the same cardinality. Colorful rooms (where the coloring maps `σ` bijectively onto `C`) are rooms. -/\nabbrev IndexedLOrder.isRoom :=  isCell σ C ∧ C.card = σ.card",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.isRoom_of_Door",
+    "IndexedLOrder.sigma_nonempty_of_room",
+    "IndexedLOrder.NC_or_C_of_door"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsRoom.lean",
+   "proved_at": 1791463443,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isRoom`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isRoom",
+      "from": "IndexedLOrder.isRoom",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 256,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isRoom_of_Door",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4862,
+   "informal": "IndexedLOrder.isRoom_of_Door",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nvariable {σ C} in\nomit [Inhabited T] in\nlemma IndexedLOrder.isRoom_of_Door (h1 : isDoorof τ D σ C) : IST.isRoom σ C",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nvariable {σ C} in\nomit [Inhabited T] in\nlemma IndexedLOrder.isRoom_of_Door (h1 : isDoorof τ D σ C) : IST.isRoom σ C := by\n  cases h1\n  · rename_i h0 h2 x h3 h4 h5\n    constructor\n    · exact h0\n    · simp only [<-h5, h2.2, <-h4, h3, not_false_eq_true, Finset.card_insert_of_notMem]\n  · rename_i h0 h2 x h3 h4 h5\n    constructor\n    · exact h0\n    · have h6 := Finset.card_insert_of_notMem h3\n      subst h4\n      replace h5 : D.card = (insert x C).card := by rw [h5]\n      rw [h6] at h5\n      rw [h2.2] at h5\n      exact Eq.symm $ (add_left_inj _).1 h5",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.isRoom",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.NC_or_C_of_door"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsRoomOfDoor.lean",
+   "proved_at": 1791463444,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isRoom_of_Door`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isRoom_of_Door",
+      "from": "IndexedLOrder.isRoom_of_Door",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 290,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.Nonempty_of_Dominant",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4863,
+   "informal": "IndexedLOrder.Nonempty_of_Dominant",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable {σ C} in\nlemma IndexedLOrder.Nonempty_of_Dominant (h : IST.isDominant σ C) : C.Nonempty",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable {σ C} in\nlemma IndexedLOrder.Nonempty_of_Dominant (h : IST.isDominant σ C) : C.Nonempty := by\n  obtain ⟨j,hj⟩ := h default\n  exact ⟨j, hj.1⟩\n\n/- Lemma 1 -/",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDominant",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.sigma_nonempty_of_room"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderNonemptyOfDominant.lean",
+   "proved_at": 1791463444,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.Nonempty_of_Dominant`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.Nonempty_of_Dominant",
+      "from": "IndexedLOrder.Nonempty_of_Dominant",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 183,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.sigma_nonempty_of_room",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4864,
+   "informal": "IndexedLOrder.sigma_nonempty_of_room",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nlemma IndexedLOrder.sigma_nonempty_of_room {σ : Finset T} {C : Finset I} (h : isRoom σ C) : σ.Nonempty",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nlemma IndexedLOrder.sigma_nonempty_of_room {σ : Finset T} {C : Finset I} (h : isRoom σ C) : σ.Nonempty := by\n  have hC : C.Nonempty := Nonempty_of_Dominant h.1\n  have hCpos : 0 < C.card := Finset.card_pos.2 hC\n  have h_card : σ.card = C.card := h.2.symm\n  have hpos : 0 < σ.card := by rwa [h_card]\n  exact Finset.card_pos.1 hpos",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.Nonempty_of_Dominant",
+    "IndexedLOrder.isRoom",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderSigmaNonemptyOfRoom.lean",
+   "proved_at": 1791463444,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.sigma_nonempty_of_room`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.sigma_nonempty_of_room",
+      "from": "IndexedLOrder.sigma_nonempty_of_room",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 258,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isInternalDoor",
+   "kind": "abbrev",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4865,
+   "informal": "IndexedLOrder.isInternalDoor",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nvariable (τ D) in\nabbrev IndexedLOrder.isInternalDoor",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nvariable (τ D) in\nabbrev IndexedLOrder.isInternalDoor := IST.isDoor τ D ∧ τ.Nonempty\n\n/- Lemma 2-/",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsInternalDoor.lean",
+   "proved_at": 1791463444,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isInternalDoor`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isInternalDoor",
+      "from": "IndexedLOrder.isInternalDoor",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 326,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.NC_or_C_of_door",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4866,
+   "informal": "IndexedLOrder.NC_or_C_of_door",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [Inhabited T] in\nlemma IndexedLOrder.NC_or_C_of_door (h1 : isTypedNC c i τ D) (h2 : isDoorof τ D σ C) : isTypedNC c i σ C ∨ isColorful c σ C",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [Inhabited T] in\nlemma IndexedLOrder.NC_or_C_of_door (h1 : isTypedNC c i τ D) (h2 : isDoorof τ D σ C) : isTypedNC c i σ C ∨ isColorful c σ C := by\n  unfold isTypedNC at h1 ⊢\n  unfold isColorful\n  have h1_cell := h1.left\n  have h1_eq := h1.right\n\n  have h_sigma_cell : isCell σ C := by\n    cases h2 with\n    | idoor h0 _ _ _ _ _ => exact h0\n    | odoor h0 _ _ _ _ _ => exact h0\n\n  have step1_subset : C \\ (σ.image c) ⊆ D \\ (τ.image c) := by\n    intro y hy\n    simp only [Finset.mem_sdiff] at hy ⊢\n    obtain ⟨y_in_C, y_notin_img_sigma⟩ := hy\n    constructor\n    · cases h2\n      · rename_i h_D_eq; rw [h_D_eq]; exact y_in_C\n      · rename_i h_D_eq; rw [h_D_eq]; exact Finset.mem_insert_of_mem y_in_C\n    · cases h2 with\n      | idoor h0 hdoor x h_x_notin h_sigma_eq h_D_eq =>\n        rw [← h_sigma_eq, Finset.image_insert] at y_notin_img_sigma\n        simp only [Finset.mem_insert, not_or] at y_notin_img_sigma\n        exact y_notin_img_sigma.2\n      | odoor h0 hdoor j h_j_notin h_sigma_eq h_D_eq =>\n        rw [← h_sigma_eq] at y_notin_img_sigma\n        exact y_notin_img_sigma\n\n  have step2_D_card : (D \\ (τ.image c)).card = 1 := by\n    have D_sdiff_eq_i : D \\ (τ.image c) = {i} := by\n      rw [h1_eq]\n    rw [D_sdiff_eq_i, Finset.card_singleton]\n\n  have step3_C_card_le : (C \\ σ.image c).card ≤ 1 := by\n    rw [← step2_D_card]\n    exact Finset.card_le_card step1_subset\n\n  by_cases h : (C \\ σ.image c).card = 0\n  · right\n    constructor\n    · exact h_sigma_cell\n    · have h_C_subset_img : C ⊆ σ.image c := by\n        rw [Finset.subset_iff]\n        intro x hx\n        by_contra hxn\n        have : x ∈ C \\ σ.image c := by simp [hx, hxn]\n        have : (C \\ σ.image c).Nonempty := ⟨x, this⟩\n        have : 0 < (C \\ σ.image c).card := Finset.card_pos.2 this\n        linarith [h]\n\n      have h_room: isRoom σ C := isRoom_of_Door h2\n      have h_card_eq : C.card = σ.card := h_room.2\n      have h_img_le_C_card : (σ.image c).card ≤ C.card := by\n        calc (σ.image c).card\n          ≤ σ.card := Finset.card_image_le\n          _ = C.card := h_card_eq.symm\n      exact (Finset.eq_of_subset_of_card_le h_C_subset_img h_img_le_C_card).symm\n\n  · left\n    constructor\n    · exact h_sigma_cell\n    · have h_card_one : (C \\ σ.image c).card = 1 := by omega\n\n      have h_subset_singleton : C \\ σ.image c ⊆ {i} := by\n        have D_sdiff_eq_i : D \\ (τ.image c) = {i} := by\n          rw [h1_eq]\n        rw [← D_sdiff_eq_i]\n        exact step1_subset\n\n      have C_sdiff_eq_i : C \\ σ.image c = {i} :=\n        Finset.eq_of_subset_of_card_le h_subset_singleton (by rw [h_card_one, Finset.card_singleton])\n\n      have h_i_notin_img : i ∉ σ.image c := by\n        have h_i_in_sdiff : i ∈ C \\ σ.image c := by rw [C_sdiff_eq_i]; simp\n        exact (Finset.mem_sdiff.mp h_i_in_sdiff).2\n\n      exact C_sdiff_eq_i",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.isColorful",
+    "IndexedLOrder.isTypedNC",
+    "IndexedLOrder.isRoom_of_Door",
+    "IndexedLOrder.isRoom",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.NC_of_NCdoor"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderNCOrCOfDoor.lean",
+   "proved_at": 1791463444,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.NC_or_C_of_door`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.NC_or_C_of_door",
+      "from": "IndexedLOrder.NC_or_C_of_door",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 1324,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.NC_of_NCdoor",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4867,
+   "informal": "IndexedLOrder.NC_of_NCdoor",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nvariable [Fintype T] [Fintype I] in\nvariable (c) in\nomit [Fintype T] [Fintype I] [Inhabited T] in\nvariable {c} in\nlemma IndexedLOrder.NC_of_NCdoor (h1 : isTypedNC c i τ D)\n(h2 : isDoorof τ D σ C) :\n  ¬ isColorful c σ C → isTypedNC c i σ C",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nvariable [Fintype T] [Fintype I] in\nvariable (c) in\nomit [Fintype T] [Fintype I] [Inhabited T] in\nvariable {c} in\nlemma IndexedLOrder.NC_of_NCdoor (h1 : isTypedNC c i τ D)\n(h2 : isDoorof τ D σ C) :\n  ¬ isColorful c σ C → isTypedNC c i σ C := by\n  intro h_not_colorful\n  obtain h_typed | h_colorful := NC_or_C_of_door h1 h2\n  · exact h_typed\n  · contradiction",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.isColorful",
+    "IndexedLOrder.isTypedNC",
+    "IndexedLOrder.NC_or_C_of_door",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderNCOfNCdoor.lean",
+   "proved_at": 1791463445,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.NC_of_NCdoor`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.NC_of_NCdoor",
+      "from": "IndexedLOrder.NC_of_NCdoor",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 2521,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.NCdoors",
+   "kind": "abbrev",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4868,
+   "informal": "IndexedLOrder.NCdoors",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nvariable (c σ C) in\nnoncomputable abbrev IndexedLOrder.NCdoors",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nvariable (c σ C) in\nnoncomputable abbrev IndexedLOrder.NCdoors := {(τ,D) | isNearlyColorful c τ D ∧ isDoorof τ D σ C }",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.isNearlyColorful",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderNCdoors.lean",
+   "proved_at": 1791463445,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.NCdoors`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.NCdoors",
+      "from": "IndexedLOrder.NCdoors",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 1511,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.Dominant_of_subset",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4869,
+   "informal": "IndexedLOrder.Dominant_of_subset",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nomit [Inhabited T] in\nlemma IndexedLOrder.Dominant_of_subset (σ τ : Finset T) (C : Finset I) :\n  τ ⊆ σ → isDominant σ C  → isDominant τ C",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nomit [Inhabited T] in\nlemma IndexedLOrder.Dominant_of_subset (σ τ : Finset T) (C : Finset I) :\n  τ ⊆ σ → isDominant σ C  → isDominant τ C := by\n    intro h1 h2\n    intro y\n    obtain ⟨j,hj⟩:= h2 y\n    use j,hj.1\n    intro x hx\n    exact hj.2 x (h1 hx)",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDominant",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.isCell_of_door",
+    "IndexedLOrder.collision_door_valid"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderDominantOfSubset.lean",
+   "proved_at": 1791463445,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.Dominant_of_subset`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.Dominant_of_subset",
+      "from": "IndexedLOrder.Dominant_of_subset",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 189,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.Dominant_of_supset",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4870,
+   "informal": "IndexedLOrder.Dominant_of_supset",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nomit [Inhabited T] in\nlemma IndexedLOrder.Dominant_of_supset (σ : Finset T) (C D: Finset I) :\n  C ⊆ D → isDominant σ C  → isDominant σ D",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nomit [Inhabited T] in\nlemma IndexedLOrder.Dominant_of_supset (σ : Finset T) (C D: Finset I) :\n  C ⊆ D → isDominant σ C  → isDominant σ D := by\n    intro h1 h2\n    intro y\n    obtain ⟨j,hj⟩:= h2 y\n    use j,(h1 hj.1)\n    intro x hx\n    exact hj.2 x hx",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDominant",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.isCell_of_door"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderDominantOfSupset.lean",
+   "proved_at": 1791463445,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.Dominant_of_supset`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.Dominant_of_supset",
+      "from": "IndexedLOrder.Dominant_of_supset",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 199,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.collision_door_valid",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4871,
+   "informal": "IndexedLOrder.collision_door_valid",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [DecidableEq T] [Inhabited T] in\nlemma IndexedLOrder.collision_door_valid [DecidableEq T] (σ : Finset T) (C : Finset I) (_ : T → I)\n    (x : T) (h_cell : isCell σ C) (hx_in_σ : x ∈ σ) (h_card_eq : C.card = σ.card) :\n    isDoorof (σ.erase x) C σ C",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [DecidableEq T] [Inhabited T] in\nlemma IndexedLOrder.collision_door_valid [DecidableEq T] (σ : Finset T) (C : Finset I) (_ : T → I)\n    (x : T) (h_cell : isCell σ C) (hx_in_σ : x ∈ σ) (h_card_eq : C.card = σ.card) :\n    isDoorof (σ.erase x) C σ C := by\n  apply isDoorof.idoor h_cell\n  · constructor\n    · exact Dominant_of_subset σ (σ.erase x) C (Finset.erase_subset x σ) h_cell\n    · rw [h_card_eq]\n      rw [Finset.card_erase_of_mem hx_in_σ]\n      exact (Nat.sub_add_cancel (Finset.card_pos.mpr ⟨x, hx_in_σ⟩)).symm\n  · exact Finset.notMem_erase x σ\n  · exact Finset.insert_erase hx_in_σ\n  · rfl\n\n-- Lemma 7",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.Dominant_of_subset",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderCollisionDoorValid.lean",
+   "proved_at": 1791463446,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.collision_door_valid`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.collision_door_valid",
+      "from": "IndexedLOrder.collision_door_valid",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 1608,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.not_colorful_of_TypedNC",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4872,
+   "informal": "IndexedLOrder.not_colorful_of_TypedNC",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [Inhabited T] [DecidableEq T] in\nlemma IndexedLOrder.not_colorful_of_TypedNC (h1 : isTypedNC c i σ C) : ¬ IST.isColorful c σ C",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [Inhabited T] [DecidableEq T] in\nlemma IndexedLOrder.not_colorful_of_TypedNC (h1 : isTypedNC c i σ C) : ¬ IST.isColorful c σ C := by\n  intro h\n  unfold isTypedNC at h1\n  unfold isColorful at h\n  have h_diff := h1.2\n  have h_ne : σ.image c ≠ C := by\n    intro h_eq\n    rw [←h_eq, Finset.sdiff_self] at h_diff\n    have h_singleton_nonempty : ({i} : Finset I).Nonempty := Finset.singleton_nonempty i\n    rw [←h_diff] at h_singleton_nonempty\n    exact Finset.not_nonempty_empty h_singleton_nonempty\n  exact h_ne h.2",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isColorful",
+    "IndexedLOrder.isTypedNC",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderNotColorfulOfTypedNC.lean",
+   "proved_at": 1791463446,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.not_colorful_of_TypedNC`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.not_colorful_of_TypedNC",
+      "from": "IndexedLOrder.not_colorful_of_TypedNC",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 1252,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "MatrixGame.exists_strategic_game_nash_equilibrium",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "seq": 4873,
+   "informal": "**The strategic-game embedding of a finite matrix game admits a mixed Nash equilibrium.** Combines `MatrixGame.exists_mixed_nash_equilibrium` with the profile-expansion bridge lemmas above.",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen MatrixGame in\nopen Finset BigOperators in\nset_option linter.unusedSectionVars false in\nuniverse u in\nvariable {I J : Type u} [Fintype I] [Fintype J] [Nonempty I] [Nonempty J] in\nvariable (A : MatrixGame I J ℝ) in\nvariable [DecidableEq I] [DecidableEq J] in\ntheorem MatrixGame.exists_strategic_game_nash_equilibrium :\n    ∃ p : EconCSLib.StrategicGame.MixedProfile A.toStrategicGame,\n      EconCSLib.StrategicGame.IsMixedNashEq A.toStrategicGame p",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen MatrixGame in\nopen Finset BigOperators in\nset_option linter.unusedSectionVars false in\nuniverse u in\nvariable {I J : Type u} [Fintype I] [Fintype J] [Nonempty I] [Nonempty J] in\nvariable (A : MatrixGame I J ℝ) in\nvariable [DecidableEq I] [DecidableEq J] in\n/-- **The strategic-game embedding of a finite matrix game admits a mixed Nash equilibrium.** Combines `MatrixGame.exists_mixed_nash_equilibrium` with the profile-expansion bridge lemmas above. -/\ntheorem MatrixGame.exists_strategic_game_nash_equilibrium :\n    ∃ p : EconCSLib.StrategicGame.MixedProfile A.toStrategicGame,\n      EconCSLib.StrategicGame.IsMixedNashEq A.toStrategicGame p := by\n  classical\n  obtain ⟨xx, yy, hxx, hyy⟩ := A.exists_mixed_nash_equilibrium\n  refine ⟨A.toMixedProfile xx yy, ?_⟩\n  intro who s'\n  -- Manually split on who ∈ {0, 1} so the substitution makes `who` literally 0 or 1.\n  have hcases : who = 0 ∨ who = 1 := by\n    rcases who with ⟨_ | _ | n, hn⟩\n    · left; rfl\n    · right; rfl\n    · omega\n  rcases hcases with rfl | rfl\n  · -- Player 0 (row): deviating to pure s' ∈ I cannot improve.\n    rw [expectedPayoff_toStrategicGame_zero, expectedPayoff_toStrategicGame_zero]\n    have hdev0 : (EconCSLib.StrategicGame.deviateMixed A.toStrategicGame\n                    (A.toMixedProfile xx yy) 0 s') 0\n                = EconCSLib.StrategicGame.pureToMixed s' := by\n      simp only [EconCSLib.StrategicGame.deviateMixed]\n      first\n        | exact Function.update_self ..\n        | exact Function.update_of_ne (by decide) _ _\n    have hdev1 : (EconCSLib.StrategicGame.deviateMixed A.toStrategicGame\n                    (A.toMixedProfile xx yy) 0 s') 1\n                = yy := by\n      simp only [EconCSLib.StrategicGame.deviateMixed]\n      first\n        | exact Function.update_self ..\n        | exact Function.update_of_ne (by decide) _ _\n    rw [hdev0, hdev1, toMixedProfile_zero, toMixedProfile_one]\n    exact hxx (EconCSLib.StrategicGame.pureToMixed s')\n  · -- Player 1 (column): deviating to pure s' ∈ J cannot improve player 1's payoff.\n    rw [expectedPayoff_toStrategicGame_one, expectedPayoff_toStrategicGame_one]\n    have hdev0 : (EconCSLib.StrategicGame.deviateMixed A.toStrategicGame\n                    (A.toMixedProfile xx yy) 1 s') 0\n                = xx := by\n      simp only [EconCSLib.StrategicGame.deviateMixed]\n      first\n        | exact Function.update_self ..\n        | exact Function.update_of_ne (by decide) _ _\n    have hdev1 : (EconCSLib.StrategicGame.deviateMixed A.toStrategicGame\n                    (A.toMixedProfile xx yy) 1 s') 1\n                = EconCSLib.StrategicGame.pureToMixed s' := by\n      simp only [EconCSLib.StrategicGame.deviateMixed]\n      first\n        | exact Function.update_self ..\n        | exact Function.update_of_ne (by decide) _ _\n    rw [hdev0, hdev1, toMixedProfile_zero, toMixedProfile_one]\n    have h := hyy (EconCSLib.StrategicGame.pureToMixed s')\n    linarith",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "MatrixGame",
+    "EconCSLib.StrategicGame.MixedProfile",
+    "MatrixGame.toStrategicGame",
+    "MatrixGame.instFintypeStrategyFinOfNatNatToStrategicGame",
+    "EconCSLib.StrategicGame.IsMixedNashEq",
+    "EconCSLib.StrategicGame",
+    "MatrixGame.instDecidableEqStrategyFinOfNatNatToStrategicGame",
+    "MatrixGame.IsMixedNashEq",
+    "MatrixGame.exists_mixed_nash_equilibrium",
+    "MatrixGame.E",
+    "MatrixGame.toMixedProfile",
+    "EconCSLib.StrategicGame.expectedPayoff",
+    "EconCSLib.StrategicGame.deviateMixed",
+    "MatrixGame.expectedPayoff_toStrategicGame_zero",
+    "EconCSLib.StrategicGame.MixedStrategy",
+    "EconCSLib.StrategicGame.pureToMixed",
+    "MatrixGame.toMixedProfile_zero",
+    "MatrixGame.toMixedProfile_one",
+    "MatrixGame.expectedPayoff_toStrategicGame_one",
+    "EconCSLib.StrategicGame.Profile.deviate_self",
+    "EconCSLib.StrategicGame.Profile.deviate_same",
+    "EconCSLib.StrategicGame.Profile.deviate_of_ne",
+    "EconCSLib.StrategicGame.IsZeroSum.expectedPayoff_add_zero",
+    "EconCSLib.StrategicGame.IsZeroSum.decidable",
+    "MatrixGame.instNonemptyStrategyFinOfNatNatToStrategicGame",
+    "StrategicGame"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MatrixGameExistsStrategicGameNashEquilibrium.lean",
+   "proved_at": 1791463446,
+   "provenance": "literature",
+   "citation": "EconCSLib, `MatrixGame.exists_strategic_game_nash_equilibrium`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/GameTheory/StrategicGame/ZeroSum/MatrixGameNash.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/GameTheory/StrategicGame/ZeroSum/MatrixGameNash.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "MatrixGame.exists_strategic_game_nash_equilibrium",
+      "from": "MatrixGame.exists_strategic_game_nash_equilibrium",
+      "path": "EconCSLib/GameTheory/StrategicGame/ZeroSum/MatrixGameNash.lean",
+      "line": 619,
+      "status": "adapted",
+      "diff": "--- EconCSLib/GameTheory/StrategicGame/ZeroSum/MatrixGameNash.lean:619 (MatrixGame.exists_strategic_game_nash_equilibrium)\n+++ as compiled here\n@@ -1,7 +1,13 @@\n-/-- **The strategic-game embedding of a finite matrix game admits a mixed Nash\n-    equilibrium.** Combines `MatrixGame.exists_mixed_nash_equilibrium` with the\n-    profile-expansion bridge lemmas above. -/\n-theorem exists_strategic_game_nash_equilibrium :\n-    ∃ p : StrategicGame.MixedProfile A.toStrategicGame,\n-      StrategicGame.IsMixedNashEq A.toStrategicGame p := by\n+set_option autoImplicit true in\n+set_option relaxedAutoImplicit true in\n+open MatrixGame in\n+open Finset BigOperators in\n+set_option linter.unusedSectionVars false in\n+universe u in\n+variable {I J : Type u} [Fintype I] [Fintype J] [Nonempty I] [Nonempty J] in\n+variable (A : MatrixGame I J ℝ) in\n+variable [DecidableEq I] [DecidableEq J] in\n+theorem MatrixGame.exists_strategic_game_nash_equilibrium :\n+    ∃ p : EconCSLib.StrategicGame.MixedProfile A.toStrategicGame,\n+      EconCSLib.StrategicGame.IsMixedNashEq A.toStrategicGame p := by\n   classical\n@@ -19,24 +25,36 @@\n     rw [expectedPayoff_toStrategicGame_zero, expectedPayoff_toStrategicGame_zero]\n-    have hdev0 : (StrategicGame.deviateMixed A.toStrategicGame\n+    have hdev0 : (EconCSLib.StrategicGame.deviateMixed A.toStrategicGame\n                     (A.toMixedProfile xx yy) 0 s') 0\n-                = StrategicGame.pureToMixed s' := by\n-      simp [StrategicGame.deviateMixed, Function.update]\n-    have hdev1 : (StrategicGame.deviateMixed A.toStrategicGame\n+                = EconCSLib.StrategicGame.pureToMixed s' := by\n+      simp only [EconCSLib.StrategicGame.deviateMixed]\n+      first\n+        | exact Function.update_self ..\n+        | exact Function.update_of_ne (by decide) _ _\n+    have hdev1 : (EconCSLib.StrategicGame.deviateMixed A.toStrategicGame\n                     (A.toMixedProfile xx yy) 0 s') 1\n                 = yy := by\n-      simp [StrategicGame.deviateMixed, Function.update]\n+      simp only [EconCSLib.StrategicGame.deviateMixed]\n+      first\n+        | exact Function.update_self ..\n+        | exact Function.update_of_ne (by decide) _ _\n     rw [hdev0, hdev1, toMixedProfile_zero, toMixedProfile_one]\n-    exact hxx (StrategicGame.pureToMixed s')\n+    exact hxx (EconCSLib.StrategicGame.pureToMixed s')\n   · -- Player 1 (column): deviating to pure s' ∈ J cannot improve player 1's payoff.\n     rw [expectedPayoff_toStrategicGame_one, expectedPayoff_toStrategicGame_one]\n-    have hdev0 : (StrategicGame.deviateMixed A.toStrategicGame\n+    have hdev0 : (EconCSLib.StrategicGame.deviateMixed A.toStrategicGame\n                     (A.toMixedProfile xx yy) 1 s') 0\n                 = xx := by\n-      simp [StrategicGame.deviateMixed, Function.update]\n-    have hdev1 : (StrategicGame.deviateMixed A.toStrategicGame\n+      simp only [EconCSLib.StrategicGame.deviateMixed]\n+      first\n+        | exact Function.update_self ..\n+        | exact Function.update_of_ne (by decide) _ _\n+    have hdev1 : (EconCSLib.StrategicGame.deviateMixed A.toStrategicGame\n                     (A.toMixedProfile xx yy) 1 s') 1\n-                = StrategicGame.pureToMixed s' := by\n-      simp [StrategicGame.deviateMixed, Function.update]\n+                = EconCSLib.StrategicGame.pureToMixed s' := by\n+      simp only [EconCSLib.StrategicGame.deviateMixed]\n+      first\n+        | exact Function.update_self ..\n+        | exact Function.update_of_ne (by decide) _ _\n     rw [hdev0, hdev1, toMixedProfile_zero, toMixedProfile_one]\n-    have h := hyy (StrategicGame.pureToMixed s')\n+    have h := hyy (EconCSLib.StrategicGame.pureToMixed s')\n     linarith"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.empty_Dominant",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4874,
+   "informal": "IndexedLOrder.empty_Dominant",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nomit [Inhabited T] in\nlemma IndexedLOrder.empty_Dominant (h : D.Nonempty) : IST.isDominant Finset.empty D",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nomit [Inhabited T] in\nlemma IndexedLOrder.empty_Dominant (h : D.Nonempty) : IST.isDominant Finset.empty D := by\n  intro y\n  obtain ⟨j,hj⟩ := h\n  use j\n  constructor\n  · exact hj\n  · intro x hx\n    contradiction",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDominant",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderEmptyDominant.lean",
+   "proved_at": 1791463446,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.empty_Dominant`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.empty_Dominant",
+      "from": "IndexedLOrder.empty_Dominant",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 240,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.isCell_of_door",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4875,
+   "informal": "IndexedLOrder.isCell_of_door",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T] in\nlemma IndexedLOrder.isCell_of_door (h1 : isDoorof τ D σ C) : IST.isCell τ D",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T] in\nlemma IndexedLOrder.isCell_of_door (h1 : isDoorof τ D σ C) : IST.isCell τ D := by\n  cases h1\n  · rename_i h0 _ j h1 h3 h4\n    rw [h4]\n    exact IST.Dominant_of_subset _ _ C (by simp [<-h3]) h0\n  · rename_i h0 _ j h1 h2' h3\n    rw [h2', h3]\n    exact IST.Dominant_of_supset _ _ _ (Finset.subset_insert j C) h0",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.Dominant_of_subset",
+    "IndexedLOrder.Dominant_of_supset",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsCellOfDoor.lean",
+   "proved_at": 1791463447,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.isCell_of_door`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.isCell_of_door",
+      "from": "IndexedLOrder.isCell_of_door",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 279,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.M_set",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4876,
+   "informal": "IndexedLOrder.M_set",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\ndef IndexedLOrder.M_set (τ : Finset T) (D : Finset I) (i : I) (h_nonempty : τ.Nonempty) : Set T",
+   "source": "set_option quotPrecheck false\nset_option hygiene false\nlocal notation  lhs \"<[\" i \"]\" rhs => (IST i).lt lhs rhs\nlocal notation  lhs \"≤[\" i \"]\" rhs => (IST i).le lhs rhs\nset_option hygiene true\n\nset_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\ndef IndexedLOrder.M_set (τ : Finset T) (D : Finset I) (i : I) (h_nonempty : τ.Nonempty) : Set T :=\n  {y : T | ∀ k ∈ D, k ≠ i → mini h_nonempty k <[k] y}\n\n-- Predicate for being the maximal element of M_i with respect to <_i",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder",
+    "IndexedLOrder.mini"
+   ],
+   "used_by": [
+    "IndexedLOrder.maximal_element_unique",
+    "IndexedLOrder.M_sets_disjoint",
+    "IndexedLOrder.m_element_is_maximal",
+    "IndexedLOrder.m_element",
+    "IndexedLOrder.is_maximal_in_M_set",
+    "IndexedLOrder.m_element_not_in_tau"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderMSet.lean",
+   "proved_at": 1791463447,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.M_set`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.M_set",
+      "from": "IndexedLOrder.M_set",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 360,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.is_maximal_in_M_set",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4877,
+   "informal": "IndexedLOrder.is_maximal_in_M_set",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\ndef IndexedLOrder.is_maximal_in_M_set (τ : Finset T) (D : Finset I) (i : I) (h_nonempty : τ.Nonempty) (x : T) : Prop",
+   "source": "set_option quotPrecheck false\nset_option hygiene false\nlocal notation  lhs \"<[\" i \"]\" rhs => (IST i).lt lhs rhs\nlocal notation  lhs \"≤[\" i \"]\" rhs => (IST i).le lhs rhs\nset_option hygiene true\n\nset_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\ndef IndexedLOrder.is_maximal_in_M_set (τ : Finset T) (D : Finset I) (i : I) (h_nonempty : τ.Nonempty) (x : T) : Prop :=\n  x ∈ M_set τ D i h_nonempty ∧ ∀ y ∈ M_set τ D i h_nonempty, y ≤[i] x\n\n-- The maximal element m_i when M_i is nonempty",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.M_set",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.maximal_element_unique",
+    "IndexedLOrder.m_element_is_maximal",
+    "IndexedLOrder.m_element_not_in_tau"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderIsMaximalInMSet.lean",
+   "proved_at": 1791463447,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.is_maximal_in_M_set`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.is_maximal_in_M_set",
+      "from": "IndexedLOrder.is_maximal_in_M_set",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 364,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.m_element",
+   "kind": "def",
+   "is_def": true,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4878,
+   "informal": "IndexedLOrder.m_element",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nnoncomputable def IndexedLOrder.m_element [Fintype T] (τ : Finset T) (D : Finset I) (i : I) (h_nonempty : τ.Nonempty)\n    (h : (M_set τ D i h_nonempty).Nonempty) : T",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nnoncomputable def IndexedLOrder.m_element [Fintype T] (τ : Finset T) (D : Finset I) (i : I) (h_nonempty : τ.Nonempty)\n    (h : (M_set τ D i h_nonempty).Nonempty) : T :=\n  @Finset.max' _ (IST i) (M_set τ D i h_nonempty).toFinset (Set.toFinset_nonempty.mpr h)\n\n-- Theorem: m_element is indeed the maximal element",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "IndexedLOrder.M_set",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.maximal_element_unique",
+    "IndexedLOrder.m_element_is_maximal",
+    "IndexedLOrder.m_element_not_in_tau"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderMElement.lean",
+   "proved_at": 1791463447,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.m_element`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.m_element",
+      "from": "IndexedLOrder.m_element",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 368,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.m_element_is_maximal",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4879,
+   "informal": "IndexedLOrder.m_element_is_maximal",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit[Inhabited T][DecidableEq T][DecidableEq I] in\ntheorem IndexedLOrder.m_element_is_maximal [Fintype T] (τ : Finset T) (D : Finset I) (i : I) (h_nonempty : τ.Nonempty)\n    (h : (M_set τ D i h_nonempty).Nonempty) :\n    is_maximal_in_M_set τ D i h_nonempty (m_element τ D i h_nonempty h)",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit[Inhabited T][DecidableEq T][DecidableEq I] in\ntheorem IndexedLOrder.m_element_is_maximal [Fintype T] (τ : Finset T) (D : Finset I) (i : I) (h_nonempty : τ.Nonempty)\n    (h : (M_set τ D i h_nonempty).Nonempty) :\n    is_maximal_in_M_set τ D i h_nonempty (m_element τ D i h_nonempty h) := by\n  unfold is_maximal_in_M_set m_element\n  let s_finset := (M_set τ D i h_nonempty).toFinset\n  have h_nonempty_finset: s_finset.Nonempty := Set.toFinset_nonempty.mpr h\n  constructor\n  · rw [←Set.mem_toFinset]\n    exact @Finset.max'_mem _ (IST i) s_finset h_nonempty_finset\n  · intros y hy\n    rw [←Set.mem_toFinset] at hy\n    apply @Finset.le_max' _ (IST i)\n    exact hy\n\n-- Sublemma 3.1: τ is dominant with respect to D - i iff i ∈ {a,b} and M_i = ∅",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.M_set",
+    "IndexedLOrder.m_element",
+    "IndexedLOrder.is_maximal_in_M_set",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [
+    "IndexedLOrder.maximal_element_unique",
+    "IndexedLOrder.m_element_not_in_tau"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderMElementIsMaximal.lean",
+   "proved_at": 1791463448,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.m_element_is_maximal`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.m_element_is_maximal",
+      "from": "IndexedLOrder.m_element_is_maximal",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 374,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.M_sets_disjoint",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4880,
+   "informal": "IndexedLOrder.M_sets_disjoint",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T][DecidableEq T] in\nlemma IndexedLOrder.M_sets_disjoint [Fintype T] (τ : Finset T) (D : Finset I) (a b : I)\n    (h_nonempty : τ.Nonempty) (h_door : IST.isDoor τ D)\n    (ha : a ∈ D) (hb : b ∈ D) (hab : a ≠ b)\n    (h_eq : mini h_nonempty a = mini h_nonempty b) :\n    M_set τ D a h_nonempty ∩ M_set τ D b h_nonempty = ∅",
+   "source": "set_option quotPrecheck false\nset_option hygiene false\nlocal notation  lhs \"<[\" i \"]\" rhs => (IST i).lt lhs rhs\nlocal notation  lhs \"≤[\" i \"]\" rhs => (IST i).le lhs rhs\nset_option hygiene true\n\nset_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T][DecidableEq T] in\nlemma IndexedLOrder.M_sets_disjoint [Fintype T] (τ : Finset T) (D : Finset I) (a b : I)\n    (h_nonempty : τ.Nonempty) (h_door : IST.isDoor τ D)\n    (ha : a ∈ D) (hb : b ∈ D) (hab : a ≠ b)\n    (h_eq : mini h_nonempty a = mini h_nonempty b) :\n    M_set τ D a h_nonempty ∩ M_set τ D b h_nonempty = ∅ := by\n  ext y\n  simp only [Set.mem_inter_iff, Set.mem_empty_iff_false]\n  constructor\n  · intro ⟨h_in_a, h_in_b⟩\n    unfold M_set at h_in_a h_in_b\n    have h_b_ne_a : b ≠ a := hab.symm\n    have h_mini_b_lt_y : mini h_nonempty b <[b] y := h_in_a b hb h_b_ne_a\n    have h_mini_a_lt_y : mini h_nonempty a <[a] y := h_in_b a ha hab\n    rw [h_eq] at h_mini_a_lt_y\n    obtain ⟨k, hk_in_D, hk_dom⟩ := h_door.1 y\n    have h_mini_b_mem : mini h_nonempty b ∈ τ := by\n      unfold mini\n      exact @Finset.min'_mem _ (IST b) _ h_nonempty\n    have h_y_le_mini_b : y ≤[k] mini h_nonempty b := hk_dom (mini h_nonempty b) h_mini_b_mem\n    by_cases hk_eq_a : k = a\n    · subst hk_eq_a\n      letI := IST k\n      exact not_le.mpr h_mini_a_lt_y h_y_le_mini_b\n    · by_cases hk_eq_b : k = b\n      · subst hk_eq_b\n        letI := IST k\n        exact not_le.mpr h_mini_b_lt_y h_y_le_mini_b\n      · have h_mini_k_lt_y : mini h_nonempty k <[k] y := h_in_a k hk_in_D hk_eq_a\n        have h_mini_k_mem : mini h_nonempty k ∈ τ := by\n          unfold mini\n          exact @Finset.min'_mem _ (IST k) _ h_nonempty\n        have h_y_le_mini_k : y ≤[k] mini h_nonempty k := hk_dom (mini h_nonempty k) h_mini_k_mem\n        letI := IST k\n        exact not_le.mpr h_mini_k_lt_y h_y_le_mini_k\n  · intro h\n    exact False.elim h",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.M_set",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "IndexedLOrder.mini",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderMSetsDisjoint.lean",
+   "proved_at": 1791463448,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.M_sets_disjoint`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.M_sets_disjoint",
+      "from": "IndexedLOrder.M_sets_disjoint",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 670,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.m_element_not_in_tau",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4881,
+   "informal": "IndexedLOrder.m_element_not_in_tau",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T][DecidableEq T] in\nlemma IndexedLOrder.m_element_not_in_tau [Fintype T] (τ : Finset T) (D : Finset I) (i a b : I)\n    (h_door : IST.isDoor τ D) (h_nonempty : τ.Nonempty)\n    (ha_mem : a ∈ D) (hb_mem : b ∈ D) (hab : a ≠ b)\n    (h_eq_mini : mini h_nonempty a = mini h_nonempty b)\n    (h_M_nonempty : (M_set τ D i h_nonempty).Nonempty)\n    (h_i_is : i = a ∨ i = b) :\n    m_element τ D i h_nonempty h_M_nonempty ∉ τ",
+   "source": "set_option quotPrecheck false\nset_option hygiene false\nlocal notation  lhs \"<[\" i \"]\" rhs => (IST i).lt lhs rhs\nlocal notation  lhs \"≤[\" i \"]\" rhs => (IST i).le lhs rhs\nset_option hygiene true\n\nset_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T][DecidableEq T] in\nlemma IndexedLOrder.m_element_not_in_tau [Fintype T] (τ : Finset T) (D : Finset I) (i a b : I)\n    (h_door : IST.isDoor τ D) (h_nonempty : τ.Nonempty)\n    (ha_mem : a ∈ D) (hb_mem : b ∈ D) (hab : a ≠ b)\n    (h_eq_mini : mini h_nonempty a = mini h_nonempty b)\n    (h_M_nonempty : (M_set τ D i h_nonempty).Nonempty)\n    (h_i_is : i = a ∨ i = b) :\n    m_element τ D i h_nonempty h_M_nonempty ∉ τ := by\n  let m_i := m_element τ D i h_nonempty h_M_nonempty\n  have h_max : is_maximal_in_M_set τ D i h_nonempty m_i :=\n    m_element_is_maximal τ D i h_nonempty h_M_nonempty\n  intro h_m_in_tau\n  obtain ⟨k, hk_mem, hk_dom⟩ := h_door.1 m_i\n  by_cases hk_eq_i : k = i\n  · subst hk_eq_i\n    have h_m_le_mini : m_i ≤[k] mini h_nonempty k := hk_dom (mini h_nonempty k) (by\n      unfold mini\n      exact @Finset.min'_mem _ (IST k) _ h_nonempty)\n    have h_m_eq_mini : m_i = mini h_nonempty k := by\n      letI := IST k\n      have h_mini_le_m : mini h_nonempty k ≤[k] m_i := Finset.min'_le τ m_i h_m_in_tau\n      exact le_antisymm h_m_le_mini h_mini_le_m\n    have h_m_in_M : m_i ∈ M_set τ D k h_nonempty := h_max.1\n    unfold M_set at h_m_in_M\n    cases h_i_is with\n    | inl hi_eq_a =>\n      subst hi_eq_a\n      have h_mini_b_lt_m : mini h_nonempty b <[b] m_i := h_m_in_M b hb_mem hab.symm\n      rw [h_m_eq_mini, h_eq_mini] at h_mini_b_lt_m\n      letI := IST b\n      exact lt_irrefl (mini h_nonempty b) h_mini_b_lt_m\n    | inr hi_eq_b =>\n      subst hi_eq_b\n      have h_mini_a_lt_m : mini h_nonempty a <[a] m_i := h_m_in_M a ha_mem hab\n      rw [h_m_eq_mini, ← h_eq_mini] at h_mini_a_lt_m\n      letI := IST a\n      exact lt_irrefl (mini h_nonempty a) h_mini_a_lt_m\n  · have h_m_in_M : m_i ∈ M_set τ D i h_nonempty := h_max.1\n    unfold M_set at h_m_in_M\n    have h_mini_k_lt_m : mini h_nonempty k <[k] m_i := h_m_in_M k hk_mem hk_eq_i\n    have h_m_le_mini_k : m_i ≤[k] mini h_nonempty k := hk_dom (mini h_nonempty k) (by\n      unfold mini\n      exact @Finset.min'_mem _ (IST k) _ h_nonempty)\n    letI := IST k\n    exact not_le.mpr h_mini_k_lt_m h_m_le_mini_k",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoor",
+    "IndexedLOrder.M_set",
+    "IndexedLOrder.m_element_is_maximal",
+    "IndexedLOrder.m_element",
+    "IndexedLOrder.is_maximal_in_M_set",
+    "IndexedLOrder.isCell",
+    "IndexedLOrder",
+    "IndexedLOrder.mini",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderMElementNotInTau.lean",
+   "proved_at": 1791463448,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.m_element_not_in_tau`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.m_element_not_in_tau",
+      "from": "IndexedLOrder.m_element_not_in_tau",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 708,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.maximal_element_unique",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4882,
+   "informal": "IndexedLOrder.maximal_element_unique",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T] [DecidableEq T] [DecidableEq I] in\nlemma IndexedLOrder.maximal_element_unique [Fintype T] (τ : Finset T) (D : Finset I) (i : I)\n    (h_nonempty : τ.Nonempty) (h_M_nonempty : (M_set τ D i h_nonempty).Nonempty)\n    (x : T) (h_x_max : is_maximal_in_M_set τ D i h_nonempty x) :\n    x = m_element τ D i h_nonempty h_M_nonempty",
+   "source": "set_option quotPrecheck false\nset_option hygiene false\nlocal notation  lhs \"<[\" i \"]\" rhs => (IST i).lt lhs rhs\nlocal notation  lhs \"≤[\" i \"]\" rhs => (IST i).le lhs rhs\nset_option hygiene true\n\nset_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nomit [Inhabited T] [DecidableEq T] [DecidableEq I] in\nlemma IndexedLOrder.maximal_element_unique [Fintype T] (τ : Finset T) (D : Finset I) (i : I)\n    (h_nonempty : τ.Nonempty) (h_M_nonempty : (M_set τ D i h_nonempty).Nonempty)\n    (x : T) (h_x_max : is_maximal_in_M_set τ D i h_nonempty x) :\n    x = m_element τ D i h_nonempty h_M_nonempty := by\n  let m_i := m_element τ D i h_nonempty h_M_nonempty\n  have h_mi_max : is_maximal_in_M_set τ D i h_nonempty m_i :=\n    m_element_is_maximal τ D i h_nonempty h_M_nonempty\n  letI := IST i\n  have h_x_in_M : x ∈ M_set τ D i h_nonempty := h_x_max.1\n  have h_mi_in_M : m_i ∈ M_set τ D i h_nonempty := h_mi_max.1\n  have h_x_le_mi : x ≤[i] m_i := h_mi_max.2 x h_x_in_M\n  have h_mi_le_x : m_i ≤[i] x := h_x_max.2 m_i h_mi_in_M\n  exact le_antisymm h_x_le_mi h_mi_le_x",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.M_set",
+    "IndexedLOrder.m_element_is_maximal",
+    "IndexedLOrder.m_element",
+    "IndexedLOrder.is_maximal_in_M_set",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderMaximalElementUnique.lean",
+   "proved_at": 1791463448,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.maximal_element_unique`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.maximal_element_unique",
+      "from": "IndexedLOrder.maximal_element_unique",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 786,
+      "status": "verbatim"
+     }
+    ]
+   },
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "IndexedLOrder.NCtype_of_door",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "general_equilibrium",
+   "domain": "game_theory_economics",
+   "seq": 4883,
+   "informal": "IndexedLOrder.NCtype_of_door",
+   "statement": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [Inhabited T] in\nlemma IndexedLOrder.NCtype_of_door (h1 : isTypedNC c i τ D) (_ : isDoorof τ D σ C) (_ : isTypedNC c i σ C) : isTypedNC c i τ D",
+   "source": "set_option autoImplicit true in\nset_option relaxedAutoImplicit true in\nopen IndexedLOrder in\nopen Classical in\nvariable {T : Type*} [Inhabited T] in\nvariable {I : Type*} in\nvariable [IST : IndexedLOrder I T] in\nset_option quotPrecheck false in\nvariable (σ : Finset T) (C : Finset I) in\nvariable [DecidableEq T] [DecidableEq I] in\nopen Classical in\nvariable (c : T → I) (σ : Finset T) (C : Finset I) in\nvariable {c σ C} in\nomit [Inhabited T] in\nlemma IndexedLOrder.NCtype_of_door (h1 : isTypedNC c i τ D) (_ : isDoorof τ D σ C) (_ : isTypedNC c i σ C) : isTypedNC c i τ D := h1",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "IndexedLOrder.isDoorof",
+    "IndexedLOrder.isTypedNC",
+    "IndexedLOrder",
+    "instFunLikeIndexedLOrderLinearOrder"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IndexedLOrderNCtypeOfDoor.lean",
+   "proved_at": 1791463449,
+   "provenance": "literature",
+   "citation": "EconCSLib, `IndexedLOrder.NCtype_of_door`",
+   "lean_from": {
+    "repo": "https://github.com/gametheoryinlean/EconCSLib",
+    "commit": "1a88f809b538365c89ae7b3d3fb53a20f63f3951",
+    "paths": [
+     "EconCSLib/Math/FixedPoint/Scarf.lean"
+    ],
+    "url": "https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/Math/FixedPoint/Scarf.lean",
+    "authors": "xbei (from the file's git history)",
+    "copyright": "Copyright (c) 2026 EconCSLib contributors. All rights reserved.",
+    "license": "Apache-2.0",
+    "toolchain": "leanprover/lean4:v4.30.0",
+    "compiled_against": "leanprover/lean4:v4.33.1, Mathlib v4.33.1",
+    "imported": "2026-10-08",
+    "decls": [
+     {
+      "name": "IndexedLOrder.NCtype_of_door",
+      "from": "IndexedLOrder.NCtype_of_door",
+      "path": "EconCSLib/Math/FixedPoint/Scarf.lean",
+      "line": 1403,
+      "status": "verbatim"
      }
     ]
    },

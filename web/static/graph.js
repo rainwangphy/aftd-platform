@@ -91,10 +91,21 @@
     for (const n of V) per.set(n.dom, (per.get(n.dom) || 0) + 1);
     const doms = [...per.keys()].sort((a, b) => a - b);
     const R = doms.length > 1 ? 11 * Math.sqrt(V.length) : 0;
+    // The domains sit on an ellipse shaped like the stage, each with arc in
+    // proportion to its size, the first centred on the left (on the top of a
+    // tall stage): two big domains then lie side by side across a wide
+    // screen instead of one above the other in its middle third.
+    const box = stage.getBoundingClientRect();
+    const aspect = box.width && box.height ? Math.min(2.4, Math.max(0.5, box.width / box.height)) : 1.5;
+    const rx = R * Math.sqrt(aspect), ry = R / Math.sqrt(aspect);
+    const wt = doms.map(d => Math.sqrt(per.get(d)));
+    const sum = wt.reduce((a, b) => a + b, 0);
+    let t = (aspect >= 1 ? Math.PI : -Math.PI / 2) - (Math.PI * wt[0]) / sum;
     centres = [];
     doms.forEach((d, k) => {
-      const t = -Math.PI / 2 + (2 * Math.PI * k) / doms.length;
-      centres[d] = {x: R * Math.cos(t), y: R * Math.sin(t), n: per.get(d)};
+      const mid = t + (Math.PI * wt[k]) / sum;
+      centres[d] = {x: rx * Math.cos(mid), y: ry * Math.sin(mid), n: per.get(d)};
+      t += (2 * Math.PI * wt[k]) / sum;
     });
     for (const n of V) {
       if (n.placed) continue;

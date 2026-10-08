@@ -857,12 +857,17 @@ def stat(value: str, label: str, sub: str = "") -> str:
     )
 
 
+def count_word(n: int) -> str:
+    words = "Zero One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve".split()
+    return words[n] if n < len(words) else f"{n:,}"
+
+
 def render_home(s: Site) -> str:
     root = ""
     t = s.kb["totals"]
     doms = s.kb["domains"]
     n_topics = sum(len(d["topics"]) for d in doms)
-    target = sum(tp["target"] for d in doms for tp in d["topics"])
+    awaiting = sum(1 for n in s.open if n.get("kind") == "theorem")
     opened = sum(1 for d in doms if any(tp["proved"] for tp in d["topics"]))
     prov = provenance_counts(s)
     per = t["spend"] / t["declarations"] if t["declarations"] else 0.0
@@ -876,7 +881,7 @@ def render_home(s: Site) -> str:
     else:
         probs = (
             '<div class="card empty-card"><p class="prose">No community problems '
-            "yet. Pose the first one: a statement from any of the six domains, "
+            "yet. Pose the first one: a statement from any of the domains, "
             "with a reference if you have one.</p>"
             f'<a class="btn primary" href="{e(s.new_problem())}">Submit a problem</a></div>'
         )
@@ -908,8 +913,6 @@ def render_home(s: Site) -> str:
     dom_cards = []
     for d in doms:
         proved = sum(tp["proved"] for tp in d["topics"])
-        tgt = sum(tp["target"] for tp in d["topics"]) or 1
-        pct = min(100, 100 * proved / tgt)
         live = proved > 0
         tag = (
             '<span class="badge ok">open</span>'
@@ -925,8 +928,7 @@ def render_home(s: Site) -> str:
             f'<article class="dom{" live" if live else ""}">'
             f'<div class="dom-top">{tag}</div><h3>{head}</h3>'
             f'<p>{e(clip(d["description"], 150))}</p>'
-            f'<div class="dom-meter"><span style="width:{max(pct, 0.8 if live else 0):.1f}%"></span></div>'
-            f'<p class="dom-n"><strong>{proved}</strong> of {tgt:,} targeted &middot; '
+            f'<p class="dom-n"><strong>{proved:,}</strong> declaration{"s" if proved != 1 else ""} &middot; '
             f'{len(d["topics"])} topics</p></article>'
         )
 
@@ -957,7 +959,7 @@ def render_home(s: Site) -> str:
     {stat(f'{t["declarations"]:,}', "machine-verified declarations",
           f'{t["theorems"]} theorems · {t["definitions"]} definitions')}
     {stat(str(t["topics"]), "topics with results", f"across {opened} of {len(doms)} domains")}
-    {stat(f"{target:,}", "declarations in the curriculum", f"{n_topics} topics, {len(doms)} domains")}
+    {stat(f"{awaiting:,}", "theorems awaiting proof", "stated in Lean, not yet proved")}
     {stat(money(t["spend"], t["currency"]).split(".")[0], "API spend to date",
           f"about {round(per * 100)}¢ per verified declaration" if per else "")}
   </div>
@@ -992,9 +994,8 @@ def render_home(s: Site) -> str:
 
 <section class="wrap band">
   <header class="band-head"><p class="eyebrow">The curriculum</p>
-  <h2>Six theoretical domains</h2>
-  <p class="lead">{opened} are open so far; the rest are waiting on compute, not on
-  code.</p></header>
+  <h2>{count_word(len(doms))} theoretical domains</h2>
+  <p class="lead">{t["declarations"]:,} declarations across {n_topics} topics.</p></header>
   <div class="doms">{"".join(dom_cards)}</div>
 </section>
 
@@ -1120,15 +1121,7 @@ def render_kb(s: Site) -> str:
         for tname in sorted(topics, key=lambda t: -len(topics[t])):
             ds = topics[tname]
             n_proved = sum(1 for d in ds if not d.get("_open"))
-            target = (s.topics.get(tname) or {}).get("target") or 0
-            bar = ""
-            if target:
-                pct = min(100, round(100 * n_proved / target))
-                bar = (
-                    f'<span class="meter" title="{n_proved} of a target of {target}">'
-                    f'<span style="width:{pct}%"></span></span>'
-                    f'<span class="tnum">{n_proved} of {target} targeted</span>'
-                )
+            bar = f'<span class="tnum">{n_proved:,} proved</span>'
             blocks.append(
                 f'<section class="topic" id="t-{e(tname)}"><header class="thead">'
                 f"<h3>{e(s.topic_title(tname))}</h3>{bar}</header>"

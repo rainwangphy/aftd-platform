@@ -3,6 +3,59 @@
  "entries": [
   {
    "date": "2026-10-08",
+   "kind": "daily",
+   "title": "Daily reading: 27 proved, 4 open",
+   "body": "The Proposer read 10 new paper(s), listed 16 open problem(s), and stated 4 of them in Lean, and posed 1 more from what the knowledgebase already holds (13 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 27 theorem(s); 4 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nFormalized. `matrix_det_eq_permanent_of_char_two` (Valiant 1979, 'Completeness classes in algebra', STOC 1979, Sec. 3): For every commutative ring R of characteristic 2 and any square matrix M over R indexed by a finite type n with decidable equality, the determinant of M equals the permanent of M.\n\nProved. `matrix_permanent_mul_of_char_two`: For every commutative ring R of characteristic 2 and any square matrices A and B over R indexed by a finite type n with decidable equality, the permanent of the matrix product A * B equals the product of the permanent of A and the permanent of B.\n\nFormalized. `mv_polynomial_eq_zero_of_eval_eq_zero_on_finset` (Shpilka & Yehudayoff 2010, Lemma 2.1; Schwartz 1980; Zippel 1979): Let R be an integral domain and p be a multivariate polynomial in n variables over R. If S is a finite subset of R with cardinality strictly greater than the total degree of p, and p evaluates to zero at every point of the product S^n, then p is the zero…\n\nProved. `matrix3_tensor_rank_not_le_iff_ge_succ`: For any commutative semiring R and any natural number r, the tensor rank of 3x3 matrix multiplication over R is not at most r if and only if every valid triad decomposition of 3x3 matrix multiplication over R has length at least r + 1.\n\nFormalized. `condorcet_paradox` (Condorcet 1785, Essai sur l'application de l'analyse à la probabilité des décisions rendues à la pluralité des voix): The Condorcet paradox: there exists a preference profile of 3 voters over 3 alternatives, where each voter has a strict linear order of preferences, such that no alternative is a Condorcet winner.\n\nProved. `is_condorcet_winning_set_mono`: Condorcet winning sets are upward closed: if S is a Condorcet winning set and S is a subset of T, then T is also a Condorcet winning set.\n\nProved. `condorcet_dimension_le_two_of_le_three`: Every election with at most three candidates and at least one voter has a Condorcet winning set of at most two candidates.\n\nProved. `matrix_permanent_from_blocks_zero_one_two`: For any commutative semiring R and any square matrices A over m and D over n, the permanent of the block matrix with A in the top-left, 0 in the top-right, C in the bottom-left, and D in the bottom-right equals the permanent of A times the permanent of D.\n\nProved. `droop_monroe_satisfies_droop_jr`: Every committee W of size k selected by the Droop Monroe rule satisfies Droop-JR: every voter group S of size strictly greater than n/(k+1) that jointly approves some candidate contains a voter who approves at least one candidate in W.\n\nProved. `matrix_permanent_succ_row_zero`: For any commutative semiring R, any natural number n, and any square matrix A of size (n+1) x (n+1) over R, the permanent of A equals the sum over all columns j : Fin (n+1) of A 0 j times the permanent of the submatrix obtained by deleting row 0 and column…\n\nProved. `matrix_permanent_succ_row`: For any commutative semiring R, any natural number n, any square matrix A of size (n+1) x (n+1) over R, and any row index i : Fin (n+1), the permanent of A equals the sum over all columns j : Fin (n+1) of A i j times the permanent of the submatrix obtained…\n\nProved. `card_piFinset_filter_apply_mem`: For any type α with decidable equality, any positive integer n, any finite subset S of α, any subset T of α with T ⊆ S, and any coordinate index i₀ : Fin n, the cardinality of the set of points in the product S^n whose i₀-th coordinate belongs to T equals…\n\nOpen. `matroid_sbo_common_list_chromatic_eq` (arXiv:2610.07318): Open question (arXiv:2610.07318, Question 3.2): for any two loopless strongly base-orderable matroids M₁, M₂ on a common finite ground set, the common list chromatic number equals the common chromatic number, χ_ℓ(M₁, M₂) = χ(M₁, M₂).\n\nOpen. `matroid_common_list_chromatic_le_add_const` (arXiv:2610.07318): Open question (arXiv:2610.07318, Question 3.1): there is an absolute constant C such that χ_ℓ(M₁, M₂) ≤ χ(M₁, M₂) + C for every pair of loopless matroids on a common finite ground set. (The paper also asks whether C = 1 works; its Theorem 1.1,…\n\nOpen. `tarski_query_complexity_five_le_log_sq` (arXiv:2610.07055): Open question (arXiv:2610.07055, the case k = 5 of the gap left by its Theorems 2 and 3): Tarski(n, 5) = O(log² n), i.e. there is a constant C such that for every n ≥ 2 some deterministic query algorithm finds a fixed point of every monotone map [n]^5 →…\n\nOpen. `matroid_symmetry_gap_lt_eight_seventeenths` (arXiv:2610.07387): Open question (arXiv:2610.07387, after Corollary 3.4 and Appendix A): there is a strongly symmetric instance of non-negative submodular maximization over a matroid — a non-negative submodular f on a finite ground set, a matroid M and a permutation group G…",
+   "declarations": [
+    "matrix_det_eq_permanent_of_char_two",
+    "matrix_permanent_mul_of_char_two",
+    "mv_polynomial_eq_zero_of_eval_eq_zero_on_finset",
+    "matrix3_tensor_rank_not_le_iff_ge_succ",
+    "condorcet_paradox",
+    "is_condorcet_winning_set_mono",
+    "condorcet_dimension_le_two_of_le_three",
+    "matrix_permanent_from_blocks_zero_one_two",
+    "droop_monroe_satisfies_droop_jr",
+    "matrix_permanent_succ_row_zero",
+    "matrix_permanent_succ_row",
+    "card_piFinset_filter_apply_mem",
+    "schwartz_zippel_zero_count_tight",
+    "single_peaked_median_defeats_less",
+    "single_peaked_median_defeats_greater",
+    "matrix_permanent_succ_column",
+    "matrix_permanent_from_blocks_anti_diagonal",
+    "matrix3_tensor_rank_comm_ring_le_of_int",
+    "matrix_permanent_from_blocks_anti_diagonal_of_ne_card",
+    "matroid_sbo_list_colorable_two_of_colorable_two",
+    "matroid_sbo_common_list_colorable_two_of_common_colorable_two",
+    "matroid_common_list_colorable_of_ncard_le",
+    "matroid_common_chromatic_le_list_chromatic",
+    "list_colorable_two_of_two_involutions",
+    "matroid_sbo_reduction_pairs_of_two_indep",
+    "matroid_sbo_common_list_chromatic_eq_of_le_two",
+    "droop_monroe_violates_droop_pjr_plus_of_not_dvd"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.07387",
+     "href": "https://arxiv.org/abs/2610.07387"
+    },
+    {
+     "label": "arXiv:2610.07318",
+     "href": "https://arxiv.org/abs/2610.07318"
+    },
+    {
+     "label": "arXiv:2610.07055",
+     "href": "https://arxiv.org/abs/2610.07055"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-08",
    "kind": "launch",
    "title": "1921 declarations from EconCSLib and CSLib, each compiled here",
    "body": "Two more Lean libraries came in through `aftd import`, under the same checks as TCSlib: each declaration is checked interactively and then built offline with `lake build`, and one that does not compile leaves no trace. Each carries the \"imported Lean\" badge, and its page names the authors, links the file at the commit we read, and gives the license.\n\nEconCSLib, a library of economics and computation, gave 1229 declarations, 603 of them theorems, in nine topics. Among them: von Neumann's minimax theorem for matrix games and the existence of a mixed Nash equilibrium; weak and strong duality of linear programming; Gale–Shapley, with stable matchings closed under join and meet; the revelation principle for Bayesian mechanisms; cut-and-choose is envy-free, and EFX implies EF1; the core of a coalitional game lies within its imputations.\n\nCSLib, the Lean community's computer science library, gave 692 declarations, 296 of them theorems, in nine topics. Among them: Shannon's bound that a perfectly secret scheme needs at least as many keys as messages, and the perfect secrecy of the one-time pad; reconstruction in Shamir's secret sharing; a URM program halts exactly when it is normalizable; the basics of PAC learning (version spaces, shattering, VC dimension, and how sample complexity moves with ε, δ and the class); and the algebra of formal languages and automata.\n\nThese are the libraries' own formalizations, not new results. Our part is compiling them again against our Lean and Mathlib: 1862 declarations compiled unchanged and 66 needed a change, shown on each page. To do this, imports now follow the exact dependency graph Lean reports, carry a library's local notation with the declarations that use it, join mutual definitions, and move a name we already had under the library's namespace.\n\nThis is a first pass. 940 of the 2169 declarations we asked of EconCSLib and 2301 of the 2993 of CSLib did not compile yet, most because something they depend on did not; the causes we found are fixed and a second pass is running. About 500 imported declarations have no docstring upstream, so their description is only the name for now.",

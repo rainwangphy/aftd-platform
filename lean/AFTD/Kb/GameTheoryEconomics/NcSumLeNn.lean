@@ -1,0 +1,45 @@
+import AFTD.Prelude
+import AFTD.Kb.GameTheoryEconomics.GSPreferences
+import AFTD.Kb.GameTheoryEconomics.GSDAState
+import AFTD.Kb.GameTheoryEconomics.JInv
+import AFTD.Kb.GameTheoryEconomics.GSDaRun
+import AFTD.Kb.GameTheoryEconomics.GSFreeMenSet
+import AFTD.Kb.GameTheoryEconomics.GSDaStep
+import AFTD.Kb.GameTheoryEconomics.DaStepNcLeN
+import AFTD.Kb.GameTheoryEconomics.JinvStep
+import AFTD.Kb.GameTheoryEconomics.HoldingInjectiveStep
+
+/-!
+# nc_sum_le_nn
+
+Topic: matching_markets   Node: 6ec9cecd2fd5
+
+Provenance: formalization of a published result. Source: EconCSLib, `nc_sum_le_nn`. Lean proof by xbei (from the file's git history), from https://github.com/gametheoryinlean/EconCSLib/blob/1a88f809b538365c89ae7b3d3fb53a20f63f3951/EconCSLib/MarketDesign/Matching/GaleShapley.lean (Copyright (c) 2026 EconCSLib contributors. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+`∑ nextChoice ≤ n * n` is preserved over `daRun`.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+open List Finset in
+open GS in
+variable {n : ℕ} [NeZero n] in
+/-- `∑ nextChoice ≤ n * n` is preserved over `daRun`. -/
+lemma nc_sum_le_nn (w m : Preferences n) (fuel : ℕ) (s : DAState n)
+    (hnc0 : ∀ i : Fin n, s.nextChoice i ≤ n)
+    (hj : JInv m s)
+    (hinj : ∀ j1 j2 k : Fin n, s.holding j1 = some k → s.holding j2 = some k → j1 = j2)
+    (hsum0 : ∑ i : Fin n, s.nextChoice i ≤ n * n) :
+    ∑ i : Fin n, (daRun w m fuel s).nextChoice i ≤ n * n := by
+  induction fuel generalizing s with
+  | zero   => exact hsum0
+  | succ k ih =>
+      simp only [daRun]; split_ifs with hne
+      · apply ih _ (daStep_nc_le_n w m s hnc0 hj hinj) (jinv_step w m s hj)
+            (holding_injective_step w m s hinj)
+        calc ∑ i : Fin n, (daStep w m s).nextChoice i
+            ≤ ∑ _i : Fin n, n :=
+              Finset.sum_le_sum (fun i _ => daStep_nc_le_n w m s hnc0 hj hinj i)
+          _ = n * n := by
+              simp [Finset.sum_const, Finset.card_univ, Fintype.card_fin, mul_comm]
+      · exact hsum0

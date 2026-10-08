@@ -1,0 +1,43 @@
+import AFTD.Prelude
+import AFTD.Kb.LogicFoundations.CslibLogicCLLProposition
+import AFTD.Kb.LogicFoundations.CslibLogicInferenceSystem
+import AFTD.Kb.LogicFoundations.CslibLogicInferenceSystemDefault
+import AFTD.Kb.LogicFoundations.CslibLogicCLLSequent
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstHasInferenceSystemSequent
+import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionDual
+import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionDualSizeOf
+import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionDualInj
+import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionDualInvolution
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstZeroProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstOneProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstTopProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstBotProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstHasContextProposition
+import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionPositiveDecidable
+import AFTD.Kb.LogicFoundations.CslibLogicCLLPropositionNegativeDecidable
+import AFTD.Kb.LogicFoundations.CslibLogicCLLInstHasHContextSequentProposition
+
+/-!
+# Cslib.Logic.CLL.Proposition.equiv
+
+Topic: proof_theory   Node: ce9e48db8494
+
+Provenance: formalization of a published result. Source: CSLib, `Cslib.Logic.CLL.Proposition.equiv`. Lean proof by Fabrizio Montesi, from https://github.com/leanprover/cslib/blob/3951377e5a3f5772737f11cd62bc5bb6a72f95d1/Cslib/Logics/LinearLogic/CLL/Basic.lean (Copyright (c) 2025 Fabrizio Montesi. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+Two propositions are equivalent if one implies the other and vice versa. Proof-relevant version.
+-/
+
+set_option quotPrecheck false
+open Cslib Cslib.Logic Cslib.Logic.CLL
+@[inherit_doc] local postfix:max "⫠" => Proposition.dual
+open Cslib Cslib.Logic Cslib.Logic.InferenceSystem
+@[inherit_doc] local notation S:90 "⇓" a:90 => InferenceSystem.derivation S a
+open Cslib Cslib.Logic Cslib.Logic.InferenceSystem
+@[inherit_doc] local notation "⇓" a:90 => InferenceSystem.derivation Default a
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+open Cslib.Logic Cslib.Logic.InferenceSystem in
+/-- Two propositions are equivalent if one implies the other and vice versa. Proof-relevant version. -/
+def Cslib.Logic.CLL.Proposition.equiv (a b : Proposition Atom) :=
+  ⇓({a⫠, b} : Sequent Atom) × ⇓({b⫠, a} : Sequent Atom)

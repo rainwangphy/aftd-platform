@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-09T12:49:55Z",
+ "generated": "2026-10-09T12:55:22Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1791550192
+  "last": 1791550323
  },
  "domains": [
   {
@@ -93395,9 +93395,9 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/DroopMonroeViolatesDroopPjrPlusOfNotDvd.lean",
-   "proved_at": 1791456363,
-   "provenance": "original",
-   "citation": "Complements droop_monroe_satisfies_droop_pjr_plus (Droop Monroe satisfies Droop-PJR+ when k + 1 divides n), which settles the entry arXiv:2508.00811 Table 1, note a leaves open; this shows the divisibility hypothesis cannot be dropped. The rule's definitions follow arXiv:2508.00811 (Def. 11, Def. 16). The counterexample was found by the agents' Prover when the statement without divisibility (droop_monroe_satisfies_droop_pjr_plus_general) was refuted.",
+   "proved_at": 1791550323,
+   "provenance": "literature",
+   "citation": "Justified Representation: From Hare to Droop, arXiv:2508.00811, Proposition 4: Droop Monroe does not satisfy Droop-PJR if k + 1 does not divide n, and Droop-PJR+ implies Droop-PJR. The rule's definitions follow arXiv:2508.00811 (Def. 11, Def. 16). This instance (four voters, k = 2) was found by the agents' Prover when it refuted droop_monroe_satisfies_droop_pjr_plus_general.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",

@@ -10,7 +10,7 @@ import AFTD.Kb.GameTheoryEconomics.DroopMonroeScore
 
 Topic: social_choice   Node: 81a5a5c7920c
 
-Provenance: original. Related work: Complements droop_monroe_satisfies_droop_pjr_plus (Droop Monroe satisfies Droop-PJR+ when k + 1 divides n), which settles the entry arXiv:2508.00811 Table 1, note a leaves open; this shows the divisibility hypothesis cannot be dropped. The rule's definitions follow arXiv:2508.00811 (Def. 11, Def. 16). The counterexample was found by the agents' Prover when the statement without divisibility (droop_monroe_satisfies_droop_pjr_plus_general) was refuted.
+Provenance: formalization of a published result. Source: Justified Representation: From Hare to Droop, arXiv:2508.00811, Proposition 4: Droop Monroe does not satisfy Droop-PJR if k + 1 does not divide n, and Droop-PJR+ implies Droop-PJR. The rule's definitions follow arXiv:2508.00811 (Def. 11, Def. 16). This instance (four voters, k = 2) was found by the agents' Prover when it refuted droop_monroe_satisfies_droop_pjr_plus_general.
 
 Without the assumption that k + 1 divides n, the Droop Monroe rule can output a committee violating Droop-PJR+: with n = 4 voters, k = 2 and ballots {1,3}, {1,3}, {3}, {2}, the committee {1, 2} is a Droop Monroe winner (a Droop-valid assignment scores 3, the most possible), but the group of the first three voters (2·4 < 3·3) jointly approves the unelected candidate 3 and collectively approves only one member of the committee.
 -/

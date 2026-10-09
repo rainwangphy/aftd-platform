@@ -2,6 +2,70 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-09",
+   "kind": "daily",
+   "title": "Daily reading: 38 proved, 8 open",
+   "body": "The Proposer read 30 new paper(s), listed 58 open problem(s), and stated 4 of them in Lean, and posed 0 more from what the knowledgebase already holds (41 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 38 theorem(s); 8 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `is_condorcet_winning_set_nonempty`: In an election with at least one voter and at least one candidate, every Condorcet winning set is nonempty.\n\nProved. `graph_matching_num_two_mul`: Twice the matching number of G equals the supremum of twice the edge cardinalities of all matchings in G.\n\nProved. `matching_two_mul_encard_le_card`: For any matching M in a finite graph G, twice its edge cardinality is at most the number of vertices.\n\nProved. `droop_valid_assignment_real_voters_card`: For any Droop-valid Monroe assignment π of n voters to committee size k, the number of voters assigned to a real candidate (not none) is exactly n - n / (k + 1).\n\nFormalized. `single_peaked_median_is_condorcet_winner` (Duncan Black, 'On the Rationale of Group Decision-making', Journal of Political Economy 56(1):23-34 (1948)): Under single-peaked preferences with asymmetric preferences, if an alternative m satisfies that strictly more than half of the voters have peak at least m and strictly more than half have peak at most m, then m is a Condorcet winner.\n\nProved. `finset_has_no_unique_sums_univ_zmod_three`: The whole of Z/3Z has no unique sums.\n\nProved. `not_finset_has_no_unique_sums_zmod_five_pair`: The set {0, 1} in Z/5Z has unique sums (0 + 0 has only one representation).\n\nProved. `finset_is_midpoint_balanced_univ_zmod_three`: Z/3Z is balanced: each element is the midpoint of the other two.\n\nFormalized. `finset_has_no_unique_sums_sumset_of_balanced` (arXiv:2610.09349 (A near-quadratic lower bound for sets with no unique sums), Lemma A.2. Stated in any abelian group (the paper: F_p); B +…): If B is a nonempty balanced finite subset of an abelian group, then its sumset B + B has no unique sums.\n\nFormalized. `finset_is_midpoint_balanced_of_has_no_unique_sums` (arXiv:2610.09349 (A near-quadratic lower bound for sets with no unique sums), Lemma B.1 (first statement: every NUS set in odd…): For an odd prime p, every subset of Z/pZ with no unique sums is balanced.\n\nFormalized. `finset_has_no_unique_sums_univ_zmod` (arXiv:2610.09349 (A near-quadratic lower bound for sets with no unique sums), Sec. 1 (F_p itself is NUS: each s has (p+1)/2 ≥ 2 unordered…): For an odd prime p, the whole of Z/pZ has no unique sums.\n\nFormalized. `cycle_labeling_complete_range_five` (arXiv:2610.08889 (Consecutive Cycle Sums), Sec. 1 (the 5-cycle is complete).): The 5-cycle labelled 1, 2, 3, 4, 5 in order is complete.\n\nOpen. `finset_card_ge_one_add_clog_of_midpoint_balanced` (arXiv:2610.09349): For a prime p, every nonempty balanced subset B of Z/pZ has |B| ≥ 1 + ⌈log₂ p⌉.\n\nOpen. `nus_min_card_ge_one_add_clog` (arXiv:2610.09349): For an odd prime p, m(p) ≥ 1 + ⌈log₂ p⌉: every subset of Z/pZ with no unique sums has at least 1 + ⌈log₂ p⌉ elements.\n\nOpen. `nus_min_card_ge_c_log_sq` (arXiv:2610.09349): Open question: there is an absolute constant c > 0 such that m(p) ≥ c (log p)² for all sufficiently large primes p.\n\nOpen. `not_cycle_labeling_complete_range_of_ge_eight` (arXiv:2610.08889 (Consecutive Cycle Sums), Theorem 1. The paper's proof uses explicit prime-counting bounds for n ≥ 599 and a computer…): For every n ≥ 8, the n-cycle labelled 1, …, n in order is not complete.\n\nOpen. `exists_cycle_labeling_complete`: Conjecture: for every n there is a placement of 1, …, n around the n-cycle that is complete.\n\nOpen. `simple_graph_local_avg_dominating_order_stem_le` (arXiv:2610.11446): Conjecture: if G is a graph of order n ≥ 2 without isolated vertices and v is an l-stem with l ≥ 1, then avd_v(G) ≤ (4n+1)/6, with equality if and only if l = 1 and G is star-like.\n\nOpen. `simple_graph_local_avg_dominating_order_lt_of_two_le_stem` (arXiv:2610.11446): If G is a graph of order n ≥ 2 without isolated vertices and v is an l-stem with l ≥ 2, then avd_v(G) < (4n+1)/6.\n\nOpen. `simple_graph_local_avg_dominating_order_le_two_mul_add_one_div_three` (arXiv:2610.11446): Conjecture: if the finite graph G of order n has no isolated vertices, then for every vertex v the dominating sets containing v have average size at most (2n+1)/3.",
+   "declarations": [
+    "is_condorcet_winning_set_nonempty",
+    "graph_matching_num_two_mul",
+    "matching_two_mul_encard_le_card",
+    "droop_valid_assignment_real_voters_card",
+    "single_peaked_median_is_condorcet_winner",
+    "finset_has_no_unique_sums_univ_zmod_three",
+    "not_finset_has_no_unique_sums_zmod_five_pair",
+    "finset_is_midpoint_balanced_univ_zmod_three",
+    "finset_has_no_unique_sums_sumset_of_balanced",
+    "finset_is_midpoint_balanced_of_has_no_unique_sums",
+    "finset_has_no_unique_sums_univ_zmod",
+    "cycle_labeling_complete_range_five",
+    "not_cycle_labeling_complete_range_six",
+    "not_cycle_labeling_complete_range_eight",
+    "exists_cycle_labeling_complete_ge_eight",
+    "cycle_labeling_complete_nine",
+    "cycle_labeling_complete_ten",
+    "simple_graph_local_avg_dominating_order_complete_four",
+    "simple_graph_local_avg_dominating_order_bot_three",
+    "simple_graph_leaf_neighbor_count_complete_two",
+    "simple_graph_is_star_like_complete_two",
+    "not_simple_graph_is_star_like_complete_three",
+    "finset_down_closed_family_avg_card_le",
+    "simple_graph_local_avg_dominating_order_ge",
+    "simple_graph_local_avg_dominating_order_le_of_no_isolated",
+    "bipartite_link_template_three_graph_card",
+    "three_graph_link_adj_iff",
+    "three_graph_link_template_zero_adj",
+    "bipartite_link_template_three_graph_links_colorable_two",
+    "simple_graph_local_avg_dominating_order_lt_of_four_le",
+    "redistribution_fill_in_const",
+    "redistribution_trade_const",
+    "redistribution_one_draw_gap_bounds",
+    "redistribution_iterated_trade_bounds",
+    "matrix_unit_difference_rows_isTotallyUnimodular",
+    "simple_graph_local_avg_dominating_order_of_degree_eq_card_sub_two",
+    "consecutive_sum_ne_mul_prime_of_two_mul_lt",
+    "consecutive_sum_ne_mul_prime"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.08889",
+     "href": "https://arxiv.org/abs/2610.08889"
+    },
+    {
+     "label": "arXiv:2610.11446",
+     "href": "https://arxiv.org/abs/2610.11446"
+    },
+    {
+     "label": "arXiv:2610.09349",
+     "href": "https://arxiv.org/abs/2610.09349"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-08",
    "kind": "daily",
    "title": "Daily reading: 27 proved, 4 open",

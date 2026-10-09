@@ -40,7 +40,7 @@
   // Big nodes are drawn last, so they sit on top and get their labels first.
   const byR = [...N].sort((a, b) => a.r - b.r);
 
-  const state = {defs: false, off: new Set(), sel: -1, chain: false};
+  const state = {defs: false, off: new Set(), sel: -1, chain: false, labels: true};
   let hover = -1;
   let V = [];          // visible nodes
   let L = [];          // visible edges as [user, used]
@@ -354,7 +354,8 @@
     ctx.globalAlpha = 1;
 
     // Labels: the focus and its neighbours first, then the most-used nodes
-    // that fit without colliding.
+    // that fit without colliding. The Labels switch turns them all off.
+    if (!state.labels) return;
     ctx.font = '500 11px "JetBrains Mono", ui-monospace, monospace';
     ctx.textBaseline = 'middle';
     ctx.lineJoin = 'round';
@@ -484,7 +485,7 @@
 
   document.getElementById('g-close').addEventListener('click', () => select(-1, false));
 
-  for (const b of document.querySelectorAll('.g-zoom button')) {
+  for (const b of document.querySelectorAll('.g-zoom button[data-zoom]')) {
     b.addEventListener('click', () => {
       const z = b.dataset.zoom;
       if (z === 'fit') { autoFit = true; follow = -1; fit(true); schedule(); }
@@ -588,10 +589,12 @@
   // ------------------------------------------------------------ controls
   const segs = [...document.querySelectorAll('[data-defs]')];
   const legend = [...document.querySelectorAll('.g-dom')];
+  const labelsBtn = document.getElementById('g-labels');
 
   function syncControls() {
     for (const b of segs) b.setAttribute('aria-pressed', String((b.dataset.defs === '1') === state.defs));
     for (const b of legend) b.setAttribute('aria-pressed', String(!state.off.has(+b.dataset.dom)));
+    if (labelsBtn) labelsBtn.setAttribute('aria-pressed', String(state.labels));
     const per = new Map();
     for (const n of N) if (state.defs || !n.def) per.set(n.dom, (per.get(n.dom) || 0) + 1);
     for (const c of document.querySelectorAll('[data-dom-count]')) c.textContent = per.get(+c.dataset.domCount) || 0;
@@ -627,6 +630,11 @@
     const d = +b.dataset.dom;
     if (state.off.has(d)) state.off.delete(d); else state.off.add(d);
     syncControls(); refilter();
+  });
+
+  if (labelsBtn) labelsBtn.addEventListener('click', () => {
+    state.labels = !state.labels;
+    syncControls(); writeUrl(); schedule();
   });
 
   // ------------------------------------------------------------ search
@@ -690,20 +698,22 @@
 
   // ------------------------------------------------------------ address
   // ?n=<name> selects a declaration (the declaration pages link here that
-  // way); defs=1 and chain=1 restore the two switches. The list's filters
-  // share the query string, so only these three keys are touched.
+  // way); defs=1, chain=1 and labels=0 restore the three switches. The
+  // list's filters share the query string, so only these four keys are touched.
   function writeUrl() {
     const p = new URLSearchParams(location.search);
     const set = (k, v) => { if (v) p.set(k, v); else p.delete(k); };
     set('n', state.sel >= 0 ? N[state.sel].name : '');
     set('defs', state.defs ? '1' : '');
     set('chain', state.chain ? '1' : '');
+    set('labels', state.labels ? '' : '0');
     const s = p.toString();
     try { history.replaceState(null, '', (s ? '?' + s : location.pathname) + location.hash); } catch (_) {}
   }
 
   const p = new URLSearchParams(location.search);
   state.defs = p.get('defs') === '1';
+  state.labels = p.get('labels') !== '0';
   const want = N.find(n => n.name === p.get('n'));
   if (want) {
     state.sel = want.i;

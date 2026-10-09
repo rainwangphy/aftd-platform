@@ -536,7 +536,9 @@ main.wrap>*,.pgroup>*,.split>div>*,.topic>*,.domain>*,.hero-grid>*{min-width:0}
 .g-zoom{position:absolute;left:10px;top:10px;display:flex;flex-direction:column;gap:4px}
 .g-zoom button{font:inherit;font-size:15px;font-weight:600;min-width:34px;height:32px;padding:0 8px;color:var(--ink-2);
                background:var(--panel);border:1px solid var(--rule);border-radius:8px;cursor:pointer}
-.g-zoom button[data-zoom="fit"]{font-size:12px}
+.g-zoom button[data-zoom="fit"],.g-zoom .g-labels{font-size:12px}
+.g-zoom .g-labels{margin-top:4px}
+.g-zoom .g-labels[aria-pressed="false"]{color:var(--ink-3);background:transparent;border-style:dashed}
 .g-zoom button:hover{color:var(--accent);border-color:var(--accent)}
 .g-count{position:absolute;left:12px;bottom:8px;margin:0;pointer-events:none;font-variant-numeric:tabular-nums}
 .g-nojs{position:absolute;inset:0;margin:0;padding:24px;display:grid;place-items:center;text-align:center}

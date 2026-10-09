@@ -1349,6 +1349,8 @@ Click a node to follow its chain; double-click to open its proof.</p></div>
       <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
       <button type="button" data-zoom="out" aria-label="Zoom out">&minus;</button>
       <button type="button" data-zoom="fit" aria-label="Fit the graph to the view">Fit</button>
+      <button type="button" id="g-labels" class="g-labels" aria-pressed="true"
+        title="Show or hide the names on the graph">Labels</button>
     </div>
     <p class="g-count small" id="g-count" aria-live="polite"></p>
     <noscript><p class="g-nojs">The graph needs JavaScript. The list below has

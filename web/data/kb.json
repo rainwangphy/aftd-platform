@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-09T12:35:33Z",
+ "generated": "2026-10-09T12:49:55Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 38,
   "rejected": 8,
-  "spend": 60.15,
+  "spend": 60.65,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 81972727,
-   "output": 10653779,
-   "cache_read": 164444611
+   "input": 82292442,
+   "output": 10798890,
+   "cache_read": 164917624
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1791549319
+  "last": 1791550192
  },
  "domains": [
   {
@@ -296271,13 +296271,235 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphLocalAvgDominatingOrderLeOfNoIsolated.lean",
-   "proved_at": 1791545510,
+   "proved_at": 1791549980,
    "provenance": "literature",
    "citation": "arXiv:2610.11446 (On the local average order of dominating sets), Theorem 3.8, second statement (the first, the sum bound (n+1)/2 + ½ Σ_{u ∉ N[v]} (deg u + 1)/(2^{deg u + 1} − 1), is not stated here).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The theorem bounds the average size of dominating sets containing a designated vertex v in a graph without isolated vertices. By decomposing dominating sets containing x into those where x is removable and those where x is critical, we obtain the identity 2 ∑ a(x) = n |D| + ∑ c(x). For x ≠ v, criticality requires the dominating set to meet the closed neighborhood of some vertex w ∉ N[v] in exactly {x}, and a 2-to-1 map shows that at most two-thirds of dominating sets meet N[w] in a single vertex. Combining these bounds yields 3 ∑ c(x) ≤ 3 |D| + 2 (n - 1 - deg(v)) |D|, from which the upper bound (5n - 2 deg(v) + 1)/6 follows immediately.",
+    "steps": [
+     {
+      "claim": "The family D of dominating sets containing v is nonempty, characterized by domination of every vertex, and closed under taking supersets.",
+      "explanation": "We define D as the collection of dominating sets containing v and n as |V|. A set S is in D if and only if v ∈ S and every vertex w is in S or has a neighbor in S. If S ∈ D and S ⊆ T, then v ∈ T and every vertex dominated by S is also dominated by T, so T ∈ D. The universal set Finset.univ dominates every vertex and contains v, so D is nonempty.",
+      "lemmas": [
+       "Finset.mem_univ",
+       "Finset.univ",
+       "Or.inl",
+       "Or.inr"
+      ],
+      "automation": false,
+      "code": "  classical\n  set D := simple_graph_dominating_sets_containing G v with hD\n  set n := Fintype.card V with hn\n  have memD : ∀ S, S ∈ D ↔ v ∈ S ∧ ∀ w, w ∈ S ∨ ∃ u ∈ S, G.Adj u w := by\n    intro S; rw [hD]; unfold simple_graph_dominating_sets_containing; simp\n  -- `D` is closed under supersets\n  have hup : ∀ S ∈ D, ∀ T, S ⊆ T → T ∈ D := by\n    intro S hS T hST\n    rw [memD] at hS ⊢\n    refine ⟨hST hS.1, fun w => ?_⟩\n    rcases hS.2 w with h | ⟨u, hu, h⟩\n    · exact Or.inl (hST h)\n    · exact Or.inr ⟨u, hST hu, h⟩\n  have hDne : D.Nonempty :=\n    ⟨Finset.univ, (memD _).2 ⟨Finset.mem_univ v, fun w => Or.inl (Finset.mem_univ w)⟩⟩"
+     },
+     {
+      "claim": "The set U of vertices not dominated by v alone has cardinality |U| = n - 1 - deg(v), and deg(v) ≤ n - 1.",
+      "explanation": "For any w, N[w] denotes the closed neighborhood {w} ∪ N(w). The set U = (V \\ {v}) \\ N(v) consists of all vertices other than v that are not adjacent to v. Since the neighbor set N(v) has size deg(v) and is disjoint from {v}, subtracting its size from |V \\ {v}| = n - 1 yields |U| = n - 1 - deg(v). Because N(v) ⊆ V \\ {v}, we also have deg(v) ≤ n - 1, and V is nonempty since it contains v.",
+      "lemmas": [
+       "Finset.card_erase_of_mem",
+       "Finset.card_le_card",
+       "Finset.card_sdiff_of_subset",
+       "Finset.mem_erase",
+       "Finset.mem_univ",
+       "Fintype.card_pos_iff",
+       "G.card_neighborFinset_eq_degree",
+       "G.mem_neighborFinset",
+       "G.ne_of_adj"
+      ],
+      "automation": false,
+      "code": "  -- closed neighbourhoods and the vertices outside `N[v]`\n  set N : V → Finset V := fun w => insert w (G.neighborFinset w) with hN\n  set U : Finset V := (Finset.univ.erase v) \\ G.neighborFinset v with hU\n  have hUcard : U.card = n - 1 - G.degree v := by\n    rw [hU, Finset.card_sdiff_of_subset, Finset.card_erase_of_mem (Finset.mem_univ v),\n      G.card_neighborFinset_eq_degree]\n    · rfl\n    · intro w hw\n      rw [Finset.mem_erase]\n      exact ⟨(G.ne_of_adj ((G.mem_neighborFinset v w).1 hw)).symm, Finset.mem_univ w⟩\n  have hdegle : G.degree v ≤ n - 1 := by\n    rw [← G.card_neighborFinset_eq_degree]\n    have : G.neighborFinset v ⊆ Finset.univ.erase v := by\n      intro w hw\n      rw [Finset.mem_erase]\n      exact ⟨(G.ne_of_adj ((G.mem_neighborFinset v w).1 hw)).symm, Finset.mem_univ w⟩\n    calc (G.neighborFinset v).card ≤ (Finset.univ.erase v).card := Finset.card_le_card this\n      _ = n - 1 := by rw [Finset.card_erase_of_mem (Finset.mem_univ v)]; rfl\n  have hn1 : 1 ≤ n := Fintype.card_pos_iff.2 ⟨v⟩"
+     },
+     {
+      "claim": "For each vertex x, the number a(x) of dominating sets containing x equals the number b(x) avoiding x plus the number c(x) in which x is critical: a(x) = b(x) + c(x).",
+      "explanation": "We partition {S ∈ D : x ∈ S} into those where S \\ {x} is still in D and those where S \\ {x} ∉ D. The latter sets are precisely those where x is critical, of which there are c(x). The former sets are in bijection with dominating sets avoiding x via S ↦ S \\ {x}, with inverse T ↦ T ∪ {x} (which remains in D because D is closed under supersets). Hence their size is b(x), giving a(x) = b(x) + c(x). Together with a(x) + b(x) = |D|, this is the key splitting identity.",
+      "lemmas": [
+       "Finset.card_filter_add_card_filter_not",
+       "Finset.card_image_of_injOn",
+       "Finset.card_le_card",
+       "Finset.erase_insert",
+       "Finset.filter_filter",
+       "Finset.insert_erase",
+       "Finset.mem_insert_self",
+       "Finset.subset_insert",
+       "congrArg",
+       "le_antisymm"
+      ],
+      "automation": false,
+      "code": "  -- counts: `a x` sets containing `x`, `b x` avoiding `x`, `c x` sets in which `x` is critical\n  set a : V → ℕ := fun x => (D.filter (fun S => x ∈ S)).card with ha\n  set b : V → ℕ := fun x => (D.filter (fun S => x ∉ S)).card with hb\n  set c : V → ℕ := fun x => (D.filter (fun S => x ∈ S ∧ S.erase x ∉ D)).card with hc\n  have hab : ∀ x, a x + b x = D.card := fun x => Finset.card_filter_add_card_filter_not _\n  have habc : ∀ x, a x = b x + c x := by\n    intro x\n    simp only [ha, hb, hc]\n    have hsplit : (D.filter (fun S => x ∈ S)).card =\n        ((D.filter (fun S => x ∈ S)).filter (fun S => S.erase x ∈ D)).card +\n        ((D.filter (fun S => x ∈ S)).filter (fun S => ¬ S.erase x ∈ D)).card :=\n      (Finset.card_filter_add_card_filter_not _).symm\n    rw [Finset.filter_filter, Finset.filter_filter] at hsplit\n    rw [hsplit]\n    congr 1\n    -- erasing `x` matches the sets with `x` removable with the sets avoiding `x`\n    apply le_antisymm\n    · have inj : Set.InjOn (fun S : Finset V => S.erase x)\n          ↑(D.filter (fun S => x ∈ S ∧ S.erase x ∈ D)) := by\n        intro S hS T hT h\n        simp only [Finset.mem_coe, Finset.mem_filter] at hS hT\n        rw [← Finset.insert_erase hS.2.1, ← Finset.insert_erase hT.2.1]\n        exact congrArg (insert x) h\n      rw [← Finset.card_image_of_injOn inj]\n      apply Finset.card_le_card\n      intro T hT\n      obtain ⟨S, hS, rfl⟩ := Finset.mem_image.1 hT\n      simp only [Finset.mem_filter] at hS ⊢\n      exact ⟨hS.2.2, by simp⟩\n    · have inj : Set.InjOn (fun S : Finset V => insert x S) ↑(D.filter (fun S => x ∉ S)) := by\n        intro S hS T hT h\n        simp only [Finset.mem_coe, Finset.mem_filter] at hS hT\n        rw [← Finset.erase_insert hS.2, ← Finset.erase_insert hT.2]\n        exact congrArg (fun W => Finset.erase W x) h\n      rw [← Finset.card_image_of_injOn inj]\n      apply Finset.card_le_card\n      intro T hT\n      obtain ⟨S, hS, rfl⟩ := Finset.mem_image.1 hT\n      simp only [Finset.mem_filter] at hS ⊢\n      refine ⟨hup S hS.1 _ (Finset.subset_insert x S), Finset.mem_insert_self x S, ?_⟩\n      rw [Finset.erase_insert hS.2]; exact hS.1"
+     },
+     {
+      "claim": "The sum of the sizes of all dominating sets in D equals ∑_{x ∈ V} a(x).",
+      "explanation": "Each set cardinality |S| can be expressed as the sum of indicator values ∑_{x ∈ V} [x ∈ S]. Interchanging the summation over S ∈ D and x ∈ V double counts the pairs (x, S) with x ∈ S, yielding ∑_{S ∈ D} |S| = ∑_{x ∈ V} a(x).",
+      "lemmas": [
+       "Finset.card_filter",
+       "Finset.filter_mem_eq_inter",
+       "Finset.sum_comm",
+       "Finset.sum_congr",
+       "Finset.univ_inter"
+      ],
+      "automation": false,
+      "code": "  have hsum : ∑ S ∈ D, S.card = ∑ x, a x := by\n    have h : ∀ S ∈ D, S.card = ∑ x, if x ∈ S then 1 else 0 := by\n      intro S _\n      rw [← Finset.card_filter, Finset.filter_mem_eq_inter, Finset.univ_inter]\n    rw [Finset.sum_congr rfl h, Finset.sum_comm]\n    refine Finset.sum_congr rfl fun x _ => ?_\n    simp only [ha]; rw [Finset.card_filter]"
+     },
+     {
+      "claim": "For x ≠ v, every dominating set in which x is critical meets N[w] in exactly {x} for some w ∈ U, so c(x) ≤ ∑_{w ∈ U} |E(w, x)|.",
+      "explanation": "If x ≠ v and x is critical in S, then S \\ {x} contains v but fails to dominate the whole graph. Some vertex w is not dominated by S \\ {x}, so S \\ {x} is disjoint from N[w]. Since S dominated w, x must dominate w, meaning S ∩ N[w] = {x}. Moreover, w cannot be v (since v ∈ S \\ {x}) nor adjacent to v (since v would dominate w), which places w in U. By the union bound, c(x) ≤ ∑_{w ∈ U} |E(w, x)|.",
+      "lemmas": [
+       "Finset.card_biUnion_le",
+       "Finset.card_le_card",
+       "Finset.mem_biUnion",
+       "Finset.mem_erase",
+       "Finset.mem_filter",
+       "Finset.mem_sdiff",
+       "Finset.mem_univ",
+       "G.mem_neighborFinset",
+       "le_trans"
+      ],
+      "automation": false,
+      "code": "  -- `x ≠ v` critical in `S`: `S` meets some `N[w]`, `w ∉ N[v]`, exactly in `x`\n  set E : V → V → Finset (Finset V) := fun w x => D.filter (fun S => S ∩ N w = {x}) with hE\n  have hcrit : ∀ x, x ≠ v → c x ≤ ∑ w ∈ U, (E w x).card := by\n    intro x hxv\n    simp only [hc]\n    refine le_trans (Finset.card_le_card ?_) Finset.card_biUnion_le\n    intro S hS\n    rw [Finset.mem_filter] at hS\n    obtain ⟨hSD, hxS, hSx⟩ := hS\n    have hvS : v ∈ S.erase x := Finset.mem_erase.2 ⟨hxv.symm, ((memD S).1 hSD).1⟩\n    rw [memD] at hSx\n    push_neg at hSx\n    obtain ⟨w, hwS, hwadj⟩ := hSx hvS\n    have hNw : S ∩ N w = {x} := by\n      ext y\n      simp only [Finset.mem_inter, hN, Finset.mem_insert, G.mem_neighborFinset,\n        Finset.mem_singleton]\n      constructor\n      · rintro ⟨hyS, hy⟩\n        by_contra hyx\n        have hy' : y ∈ S.erase x := Finset.mem_erase.2 ⟨hyx, hyS⟩\n        rcases hy with rfl | hy\n        · exact hwS hy'\n        · exact hwadj y hy' hy.symm\n      · intro hyx\n        rw [hyx]\n        refine ⟨hxS, ?_⟩\n        rcases ((memD S).1 hSD).2 w with h | ⟨u, hu, h⟩\n        · left\n          by_contra hne\n          exact hwS (Finset.mem_erase.2 ⟨fun h' => hne h'.symm, h⟩)\n        · right\n          by_cases hux : u = x\n          · rw [← hux]; exact h.symm\n          · exact absurd h (hwadj u (Finset.mem_erase.2 ⟨hux, hu⟩))\n    have hwU : w ∈ U := by\n      rw [hU, Finset.mem_sdiff, Finset.mem_erase, G.mem_neighborFinset]\n      refine ⟨⟨fun h => hwS (h ▸ hvS), Finset.mem_univ w⟩, fun h => hwadj v hvS h⟩\n    exact Finset.mem_biUnion.2 ⟨w, hwU, Finset.mem_filter.2 ⟨hSD, hNw⟩⟩"
+     },
+     {
+      "claim": "For every vertex w, at most two-thirds of the dominating sets in D meet N[w] in exactly one vertex: 3 |{S ∈ D : |S ∩ N[w]| = 1}| ≤ 2 |D|.",
+      "explanation": "Since G has no isolated vertices, w has a neighbor w'. We partition D into sets meeting N[w] in 1 vertex ('single') and those meeting N[w] in a different number of vertices ('multi'). Define φ on 'single' by adding w' if w ∈ S, and adding w if w ∉ S. By superset closure, φ(S) ∈ D, and its intersection with N[w] has size at least 2, so φ(S) ∈ 'multi'. Each target set has at most two preimages (erasing w' or erasing w). Thus |single| ≤ 2 |multi|. Combining this with |single| + |multi| = |D| yields 3 |single| ≤ 2 |D|.",
+      "lemmas": [
+       "Finset.card_eq_one",
+       "Finset.card_filter_add_card_filter_not",
+       "Finset.card_le_mul_card_image_of_maps_to",
+       "Finset.card_le_one",
+       "Finset.card_le_two",
+       "Finset.card_pos",
+       "Finset.erase_insert",
+       "Finset.mem_singleton_self",
+       "Finset.subset_insert",
+       "G.card_neighborFinset_eq_degree",
+       "G.mem_neighborFinset",
+       "G.ne_of_adj",
+       "if_neg",
+       "if_pos",
+       "le_trans"
+      ],
+      "automation": false,
+      "code": "  -- at most two thirds of the sets meet `N[w]` in a single vertex\n  have hthird : ∀ w, 3 * (D.filter (fun S => (S ∩ N w).card = 1)).card ≤ 2 * D.card := by\n    intro w\n    obtain ⟨w', hw'⟩ : ∃ w', G.Adj w w' := by\n      have := hiso w\n      rw [← G.card_neighborFinset_eq_degree, Finset.card_pos] at this\n      obtain ⟨w', hw'⟩ := this\n      exact ⟨w', (G.mem_neighborFinset w w').1 hw'⟩\n    have hww' : w ≠ w' := G.ne_of_adj hw'\n    have hwN : w ∈ N w := by simp [hN]\n    have hw'N : w' ∈ N w := by simp [hN, G.mem_neighborFinset, hw']\n    set single := D.filter (fun S => (S ∩ N w).card = 1) with hsingle\n    set multi := D.filter (fun S => ¬ (S ∩ N w).card = 1) with hmulti\n    have hsm : single.card + multi.card = D.card := Finset.card_filter_add_card_filter_not _\n    let φ : Finset V → Finset V := fun S => if w ∈ S then insert w' S else insert w S\n    have hmaps : ∀ S ∈ single, φ S ∈ multi := by\n      intro S hS\n      rw [hsingle, Finset.mem_filter, Finset.card_eq_one] at hS\n      obtain ⟨hSD, z, hz⟩ := hS\n      rw [hmulti, Finset.mem_filter]\n      by_cases hwS : w ∈ S\n      · simp only [φ, if_pos hwS]\n        refine ⟨hup S hSD _ (Finset.subset_insert _ _), fun h1 => ?_⟩\n        have hw_in : w ∈ insert w' S ∩ N w := Finset.mem_inter.2 ⟨Finset.mem_insert_of_mem hwS, hwN⟩\n        have hw'_in : w' ∈ insert w' S ∩ N w := Finset.mem_inter.2 ⟨Finset.mem_insert_self _ _, hw'N⟩\n        exact hww' (Finset.card_le_one.1 h1.le w hw_in w' hw'_in)\n      · simp only [φ, if_neg hwS]\n        refine ⟨hup S hSD _ (Finset.subset_insert _ _), fun h1 => ?_⟩\n        have hz_in : z ∈ S ∩ N w := by rw [hz]; exact Finset.mem_singleton_self z\n        have hzw : z ≠ w := fun h => hwS (h ▸ (Finset.mem_inter.1 hz_in).1)\n        have hw_in : w ∈ insert w S ∩ N w := Finset.mem_inter.2 ⟨Finset.mem_insert_self _ _, hwN⟩\n        have hz_in' : z ∈ insert w S ∩ N w :=\n          Finset.mem_inter.2 ⟨Finset.mem_insert_of_mem (Finset.mem_inter.1 hz_in).1,\n            (Finset.mem_inter.1 hz_in).2⟩\n        exact hzw (Finset.card_le_one.1 h1.le z hz_in' w hw_in)\n    have hfib : ∀ M, (single.filter (fun S => φ S = M)).card ≤ 2 := by\n      intro M\n      refine le_trans (Finset.card_le_card (t := {M.erase w', M.erase w}) ?_) Finset.card_le_two\n      intro S hS\n      rw [Finset.mem_filter, hsingle, Finset.mem_filter, Finset.card_eq_one] at hS\n      obtain ⟨⟨_, z, hz⟩, hφ⟩ := hS\n      rw [Finset.mem_insert, Finset.mem_singleton]\n      by_cases hwS : w ∈ S\n      · left\n        simp only [φ, if_pos hwS] at hφ\n        have hw'S : w' ∉ S := by\n          intro h\n          have h1 : w ∈ S ∩ N w := Finset.mem_inter.2 ⟨hwS, hwN⟩\n          have h2 : w' ∈ S ∩ N w := Finset.mem_inter.2 ⟨h, hw'N⟩\n          rw [hz, Finset.mem_singleton] at h1 h2\n          exact hww' (h1.trans h2.symm)\n        rw [← hφ, Finset.erase_insert hw'S]\n      · right\n        simp only [φ, if_neg hwS] at hφ\n        rw [← hφ, Finset.erase_insert hwS]\n    have hle2 : single.card ≤ 2 * multi.card :=\n      Finset.card_le_mul_card_image_of_maps_to hmaps 2 (fun M _ => hfib M)\n    omega"
+     },
+     {
+      "claim": "For each vertex w, the sets E(w, x) for x ≠ v are pairwise disjoint, so ∑_{x ≠ v} |E(w, x)| ≤ |{S ∈ D : |S ∩ N[w]| = 1}|.",
+      "explanation": "If S ∈ E(w, x) ∩ E(w, y), then S ∩ N[w] is both {x} and {y}, so x = y by injectivity of singletons. Thus the sets E(w, x) are pairwise disjoint. Moreover, every S ∈ E(w, x) satisfies |S ∩ N[w]| = 1. The sum of the cardinalities of disjoint subsets is the cardinality of their union, which is bounded by the cardinality of the ambient family.",
+      "lemmas": [
+       "Finset.card_biUnion",
+       "Finset.card_le_card",
+       "Finset.card_singleton",
+       "Finset.disjoint_left",
+       "Finset.mem_biUnion",
+       "Finset.mem_filter",
+       "Finset.singleton_injective",
+       "Function.onFun"
+      ],
+      "automation": false,
+      "code": "  have hEsum : ∀ w, ∑ x ∈ Finset.univ.erase v, (E w x).card ≤\n      (D.filter (fun S => (S ∩ N w).card = 1)).card := by\n    intro w\n    rw [← Finset.card_biUnion]\n    · apply Finset.card_le_card\n      intro S hS\n      obtain ⟨x, -, hx⟩ := Finset.mem_biUnion.1 hS\n      rw [hE, Finset.mem_filter] at hx\n      rw [Finset.mem_filter, hx.2, Finset.card_singleton]\n      exact ⟨hx.1, rfl⟩\n    · intro x _ y _ hxy\n      rw [Function.onFun, Finset.disjoint_left]\n      intro S hSx hSy\n      rw [hE, Finset.mem_filter] at hSx hSy\n      exact hxy (Finset.singleton_injective (hSx.2.symm.trans hSy.2))\n  have hcsum : 3 * ∑ x, c x ≤ 3 * D.card + 2 * U.card * D.card := by"
+     },
+     {
+      "claim": "The sum of criticalities satisfies 3 ∑_{x ∈ V} c(x) ≤ 3 |D| + 2 |U| |D|.",
+      "explanation": "Separate x = v from x ≠ v: trivially c(v) ≤ |D|. For the remaining vertices, summing c(x) ≤ ∑_{w ∈ U} |E(w, x)| and interchanging the order of summation gives ∑_{x ≠ v} c(x) ≤ ∑_{w ∈ U} |{S ∈ D : |S ∩ N[w]| = 1}|. Multiplying by 3 and applying the two-thirds bound to each w ∈ U yields 3 ∑_{x ≠ v} c(x) ≤ 2 |U| |D|. Adding 3 c(v) ≤ 3 |D| gives 3 ∑_{x ∈ V} c(x) ≤ 3 |D| + 2 |U| |D|.",
+      "lemmas": [
+       "Finset.add_sum_erase",
+       "Finset.card_filter_le",
+       "Finset.mem_univ",
+       "Finset.mul_sum",
+       "Finset.ne_of_mem_erase",
+       "Finset.sum_comm",
+       "Finset.sum_const",
+       "Finset.sum_le_sum",
+       "smul_eq_mul"
+      ],
+      "automation": false,
+      "code": "    rw [← Finset.add_sum_erase _ _ (Finset.mem_univ v)]\n    have hcv : c v ≤ D.card := Finset.card_filter_le _ _\n    have h1 : ∑ x ∈ Finset.univ.erase v, c x ≤ ∑ w ∈ U, (D.filter (fun S => (S ∩ N w).card = 1)).card := by\n      calc ∑ x ∈ Finset.univ.erase v, c x\n          ≤ ∑ x ∈ Finset.univ.erase v, ∑ w ∈ U, (E w x).card :=\n            Finset.sum_le_sum fun x hx => hcrit x (Finset.ne_of_mem_erase hx)\n        _ = ∑ w ∈ U, ∑ x ∈ Finset.univ.erase v, (E w x).card := Finset.sum_comm\n        _ ≤ _ := Finset.sum_le_sum fun w _ => hEsum w\n    have h2 : 3 * ∑ w ∈ U, (D.filter (fun S => (S ∩ N w).card = 1)).card ≤ 2 * U.card * D.card := by\n      rw [Finset.mul_sum]\n      calc ∑ w ∈ U, 3 * (D.filter (fun S => (S ∩ N w).card = 1)).card\n          ≤ ∑ w ∈ U, 2 * D.card := Finset.sum_le_sum fun w _ => hthird w\n        _ = 2 * U.card * D.card := by rw [Finset.sum_const, smul_eq_mul]; ring\n    omega"
+     },
+     {
+      "claim": "The sum of counts satisfies 2 ∑_{x ∈ V} a(x) = n |D| + ∑_{x ∈ V} c(x).",
+      "explanation": "Summing a(x) + b(x) = |D| over all n vertices gives ∑ a(x) + ∑ b(x) = n |D|. Summing a(x) = b(x) + c(x) over all vertices gives ∑ a(x) = ∑ b(x) + ∑ c(x). Adding these two equations cancels ∑ b(x) and yields 2 ∑ a(x) = n |D| + ∑ c(x).",
+      "lemmas": [
+       "Finset.card_univ",
+       "Finset.sum_add_distrib",
+       "Finset.sum_congr",
+       "Finset.sum_const",
+       "smul_eq_mul"
+      ],
+      "automation": false,
+      "code": "  have h2a : 2 * ∑ x, a x = n * D.card + ∑ x, c x := by\n    have e1 : ∑ x, (a x + b x) = n * D.card := by\n      rw [Finset.sum_congr rfl fun x _ => hab x, Finset.sum_const, smul_eq_mul, Finset.card_univ]\n    have e2 : ∑ x, a x = ∑ x, b x + ∑ x, c x := by\n      rw [← Finset.sum_add_distrib]; exact Finset.sum_congr rfl fun x _ => habc x\n    rw [← e1, Finset.sum_add_distrib]; omega"
+     },
+     {
+      "claim": "The average size of dominating sets containing v is at most (5n - 2 deg(v) + 1)/6.",
+      "explanation": "Since |U| = n - 1 - deg(v), we have |U| + deg(v) + 1 = n. Multiplying the double counting identity by 3 gives 6 ∑_{S ∈ D} |S| = 3 n |D| + 3 ∑ c(x) ≤ 3 n |D| + 3 |D| + 2 |U| |D| = (5n - 2 deg(v) + 1) |D|. Dividing both sides by 6 |D| (which is strictly positive) yields the bound on the local average dominating order. Linear arithmetic closes the goal.",
+      "lemmas": [
+       "Nat.cast_sum",
+       "div_le_div_iff₀"
+      ],
+      "automation": true,
+      "code": "  -- conclude\n  have hm : U.card + G.degree v + 1 = n := by rw [hUcard]; omega\n  have hDpos : (0 : ℚ) < D.card := by exact_mod_cast hDne.card_pos\n  have qa : (2 : ℚ) * ((∑ x, a x : ℕ) : ℚ) = n * D.card + ((∑ x, c x : ℕ) : ℚ) := by\n    exact_mod_cast h2a\n  have qc : (3 : ℚ) * ((∑ x, c x : ℕ) : ℚ) ≤ 3 * D.card + 2 * U.card * D.card := by\n    exact_mod_cast hcsum\n  have qm : (U.card : ℚ) + G.degree v + 1 = n := by exact_mod_cast hm\n  have qs : ∑ S ∈ D, (S.card : ℚ) = ((∑ x, a x : ℕ) : ℚ) := by rw [← hsum, Nat.cast_sum]\n  have qnD : (n : ℚ) * D.card = U.card * D.card + G.degree v * D.card + D.card := by\n    rw [← qm]; ring\n  unfold simple_graph_local_avg_dominating_order\n  rw [← hD, div_le_div_iff₀ hDpos (by norm_num : (0 : ℚ) < 6), qs]\n  linarith"
+     }
+    ],
+    "glossary": {
+     "G.card_neighborFinset_eq_degree": "in a simple graph, the number of vertices in the neighbor finset of v equals deg(v)",
+     "G.mem_neighborFinset": "membership in the neighbor finset of v is equivalent to adjacency to v",
+     "G.ne_of_adj": "adjacent vertices in a simple graph are not equal",
+     "Fintype.card_pos_iff": "the cardinality of a finite type is strictly positive if and only if the type is nonempty",
+     "Finset.add_sum_erase": "separating an element from a sum over a finset: f(a) + ∑_{x ∈ s \\ {a}} f(x) = ∑_{x ∈ s} f(x)",
+     "Finset.card_biUnion": "for disjoint finsets in a family, the cardinality of their union is the sum of their cardinalities",
+     "Finset.card_biUnion_le": "the cardinality of a union of finsets is at most the sum of their cardinalities",
+     "Finset.card_eq_one": "a finset has cardinality 1 if and only if it is a singleton {x}",
+     "Finset.card_erase_of_mem": "erasing an element from a finset decreases its cardinality by 1",
+     "Finset.card_filter_add_card_filter_not": "the number of elements satisfying a predicate plus the number not satisfying it equals the total cardinality",
+     "Finset.card_filter_le": "the cardinality of a filtered subset is at most the cardinality of the original finset",
+     "Finset.card_filter": "the cardinality of a filtered finset equals the sum over the finset of the indicator function",
+     "Finset.card_image_of_injOn": "an injective map on a finset preserves its cardinality",
+     "Finset.card_le_card": "a subset has cardinality at most the cardinality of the superset",
+     "Finset.card_le_mul_card_image_of_maps_to": "if a map from s to t has fibers of size at most n, then |s| ≤ n|t|",
+     "Finset.card_le_one": "in a finset of cardinality at most 1, any two elements are equal",
+     "Finset.card_le_two": "a finset with at most two elements has cardinality at most 2",
+     "Finset.card_pos": "a finset is nonempty if and only if its cardinality is strictly positive",
+     "Finset.card_sdiff_of_subset": "the cardinality of a finset difference t \\ s with s ⊆ t is |t| - |s|",
+     "Finset.card_singleton": "a singleton finset {a} has cardinality 1",
+     "Finset.card_univ": "the cardinality of the universal finset Finset.univ equals Fintype.card V",
+     "Finset.disjoint_left": "two finsets are disjoint if and only if no element of the first belongs to the second",
+     "Finset.erase_insert": "erasing an element not in a finset after inserting it recovers the original finset",
+     "Finset.filter_filter": "filtering by p and then by q is equivalent to filtering by p ∧ q",
+     "Finset.filter_mem_eq_inter": "filtering by membership in another finset is equivalent to set intersection",
+     "Finset.insert_erase": "inserting an element into a finset from which it was erased recovers the finset",
+     "Finset.mem_biUnion": "membership in a union of finsets is equivalent to membership in some member finset",
+     "Finset.mem_erase": "membership in s.erase a is equivalent to being in s and distinct from a",
+     "Finset.mem_filter": "membership in a filtered finset is equivalent to membership in the finset and satisfying the predicate",
+     "Finset.mem_insert_self": "an element belongs to the finset obtained by inserting it",
+     "Finset.mem_sdiff": "membership in a set difference s \\ t is membership in s and not in t",
+     "Finset.mem_singleton_self": "every element belongs to its own singleton finset",
+     "Finset.mem_univ": "every element of a finite type belongs to the universal finset Finset.univ",
+     "Finset.mul_sum": "multiplication by a scalar distributes over a finite sum",
+     "Finset.ne_of_mem_erase": "an element in s.erase a cannot equal a",
+     "Finset.singleton_injective": "the map sending an element to its singleton finset is injective",
+     "Finset.subset_insert": "a finset is contained in the finset obtained by inserting any element",
+     "Finset.sum_add_distrib": "the sum of termwise sums over a finset is the sum of the two sums",
+     "Finset.sum_congr": "two sums over finsets are equal if the index sets and the terms are equal",
+     "Finset.sum_comm": "double sums over two finsets can be interchanged",
+     "Finset.sum_const": "the sum of a constant over a finset equals the cardinality times that constant",
+     "Finset.sum_le_sum": "termwise inequality implies inequality of sums over a finset",
+     "Finset.univ": "Finset.univ is the finset of all elements of a finite type",
+     "Finset.univ_inter": "the intersection of Finset.univ with any finset is the finset itself",
+     "Function.onFun": "Function.onFun applies a binary operation after applying a unary function to both arguments",
+     "Nat.cast_sum": "casting a sum of natural numbers to ℚ is the sum of the cast terms",
+     "Or.inl": "introduction rule for the left disjunct of a disjunction",
+     "Or.inr": "introduction rule for the right disjunct of a disjunction",
+     "congrArg": "equality of inputs implies equality of outputs under any function f",
+     "div_le_div_iff₀": "for positive denominators, a / b ≤ c / d is equivalent to a * d ≤ c * b",
+     "if_neg": "an if-then-else evaluates to the then-branch when the condition is false",
+     "if_pos": "an if-then-else evaluates to the then-branch when the condition is true",
+     "le_antisymm": "antisymmetry of partial orders: a ≤ b and b ≤ a imply a = b",
+     "le_trans": "transitivity of order: a ≤ b and b ≤ c imply a ≤ c",
+     "smul_eq_mul": "scalar multiplication of a natural number by a scalar is standard multiplication"
+    },
+    "caveats": [
+     "Lean uses dot notation on the graph variable G for G.degree, G.card_neighborFinset_eq_degree, G.ne_of_adj, and G.mem_neighborFinset.",
+     "The term c(x) measures the number of dominating sets in D in which x is critical, meaning S \\ {x} is no longer dominating."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -296300,13 +296522,109 @@
    "deps": [],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/MatrixUnitDifferenceRowsIsTotallyUnimodular.lean",
-   "proved_at": 1791546378,
+   "proved_at": 1791549949,
    "provenance": "literature",
    "citation": "arXiv:2610.09349 (A near-quadratic lower bound for sets with no unique sums), Lemma 2.2 (determinants of unit-incidence minors). Stated as total unimodularity (Mathlib's `Matrix.IsTotallyUnimodular`) of the matrix with rows e_{u(i)} − e_{v(i)}; rows with u(i) = v(i) (zero rows) are allowed.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To show that an integer matrix whose rows are differences of standard basis vectors e_{u(i)} - e_{v(i)} is totally unimodular, we first prove by induction on matrix dimension k that every k × k integer matrix with entries in {0, 1, -1} having at most one 1 and at most one -1 per row has determinant in {0, 1, -1}. In the inductive step, if every row has both signs, each row sums to 0, placing the all-ones vector in the kernel and forcing the determinant to be 0. Otherwise, some row contains at most one nonzero entry: if the row is all zeros, the determinant is 0; if it contains a single nonzero entry ±1, Laplace expansion along that row reduces the determinant to ±1 times the determinant of a (k - 1) × (k - 1) minor, which is in {0, 1, -1} by induction. Finally, any square submatrix of the difference matrix inherits the property that each row has at most one 1 and at most one -1 by injectivity of the column selection, completing the proof.",
+    "steps": [
+     {
+      "claim": "State the key induction lemma and prove the base case k = 0: any 0 × 0 matrix has determinant 1.",
+      "explanation": "We set up an auxiliary lemma (`key`): any k × k integer matrix B whose entries belong to {0, 1, -1} and whose rows each contain at most one 1 and at most one -1 has det B ∈ {0, 1, -1}. We argue by induction on k. For k = 0, the indexing type Fin 0 is empty, and the determinant of an empty matrix is 1 by `Matrix.det_isEmpty`, which is in {0, 1, -1}.",
+      "lemmas": [
+       "Matrix.det_isEmpty"
+      ],
+      "automation": false,
+      "code": "  have key : ∀ k : ℕ, ∀ B : Matrix (Fin k) (Fin k) ℤ,\n      (∀ i j, B i j = 0 ∨ B i j = 1 ∨ B i j = -1) →\n      (∀ i j j', B i j = 1 → B i j' = 1 → j = j') →\n      (∀ i j j', B i j = -1 → B i j' = -1 → j = j') →\n      B.det = 0 ∨ B.det = 1 ∨ B.det = -1 := by\n    intro k\n    induction k with\n    | zero => intro B _ _ _; right; left; exact Matrix.det_isEmpty"
+     },
+     {
+      "claim": "In the induction step, if every row of B contains both a 1 and a -1, then det B = 0.",
+      "explanation": "Assume the induction hypothesis for k × k matrices, and let B be a (k + 1) × (k + 1) matrix satisfying the conditions. If every row contains both a 1 and a -1, then by the uniqueness of 1 and -1 in each row, every other entry in that row is 0. Each row therefore sums to 1 + (-1) = 0. Thus the all-ones vector 1 = (1, 1, …, 1)ᵀ lies in the kernel of B. Since 1 ≠ 0 (using `one_ne_zero` and `congrFun`), B has a non-trivial kernel, so det B = 0 by `Matrix.exists_mulVec_eq_zero_iff`.",
+      "lemmas": [
+       "Matrix.exists_mulVec_eq_zero_iff",
+       "one_ne_zero",
+       "congrFun",
+       "Finset.sum_eq_add"
+      ],
+      "automation": false,
+      "code": "    | succ k ih =>\n      intro B h0 h1 h2\n      by_cases hall : ∀ i, (∃ j, B i j = 1) ∧ (∃ j, B i j = -1)\n      · -- every row sums to zero, so the all-ones vector is in the kernel\n        left\n        rw [← Matrix.exists_mulVec_eq_zero_iff]\n        refine ⟨fun _ => 1, fun h => one_ne_zero (congrFun h 0), ?_⟩\n        funext i\n        obtain ⟨⟨j1, hj1⟩, ⟨j2, hj2⟩⟩ := hall i\n        have hne : j1 ≠ j2 := by\n          rintro rfl\n          rw [hj1] at hj2\n          norm_num at hj2\n        simp only [Matrix.mulVec, dotProduct, mul_one, Pi.zero_apply]\n        rw [Finset.sum_eq_add j1 j2 hne (fun c _ hc => ?_) (by simp) (by simp), hj1, hj2]\n        · norm_num\n        · rcases h0 i c with h | h | h\n          · exact h\n          · exact absurd (h1 i c j1 h hj1) hc.1\n          · exact absurd (h2 i c j2 h hj2) hc.2"
+     },
+     {
+      "claim": "If some row of B does not contain both 1 and -1, either it is all zeros (so det B = 0), or it has at least one nonzero entry.",
+      "explanation": "Negating the previous case gives some row i that does not contain both a 1 and a -1. If row i is identically zero, its determinant is immediately 0 by `Matrix.det_eq_zero_of_row_eq_zero`. Otherwise, row i has at least one nonzero entry, at some column j0.",
+      "lemmas": [
+       "Matrix.det_eq_zero_of_row_eq_zero"
+      ],
+      "automation": false,
+      "code": "      · push_neg at hall\n        obtain ⟨i, hi⟩ := hall\n        by_cases hz : ∀ j, B i j = 0\n        · left; exact Matrix.det_eq_zero_of_row_eq_zero i hz\n        push_neg at hz\n        obtain ⟨j0, hj0⟩ := hz"
+     },
+     {
+      "claim": "Row i contains exactly one nonzero entry, at column j0, and this entry is either 1 or -1.",
+      "explanation": "Since B i j0 ≠ 0 and all entries lie in {0, 1, -1}, B i j0 must be 1 or -1. For any other column j ≠ j0, if B i j were nonzero, it would also be 1 or -1. If B i j and B i j0 had the same sign, that would contradict the hypothesis that row i has at most one 1 and at most one -1; if they had opposite signs, row i would contain both 1 and -1, contradicting the choice of row i. Hence, every entry of row i other than at j0 is 0.",
+      "lemmas": [
+       "Or.inl",
+       "Or.inr"
+      ],
+      "automation": false,
+      "code": "        -- row `i` has a single nonzero entry, at `j0`\n        have honly : ∀ j, j ≠ j0 → B i j = 0 := by\n          intro j hj\n          by_contra hne\n          rcases h0 i j with h | h | h\n          · exact hne h\n          · rcases h0 i j0 with h' | h' | h'\n            · exact hj0 h'\n            · exact hj (h1 i j j0 h h')\n            · exact hi ⟨j, h⟩ j0 h'\n          · rcases h0 i j0 with h' | h' | h'\n            · exact hj0 h'\n            · exact hi ⟨j0, h'⟩ j h\n            · exact hj (h2 i j j0 h h')\n        have hB : B i j0 = 1 ∨ B i j0 = -1 := by\n          rcases h0 i j0 with h | h | h\n          · exact absurd h hj0\n          · exact Or.inl h\n          · exact Or.inr h"
+     },
+     {
+      "claim": "The (k × k) minor B' obtained by deleting row i and column j0 has det B' ∈ {0, 1, -1}, and Laplace expansion along row i yields det B ∈ {0, 1, -1}.",
+      "explanation": "We delete row i and column j0 using the injective index embeddings `Fin.succAbove` to obtain a k × k matrix B'. Because `Fin.succAbove` is injective (`Fin.succAbove_right_injective`), B' preserves the property of having at most one 1 and at most one -1 per row, so det B' ∈ {0, 1, -1} by the induction hypothesis. Expanding det B along row i via `Matrix.det_succ_row` and using `Finset.sum_eq_single` reduces the determinant to det B = (-1)^(i + j0) * B i j0 * det B'. Since (-1)^(i + j0) ∈ {1, -1} by `neg_one_pow_eq_or`, B i j0 ∈ {1, -1}, and det B' ∈ {0, 1, -1}, their product det B must lie in {0, 1, -1}.",
+      "lemmas": [
+       "Fin.succAbove_right_injective",
+       "Matrix.det_succ_row",
+       "Finset.sum_eq_single",
+       "neg_one_pow_eq_or"
+      ],
+      "automation": false,
+      "code": "        set B' := B.submatrix i.succAbove j0.succAbove with hB'\n        have hminor : B'.det = 0 ∨ B'.det = 1 ∨ B'.det = -1 := by\n          refine ih B' (fun a b => h0 _ _) (fun a b b' hb hb' => ?_) (fun a b b' hb hb' => ?_)\n          · exact Fin.succAbove_right_injective (h1 _ _ _ hb hb')\n          · exact Fin.succAbove_right_injective (h2 _ _ _ hb hb')\n        rw [Matrix.det_succ_row B i, Finset.sum_eq_single j0\n          (fun j _ hj => by rw [honly j hj]; ring) (by simp)]\n        rcases neg_one_pow_eq_or ℤ (i + j0 : ℕ) with hp | hp <;> rcases hB with hb | hb <;>\n          rcases hminor with hd | hd | hd <;> simp [hp, hb, ← hB', hd]"
+     },
+     {
+      "claim": "Any k × k submatrix B of the basis difference matrix has entries in {0, 1, -1}, with at most one 1 and at most one -1 in each row.",
+      "explanation": "Let B be a k × k submatrix chosen by row indices f and column indices g with g injective. Using `Matrix.submatrix_apply` and `Pi.single_apply`, entry B i j is (if g j = u (f i) then 1 else 0) - (if g j = v (f i) then 1 else 0). Thus each entry is 0, 1, or -1. Using `if_neg`, B i j = 1 implies g j = u (f i), and B i j = -1 implies g j = v (f i).",
+      "lemmas": [
+       "Matrix.submatrix_apply",
+       "Pi.single_apply",
+       "if_neg"
+      ],
+      "automation": false,
+      "code": "  intro k f g _ hg\n  set B := (Matrix.of fun (i : m) (j : n) =>\n      (Pi.single (u i) (1 : ℤ) : n → ℤ) j - (Pi.single (v i) (1 : ℤ) : n → ℤ) j).submatrix\n    f g with hBdef\n  have entry : ∀ i j, B i j =\n      (if g j = u (f i) then 1 else 0) - (if g j = v (f i) then 1 else 0) := by\n    intro i j\n    simp [hBdef, Matrix.submatrix_apply, Pi.single_apply]\n  have e1 : ∀ i j, B i j = 1 → g j = u (f i) := by\n    intro i j h\n    by_contra hc\n    rw [entry, if_neg hc] at h\n    split_ifs at h <;> norm_num at h\n  have e2 : ∀ i j, B i j = -1 → g j = v (f i) := by\n    intro i j h\n    by_contra hc\n    rw [entry, if_neg hc] at h\n    split_ifs at h <;> norm_num at h\n  have h0 : ∀ i j, B i j = 0 ∨ B i j = 1 ∨ B i j = -1 := by\n    intro i j; rw [entry]; split_ifs <;> simp"
+     },
+     {
+      "claim": "Injectivity of g implies each row has at most one 1 and at most one -1, so applying the key lemma proves total unimodularity.",
+      "explanation": "If B i j = 1 and B i j' = 1, then g j = u (f i) = g j', so j = j' by the injectivity of g. Similarly, if B i j = -1 and B i j' = -1, then g j = v (f i) = g j', so j = j'. Thus B satisfies all hypotheses of `key`, giving det B ∈ {0, 1, -1}. Exhibiting 0, 1, or -1 as the corresponding element in the range of `SignType.cast` finishes the proof that the matrix is totally unimodular.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  rcases key k B h0 (fun i j j' hj hj' => hg ((e1 i j hj).trans (e1 i j' hj').symm))\n      (fun i j j' hj hj' => hg ((e2 i j hj).trans (e2 i j' hj').symm)) with h | h | h\n  · exact ⟨0, by simp [h]⟩\n  · exact ⟨1, by simp [h]⟩\n  · exact ⟨-1, by simp [h]⟩"
+     }
+    ],
+    "glossary": {
+     "Matrix.det_isEmpty": "The determinant of an empty square matrix (indexed by an empty type) is 1.",
+     "Matrix.exists_mulVec_eq_zero_iff": "Over an integral domain, a square matrix has determinant 0 if and only if there is a non-zero vector in its kernel.",
+     "one_ne_zero": "In any structure where 1 is non-zero, 1 ≠ 0.",
+     "congrFun": "Equal functions agree at every argument.",
+     "Finset.sum_eq_add": "If all terms in a finite sum other than two distinct indices a and b are zero, the sum equals f(a) + f(b).",
+     "Matrix.det_eq_zero_of_row_eq_zero": "A square matrix with an all-zero row has determinant 0.",
+     "Or.inl": "Constructs a proof of a ∨ b from a proof of the left disjunct a.",
+     "Or.inr": "Constructs a proof of a ∨ b from a proof of the right disjunct b.",
+     "Fin.succAbove_right_injective": "The map skipping a designated element of Fin (n + 1) while preserving order is injective.",
+     "Matrix.det_succ_row": "Laplace cofactor expansion of the determinant of an (n + 1) × (n + 1) matrix along a designated row.",
+     "Finset.sum_eq_single": "If all terms in a finite sum except at a single index a are zero, the sum equals f(a).",
+     "neg_one_pow_eq_or": "Any natural power of -1 in a ring is either 1 or -1.",
+     "Matrix.submatrix_apply": "The entry at (i, j) of a submatrix formed by row map r and column map c is the entry of the original matrix at (r(i), c(j)).",
+     "Pi.single_apply": "The indicator vector `Pi.single i x` evaluates to x at index i and 0 elsewhere.",
+     "if_neg": "If a condition c is false, the conditional expression `if c then t else e` reduces to e."
+    },
+    "caveats": [
+     "In Mathlib, `Matrix.IsTotallyUnimodular` is defined by requiring square minors to lie in `Set.range SignType.cast`, which maps the three constructors of `SignType` (zero, pos, neg) to 0, 1, and -1 in ℤ.",
+     "Row and column deletion for minors is formally encoded using `Fin.succAbove`, the order-preserving injection that skips a specified index."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -296332,13 +296650,227 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphLocalAvgDominatingOrderOfDegreeEqCardSubTwo.lean",
-   "proved_at": 1791547405,
+   "proved_at": 1791550192,
    "provenance": "literature",
    "citation": "arXiv:2610.11446 (On the local average order of dominating sets), Corollary 4.2. The paper's connectivity hypothesis is kept though the proof here does not use it; the proof counts the sets containing v that meet N[u] directly instead of differentiating the domination polynomial.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof characterizes the dominating sets containing v by observing that because deg v = n - 2 and v is non-adjacent only to u, vertex v already dominates all vertices other than u. Consequently, a subset containing v is dominating if and only if it dominates u, which means it must intersect the closed neighborhood N[u]. The collection D of dominating sets containing v is therefore the difference D = P \\ Q between all subsets containing v and those containing v that are disjoint from N[u]. Using a pairing argument between subsets and their complements to compute the size and total cardinality of each family, their quotient simplifies algebraically to the claimed formula.",
+    "steps": [
+     {
+      "claim": "Let n = |V| and let D be the family of dominating sets of G containing v.",
+      "explanation": "We work under classical logic, introduce the abbreviation n for the order of the vertex set V, and denote by D the collection of dominating sets of G that contain the vertex v.",
+      "lemmas": [
+       "Fintype.card",
+       "simple_graph_dominating_sets_containing"
+      ],
+      "automation": false,
+      "code": "  classical\n  set n := Fintype.card V with hn'\n  set D := simple_graph_dominating_sets_containing G v with hD"
+     },
+     {
+      "claim": "For any subset W ⊆ V not containing v, the family of subsets of {v} ∪ W containing v is in bijection with the power set 𝒫(W) via T ↦ {v} ∪ T.",
+      "explanation": "Every subset S ⊆ {v} ∪ W containing v is of the form {v} ∪ T with T = S \\ {v} ⊆ W. Conversely, inserting v into any T ⊆ W produces a subset of {v} ∪ W containing v. Because v ∉ W, the insertion operation T ↦ {v} ∪ T is injective on 𝒫(W), since removing v recovers the unique preimage T.",
+      "lemmas": [
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "true_and",
+       "Finset.mem_image",
+       "Finset.mem_powerset",
+       "Finset.insert_erase",
+       "Finset.mem_of_mem_erase",
+       "Finset.mem_insert",
+       "Finset.ne_of_mem_erase",
+       "Finset.mem_insert_self",
+       "Finset.insert_subset_insert",
+       "Finset.coe_powerset",
+       "Set.mem_preimage",
+       "Set.mem_powerset_iff",
+       "Finset.coe_subset",
+       "Finset.erase_insert",
+       "congrArg"
+      ],
+      "automation": false,
+      "code": "  -- sets containing `v` inside `insert v W`: `2^|W|` of them, total size `2^|W| + |W| 2^|W| / 2`\n  have count : ∀ W : Finset V, v ∉ W →\n      (Finset.univ.filter (fun S : Finset V => v ∈ S ∧ S ⊆ insert v W)).card = 2 ^ W.card ∧\n      ∑ S ∈ Finset.univ.filter (fun S : Finset V => v ∈ S ∧ S ⊆ insert v W), (S.card : ℚ) =\n        2 ^ W.card + W.card * 2 ^ W.card / 2 := by\n    intro W hvW\n    have himg : Finset.univ.filter (fun S : Finset V => v ∈ S ∧ S ⊆ insert v W) =\n        W.powerset.image (insert v) := by\n      ext S\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_image,\n        Finset.mem_powerset]\n      constructor\n      · rintro ⟨hvS, hSW⟩\n        refine ⟨S.erase v, fun x hx => ?_, Finset.insert_erase hvS⟩\n        have := hSW (Finset.mem_of_mem_erase hx)\n        rw [Finset.mem_insert] at this\n        rcases this with h | h\n        · exact absurd h (Finset.ne_of_mem_erase hx)\n        · exact h\n      · rintro ⟨T, hTW, rfl⟩\n        exact ⟨Finset.mem_insert_self v T, Finset.insert_subset_insert v hTW⟩\n    have hinj : Set.InjOn (insert v) (W.powerset : Set (Finset V)) := by\n      intro S hS T hT h\n      simp only [Finset.coe_powerset, Set.mem_preimage, Set.mem_powerset_iff,\n        Finset.coe_subset] at hS hT\n      have hvS : v ∉ S := fun h' => hvW (hS h')\n      have hvT : v ∉ T := fun h' => hvW (hT h')\n      rw [← Finset.erase_insert hvS, ← Finset.erase_insert hvT]\n      exact congrArg (fun U => Finset.erase U v) h"
+     },
+     {
+      "claim": "The sum of the sizes of all subsets of W equals |W| · 2^{|W|} / 2.",
+      "explanation": "Pairing each subset T ⊆ W with its complement W \\ T defines a bijection on the power set 𝒫(W). Since |T| + |W \\ T| = |W|, summing over all 2^{|W|} subsets gives 2 ∑_{T ⊆ W} |T| = ∑_{T ⊆ W} (|T| + |W \\ T|) = |W| · 2^{|W|}, so the sum of cardinalities is |W| · 2^{|W|} / 2.",
+      "lemmas": [
+       "Finset.sum_nbij'",
+       "Finset.mem_coe",
+       "Finset.mem_powerset",
+       "Finset.sdiff_subset",
+       "Finset.sdiff_sdiff_eq_self",
+       "Finset.card_sdiff_of_subset",
+       "Nat.cast_sub",
+       "Finset.card_le_card",
+       "two_mul",
+       "Finset.sum_add_distrib",
+       "Finset.sum_congr",
+       "Finset.sum_const",
+       "Finset.card_powerset",
+       "nsmul_eq_mul"
+      ],
+      "automation": false,
+      "code": "    -- complements in `W` pair sizes `k` and `|W| - k`\n    have hhalf : 2 * ∑ T ∈ W.powerset, (T.card : ℚ) = W.card * 2 ^ W.card := by\n      have hc : ∑ T ∈ W.powerset, (T.card : ℚ) = ∑ T ∈ W.powerset, ((W.card : ℚ) - T.card) := by\n        refine Finset.sum_nbij' (fun T => W \\ T) (fun T => W \\ T) ?_ ?_ ?_ ?_ ?_\n        · intro T hT; simp only [Finset.mem_coe, Finset.mem_powerset] at hT ⊢; exact Finset.sdiff_subset\n        · intro T hT; simp only [Finset.mem_coe, Finset.mem_powerset] at hT ⊢; exact Finset.sdiff_subset\n        · intro T hT; simp only [Finset.mem_coe, Finset.mem_powerset] at hT; exact Finset.sdiff_sdiff_eq_self hT\n        · intro T hT; simp only [Finset.mem_coe, Finset.mem_powerset] at hT; exact Finset.sdiff_sdiff_eq_self hT\n        · intro T hT\n          rw [Finset.mem_powerset] at hT\n          rw [Finset.card_sdiff_of_subset hT, Nat.cast_sub (Finset.card_le_card hT)]\n          ring\n      rw [two_mul]\n      nth_rewrite 2 [hc]\n      rw [← Finset.sum_add_distrib, Finset.sum_congr rfl fun T _ =>\n        (show (T.card : ℚ) + ((W.card : ℚ) - T.card) = W.card by ring), Finset.sum_const,\n        Finset.card_powerset, nsmul_eq_mul]\n      push_cast; ring"
+     },
+     {
+      "claim": "The subsets of {v} ∪ W containing v have count 2^{|W|} and their sizes sum to 2^{|W|} + |W| · 2^{|W|} / 2.",
+      "explanation": "Applying the bijection T ↦ {v} ∪ T, the number of such subsets is |𝒫(W)| = 2^{|W|}. Since each subset {v} ∪ T has size |T| + 1, the sum of their sizes is ∑_{T ⊆ W} (|T| + 1) = |𝒫(W)| + ∑_{T ⊆ W} |T| = 2^{|W|} + |W| · 2^{|W|} / 2.",
+      "lemmas": [
+       "Finset.card_image_of_injOn",
+       "Finset.card_powerset",
+       "Finset.sum_image",
+       "Finset.mem_powerset",
+       "Finset.card_insert_of_notMem",
+       "Finset.sum_congr",
+       "Finset.sum_add_distrib",
+       "Finset.sum_const",
+       "nsmul_eq_mul"
+      ],
+      "automation": false,
+      "code": "    rw [himg, Finset.card_image_of_injOn hinj, Finset.card_powerset, Finset.sum_image hinj]\n    refine ⟨rfl, ?_⟩\n    have : ∀ T ∈ W.powerset, ((insert v T).card : ℚ) = T.card + 1 := by\n      intro T hT\n      rw [Finset.mem_powerset] at hT\n      rw [Finset.card_insert_of_notMem (fun h => hvW (hT h))]\n      push_cast; ring\n    rw [Finset.sum_congr rfl this, Finset.sum_add_distrib, Finset.sum_const, Finset.card_powerset,\n      nsmul_eq_mul]\n    push_cast\n    linarith"
+     },
+     {
+      "claim": "The open neighborhood of v is exactly V \\ {v, u}, so v is adjacent to all w ∉ {v, u}.",
+      "explanation": "Because v has degree n - 2, is not adjacent to u, and cannot be adjacent to itself, its neighborhood N(v) is a subset of (V \\ {v}) \\ {u}. Since both sets have cardinality n - 2, they must be equal: N(v) = (V \\ {v}) \\ {u}. Consequently, every vertex w distinct from both v and u is a neighbor of v.",
+      "lemmas": [
+       "Finset.eq_of_subset_of_card_le",
+       "G.mem_neighborFinset",
+       "Finset.mem_erase",
+       "G.ne_of_adj",
+       "Finset.mem_univ",
+       "G.card_neighborFinset_eq_degree",
+       "Finset.card_erase_of_mem"
+      ],
+      "automation": false,
+      "code": "  -- every vertex other than `u` and `v` is a neighbour of `v`\n  have hnbr : G.neighborFinset v = (Finset.univ.erase v).erase u := by\n    apply Finset.eq_of_subset_of_card_le\n    · intro w hw\n      rw [G.mem_neighborFinset] at hw\n      rw [Finset.mem_erase, Finset.mem_erase]\n      exact ⟨fun h => hnadj (h ▸ hw), (G.ne_of_adj hw).symm, Finset.mem_univ w⟩\n    · rw [G.card_neighborFinset_eq_degree, hdeg,\n        Finset.card_erase_of_mem (Finset.mem_erase.2 ⟨huv, Finset.mem_univ u⟩),\n        Finset.card_erase_of_mem (Finset.mem_univ v)]\n      rfl\n  have hadj : ∀ w, w ≠ v → w ≠ u → G.Adj v w := by\n    intro w hwv hwu\n    rw [← G.mem_neighborFinset, hnbr, Finset.mem_erase, Finset.mem_erase]\n    exact ⟨hwu, hwv, Finset.mem_univ w⟩"
+     },
+     {
+      "claim": "Setting Y = N[u], X = V \\ {v}, and Z = X \\ Y, their cardinalities are |X| = n - 1, |Y| = deg u + 1, and |Z| + (deg u + 1) = n - 1.",
+      "explanation": "Let Y = {u} ∪ N(u) be the closed neighborhood of u. Since u ≠ v and v ≁ u, v ∉ Y, so Y ⊆ X = V \\ {v}. The sizes are |X| = n - 1 and |Y| = deg u + 1 (as u ∉ N(u)). Therefore Z = X \\ Y has cardinality |Z| = |X| - |Y| = (n - 1) - (deg u + 1).",
+      "lemmas": [
+       "Finset.mem_insert",
+       "G.mem_neighborFinset",
+       "Finset.notMem_erase",
+       "Finset.mem_sdiff",
+       "Finset.mem_erase",
+       "Finset.mem_univ",
+       "Finset.card_erase_of_mem",
+       "Finset.card_insert_of_notMem",
+       "G.card_neighborFinset_eq_degree",
+       "Finset.card_sdiff_of_subset",
+       "Finset.card_le_card"
+      ],
+      "automation": false,
+      "code": "  set Y : Finset V := insert u (G.neighborFinset u) with hY\n  have hvY : v ∉ Y := by\n    rw [hY, Finset.mem_insert, G.mem_neighborFinset]\n    rintro (h | h)\n    · exact huv h.symm\n    · exact hnadj h.symm\n  set X : Finset V := Finset.univ.erase v with hX\n  set Z : Finset V := X \\ Y with hZ\n  have hvX : v ∉ X := Finset.notMem_erase v _\n  have hvZ : v ∉ Z := fun h => hvX (Finset.mem_sdiff.1 h).1\n  have hYX : Y ⊆ X := fun w hw => Finset.mem_erase.2 ⟨fun h => hvY (h ▸ hw), Finset.mem_univ w⟩\n  have hXcard : X.card = n - 1 := by rw [hX, Finset.card_erase_of_mem (Finset.mem_univ v)]; rfl\n  have hYcard : Y.card = G.degree u + 1 := by\n    rw [hY, Finset.card_insert_of_notMem (by simp), G.card_neighborFinset_eq_degree]\n  have hZcard : Z.card + (G.degree u + 1) = n - 1 := by\n    rw [hZ, Finset.card_sdiff_of_subset hYX, hXcard, ← hYcard]\n    have := Finset.card_le_card hYX\n    omega"
+     },
+     {
+      "claim": "The dominating sets containing v are exactly D = P \\ Q, where P is the family of all subsets containing v and Q is the family of subsets containing v disjoint from Y.",
+      "explanation": "Because v is adjacent to every vertex except u, any subset S containing v already dominates all vertices other than u. Thus S is a dominating set if and only if it dominates u, which means S contains u or a neighbor of u—in other words, S meets the closed neighborhood Y = N[u]. Expressing P as the subsets containing v within {v} ∪ X (which is all subsets containing v) and Q as those within {v} ∪ Z (which avoid Y), we have D = P \\ Q with Q ⊆ P.",
+      "lemmas": [
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "Finset.insert_subset_insert",
+       "Finset.sdiff_subset",
+       "Finset.mem_sdiff",
+       "simple_graph_dominating_sets_containing",
+       "true_and",
+       "Finset.mem_insert",
+       "Finset.mem_erase",
+       "Or.inl",
+       "Or.inr",
+       "Finset.mem_insert_self",
+       "G.mem_neighborFinset"
+      ],
+      "automation": false,
+      "code": "  -- the dominating sets containing `v` are the sets containing `v` that meet `N[u]`\n  set P := Finset.univ.filter (fun S : Finset V => v ∈ S ∧ S ⊆ insert v X) with hP\n  set Q := Finset.univ.filter (fun S : Finset V => v ∈ S ∧ S ⊆ insert v Z) with hQ\n  have hQP : Q ⊆ P := by\n    intro S hS\n    rw [hQ, Finset.mem_filter] at hS\n    rw [hP, Finset.mem_filter]\n    exact ⟨Finset.mem_univ S, hS.2.1,\n      hS.2.2.trans (Finset.insert_subset_insert v Finset.sdiff_subset)⟩\n  have hDPQ : D = P \\ Q := by\n    ext S\n    rw [hD, Finset.mem_sdiff, hP, hQ]\n    unfold simple_graph_dominating_sets_containing\n    simp only [Finset.mem_filter, Finset.mem_univ, true_and]\n    have hSX : v ∈ S → S ⊆ insert v X := fun _ w _ => by\n      rw [Finset.mem_insert, hX, Finset.mem_erase]\n      by_cases h : w = v\n      · exact Or.inl h\n      · exact Or.inr ⟨h, Finset.mem_univ w⟩\n    constructor\n    · rintro ⟨hvS, hdom⟩\n      refine ⟨⟨hvS, hSX hvS⟩, fun ⟨_, hSZ⟩ => ?_⟩\n      rcases hdom u with h | ⟨w, hw, hwu⟩\n      · have := hSZ h\n        rw [Finset.mem_insert, hZ, Finset.mem_sdiff] at this\n        rcases this with h' | h'\n        · exact huv h'\n        · exact h'.2 (by rw [hY]; exact Finset.mem_insert_self u _)\n      · have := hSZ hw\n        rw [Finset.mem_insert, hZ, Finset.mem_sdiff] at this\n        rcases this with h' | h'\n        · exact hnadj (h' ▸ hwu)\n        · exact h'.2 (by rw [hY, Finset.mem_insert, G.mem_neighborFinset]; exact Or.inr hwu.symm)\n    · rintro ⟨⟨hvS, _⟩, hnot⟩\n      refine ⟨hvS, fun w => ?_⟩\n      by_cases hwv : w = v\n      · exact Or.inl (hwv ▸ hvS)\n      by_cases hwu : w = u\n      · -- `S` meets `N[u]`\n        subst hwu\n        by_contra hcon\n        push_neg at hcon\n        apply hnot\n        refine ⟨hvS, fun x hx => ?_⟩\n        rw [Finset.mem_insert, hZ, Finset.mem_sdiff, hX, Finset.mem_erase]\n        by_cases hxv : x = v\n        · exact Or.inl hxv\n        · refine Or.inr ⟨⟨hxv, Finset.mem_univ x⟩, ?_⟩\n          rw [hY, Finset.mem_insert, G.mem_neighborFinset]\n          rintro (h | h)\n          · exact hcon.1 (h ▸ hx)\n          · exact hcon.2 x hx h.symm\n      · exact Or.inr ⟨v, hvS, hadj w hwv hwu⟩"
+     },
+     {
+      "claim": "The size of D is 2^{|X|} - 2^{|Z|}, and the sum of sizes of sets in D is (2^{|X|} + |X| · 2^{|X|} / 2) - (2^{|Z|} + |Z| · 2^{|Z|} / 2).",
+      "explanation": "Applying the counting lemma to X and Z yields the counts and total sizes for P and Q. Because Q ⊆ P and D = P \\ Q, both the cardinality and the sum of sizes for D are obtained by subtracting the corresponding values of Q from those of P.",
+      "lemmas": [
+       "Finset.card_sdiff_of_subset",
+       "Nat.cast_sub",
+       "Nat.pow_le_pow_right",
+       "Finset.card_le_card",
+       "Finset.sdiff_subset",
+       "Finset.sum_sdiff"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨hPc, hPs⟩ := count X hvX\n  obtain ⟨hQc, hQs⟩ := count Z hvZ\n  have hDcard : (D.card : ℚ) = 2 ^ X.card - 2 ^ Z.card := by\n    rw [hDPQ, Finset.card_sdiff_of_subset hQP, hPc, hQc,\n      Nat.cast_sub (Nat.pow_le_pow_right (by norm_num) (Finset.card_le_card (Finset.sdiff_subset)))]\n    push_cast; ring\n  have hDsum : ∑ S ∈ D, (S.card : ℚ) = (2 ^ X.card + X.card * 2 ^ X.card / 2) -\n      (2 ^ Z.card + Z.card * 2 ^ Z.card / 2) := by\n    rw [hDPQ, ← hPs, ← hQs, ← Finset.sum_sdiff hQP]; ring"
+     },
+     {
+      "claim": "The local average dominating order simplifies to (n + 1)/2 + (deg u + 1) / (2(2^{deg u + 1} - 1)).",
+      "explanation": "Let d = deg u and z = |Z|, so |X| = z + d + 1 and n = z + d + 2. The average size is the quotient of the sum of sizes by |D| = 2^{|X|} - 2^{|Z|}. Factoring out 2^z from the numerator and denominator using 2^{|X|} = 2^z · 2^{d+1}, the factor 2^z > 0 cancels. Since d + 1 ≥ 1, the denominator 2^{d+1} - 1 is non-zero. Algebraic division then yields (z + d + 3)/2 + (d + 1) / (2(2^{d+1} - 1)), which equals (n + 1)/2 + (d + 1) / (2(2^{d+1} - 1)).",
+      "lemmas": [
+       "simple_graph_local_avg_dominating_order",
+       "one_lt_pow₀",
+       "pow_add"
+      ],
+      "automation": false,
+      "code": "  -- algebra, with `|X| = |Z| + (d + 1)` and `|X| = n - 1`\n  set d := G.degree u with hd\n  set z := Z.card with hz\n  have hXz : X.card = z + (d + 1) := by rw [hXcard]; omega\n  have hnq : (n : ℚ) = z + d + 2 := by\n    have : n = z + (d + 1) + 1 := by omega\n    rw [this]; push_cast; ring\n  unfold simple_graph_local_avg_dominating_order\n  rw [← hD, hDsum, hDcard, hXz, hnq]\n  have h2 : (2 : ℚ) ^ (d + 1) - 1 ≠ 0 := by\n    have : (1 : ℚ) < 2 ^ (d + 1) := one_lt_pow₀ (by norm_num) (by omega)\n    linarith\n  have h2z : (0 : ℚ) < 2 ^ z := by positivity\n  rw [pow_add]\n  push_cast\n  field_simp\n  ring"
+     }
+    ],
+    "glossary": {
+     "Fintype.card": "The cardinality of a finite type as a natural number.",
+     "simple_graph_dominating_sets_containing": "The collection of dominating sets of G containing vertex v.",
+     "Finset.mem_filter": "An element belongs to Finset.filter p s if and only if it belongs to s and satisfies predicate p.",
+     "Finset.mem_univ": "Every element of a finite type belongs to the universal finset Finset.univ.",
+     "true_and": "The logical proposition True ∧ p is equivalent to p.",
+     "Finset.mem_image": "An element b is in the image Finset.image f s if and only if b = f a for some a in s.",
+     "Finset.mem_powerset": "A finset belongs to the power set of s if and only if it is a subset of s.",
+     "Finset.insert_erase": "Inserting a into s \\ {a} recovers s, provided a ∈ s.",
+     "Finset.mem_of_mem_erase": "An element belonging to s \\ {a} also belongs to s.",
+     "Finset.mem_insert": "An element belongs to {a} ∪ s if and only if it equals a or belongs to s.",
+     "Finset.ne_of_mem_erase": "An element belonging to s \\ {a} is not equal to a.",
+     "Finset.mem_insert_self": "The element a belongs to {a} ∪ s.",
+     "Finset.insert_subset_insert": "If s ⊆ t, then {a} ∪ s ⊆ {a} ∪ t.",
+     "Finset.coe_powerset": "The set coercion of the power set of a finset equals the set-theoretic power set of its coercion.",
+     "Set.mem_preimage": "An element x belongs to f⁻¹(s) if and only if f x belongs to s.",
+     "Set.mem_powerset_iff": "A set belongs to the power set of s if and only if it is a subset of s.",
+     "Finset.coe_subset": "Inclusion of finsets is equivalent to inclusion of their coerced sets.",
+     "Finset.erase_insert": "Removing a from {a} ∪ s yields s, provided a ∉ s.",
+     "congrArg": "If a₁ = a₂, then f a₁ = f a₂.",
+     "Finset.sum_nbij'": "A sum over a finset equals a sum over another finset under an explicit bijection preserving summands.",
+     "Finset.mem_coe": "An element belongs to the set coercion of a finset if and only if it belongs to the finset.",
+     "Finset.sdiff_subset": "The set difference s \\ t is a subset of s.",
+     "Finset.sdiff_sdiff_eq_self": "For t ⊆ s, the complement of the complement s \\ (s \\ t) equals t.",
+     "Finset.card_sdiff_of_subset": "If s ⊆ t, then |t \\ s| = |t| - |s|.",
+     "Nat.cast_sub": "If m ≤ n, the natural-to-group cast of n - m equals the cast of n minus the cast of m.",
+     "Finset.card_le_card": "If s ⊆ t, then |s| ≤ |t|.",
+     "two_mul": "Multiplication by 2 equals addition to oneself: 2 * n = n + n.",
+     "Finset.sum_add_distrib": "The sum of f x + g x over a finset equals the sum of f x plus the sum of g x.",
+     "Finset.sum_congr": "Sums over equal finsets with pointwise equal summands are equal.",
+     "Finset.sum_const": "Summing a constant b over a finset s equals |s| • b.",
+     "Finset.card_powerset": "The power set of a finset s has cardinality 2^|s|.",
+     "nsmul_eq_mul": "Natural scalar multiplication in a semiring equals multiplication by the cast of the scalar.",
+     "Finset.card_image_of_injOn": "If f is injective on s, the image Finset.image f s has cardinality |s|.",
+     "Finset.sum_image": "If g is injective on s, the sum of f over g(s) equals the sum of f ∘ g over s.",
+     "Finset.card_insert_of_notMem": "If a ∉ s, then |{a} ∪ s| = |s| + 1.",
+     "Finset.eq_of_subset_of_card_le": "If s ⊆ t and |t| ≤ |s|, then s = t.",
+     "G.mem_neighborFinset": "A vertex w is in the open neighborhood of v if and only if v is adjacent to w.",
+     "Finset.mem_erase": "An element belongs to s \\ {b} if and only if it is not equal to b and belongs to s.",
+     "G.ne_of_adj": "Adjacent vertices in a simple graph are distinct.",
+     "G.card_neighborFinset_eq_degree": "The cardinality of the open neighborhood of v equals the degree of v.",
+     "Finset.card_erase_of_mem": "Removing an element a from a finset s containing a decreases its cardinality by 1.",
+     "Finset.notMem_erase": "An element a does not belong to s \\ {a}.",
+     "Finset.mem_sdiff": "An element belongs to s \\ t if and only if it belongs to s and does not belong to t.",
+     "Or.inl": "Left introduction for disjunction: A implies A ∨ B.",
+     "Or.inr": "Right introduction for disjunction: B implies A ∨ B.",
+     "Nat.pow_le_pow_right": "For base n > 0 and exponents i ≤ j, n^i ≤ n^j.",
+     "Finset.sum_sdiff": "For s₁ ⊆ s₂, the sum over s₂ decomposes into the sum over s₂ \\ s₁ plus the sum over s₁.",
+     "simple_graph_local_avg_dominating_order": "The average order of dominating sets containing v, defined as the sum of their sizes divided by their count.",
+     "one_lt_pow₀": "If 1 < a and n ≠ 0, then 1 < a^n.",
+     "pow_add": "In a monoid, a^(m + n) = a^m * a^n."
+    },
+    "caveats": [
+     "The hypothesis hconn that the graph is connected is never used in the proof."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -296366,13 +296898,100 @@
     "consecutive_sum_ne_mul_prime"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/ConsecutiveSumNeMulPrimeOfTwoMulLt.lean",
-   "proved_at": 1791548021,
+   "proved_at": 1791550129,
    "provenance": "original",
    "citation": "arXiv:2610.08889 (Consecutive Cycle Sums), Lemma 2, which assumes in addition 2an − T_{2a−1} < ap; that hypothesis is not needed: divisibility forces a run of k consecutive integers with sum ap to have k ≤ 2a, and such a run sums to at most 2an < ap. Serves Theorem 1 (not_cycle_labeling_complete_range_of_ge_eight).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "Suppose for contradiction that the sum of k = m + 1 consecutive integers starting at i ≤ n equals a · p. By the formula for the sum of an arithmetic progression, 2ap = k(2i + k - 1), and bounding each term by n yields ap ≤ kn. Because p > 2n ≥ k, the prime p cannot divide k, which forces either k (if odd) or k/2 (if even) to divide a, implying k ≤ 2a. But then ap ≤ kn ≤ 2an < ap (since 2n < p), an impossibility.",
+    "steps": [
+     {
+      "claim": "Assume for contradiction that the sum equals a · p, and express the upper limit as j = i + m.",
+      "explanation": "We assume for contradiction that ∑ x ∈ Finset.Icc i j, x = a · p. Since i ≤ j, by `Nat.exists_eq_add_of_le` we can write j = i + m for some m ∈ ℕ, so the interval consists of m + 1 consecutive terms starting at i.",
+      "lemmas": [
+       "Nat.exists_eq_add_of_le"
+      ],
+      "automation": false,
+      "code": "  intro hS\n  obtain ⟨m, rfl⟩ := Nat.exists_eq_add_of_le hij"
+     },
+     {
+      "claim": "The sum identity 2 · (a · p) = (m + 1) · (2 · i + m) holds.",
+      "explanation": "By induction on m, we establish the general arithmetic progression sum identity 2 · ∑ x ∈ Finset.Icc i (i + m), x = (m + 1) · (2 · i + m). The base case m = 0 reduces to 2 · i = 1 · 2 · i. For the successor step, `Finset.sum_Icc_succ_top` extracts the top term i + m + 1, and distributivity (`mul_add`) together with the induction hypothesis completes the step via ring arithmetic. Substituting the assumed sum a · p yields 2 · (a · p) = (m + 1) · (2 · i + m).",
+      "lemmas": [
+       "Finset.sum_Icc_succ_top",
+       "mul_add"
+      ],
+      "automation": false,
+      "code": "  -- `2 S = k (2i + k - 1)` with `k = m + 1` terms\n  have hsum : ∀ m : ℕ, 2 * ∑ x ∈ Finset.Icc i (i + m), x = (m + 1) * (2 * i + m) := by\n    intro m\n    induction m with\n    | zero => simp\n    | succ m ih =>\n      rw [show i + (m + 1) = (i + m) + 1 by ring, Finset.sum_Icc_succ_top (by omega), mul_add, ih]\n      ring\n  have h2 := hsum m\n  rw [hS] at h2"
+     },
+     {
+      "claim": "The sum is at most (m + 1) · n, and the number of terms satisfies m + 1 ≤ n.",
+      "explanation": "Each element in the interval [i, i + m] is at most j ≤ n. By `Finset.sum_le_card_nsmul`, the sum is at most the cardinality of the interval times n. The cardinality formula `Nat.card_Icc` gives (i + m + 1) - i = m + 1, so the sum is at most (m + 1) · n; replacing the sum by a · p gives a · p ≤ (m + 1) · n. Moreover, because 1 ≤ i and i + m ≤ n, linear arithmetic yields m + 1 ≤ n.",
+      "lemmas": [
+       "Finset.sum_le_card_nsmul",
+       "le_trans",
+       "Nat.card_Icc",
+       "smul_eq_mul"
+      ],
+      "automation": false,
+      "code": "  have hsize : ∑ x ∈ Finset.Icc i (i + m), x ≤ (m + 1) * n := by\n    have := Finset.sum_le_card_nsmul (Finset.Icc i (i + m)) (fun x => x) n\n      (fun x hx => le_trans (Finset.mem_Icc.1 hx).2 hjn)\n    rw [Nat.card_Icc, smul_eq_mul] at this\n    rwa [show i + m + 1 - i = m + 1 by omega] at this\n  rw [hS] at hsize\n  have hkn : m + 1 ≤ n := by omega"
+     },
+     {
+      "claim": "Any positive integer t ≤ n is coprime to p.",
+      "explanation": "If p divided such an integer t, then by `Nat.le_of_dvd` we would have p ≤ t ≤ n, contradicting 2 · n < p. Because p is prime, not dividing t implies p and t are coprime (`Nat.Prime.coprime_iff_not_dvd`), and symmetry (`Nat.Coprime.symm`) gives that t is coprime to p.",
+      "lemmas": [
+       "Nat.Coprime.symm",
+       "Nat.Prime.coprime_iff_not_dvd",
+       "Nat.le_of_dvd"
+      ],
+      "automation": false,
+      "code": "  -- a positive number below `p` is coprime to `p`\n  have hcop : ∀ t, 0 < t → t ≤ n → Nat.Coprime t p := by\n    intro t ht htn\n    exact Nat.Coprime.symm ((Nat.Prime.coprime_iff_not_dvd hp).2 fun h =>\n      absurd (Nat.le_of_dvd ht h) (by omega))"
+     },
+     {
+      "claim": "The number of terms satisfies m + 1 ≤ 2 · a.",
+      "explanation": "We split into cases based on the parity of m + 1 using `Nat.even_or_odd`:\n- If m + 1 is even, say m + 1 = 2 · t, then 2 · (a · p) = 2 · (t · (2 · i + m)) implies a · p = t · (2 · i + m). Since 0 < t ≤ n, t is coprime to p, so t divides a. Since a > 0, `Nat.le_of_dvd` gives t ≤ a, which implies m + 1 = 2 · t ≤ 2 · a.\n- If m + 1 is odd, then m + 1 divides 2 · (a · p). Since 2 is prime (`Nat.prime_two`) and m + 1 is odd, m + 1 is coprime to 2, so m + 1 divides a · p. Since 0 < m + 1 ≤ n, m + 1 is coprime to p, hence m + 1 divides a. By `Nat.le_of_dvd`, m + 1 ≤ a ≤ 2 · a.\nIn both cases, m + 1 ≤ 2 · a.",
+      "lemmas": [
+       "Nat.even_or_odd",
+       "Nat.Coprime.symm",
+       "Nat.Prime.coprime_iff_not_dvd",
+       "Nat.prime_two",
+       "Nat.le_of_dvd"
+      ],
+      "automation": false,
+      "code": "  -- the number of terms is at most `2a`\n  have hk : m + 1 ≤ 2 * a := by\n    rcases Nat.even_or_odd (m + 1) with ⟨t, ht⟩ | hodd\n    · have hS' : a * p = t * (2 * i + m) := by\n        have : 2 * (a * p) = 2 * (t * (2 * i + m)) := by rw [h2, ht]; ring\n        omega\n      have ht0 : 0 < t := by omega\n      have htd : t ∣ a := (hcop t ht0 (by omega)).dvd_of_dvd_mul_right ⟨_, hS'⟩\n      have := Nat.le_of_dvd ha htd\n      omega\n    · have hdvd : m + 1 ∣ 2 * (a * p) := ⟨2 * i + m, h2⟩\n      have hc2 : Nat.Coprime (m + 1) 2 :=\n        Nat.Coprime.symm ((Nat.Prime.coprime_iff_not_dvd Nat.prime_two).2\n          (Nat.odd_iff.1 hodd ▸ by omega))\n      have h1 : m + 1 ∣ a * p := hc2.dvd_of_dvd_mul_left hdvd\n      have h3 : m + 1 ∣ a := (hcop (m + 1) (by omega) hkn).dvd_of_dvd_mul_right h1\n      have := Nat.le_of_dvd ha h3\n      omega"
+     },
+     {
+      "claim": "Contradiction: (m + 1) · n ≤ 2 · a · n < a · p ≤ (m + 1) · n.",
+      "explanation": "Multiplying m + 1 ≤ 2 · a by n gives (m + 1) · n ≤ 2 · a · n (`Nat.mul_le_mul_right`). Since 2 · n < p and a > 0, we have 2 · a · n < a · p (`nlinarith`). Combining this with a · p ≤ (m + 1) · n gives a · p < a · p, a contradiction closed by linear arithmetic (`omega`).",
+      "lemmas": [
+       "Nat.mul_le_mul_right"
+      ],
+      "automation": false,
+      "code": "  -- then the sum is at most `2an < ap`\n  have : (m + 1) * n ≤ 2 * a * n := Nat.mul_le_mul_right n hk\n  have : 2 * a * n < a * p := by nlinarith\n  omega"
+     }
+    ],
+    "glossary": {
+     "Nat.exists_eq_add_of_le": "If m ≤ n, there exists k such that n = m + k.",
+     "Finset.sum_Icc_succ_top": "The sum of a function over the integer interval [a, b + 1] equals the sum over [a, b] plus the term at b + 1, provided a ≤ b + 1.",
+     "mul_add": "Left-distributivity of multiplication over addition: a * (b + c) = a * b + a * c.",
+     "Finset.sum_le_card_nsmul": "If every element of a finite set s maps to a value bounded by n, the sum over s is bounded by the cardinality of s times n.",
+     "le_trans": "Inequality on preorders is transitive: if a ≤ b and b ≤ c, then a ≤ c.",
+     "Nat.card_Icc": "The number of integers in the closed interval [a, b] is b + 1 - a.",
+     "smul_eq_mul": "Natural number scalar multiplication coincides with standard multiplication: a • b = a * b.",
+     "Nat.Coprime.symm": "Coprimality is symmetric: if n is coprime to m, then m is coprime to n.",
+     "Nat.Prime.coprime_iff_not_dvd": "A prime p is coprime to n if and only if p does not divide n.",
+     "Nat.le_of_dvd": "If m divides a strictly positive natural number n, then m ≤ n.",
+     "Nat.even_or_odd": "Every natural number is either even or odd.",
+     "Nat.prime_two": "The natural number 2 is prime.",
+     "Nat.mul_le_mul_right": "Multiplying an inequality n ≤ m on the right by k preserves the inequality: n * k ≤ m * k."
+    },
+    "caveats": [
+     "The identity for the sum of consecutive integers is verified by induction over ℕ and ring arithmetic rather than division by 2, avoiding rational or real arithmetic."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -296397,13 +297016,33 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/ConsecutiveSumNeMulPrime.lean",
-   "proved_at": 1791548276,
+   "proved_at": 1791550044,
    "provenance": "literature",
    "citation": "arXiv:2610.08889 (Consecutive Cycle Sums), Lemma 2 (2an − T_{2a−1} < ap written as 2an < ap + a(2a − 1)); proved here from the stronger consecutive_sum_ne_mul_prime_of_two_mul_lt, which drops that hypothesis.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The theorem is proved by directly applying `consecutive_sum_ne_mul_prime_of_two_mul_lt`. That prior result already shows that no consecutive sum of elements from $\\{1, \\dots, n\\}$ can equal $a \\cdot p$ given $p > 2n$, $p$ prime, and $a > 0$. As a result, the stronger condition $2an < ap + a(2a-1)$ in the theorem statement is not needed in the proof.",
+    "steps": [
+     {
+      "claim": "$\\sum_{x=i}^j x \\ne a \\cdot p$",
+      "explanation": "This is an immediate application of the lemma `consecutive_sum_ne_mul_prime_of_two_mul_lt` with the parameters $n, a, p, i, j$ and the hypotheses $p$ is prime, $2n < p$, $a > 0$, and $1 \\le i \\le j \\le n$. The additional inequality $2an < ap + a(2a-1)$ is not needed.",
+      "lemmas": [
+       "consecutive_sum_ne_mul_prime_of_two_mul_lt"
+      ],
+      "automation": false,
+      "code": "  consecutive_sum_ne_mul_prime_of_two_mul_lt n a p i j hp hpn ha hi hij hjn"
+     }
+    ],
+    "glossary": {
+     "consecutive_sum_ne_mul_prime_of_two_mul_lt": "For a prime $p > 2n$, integer $a > 0$, and indices $1 ≤ i ≤ j ≤ n$, the sum of consecutive integers $\\sum_{x=i}^j x$ does not equal $a \\cdot p$."
+    },
+    "caveats": [
+     "The theorem statement assumes `hap` ($2an < ap + a(2a-1)$), but the proof delegates directly to `consecutive_sum_ne_mul_prime_of_two_mul_lt`, which establishes the theorem without using this hypothesis."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean source alone (no goal states were available). Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -296429,13 +297068,306 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphLocalAvgDominatingOrderLtOfFourLe.lean",
-   "proved_at": 1791549319,
+   "proved_at": 1791550012,
    "provenance": "original",
    "citation": "arXiv:2610.11446 (On the local average order of dominating sets), list entry OP-135 (sharpness of the bound (5n−1)/6 of Theorem 3.8 for n ≥ 4); the negation of sharpness. It follows from the conjectured bound (2n+1)/3 (simple_graph_local_avg_dominating_order_le_two_mul_add_one_div_three), which is below (5n−1)/6 for n ≥ 4.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To show that the average size of dominating sets containing v is strictly less than (5n - 1)/6 for any vertex v in a graph without isolated vertices on n ≥ 4 vertices, the proof double-counts dominating sets containing each vertex x. Each such set either remains dominating when x is removed or has x as an indispensable (critical) vertex, establishing that the total size of all dominating sets is (n|D| + ∑_x c(x))/2, where c(x) counts sets in which x is critical. For x ≠ v, critical sets must meet the closed neighborhood of some vertex w outside N[v] in exactly {x}, and an injection argument proves that at most 2/3 of all dominating sets meet N[w] in a single vertex. When deg(v) ≥ 2, this bound directly gives avd_v(G) ≤ (5n + 1 - 2 deg(v))/6 < (5n - 1)/6; when deg(v) = 1, structural analysis of the vertices at distance at least 2 shows that either some vertex has degree at least 2 or two leaves share a critical witness set, strictly sharpening the bound to avd_v(G) < (5n - 1)/6.",
+    "steps": [
+     {
+      "claim": "The collection D of dominating sets containing v is nonempty and closed under taking supersets.",
+      "explanation": "We define D as the finset of all dominating sets of G containing v, and n as the number of vertices of V. By definition, a set S belongs to D if and only if v ∈ S and every vertex w is in S or has a neighbor in S. Since adding vertices preserves domination and keeps v, any superset of a set in D also belongs to D. Furthermore, the entire vertex set V is dominating and contains v, so D is nonempty.",
+      "lemmas": [
+       "Or.inl",
+       "Or.inr",
+       "Finset.mem_univ"
+      ],
+      "automation": false,
+      "code": "  classical\n  set D := simple_graph_dominating_sets_containing G v with hD\n  set n := Fintype.card V with hn\n  have memD : ∀ S, S ∈ D ↔ v ∈ S ∧ ∀ w, w ∈ S ∨ ∃ u ∈ S, G.Adj u w := by\n    intro S; rw [hD]; unfold simple_graph_dominating_sets_containing; simp\n  -- `D` is closed under supersets\n  have hup : ∀ S ∈ D, ∀ T, S ⊆ T → T ∈ D := by\n    intro S hS T hST\n    rw [memD] at hS ⊢\n    refine ⟨hST hS.1, fun w => ?_⟩\n    rcases hS.2 w with h | ⟨u, hu, h⟩\n    · exact Or.inl (hST h)\n    · exact Or.inr ⟨u, hST hu, h⟩\n  have hDne : D.Nonempty :=\n    ⟨Finset.univ, (memD _).2 ⟨Finset.mem_univ v, fun w => Or.inl (Finset.mem_univ w)⟩⟩"
+     },
+     {
+      "claim": "The set U of vertices not dominated by v has size n - 1 - deg(v), and deg(v) ≤ n - 1.",
+      "explanation": "We define the closed neighborhood N[w] = {w} ∪ N_G(w) and U = (V \\\\ {v}) \\\\ N_G(v), which consists of all vertices outside the closed neighborhood of v. Since the open neighborhood of v is a subset of V \\\\ {v}, the cardinality of U is |V \\\\ {v}| - |N_G(v)| = n - 1 - deg(v). Because N_G(v) ⊆ V \\\\ {v}, its cardinality is at most n - 1, and since V has at least 4 vertices, n ≥ 1.",
+      "lemmas": [
+       "Finset.card_sdiff_of_subset",
+       "Finset.card_erase_of_mem",
+       "Finset.mem_univ",
+       "G.card_neighborFinset_eq_degree",
+       "Finset.mem_erase",
+       "G.ne_of_adj",
+       "G.mem_neighborFinset",
+       "Finset.card_le_card",
+       "Fintype.card_pos_iff"
+      ],
+      "automation": false,
+      "code": "  -- closed neighbourhoods and the vertices outside `N[v]`\n  set N : V → Finset V := fun w => insert w (G.neighborFinset w) with hN\n  set U : Finset V := (Finset.univ.erase v) \\ G.neighborFinset v with hU\n  have hUcard : U.card = n - 1 - G.degree v := by\n    rw [hU, Finset.card_sdiff_of_subset, Finset.card_erase_of_mem (Finset.mem_univ v),\n      G.card_neighborFinset_eq_degree]\n    · rfl\n    · intro w hw\n      rw [Finset.mem_erase]\n      exact ⟨(G.ne_of_adj ((G.mem_neighborFinset v w).1 hw)).symm, Finset.mem_univ w⟩\n  have hdegle : G.degree v ≤ n - 1 := by\n    rw [← G.card_neighborFinset_eq_degree]\n    have : G.neighborFinset v ⊆ Finset.univ.erase v := by\n      intro w hw\n      rw [Finset.mem_erase]\n      exact ⟨(G.ne_of_adj ((G.mem_neighborFinset v w).1 hw)).symm, Finset.mem_univ w⟩\n    calc (G.neighborFinset v).card ≤ (Finset.univ.erase v).card := Finset.card_le_card this\n      _ = n - 1 := by rw [Finset.card_erase_of_mem (Finset.mem_univ v)]; rfl\n  have hn1 : 1 ≤ n := Fintype.card_pos_iff.2 ⟨v⟩"
+     },
+     {
+      "claim": "For each vertex x, a(x) = b(x) + c(x), and the total size of dominating sets in D is ∑ x, a(x).",
+      "explanation": "Let a(x) count sets in D containing x, b(x) count sets in D avoiding x, and c(x) count sets in D where x is critical (x ∈ S but S \\\\ {x} ∉ D). Clearly a(x) + b(x) = |D|. A set S ∈ D with x ∈ S either has S \\\\ {x} ∈ D (removable) or S \\\\ {x} ∉ D (critical). The operation S ↦ S \\\\ {x} gives a bijection between the sets in D with x removable and the sets in D avoiding x (the inverse is T ↦ T ∪ {x}, which is in D by superset closure). Hence the number of removable sets is b(x), giving a(x) = b(x) + c(x). Summing the indicator of x ∈ S over S and x swaps sums to show ∑_{S ∈ D} |S| = ∑_x a(x).",
+      "lemmas": [
+       "Finset.card_filter_add_card_filter_not",
+       "Finset.filter_filter",
+       "le_antisymm",
+       "Finset.insert_erase",
+       "congrArg",
+       "Finset.card_image_of_injOn",
+       "Finset.card_le_card",
+       "Finset.mem_image",
+       "Finset.erase_insert",
+       "Finset.subset_insert",
+       "Finset.mem_insert_self",
+       "Finset.card_filter",
+       "Finset.filter_mem_eq_inter",
+       "Finset.univ_inter",
+       "Finset.sum_congr",
+       "Finset.sum_comm"
+      ],
+      "automation": false,
+      "code": "  -- counts: `a x` sets containing `x`, `b x` avoiding `x`, `c x` sets in which `x` is critical\n  set a : V → ℕ := fun x => (D.filter (fun S => x ∈ S)).card with ha\n  set b : V → ℕ := fun x => (D.filter (fun S => x ∉ S)).card with hb\n  set c : V → ℕ := fun x => (D.filter (fun S => x ∈ S ∧ S.erase x ∉ D)).card with hc\n  have hab : ∀ x, a x + b x = D.card := fun x => Finset.card_filter_add_card_filter_not _\n  have habc : ∀ x, a x = b x + c x := by\n    intro x\n    simp only [ha, hb, hc]\n    have hsplit : (D.filter (fun S => x ∈ S)).card =\n        ((D.filter (fun S => x ∈ S)).filter (fun S => S.erase x ∈ D)).card +\n        ((D.filter (fun S => x ∈ S)).filter (fun S => ¬ S.erase x ∈ D)).card :=\n      (Finset.card_filter_add_card_filter_not _).symm\n    rw [Finset.filter_filter, Finset.filter_filter] at hsplit\n    rw [hsplit]\n    congr 1\n    -- erasing `x` matches the sets with `x` removable with the sets avoiding `x`\n    apply le_antisymm\n    · have inj : Set.InjOn (fun S : Finset V => S.erase x)\n          ↑(D.filter (fun S => x ∈ S ∧ S.erase x ∈ D)) := by\n        intro S hS T hT h\n        simp only [Finset.mem_coe, Finset.mem_filter] at hS hT\n        rw [← Finset.insert_erase hS.2.1, ← Finset.insert_erase hT.2.1]\n        exact congrArg (insert x) h\n      rw [← Finset.card_image_of_injOn inj]\n      apply Finset.card_le_card\n      intro T hT\n      obtain ⟨S, hS, rfl⟩ := Finset.mem_image.1 hT\n      simp only [Finset.mem_filter] at hS ⊢\n      exact ⟨hS.2.2, by simp⟩\n    · have inj : Set.InjOn (fun S : Finset V => insert x S) ↑(D.filter (fun S => x ∉ S)) := by\n        intro S hS T hT h\n        simp only [Finset.mem_coe, Finset.mem_filter] at hS hT\n        rw [← Finset.erase_insert hS.2, ← Finset.erase_insert hT.2]\n        exact congrArg (fun W => Finset.erase W x) h\n      rw [← Finset.card_image_of_injOn inj]\n      apply Finset.card_le_card\n      intro T hT\n      obtain ⟨S, hS, rfl⟩ := Finset.mem_image.1 hT\n      simp only [Finset.mem_filter] at hS ⊢\n      refine ⟨hup S hS.1 _ (Finset.subset_insert x S), Finset.mem_insert_self x S, ?_⟩\n      rw [Finset.erase_insert hS.2]; exact hS.1\n  have hsum : ∑ S ∈ D, S.card = ∑ x, a x := by\n    have h : ∀ S ∈ D, S.card = ∑ x, if x ∈ S then 1 else 0 := by\n      intro S _\n      rw [← Finset.card_filter, Finset.filter_mem_eq_inter, Finset.univ_inter]\n    rw [Finset.sum_congr rfl h, Finset.sum_comm]\n    refine Finset.sum_congr rfl fun x _ => ?_\n    simp only [ha]; rw [Finset.card_filter]"
+     },
+     {
+      "claim": "Critical sets for x ≠ v satisfy S ∩ N[w] = {x} for some w ∈ U, and c(x) ≤ ∑_{w ∈ U} |E(w, x)|, with strict inequality if two witnesses share a set.",
+      "explanation": "For any x ≠ v, if S \\\\ {x} fails to dominate G, there must be some vertex w undominated by S \\\\ {x}. Since v ∈ S \\\\ {x}, w cannot be dominated by v, so w ∈ U. Moreover, w is undominated by S \\\\ {x} precisely when S meets N[w] only in x: S ∩ N[w] = {x}. Defining E(w, x) = {S ∈ D | S ∩ N[w] = {x}}, this gives {S ∈ D | x critical} ⊆ ⋃_{w ∈ U} E(w, x), hence c(x) ≤ ∑_{w ∈ U} |E(w, x)|. If some S belongs to both E(w_1, x) and E(w_2, x) for w_1 ≠ w_2 ∈ U, the intersection of the two sets in the union is nonempty, forcing c(x) + 1 ≤ ∑_{w ∈ U} |E(w, x)|.",
+      "lemmas": [
+       "Finset.mem_filter",
+       "Finset.mem_erase",
+       "Finset.mem_inter",
+       "Finset.mem_insert",
+       "G.mem_neighborFinset",
+       "Finset.mem_singleton",
+       "Finset.mem_sdiff",
+       "Finset.mem_univ",
+       "Finset.mem_biUnion",
+       "le_trans",
+       "Finset.card_le_card",
+       "Finset.card_biUnion_le",
+       "Finset.insert_erase",
+       "Finset.biUnion_insert",
+       "Finset.card_union_add_card_inter",
+       "Finset.card_pos",
+       "Finset.add_sum_erase"
+      ],
+      "automation": false,
+      "code": "  -- `x ≠ v` critical in `S`: `S` meets some `N[w]`, `w ∉ N[v]`, exactly in `x`\n  set E : V → V → Finset (Finset V) := fun w x => D.filter (fun S => S ∩ N w = {x}) with hE\n  have hsubC : ∀ x, x ≠ v →\n      D.filter (fun S => x ∈ S ∧ S.erase x ∉ D) ⊆ U.biUnion (fun w => E w x) := by\n    intro x hxv S hS\n    rw [Finset.mem_filter] at hS\n    obtain ⟨hSD, hxS, hSx⟩ := hS\n    have hvS : v ∈ S.erase x := Finset.mem_erase.2 ⟨hxv.symm, ((memD S).1 hSD).1⟩\n    rw [memD] at hSx\n    push_neg at hSx\n    obtain ⟨w, hwS, hwadj⟩ := hSx hvS\n    have hNw : S ∩ N w = {x} := by\n      ext y\n      simp only [Finset.mem_inter, hN, Finset.mem_insert, G.mem_neighborFinset,\n        Finset.mem_singleton]\n      constructor\n      · rintro ⟨hyS, hy⟩\n        by_contra hyx\n        have hy' : y ∈ S.erase x := Finset.mem_erase.2 ⟨hyx, hyS⟩\n        rcases hy with rfl | hy\n        · exact hwS hy'\n        · exact hwadj y hy' hy.symm\n      · intro hyx\n        rw [hyx]\n        refine ⟨hxS, ?_⟩\n        rcases ((memD S).1 hSD).2 w with h | ⟨u, hu, h⟩\n        · left\n          by_contra hne\n          exact hwS (Finset.mem_erase.2 ⟨fun h' => hne h'.symm, h⟩)\n        · right\n          by_cases hux : u = x\n          · rw [← hux]; exact h.symm\n          · exact absurd h (hwadj u (Finset.mem_erase.2 ⟨hux, hu⟩))\n    have hwU : w ∈ U := by\n      rw [hU, Finset.mem_sdiff, Finset.mem_erase, G.mem_neighborFinset]\n      refine ⟨⟨fun h => hwS (h ▸ hvS), Finset.mem_univ w⟩, fun h => hwadj v hvS h⟩\n    exact Finset.mem_biUnion.2 ⟨w, hwU, Finset.mem_filter.2 ⟨hSD, hNw⟩⟩\n  have hcrit : ∀ x, x ≠ v → c x ≤ ∑ w ∈ U, (E w x).card := fun x hxv =>\n    le_trans (Finset.card_le_card (hsubC x hxv)) Finset.card_biUnion_le\n  -- a set with two witnesses for the same critical vertex makes this strict\n  have hcrit_strict : ∀ x, x ≠ v → ∀ w1 ∈ U, ∀ w2 ∈ U, w1 ≠ w2 → ∀ S, S ∈ E w1 x → S ∈ E w2 x →\n      c x + 1 ≤ ∑ w ∈ U, (E w x).card := by\n    intro x hxv w1 hw1 w2 hw2 hne S hS1 hS2\n    have hU' : U = insert w1 (U.erase w1) := (Finset.insert_erase hw1).symm\n    have hbu : U.biUnion (fun w => E w x) = E w1 x ∪ (U.erase w1).biUnion (fun w => E w x) := by\n      conv_lhs => rw [hU']\n      rw [Finset.biUnion_insert]\n    have hS' : S ∈ E w1 x ∩ (U.erase w1).biUnion (fun w => E w x) :=\n      Finset.mem_inter.2 ⟨hS1, Finset.mem_biUnion.2 ⟨w2, Finset.mem_erase.2 ⟨hne.symm, hw2⟩, hS2⟩⟩\n    have h1 := Finset.card_union_add_card_inter (E w1 x) ((U.erase w1).biUnion (fun w => E w x))\n    have h2 : 1 ≤ (E w1 x ∩ (U.erase w1).biUnion (fun w => E w x)).card :=\n      Finset.card_pos.2 ⟨S, hS'⟩\n    have h3 := Finset.card_biUnion_le (s := U.erase w1) (t := fun w => E w x)\n    have h4 := Finset.add_sum_erase U (fun w => (E w x).card) hw1\n    have h5 : c x ≤ (U.biUnion (fun w => E w x)).card := Finset.card_le_card (hsubC x hxv)\n    rw [hbu] at h5\n    omega"
+     },
+     {
+      "claim": "For any vertex w, at most 2/3 of the dominating sets in D meet N[w] in exactly one vertex.",
+      "explanation": "Since G has no isolated vertices, w has a neighbor w'. Consider the map φ on sets S with |S ∩ N[w]| = 1 defined by adding w' if w ∈ S, and adding w if w ∉ S. In both cases φ(S) meets N[w] in at least two vertices and belongs to D by superset closure. Moreover, any set M can arise from at most two preimages (namely M \\\\ {w'} or M \\\\ {w}), so the fibers of φ have size at most 2. Thus the number of singleton-intersection sets is at most twice the number of multiple-intersection sets, which algebraically yields 3 |{S ∈ D | |S ∩ N[w]| = 1}| ≤ 2 |D|.",
+      "lemmas": [
+       "G.card_neighborFinset_eq_degree",
+       "Finset.card_pos",
+       "G.mem_neighborFinset",
+       "G.ne_of_adj",
+       "Finset.card_filter_add_card_filter_not",
+       "Finset.mem_filter",
+       "Finset.card_eq_one",
+       "if_pos",
+       "Finset.subset_insert",
+       "Finset.mem_inter",
+       "Finset.mem_insert_of_mem",
+       "Finset.mem_insert_self",
+       "Finset.card_le_one",
+       "if_neg",
+       "Finset.mem_singleton_self",
+       "le_trans",
+       "Finset.card_le_card",
+       "Finset.card_le_two",
+       "Finset.mem_insert",
+       "Finset.mem_singleton",
+       "Finset.erase_insert",
+       "Finset.card_le_mul_card_image_of_maps_to"
+      ],
+      "automation": false,
+      "code": "  -- at most two thirds of the sets meet `N[w]` in a single vertex\n  have hthird : ∀ w, 3 * (D.filter (fun S => (S ∩ N w).card = 1)).card ≤ 2 * D.card := by\n    intro w\n    obtain ⟨w', hw'⟩ : ∃ w', G.Adj w w' := by\n      have := hiso w\n      rw [← G.card_neighborFinset_eq_degree, Finset.card_pos] at this\n      obtain ⟨w', hw'⟩ := this\n      exact ⟨w', (G.mem_neighborFinset w w').1 hw'⟩\n    have hww' : w ≠ w' := G.ne_of_adj hw'\n    have hwN : w ∈ N w := by simp [hN]\n    have hw'N : w' ∈ N w := by simp [hN, G.mem_neighborFinset, hw']\n    set single := D.filter (fun S => (S ∩ N w).card = 1) with hsingle\n    set multi := D.filter (fun S => ¬ (S ∩ N w).card = 1) with hmulti\n    have hsm : single.card + multi.card = D.card := Finset.card_filter_add_card_filter_not _\n    let φ : Finset V → Finset V := fun S => if w ∈ S then insert w' S else insert w S\n    have hmaps : ∀ S ∈ single, φ S ∈ multi := by\n      intro S hS\n      rw [hsingle, Finset.mem_filter, Finset.card_eq_one] at hS\n      obtain ⟨hSD, z, hz⟩ := hS\n      rw [hmulti, Finset.mem_filter]\n      by_cases hwS : w ∈ S\n      · simp only [φ, if_pos hwS]\n        refine ⟨hup S hSD _ (Finset.subset_insert _ _), fun h1 => ?_⟩\n        have hw_in : w ∈ insert w' S ∩ N w := Finset.mem_inter.2 ⟨Finset.mem_insert_of_mem hwS, hwN⟩\n        have hw'_in : w' ∈ insert w' S ∩ N w := Finset.mem_inter.2 ⟨Finset.mem_insert_self _ _, hw'N⟩\n        exact hww' (Finset.card_le_one.1 h1.le w hw_in w' hw'_in)\n      · simp only [φ, if_neg hwS]\n        refine ⟨hup S hSD _ (Finset.subset_insert _ _), fun h1 => ?_⟩\n        have hz_in : z ∈ S ∩ N w := by rw [hz]; exact Finset.mem_singleton_self z\n        have hzw : z ≠ w := fun h => hwS (h ▸ (Finset.mem_inter.1 hz_in).1)\n        have hw_in : w ∈ insert w S ∩ N w := Finset.mem_inter.2 ⟨Finset.mem_insert_self _ _, hwN⟩\n        have hz_in' : z ∈ insert w S ∩ N w :=\n          Finset.mem_inter.2 ⟨Finset.mem_insert_of_mem (Finset.mem_inter.1 hz_in).1,\n            (Finset.mem_inter.1 hz_in).2⟩\n        exact hzw (Finset.card_le_one.1 h1.le z hz_in' w hw_in)\n    have hfib : ∀ M, (single.filter (fun S => φ S = M)).card ≤ 2 := by\n      intro M\n      refine le_trans (Finset.card_le_card (t := {M.erase w', M.erase w}) ?_) Finset.card_le_two\n      intro S hS\n      rw [Finset.mem_filter, hsingle, Finset.mem_filter, Finset.card_eq_one] at hS\n      obtain ⟨⟨_, z, hz⟩, hφ⟩ := hS\n      rw [Finset.mem_insert, Finset.mem_singleton]\n      by_cases hwS : w ∈ S\n      · left\n        simp only [φ, if_pos hwS] at hφ\n        have hw'S : w' ∉ S := by\n          intro h\n          have h1 : w ∈ S ∩ N w := Finset.mem_inter.2 ⟨hwS, hwN⟩\n          have h2 : w' ∈ S ∩ N w := Finset.mem_inter.2 ⟨h, hw'N⟩\n          rw [hz, Finset.mem_singleton] at h1 h2\n          exact hww' (h1.trans h2.symm)\n        rw [← hφ, Finset.erase_insert hw'S]\n      · right\n        simp only [φ, if_neg hwS] at hφ\n        rw [← hφ, Finset.erase_insert hwS]\n    have hle2 : single.card ≤ 2 * multi.card :=\n      Finset.card_le_mul_card_image_of_maps_to hmaps 2 (fun M _ => hfib M)\n    omega"
+     },
+     {
+      "claim": "If deg(w) ≥ 2, the 2/3 neighborhood bound is strictly strengthened: 3 |{S ∈ D | |S ∩ N[w]| = 1}| + 2 ≤ 2 |D|.",
+      "explanation": "When deg(w) ≥ 2, w has at least two neighbors. The full vertex set V has |V ∩ N[w]| ≥ 3, so V is in the target collection of multi-intersection sets. However, V cannot be in the image of φ: if φ(S) = V, then S would miss at most one vertex (w or w'), leaving at least two vertices of N[w] in S, which contradicts |S ∩ N[w]| = 1. Thus φ maps into the multiple-intersection sets excluding V, so the number of singletons is at most 2 (|multi| - 1), which gives the strict bound 3 |single| + 2 ≤ 2 |D|.",
+      "lemmas": [
+       "G.card_neighborFinset_eq_degree",
+       "Finset.card_pos",
+       "G.mem_neighborFinset",
+       "G.ne_of_adj",
+       "Finset.mem_singleton",
+       "Finset.card_le_card",
+       "Finset.card_singleton",
+       "Finset.card_filter_add_card_filter_not",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "Finset.card_le_one",
+       "Finset.card_eq_one",
+       "Finset.mem_erase",
+       "if_pos",
+       "Finset.subset_insert",
+       "Finset.mem_insert",
+       "Finset.mem_inter",
+       "Finset.mem_insert_of_mem",
+       "Finset.mem_insert_self",
+       "if_neg",
+       "Finset.mem_singleton_self",
+       "le_trans",
+       "Finset.card_le_two",
+       "Finset.erase_insert",
+       "Finset.card_le_mul_card_image_of_maps_to",
+       "Finset.card_erase_of_mem"
+      ],
+      "automation": false,
+      "code": "  -- a neighbourhood with three vertices: the whole vertex set is no image, so it is strict\n  have hthird_strict : ∀ w, 2 ≤ G.degree w →\n      3 * (D.filter (fun S => (S ∩ N w).card = 1)).card + 2 ≤ 2 * D.card := by\n    intro w hw2\n    obtain ⟨w', hw'⟩ : ∃ w', G.Adj w w' := by\n      have := hiso w\n      rw [← G.card_neighborFinset_eq_degree, Finset.card_pos] at this\n      obtain ⟨w', hw'⟩ := this\n      exact ⟨w', (G.mem_neighborFinset w w').1 hw'⟩\n    have hww' : w ≠ w' := G.ne_of_adj hw'\n    have hwN : w ∈ N w := by simp [hN]\n    have hw'N : w' ∈ N w := by simp [hN, G.mem_neighborFinset, hw']\n    -- two distinct neighbours of `w`\n    have hnb : ∀ z, ∃ y, G.Adj w y ∧ y ≠ z := by\n      intro z\n      by_contra hcon\n      push_neg at hcon\n      have : G.neighborFinset w ⊆ {z} := fun y hy =>\n        Finset.mem_singleton.2 (hcon y ((G.mem_neighborFinset w y).1 hy))\n      have := Finset.card_le_card this\n      rw [G.card_neighborFinset_eq_degree, Finset.card_singleton] at this\n      omega\n    set single := D.filter (fun S => (S ∩ N w).card = 1) with hsingle\n    set multi := D.filter (fun S => ¬ (S ∩ N w).card = 1) with hmulti\n    have hsm : single.card + multi.card = D.card := Finset.card_filter_add_card_filter_not _\n    have huniv : Finset.univ ∈ multi := by\n      rw [hmulti, Finset.mem_filter]\n      refine ⟨(memD _).2 ⟨Finset.mem_univ v, fun w => Or.inl (Finset.mem_univ w)⟩, fun h1 => ?_⟩\n      exact hww' (Finset.card_le_one.1 h1.le w (by simp [hwN]) w' (by simp [hw'N]))\n    let φ : Finset V → Finset V := fun S => if w ∈ S then insert w' S else insert w S\n    have hmaps : ∀ S ∈ single, φ S ∈ multi.erase Finset.univ := by\n      intro S hS\n      rw [hsingle, Finset.mem_filter, Finset.card_eq_one] at hS\n      obtain ⟨hSD, z, hz⟩ := hS\n      rw [Finset.mem_erase, hmulti, Finset.mem_filter]\n      by_cases hwS : w ∈ S\n      · simp only [φ, if_pos hwS]\n        refine ⟨fun hU => ?_, hup S hSD _ (Finset.subset_insert _ _), fun h1 => ?_⟩\n        · obtain ⟨y, hy, hyw'⟩ := hnb w'\n          have hyS : y ∈ S := by\n            have : y ∈ insert w' S := hU ▸ Finset.mem_univ y\n            rcases Finset.mem_insert.1 this with h | h\n            · exact absurd h hyw'\n            · exact h\n          have h1 : w ∈ S ∩ N w := Finset.mem_inter.2 ⟨hwS, hwN⟩\n          have h2 : y ∈ S ∩ N w := Finset.mem_inter.2 ⟨hyS, by simp [hN, G.mem_neighborFinset, hy]⟩\n          rw [hz, Finset.mem_singleton] at h1 h2\n          exact G.ne_of_adj hy (h1.trans h2.symm)\n        · have hw_in : w ∈ insert w' S ∩ N w :=\n            Finset.mem_inter.2 ⟨Finset.mem_insert_of_mem hwS, hwN⟩\n          have hw'_in : w' ∈ insert w' S ∩ N w :=\n            Finset.mem_inter.2 ⟨Finset.mem_insert_self _ _, hw'N⟩\n          exact hww' (Finset.card_le_one.1 h1.le w hw_in w' hw'_in)\n      · simp only [φ, if_neg hwS]\n        have hz_in : z ∈ S ∩ N w := by rw [hz]; exact Finset.mem_singleton_self z\n        have hzw : z ≠ w := fun h => hwS (h ▸ (Finset.mem_inter.1 hz_in).1)\n        refine ⟨fun hU => ?_, hup S hSD _ (Finset.subset_insert _ _), fun h1 => ?_⟩\n        · -- two neighbours of `w` other than... at least one differs from `z`\n          obtain ⟨y, hy, hyz⟩ := hnb z\n          have hyS : y ∈ S := by\n            have : y ∈ insert w S := hU ▸ Finset.mem_univ y\n            rcases Finset.mem_insert.1 this with h | h\n            · exact absurd h (G.ne_of_adj hy).symm\n            · exact h\n          have h2 : y ∈ S ∩ N w := Finset.mem_inter.2 ⟨hyS, by simp [hN, G.mem_neighborFinset, hy]⟩\n          rw [hz, Finset.mem_singleton] at h2\n          exact hyz h2\n        · have hw_in : w ∈ insert w S ∩ N w :=\n            Finset.mem_inter.2 ⟨Finset.mem_insert_self _ _, hwN⟩\n          have hz_in' : z ∈ insert w S ∩ N w :=\n            Finset.mem_inter.2 ⟨Finset.mem_insert_of_mem (Finset.mem_inter.1 hz_in).1,\n              (Finset.mem_inter.1 hz_in).2⟩\n          exact hzw (Finset.card_le_one.1 h1.le z hz_in' w hw_in)\n    have hfib : ∀ M, (single.filter (fun S => φ S = M)).card ≤ 2 := by\n      intro M\n      refine le_trans (Finset.card_le_card (t := {M.erase w', M.erase w}) ?_) Finset.card_le_two\n      intro S hS\n      rw [Finset.mem_filter, hsingle, Finset.mem_filter, Finset.card_eq_one] at hS\n      obtain ⟨⟨_, z, hz⟩, hφ⟩ := hS\n      rw [Finset.mem_insert, Finset.mem_singleton]\n      by_cases hwS : w ∈ S\n      · left\n        simp only [φ, if_pos hwS] at hφ\n        have hw'S : w' ∉ S := by\n          intro h\n          have h1 : w ∈ S ∩ N w := Finset.mem_inter.2 ⟨hwS, hwN⟩\n          have h2 : w' ∈ S ∩ N w := Finset.mem_inter.2 ⟨h, hw'N⟩\n          rw [hz, Finset.mem_singleton] at h1 h2\n          exact hww' (h1.trans h2.symm)\n        rw [← hφ, Finset.erase_insert hw'S]\n      · right\n        simp only [φ, if_neg hwS] at hφ\n        rw [← hφ, Finset.erase_insert hwS]\n    have hle2 : single.card ≤ 2 * (multi.erase Finset.univ).card :=\n      Finset.card_le_mul_card_image_of_maps_to hmaps 2 (fun M _ => hfib M)\n    rw [Finset.card_erase_of_mem huniv] at hle2\n    have : 1 ≤ multi.card := Finset.card_pos.2 ⟨_, huniv⟩\n    omega"
+     },
+     {
+      "claim": "The total criticality sum satisfies 3 ∑_x c(x) ≤ 3 |D| + 2 |U| |D|, and 2 ∑_x a(x) = n |D| + ∑_x c(x).",
+      "explanation": "For each w, the sets E(w, x) across x ≠ v are pairwise disjoint because S ∩ N[w] cannot equal two different singletons {x} and {y}. Thus ∑_{x ≠ v} |E(w, x)| ≤ |{S ∈ D | |S ∩ N[w]| = 1}|. Summing c(x) over x ≠ v and exchanging summation gives ∑_{x ≠ v} c(x) ≤ ∑_{w ∈ U} |{S ∈ D | |S ∩ N[w]| = 1}|. Multiplying by 3 and applying the 2/3 bound yields 3 ∑_{x ≠ v} c(x) ≤ 2 |U| |D|. Adding the trivial bound 3 c(v) ≤ 3 |D| proves 3 ∑_x c(x) ≤ 3 |D| + 2 |U| |D|. Combining a(x) + b(x) = |D| and a(x) - b(x) = c(x) gives 2 ∑_x a(x) = n |D| + ∑_x c(x).",
+      "lemmas": [
+       "Finset.card_biUnion",
+       "Finset.card_le_card",
+       "Finset.mem_biUnion",
+       "Finset.mem_filter",
+       "Finset.card_singleton",
+       "Function.onFun",
+       "Finset.disjoint_left",
+       "Finset.singleton_injective",
+       "Finset.add_sum_erase",
+       "Finset.mem_univ",
+       "Finset.card_filter_le",
+       "Finset.sum_le_sum",
+       "Finset.ne_of_mem_erase",
+       "Finset.sum_comm",
+       "Finset.mul_sum",
+       "Finset.sum_const",
+       "smul_eq_mul",
+       "Finset.sum_congr",
+       "Finset.card_univ",
+       "Finset.sum_add_distrib"
+      ],
+      "automation": false,
+      "code": "  have hEsum : ∀ w, ∑ x ∈ Finset.univ.erase v, (E w x).card ≤\n      (D.filter (fun S => (S ∩ N w).card = 1)).card := by\n    intro w\n    rw [← Finset.card_biUnion]\n    · apply Finset.card_le_card\n      intro S hS\n      obtain ⟨x, -, hx⟩ := Finset.mem_biUnion.1 hS\n      rw [hE, Finset.mem_filter] at hx\n      rw [Finset.mem_filter, hx.2, Finset.card_singleton]\n      exact ⟨hx.1, rfl⟩\n    · intro x _ y _ hxy\n      rw [Function.onFun, Finset.disjoint_left]\n      intro S hSx hSy\n      rw [hE, Finset.mem_filter] at hSx hSy\n      exact hxy (Finset.singleton_injective (hSx.2.symm.trans hSy.2))\n  have hcsum : 3 * ∑ x, c x ≤ 3 * D.card + 2 * U.card * D.card := by\n    rw [← Finset.add_sum_erase _ _ (Finset.mem_univ v)]\n    have hcv : c v ≤ D.card := Finset.card_filter_le _ _\n    have h1 : ∑ x ∈ Finset.univ.erase v, c x ≤ ∑ w ∈ U, (D.filter (fun S => (S ∩ N w).card = 1)).card := by\n      calc ∑ x ∈ Finset.univ.erase v, c x\n          ≤ ∑ x ∈ Finset.univ.erase v, ∑ w ∈ U, (E w x).card :=\n            Finset.sum_le_sum fun x hx => hcrit x (Finset.ne_of_mem_erase hx)\n        _ = ∑ w ∈ U, ∑ x ∈ Finset.univ.erase v, (E w x).card := Finset.sum_comm\n        _ ≤ _ := Finset.sum_le_sum fun w _ => hEsum w\n    have h2 : 3 * ∑ w ∈ U, (D.filter (fun S => (S ∩ N w).card = 1)).card ≤ 2 * U.card * D.card := by\n      rw [Finset.mul_sum]\n      calc ∑ w ∈ U, 3 * (D.filter (fun S => (S ∩ N w).card = 1)).card\n          ≤ ∑ w ∈ U, 2 * D.card := Finset.sum_le_sum fun w _ => hthird w\n        _ = 2 * U.card * D.card := by rw [Finset.sum_const, smul_eq_mul]; ring\n    omega\n  have h2a : 2 * ∑ x, a x = n * D.card + ∑ x, c x := by\n    have e1 : ∑ x, (a x + b x) = n * D.card := by\n      rw [Finset.sum_congr rfl fun x _ => hab x, Finset.sum_const, smul_eq_mul, Finset.card_univ]\n    have e2 : ∑ x, a x = ∑ x, b x + ∑ x, c x := by\n      rw [← Finset.sum_add_distrib]; exact Finset.sum_congr rfl fun x _ => habc x\n    rw [← e1, Finset.sum_add_distrib]; omega\n  -- the strict count, in the two cases"
+     },
+     {
+      "claim": "If any vertex in U has degree ≥ 2 or two vertices in U share a critical witness set, then 3 ∑_x c(x) + 1 ≤ 3 |D| + 2 |U| |D|.",
+      "explanation": "If some w_0 ∈ U has degree ≥ 2, the neighborhood bound for w_0 is strictly smaller by 2, which strictly decreases the sum over w ∈ U. Alternatively, if two vertices w_1, w_2 ∈ U share a set S ∈ E(w_1, x) ∩ E(w_2, x) for some x ≠ v, the sum of c(x) over x ≠ v is strictly smaller than the double sum by at least 1. In either case, the total sum inequality is strictly strengthened by at least 1.",
+      "lemmas": [
+       "Finset.add_sum_erase",
+       "Finset.mem_univ",
+       "Finset.card_filter_le",
+       "Finset.sum_le_sum",
+       "Finset.ne_of_mem_erase",
+       "Finset.sum_comm",
+       "Finset.sum_const",
+       "smul_eq_mul",
+       "Finset.mul_sum",
+       "Finset.sum_lt_sum",
+       "Finset.mem_erase",
+       "Finset.sum_congr",
+       "Finset.card_univ",
+       "Finset.sum_add_distrib"
+      ],
+      "automation": false,
+      "code": "  have hcsum_strict : ((∃ w ∈ U, 2 ≤ G.degree w) ∨\n      (∃ x, x ≠ v ∧ ∃ w1 ∈ U, ∃ w2 ∈ U, w1 ≠ w2 ∧ ∃ S, S ∈ E w1 x ∧ S ∈ E w2 x)) →\n      3 * ∑ x, c x + 1 ≤ 3 * D.card + 2 * U.card * D.card := by\n    intro hcase\n    rw [← Finset.add_sum_erase _ _ (Finset.mem_univ v)]\n    have hcv : c v ≤ D.card := Finset.card_filter_le _ _\n    have hle1 : ∑ x ∈ Finset.univ.erase v, c x ≤ ∑ x ∈ Finset.univ.erase v, ∑ w ∈ U, (E w x).card :=\n      Finset.sum_le_sum fun x hx => hcrit x (Finset.ne_of_mem_erase hx)\n    have hle2 : ∑ x ∈ Finset.univ.erase v, ∑ w ∈ U, (E w x).card ≤\n        ∑ w ∈ U, (D.filter (fun S => (S ∩ N w).card = 1)).card := by\n      rw [Finset.sum_comm]; exact Finset.sum_le_sum fun w _ => hEsum w\n    have hle3 : ∑ w ∈ U, 3 * (D.filter (fun S => (S ∩ N w).card = 1)).card ≤\n        ∑ w ∈ U, 2 * D.card := Finset.sum_le_sum fun w _ => hthird w\n    have hconst : ∑ w ∈ U, 2 * D.card = 2 * U.card * D.card := by\n      rw [Finset.sum_const, smul_eq_mul]; ring\n    rw [← Finset.mul_sum] at hle3\n    rcases hcase with ⟨w0, hw0U, hw0⟩ | ⟨x0, hx0v, w1, hw1, w2, hw2, hne, S, hS1, hS2⟩\n    · have hlt : ∑ w ∈ U, 3 * (D.filter (fun S => (S ∩ N w).card = 1)).card <\n          ∑ w ∈ U, 2 * D.card :=\n        Finset.sum_lt_sum (fun w _ => hthird w) ⟨w0, hw0U, by have := hthird_strict w0 hw0; omega⟩\n      rw [← Finset.mul_sum] at hlt\n      omega\n    · have hlt : ∑ x ∈ Finset.univ.erase v, c x <\n          ∑ x ∈ Finset.univ.erase v, ∑ w ∈ U, (E w x).card :=\n        Finset.sum_lt_sum (fun x hx => hcrit x (Finset.ne_of_mem_erase hx))\n          ⟨x0, Finset.mem_erase.2 ⟨hx0v, Finset.mem_univ x0⟩,\n            by have := hcrit_strict x0 hx0v w1 hw1 w2 hw2 hne S hS1 hS2; omega⟩\n      omega\n  have h2a : 2 * ∑ x, a x = n * D.card + ∑ x, c x := by\n    have e1 : ∑ x, (a x + b x) = n * D.card := by\n      rw [Finset.sum_congr rfl fun x _ => hab x, Finset.sum_const, smul_eq_mul, Finset.card_univ]\n    have e2 : ∑ x, a x = ∑ x, b x + ∑ x, c x := by\n      rw [← Finset.sum_add_distrib]; exact Finset.sum_congr rfl fun x _ => habc x\n    rw [← e1, Finset.sum_add_distrib]; omega"
+     },
+     {
+      "claim": "Case deg(v) ≥ 2: the average order is strictly less than (5n - 1) / 6.",
+      "explanation": "Since |U| = n - 1 - deg(v), we have |U| + deg(v) + 1 = n. The bound 3 ∑_x c(x) ≤ 3 |D| + 2 |U| |D| implies ∑_x c(x) ≤ |D| + (2/3) |U| |D|. Substituting into 2 ∑_x a(x) = n |D| + ∑_x c(x) gives the upper bound avd_v(G) ≤ (5n + 1 - 2 deg(v)) / 6. Since deg(v) ≥ 2, 5n + 1 - 2 deg(v) ≤ 5n - 3 < 5n - 1, which non-linear rational arithmetic confirms.",
+      "lemmas": [
+       "Nat.cast_sum",
+       "div_lt_div_iff₀"
+      ],
+      "automation": false,
+      "code": "  have hDpos : (0 : ℚ) < D.card := by exact_mod_cast hDne.card_pos\n  have qs : ∑ S ∈ D, (S.card : ℚ) = ((∑ x, a x : ℕ) : ℚ) := by rw [← hsum, Nat.cast_sum]\n  have qa : (2 : ℚ) * ((∑ x, a x : ℕ) : ℚ) = n * D.card + ((∑ x, c x : ℕ) : ℚ) := by\n    exact_mod_cast h2a\n  have hdv : 1 ≤ G.degree v := hiso v\n  have hm : U.card + G.degree v + 1 = n := by rw [hUcard]; omega\n  have qm : (U.card : ℚ) + G.degree v + 1 = n := by exact_mod_cast hm\n  unfold simple_graph_local_avg_dominating_order\n  rw [← hD, div_lt_div_iff₀ hDpos (by norm_num : (0 : ℚ) < 6), qs]\n  by_cases hdeg2 : 2 ≤ G.degree v\n  · -- the bound `(5n - 2 deg v + 1)/6` is already below `(5n - 1)/6`\n    have qc : (3 : ℚ) * ((∑ x, c x : ℕ) : ℚ) ≤ 3 * D.card + 2 * U.card * D.card := by\n      exact_mod_cast hcsum\n    have q2 : (2 : ℚ) ≤ G.degree v := by exact_mod_cast hdeg2\n    have qnD : (n : ℚ) * D.card = U.card * D.card + G.degree v * D.card + D.card := by\n      rw [← qm]; ring\n    nlinarith"
+     },
+     {
+      "claim": "Case deg(v) = 1: the strict criticality bound holds and avd_v(G) < (5n - 1) / 6.",
+      "explanation": "Since G has no isolated vertices, deg(v) = 1, so v has a unique neighbor y. As n ≥ 4, |U| = n - 2 ≥ 2. If some vertex in U has degree ≥ 2, the strict condition holds immediately. Otherwise, every vertex in U has degree 1, meaning every w ∈ U is a leaf with a unique neighbor z ≠ v. If any leaf w ∈ U has its neighbor z in U, then {w, z} is an isolated K_2 component, and the dominating set V \\\\ {z} witnesses that w is critical for both w and z. If every leaf in U has its neighbor outside U, all leaves in U must have y as their unique neighbor. Picking two distinct leaves w_1, w_2 ∈ U, the set S = V \\\\ {w_1, w_2} is dominating (since y dominates both leaves) and witnesses that y is critical for both w_1 and w_2. In all subcases, the strict criticality bound 3 ∑_x c(x) + 1 ≤ 3 |D| + 2 |U| |D| holds, which with |U| = n - 2 and deg(v) = 1 implies avd_v(G) ≤ (5n - 1)/6 - 1/(6|D|) < (5n - 1)/6. Non-linear rational arithmetic closes the goal.",
+      "lemmas": [
+       "Finset.card_eq_one",
+       "G.card_neighborFinset_eq_degree",
+       "Finset.mem_sdiff",
+       "Finset.mem_erase",
+       "Finset.mem_singleton",
+       "G.mem_neighborFinset",
+       "G.ne_of_adj",
+       "Finset.mem_univ",
+       "Finset.mem_filter",
+       "Finset.mem_inter",
+       "Finset.mem_insert",
+       "Finset.card_pos",
+       "Finset.exists_mem_ne"
+      ],
+      "automation": false,
+      "code": "  · have hdv1 : G.degree v = 1 := by omega\n    -- `v` has a single neighbour `y`\n    obtain ⟨y, hy⟩ : ∃ y, G.neighborFinset v = {y} := by\n      rw [← Finset.card_eq_one, G.card_neighborFinset_eq_degree, hdv1]\n    have hUall : ∀ z, z ∉ U → z = v ∨ z = y := by\n      intro z hz\n      rw [hU, Finset.mem_sdiff, Finset.mem_erase, hy, Finset.mem_singleton] at hz\n      by_cases hzv : z = v\n      · exact Or.inl hzv\n      · right; by_contra hzy; exact hz ⟨⟨hzv, Finset.mem_univ z⟩, hzy⟩\n    have hvU : v ∉ U := by simp [hU]\n    have hyU : y ∉ U := by\n      rw [hU, Finset.mem_sdiff, hy]; simp\n    have hUcard2 : 2 ≤ U.card := by omega\n    have hcase : (∃ w ∈ U, 2 ≤ G.degree w) ∨\n        (∃ x, x ≠ v ∧ ∃ w1 ∈ U, ∃ w2 ∈ U, w1 ≠ w2 ∧ ∃ S, S ∈ E w1 x ∧ S ∈ E w2 x) := by\n      by_cases hα : ∃ w ∈ U, 2 ≤ G.degree w\n      · exact Or.inl hα\n      right\n      push_neg at hα\n      -- every vertex of `U` is a leaf\n      have hleaf : ∀ w ∈ U, ∃ z, G.neighborFinset w = {z} := by\n        intro w hw\n        rw [← Finset.card_eq_one, G.card_neighborFinset_eq_degree]\n        have := hiso w; have := hα w hw; omega\n      have hNw : ∀ w z, G.neighborFinset w = {z} → N w = {w, z} := by\n        intro w z h; simp only [hN, h]\n      have hwv : ∀ w ∈ U, ∀ z, G.Adj w z → z ≠ v := by\n        intro w hw z hz hzv\n        rw [hzv] at hz\n        rw [hU, Finset.mem_sdiff, G.mem_neighborFinset] at hw\n        exact hw.2 hz.symm\n      -- a leaf of `U` whose neighbour is in `U`: a `K₂` component\n      have hK2 : ∀ w ∈ U, ∀ z, G.neighborFinset w = {z} → z ∈ U →\n          ∃ x, x ≠ v ∧ ∃ w1 ∈ U, ∃ w2 ∈ U, w1 ≠ w2 ∧ ∃ S, S ∈ E w1 x ∧ S ∈ E w2 x := by\n        intro w hw z hz hzU\n        have hwz : G.Adj w z := (G.mem_neighborFinset w z).1 (by rw [hz]; simp)\n        obtain ⟨z', hz'⟩ := hleaf z hzU\n        have hzw : G.Adj z w := hwz.symm\n        have hz'w : z' = w := by\n          have : w ∈ G.neighborFinset z := (G.mem_neighborFinset z w).2 hzw\n          rw [hz', Finset.mem_singleton] at this; exact this.symm\n        have hne : w ≠ z := G.ne_of_adj hwz\n        have hSD : Finset.univ.erase z ∈ D := by\n          rw [memD]\n          refine ⟨Finset.mem_erase.2 ⟨fun h => hvU (h ▸ hzU), Finset.mem_univ v⟩, fun t => ?_⟩\n          by_cases htz : t = z\n          · exact Or.inr ⟨w, Finset.mem_erase.2 ⟨hne, Finset.mem_univ w⟩, htz ▸ hwz⟩\n          · exact Or.inl (Finset.mem_erase.2 ⟨htz, Finset.mem_univ t⟩)\n        refine ⟨w, fun h => hvU (h ▸ hw), w, hw, z, hzU, hne, Finset.univ.erase z, ?_, ?_⟩\n        · rw [hE, Finset.mem_filter, hNw w z hz]\n          refine ⟨hSD, ?_⟩\n          ext t; simp only [Finset.mem_inter, Finset.mem_erase, Finset.mem_univ, and_true,\n            Finset.mem_insert, Finset.mem_singleton]\n          constructor\n          · rintro ⟨htz, rfl | rfl⟩\n            · rfl\n            · exact absurd rfl htz\n          · rintro rfl; exact ⟨hne, Or.inl rfl⟩\n        · rw [hE, Finset.mem_filter, hNw z w (by rw [hz', hz'w])]\n          refine ⟨hSD, ?_⟩\n          ext t; simp only [Finset.mem_inter, Finset.mem_erase, Finset.mem_univ, and_true,\n            Finset.mem_insert, Finset.mem_singleton]\n          constructor\n          · rintro ⟨htz, rfl | rfl⟩\n            · exact absurd rfl htz\n            · rfl\n          · rintro rfl; exact ⟨hne, Or.inr rfl⟩\n      obtain ⟨w1, hw1⟩ := Finset.card_pos.1 (by omega : 0 < U.card)\n      obtain ⟨z1, hz1⟩ := hleaf w1 hw1\n      by_cases hz1U : z1 ∈ U\n      · exact hK2 w1 hw1 z1 hz1 hz1U\n      obtain ⟨w2, hw2, hw21⟩ := Finset.exists_mem_ne (by omega : 1 < U.card) w1\n      obtain ⟨z2, hz2⟩ := hleaf w2 hw2\n      by_cases hz2U : z2 ∈ U\n      · exact hK2 w2 hw2 z2 hz2 hz2U\n      have hw1z1 : G.Adj w1 z1 := (G.mem_neighborFinset w1 z1).1 (by rw [hz1]; simp)\n      have hw2z2 : G.Adj w2 z2 := (G.mem_neighborFinset w2 z2).1 (by rw [hz2]; simp)\n      have hz1y : z1 = y := (hUall z1 hz1U).resolve_left (hwv w1 hw1 z1 hw1z1)\n      have hz2y : z2 = y := (hUall z2 hz2U).resolve_left (hwv w2 hw2 z2 hw2z2)\n      -- two leaves on `y`: drop both, `y` is critical with both as witnesses\n      set S := (Finset.univ.erase w1).erase w2 with hS\n      have hw1y : w1 ≠ y := fun h => hyU (h ▸ hw1)\n      have hw2y : w2 ≠ y := fun h => hyU (h ▸ hw2)\n      have hSD : S ∈ D := by\n        rw [memD]\n        refine ⟨by simp [hS]; exact ⟨fun h => hvU (h ▸ hw2), fun h => hvU (h ▸ hw1)⟩, fun t => ?_⟩\n        by_cases ht1 : t = w1\n        · exact Or.inr ⟨y, by simp [hS]; exact ⟨hw2y.symm, hw1y.symm⟩, ht1 ▸ hz1y ▸ hw1z1.symm⟩\n        by_cases ht2 : t = w2\n        · exact Or.inr ⟨y, by simp [hS]; exact ⟨hw2y.symm, hw1y.symm⟩, ht2 ▸ hz2y ▸ hw2z2.symm⟩\n        exact Or.inl (by simp [hS]; exact ⟨ht2, ht1⟩)\n      have hmem : ∀ w z, w ∈ U → G.neighborFinset w = {z} → z = y → (w = w1 ∨ w = w2) →\n          S ∈ E w y := by\n        intro w z _ hz hzy hw\n        rw [hE, Finset.mem_filter, hNw w z hz, hzy]\n        refine ⟨hSD, ?_⟩\n        ext t\n        simp only [hS, Finset.mem_inter, Finset.mem_erase, Finset.mem_univ, and_true,\n          Finset.mem_insert, Finset.mem_singleton]\n        constructor\n        · rintro ⟨⟨ht2, ht1⟩, h | h⟩\n          · rcases hw with rfl | rfl\n            · exact absurd h ht1\n            · exact absurd h ht2\n          · exact h\n        · rintro rfl; exact ⟨⟨hw2y.symm, hw1y.symm⟩, Or.inr rfl⟩\n      exact ⟨y, (G.ne_of_adj ((G.mem_neighborFinset v y).1 (by rw [hy]; simp))).symm, w1, hw1, w2, hw2, hw21.symm, S,\n        hmem w1 z1 hw1 hz1 hz1y (Or.inl rfl), hmem w2 z2 hw2 hz2 hz2y (Or.inr rfl)⟩\n    have qc : (3 : ℚ) * ((∑ x, c x : ℕ) : ℚ) + 1 ≤ 3 * D.card + 2 * U.card * D.card := by\n      exact_mod_cast hcsum_strict hcase\n    have q1 : (G.degree v : ℚ) = 1 := by exact_mod_cast hdv1\n    have qnD : (n : ℚ) * D.card = U.card * D.card + G.degree v * D.card + D.card := by\n      rw [← qm]; ring\n    nlinarith"
+     }
+    ],
+    "glossary": {
+     "Finset.mem_univ": "x is an element of the universal finset univ",
+     "Or.inl": "constructs a proof of a ∨ b from a proof of a",
+     "Or.inr": "constructs a proof of a ∨ b from a proof of b",
+     "Finset.card_sdiff_of_subset": "the cardinality of t \\\\ s is |t| - |s| when s ⊆ t",
+     "Finset.card_erase_of_mem": "erasing an element from a finset decreases its cardinality by 1",
+     "G.card_neighborFinset_eq_degree": "the number of neighbors of v equals the degree of v in G",
+     "Finset.mem_erase": "a ∈ s.erase b if and only if a ≠ b and a ∈ s",
+     "G.ne_of_adj": "adjacent vertices in a simple graph are not equal",
+     "G.mem_neighborFinset": "w is in the neighbor finset of v if and only if G.Adj v w",
+     "Finset.card_le_card": "if s ⊆ t then |s| ≤ |t|",
+     "Fintype.card_pos_iff": "the cardinality of a fintype is positive if and only if the type is nonempty",
+     "Finset.card_filter_add_card_filter_not": "|{x ∈ s | p x}| + |{x ∈ s | ¬ p x}| = |s|",
+     "Finset.filter_filter": "filtering by p and then by q is equivalent to filtering by p ∧ q",
+     "le_antisymm": "if a ≤ b and b ≤ a then a = b in a partial order",
+     "Finset.insert_erase": "inserting an element into s.erase a reconstructs s when a ∈ s",
+     "congrArg": "equal inputs produce equal outputs under a function f",
+     "Finset.card_image_of_injOn": "the image of a finset under an injective function on s has the same cardinality as s",
+     "Finset.mem_image": "y ∈ f '' s if and only if y = f x for some x ∈ s",
+     "Finset.erase_insert": "erasing a from insert a s gives back s when a ∉ s",
+     "Finset.subset_insert": "s is a subset of insert a s",
+     "Finset.mem_insert_self": "a is an element of insert a s",
+     "Finset.card_filter": "the cardinality of a filtered finset equals the sum of indicator 1s",
+     "Finset.filter_mem_eq_inter": "filtering s by membership in t gives the intersection s ∩ t",
+     "Finset.univ_inter": "univ ∩ s = s for any finset s",
+     "Finset.sum_congr": "sums of equal functions over equal finsets are equal",
+     "Finset.sum_comm": "interchanging the order of summation in a double sum over finsets",
+     "Finset.mem_filter": "membership in a filtered finset is conjunction of membership and the predicate",
+     "Finset.mem_inter": "membership in the intersection s ∩ t is conjunction of memberships",
+     "Finset.mem_insert": "membership in insert b s is equality to b or membership in s",
+     "Finset.mem_singleton": "b ∈ {a} if and only if b = a",
+     "Finset.mem_sdiff": "membership in s \\\\ t is membership in s and non-membership in t",
+     "Finset.mem_biUnion": "membership in the union of a family of finsets indexed by s",
+     "le_trans": "transitivity of ≤ in a preorder",
+     "Finset.card_biUnion_le": "the cardinality of a bounded union is at most the sum of cardinalities",
+     "Finset.biUnion_insert": "bounded union over insert a s is t a ∪ bounded union over s",
+     "Finset.card_union_add_card_inter": "|s ∪ t| + |s ∩ t| = |s| + |t| for finsets",
+     "Finset.card_pos": "a finset has positive cardinality if and only if it is nonempty",
+     "Finset.add_sum_erase": "f a + sum over s.erase a equals sum over s when a ∈ s",
+     "Finset.card_eq_one": "a finset has cardinality 1 if and only if it is a singleton",
+     "if_pos": "evaluates if c then t else e to t when c holds",
+     "Finset.mem_insert_of_mem": "if a ∈ s then a ∈ insert b s",
+     "Finset.card_le_one": "a finset has cardinality at most 1 if all pairs of elements are equal",
+     "if_neg": "evaluates if c then t else e to e when ¬ c holds",
+     "Finset.mem_singleton_self": "a is an element of {a}",
+     "Finset.card_le_two": "any set of at most two elements {a, b} has cardinality ≤ 2",
+     "Finset.card_le_mul_card_image_of_maps_to": "if fibers of f on s have size at most n then |s| ≤ n * |f '' s|",
+     "Finset.card_singleton": "a singleton finset has cardinality 1",
+     "Finset.card_biUnion": "the cardinality of a disjoint bounded union equals the sum of cardinalities",
+     "Function.onFun": "precomposing a binary relation with a function f",
+     "Finset.disjoint_left": "disjointness of two finsets means no element of s is in t",
+     "Finset.singleton_injective": "the singleton set constructor is injective",
+     "Finset.card_filter_le": "the cardinality of a filtered finset is at most that of the original finset",
+     "Finset.sum_le_sum": "a sum of pointwise smaller functions is at most the sum of larger functions",
+     "Finset.ne_of_mem_erase": "if b ∈ s.erase a then b ≠ a",
+     "Finset.mul_sum": "distributing multiplication over summation",
+     "Finset.sum_const": "sum of a constant over a finset equals cardinality times the constant",
+     "smul_eq_mul": "scalar multiplication on ℕ corresponds to ordinary multiplication",
+     "Finset.card_univ": "the cardinality of univ on V is the fintype cardinality of V",
+     "Finset.sum_add_distrib": "distributing sum over addition of functions",
+     "Finset.sum_lt_sum": "sum of strictly smaller function at one element and ≤ elsewhere is strictly smaller",
+     "Nat.cast_sum": "coercing a sum of natural numbers to an additive monoid with one preserves the sum",
+     "div_lt_div_iff₀": "a/b < c/d ↔ a*d < c*b for positive denominators in an ordered group with zero",
+     "Finset.exists_mem_ne": "if a finset has size > 1 then there exists an element distinct from any given element"
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   }

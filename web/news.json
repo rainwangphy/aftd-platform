@@ -2,6 +2,51 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-10",
+   "kind": "daily",
+   "title": "Daily reading: 27 proved, 5 open",
+   "body": "The Proposer read 1 new paper(s), listed 2 open problem(s), and stated 2 of them in Lean, and posed 0 more from what the knowledgebase already holds (32 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 27 theorem(s); 5 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `graph_wasserstein_dist_le_of_plan`: The Wasserstein distance is at most the cost of any transport plan.\n\nProved. `graph_wasserstein_dist_ge_of_lipschitz`: Weak Kantorovich duality: for probability measures μ, ν and any function f with f(a) − f(b) ≤ d(a, b), Σ f μ − Σ f ν ≤ W(μ, ν).\n\nProved. `graph_idle_measure_sum_eq_one`: μ_x^α is a probability measure (total mass 1) when x has a neighbour.\n\nProved. `graph_wasserstein_dist_self_eq_zero`: The Wasserstein distance from a nonnegative measure to itself is 0.\n\nProved. `graph_edge_connectivity_le_minDegree`: Edge-connectivity is at most the minimum degree, κ'(G) ≤ δ(G) (for at least two vertices).\n\nProved. `one_le_graph_edge_connectivity_of_connected`: A connected graph on at least two vertices has edge-connectivity at least 1.\n\nFormalized. `ediam_le_two_of_card_sub_one_le_two_mul_minDegree` (arXiv:2610.10559 (Edge-Connectivity versus Lin--Lu--Yau Curvature), Lemma 4.1; diameter as Mathlib's extended diameter `ediam`, so the…): A graph on n vertices with minimum degree δ(G) ≥ (n − 1)/2 has diameter at most 2 (in particular it is connected).\n\nProved. `graph_wasserstein_dist_comm`: The Wasserstein distance is symmetric: W(μ, ν) = W(ν, μ).\n\nProved. `graph_lly_curvature_comm`: The Lin–Lu–Yau curvature is symmetric: κ_LLY(x, y) = κ_LLY(y, x).\n\nProved. `graph_lly_curvature_eq_of_ollivier_eq`: If κ_α(x, y) = (1 − α)c for all α in an interval (a, 1), then κ_LLY(x, y) = c.\n\nProved. `graph_idle_measure_nonneg`: μ_x^α is nonnegative for 0 ≤ α ≤ 1.\n\nProved. `graph_lly_curvature_of_leaf`: If x is a leaf of a finite connected graph whose only neighbour is y, then κ_LLY(x, y) = 2/d_y.\n\nOpen. `edge_connectivity_ge_half_scale_mul_min_degree_mul_lly_lower_bound` (arXiv:2610.10559): For every d ≥ 3 and every finite connected graph G of diameter at least d: κ'(G) ≥ (d/2) · δ(G) · κ_LLY^(d)(G).\n\nOpen. `edge_connectivity_ge_three_halves_min_degree_mul_lly_lower_bound_three` (arXiv:2610.10559): Every finite connected graph of diameter at least 3 has κ'(G) ≥ (3/2) · δ(G) · κ_LLY^(3)(G).\n\nOpen. `edge_connectivity_ge_min_degree_mul_lly_lower_bound_two` (arXiv:2610.10559 (Edge-Connectivity versus Lin--Lu--Yau Curvature), Theorem 1.1 (for finite graphs).): Every finite connected graph of diameter 2 has κ'(G) ≥ δ(G) · κ_LLY^(2)(G).\n\nOpen. `lly_curvature_pos_of_edge_connectivity_ge` (arXiv:2610.10559): If a finite connected graph on n vertices has edge-connectivity κ'(G) ≥ 2n/3 − 1, then every edge xy has κ_LLY(x, y) > 0.\n\nOpen. `lly_positive_edge_connectivity_threshold_five` (arXiv:2610.10559): c(5) = 2: every connected graph on 5 vertices with edge-connectivity at least 2 has positive Lin–Lu–Yau curvature on every edge, while the path-like tree with a vertex of degree 3 (edges 01, 03, 04, 12) has κ' = 1 and κ_LLY(0,1) = −1/3. So c(5) < ⌈2·5/3 − 1⌉…",
+   "declarations": [
+    "graph_wasserstein_dist_le_of_plan",
+    "graph_wasserstein_dist_ge_of_lipschitz",
+    "graph_idle_measure_sum_eq_one",
+    "graph_wasserstein_dist_self_eq_zero",
+    "graph_edge_connectivity_le_minDegree",
+    "one_le_graph_edge_connectivity_of_connected",
+    "ediam_le_two_of_card_sub_one_le_two_mul_minDegree",
+    "graph_wasserstein_dist_comm",
+    "graph_lly_curvature_comm",
+    "graph_lly_curvature_eq_of_ollivier_eq",
+    "graph_idle_measure_nonneg",
+    "graph_lly_curvature_of_leaf",
+    "graph_lly_curvature_of_twins",
+    "graph_lly_curvature_pos_of_three",
+    "lly_positive_edge_connectivity_threshold_three",
+    "graph_lly_curvature_le_two_div_dist",
+    "edge_connectivity_ge_half_scale_mul_min_degree_mul_lly_lower_bound_of_eq_minDegree",
+    "not_forall_lly_positive_edge_connectivity_threshold_eq_ceil",
+    "not_edge_connectivity_ge_half_scale_mul_min_degree_mul_lly_lower_bound",
+    "css_z_distance_ge_three_iff_multiplicity_free",
+    "graph_wasserstein_dist_ge_of_forall_plan",
+    "graph_wasserstein_dist_mix_dirac_le",
+    "graph_idle_measure_eq_mix",
+    "graph_degree_pos_of_connected_of_ne",
+    "graph_ollivier_curvature_div_monotoneOn",
+    "graph_ollivier_curvature_div_le_two_div_dist",
+    "graph_lly_curvature_tendsto"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.10559",
+     "href": "https://arxiv.org/abs/2610.10559"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-09",
    "kind": "daily",
    "title": "Daily reading: 38 proved, 8 open",

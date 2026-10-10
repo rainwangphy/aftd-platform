@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-10T08:08:03Z",
+ "generated": "2026-10-10T08:20:03Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 43,
   "rejected": 8,
-  "spend": 61.84,
+  "spend": 62.16,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 83896261,
-   "output": 11040870,
-   "cache_read": 166373999
+   "input": 84107073,
+   "output": 11141268,
+   "cache_read": 166468411
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1791619665
+  "last": 1791620400
  },
  "domains": [
   {
@@ -299298,13 +299298,56 @@
     "graph_wasserstein_dist_mix_dirac_le"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GraphWassersteinDistGeOfForallPlan.lean",
-   "proved_at": 1791618216,
+   "proved_at": 1791620129,
    "provenance": "lemma",
    "citation": "Helper for graph_lly_curvature_le_two_div_dist (OP-164, arXiv:2610.10559 (Edge-Connectivity versus Lin--Lu--Yau Curvature)).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The Wasserstein distance on the graph is defined as the infimum of the transport costs over all valid couplings between μ and ν. The proof applies `le_csInf`, reducing the lower bound to two checks: that the set of couplings is nonempty, and that c lower-bounds the cost of every coupling. Nonemptiness is established by taking the independent product coupling π(a, b) = μ(a) * ν(b), and the assumed universal lower bound on transport plans directly bounds the cost of every coupling.",
+    "steps": [
+     {
+      "claim": "It suffices to show that the set of transport costs is nonempty and that c is a lower bound for every element of that set.",
+      "explanation": "By definition, the Wasserstein distance is the infimum (`sInf`) of the set of transport costs across all admissible transport plans (couplings) between μ and ν. Lemma `le_csInf` states that c is bounded below by the infimum of a set provided the set is nonempty and c is at most every element of the set.",
+      "lemmas": [
+       "le_csInf"
+      ],
+      "automation": false,
+      "code": "  unfold graph_wasserstein_dist\n  apply le_csInf"
+     },
+     {
+      "claim": "The set of transport costs is nonempty.",
+      "explanation": "We exhibit the independent product coupling π(a, b) = μ(a) * ν(b). Since μ and ν are pointwise non-negative, π is non-negative everywhere (`mul_nonneg`). Factoring μ(a) out of the sum over b (`Finset.mul_sum`) and using the total mass assumption ∑ b, ν(b) = 1 (`mul_one`) establishes the first marginal constraint. Symmetrically, factoring ν(b) out of the sum over a (`Finset.sum_mul`) and using ∑ a, μ(a) = 1 (`one_mul`) establishes the second marginal constraint.",
+      "lemmas": [
+       "mul_nonneg",
+       "Finset.mul_sum",
+       "mul_one",
+       "Finset.sum_mul",
+       "one_mul"
+      ],
+      "automation": false,
+      "code": "  · refine ⟨_, fun a b => μ a * ν b, fun a b => mul_nonneg (hμ a) (hν b), ?_, ?_, rfl⟩\n    · intro a; rw [← Finset.mul_sum, hν1, mul_one]\n    · intro b; rw [← Finset.sum_mul, hμ1, one_mul]"
+     },
+     {
+      "claim": "c is a lower bound for every transport cost in the set.",
+      "explanation": "Any cost in the set is the transport cost of an admissible coupling π satisfying non-negativity and both marginal conditions. The hypothesis h immediately implies that c is at most this transport cost.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  · rintro c' ⟨π, h0, h1, h2, rfl⟩\n    exact h π h0 h1 h2"
+     }
+    ],
+    "glossary": {
+     "le_csInf": "A lower bound for every element of a nonempty set is a lower bound for its infimum.",
+     "mul_nonneg": "The product of two nonnegative numbers is nonnegative.",
+     "Finset.mul_sum": "Left-distributivity of multiplication over a finite sum: a * ∑ i, f i = ∑ i, a * f i.",
+     "mul_one": "Multiplying a number by 1 on the right leaves it unchanged: a * 1 = a.",
+     "Finset.sum_mul": "Right-distributivity of multiplication over a finite sum: (∑ i, f i) * a = ∑ i, f i * a.",
+     "one_mul": "Multiplying a number by 1 on the left leaves it unchanged: 1 * a = a."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -299334,13 +299377,108 @@
     "graph_ollivier_curvature_div_monotoneOn"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GraphWassersteinDistMixDiracLe.lean",
-   "proved_at": 1791618393,
+   "proved_at": 1791620229,
    "provenance": "lemma",
    "citation": "Helper for graph_lly_curvature_le_two_div_dist (OP-164, arXiv:2610.10559 (Edge-Connectivity versus Lin--Lu--Yau Curvature)).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To bound the Wasserstein distance between the mixture measures t μ + (1 - t) δ_x and t ν + (1 - t) δ_y, the proof constructs the interpolated coupling t π + (1 - t) δ_{(x, y)} for an arbitrary transport plan π between μ and ν. The cost of this interpolated coupling is t · cost(π) + (1 - t) d(x, y), which gives an upper bound on the mixed Wasserstein distance for every coupling π. Finally, a case split on t = 0 versus t > 0 uses the infimum property of the Wasserstein distance (via `graph_wasserstein_dist_ge_of_forall_plan`) to pass from the bound on all couplings to the Wasserstein distance W(μ, ν).",
+    "steps": [
+     {
+      "claim": "For any transport plan π between μ and ν, the convex combination t π + (1 - t) δ_{(x, y)} is a valid transport plan between t μ + (1 - t) δ_x and t ν + (1 - t) δ_y, and its cost bounds the Wasserstein distance between the mixtures.",
+      "explanation": "We introduce an arbitrary coupling π between μ and ν and test the mixture candidate π' defined by π'(a, b) = t π(a, b) + (1 - t) (if a = x and b = y then 1 else 0). By `graph_wasserstein_dist_le_of_plan`, the Wasserstein distance between the two mixture measures is bounded above by the expected distance under any valid coupling. Non-negativity of π' follows because 0 ≤ t ≤ 1 and π is non-negative (checked by `positivity`). Summing π'(a, b) over b yields t μ(a) + (1 - t) δ_x(a) using the marginal property of π and the definition of the indicator; similarly, summing over a gives the second marginal t ν(b) + (1 - t) δ_y(b).",
+      "lemmas": [
+       "graph_wasserstein_dist_le_of_plan",
+       "Finset.sum_add_distrib",
+       "Finset.mul_sum"
+      ],
+      "automation": false,
+      "code": "  have key : ∀ π : V → V → ℝ, (∀ a b, 0 ≤ π a b) → (∀ a, ∑ b, π a b = μ a) →\n      (∀ b, ∑ a, π a b = ν b) →\n      graph_wasserstein_dist G (fun v => t * μ v + (1 - t) * (if v = x then 1 else 0))\n        (fun v => t * ν v + (1 - t) * (if v = y then 1 else 0)) ≤\n        t * (∑ a, ∑ b, (G.dist a b : ℝ) * π a b) + (1 - t) * (G.dist x y : ℝ) := by\n    intro π h0 h1 h2\n    calc _ ≤ ∑ a, ∑ b, (G.dist a b : ℝ) *\n          (t * π a b + (1 - t) * (if a = x then (if b = y then 1 else 0) else 0)) := by\n          apply graph_wasserstein_dist_le_of_plan\n          · intro a b\n            have := h0 a b\n            have h1t : 0 ≤ 1 - t := by linarith\n            split_ifs <;> positivity\n          · intro a\n            rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum, h1 a]\n            by_cases ha : a = x <;> simp [ha]\n          · intro b\n            rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum, h2 b]\n            by_cases hb : b = y <;> simp [hb]"
+     },
+     {
+      "claim": "The transport cost of the mixture coupling equals t (∑ a b, dist(a, b) π(a, b)) + (1 - t) dist(x, y), completing the key lemma.",
+      "explanation": "The double sum of the cost d(a, b) π'(a, b) splits into two parts via `Finset.sum_add_distrib` and `mul_add`. The first part factors out t to give t ∑ a b, d(a, b) π(a, b). In the second part, summing d(a, b) (1 - t) 1_{a = x, b = y} collapses to the single term (1 - t) d(x, y) at a = x and b = y, evaluated by `Finset.sum_ite_eq` and ring arithmetic.",
+      "lemmas": [
+       "mul_add",
+       "Finset.sum_add_distrib",
+       "Finset.mul_sum",
+       "Finset.sum_congr",
+       "mul_ite",
+       "mul_one",
+       "mul_zero",
+       "Finset.sum_ite_eq'",
+       "Finset.sum_ite_eq",
+       "Finset.mem_univ",
+       "if_true",
+       "Finset.sum_ite_irrel",
+       "Finset.sum_const_zero"
+      ],
+      "automation": false,
+      "code": "      _ = _ := by\n          simp only [mul_add, Finset.sum_add_distrib]\n          congr 1\n          · rw [Finset.mul_sum]\n            refine Finset.sum_congr rfl fun a _ => ?_\n            rw [Finset.mul_sum]\n            refine Finset.sum_congr rfl fun b _ => ?_\n            ring\n          · simp only [mul_ite, mul_one, mul_zero, Finset.sum_ite_eq', Finset.sum_ite_eq,\n              Finset.mem_univ, if_true, Finset.sum_ite_irrel, Finset.sum_const_zero]\n            ring"
+     },
+     {
+      "claim": "When t = 0, the inequality holds.",
+      "explanation": "We split into cases using `eq_or_lt_of_le`. When t = 0, the mixture measures reduce to the Dirac masses δ_x and δ_y. We instantiate the key lemma with the product coupling π(a, b) = μ(a) ν(b), which is non-negative and has the correct marginals since ∑ μ = 1 and ∑ ν = 1. Specializing the key inequality to t = 0 eliminates the transport cost of π and leaves W(δ_x, δ_y) ≤ d(x, y).",
+      "lemmas": [
+       "eq_or_lt_of_le",
+       "mul_nonneg",
+       "Finset.mul_sum",
+       "mul_one",
+       "Finset.sum_mul",
+       "one_mul"
+      ],
+      "automation": false,
+      "code": "  rcases eq_or_lt_of_le ht0 with rfl | htpos\n  · have := key (fun a b => μ a * ν b) (fun a b => mul_nonneg (hμ a) (hν b))\n      (fun a => by rw [← Finset.mul_sum, hν1, mul_one])\n      (fun b => by rw [← Finset.sum_mul, hμ1, one_mul])\n    simpa using this"
+     },
+     {
+      "claim": "When t > 0, the quantity (W(t μ + (1 - t) δ_x, t ν + (1 - t) δ_y) - (1 - t) d(x, y)) / t is a lower bound for W(μ, ν).",
+      "explanation": "By `graph_wasserstein_dist_ge_of_forall_plan`, to bound a constant below W(μ, ν), it suffices to show that the constant is at most the cost of every transport plan π between μ and ν. For any valid coupling π, dividing the inequality from the key lemma by t > 0 (via `div_le_iff₀`) directly shows that the constant is bounded above by ∑ a b, d(a, b) π(a, b).",
+      "lemmas": [
+       "graph_wasserstein_dist_ge_of_forall_plan",
+       "div_le_iff₀"
+      ],
+      "automation": false,
+      "code": "  · have hlow : (graph_wasserstein_dist G (fun v => t * μ v + (1 - t) * (if v = x then 1 else 0))\n        (fun v => t * ν v + (1 - t) * (if v = y then 1 else 0)) - (1 - t) * (G.dist x y : ℝ)) / t\n        ≤ graph_wasserstein_dist G μ ν := by\n      apply graph_wasserstein_dist_ge_of_forall_plan G μ ν hμ hν hμ1 hν1\n      intro π h0 h1 h2\n      rw [div_le_iff₀ htpos]\n      have := key π h0 h1 h2\n      linarith"
+     },
+     {
+      "claim": "Multiplying by t yields the desired mixing inequality.",
+      "explanation": "Clearing the division by t > 0 in the previous lower bound via `div_le_iff₀` and rearranging linearly with `linarith` completes the proof.",
+      "lemmas": [
+       "div_le_iff₀"
+      ],
+      "automation": false,
+      "code": "    rw [div_le_iff₀ htpos] at hlow\n    linarith"
+     }
+    ],
+    "glossary": {
+     "graph_wasserstein_dist_le_of_plan": "The Wasserstein distance between two probability measures on a graph is bounded from above by the cost of any valid transport plan coupling them.",
+     "graph_wasserstein_dist_ge_of_forall_plan": "A constant c is a lower bound for the Wasserstein distance between probability measures μ and ν if c is bounded above by the transport cost of every valid transport plan between them.",
+     "Finset.sum_add_distrib": "Addition inside a finite sum distributes: ∑ (f x + g x) = ∑ f x + ∑ g x.",
+     "Finset.mul_sum": "Multiplication distributes from the left over a finite sum: a * ∑ f i = ∑ (a * f i).",
+     "Finset.sum_mul": "Multiplication distributes from the right over a finite sum: (∑ f i) * a = ∑ (f i * a).",
+     "Finset.sum_congr": "Two finite sums are equal if their index sets are equal and their summands agree at every index.",
+     "Finset.sum_ite_eq'": "Summing an expression that is non-zero only when the index equals a evaluates to the value at a (provided a is in the set).",
+     "Finset.sum_ite_eq": "Summing an expression that is non-zero only when a equals the index evaluates to the value at a (provided a is in the set).",
+     "Finset.mem_univ": "Every element of a finite type belongs to the universal finset `Finset.univ`.",
+     "if_true": "A conditional expression whose condition is True simplifies to the `then` branch.",
+     "Finset.sum_ite_irrel": "A condition independent of the summation variable can be factored outside the finite sum.",
+     "Finset.sum_const_zero": "The sum of the constant zero over any finite set is 0.",
+     "mul_ite": "Multiplication distributes over an `if-then-else` expression: a * (if P then b else c) = if P then a * b else a * c.",
+     "mul_one": "Multiplying by 1 on the right leaves an element unchanged: a * 1 = a.",
+     "one_mul": "Multiplying by 1 on the left leaves an element unchanged: 1 * a = a.",
+     "mul_zero": "Multiplying by 0 on the right gives 0: a * 0 = 0.",
+     "mul_add": "Multiplication distributes over addition: a * (b + c) = a * b + a * c.",
+     "eq_or_lt_of_le": "In a partial order, a ≤ b implies a = b or a < b.",
+     "mul_nonneg": "The product of two non-negative elements is non-negative: 0 ≤ a and 0 ≤ b imply 0 ≤ a * b.",
+     "div_le_iff₀": "For a positive divisor c > 0, the inequality b / c ≤ a is equivalent to b ≤ a * c."
+    },
+    "caveats": [
+     "Rather than relying on the existence of an optimal transport plan achieving the infimum (which would require a compactness or linear programming argument), the formal proof establishes an upper bound for every valid coupling π (the key lemma) and then uses the dual property of the infimum via `graph_wasserstein_dist_ge_of_forall_plan` to conclude."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -299367,13 +299505,77 @@
     "graph_ollivier_curvature_div_monotoneOn"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GraphIdleMeasureEqMix.lean",
-   "proved_at": 1791618583,
+   "proved_at": 1791620204,
    "provenance": "lemma",
    "citation": "Helper for graph_lly_curvature_le_two_div_dist (OP-164, arXiv:2610.10559 (Edge-Connectivity versus Lin--Lu--Yau Curvature)).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The theorem expresses the lazy random walk measure μ_x^β as an affine mixture of μ_x^α and the point mass δ_x with weight λ = (1 - β) / (1 - α). By function extensionality, the proof checks equality at each vertex v by case analysis. At v = x, the equation reduces to the linear identity β = λ α + (1 - λ), which holds because 1 - α ≠ 0; at all other vertices, δ_x(v) vanishes and the idle measure scales proportionately by λ on neighbors and vanishes on non-neighbors.",
+    "steps": [
+     {
+      "claim": "1 - α ≠ 0",
+      "explanation": "Because α < 1, linear arithmetic (linarith) proves that 1 - α > 0, so the denominator 1 - α is nonzero.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hne : (1 - α) ≠ 0 := by linarith"
+     },
+     {
+      "claim": "It suffices to verify the equality pointwise for any vertex v ∈ V under the definition of graph_idle_measure",
+      "explanation": "By function extensionality (funext), two measures are equal if they agree at every vertex v. Unfolding the definition of graph_idle_measure expresses each measure explicitly as a piecewise function depending on whether v = x, v is adjacent to x, or neither.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  funext v\n  unfold graph_idle_measure"
+     },
+     {
+      "claim": "The identity holds when v = x",
+      "explanation": "When v = x, the if conditions evaluate to true (using if_true), reducing the Dirac mass to 1, μ_x^β(x) to β, and μ_x^α(x) to α. The goal becomes the scalar identity β = ((1 - β) / (1 - α)) * α + (1 - (1 - β) / (1 - α)). Clearing denominators via field_simp (using 1 - α ≠ 0) and simplifying with ring verifies this identity.",
+      "lemmas": [
+       "if_true"
+      ],
+      "automation": false,
+      "code": "  by_cases hvx : v = x\n  · simp only [hvx, if_true]\n    field_simp\n    ring"
+     },
+     {
+      "claim": "When v ≠ x, the Dirac mass vanishes and the identity reduces to μ_x^β(v) = ((1 - β) / (1 - α)) * μ_x^α(v)",
+      "explanation": "When v ≠ x, the indicator if v = x then 1 else 0 simplifies to 0 by if_false. Multiplying by 0 yields 0 (mul_zero), and adding 0 is an identity (add_zero), eliminating the Dirac term completely.",
+      "lemmas": [
+       "if_false",
+       "mul_zero",
+       "add_zero"
+      ],
+      "automation": false,
+      "code": "  · simp only [hvx, if_false, mul_zero, add_zero]"
+     },
+     {
+      "claim": "When v ≠ x and v is adjacent to x, the identity holds",
+      "explanation": "When G.Adj x v holds, the adjacency branches evaluate to true (if_true), so μ_x^β(v) = (1 - β) / deg(x) and μ_x^α(v) = (1 - α) / deg(x). If deg(x) = 0, both sides evaluate to 0 in Lean's real division. Otherwise, field_simp cancels 1 - α ≠ 0 to show (1 - β) / deg(x) = ((1 - β) / (1 - α)) * ((1 - α) / deg(x)).",
+      "lemmas": [
+       "if_true"
+      ],
+      "automation": false,
+      "code": "    by_cases hadj : G.Adj x v\n    · simp only [hadj, if_true]\n      by_cases hD : (G.degree x : ℝ) = 0\n      · simp [hD]\n      · field_simp"
+     },
+     {
+      "claim": "When v ≠ x and v is not adjacent to x, the identity holds",
+      "explanation": "Since v ≠ x and x is not adjacent to v, both graph_idle_measure G β x v and graph_idle_measure G α x v are defined to be 0, making both sides identically 0.",
+      "lemmas": [],
+      "automation": false,
+      "code": "    · simp [hadj]"
+     }
+    ],
+    "glossary": {
+     "if_true": "An `if` conditional whose test is true evaluates to its `then` branch.",
+     "if_false": "An `if` conditional whose test is false evaluates to its `else` branch.",
+     "mul_zero": "Multiplying any element by zero yields zero.",
+     "add_zero": "Adding zero to any element leaves it unchanged."
+    },
+    "caveats": [
+     "In the subcase where x has degree 0, the proof relies on Lean's convention that division by zero in ℝ evaluates to 0. In simple graphs without self-loops, an adjacent vertex implies non-zero degree, but handling the degree-zero case algebraically avoids having to construct this graph-theoretic contradiction."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -299399,13 +299601,45 @@
     "graph_ollivier_curvature_div_monotoneOn"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GraphDegreePosOfConnectedOfNe.lean",
-   "proved_at": 1791618742,
+   "proved_at": 1791620274,
    "provenance": "lemma",
    "citation": "Helper for graph_lly_curvature_le_two_div_dist (OP-164, arXiv:2610.10559 (Edge-Connectivity versus Lin--Lu--Yau Curvature)).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "Because the graph G is connected, there exists a walk from x to y. Since x ≠ y, this walk cannot be the trivial empty walk, so it must start with an edge incident to x. The existence of an adjacent vertex implies that x has strictly positive degree.",
+    "steps": [
+     {
+      "claim": "There exists a walk p connecting x to y in G.",
+      "explanation": "Since the graph G is connected, it is preconnected, guaranteeing the existence of a walk between any pair of vertices. We choose such a walk p from x to y.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  obtain ⟨p⟩ := hG.preconnected x y"
+     },
+     {
+      "claim": "The walk p cannot be the trivial empty walk.",
+      "explanation": "We split into cases on the structure of the walk p. If p were the empty walk (nil), its endpoints would coincide, meaning x = y. But this contradicts the hypothesis that x ≠ y (hxy).",
+      "lemmas": [],
+      "automation": false,
+      "code": "  cases p with\n  | nil => exact absurd rfl hxy"
+     },
+     {
+      "claim": "The degree of x is strictly positive (0 < G.degree x).",
+      "explanation": "In the non-empty case (cons), the walk begins with an edge h connecting x to some adjacent vertex. By G.degree_pos_iff_exists_adj, having an adjacent vertex implies that the degree of x is strictly positive.",
+      "lemmas": [
+       "G.degree_pos_iff_exists_adj"
+      ],
+      "automation": false,
+      "code": "  | cons h _ => exact (G.degree_pos_iff_exists_adj x).mpr ⟨_, h⟩"
+     }
+    ],
+    "glossary": {
+     "G.degree_pos_iff_exists_adj": "A vertex in a simple graph has strictly positive degree if and only if there exists a vertex adjacent to it."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -299439,13 +299673,80 @@
     "graph_lly_curvature_tendsto"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GraphOllivierCurvatureDivMonotoneOn.lean",
-   "proved_at": 1791618940,
+   "proved_at": 1791620315,
    "provenance": "literature",
    "citation": "arXiv:2610.10559 (Edge-Connectivity versus Lin--Lu--Yau Curvature), Sec. 2.2 (the monotonicity of κ_α/(1 − α) on which Definition 2.3 rests, quoted there from its reference [15]); proved here by mixing transport plans with the point masses at idleness 1 instead of through concavity.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To prove that α ↦ κ_α(x, y)/(1 - α) is nondecreasing on (0, 1), we fix 0 < α ≤ β < 1 and relate the idle measures at β to those at α. Because the idle measure m_β^x decomposes as a mixture of m_α^x and the Dirac mass δ_x with weight t = (1 - β)/(1 - α) ∈ [0, 1], convexity of the Wasserstein distance gives W₁(m_β^x, m_β^y) ≤ t W₁(m_α^x, m_α^y) + (1 - t) d(x, y). Multiplying by 1 - α and rewriting in terms of Ollivier curvature κ_α = 1 - W₁/d directly yields κ_α(x, y)/(1 - α) ≤ κ_β(x, y)/(1 - β).",
+    "steps": [
+     {
+      "claim": "To show monotonicity on (0, 1), it suffices to prove that κ_α(x, y) / (1 - α) ≤ κ_β(x, y) / (1 - β) whenever 0 < α ≤ β < 1.",
+      "explanation": "We introduce parameters α and β in the open interval (0, 1) with α ≤ β and simplify the monotonicity goal to showing that the ratio evaluated at α is bounded by the ratio evaluated at β.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  intro α hα β hβ hab\n  simp only"
+     },
+     {
+      "claim": "The graph distance d(x, y) and vertex degrees are strictly positive, and the mixture parameter t = (1 - β) / (1 - α) belongs to [0, 1].",
+      "explanation": "Because G is connected and x ≠ y, the graph distance d(x, y) is strictly positive, and both x and y have positive degree by `graph_degree_pos_of_connected_of_ne`. Since α, β < 1, both 1 - α and 1 - β are positive. Consequently, the mixture ratio t = (1 - β)/(1 - α) is nonnegative by `div_nonneg`. Furthermore, since α ≤ β, we have 1 - β ≤ 1 - α, which implies t ≤ 1 by `div_le_one`.",
+      "lemmas": [
+       "graph_degree_pos_of_connected_of_ne",
+       "div_nonneg",
+       "div_le_one"
+      ],
+      "automation": false,
+      "code": "  have hd : (0 : ℝ) < G.dist x y := by exact_mod_cast hG.pos_dist_of_ne hxy\n  have hdx := graph_degree_pos_of_connected_of_ne G hG x y hxy\n  have hdy := graph_degree_pos_of_connected_of_ne G hG y x hxy.symm\n  have h1α : 0 < 1 - α := by linarith [hα.2]\n  have h1β : 0 < 1 - β := by linarith [hβ.2]\n  have ht0 : 0 ≤ (1 - β) / (1 - α) := div_nonneg h1β.le h1α.le\n  have ht1 : (1 - β) / (1 - α) ≤ 1 := by rw [div_le_one h1α]; linarith"
+     },
+     {
+      "claim": "The Wasserstein distance between the idle measures at parameter β satisfies W₁(m_β^x, m_β^y) ≤ ((1 - β) / (1 - α)) * W₁(m_α^x, m_α^y) + (1 - (1 - β) / (1 - α)) * d(x, y).",
+      "explanation": "The idle measures at parameter α are probability measures: they are nonnegative by `graph_idle_measure_nonneg` and sum to 1 by `graph_idle_measure_sum_eq_one` thanks to the positive degrees. Applying `graph_wasserstein_dist_mix_dirac_le` with mixture weight t = (1 - β)/(1 - α) ∈ [0, 1] bounds the Wasserstein distance between convex combinations with Dirac masses at x and y. Rewriting using `graph_idle_measure_eq_mix` identifies these mixtures precisely with the idle measures at parameter β.",
+      "lemmas": [
+       "graph_wasserstein_dist_mix_dirac_le",
+       "graph_idle_measure_nonneg",
+       "graph_idle_measure_sum_eq_one",
+       "graph_idle_measure_eq_mix"
+      ],
+      "automation": false,
+      "code": "  have hmix := graph_wasserstein_dist_mix_dirac_le G (graph_idle_measure G α x)\n    (graph_idle_measure G α y) (graph_idle_measure_nonneg G α hα.1.le hα.2.le x)\n    (graph_idle_measure_nonneg G α hα.1.le hα.2.le y) (graph_idle_measure_sum_eq_one G α x hdx)\n    (graph_idle_measure_sum_eq_one G α y hdy) x y _ ht0 ht1\n  rw [← graph_idle_measure_eq_mix G x α β hα.2, ← graph_idle_measure_eq_mix G y α β hα.2] at hmix"
+     },
+     {
+      "claim": "Letting A = W₁(m_α^x, m_α^y), B = W₁(m_β^x, m_β^y), and d = d(x, y), we have B * (1 - α) ≤ (1 - β) * A + (β - α) * d.",
+      "explanation": "We unfold the definition of Ollivier curvature and abbreviate the Wasserstein distances as A and B and the graph distance as d. Multiplying the mixture inequality B ≤ ((1 - β)/(1 - α)) * A + (1 - (1 - β)/(1 - α)) * d by the positive factor 1 - α via `mul_le_mul_of_nonneg_right` and clearing the fractions yields B * (1 - α) ≤ (1 - β) * A + (β - α) * d.",
+      "lemmas": [
+       "mul_le_mul_of_nonneg_right"
+      ],
+      "automation": false,
+      "code": "  unfold graph_ollivier_curvature\n  generalize graph_wasserstein_dist G (graph_idle_measure G α x) (graph_idle_measure G α y) = A at hmix ⊢\n  generalize graph_wasserstein_dist G (graph_idle_measure G β x) (graph_idle_measure G β y) = B at hmix ⊢\n  generalize (G.dist x y : ℝ) = d at hmix hd ⊢\n  have hB : B * (1 - α) ≤ (1 - β) * A + (β - α) * d := by\n    have := mul_le_mul_of_nonneg_right hmix h1α.le\n    have e1 : (1 - β) / (1 - α) * A * (1 - α) = (1 - β) * A := by field_simp\n    have e2 : (1 - (1 - β) / (1 - α)) * d * (1 - α) = (β - α) * d := by field_simp; ring\n    nlinarith [e1, e2]"
+     },
+     {
+      "claim": "κ_α(x, y) / (1 - α) ≤ κ_β(x, y) / (1 - β).",
+      "explanation": "Since 1 - α > 0 and 1 - β > 0, clearing denominators via `div_le_div_iff₀` transforms the target inequality into (1 - A / d) * (1 - β) ≤ (1 - B / d) * (1 - α). Putting both sides over the common denominator d and dividing by d > 0 via `div_le_div_of_nonneg_right` reduces this to (d - A) * (1 - β) ≤ (d - B) * (1 - α). Expanding both sides and rearranging by linear arithmetic matches the previously established bound B * (1 - α) ≤ (1 - β) * A + (β - α) * d.",
+      "lemmas": [
+       "div_le_div_iff₀",
+       "div_le_div_of_nonneg_right"
+      ],
+      "automation": false,
+      "code": "  rw [div_le_div_iff₀ h1α h1β]\n  have lhs : (1 - A / d) * (1 - β) = ((d - A) * (1 - β)) / d := by field_simp\n  have rhs : (1 - B / d) * (1 - α) = ((d - B) * (1 - α)) / d := by field_simp\n  rw [lhs, rhs]\n  apply div_le_div_of_nonneg_right _ hd.le\n  nlinarith"
+     }
+    ],
+    "glossary": {
+     "graph_degree_pos_of_connected_of_ne": "In a connected graph with at least two distinct vertices, every vertex has strictly positive degree.",
+     "div_nonneg": "The quotient of two nonnegative real numbers is nonnegative.",
+     "div_le_one": "For a positive divisor b, the quotient a / b is at most 1 if and only if a ≤ b.",
+     "graph_wasserstein_dist_mix_dirac_le": "The Wasserstein distance between convex combinations of probability measures with Dirac masses at x and y is bounded by t times the Wasserstein distance between the measures plus (1 - t) times the graph distance between x and y.",
+     "graph_idle_measure_nonneg": "For idleness parameter α ∈ [0, 1], the idle measure at any vertex is everywhere nonnegative.",
+     "graph_idle_measure_sum_eq_one": "If the degree of a vertex x is strictly positive, the idle measure at x has total sum 1.",
+     "graph_idle_measure_eq_mix": "For α < 1, the idle measure at parameter β is a convex combination of the idle measure at α (with weight (1 - β)/(1 - α)) and the Dirac mass at the base vertex.",
+     "mul_le_mul_of_nonneg_right": "Multiplying both sides of an inequality by a nonnegative number preserves the inequality.",
+     "div_le_div_iff₀": "For positive denominators b and d, the inequality a / b ≤ c / d is equivalent to a * d ≤ c * b.",
+     "div_le_div_of_nonneg_right": "Dividing both sides of an inequality by a nonnegative number preserves the inequality."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -299480,13 +299781,126 @@
     "graph_lly_curvature_tendsto"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GraphOllivierCurvatureDivLeTwoDivDist.lean",
-   "proved_at": 1791619105,
+   "proved_at": 1791620400,
    "provenance": "lemma",
    "citation": "Helper for graph_lly_curvature_le_two_div_dist (OP-164, arXiv:2610.10559 (Edge-Connectivity versus Lin--Lu--Yau Curvature)).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To bound the normalized Ollivier-Ricci curvature κ_α(x, y)/(1 - α) ≤ 2/d(x, y), it suffices to establish a lower bound on the Wasserstein distance W₁(μ_x, μ_y) between the idle random walk measures. By Kantorovich duality applied to the 1-Lipschitz test function f(v) = d(v, y), the Wasserstein distance is at least the difference of expectations 𝔼_{μ_x}[f] - 𝔼_{μ_y}[f]. Evaluating directly yields 𝔼_{μ_y}[f] = 1 - α, while the triangle inequality yields 𝔼_{μ_x}[f] ≥ d(x, y) - (1 - α). Subtracting these gives W₁(μ_x, μ_y) ≥ d(x, y) - 2(1 - α), which algebraically rearranges to the desired curvature bound.",
+    "steps": [
+     {
+      "claim": "The graph distance d(x, y) and degrees deg(x), deg(y) are strictly positive, 1 - α > 0, and the idle measures μ_x and μ_y are valid probability measures (non-negative and summing to 1).",
+      "explanation": "Because G is connected and x ≠ y, the distance d(x, y) is strictly positive (via hG.pos_dist_of_ne) and both vertices have degree at least 1 (graph_degree_pos_of_connected_of_ne). The condition α < 1 implies 1 - α > 0. For α ∈ [0, 1), the idle measure μ_x, which places mass α on x and (1 - α) / deg(x) on each neighbor, is non-negative everywhere (graph_idle_measure_nonneg) and sums to 1 (graph_idle_measure_sum_eq_one), and similarly for μ_y.",
+      "lemmas": [
+       "hG.pos_dist_of_ne",
+       "graph_degree_pos_of_connected_of_ne",
+       "graph_idle_measure_nonneg",
+       "graph_idle_measure_sum_eq_one"
+      ],
+      "automation": false,
+      "code": "  have hd : (0 : ℝ) < G.dist x y := by exact_mod_cast hG.pos_dist_of_ne hxy\n  have hdx := graph_degree_pos_of_connected_of_ne G hG x y hxy\n  have hdy := graph_degree_pos_of_connected_of_ne G hG y x hxy.symm\n  have h1α : 0 < 1 - α := by linarith\n  have hnx := graph_idle_measure_nonneg G α hα0 hα1.le x\n  have hny := graph_idle_measure_nonneg G α hα0 hα1.le y\n  have hsx := graph_idle_measure_sum_eq_one G α x hdx\n  have hsy := graph_idle_measure_sum_eq_one G α y hdy"
+     },
+     {
+      "claim": "The distance-to-y function v ↦ d(v, y) is 1-Lipschitz: d(a, y) - d(b, y) ≤ d(a, b) for all vertices a, b.",
+      "explanation": "For any two vertices a and b, the graph triangle inequality (hG.dist_triangle) gives d(a, y) ≤ d(a, b) + d(b, y). Subtracting d(b, y) from both sides yields the 1-Lipschitz condition d(a, y) - d(b, y) ≤ d(a, b).",
+      "lemmas": [
+       "hG.dist_triangle"
+      ],
+      "automation": false,
+      "code": "  have hf : ∀ a b, (fun v => (G.dist v y : ℝ)) a - (fun v => (G.dist v y : ℝ)) b ≤ G.dist a b := by\n    intro a b\n    have := hG.dist_triangle (u := a) (v := b) (w := y)\n    simp only\n    have : (G.dist a y : ℝ) ≤ G.dist a b + G.dist b y := by exact_mod_cast this\n    linarith"
+     },
+     {
+      "claim": "The Wasserstein distance W₁(μ_x, μ_y) is bounded below by the difference of expectations ∑_a d(a, y) μ_x(a) - ∑_b d(b, y) μ_y(b).",
+      "explanation": "By Kantorovich-Rubinstein duality for graph Wasserstein distance (graph_wasserstein_dist_ge_of_lipschitz), W₁(μ_x, μ_y) is bounded below by the difference of expectations of any 1-Lipschitz test function. Applying this duality to the 1-Lipschitz function v ↦ d(v, y) gives the inequality.",
+      "lemmas": [
+       "graph_wasserstein_dist_ge_of_lipschitz"
+      ],
+      "automation": false,
+      "code": "  have hW := graph_wasserstein_dist_ge_of_lipschitz G _ _ hnx hny hsx hsy _ hf"
+     },
+     {
+      "claim": "The expectation of the distance to y under the idle measure at x satisfies ∑_a d(a, y) μ_x(a) ≥ d(x, y) - 1 + α.",
+      "explanation": "We establish pointwise that ((d(x, y) - 1) + 𝟏_{a = x}) μ_x(a) ≤ d(a, y) μ_x(a) for every vertex a. If a = x, both sides equal d(x, y) μ_x(x). If a ≠ x is a neighbor of x, d(x, a) = 1 (SimpleGraph.dist_eq_one_iff_adj.mpr), so the triangle inequality d(x, y) ≤ 1 + d(a, y) gives d(x, y) - 1 ≤ d(a, y), which after multiplying by μ_x(a) ≥ 0 yields the bound. If a is neither x nor adjacent to x, μ_x(a) = 0 so both sides vanish. Summing over all a in V via Finset.sum_le_sum, distributing sums, and using ∑_a μ_x(a) = 1 and μ_x(x) = α evaluates the left-hand side to (d(x, y) - 1) + α.",
+      "lemmas": [
+       "if_false",
+       "add_zero",
+       "mul_le_mul_of_nonneg_right",
+       "hG.dist_triangle",
+       "SimpleGraph.dist_eq_one_iff_adj.mpr",
+       "add_mul",
+       "Finset.sum_add_distrib",
+       "Finset.mul_sum",
+       "ite_mul",
+       "one_mul",
+       "zero_mul",
+       "Finset.sum_ite_eq'",
+       "Finset.sum_ite_eq",
+       "Finset.mem_univ",
+       "if_true",
+       "Finset.sum_le_sum"
+      ],
+      "automation": false,
+      "code": "  have ex : (G.dist x y : ℝ) - 1 + α ≤ ∑ a, (G.dist a y : ℝ) * graph_idle_measure G α x a := by\n    have term : ∀ a, ((G.dist x y : ℝ) - 1 + (if a = x then 1 else 0)) * graph_idle_measure G α x a\n        ≤ (G.dist a y : ℝ) * graph_idle_measure G α x a := by\n      intro a\n      by_cases hax : a = x\n      · subst a; simp\n      · simp only [hax, if_false, add_zero]\n        by_cases hadj : G.Adj x a\n        · apply mul_le_mul_of_nonneg_right _ (hnx a)\n          have t := hG.dist_triangle (u := x) (v := a) (w := y)\n          rw [SimpleGraph.dist_eq_one_iff_adj.mpr hadj] at t\n          have : (G.dist x y : ℝ) ≤ 1 + G.dist a y := by exact_mod_cast t\n          linarith\n        · have : graph_idle_measure G α x a = 0 := by\n            simp [graph_idle_measure, hax, hadj]\n          rw [this]\n          simp\n    calc (G.dist x y : ℝ) - 1 + α\n        = ∑ a, ((G.dist x y : ℝ) - 1 + (if a = x then 1 else 0)) * graph_idle_measure G α x a := by\n          simp only [add_mul, Finset.sum_add_distrib, ← Finset.mul_sum, hsx, ite_mul, one_mul,\n            zero_mul, Finset.sum_ite_eq', Finset.sum_ite_eq, Finset.mem_univ, if_true]\n          simp [graph_idle_measure]\n      _ ≤ _ := Finset.sum_le_sum fun a _ => term a"
+     },
+     {
+      "claim": "The expectation of the distance to y under the idle measure at y equals 1 - α, that is, ∑_a d(a, y) μ_y(a) = 1 - α.",
+      "explanation": "For each vertex a, d(a, y) μ_y(a) = μ_y(a) - α 𝟏_{a = y}. This is checked by cases: if a = y, d(y, y) = 0 and μ_y(y) - α = α - α = 0; if a is adjacent to y, d(a, y) = 1 (using symmetry SimpleGraph.dist_comm and SimpleGraph.dist_eq_one_iff_adj.mpr); if a is non-adjacent and a ≠ y, μ_y(a) = 0. Summing this equality over all a and splitting the sum with Finset.sum_sub_distrib gives ∑_a μ_y(a) - α = 1 - α.",
+      "lemmas": [
+       "SimpleGraph.dist_comm",
+       "SimpleGraph.dist_eq_one_iff_adj.mpr",
+       "Finset.sum_sub_distrib"
+      ],
+      "automation": false,
+      "code": "  have ey : ∑ a, (G.dist a y : ℝ) * graph_idle_measure G α y a = 1 - α := by\n    have term : ∀ a, (G.dist a y : ℝ) * graph_idle_measure G α y a =\n        graph_idle_measure G α y a - (if a = y then α else 0) := by\n      intro a\n      by_cases hay : a = y\n      · subst a; simp [graph_idle_measure]\n      · by_cases hadj : G.Adj y a\n        · rw [SimpleGraph.dist_comm, SimpleGraph.dist_eq_one_iff_adj.mpr hadj]\n          simp [hay]\n        · simp [graph_idle_measure, hay, hadj]\n    simp_rw [term]\n    rw [Finset.sum_sub_distrib, hsy]\n    simp"
+     },
+     {
+      "claim": "The Wasserstein distance satisfies W₁(μ_x, μ_y) ≥ d(x, y) - 2(1 - α).",
+      "explanation": "Combining the Kantorovich lower bound W₁(μ_x, μ_y) ≥ ∑_a d(a, y) μ_x(a) - ∑_a d(a, y) μ_y(a) with the lower bound d(x, y) - 1 + α on the first expectation and the exact value 1 - α for the second expectation, linear arithmetic (linarith) produces W₁(μ_x, μ_y) ≥ (d(x, y) - 1 + α) - (1 - α) = d(x, y) - 2(1 - α).",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hWlow : (G.dist x y : ℝ) - 2 * (1 - α) ≤\n      graph_wasserstein_dist G (graph_idle_measure G α x) (graph_idle_measure G α y) := by\n    linarith"
+     },
+     {
+      "claim": "The normalized Ollivier-Ricci curvature satisfies κ_α(x, y) / (1 - α) ≤ 2 / d(x, y).",
+      "explanation": "By definition, κ_α(x, y) = 1 - W₁(μ_x, μ_y) / d(x, y). Since 1 - α > 0 and d(x, y) > 0, div_le_div_iff₀ translates the inequality κ_α(x, y) / (1 - α) ≤ 2 / d(x, y) into (1 - W₁ / d) * d ≤ 2(1 - α), which simplifies to d(x, y) - W₁ ≤ 2(1 - α). Using field_simp and the lower bound W₁ ≥ d(x, y) - 2(1 - α), non-linear arithmetic (nlinarith) closes the goal.",
+      "lemmas": [
+       "div_le_div_iff₀"
+      ],
+      "automation": false,
+      "code": "  unfold graph_ollivier_curvature\n  rw [div_le_div_iff₀ h1α hd]\n  have : graph_wasserstein_dist G (graph_idle_measure G α x) (graph_idle_measure G α y) /\n      (G.dist x y : ℝ) * (G.dist x y : ℝ) =\n      graph_wasserstein_dist G (graph_idle_measure G α x) (graph_idle_measure G α y) := by\n    field_simp\n  nlinarith"
+     }
+    ],
+    "glossary": {
+     "hG.pos_dist_of_ne": "In a connected graph, distinct vertices have strictly positive distance: if x ≠ y then 0 < d(x, y).",
+     "graph_degree_pos_of_connected_of_ne": "In a connected graph, any vertex distinct from another vertex has degree strictly greater than 0.",
+     "graph_idle_measure_nonneg": "For α ∈ [0, 1], the idle measure assigns non-negative mass to every vertex.",
+     "graph_idle_measure_sum_eq_one": "For any vertex with positive degree, the total mass of the idle measure over all vertices is 1.",
+     "hG.dist_triangle": "In a connected graph, the distance function satisfies the triangle inequality: d(u, w) ≤ d(u, v) + d(v, w).",
+     "graph_wasserstein_dist_ge_of_lipschitz": "For any 1-Lipschitz function f on a graph and probability measures μ, ν, the Wasserstein distance W₁(μ, ν) is at least ∑ f(a) μ(a) - ∑ f(b) ν(b).",
+     "if_false": "An if-then-else expression with condition False evaluates to the else branch: (if False then t else e) = e.",
+     "add_zero": "Adding zero on the right leaves an element unchanged: a + 0 = a.",
+     "mul_le_mul_of_nonneg_right": "Multiplying both sides of an inequality b ≤ c by a non-negative element a ≥ 0 preserves the inequality: b * a ≤ c * a.",
+     "SimpleGraph.dist_eq_one_iff_adj.mpr": "Adjacent vertices in a graph are at distance 1 from each other: Adj u v → dist u v = 1.",
+     "add_mul": "Multiplication distributes over addition from the right: (a + b) * c = a * c + b * c.",
+     "Finset.sum_add_distrib": "The sum of a sum of functions is the sum of their individual sums: ∑ (f(x) + g(x)) = ∑ f(x) + ∑ g(x).",
+     "Finset.mul_sum": "Multiplication distributes over finite sums: a * ∑ f(i) = ∑ (a * f(i)).",
+     "ite_mul": "Multiplication distributes into an if-then-else: (if P then a else b) * c = if P then a * c else b * c.",
+     "one_mul": "Multiplying by 1 on the left leaves an element unchanged: 1 * a = a.",
+     "zero_mul": "Multiplying by 0 on the left yields 0: 0 * a = 0.",
+     "Finset.sum_ite_eq'": "Summing (if x = a then b(x) else 0) over a finite set evaluates to b(a) if a is in the set and 0 otherwise.",
+     "Finset.sum_ite_eq": "Summing (if a = x then b(x) else 0) over a finite set evaluates to b(a) if a is in the set and 0 otherwise.",
+     "Finset.mem_univ": "Every element of a finite type belongs to the universal finset Finset.univ.",
+     "if_true": "An if-then-else expression with condition True evaluates to the then branch: (if True then t else e) = t.",
+     "Finset.sum_le_sum": "If f(i) ≤ g(i) for all indices i in a finite set, then ∑ f(i) ≤ ∑ g(i).",
+     "SimpleGraph.dist_comm": "Graph distance is symmetric: dist u v = dist v u.",
+     "Finset.sum_sub_distrib": "The sum of a difference of functions is the difference of their sums: ∑ (f(x) - g(x)) = ∑ f(x) - ∑ g(x).",
+     "div_le_div_iff₀": "For positive denominators b > 0 and d > 0, a / b ≤ c / d if and only if a * d ≤ c * b."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -299516,13 +299930,47 @@
     "graph_lly_curvature_le_two_div_dist"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GraphLlyCurvatureTendsto.lean",
-   "proved_at": 1791619290,
+   "proved_at": 1791620351,
    "provenance": "literature",
    "citation": "arXiv:2610.10559 (Edge-Connectivity versus Lin--Lu--Yau Curvature), Sec. 2.2: existence of the limit in Definition 2.3 (quoted there from its reference [15]); finite connected graphs.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The Lin–Lu–Yau curvature is defined as the limit of the rescaled Ollivier curvature κ_α(x, y) / (1 - α) as α → 1⁻. The rescaled curvature is monotone increasing on (0, 1) and bounded from above by 2 / d(x, y), so by the monotone convergence theorem for left limits (`MonotoneOn.tendsto_nhdsWithin_Ioo_left`), it converges as α → 1⁻ to its supremum. Unfolding the definition of `graph_lly_curvature` and applying `h.limUnder_eq` equates the definition with this limit.",
+    "steps": [
+     {
+      "claim": "The rescaled curvature α ↦ κ_α(x, y) / (1 - α) converges as α → 1⁻ to the supremum of its values on (0, 1).",
+      "explanation": "We apply the monotone convergence theorem for left limits on an open interval (`MonotoneOn.tendsto_nhdsWithin_Ioo_left` with lower endpoint 0 and upper endpoint 1). The interval (0, 1) is non-empty because it contains 1/2 (checked by `norm_num`). Monotonicity of the quotient on (0, 1) is provided by `graph_ollivier_curvature_div_monotoneOn`. Finally, 2 / d(x, y) is an upper bound on (0, 1) by `graph_ollivier_curvature_div_le_two_div_dist`.",
+      "lemmas": [
+       "MonotoneOn.tendsto_nhdsWithin_Ioo_left",
+       "graph_ollivier_curvature_div_monotoneOn",
+       "graph_ollivier_curvature_div_le_two_div_dist"
+      ],
+      "automation": false,
+      "code": "  have h := MonotoneOn.tendsto_nhdsWithin_Ioo_left (y := (0 : ℝ)) (x := 1)\n    ⟨1 / 2, by norm_num, by norm_num⟩ (graph_ollivier_curvature_div_monotoneOn G hG x y hxy)\n    ⟨2 / (G.dist x y : ℝ), by\n      rintro _ ⟨α, hα, rfl⟩\n      exact graph_ollivier_curvature_div_le_two_div_dist G hG x y hxy α hα.1.le hα.2⟩"
+     },
+     {
+      "claim": "The rescaled curvature converges to the Lin–Lu–Yau curvature κ_LLY(x, y) as α → 1⁻.",
+      "explanation": "We unfold the definition of `graph_lly_curvature`, which is defined as the filter limit (`limUnder`) of the rescaled curvature as α → 1⁻. Since convergence to the supremum was established in the hypothesis h, `h.limUnder_eq` identifies this `limUnder` with that supremum limit, which closes the goal with h.",
+      "lemmas": [
+       "h.limUnder_eq"
+      ],
+      "automation": false,
+      "code": "  unfold graph_lly_curvature\n  rw [h.limUnder_eq]\n  exact h"
+     }
+    ],
+    "glossary": {
+     "MonotoneOn.tendsto_nhdsWithin_Ioo_left": "A function that is monotone on a non-empty open interval (y, x) and bounded above on that interval converges as its argument approaches x from the left to the supremum of its values on (y, x).",
+     "graph_ollivier_curvature_div_monotoneOn": "In a connected graph, for any two distinct vertices x and y, the rescaled Ollivier curvature α ↦ κ_α(x, y)/(1 - α) is monotone increasing on the interval (0, 1).",
+     "graph_ollivier_curvature_div_le_two_div_dist": "In a connected graph, for any two distinct vertices x and y and any α ∈ [0, 1), the rescaled Ollivier curvature κ_α(x, y)/(1 - α) is bounded above by 2/d(x, y).",
+     "h.limUnder_eq": "If a function converges to a point along a filter in a Hausdorff space, its `limUnder` along that filter equals that limit point."
+    },
+    "caveats": [
+     "In Lean, `graph_lly_curvature` is defined using `Filter.limUnder`, which formally assigns a value even if the limit were not to exist. This theorem proves that the limit does exist, and `h.limUnder_eq` connects the formal `limUnder` expression to the topological limit."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -299553,13 +300001,45 @@
     "edge_connectivity_ge_half_scale_mul_min_degree_mul_lly_lower_bound_of_eq_minDegree"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GraphLlyCurvatureLeTwoDivDist.lean",
-   "proved_at": 1791619484,
+   "proved_at": 1791620146,
    "provenance": "lemma",
    "citation": "Helper for OP-164 (arXiv:2610.10559). The 1-Lipschitz function v ↦ d(v, y) gives W(μ_x^α, μ_y^α) ≥ d − 2(1 − α), hence κ_α ≤ 2(1 − α)/d; passing to the limit needs its existence (Sec. 2.2 of the paper: κ_α/(1 − α) is nondecreasing and bounded).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "Lin-Lu-Yau curvature κ_LLY(x, y) is defined as the limit of the rescaled Ollivier curvature κ_α(x, y) / (1 - α) as α → 1⁻. Since non-strict inequalities are preserved under limits, it suffices to show that the inequality holds eventually along the left-neighborhood filter at 1. The result then follows from the known bound κ_α(x, y) / (1 - α) ≤ 2 / d(x, y) valid for all α ∈ (0, 1), which forms an open left-neighborhood of 1.",
+    "steps": [
+     {
+      "claim": "To prove κ_LLY(x, y) ≤ 2 / d(x, y), it suffices to show that the rescaled Ollivier curvature satisfies κ_α(x, y) / (1 - α) ≤ 2 / d(x, y) eventually as α approaches 1 from below.",
+      "explanation": "By definition, the Lin-Lu-Yau curvature κ_LLY(x, y) is the limit of the rescaled Ollivier curvature κ_α(x, y) / (1 - α) as α → 1⁻ (graph_lly_curvature_tendsto). Because limits preserve non-strict inequalities (le_of_tendsto), the upper bound on the limit follows if the inequality holds eventually along the left-neighborhood filter nhdsWithin 1 (Iio 1).",
+      "lemmas": [
+       "le_of_tendsto",
+       "graph_lly_curvature_tendsto"
+      ],
+      "automation": false,
+      "code": "  apply le_of_tendsto (graph_lly_curvature_tendsto G hG x y hxy)"
+     },
+     {
+      "claim": "The rescaled Ollivier curvature bound κ_α(x, y) / (1 - α) ≤ 2 / d(x, y) holds eventually as α → 1⁻.",
+      "explanation": "Since 0 < 1, the open interval (0, 1) is a left-neighborhood of 1 (by Ioo_mem_nhdsLT). Filtering upwards along this neighborhood, it suffices to establish the inequality for any α ∈ (0, 1). For every such α, we have 0 ≤ α and α < 1, so the result follows immediately from the Ollivier curvature bound graph_ollivier_curvature_div_le_two_div_dist.",
+      "lemmas": [
+       "Ioo_mem_nhdsLT",
+       "graph_ollivier_curvature_div_le_two_div_dist"
+      ],
+      "automation": false,
+      "code": "  filter_upwards [Ioo_mem_nhdsLT (show (0 : ℝ) < 1 by norm_num)] with α hα\n  exact graph_ollivier_curvature_div_le_two_div_dist G hG x y hxy α hα.1.le hα.2"
+     }
+    ],
+    "glossary": {
+     "le_of_tendsto": "If a function tends to a limit along a filter, and is eventually bounded above by a constant along that filter, then its limit is bounded above by that constant.",
+     "graph_lly_curvature_tendsto": "As α approaches 1 from below, the rescaled Ollivier curvature κ_α(x, y) / (1 - α) converges to the Lin-Lu-Yau curvature κ_LLY(x, y).",
+     "Ioo_mem_nhdsLT": "For any a < b, the open interval (a, b) belongs to the filter of left-neighborhoods of b.",
+     "graph_ollivier_curvature_div_le_two_div_dist": "For distinct vertices x, y in a connected graph and any parameter 0 ≤ α < 1, the rescaled Ollivier curvature satisfies κ_α(x, y) / (1 - α) ≤ 2 / d(x, y)."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -299587,13 +300067,64 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/EdgeConnectivityGeHalfScaleMulMinDegreeMulLlyLowerBoundOfEqMinDegree.lean",
-   "proved_at": 1791619665,
+   "proved_at": 1791620214,
    "provenance": "original",
    "citation": "Partial result on OP-164 (arXiv:2610.10559, after Theorem 1.2): the bound κ_LLY(x, y) ≤ 2/d(x, y) gives (d/2) κ_LLY^(d)(G) ≤ 1, so only graphs with κ'(G) < δ(G) can fail.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The hypothesis κ'(G) = δ(G) reduces the desired inequality to showing that (d / 2) * δ(G) * κ_LLY^(d)(G) ≤ δ(G). The key move is bounding the Lin–Lu–Yau curvature lower bound at scale d from above: for any pair of vertices at distance d ≥ 3, the general estimate κ_LLY(x, y) ≤ 2 / dist(x, y) implies κ_LLY^(d)(G) ≤ 2 / d (with the bound holding trivially if no two vertices are at distance d). Multiplying this upper bound by the nonnegative factor (d / 2) * δ(G) cancels the factor of d and yields the upper bound δ(G) = κ'(G).",
+    "steps": [
+     {
+      "claim": "The goal reduces to proving (d / 2) * δ(G) * κ_LLY^(d)(G) ≤ δ(G).",
+      "explanation": "We introduce the distance parameter d ≥ 3, the finite connected graph G, and the assumptions that d ≤ diam(G) and that the edge-connectivity κ'(G) equals the minimum degree δ(G). Using the hypothesis κ'(G) = δ(G) (`heq`), we rewrite the right-hand side of the target inequality from κ'(G) to δ(G).",
+      "lemmas": [],
+      "automation": false,
+      "code": "  intro d hd V _ _ G _ hG _ heq\n  rw [heq]"
+     },
+     {
+      "claim": "The prefactor (d / 2) * δ(G) is nonnegative (and d > 0).",
+      "explanation": "Since d ≥ 3, integer arithmetic (`omega`) gives d > 0, which casts to 0 < d in ℝ (`hdR`). Because d > 0 and the minimum degree δ(G) is nonnegative, automated positivity reasoning (`positivity`) proves that (d / 2) * δ(G) ≥ 0 (`hc`).",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hdR : (0 : ℝ) < d := by exact_mod_cast (show 0 < d by omega)\n  have hc : (0 : ℝ) ≤ (d : ℝ) / 2 * (G.minDegree : ℝ) := by positivity"
+     },
+     {
+      "claim": "The Lin–Lu–Yau curvature lower bound at distance d satisfies κ_LLY^(d)(G) ≤ 2 / d.",
+      "explanation": "Let S be the set of Lin–Lu–Yau curvatures κ_LLY(x, y) over all vertex pairs x, y with dist(x, y) = d. By definition, the curvature lower bound at distance d is inf S. If S is empty, inf ∅ = 0 by convention (`Real.sInf_empty`), which is at most 2 / d since d > 0. If S is nonempty, choose any pair x, y with dist(x, y) = d. The set S is finite because it is contained in the range of the curvature function on the finite set V × V (`Set.finite_range`). Since d ≥ 3, x ≠ y (as dist(x, x) = 0 ≠ d). Because S is finite and thus bounded below, inf S ≤ κ_LLY(x, y) by `csInf_le`. Finally, by the general upper bound κ_LLY(x, y) ≤ 2 / dist(x, y) (`graph_lly_curvature_le_two_div_dist`), substituting dist(x, y) = d yields inf S ≤ 2 / d.",
+      "lemmas": [
+       "Real.sInf_empty",
+       "Set.finite_range",
+       "csInf_le",
+       "graph_lly_curvature_le_two_div_dist"
+      ],
+      "automation": false,
+      "code": "  set S := {κ | ∃ x y : V, G.dist x y = d ∧ graph_lly_curvature G x y = κ} with hS\n  have hbound : graph_lly_curvature_lower_bound G d ≤ 2 / (d : ℝ) := by\n    unfold graph_lly_curvature_lower_bound\n    rw [← hS]\n    rcases S.eq_empty_or_nonempty with he | ⟨κ, x, y, hxy, rfl⟩\n    · rw [he, Real.sInf_empty]; positivity\n    · have hfin : S.Finite := by\n        have : S ⊆ Set.range (fun p : V × V => graph_lly_curvature G p.1 p.2) := by\n          rintro _ ⟨a, b, -, rfl⟩; exact ⟨(a, b), rfl⟩\n        exact (Set.finite_range _).subset this\n      have hne : x ≠ y := by\n        rintro rfl; simp at hxy; omega\n      calc sInf S ≤ graph_lly_curvature G x y := csInf_le hfin.bddBelow ⟨x, y, hxy, rfl⟩\n        _ ≤ 2 / (G.dist x y : ℝ) := graph_lly_curvature_le_two_div_dist G hG x y hne\n        _ = 2 / (d : ℝ) := by rw [hxy]"
+     },
+     {
+      "claim": "The inequality (d / 2) * δ(G) * κ_LLY^(d)(G) ≤ δ(G) holds.",
+      "explanation": "Multiplying the curvature bound κ_LLY^(d)(G) ≤ 2 / d by the nonnegative factor (d / 2) * δ(G) via `mul_le_mul_of_nonneg_left` gives (d / 2) * δ(G) * κ_LLY^(d)(G) ≤ (d / 2) * δ(G) * (2 / d). Field arithmetic (`field_simp`) cancels d and 2 to reduce the right-hand side to δ(G), completing the proof.",
+      "lemmas": [
+       "mul_le_mul_of_nonneg_left"
+      ],
+      "automation": false,
+      "code": "  calc (d : ℝ) / 2 * (G.minDegree : ℝ) * graph_lly_curvature_lower_bound G d\n      ≤ (d : ℝ) / 2 * (G.minDegree : ℝ) * (2 / (d : ℝ)) := mul_le_mul_of_nonneg_left hbound hc\n    _ = G.minDegree := by field_simp"
+     }
+    ],
+    "glossary": {
+     "Real.sInf_empty": "The infimum of the empty set of real numbers is 0.",
+     "Set.finite_range": "The range of a function defined on a finite domain is finite.",
+     "csInf_le": "In a conditionally complete lattice such as ℝ, the infimum of a set bounded below is less than or equal to any element in the set.",
+     "graph_lly_curvature_le_two_div_dist": "In a finite connected graph, the Lin–Lu–Yau curvature between any two distinct vertices x and y is at most 2 / dist(x, y).",
+     "mul_le_mul_of_nonneg_left": "Multiplying both sides of an inequality b ≤ c by a nonnegative factor a preserves the inequality: a * b ≤ a * c."
+    },
+    "caveats": [
+     "In Lean, the infimum of the empty set of real numbers (`sInf ∅`) is defined to be 0 (`Real.sInf_empty`). Thus, if the graph has no pairs of vertices at distance d, the curvature lower bound is 0, which trivially satisfies 0 ≤ 2 / d.",
+     "The algebraic cancellation ((d / 2) * δ(G) * (2 / d) = δ(G)) at the end is closed by `field_simp` using d ≠ 0 and 2 ≠ 0."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   }

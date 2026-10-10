@@ -1,0 +1,22 @@
+import AFTD.Prelude
+import AFTD.Kb.Physics.ClassicalMechanicsSimplePendulumConfigurationSpace
+import AFTD.Kb.Physics.ClassicalMechanicsSimplePendulumConfigurationSpaceInstTopologicalSpace
+import AFTD.Kb.Physics.ClassicalMechanicsSimplePendulumConfigurationSpaceCircleHomeomorph
+import AFTD.Kb.Physics.ClassicalMechanicsSimplePendulumConfigurationSpaceToCircleOfCircle
+import AFTD.Kb.Physics.ClassicalMechanicsSimplePendulumConfigurationSpaceOfCircleToCircle
+
+/-!
+# ClassicalMechanics.SimplePendulum.ConfigurationSpace.instT2Space
+
+Topic: classical_mechanics   Node: c6a9d23ae37a
+
+Provenance: formalization of a published result. Source: Physlib, `ClassicalMechanics.SimplePendulum.ConfigurationSpace.instT2Space`. Lean proof by Aadarsh Agarwal, from https://github.com/leanprover-community/physlib/blob/e411c6e89692e83bc67fe451302ae7f82cf39b10/Physlib/ClassicalMechanics/Pendulum/SimplePendulum/Geometric/Basic.lean (Copyright (c) 2026 Aadarsh Agarwal. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+The configuration space is Hausdorff, being homeomorphic to the unit circle.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+open scoped Manifold ContDiff in
+/-- The configuration space is Hausdorff, being homeomorphic to the unit circle. -/
+noncomputable instance ClassicalMechanics.SimplePendulum.ConfigurationSpace.instT2Space : T2Space ConfigurationSpace := circleHomeomorph.symm.t2Space

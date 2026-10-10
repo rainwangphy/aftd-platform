@@ -1,0 +1,25 @@
+import AFTD.Prelude
+import AFTD.Kb.Physics.PhyslibWirtingerDWirtingerAntiDir
+import AFTD.Kb.Physics.PhyslibWirtingerWeightedDirDeriv
+import AFTD.Kb.Physics.ClassicalMechanicsSimplePendulumSeparatrixEnergy
+
+/-!
+# Physlib.Wirtinger.dWirtingerAntiDir_apply
+
+Topic: classical_mechanics   Node: 8b6e2f98d8f7
+
+Provenance: formalization of a published result. Source: Physlib, `Physlib.Wirtinger.dWirtingerAntiDir_apply`. Lean proof by Andrea Pari, from https://github.com/leanprover-community/physlib/blob/e411c6e89692e83bc67fe451302ae7f82cf39b10/Physlib/Mathematics/Calculus/Wirtinger/Basic.lean (Copyright (c) 2026 Andrea Pari. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+Definitional unfolding of `dWirtingerAntiDir` to the explicit Wirtinger combination.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+open Physlib Physlib.Wirtinger in
+variable {V : Type*} [NormedAddCommGroup V] [NormedSpace ℝ V] [NormedSpace ℂ V]
+  {f : V → ℂ} {u : V} in
+/-- Definitional unfolding of `dWirtingerAntiDir` to the explicit Wirtinger combination. -/
+lemma Physlib.Wirtinger.dWirtingerAntiDir_apply (g : V → ℂ) (v u : V) :
+    dWirtingerAntiDir g v u
+      = (1 / 2 : ℂ) * (fderiv ℝ g u v + Complex.I * fderiv ℝ g u (Complex.I • v)) := by
+  simp only [dWirtingerAntiDir, weightedDirDeriv]

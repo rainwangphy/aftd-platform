@@ -1,0 +1,34 @@
+import AFTD.Prelude
+import AFTD.Kb.Physics.LinearPMapInstMonoid
+import AFTD.Kb.Physics.LinearPMapOneDomain
+
+/-!
+# LinearPMap.adjoint_one
+
+Topic: quantum_mechanics   Node: d6f9e473745c
+
+Provenance: formalization of a published result. Source: Physlib, `LinearPMap.adjoint_one`. Lean proof by Adam Bornemann, Gregory J. Loges, from https://github.com/leanprover-community/physlib/blob/e411c6e89692e83bc67fe451302ae7f82cf39b10/Physlib/QuantumMechanics/Operators/Unbounded.lean (Copyright (c) 2026 Gregory J. Loges. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+LinearPMap.adjoint_one
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+open LinearPMap in
+open Submodule in
+open InnerProductSpace in
+open Complex ComplexConjugate in
+variable
+  {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+  {H' : Type*} [NormedAddCommGroup H'] [InnerProductSpace ℂ H']
+  {H'' : Type*} [NormedAddCommGroup H''] [InnerProductSpace ℂ H'']
+  {α : Type*} [Fintype α]
+  {T T₁ T₂ : H →ₗ.[ℂ] H} {S : α → H →ₗ.[ℂ] H}
+  {U U₁ U₂ : H →ₗ.[ℂ] H'} {W : α → H →ₗ.[ℂ] H'}
+  {V V₁ V₂ : H' →ₗ.[ℂ] H''} in
+@[simp]
+lemma LinearPMap.adjoint_one [CompleteSpace H] : (1 : H →ₗ.[ℂ] H)† = 1 := by
+  ext x
+  · simp only [one_domain, mem_top, iff_true]
+    exact mem_adjoint_domain_of_exists _ ⟨x, fun _ ↦ rfl⟩
+  · exact adjoint_apply_eq dense_univ _ fun _ ↦ rfl

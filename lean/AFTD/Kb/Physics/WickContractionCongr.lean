@@ -1,0 +1,21 @@
+import AFTD.Prelude
+import AFTD.Kb.Physics.WickContraction
+import AFTD.Kb.Physics.FieldSpecification
+import AFTD.Kb.Physics.WickContractionInstDecidableEq
+
+/-!
+# WickContraction.congr
+
+Topic: quantum_field_theory   Node: 50d0f0ab106f
+
+Provenance: formalization of a published result. Source: Physlib, `WickContraction.congr`. Lean proof by Joseph Tooby-Smith, from https://github.com/leanprover-community/physlib/blob/e411c6e89692e83bc67fe451302ae7f82cf39b10/Physlib/QFT/PerturbationTheory/WickContraction/Basic.lean (Copyright (c) 2025 Joseph Tooby-Smith. All rights reserved, Apache-2.0); 1 verbatim; compiled here.
+
+The equivalence between `WickContraction n` and `WickContraction m` derived from a propositional equality of `n` and `m`.
+-/
+
+set_option autoImplicit true in
+set_option relaxedAutoImplicit true in
+variable {𝓕 : FieldSpecification} in
+variable {n : ℕ} (c : WickContraction n) in
+/-- The equivalence between `WickContraction n` and `WickContraction m` derived from a propositional equality of `n` and `m`. -/
+def WickContraction.congr : {n m : ℕ} → (h : n = m) → WickContraction n ≃ WickContraction m | n, .(n), rfl => Equiv.refl _

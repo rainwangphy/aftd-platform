@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-11T14:10:43Z",
+ "generated": "2026-10-11T14:29:08Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 48,
   "rejected": 8,
-  "spend": 68.54,
+  "spend": 68.93,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 91391959,
-   "output": 12183441,
-   "cache_read": 187648788
+   "input": 91608674,
+   "output": 12305241,
+   "cache_read": 187855613
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1791724195
+  "last": 1791728941
  },
  "domains": [
   {
@@ -503868,13 +503868,178 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/FinsetOneInclusionGraphCardEdgeFinsetLe.lean",
-   "proved_at": 1791719401,
+   "proved_at": 1791728787,
    "provenance": "literature",
    "citation": "arXiv:2610.08151 (Polynomial-in-r bounds for forbidden traces of uniform hypergraphs), Lemma 2 (one-inclusion graph edge bound). The edge set's Fintype instance is a hypothesis; the count does not depend on it.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof establishes that the one-inclusion graph of a finite set family 𝓕 with VC dimension at most d has at most d * |𝓕| edges. It first establishes an upper bound of 2 * d * |𝒜| on the number of ordered pairs differing by a single element, by induction on the size of the underlying universe using a subfamily decomposition (Haussler's technique). Finally, it relates this bound to the graph edges via the handshaking property that twice the number of undirected edges equals the number of ordered adjacent vertex pairs, and divides by 2.",
+    "steps": [
+     {
+      "claim": "The intersection of the one-inclusion pairs of 𝒜 and ℬ is contained in the one-inclusion pairs of 𝒜 ∩ ℬ.",
+      "explanation": "Let p = (A, B) be an ordered pair belonging to both sets of pairs. Then both A and B belong to 𝒜 and to ℬ, so they belong to 𝒜 ∩ ℬ, and their symmetric difference still has cardinality 1.",
+      "lemmas": [
+       "Finset.mem_inter"
+      ],
+      "automation": false,
+      "code": "  intro p hp\n  simp only [finset_one_inclusion_pairs, Finset.mem_inter, Finset.mem_filter,\n    Finset.mem_product] at hp ⊢\n  exact ⟨⟨⟨hp.1.1.1, hp.2.1.1⟩, ⟨hp.1.1.2, hp.2.1.2⟩⟩, hp.1.2⟩"
+     },
+     {
+      "claim": "The one-inclusion pairs of 𝒜 are partitioned according to membership of element a, giving |E| ≤ |E₀₀| + |E₁₁| + |E_X|.",
+      "explanation": "We partition the pairs E into pairs E₀₀ where neither set contains a, pairs E₁₁ where both sets contain a, and pairs E_X where exactly one set contains a. By union cardinality bounds, |E| is bounded by the sum of their sizes.",
+      "lemmas": [
+       "Finset.card_le_card",
+       "Finset.card_union_le"
+      ],
+      "automation": false,
+      "code": "  set F0 := 𝒜.nonMemberSubfamily a\n  set F1 := 𝒜.memberSubfamily a\n  set E := finset_one_inclusion_pairs 𝒜\n  set E00 := E.filter (fun p => a ∉ p.1 ∧ a ∉ p.2)\n  set E11 := E.filter (fun p => a ∈ p.1 ∧ a ∈ p.2)\n  set EX := E.filter (fun p => (a ∈ p.1 ∧ a ∉ p.2) ∨ (a ∉ p.1 ∧ a ∈ p.2))\n  have hsplit : E ⊆ E00 ∪ E11 ∪ EX := by\n    intro p hp\n    simp only [E00, E11, EX, Finset.mem_union, Finset.mem_filter]\n    by_cases h1 : a ∈ p.1 <;> by_cases h2 : a ∈ p.2 <;> simp [h1, h2, hp]\n  have hcardE : E.card ≤ E00.card + E11.card + EX.card :=\n    (Finset.card_le_card hsplit).trans\n      ((Finset.card_union_le _ _).trans (Nat.add_le_add_right (Finset.card_union_le _ _) _))\n  -- E00 sits inside the pairs of F0"
+     },
+     {
+      "claim": "The pairs in E₀₀ form a subset of the one-inclusion pairs of F₀.",
+      "explanation": "For any pair (A, B) in E₀₀, neither A nor B contains a, so both belong to the non-member subfamily F₀ of 𝒜. Thus the pair is a one-inclusion pair of F₀.",
+      "lemmas": [
+       "Finset.mem_nonMemberSubfamily"
+      ],
+      "automation": false,
+      "code": "  have h00 : E00 ⊆ finset_one_inclusion_pairs F0 := by\n    intro p hp\n    simp only [E00, E, finset_one_inclusion_pairs, Finset.mem_filter, Finset.mem_product] at hp ⊢\n    obtain ⟨⟨⟨hA, hB⟩, hP⟩, ha1, ha2⟩ := hp\n    exact ⟨⟨Finset.mem_nonMemberSubfamily.2 ⟨hA, ha1⟩, Finset.mem_nonMemberSubfamily.2 ⟨hB, ha2⟩⟩, hP⟩"
+     },
+     {
+      "claim": "The cardinality of E₁₁ is at most the number of one-inclusion pairs of F₁.",
+      "explanation": "The map (A, B) ↦ (A \\ {a}, B \\ {a}) injects E₁₁ into the one-inclusion pairs of the member subfamily F₁ because removing an element common to both sets preserves their symmetric difference and can be inverted by re-inserting a.",
+      "lemmas": [
+       "Finset.card_le_card_of_injOn"
+      ],
+      "automation": false,
+      "code": "  have h11 : E11.card ≤ (finset_one_inclusion_pairs F1).card := by\n    refine Finset.card_le_card_of_injOn (fun p => (p.1.erase a, p.2.erase a)) ?_ ?_\n    · intro p hp\n      simp only [Finset.mem_coe, E11, E, finset_one_inclusion_pairs, Finset.mem_filter,\n        Finset.mem_product] at hp ⊢\n      obtain ⟨⟨⟨hA, hB⟩, hP⟩, ha1, ha2⟩ := hp\n      refine ⟨⟨Finset.mem_memberSubfamily.2 ⟨by rwa [Finset.insert_erase ha1], by simp⟩,\n        Finset.mem_memberSubfamily.2 ⟨by rwa [Finset.insert_erase ha2], by simp⟩⟩, ?_⟩\n      have : symmDiff (p.1.erase a) (p.2.erase a) = symmDiff p.1 p.2 := by\n        ext x\n        by_cases hx : x = a\n        · subst hx; simp [Finset.mem_symmDiff, ha1, ha2]\n        · simp [Finset.mem_symmDiff, Finset.mem_erase, hx]\n      rw [this]; exact hP\n    · intro p hp q hq hpq\n      simp only [Finset.mem_coe, E11, Finset.mem_filter] at hp hq\n      simp only [Prod.mk.injEq] at hpq\n      have e1 : p.1 = q.1 := by\n        rw [← Finset.insert_erase hp.2.1, ← Finset.insert_erase hq.2.1, hpq.1]\n      have e2 : p.2 = q.2 := by\n        rw [← Finset.insert_erase hp.2.2, ← Finset.insert_erase hq.2.2, hpq.2]\n      exact Prod.ext e1 e2"
+     },
+     {
+      "claim": "The cardinality of E_X is at most 2 * |F₀ ∩ F₁|.",
+      "explanation": "For any pair (A, B) in E_X, their symmetric difference has size 1 and crosses a, so symmDiff A B = {a}. Therefore, one set is s and the other is s ∪ {a}, where s belongs to both F₀ and F₁. Mapping (A, B) to (A \\ {a}, decide(a ∈ A)) gives an injection into (F₀ ∩ F₁) × Bool, which has size 2 * |F₀ ∩ F₁|.",
+      "lemmas": [
+       "Finset.card_le_card_of_injOn",
+       "Fintype.card_bool"
+      ],
+      "automation": false,
+      "code": "  have hX : EX.card ≤ 2 * (F0 ∩ F1).card := by\n    have hsd : ∀ p ∈ EX, symmDiff p.1 p.2 = {a} := by\n      intro p hp\n      simp only [EX, E, finset_one_inclusion_pairs, Finset.mem_filter] at hp\n      obtain ⟨⟨-, hP⟩, hx⟩ := hp\n      obtain ⟨x, hx1⟩ := Finset.card_eq_one.1 hP\n      have : a ∈ symmDiff p.1 p.2 := by\n        rw [Finset.mem_symmDiff]; tauto\n      rw [hx1, Finset.mem_singleton] at this\n      rw [hx1, this]\n    have hcard2 : (F0 ∩ F1).card * 2 = ((F0 ∩ F1) ×ˢ (Finset.univ : Finset Bool)).card := by\n      rw [Finset.card_product, Finset.card_univ, Fintype.card_bool]\n    rw [mul_comm, hcard2]\n    refine Finset.card_le_card_of_injOn (fun p => (p.1.erase a, decide (a ∈ p.1))) ?_ ?_\n    · intro p hp\n      have hs := hsd p hp\n      simp only [Finset.mem_coe, EX, E, finset_one_inclusion_pairs, Finset.mem_filter,\n        Finset.mem_product] at hp\n      obtain ⟨⟨⟨hA, hB⟩, -⟩, hx⟩ := hp\n      have hiff : ∀ x, x ≠ a → (x ∈ p.1 ↔ x ∈ p.2) := by\n        intro x hxa\n        have : x ∉ symmDiff p.1 p.2 := by rw [hs]; simpa using hxa\n        rw [Finset.mem_symmDiff] at this\n        tauto\n      simp only [Finset.mem_coe, Finset.mem_product, Finset.mem_univ, and_true, Finset.mem_inter,\n        Finset.mem_nonMemberSubfamily, Finset.mem_memberSubfamily, F0, F1]\n      rcases hx with ⟨ha1, ha2⟩ | ⟨ha1, ha2⟩\n      · have hBe : p.1.erase a = p.2 := by\n          ext x\n          by_cases hxa : x = a\n          · subst hxa; simp [ha2]\n          · rw [Finset.mem_erase]; exact ⟨fun h => (hiff x hxa).1 h.2, fun h => ⟨hxa, (hiff x hxa).2 h⟩⟩\n        refine ⟨⟨by rw [hBe]; exact hB, by simp⟩, by rwa [Finset.insert_erase ha1], by simp⟩\n      · have hAe : p.1.erase a = p.1 := Finset.erase_eq_of_notMem ha1\n        have hBi : insert a p.1 = p.2 := by\n          ext x\n          by_cases hxa : x = a\n          · subst hxa; simp [ha2]\n          · rw [Finset.mem_insert]; exact ⟨fun h => h.elim (fun e => absurd e hxa) (hiff x hxa).1,\n              fun h => Or.inr ((hiff x hxa).2 h)⟩\n        rw [hAe]\n        exact ⟨⟨hA, ha1⟩, by rw [hBi]; exact hB, ha1⟩\n    · intro p hp q hq hpq\n      have hsp := hsd p hp\n      have hsq := hsd q hq\n      simp only [Prod.mk.injEq, decide_eq_decide] at hpq\n      obtain ⟨he, hm⟩ := hpq\n      have e1 : p.1 = q.1 := by\n        by_cases ha : a ∈ p.1\n        · rw [← Finset.insert_erase ha, ← Finset.insert_erase (hm.1 ha), he]\n        · rw [← Finset.erase_eq_of_notMem ha, ← Finset.erase_eq_of_notMem (fun h => ha (hm.2 h)), he]\n      have e2 : p.2 = q.2 := by\n        have h1 : p.2 = symmDiff p.1 {a} := by rw [← hsp, symmDiff_symmDiff_cancel_left]\n        have h2 : q.2 = symmDiff q.1 {a} := by rw [← hsq, symmDiff_symmDiff_cancel_left]\n        rw [h1, h2, e1]\n      exact Prod.ext e1 e2"
+     },
+     {
+      "claim": "The split bound |E| ≤ |pairs(F₀ ∪ F₁)| + |pairs(F₀ ∩ F₁)| + 2 * |F₀ ∩ F₁| holds.",
+      "explanation": "By submodularity of pairs, |pairs(F₀)| + |pairs(F₁)| ≤ |pairs(F₀ ∪ F₁)| + |pairs(F₀ ∩ F₁)|. Combining this with the bounds on E₀₀, E₁₁, and E_X, linear integer arithmetic closes the goal.",
+      "lemmas": [
+       "Finset.card_union_add_card_inter",
+       "finset_one_inclusion_pairs_mono",
+       "finset_one_inclusion_pairs_inter"
+      ],
+      "automation": false,
+      "code": "  have hUI : (finset_one_inclusion_pairs F0).card + (finset_one_inclusion_pairs F1).card ≤\n      (finset_one_inclusion_pairs (F0 ∪ F1)).card + (finset_one_inclusion_pairs (F0 ∩ F1)).card := by\n    rw [← Finset.card_union_add_card_inter]\n    exact Nat.add_le_add\n      (Finset.card_le_card (Finset.union_subset\n        (finset_one_inclusion_pairs_mono Finset.subset_union_left)\n        (finset_one_inclusion_pairs_mono Finset.subset_union_right)))\n      (Finset.card_le_card (finset_one_inclusion_pairs_inter F0 F1))\n  have := Finset.card_le_card h00\n  omega"
+     },
+     {
+      "claim": "In the base case where the universe u is empty, the family has 0 pairs and the bound holds.",
+      "explanation": "If u = ∅, every set in 𝒜 must be empty, so no two sets can have symmetric difference of size 1. The set of pairs is empty, and its cardinality is 0, satisfying 0 ≤ 2 * (d * |𝒜|).",
+      "lemmas": [
+       "Finset.card_eq_zero",
+       "Finset.subset_empty"
+      ],
+      "automation": false,
+      "code": "  induction u using Finset.induction with\n  | empty =>\n    intro 𝒜 h𝒜 d _\n    have : (finset_one_inclusion_pairs 𝒜).card = 0 := by\n      rw [Finset.card_eq_zero, finset_one_inclusion_pairs, Finset.filter_eq_empty_iff]\n      intro p hp\n      rw [Finset.mem_product] at hp\n      rw [Finset.subset_empty.1 (h𝒜 _ hp.1), Finset.subset_empty.1 (h𝒜 _ hp.2)]\n      simp\n    omega"
+     },
+     {
+      "claim": "For u = insert a u', all sets in F₀, F₁, F₀ ∪ F₁, and F₀ ∩ F₁ are subsets of u'.",
+      "explanation": "By construction, members of F₀ do not contain a, and members of F₁ are formed by removing a from sets containing it. Since all original sets were in u = insert a u', removing or excluding a ensures they are subsets of u'.",
+      "lemmas": [
+       "Finset.subset_insert_iff_of_notMem"
+      ],
+      "automation": false,
+      "code": "  | insert a u hau ih =>\n    intro 𝒜 h𝒜 d hd\n    set F0 := 𝒜.nonMemberSubfamily a\n    set F1 := 𝒜.memberSubfamily a\n    have hF0 : ∀ s ∈ F0, s ⊆ u := by\n      intro s hs\n      rw [Finset.mem_nonMemberSubfamily] at hs\n      exact (Finset.subset_insert_iff_of_notMem hs.2).1 (h𝒜 s hs.1)\n    have hF1 : ∀ s ∈ F1, s ⊆ u := by\n      intro s hs\n      rw [Finset.mem_memberSubfamily] at hs\n      exact (Finset.subset_insert_iff_of_notMem hs.2).1\n        ((Finset.subset_insert _ _).trans (h𝒜 _ hs.1))\n    have hU : ∀ s ∈ F0 ∪ F1, s ⊆ u := by\n      intro s hs\n      rcases Finset.mem_union.1 hs with h | h\n      exacts [hF0 s h, hF1 s h]\n    have hI : ∀ s ∈ F0 ∩ F1, s ⊆ u := fun s hs => hF0 s (Finset.mem_inter.1 hs).1"
+     },
+     {
+      "claim": "The VC dimension of F₀ ∪ F₁ is at most d, that of F₀ ∩ F₁ is at most d - 1, and F₀ ∩ F₁ is empty if d = 0.",
+      "explanation": "Any set shattered by F₀ ∪ F₁ is also shattered by 𝒜, so vcDim(F₀ ∪ F₁) ≤ vcDim(𝒜) ≤ d. If a set s is shattered by F₀ ∩ F₁, then s ∪ {a} is shattered by 𝒜, implying |s| + 1 ≤ d, so vcDim(F₀ ∩ F₁) ≤ d - 1. When d = 0, F₀ ∩ F₁ cannot shatter ∅, so it is empty.",
+      "lemmas": [
+       "Finset.sup_le",
+       "Finset.Shatters.card_le_vcDim",
+       "Finset.card_insert_of_notMem"
+      ],
+      "automation": false,
+      "code": "    have notmem : ∀ ℬ : Finset (Finset α), (∀ s ∈ ℬ, s ⊆ u) → ∀ s, ℬ.Shatters s → a ∉ s := by\n      intro ℬ hℬ s hs ha\n      obtain ⟨v, hv, hsv⟩ := hs.exists_superset\n      exact hau (hℬ v hv (hsv ha))\n    have shU : ∀ s, (F0 ∪ F1).Shatters s → 𝒜.Shatters s := by\n      intro s hs t ht\n      have has := notmem _ hU s hs\n      obtain ⟨w, hw, hsw⟩ := hs ht\n      rcases Finset.mem_union.1 hw with hw | hw\n      · rw [Finset.mem_nonMemberSubfamily] at hw\n        exact ⟨w, hw.1, hsw⟩\n      · rw [Finset.mem_memberSubfamily] at hw\n        exact ⟨insert a w, hw.1, by rw [Finset.inter_insert_of_notMem has, hsw]⟩\n    have shI : ∀ s, (F0 ∩ F1).Shatters s → 𝒜.Shatters (insert a s) := by\n      intro s hs t ht\n      have has := notmem _ hI s hs\n      by_cases hat : a ∈ t\n      · have hsub : t.erase a ⊆ s := by\n          intro x hx\n          rw [Finset.mem_erase] at hx\n          have := ht hx.2\n          rw [Finset.mem_insert] at this\n          exact this.resolve_left hx.1\n        obtain ⟨w, hw, hsw⟩ := hs hsub\n        have hw1 := (Finset.mem_inter.1 hw).2\n        rw [Finset.mem_memberSubfamily] at hw1\n        refine ⟨insert a w, hw1.1, ?_⟩\n        rw [← Finset.insert_inter_distrib, hsw, Finset.insert_erase hat]\n      · have hsub : t ⊆ s := by\n          intro x hx\n          have := ht hx\n          rw [Finset.mem_insert] at this\n          exact this.resolve_left (fun e => hat (e ▸ hx))\n        obtain ⟨w, hw, hsw⟩ := hs hsub\n        have hw0 := (Finset.mem_inter.1 hw).1\n        rw [Finset.mem_nonMemberSubfamily] at hw0\n        refine ⟨w, hw0.1, ?_⟩\n        rw [Finset.insert_inter_of_notMem hw0.2, hsw]\n    have vcU : (F0 ∪ F1).vcDim ≤ d := by\n      unfold Finset.vcDim\n      refine Finset.sup_le fun s hs => ?_\n      exact ((shU s (Finset.mem_shatterer.1 hs)).card_le_vcDim).trans hd\n    have vcI : (F0 ∩ F1).vcDim ≤ d - 1 := by\n      unfold Finset.vcDim\n      refine Finset.sup_le fun s hs => ?_\n      have hs' := Finset.mem_shatterer.1 hs\n      have h1 := (shI s hs').card_le_vcDim\n      rw [Finset.card_insert_of_notMem (notmem _ hI s hs')] at h1\n      omega\n    have hIempty : d = 0 → F0 ∩ F1 = ∅ := by\n      intro hd0\n      by_contra hne\n      have h1 := (shI ∅ (Finset.shatters_empty.2 (Finset.nonempty_iff_ne_empty.2 hne))).card_le_vcDim\n      simp only [insert_empty_eq, Finset.card_singleton] at h1\n      omega"
+     },
+     {
+      "claim": "By the induction hypotheses on F₀ ∪ F₁ and F₀ ∩ F₁, the pair bound holds for 𝒜.",
+      "explanation": "We apply the induction hypothesis to F₀ ∪ F₁ (with bound d) and to F₀ ∩ F₁ (with bound d - 1). Using |𝒜| = |F₀ ∪ F₁| + |F₀ ∩ F₁| and the splitting lemma, the bound follows by linear arithmetic: 2 * (d * |F₀ ∪ F₁|) + 2 * ((d - 1) * |F₀ ∩ F₁|) + 2 * |F₀ ∩ F₁| = 2 * (d * |𝒜|).",
+      "lemmas": [
+       "Finset.card_memberSubfamily_add_card_nonMemberSubfamily",
+       "finset_one_inclusion_pairs_card_split"
+      ],
+      "automation": false,
+      "code": "    have ihU := ih (F0 ∪ F1) hU d vcU\n    have ihI := ih (F0 ∩ F1) hI (d - 1) vcI\n    have hcard : 𝒜.card = (F0 ∪ F1).card + (F0 ∩ F1).card := by\n      rw [Finset.card_union_add_card_inter, add_comm,\n        Finset.card_memberSubfamily_add_card_nonMemberSubfamily]\n    have hedge : (finset_one_inclusion_pairs 𝒜).card ≤\n        (finset_one_inclusion_pairs (F0 ∪ F1)).card + (finset_one_inclusion_pairs (F0 ∩ F1)).card +\n          2 * (F0 ∩ F1).card :=\n      finset_one_inclusion_pairs_card_split a 𝒜\n    rcases Nat.eq_zero_or_pos d with hd0 | hdpos\n    · have hI0 := hIempty hd0\n      subst hd0\n      rw [hI0] at hedge\n      have h0 : (finset_one_inclusion_pairs (∅ : Finset (Finset α))).card = 0 := by\n        simp [finset_one_inclusion_pairs]\n      rw [h0, Finset.card_empty] at hedge\n      simp only [zero_mul, mul_zero] at ihU ⊢\n      omega\n    · have h1 : d * 𝒜.card = d * (F0 ∪ F1).card + d * (F0 ∩ F1).card := by\n        rw [hcard, mul_add]\n      have h2 : (d - 1) * (F0 ∩ F1).card + (F0 ∩ F1).card = d * (F0 ∩ F1).card := by\n        obtain ⟨k, rfl⟩ := Nat.exists_eq_add_of_lt hdpos\n        simp only [Nat.zero_add, Nat.add_sub_cancel]\n        ring\n      linarith"
+     },
+     {
+      "claim": "Applying the pairs bound with universe u = ⋃ 𝓕 gives at most 2 * (d * |𝓕|) one-inclusion pairs in 𝓕.",
+      "explanation": "Setting u to the union of all sets in 𝓕 ensures every set in 𝓕 is contained in u. Since vcDim(𝓕) ≤ d, finset_one_inclusion_pairs_card_le yields |finset_one_inclusion_pairs 𝓕| ≤ 2 * (d * |𝓕|).",
+      "lemmas": [
+       "finset_one_inclusion_pairs_card_le",
+       "Finset.le_sup"
+      ],
+      "automation": false,
+      "code": "  classical\n  have hpairs := finset_one_inclusion_pairs_card_le (𝓕.sup id) 𝓕\n    (fun s hs => Finset.le_sup (f := id) hs) d hd"
+     },
+     {
+      "claim": "Ordered pairs of adjacent vertices in the one-inclusion graph biject with finset_one_inclusion_pairs 𝓕.",
+      "explanation": "We exhibit a bijection between pairs of adjacent vertices in the graph and elements of finset_one_inclusion_pairs 𝓕 via the canonical inclusion of vertices as sets.",
+      "lemmas": [
+       "Finset.card_bij"
+      ],
+      "automation": false,
+      "code": "  have hbij : ((Finset.univ : Finset (𝓕 × 𝓕)).filter\n      (fun x => (finset_one_inclusion_graph 𝓕).Adj x.1 x.2)).card =\n        (finset_one_inclusion_pairs 𝓕).card := by\n    apply Finset.card_bij (fun x _ => ((x.1 : Finset α), (x.2 : Finset α)))\n    · intro x hx\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hx\n      simp only [finset_one_inclusion_pairs, Finset.mem_filter, Finset.mem_product]\n      exact ⟨⟨x.1.2, x.2.2⟩, hx⟩\n    · intro x _ y _ h\n      simp only [Prod.mk.injEq] at h\n      exact Prod.ext (Subtype.ext h.1) (Subtype.ext h.2)\n    · intro b hb\n      simp only [finset_one_inclusion_pairs, Finset.mem_filter, Finset.mem_product] at hb\n      refine ⟨(⟨b.1, hb.1.1⟩, ⟨b.2, hb.1.2⟩), ?_, rfl⟩\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and]\n      exact hb.2"
+     },
+     {
+      "claim": "Twice the number of edges equals the number of one-inclusion pairs in 𝓕.",
+      "explanation": "By SimpleGraph.two_mul_card_edgeFinset, the number of directed edges (adjacent vertex pairs) in a simple graph is twice the number of undirected edges.",
+      "lemmas": [
+       "SimpleGraph.two_mul_card_edgeFinset"
+      ],
+      "automation": false,
+      "code": "  have key : 2 * (finset_one_inclusion_graph 𝓕).edgeFinset.card =\n      (finset_one_inclusion_pairs 𝓕).card := by\n    rw [← hbij]\n    convert SimpleGraph.two_mul_card_edgeFinset (finset_one_inclusion_graph 𝓕)"
+     },
+     {
+      "claim": "The number of edges in the one-inclusion graph is at most d * |𝓕|.",
+      "explanation": "Combining 2 * |E| = |finset_one_inclusion_pairs 𝓕| with the bound |finset_one_inclusion_pairs 𝓕| ≤ 2 * (d * |𝓕|) and dividing by 2 yields |E| ≤ d * |𝓕|.",
+      "lemmas": [
+       "Nat.le_of_mul_le_mul_left"
+      ],
+      "automation": false,
+      "code": "  have h2 : 2 * (finset_one_inclusion_graph 𝓕).edgeFinset.card ≤ 2 * (d * 𝓕.card) := by\n    rw [key]; exact hpairs\n  exact Nat.le_of_mul_le_mul_left h2 (by norm_num)"
+     }
+    ],
+    "glossary": {
+     "Finset.mem_inter": "An element belongs to the intersection of two finsets if and only if it belongs to both.",
+     "Finset.card_le_card": "If a finite set is a subset of another, its cardinality is at most the other set's cardinality.",
+     "Finset.card_union_le": "The cardinality of the union of two finsets is at most the sum of their cardinalities.",
+     "Finset.mem_nonMemberSubfamily": "A set s belongs to the non-member subfamily of a with respect to 𝒜 if and only if s is in 𝒜 and a ∉ s.",
+     "Finset.card_le_card_of_injOn": "If a function maps a finite set injectively into another, the domain's cardinality is at most the codomain's cardinality.",
+     "Fintype.card_bool": "The type Bool has exactly two elements.",
+     "Finset.card_union_add_card_inter": "For any two finsets s and t, |s ∪ t| + |s ∩ t| = |s| + |t|.",
+     "finset_one_inclusion_pairs_mono": "If 𝒜 ⊆ ℬ, then the one-inclusion pairs of 𝒜 form a subset of the one-inclusion pairs of ℬ.",
+     "finset_one_inclusion_pairs_inter": "The intersection of the one-inclusion pairs of 𝒜 and of ℬ is a subset of the one-inclusion pairs of 𝒜 ∩ ℬ.",
+     "Finset.card_eq_zero": "A finset has cardinality 0 if and only if it is empty.",
+     "Finset.subset_empty": "A finset is a subset of the empty set if and only if it is empty.",
+     "Finset.subset_insert_iff_of_notMem": "When an element a is not in s, s is a subset of insert a t if and only if s is a subset of t.",
+     "Finset.sup_le": "The supremum of a finite set is at most a given upper bound if each element is at most that bound.",
+     "Finset.Shatters.card_le_vcDim": "If a family shatters a set s, then |s| is at most the VC dimension of the family.",
+     "Finset.card_insert_of_notMem": "Inserting an element not in s increases the cardinality of s by 1.",
+     "Finset.card_memberSubfamily_add_card_nonMemberSubfamily": "The cardinality of the member subfamily plus that of the non-member subfamily with respect to an element equals the cardinality of the full family.",
+     "finset_one_inclusion_pairs_card_split": "Splitting a family 𝒜 along an element a bounds its one-inclusion pairs by the pairs of the union, the pairs of the intersection, and twice the size of the intersection of its subfamilies.",
+     "finset_one_inclusion_pairs_card_le": "If every set in 𝒜 is a subset of a finite universe u and 𝒜 has VC dimension at most d, then 𝒜 has at most 2 * (d * |𝒜|) one-inclusion pairs.",
+     "Finset.le_sup": "Any element of a finset is less than or equal to the supremum of the finset under a function.",
+     "Finset.card_bij": "A bijection between two finsets proves they have the same cardinality.",
+     "SimpleGraph.two_mul_card_edgeFinset": "In a finite simple graph, twice the number of edges equals the number of ordered pairs of adjacent vertices.",
+     "Nat.le_of_mul_le_mul_left": "If c * a ≤ c * b and c > 0, then a ≤ b for natural numbers."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -503903,13 +504068,43 @@
     "regular_eight_triangle_distinct_card_ge_fifteen"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphCardLeChooseAddOneOfRegularTriangleDistinct.lean",
-   "proved_at": 1791720292,
+   "proved_at": 1791728623,
    "provenance": "lemma",
    "citation": "Pigeonhole bound used for OP-123 (arXiv:2610.08478 (Regular K_3-Irregular Graphs of Every Regularity at Least Nine), Sec. 1).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof applies the pigeonhole principle to the triangle-degree function on the vertices. In an r-regular graph, every vertex has degree r, so each vertex can be part of at most C(r, 2) triangles. Because the graph is triangle-distinct, no two vertices share the same triangle-degree. The triangle-degree map is therefore an injection from the vertex set into {0, …, C(r, 2)}, forcing the number of vertices to be at most C(r, 2) + 1.",
+    "steps": [
+     {
+      "claim": "For every vertex v, its triangle-degree is at most C(r, 2), so it belongs to {0, …, C(r, 2)}.",
+      "explanation": "For an arbitrary vertex v, the number of triangles containing v is at most C(deg(v), 2) by simple_graph_triangle_degree_le_choose. Since the graph is r-regular (hreg), deg(v) = r, which bounds the triangle-degree by C(r, 2). Rewriting with Finset.mem_range expresses membership in the range of C(r, 2) + 1 as being strictly less than C(r, 2) + 1, which holds by linear arithmetic (omega).",
+      "lemmas": [
+       "simple_graph_triangle_degree_le_choose",
+       "Finset.mem_range"
+      ],
+      "automation": false,
+      "code": "  have hmaps : ∀ v ∈ (Finset.univ : Finset V),\n      simple_graph_triangle_degree G v ∈ Finset.range (r.choose 2 + 1) := by\n    intro v _\n    have h1 := simple_graph_triangle_degree_le_choose G v\n    rw [hreg v] at h1\n    rw [Finset.mem_range]\n    omega"
+     },
+     {
+      "claim": "The number of vertices |V| is at most C(r, 2) + 1.",
+      "explanation": "Because G is triangle-distinct (htd), the triangle-degree map is injective. Since it maps the finite set of all vertices into the range {0, …, C(r, 2)}, the pigeonhole principle for finite sets (Finset.card_le_card_of_injOn) implies that the number of vertices cannot exceed the size of the codomain, which is C(r, 2) + 1. Simplifying the cardinalities (simpa) concludes the proof.",
+      "lemmas": [
+       "Finset.card_le_card_of_injOn"
+      ],
+      "automation": false,
+      "code": "  have := Finset.card_le_card_of_injOn _ hmaps htd.injOn\n  simpa using this"
+     }
+    ],
+    "glossary": {
+     "simple_graph_triangle_degree_le_choose": "The triangle-degree of any vertex v in a graph is at most the number of pairs of its neighbors, C(deg(v), 2).",
+     "Finset.mem_range": "A natural number m belongs to Finset.range n if and only if m < n.",
+     "Finset.card_le_card_of_injOn": "An injective map from a finite set s to a finite set t implies |s| ≤ |t|."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -503936,13 +504131,61 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/RegularEightTriangleDistinctCardGeFifteen.lean",
-   "proved_at": 1791720554,
+   "proved_at": 1791728633,
    "provenance": "lemma",
    "citation": "Partial result towards OP-123 (arXiv:2610.08478 (Regular K_3-Irregular Graphs of Every Regularity at Least Nine), Lemma 2.1 complementation and Sec. 1); the earlier work cited there narrows the regularity-8 case further, to six orders.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "Since the graph is 8-regular and nonempty, every vertex has degree 8 < |V|, establishing the lower bound |V| ≥ 9. Its complement graph is (|V| − 9)-regular and triangle-distinct, which yields the upper bound |V| ≤ C(|V| − 9, 2) + 1. A finite case analysis over the integers 9 ≤ |V| ≤ 14 shows that none satisfies this bound, so |V| must be at least 15.",
+    "steps": [
+     {
+      "claim": "The graph has at least 9 vertices (|V| ≥ 9).",
+      "explanation": "Since V is nonempty, we can pick a vertex v ∈ V. In any simple graph, the degree of a vertex is strictly less than the total number of vertices. Since G is 8-regular, the degree of v is 8, which implies 8 < |V|, and therefore |V| ≥ 9.",
+      "lemmas": [
+       "G.degree_lt_card_verts"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨v⟩ := ‹Nonempty V›\n  have h9 : 9 ≤ Fintype.card V := by\n    have := G.degree_lt_card_verts v\n    rw [hreg v] at this\n    omega"
+     },
+     {
+      "claim": "The complement graph Gᶜ is (|V| − 9)-regular and triangle-distinct.",
+      "explanation": "Applying simple_graph_compl_regular_triangle_distinct to the 8-regular triangle-distinct graph G on |V| vertices shows that its complement graph Gᶜ is regular of degree |V| − 8 − 1 = |V| − 9 and remains triangle-distinct.",
+      "lemmas": [
+       "simple_graph_compl_regular_triangle_distinct"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨hcreg, hctd⟩ :=\n    simple_graph_compl_regular_triangle_distinct G 8 (Fintype.card V) rfl hreg htd"
+     },
+     {
+      "claim": "The number of vertices satisfies |V| ≤ C(|V| − 9, 2) + 1.",
+      "explanation": "Applying simple_graph_card_le_choose_add_one_of_regular_triangle_distinct to the complement graph Gᶜ, any r-regular triangle-distinct graph has at most C(r, 2) + 1 vertices. Since Gᶜ has degree r = |V| − 9, this gives the upper bound |V| ≤ C(|V| − 9, 2) + 1.",
+      "lemmas": [
+       "simple_graph_card_le_choose_add_one_of_regular_triangle_distinct"
+      ],
+      "automation": false,
+      "code": "  have hb := simple_graph_card_le_choose_add_one_of_regular_triangle_distinct Gᶜ _ hcreg hctd"
+     },
+     {
+      "claim": "The graph has at least 15 vertices (|V| ≥ 15).",
+      "explanation": "Assume for contradiction that |V| < 15. Combined with |V| ≥ 9, this leaves only the cases |V| ∈ {9, 10, 11, 12, 13, 14}. Evaluating the inequality n ≤ C(n − 9, 2) + 1 for each of these six integers yields a contradiction in every case: 9 ≤ 1, 10 ≤ 1, 11 ≤ 2, 12 ≤ 4, 13 ≤ 7, and 14 ≤ 11 are all false. Therefore, |V| ≥ 15.",
+      "lemmas": [
+       "Nat.choose"
+      ],
+      "automation": false,
+      "code": "  by_contra hlt\n  push Not at hlt\n  interval_cases h : Fintype.card V <;> simp_all [Nat.choose]"
+     }
+    ],
+    "glossary": {
+     "G.degree_lt_card_verts": "In any finite simple graph, the degree of any vertex is strictly less than the total number of vertices in the graph.",
+     "simple_graph_compl_regular_triangle_distinct": "If a graph on N vertices is r-regular and triangle-distinct, then its complement graph is (N − r − 1)-regular and triangle-distinct.",
+     "simple_graph_card_le_choose_add_one_of_regular_triangle_distinct": "Every r-regular triangle-distinct graph on a finite vertex set has at most C(r, 2) + 1 vertices.",
+     "Nat.choose": "The binomial coefficient C(n, k), representing the number of k-element subsets of an n-element set."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -503967,13 +504210,74 @@
     "simple_graph_power_well_covered_not_ball_union_subset"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphExistsMaximalIndepSuperset.lean",
-   "proved_at": 1791721413,
+   "proved_at": 1791728684,
    "provenance": "lemma",
    "citation": "Standard; serves simple_graph_power_well_covered_not_ball_union_subset (arXiv:2610.09300 (On graphs whose powers are well-covered), proof of Lemma 2.7).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "In a finite graph, the collection $S$ of all independent sets containing $Y$ is finite and nonempty since $Y \\in S$. We choose an element $Z \\in S$ of maximum cardinality. If $Z'$ is any independent superset of $Z$, it also contains $Y$ and thus belongs to $S$, so by cardinality maximality $|Z'| \\le |Z|$; combined with $Z \\subseteq Z'$, this forces $Z = Z'$, showing that $Z$ is maximal.",
+    "steps": [
+     {
+      "claim": "The family $S$ of independent supersets of $Y$ is defined, and $Y \\in S$.",
+      "explanation": "We work classically and define $S$ to be the finite collection of all subsets of $V$ that contain $Y$ and are independent in $H$. Since $Y \\subseteq Y$ and $Y$ is independent by hypothesis, $Y$ belongs to $S$, showing that $S$ is nonempty.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  classical\n  set S := (Finset.univ : Finset (Finset V)).filter (fun Z => Y ⊆ Z ∧ H.IsIndepSet (Z : Set V))\n  have hYS : Y ∈ S := by simp [S, hY]"
+     },
+     {
+      "claim": "There exists a set $Z \\in S$ of maximum cardinality, which is an independent superset of $Y$.",
+      "explanation": "Because $S$ is nonempty, `Finset.exists_max_image` yields an element $Z \\in S$ maximizing `Finset.card`. Unfolding the definition of $S$ via `Finset.mem_filter`, `Finset.mem_univ`, and `true_and` unpacks the membership $Z \\in S$ into $Y \\subseteq Z$ and the fact that $Z$ is independent.",
+      "lemmas": [
+       "Finset.exists_max_image",
+       "Finset.card",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "true_and"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨Z, hZS, hZmax⟩ := Finset.exists_max_image S Finset.card ⟨Y, hYS⟩\n  simp only [S, Finset.mem_filter, Finset.mem_univ, true_and] at hZS"
+     },
+     {
+      "claim": "Choosing $Z$ reduces the goal to showing that any independent superset $Z' \\supseteq Z$ satisfies $Z' \\subseteq Z$.",
+      "explanation": "We provide $Z$ as the witness. We have already established that $Y \\subseteq Z$ and that $Z$ is independent. By definition of `Maximal`, it remains to show that whenever $Z'$ is independent and $Z \\subseteq Z'$, we have $Z' \\subseteq Z$.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  refine ⟨Z, hZS.1, hZS.2, fun Z' hZ' hsub => ?_⟩"
+     },
+     {
+      "claim": "Any independent superset $Z'$ of $Z$ belongs to $S$.",
+      "explanation": "By transitivity of inclusion, $Y \\subseteq Z$ and $Z \\subseteq Z'$ imply $Y \\subseteq Z'$. Since $Z'$ is also independent, it satisfies the membership condition for $S$ after simplifying with `Finset.mem_filter`, `Finset.mem_univ`, and `true_and`.",
+      "lemmas": [
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "true_and"
+      ],
+      "automation": false,
+      "code": "  have hZ'S : Z' ∈ S := by\n    simp only [S, Finset.mem_filter, Finset.mem_univ, true_and]\n    exact ⟨hZS.1.trans hsub, hZ'⟩"
+     },
+     {
+      "claim": "$Z = Z'$, which implies $Z' \\subseteq Z$ and completes the proof.",
+      "explanation": "Since $Z' \\in S$, the maximality of $Z$ in $S$ implies $|Z'| \\le |Z|$. By `Finset.eq_of_subset_of_card_le`, the inclusion $Z \\subseteq Z'$ combined with $|Z'| \\le |Z|$ forces $Z = Z'$. Substituting this equality into $Z' \\subseteq Z$ closes the goal.",
+      "lemmas": [
+       "Finset.eq_of_subset_of_card_le"
+      ],
+      "automation": false,
+      "code": "  have := Finset.eq_of_subset_of_card_le hsub (hZmax Z' hZ'S)\n  rw [this]"
+     }
+    ],
+    "glossary": {
+     "Finset.exists_max_image": "In any nonempty finite set, a function into a linearly ordered type achieves a maximum at some element.",
+     "Finset.card": "The cardinality (number of elements) of a finite set as a natural number.",
+     "Finset.mem_filter": "An element belongs to the filtered set `Finset.filter p s` if and only if it belongs to `s` and satisfies predicate `p`.",
+     "Finset.mem_univ": "Every element of a finite type belongs to the universal finset `Finset.univ`.",
+     "true_and": "The proposition `True ∧ p` is logically equivalent to `p`.",
+     "Finset.eq_of_subset_of_card_le": "If finite sets satisfy `s ⊆ t` and `card t ≤ card s`, then `s = t`."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -504002,13 +504306,105 @@
     "simple_graph_eccent_eq_diam_of_power_well_covered"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphPowerWellCoveredNotBallUnionSubset.lean",
-   "proved_at": 1791721660,
+   "proved_at": 1791728765,
    "provenance": "literature",
    "citation": "arXiv:2610.09300 (On graphs whose powers are well-covered), Lemma 2.7. The proof uses well-coveredness directly (two maximal independent sets of different sizes) instead of the independence number.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "We argue by contradiction: suppose there exist vertices s, t, w with d_G(s, t) ≥ d + 1 such that B_d(s) ∪ B_d(t) ⊆ B_d(w). In the power graph P = G^d, the vertices s and t are non-adjacent and both are distinct from w. We extend {w} to a maximal independent set X in P, which cannot contain s or t since both are adjacent to w in P. Replacing w with {s, t} gives a new independent set Y = (X \\ {w}) ∪ {s, t}, because any neighbor of s or t in X \\ {w} would belong to B_d(s) ∪ B_d(t) ⊆ B_d(w) and thus be adjacent to w, contradicting the independence of X. Extending Y to a maximal independent set Z gives |Z| ≥ |Y| = |X| + 1, contradicting the hypothesis that P is well-covered.",
+    "steps": [
+     {
+      "claim": "Assume for contradiction that B_d(s) ∪ B_d(t) ⊆ B_d(w), and deduce that d_G(w, s) ≤ d and d_G(w, t) ≤ d.",
+      "explanation": "We assume for contradiction that every vertex within distance d of s or t is within distance d of w (hball). We set P = simple_graph_power G d. Since d_G(s, s) = 0 ≤ d, vertex s is in B_d(s) and hence in B_d(w), showing d_G(w, s) ≤ d (hsw). Similarly, d_G(t, t) = 0 ≤ d implies d_G(w, t) ≤ d (htw).",
+      "lemmas": [],
+      "automation": false,
+      "code": "  intro hball\n  set P := simple_graph_power G d\n  have hsw : G.edist w s ≤ d := hball s (Or.inl (by simp))\n  have htw : G.edist w t ≤ d := hball t (Or.inr (by simp))"
+     },
+     {
+      "claim": "Show that distance at most d is incompatible with distance at least d + 1, and deduce that s, t, w are pairwise distinct.",
+      "explanation": "First, having both d_G(x, y) ≤ d and d + 1 ≤ d_G(x, y) gives d + 1 ≤ d by transitivity, an impossibility (hlt). If s = t, then d_G(s, t) = 0 ≥ d + 1 ≥ 2, a contradiction; hence s ≠ t (hst_ne). If w = s, then d_G(s, t) = d_G(w, t) ≤ d, contradicting d_G(s, t) ≥ d + 1; hence w ≠ s (hws). Finally, if w = t, symmetry of distance (SimpleGraph.edist_comm) yields d_G(s, t) = d_G(s, w) = d_G(w, s) ≤ d, again contradicting d_G(s, t) ≥ d + 1; hence w ≠ t (hwt).",
+      "lemmas": [
+       "SimpleGraph.edist_comm"
+      ],
+      "automation": false,
+      "code": "  have hlt : ∀ x y : V, G.edist x y ≤ d → ¬ ((d + 1 : ℕ) : ℕ∞) ≤ G.edist x y := by\n    intro x y h1 h2\n    have := h2.trans h1\n    norm_cast at this\n    omega\n  have hst_ne : s ≠ t := by\n    intro h; subst h; simp at hst\n  have hws : w ≠ s := by\n    intro h; subst h; exact hlt w t htw hst\n  have hwt : w ≠ t := by\n    intro h; subst h; rw [SimpleGraph.edist_comm] at hsw; exact hlt s w hsw hst"
+     },
+     {
+      "claim": "Extend {w} to a maximal independent set X in P, and show that neither s nor t belongs to X.",
+      "explanation": "Any vertex x ≠ w in B_d(s) ∪ B_d(t) has d_G(w, x) ≤ d and thus is adjacent to w in P (hadjw). The singleton {w} is independent in P, so it extends to a maximal independent set X with w ∈ X (simple_graph_exists_maximal_indep_superset, Finset.mem_singleton_self). Since s ≠ w and d_G(s, s) ≤ d, vertex s is adjacent to w in P; because X is independent and w ∈ X, we have s ∉ X (hsX). By the same argument for t, t ∉ X (htX).",
+      "lemmas": [
+       "simple_graph_exists_maximal_indep_superset",
+       "Finset.mem_singleton_self"
+      ],
+      "automation": false,
+      "code": "  have hadjw : ∀ x, x ≠ w → (G.edist s x ≤ d ∨ G.edist t x ≤ d) → P.Adj w x :=\n    fun x hx h => ⟨fun e => hx e.symm, hball x h⟩\n  obtain ⟨X, hwX, hX⟩ := simple_graph_exists_maximal_indep_superset P {w} (by simp)\n  have hwX' : w ∈ X := hwX (Finset.mem_singleton_self w)\n  have hsX : s ∉ X := fun h => hX.1 hwX' h hws (hadjw s hws.symm (Or.inl (by simp)))\n  have htX : t ∉ X := fun h => hX.1 hwX' h hwt (hadjw t hwt.symm (Or.inr (by simp)))"
+     },
+     {
+      "claim": "The set Y = (X \\ {w}) ∪ {s, t} is independent in P.",
+      "explanation": "We check that no two distinct vertices in Y are adjacent in P. If some x ∈ X \\ {w} were adjacent to y ∈ {s, t}, then d_G(y, x) ≤ d, placing x in B_d(s) ∪ B_d(t). Since x ≠ w, this would make x adjacent to w in P, which is impossible because both w, x ∈ X and X is independent (the helper lemma key). Vertices within X \\ {w} are non-adjacent because X is independent (Finset.mem_of_mem_erase). Finally, s and t cannot be adjacent in P because d_G(s, t) ≥ d + 1 > d. Thus Y is an independent set in P.",
+      "lemmas": [
+       "Finset.mem_erase",
+       "Finset.mem_insert",
+       "Finset.mem_singleton",
+       "Finset.coe_union",
+       "Set.mem_union",
+       "Finset.mem_coe",
+       "Finset.mem_of_mem_erase"
+      ],
+      "automation": false,
+      "code": "  set Y := X.erase w ∪ {s, t}\n  have hYind : P.IsIndepSet (Y : Set V) := by\n    have key : ∀ x ∈ X.erase w, ∀ y ∈ ({s, t} : Finset V), ¬ P.Adj y x := by\n      intro x hx y hy hadj\n      rw [Finset.mem_erase] at hx\n      have hyx : G.edist y x ≤ d := hadj.2\n      simp only [Finset.mem_insert, Finset.mem_singleton] at hy\n      have : P.Adj w x := by\n        rcases hy with rfl | rfl\n        · exact hadjw x hx.1 (Or.inl hyx)\n        · exact hadjw x hx.1 (Or.inr hyx)\n      exact hX.1 hwX' hx.2 (fun e => hx.1 e.symm) this\n    intro x hx y hy hxy hadj\n    simp only [Y, Finset.coe_union, Set.mem_union, Finset.mem_coe] at hx hy\n    rcases hx with hx | hx <;> rcases hy with hy | hy\n    · exact hX.1 (Finset.mem_of_mem_erase hx) (Finset.mem_of_mem_erase hy) hxy hadj\n    · exact key x hx y hy hadj.symm\n    · exact key y hy x hx hadj\n    · simp only [Finset.mem_insert, Finset.mem_singleton] at hx hy\n      have hst' : ¬ P.Adj s t := fun h => hlt s t h.2 hst\n      rcases hx with rfl | rfl <;> rcases hy with rfl | rfl\n      · exact hxy rfl\n      · exact hst' hadj\n      · exact hst' hadj.symm\n      · exact hxy rfl"
+     },
+     {
+      "claim": "Extend Y to a maximal independent set Z in P, and show |Y| = |X| + 1.",
+      "explanation": "The independent set Y extends to a maximal independent set Z in P (simple_graph_exists_maximal_indep_superset). Since neither s nor t is in X, the sets X \\ {w} and {s, t} are disjoint (Finset.disjoint_left). The cardinality of their union is therefore |X \\ {w}| + |{s, t}| (Finset.card_union_of_disjoint). Since w ∈ X, erasing w gives |X| - 1 (Finset.card_erase_of_mem), and because s ≠ t, |{s, t}| = 2 (Finset.card_pair). Thus |Y| = (|X| - 1) + 2 = |X| + 1.",
+      "lemmas": [
+       "simple_graph_exists_maximal_indep_superset",
+       "Finset.disjoint_left",
+       "Finset.mem_insert",
+       "Finset.mem_singleton",
+       "Finset.mem_of_mem_erase",
+       "Finset.card_union_of_disjoint",
+       "Finset.card_erase_of_mem",
+       "Finset.card_pair"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨Z, hYZ, hZ⟩ := simple_graph_exists_maximal_indep_superset P Y hYind\n  have hcardY : Y.card = X.card + 1 := by\n    have hdisj : Disjoint (X.erase w) {s, t} := by\n      rw [Finset.disjoint_left]\n      intro x hx hx'\n      simp only [Finset.mem_insert, Finset.mem_singleton] at hx'\n      rcases hx' with rfl | rfl\n      · exact hsX (Finset.mem_of_mem_erase hx)\n      · exact htX (Finset.mem_of_mem_erase hx)\n    rw [Finset.card_union_of_disjoint hdisj, Finset.card_erase_of_mem hwX',\n      Finset.card_pair hst_ne]\n    have : 1 ≤ X.card := Finset.card_pos.2 ⟨w, hwX'⟩\n    omega"
+     },
+     {
+      "claim": "Derive a contradiction: |Z| ≥ |X| + 1 contradicts well-coveredness, which requires |Z| = |X|.",
+      "explanation": "Since Y ⊆ Z, we have |Y| ≤ |Z| (Finset.card_le_card), so |Z| ≥ |X| + 1. But P is well-covered (hwc), so all maximal independent sets have the same size, which forces |X| = |Z|. This gives |X| ≥ |X| + 1, an arithmetic impossibility that omega resolves to conclude False.",
+      "lemmas": [
+       "Finset.card_le_card"
+      ],
+      "automation": false,
+      "code": "  have h1 := Finset.card_le_card hYZ\n  have h2 := hwc X Z hX hZ\n  omega"
+     }
+    ],
+    "glossary": {
+     "SimpleGraph.edist_comm": "Extended distance between vertices in a graph is symmetric: d_G(u, v) = d_G(v, u).",
+     "simple_graph_exists_maximal_indep_superset": "Every independent set in a finite graph extends to an inclusion-maximal independent set.",
+     "Finset.mem_singleton_self": "An element is a member of its own singleton set: a ∈ {a}.",
+     "Finset.mem_erase": "An element is in s.erase b if and only if it is in s and distinct from b.",
+     "Finset.mem_insert": "An element belongs to insert b s if and only if it equals b or is in s.",
+     "Finset.mem_singleton": "An element belongs to {a} if and only if it equals a.",
+     "Finset.coe_union": "The coercion of a union of finite sets to a Set equals the union of their coercions: ↑(s₁ ∪ s₂) = ↑s₁ ∪ ↑s₂.",
+     "Set.mem_union": "An element belongs to a ∪ b if and only if it belongs to a or to b.",
+     "Finset.mem_coe": "Membership in the coerced Set ↑s is equivalent to membership in the Finset s.",
+     "Finset.mem_of_mem_erase": "If an element belongs to s.erase a, then it belongs to s.",
+     "Finset.disjoint_left": "Two finite sets are disjoint if and only if no element of the first belongs to the second.",
+     "Finset.card_union_of_disjoint": "If two finite sets are disjoint, the cardinality of their union is the sum of their cardinalities.",
+     "Finset.card_erase_of_mem": "Removing an element a from a finite set s of which it is a member decreases its cardinality by 1.",
+     "Finset.card_pair": "If two elements are distinct, the pair {a, b} has cardinality 2.",
+     "Finset.card_le_card": "If s ⊆ t for finite sets, then |s| ≤ |t|."
+    },
+    "caveats": [
+     "The power graph simple_graph_power G d defines an edge between distinct vertices u ≠ v whenever their extended distance G.edist u v in G is at most d.",
+     "The helper lemma hlt casts distances from ℕ∞ to ℕ so that the contradictory inequality d + 1 ≤ d can be resolved by omega."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -504037,13 +504433,99 @@
     "simple_graph_no_leaf_of_power_well_covered"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphEccentEqDiamOfPowerWellCovered.lean",
-   "proved_at": 1791721876,
+   "proved_at": 1791728760,
    "provenance": "literature",
    "citation": "arXiv:2610.09300 (On graphs whose powers are well-covered), Lemma 2.5, for D ≥ 2 (for D ≤ 1 the power G^{D−1} is edgeless); proof via Lemma 2.7 (simple_graph_power_well_covered_not_ball_union_subset) with w the vertex of small eccentricity.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "By definition, the eccentricity of any vertex v is at most the diameter D. Supposing for contradiction that ecc(v) < D, the eccentricity must satisfy ecc(v) ≤ D − 1, which means the closed ball B_{D−1}(v) covers all vertices in the graph. In particular, choosing two vertices s and t at maximal distance D ≥ (D − 1) + 1, the ball B_{D−1}(v) would contain the union B_{D−1}(s) ∪ B_{D−1}(t); but this contradicts the structural theorem simple_graph_power_well_covered_not_ball_union_subset for well-covered powers of graphs.",
+    "steps": [
+     {
+      "claim": "The extended diameter of G is finite and equals the diameter G.diam coerced to ℕ∞.",
+      "explanation": "Because G is connected, its vertex set is non-empty. For a finite connected graph, the extended diameter cannot be infinite (SimpleGraph.connected_iff_ediam_ne_top). By definition of the diameter G.diam as ediam.toNat, casting it back to ℕ∞ recovers the extended diameter via ENat.natCast_toNat.",
+      "lemmas": [
+       "SimpleGraph.connected_iff_ediam_ne_top",
+       "SimpleGraph.diam",
+       "ENat.natCast_toNat"
+      ],
+      "automation": false,
+      "code": "  have : Nonempty V := hconn.nonempty\n  have htop : G.ediam ≠ ⊤ := (SimpleGraph.connected_iff_ediam_ne_top).1 hconn\n  have hdiam : (G.diam : ℕ∞) = G.ediam := by\n    rw [SimpleGraph.diam]; exact ENat.natCast_toNat htop"
+     },
+     {
+      "claim": "It suffices to show that G.diam ≤ G.eccent v.",
+      "explanation": "The eccentricity of v is always at most the graph diameter (G.eccent_le_ediam). By antisymmetry of ≤ (le_antisymm), equality reduces to the reverse inequality G.diam ≤ G.eccent v.",
+      "lemmas": [
+       "le_antisymm",
+       "G.eccent_le_ediam"
+      ],
+      "automation": false,
+      "code": "  apply le_antisymm (hdiam ▸ G.eccent_le_ediam)"
+     },
+     {
+      "claim": "Assuming the contrary, the eccentricity of v is a finite natural number e with e < G.diam.",
+      "explanation": "We assume for contradiction that G.diam ≤ G.eccent v is false, so G.eccent v < G.diam (not_le). Since it is strictly bounded by a finite value, the eccentricity cannot be ∞ (ne_top_of_lt), so it equals a natural number e (ENat.natCast_toNat) satisfying e < G.diam.",
+      "lemmas": [
+       "not_le",
+       "ne_top_of_lt",
+       "ENat.natCast_toNat"
+      ],
+      "automation": false,
+      "code": "  by_contra hlt\n  rw [not_le] at hlt\n  obtain ⟨e, he⟩ : ∃ e : ℕ, G.eccent v = e := ⟨(G.eccent v).toNat,\n    (ENat.natCast_toNat (ne_top_of_lt hlt)).symm⟩\n  rw [he] at hlt\n  norm_cast at hlt"
+     },
+     {
+      "claim": "There exist vertices s and t in G whose distance equals the diameter of G.",
+      "explanation": "Because G is finite, there exists a pair of vertices s and t attaining the diameter: dist(s, t) = ediam(G) (G.exists_edist_eq_ediam_of_finite).",
+      "lemmas": [
+       "G.exists_edist_eq_ediam_of_finite"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨s, t, hst⟩ := G.exists_edist_eq_ediam_of_finite"
+     },
+     {
+      "claim": "The contradiction reduces to showing that dist(s, t) ≥ (G.diam − 1) + 1 and that the ball B_{D−1}(v) contains B_{D−1}(s) ∪ B_{D−1}(t).",
+      "explanation": "Since G.diam ≥ 2, setting d = G.diam − 1 gives d ≥ 1. By the lemma simple_graph_power_well_covered_not_ball_union_subset, when G^d is well-covered and dist(s, t) ≥ d + 1, no single ball of radius d can contain the union of the balls of radius d around s and t. Applying this lemma leaves two obligations: confirming the distance between s and t is at least d + 1, and showing every vertex in the union of the balls around s and t is within distance d of v.",
+      "lemmas": [
+       "simple_graph_power_well_covered_not_ball_union_subset"
+      ],
+      "automation": false,
+      "code": "  refine simple_graph_power_well_covered_not_ball_union_subset G (G.diam - 1) (by omega) hwc s t v\n    ?_ ?_"
+     },
+     {
+      "claim": "The distance between s and t is at least (G.diam − 1) + 1.",
+      "explanation": "By construction, dist(s, t) = ediam(G) = G.diam. The inequality (G.diam − 1) + 1 ≤ G.diam holds by standard arithmetic since G.diam ≥ 2.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  · rw [hst, ← hdiam]; norm_cast; omega"
+     },
+     {
+      "claim": "Every vertex in the graph lies within distance G.diam − 1 of v, completing the contradiction.",
+      "explanation": "For any vertex x, the distance dist(v, x) is bounded by the eccentricity ecc(v) (SimpleGraph.edist_le_eccent), which equals e. Since e < G.diam, we have e ≤ G.diam − 1, so every vertex x in G is within distance G.diam − 1 of v. In particular, B_{D−1}(v) contains B_{D−1}(s) ∪ B_{D−1}(t), contradicting the lemma.",
+      "lemmas": [
+       "SimpleGraph.edist_le_eccent"
+      ],
+      "automation": false,
+      "code": "  · intro x _\n    calc G.edist v x ≤ G.eccent v := SimpleGraph.edist_le_eccent\n      _ = e := he\n      _ ≤ ((G.diam - 1 : ℕ) : ℕ∞) := by norm_cast; omega"
+     }
+    ],
+    "glossary": {
+     "SimpleGraph.connected_iff_ediam_ne_top": "A finite non-empty graph is connected if and only if its extended diameter is not ∞.",
+     "SimpleGraph.diam": "The natural-number diameter of a graph, defined by converting its extended diameter in ℕ∞ to ℕ.",
+     "ENat.natCast_toNat": "For any element n of ℕ∞ with n ≠ ⊤, casting its conversion to ℕ back to ℕ∞ returns n.",
+     "le_antisymm": "In a partial order, if a ≤ b and b ≤ a, then a = b.",
+     "G.eccent_le_ediam": "The eccentricity of any vertex in a graph is at most the graph's extended diameter.",
+     "not_le": "In a linear order, not being less than or equal to an element is equivalent to being strictly greater than it.",
+     "ne_top_of_lt": "In a preorder with a top element ⊤, an element strictly smaller than another cannot be ⊤.",
+     "G.exists_edist_eq_ediam_of_finite": "In a finite non-empty graph, there exists a pair of vertices whose distance equals the extended diameter.",
+     "simple_graph_power_well_covered_not_ball_union_subset": "If the d-th power of a graph is well-covered (with d ≥ 1) and two vertices s, t are at distance at least d + 1, then no vertex w has its closed ball of radius d contain the union of the closed balls of radius d centered at s and t.",
+     "SimpleGraph.edist_le_eccent": "The distance between any vertex u and another vertex v is at most the eccentricity of u."
+    },
+    "caveats": [
+     "Coercions between ℕ and ℕ∞ are handled formally by ENat.natCast_toNat and norm_cast."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -504072,13 +504554,95 @@
     "diam_le_one_of_forall_power_well_covered_of_degree_eq_one"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphNoLeafOfPowerWellCovered.lean",
-   "proved_at": 1791722881,
+   "proved_at": 1791728941,
    "provenance": "literature",
    "citation": "arXiv:2610.09300 (On graphs whose powers are well-covered), Corollary 2.6.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "We argue by contradiction: suppose G has a leaf v, and let u be its unique neighbor. Because the power graph G^{D-1} is well-covered and D = diam(G) ≥ 2, every vertex has eccentricity D, so eccent(u) = D. On the other hand, eccent(u) ≤ D - 1: the distance from u to v is 1 ≤ D - 1, and for any w ≠ v, any shortest walk from v to w must start by stepping to u, so edist(u, w) ≤ edist(v, w) - 1 ≤ D - 1. The two bounds give D ≤ D - 1, an impossibility.",
+    "steps": [
+     {
+      "claim": "Assume for contradiction that v has degree 1, and obtain its unique neighbor u.",
+      "explanation": "Suppose for contradiction that G has a leaf v, meaning deg(v) = 1 (hdeg). By SimpleGraph.degree_eq_one_iff_existsUnique_adj, a vertex has degree 1 if and only if it has a unique neighbor. Let u be this unique neighbor, so v is adjacent to u and any neighbor of v must equal u.",
+      "lemmas": [
+       "SimpleGraph.degree_eq_one_iff_existsUnique_adj"
+      ],
+      "automation": false,
+      "code": "  intro hdeg\n  obtain ⟨u, hvu, huniq⟩ := (SimpleGraph.degree_eq_one_iff_existsUnique_adj).1 hdeg"
+     },
+     {
+      "claim": "The diameter of G is finite and the eccentricity of u equals the diameter of G.",
+      "explanation": "Since G is connected and finite, the vertex set is nonempty and the extended diameter ediam(G) is finite by SimpleGraph.connected_iff_ediam_ne_top. Hence the integer diameter diam(G) coerced to ℕ∞ equals ediam(G) (using SimpleGraph.diam and ENat.natCast_toNat). Because G^{diam(G)-1} is well-covered and diam(G) ≥ 2, the prior lemma simple_graph_eccent_eq_diam_of_power_well_covered implies that every vertex has eccentricity equal to diam(G), so eccent(u) = diam(G).",
+      "lemmas": [
+       "SimpleGraph.connected_iff_ediam_ne_top",
+       "SimpleGraph.diam",
+       "ENat.natCast_toNat",
+       "simple_graph_eccent_eq_diam_of_power_well_covered"
+      ],
+      "automation": false,
+      "code": "  have : Nonempty V := hconn.nonempty\n  have htop : G.ediam ≠ ⊤ := (SimpleGraph.connected_iff_ediam_ne_top).1 hconn\n  have hdiam : (G.diam : ℕ∞) = G.ediam := by\n    rw [SimpleGraph.diam]; exact ENat.natCast_toNat htop\n  have hecc := simple_graph_eccent_eq_diam_of_power_well_covered G hconn hD hwc u"
+     },
+     {
+      "claim": "To bound the eccentricity of u by diam(G) - 1, it suffices to bound the distance from u to any vertex w by diam(G) - 1.",
+      "explanation": "By SimpleGraph.eccent_le_iff, the eccentricity of u is at most a bound k if and only if the distance from u to every vertex is at most k. Setting k = diam(G) - 1, we introduce an arbitrary vertex w and aim to show edist(u, w) ≤ diam(G) - 1.",
+      "lemmas": [
+       "SimpleGraph.eccent_le_iff"
+      ],
+      "automation": false,
+      "code": "  have hle : G.eccent u ≤ ((G.diam - 1 : ℕ) : ℕ∞) := by\n    rw [SimpleGraph.eccent_le_iff]\n    intro w"
+     },
+     {
+      "claim": "In the case w = v, the distance between u and w is 1, which is at most diam(G) - 1.",
+      "explanation": "We perform a case split on whether w = v. If w = v, the distance edist(u, v) equals edist(v, u) = 1 because u and v are adjacent (SimpleGraph.edist_comm, SimpleGraph.edist_eq_one_iff_adj). Since diam(G) ≥ 2, linear arithmetic (omega) closes the inequality 1 ≤ diam(G) - 1.",
+      "lemmas": [
+       "SimpleGraph.edist_comm",
+       "SimpleGraph.edist_eq_one_iff_adj"
+      ],
+      "automation": false,
+      "code": "    by_cases hwv : w = v\n    · subst hwv\n      rw [SimpleGraph.edist_comm, SimpleGraph.edist_eq_one_iff_adj.2 hvu]\n      norm_cast; omega"
+     },
+     {
+      "claim": "In the case w ≠ v, any shortest walk from v to w must pass through u, establishing edist(u, w) ≤ diam(G) - 1 and thus eccent(u) ≤ diam(G) - 1.",
+      "explanation": "When w ≠ v, connectivity guarantees a walk p from v to w whose length equals edist(v, w) (exists_walk_length_eq_edist). The walk p cannot be the empty walk nil because w ≠ v. Thus p starts with an edge from v to some vertex x, followed by a walk p' from x to w. Since x is adjacent to v, uniqueness of v's neighbor forces x = u. The length of p is p'.length + 1 by SimpleGraph.Walk.length_cons. Since edist(v, w) ≤ diam(G) by SimpleGraph.edist_le_ediam, we have p'.length + 1 ≤ diam(G), which gives p'.length ≤ diam(G) - 1. Finally, edist(u, w) ≤ p'.length by SimpleGraph.edist_le, yielding edist(u, w) ≤ diam(G) - 1. This completes the bound eccent(u) ≤ diam(G) - 1 for all w.",
+      "lemmas": [
+       "exists_walk_length_eq_edist",
+       "SimpleGraph.edist_le",
+       "SimpleGraph.edist_le_ediam",
+       "SimpleGraph.Walk.length_cons"
+      ],
+      "automation": false,
+      "code": "    · obtain ⟨p, hp⟩ := (hconn v w).exists_walk_length_eq_edist\n      cases p with\n      | nil => exact absurd rfl hwv\n      | cons h p' =>\n        rename_i x\n        have hx : x = u := huniq x h\n        subst hx\n        have h1 : G.edist x w ≤ p'.length := SimpleGraph.edist_le p'\n        have h2 : G.edist v w ≤ G.diam := by rw [hdiam]; exact SimpleGraph.edist_le_ediam\n        rw [← hp, SimpleGraph.Walk.length_cons] at h2\n        have h3 : p'.length + 1 ≤ G.diam := by exact_mod_cast h2\n        calc G.edist x w ≤ p'.length := h1\n          _ ≤ ((G.diam - 1 : ℕ) : ℕ∞) := by norm_cast; omega"
+     },
+     {
+      "claim": "The equality eccent(u) = diam(G) and the inequality eccent(u) ≤ diam(G) - 1 yield a contradiction.",
+      "explanation": "Substituting eccent(u) = diam(G) into the inequality eccent(u) ≤ diam(G) - 1 gives diam(G) ≤ diam(G) - 1. Linear arithmetic (omega) derives False from diam(G) ≤ diam(G) - 1 and diam(G) ≥ 2, contradicting the existence of the leaf v.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  rw [hecc] at hle\n  norm_cast at hle\n  omega"
+     }
+    ],
+    "glossary": {
+     "ENat.natCast_toNat": "Casting an extended natural number n to ℕ and back yields n, provided n is finite (n ≠ ⊤).",
+     "SimpleGraph.connected_iff_ediam_ne_top": "A nonempty finite simple graph is connected if and only if its extended diameter is not ⊤.",
+     "SimpleGraph.degree_eq_one_iff_existsUnique_adj": "A vertex in a simple graph has degree 1 if and only if there exists a unique vertex adjacent to it.",
+     "SimpleGraph.diam": "The diameter of a simple graph is defined as the natural number obtained by truncating its extended diameter.",
+     "SimpleGraph.eccent_le_iff": "The eccentricity of a vertex u is at most k if and only if the extended distance from u to every vertex is at most k.",
+     "SimpleGraph.edist_comm": "Extended distance in a simple graph is symmetric: edist u v = edist v u.",
+     "SimpleGraph.edist_eq_one_iff_adj": "In a simple graph, two vertices have extended distance 1 if and only if they are adjacent.",
+     "SimpleGraph.edist_le": "The extended distance between two vertices is at most the length of any walk connecting them.",
+     "SimpleGraph.edist_le_ediam": "The extended distance between any two vertices in a graph is at most the graph's extended diameter.",
+     "SimpleGraph.Walk.length_cons": "Prepending an edge to a walk increases its length by 1.",
+     "exists_walk_length_eq_edist": "Between any two reachable vertices, there exists a walk whose length equals their extended distance.",
+     "simple_graph_eccent_eq_diam_of_power_well_covered": "In a finite connected graph of diameter D ≥ 2 whose power G^{D-1} is well-covered, every vertex has eccentricity equal to D."
+    },
+    "caveats": [
+     "Connecting the natural number diameter diam with the extended natural number diameter ediam requires the coercion lemma ENat.natCast_toNat, which holds because connectivity ensures ediam ≠ ⊤.",
+     "The contradiction in the nil case of walk induction (line 21) is a formal detail: a walk of length 0 starts and ends at the same vertex, contradicting w ≠ v."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -504105,13 +504669,75 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/ForallPowerWellCoveredOfWellCoveredDiamLeTwo.lean",
-   "proved_at": 1791723557,
+   "proved_at": 1791728895,
    "provenance": "literature",
    "citation": "arXiv:2610.09300 (On graphs whose powers are well-covered), Sec. 3, remark before Question 3.9 ('every well-covered graph of diameter 2 automatically satisfies this condition'); stated for diameter at most 2.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To show that G^d is well-covered for all d ≥ 1, the proof splits into two cases: d = 1 and d ≥ 2. When d = 1, the power graph G^1 is G itself, which is well-covered by hypothesis. When d ≥ 2, the assumption diam(G) ≤ 2 implies that every pair of distinct vertices has distance at most d and is therefore adjacent in G^d. Consequently, G^d is a complete graph, so every maximal independent set has size exactly 1, proving that G^d is well-covered.",
+    "steps": [
+     {
+      "claim": "For d = 1, the power graph G^1 is well-covered.",
+      "explanation": "We introduce the exponent d ≥ 1 and divide into cases d < 2 and d ≥ 2. In the case d < 2, linear arithmetic implies d = 1. The first power G^1 is identically G, so well-coveredness follows immediately from the assumption that G is well-covered.",
+      "lemmas": [
+       "Nat.lt_or_ge",
+       "simple_graph_power_one"
+      ],
+      "automation": false,
+      "code": "  intro d hd\n  rcases Nat.lt_or_ge d 2 with h1 | h2\n  · have : d = 1 := by omega\n    subst this\n    rw [simple_graph_power_one]\n    exact hwc"
+     },
+     {
+      "claim": "When d ≥ 2, the distance in G between any two vertices is at most d.",
+      "explanation": "For d ≥ 2, graph connectedness implies the vertex set V is nonempty and the extended diameter ediam(G) is finite. The distance between any two vertices u, v ∈ V is at most ediam(G), which equals diam(G) because the extended diameter is finite. Since diam(G) ≤ 2 ≤ d, the distance between u and v is at most d.",
+      "lemmas": [
+       "SimpleGraph.connected_iff_ediam_ne_top",
+       "SimpleGraph.edist_le_ediam",
+       "SimpleGraph.diam",
+       "ENat.natCast_toNat"
+      ],
+      "automation": false,
+      "code": "  · have : Nonempty V := hconn.nonempty\n    have htop : G.ediam ≠ ⊤ := (SimpleGraph.connected_iff_ediam_ne_top).1 hconn\n    have hed : ∀ u v : V, G.edist u v ≤ d := by\n      intro u v\n      calc G.edist u v ≤ G.ediam := SimpleGraph.edist_le_ediam\n        _ = G.diam := by rw [SimpleGraph.diam]; exact (ENat.natCast_toNat htop).symm\n        _ ≤ d := by exact_mod_cast hdiam.trans h2"
+     },
+     {
+      "claim": "When d ≥ 2, every maximal independent set in G^d has cardinality 1.",
+      "explanation": "Let s be a maximal independent set in G^d. To show |s| = 1, we show s = {a} for some vertex a. If s were empty, any singleton {v} from the nonempty vertex set would be an independent set, contradicting the maximality of ∅. Thus s is nonempty, containing some vertex a. If s contained another vertex b ≠ a, then since dist(b, a) ≤ d, vertices b and a would be adjacent in G^d, contradicting that s is independent. Hence a is the unique element of s, so s = {a} and |s| = 1.",
+      "lemmas": [
+       "Finset.card_eq_one",
+       "Finset.eq_singleton_iff_unique_mem",
+       "Finset.not_nonempty_iff_eq_empty",
+       "Finset.empty_subset"
+      ],
+      "automation": false,
+      "code": "    have hcard : ∀ s : Finset V,\n        Maximal (fun u : Finset V => (simple_graph_power G d).IsIndepSet (u : Set V)) s →\n          s.card = 1 := by\n      intro s hs\n      rw [Finset.card_eq_one]\n      obtain ⟨v⟩ := ‹Nonempty V›\n      by_cases hne : s.Nonempty\n      · obtain ⟨a, ha⟩ := hne\n        refine ⟨a, Finset.eq_singleton_iff_unique_mem.2 ⟨ha, fun b hb => ?_⟩⟩\n        by_contra hba\n        exact hs.1 hb ha hba ⟨hba, hed b a⟩\n      · rw [Finset.not_nonempty_iff_eq_empty] at hne\n        subst hne\n        have hv : (simple_graph_power G d).IsIndepSet (({v} : Finset V) : Set V) := by simp\n        have := hs.2 hv (Finset.empty_subset _)\n        simp at this"
+     },
+     {
+      "claim": "When d ≥ 2, G^d is well-covered.",
+      "explanation": "Given two maximal independent sets s and t of G^d, each has cardinality 1 by the previous step. Thus |s| = |t| = 1, which proves that G^d is well-covered.",
+      "lemmas": [],
+      "automation": false,
+      "code": "    intro s t hs ht\n    rw [hcard s hs, hcard t ht]"
+     }
+    ],
+    "glossary": {
+     "Nat.lt_or_ge": "For any natural numbers n and m, either n < m or n ≥ m.",
+     "simple_graph_power_one": "The first power of a simple graph G is equal to G itself.",
+     "SimpleGraph.connected_iff_ediam_ne_top": "A nonempty finite graph is connected if and only if its extended diameter is not infinite (⊤).",
+     "SimpleGraph.edist_le_ediam": "The extended distance between any two vertices in a graph is bounded by its extended diameter.",
+     "SimpleGraph.diam": "The definition of graph diameter as the natural number value of the extended diameter.",
+     "ENat.natCast_toNat": "Casting a finite extended natural number to a natural number and back yields the original value.",
+     "Finset.card_eq_one": "A finite set has cardinality 1 if and only if it is a singleton {a}.",
+     "Finset.eq_singleton_iff_unique_mem": "A finite set s equals {a} if and only if a ∈ s and every element of s equals a.",
+     "Finset.not_nonempty_iff_eq_empty": "A finite set is not nonempty if and only if it is empty.",
+     "Finset.empty_subset": "The empty set is a subset of any finite set."
+    },
+    "caveats": [
+     "In the formal proof, the graph diameter is represented both as an extended natural number (ediam ∈ ℕ∞) and as a natural number (diam ∈ ℕ). Equating them requires explicitly verifying that ediam ≠ ⊤ via connectedness.",
+     "When d ≥ 2 and diam(G) ≤ 2, every pair of distinct vertices in G has distance at most d, so the power graph G^d is the complete graph on V, whose only non-empty independent sets are singletons."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -504138,13 +504764,43 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/DiamLeOneOfForallPowerWellCoveredOfDegreeEqOne.lean",
-   "proved_at": 1791724195,
+   "proved_at": 1791728817,
    "provenance": "lemma",
    "citation": "Partial result on OP-160 (arXiv:2610.09300 (On graphs whose powers are well-covered), Question 3.9); a direct consequence of the paper's Corollary 2.6 (simple_graph_no_leaf_of_power_well_covered).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof proceeds by contradiction. Assuming diam(G) > 1, the diameter is at least 2, which allows setting d = diam(G) - 1 ≥ 1. Since all powers of G from degree 1 onwards are assumed to be well-covered, G^(diam(G) - 1) is well-covered; but by simple_graph_no_leaf_of_power_well_covered, such a connected graph cannot contain any vertex of degree 1, contradicting the hypothesis that G has a leaf.",
+    "steps": [
+     {
+      "claim": "Assume for contradiction that diam(G) > 1.",
+      "explanation": "We begin a proof by contradiction by assuming ¬ (G.diam ≤ 1). Rewriting along not_le turns this into 1 < G.diam.",
+      "lemmas": [
+       "not_le"
+      ],
+      "automation": false,
+      "code": "  by_contra h\n  rw [not_le] at h"
+     },
+     {
+      "claim": "Contradiction: G cannot have a vertex of degree 1.",
+      "explanation": "Since 1 < G.diam, integer arithmetic implies 2 ≤ G.diam and 1 ≤ G.diam - 1. Instantiating the hypothesis hwc at d = G.diam - 1 shows that G^(diam(G) - 1) is well-covered. Applying simple_graph_no_leaf_of_power_well_covered then establishes that every vertex in G has degree different from 1, which contradicts the hypothesis that v has degree 1.",
+      "lemmas": [
+       "simple_graph_no_leaf_of_power_well_covered"
+      ],
+      "automation": false,
+      "code": "  exact simple_graph_no_leaf_of_power_well_covered G hconn (by omega) (hwc _ (by omega)) v hleaf"
+     }
+    ],
+    "glossary": {
+     "not_le": "For any linear order, a value is not less than or equal to another if and only if it is strictly greater: ¬ (a ≤ b) ↔ b < a.",
+     "simple_graph_no_leaf_of_power_well_covered": "In a finite connected graph G with diameter at least 2, if the power graph G^(diam(G) - 1) is well-covered, then G has no vertex of degree 1."
+    },
+    "caveats": [
+     "The conditions 2 ≤ G.diam and 1 ≤ G.diam - 1 required by simple_graph_no_leaf_of_power_well_covered and the well-coveredness hypothesis are discharged inline by the omega tactic via linear integer arithmetic from 1 < G.diam."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   }

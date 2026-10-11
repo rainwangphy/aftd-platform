@@ -2,6 +2,70 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-11",
+   "kind": "daily",
+   "title": "Daily reading: 42 proved, 5 open",
+   "body": "The Proposer read 0 new paper(s), listed 0 open problem(s), and stated 2 of them in Lean, and posed 8 more from what the knowledgebase already holds (42 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 42 theorem(s); 5 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `finset_contains_trace_of_subset`: Containing H as a trace is monotone: if F ⊆ F' and F contains H as a trace, so does F'.\n\nProved. `finset_contains_trace_powerset_univ`: The full power set of {0,…,h−1} contains every set system on {0,…,h−1} as a trace.\n\nProved. `not_finset_contains_trace_empty`: The empty set system contains no nonempty set system as a trace.\n\nFormalized. `finset_vc_dim_le_of_not_contains_trace` (arXiv:2610.08151 (Polynomial-in-r bounds for forbidden traces of uniform hypergraphs), Proposition 1. VCdim is Mathlib's Finset.vcDim…): Let H be a set system on an h-element ground set, h ≥ 1. If a finite set system F is trace-H-free, then VCdim(F) ≤ h − 1.\n\nProved. `simple_graph_triangle_degree_complete_fin_four`: Every vertex of K_4 lies in exactly 3 triangles.\n\nProved. `simple_graph_triangle_degree_bot`: In the empty graph every vertex has triangle-degree 0.\n\nProved. `simple_graph_triangle_degree_le_choose`: td_G(v) ≤ C(deg v, 2).\n\nProved. `not_triangle_distinct_complete_fin_four`: K_4 is not triangle-distinct.\n\nFormalized. `simple_graph_triangle_degree_compl` (arXiv:2610.08478 (Regular K_3-Irregular Graphs of Every Regularity at Least Nine), Lemma 2.1 (first part); stated over ℚ so that N r / 2…): Let G be an r-regular simple graph on N vertices. For every vertex v, td_{Ḡ}(v) = C(N − r − 1, 2) − N r / 2 + r² − td_G(v), where Ḡ is the complement of G.\n\nFormalized. `simple_graph_compl_regular_triangle_distinct` (arXiv:2610.08478 (Regular K_3-Irregular Graphs of Every Regularity at Least Nine), Lemma 2.1 (consequence); follows from the complement…): If G is an r-regular triangle-distinct graph on N vertices, its complement is an (N − r − 1)-regular triangle-distinct graph.\n\nProved. `simple_graph_power_one`: G^1 = G.\n\nProved. `simple_graph_is_well_covered_bot`: The edgeless graph on a finite vertex set is well-covered (its only maximal independent set is the whole vertex set).\n\nOpen. `exists_regular_eight_triangle_distinct` (arXiv:2610.08478): There exists a finite simple 8-regular triangle-distinct graph: a graph on some finite vertex set {0,…,n−1} in which every vertex has degree 8 and the triangle-degrees of the vertices are pairwise distinct.\n\nOpen. `card_le_twenty_nine_of_regular_eight_triangle_distinct` (arXiv:2610.08478): Every 8-regular triangle-distinct graph has at most 29 vertices: its triangle-degrees are pairwise distinct and each is at most C(8, 2) = 28.\n\nOpen. `forall_power_well_covered_diam_le_three_and_twin_free_bounded` (arXiv:2610.09300): Let G be a finite simple connected graph with G^d well-covered for every d ≥ 1. Then diam(G) ≤ 3; moreover, there are only finitely many such graphs (up to isomorphism) of diameter exactly 3 without true twins (adjacent u, v with N[u] = N[v]) — stated as a…\n\nOpen. `diam_le_three_of_forall_power_well_covered` (arXiv:2610.09300): If G is a finite simple connected graph such that G^d is well-covered for all d ≥ 1, then diam(G) ≤ 3.\n\nOpen. `exists_nonempty_regular_eight_triangle_distinct` (arXiv:2610.08478): There exists a finite simple 8-regular triangle-distinct graph with at least one vertex: a graph on {0,…,n−1}, n ≥ 1, in which every vertex has degree 8 and the triangle-degrees are pairwise distinct.",
+   "declarations": [
+    "finset_contains_trace_of_subset",
+    "finset_contains_trace_powerset_univ",
+    "not_finset_contains_trace_empty",
+    "finset_vc_dim_le_of_not_contains_trace",
+    "simple_graph_triangle_degree_complete_fin_four",
+    "simple_graph_triangle_degree_bot",
+    "simple_graph_triangle_degree_le_choose",
+    "not_triangle_distinct_complete_fin_four",
+    "simple_graph_triangle_degree_compl",
+    "simple_graph_compl_regular_triangle_distinct",
+    "simple_graph_power_one",
+    "simple_graph_is_well_covered_bot",
+    "simple_graph_clique_blowup_edist",
+    "simple_graph_power_well_covered_iff_clique_blowup",
+    "forall_power_well_covered_iff_clique_blowup",
+    "finset_one_inclusion_graph_adj_empty_singleton",
+    "finset_one_inclusion_graph_not_adj_empty_pair",
+    "finset_one_inclusion_graph_card_edgeFinset_le",
+    "nat_prime_power_parts_prime_pow",
+    "nat_prime_power_parts_one",
+    "perm_order_eq_prod_and_sum_prime_power_parts_le",
+    "vertex_cover_num_le_two_mul_matching_num",
+    "greedy_max_cut_half_edges_lower_bound",
+    "schnorr_response_unique",
+    "schnorr_soundness_correlated_commitments",
+    "hamming_ball_card_eq_zero",
+    "hamming_sphere_packing_bound",
+    "krawtchouk_sum_eval",
+    "krawtchouk_alternating_sum_eval",
+    "card_filter_singleton_prod",
+    "card_filter_prod_singleton",
+    "greedy_cut_finset_bound",
+    "isMatching_verts_encard_le_two_mul",
+    "exists_isMatching_isVertexCover",
+    "simple_graph_card_le_choose_add_one_of_regular_triangle_distinct",
+    "regular_eight_triangle_distinct_card_ge_fifteen",
+    "simple_graph_exists_maximal_indep_superset",
+    "simple_graph_power_well_covered_not_ball_union_subset",
+    "simple_graph_eccent_eq_diam_of_power_well_covered",
+    "simple_graph_no_leaf_of_power_well_covered",
+    "forall_power_well_covered_of_well_covered_diam_le_two",
+    "diam_le_one_of_forall_power_well_covered_of_degree_eq_one"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.08478",
+     "href": "https://arxiv.org/abs/2610.08478"
+    },
+    {
+     "label": "arXiv:2610.09300",
+     "href": "https://arxiv.org/abs/2610.09300"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-10",
    "kind": "launch",
    "title": "2634 declarations from PhysLib, each compiled here",

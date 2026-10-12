@@ -1,6 +1,5 @@
 import AFTD.Prelude
 import AFTD.Kb.Tcs.WordOccurrenceCoverage
-import AFTD.Kb.Tcs.CycleWrapSetComplEqIccAndSum
 
 /-!
 # word_occurrence_coverage_subset

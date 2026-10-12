@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-12T12:01:49Z",
+ "generated": "2026-10-12T14:58:48Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -12,8 +12,8 @@
   "theorems": 4526,
   "topics": 42,
   "domains": 7,
-  "open": 50,
-  "rejected": 8,
+  "open": 49,
+  "rejected": 9,
   "spend": 74.03,
   "funded": 0,
   "currency": "USD",
@@ -504860,10 +504860,7 @@
    ],
    "clean": true,
    "deps": [],
-   "used_by": [
-    "word_occurrence_coverage_subset",
-    "word_occurrence_coverage_nonempty"
-   ],
+   "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/CycleWrapSetComplEqIccAndSum.lean",
    "proved_at": 1791798946,
    "provenance": "literature",
@@ -505199,13 +505196,11 @@
    ],
    "clean": true,
    "deps": [
-    "word_occurrence_coverage",
-    "cycle_wrap_set_compl_eq_Icc_and_sum"
+    "word_occurrence_coverage"
    ],
    "used_by": [
     "is_string_attractor_Icc",
-    "word_min_factor_coverages_subset_of_certificate",
-    "word_occurrence_coverage_nonempty"
+    "word_min_factor_coverages_subset_of_certificate"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/WordOccurrenceCoverageSubset.lean",
    "proved_at": 1791799430,
@@ -505329,9 +505324,7 @@
    ],
    "clean": true,
    "deps": [
-    "word_occurrence_coverage",
-    "word_occurrence_coverage_subset",
-    "cycle_wrap_set_compl_eq_Icc_and_sum"
+    "word_occurrence_coverage"
    ],
    "used_by": [
     "is_string_attractor_Icc"
@@ -509462,7 +509455,6 @@
    "deps": [
     "simple_graph_is_triangle_distinct",
     "simple_graph_triangle_degree_le_choose",
-    "exists_regular_eight_triangle_distinct",
     "simple_graph_triangle_degree"
    ],
    "problem": null,
@@ -509481,8 +509473,7 @@
    "attempts": 0,
    "deps": [
     "simple_graph_power",
-    "simple_graph_is_well_covered",
-    "forall_power_well_covered_diam_le_three_and_twin_free_bounded"
+    "simple_graph_is_well_covered"
    ],
    "problem": null,
    "provenance": "original",
@@ -509559,23 +509550,6 @@
    "provenance": "original",
    "citation": "Open-problem entry OP-123 after arXiv:2610.08478 (Regular K_3-Irregular Graphs of Every Regularity at Least Nine), Sec. 1: regular triangle-distinct graphs exist for every regularity r ≥ 9 (Theorem 1.1), and by earlier work cited there not for r ≤ 7; regularity 8 was narrowed to six possible orders and is open. Replaces exists_regular_eight_triangle_distinct, which omitted n ≥ 1 and is vacuously true at n = 0.",
    "created": 1791720299
-  },
-  {
-   "name": "exists_regular_eight_triangle_distinct",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "graphs",
-   "domain": "tcs",
-   "informal": "There exists a finite simple 8-regular triangle-distinct graph: a graph on some finite vertex set {0,…,n−1} in which every vertex has degree 8 and the triangle-degrees of the vertices are pairwise distinct.",
-   "statement": "theorem exists_regular_eight_triangle_distinct :\n    ∃ n : ℕ, ∃ G : SimpleGraph (Fin n), ∃ _ : DecidableRel G.Adj,\n      G.IsRegularOfDegree 8 ∧ simple_graph_is_triangle_distinct G",
-   "attempts": 0,
-   "deps": [
-    "simple_graph_is_triangle_distinct"
-   ],
-   "problem": null,
-   "provenance": "original",
-   "citation": "VACUOUS -- do not prove: true at n = 0 (the empty graph is vacuously 8-regular and triangle-distinct), so it does not state OP-123. Superseded by exists_nonempty_regular_eight_triangle_distinct. Open-problem entry OP-123 after arXiv:2610.08478 (Regular K_3-Irregular Graphs of Every Regularity at Least Nine), Sec. 1.",
-   "created": 1791695250
   },
   {
    "name": "forall_power_well_covered_diam_le_three_and_twin_free_bounded",
@@ -512130,10 +512104,6 @@
    "location": "Section 1, paragraph 2",
    "rationale": "Hak, Kozerenko, and Serdiuk (arXiv:2507.18776) showed that no r-regular triangle-distinct graph exists for r <= 7, and narrowed the possible orders of an 8-regular triangle-distinct graph to six candidate values. The present paper establishes existence for all regularities r >= 9. Consequently, r = 8 is the sole remaining regularity whose status is open.",
    "links": [
-    {
-     "node": "exists_regular_eight_triangle_distinct",
-     "role": "statement"
-    },
     {
      "node": "card_le_twenty_nine_of_regular_eight_triangle_distinct",
      "role": "partial"

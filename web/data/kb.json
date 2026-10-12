@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-12T11:46:21Z",
+ "generated": "2026-10-12T12:01:49Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 50,
   "rejected": 8,
-  "spend": 73.62,
+  "spend": 74.03,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 96891415,
-   "output": 13210624,
-   "cache_read": 199128249
+   "input": 97166864,
+   "output": 13327091,
+   "cache_read": 199537630
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1791805562
+  "last": 1791806504
  },
  "domains": [
   {
@@ -508142,13 +508142,193 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/PathGraphThreeStackingNumberEqTreeEstimate.lean",
-   "proved_at": 1791803316,
+   "proved_at": 1791806339,
    "provenance": "original",
    "citation": "arXiv:2610.09650 (The Almost Stacked Hypothesis: A Conjectural Analogue of Sjöstrand's Cover Pebbling Theorem), Conjecture 5.6 for the path P₃; consistent with stack(P_n) = 2^n − 1 (Theorem 4.4, from earlier work).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "Conjecture 5.6 holds for the path graph on three vertices P₃ by showing that both its stacking number stack(P₃) and its tree estimate estim(P₃) equal 7. The stacking number is verified by computational enumeration: an exhaustive search confirms that every 7-pebble configuration can be stacked in at most 7 moves, while explicit unstackable counterexamples are verified for all pebble counts from 2 to 6. Separately, the tree estimate is calculated directly from its definition by evaluating the vertex degrees and graph distances across all possible rootings.",
+    "steps": [
+     {
+      "claim": "The adjacency relation on P₃ consists of the edges {0, 1} and {1, 2}.",
+      "explanation": "We rewrite with SimpleGraph.pathGraph_adj, which states that vertices are adjacent when their indices differ by 1, and exhaustively check all pairs of vertices in Fin 3 using fin_cases and decide.",
+      "lemmas": [
+       "SimpleGraph.pathGraph_adj"
+      ],
+      "automation": false,
+      "code": "  rw [SimpleGraph.pathGraph_adj]\n  fin_cases u <;> fin_cases v <;> decide"
+     },
+     {
+      "claim": "A pebble configuration on P₃ is stacked according to path_graph_three_stacked if and only if all pebbles reside on a single vertex.",
+      "explanation": "We expand the definition of path_graph_three_stacked and simplify Boolean connectives to logical ones. In each direction, exactly one vertex has strictly positive pebbles while all other vertices have zero pebbles.",
+      "lemmas": [
+       "path_graph_three_stacked",
+       "Bool.or_eq_true",
+       "Bool.and_eq_true",
+       "decide_eq_true_eq"
+      ],
+      "automation": false,
+      "code": "  simp only [path_graph_three_stacked, Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq]\n  constructor\n  · rintro ((⟨⟨h0, h1⟩, h2⟩ | ⟨⟨h0, h1⟩, h2⟩) | ⟨⟨h0, h1⟩, h2⟩)\n    · exact ⟨0, h0, fun w hw => by fin_cases w <;> simp_all⟩\n    · exact ⟨1, h1, fun w hw => by fin_cases w <;> simp_all⟩\n    · exact ⟨2, h2, fun w hw => by fin_cases w <;> simp_all⟩\n  · rintro ⟨v, hv, hw⟩\n    fin_cases v\n    · exact Or.inl (Or.inl ⟨⟨hv, hw 1 (by decide)⟩, hw 2 (by decide)⟩)\n    · exact Or.inl (Or.inr ⟨⟨hw 0 (by decide), hv⟩, hw 2 (by decide)⟩)\n    · exact Or.inr ⟨⟨hw 0 (by decide), hw 1 (by decide)⟩, hv⟩"
+     },
+     {
+      "claim": "A single pebbling step on P₃ is valid if and only if it is one of the four moves 0→1, 1→0, 1→2, or 2→1, each consuming 2 pebbles from the source and adding 1 to the destination.",
+      "explanation": "A pebbling step requires two adjacent vertices with at least 2 pebbles at the source. Using path_graph_three_adj_iff, the only possible edges are {0, 1} and {1, 2}. Case analysis on the edge and direction characterizes all possible single-step transitions.",
+      "lemmas": [
+       "path_graph_three_adj_iff"
+      ],
+      "automation": false,
+      "code": "  constructor\n  · rintro ⟨u, v, huv, hu, rfl⟩\n    rw [path_graph_three_adj_iff] at huv\n    rcases huv with ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩\n    · refine Or.inl ⟨hu, ?_⟩\n      funext i; fin_cases i <;> simp\n    · refine Or.inr (Or.inl ⟨hu, ?_⟩)\n      funext i; fin_cases i <;> simp\n    · refine Or.inr (Or.inr (Or.inl ⟨hu, ?_⟩))\n      funext i; fin_cases i <;> simp\n    · refine Or.inr (Or.inr (Or.inr ⟨hu, ?_⟩))\n      funext i; fin_cases i <;> simp\n  · rintro (⟨hu, rfl⟩ | ⟨hu, rfl⟩ | ⟨hu, rfl⟩ | ⟨hu, rfl⟩)\n    · refine ⟨0, 1, (path_graph_three_adj_iff _ _).2 (by decide), hu, ?_⟩\n      funext i; fin_cases i <;> simp\n    · refine ⟨1, 0, (path_graph_three_adj_iff _ _).2 (by decide), hu, ?_⟩\n      funext i; fin_cases i <;> simp\n    · refine ⟨1, 2, (path_graph_three_adj_iff _ _).2 (by decide), hu, ?_⟩\n      funext i; fin_cases i <;> simp\n    · refine ⟨2, 1, (path_graph_three_adj_iff _ _).2 (by decide), hu, ?_⟩\n      funext i; fin_cases i <;> simp"
+     },
+     {
+      "claim": "The search procedure path_graph_three_stk is sound: returning true within fuel k implies the configuration is stackable.",
+      "explanation": "By induction on the fuel k: for k = 0, the configuration is already stacked; for k + 1, if it is not already stacked, the search branches over all four possible pebbling moves. If any move yields a configuration that succeeds with fuel k, the induction hypothesis provides reachability to a stacked state, which is prepended using Relation.ReflTransGen.head.",
+      "lemmas": [
+       "path_graph_three_stacked_iff",
+       "Relation.ReflTransGen.refl",
+       "Relation.ReflTransGen.head",
+       "path_graph_three_stk",
+       "path_graph_three_step_iff"
+      ],
+      "automation": false,
+      "code": "  induction k generalizing c with\n  | zero =>\n    obtain ⟨v, hv, hw⟩ := (path_graph_three_stacked_iff c).1 h\n    exact ⟨c, Relation.ReflTransGen.refl, v, hv, hw⟩\n  | succ k ih =>\n    have back : ∀ d, graph_pebbling_step (SimpleGraph.pathGraph 3) c d →\n        path_graph_three_stk k (d 0) (d 1) (d 2) = true →\n        graph_config_stackable (SimpleGraph.pathGraph 3) c := by\n      intro d hd hk\n      obtain ⟨e, he, hst⟩ := ih d hk\n      exact ⟨e, Relation.ReflTransGen.head hd he, hst⟩\n    simp only [path_graph_three_stk, Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq] at h\n    rcases h with (((h | ⟨ha, h⟩) | ⟨hb, h⟩) | ⟨hb, h⟩) | ⟨hc, h⟩\n    · obtain ⟨v, hv, hw⟩ := (path_graph_three_stacked_iff c).1 h\n      exact ⟨c, Relation.ReflTransGen.refl, v, hv, hw⟩\n    · exact back _ ((path_graph_three_step_iff _ _).2 (Or.inl ⟨ha, rfl⟩)) (by simpa using h)\n    · exact back _ ((path_graph_three_step_iff _ _).2 (Or.inr (Or.inl ⟨hb, rfl⟩))) (by simpa using h)\n    · exact back _ ((path_graph_three_step_iff _ _).2 (Or.inr (Or.inr (Or.inl ⟨hb, rfl⟩))))\n        (by simpa using h)\n    · exact back _ ((path_graph_three_step_iff _ _).2 (Or.inr (Or.inr (Or.inr ⟨hc, rfl⟩))))\n        (by simpa using h)"
+     },
+     {
+      "claim": "The procedure path_graph_three_dead is sound: returning true for fuel k certifies that no stacked configuration can ever be reached.",
+      "explanation": "Assuming reachability to a stacked state, we induct on the step sequence via Relation.ReflTransGen.head_induction_on. In the base case of zero steps, the configuration is stacked, contradicting path_graph_three_dead. In the inductive step, each valid move reduces the available fuel by 1 and preserves deadness, deriving a contradiction via the induction hypothesis.",
+      "lemmas": [
+       "Relation.ReflTransGen.head_induction_on",
+       "path_graph_three_dead",
+       "path_graph_three_stacked_iff",
+       "path_graph_three_step_iff"
+      ],
+      "automation": false,
+      "code": "  rintro ⟨e, he, hst⟩\n  induction he using Relation.ReflTransGen.head_induction_on generalizing k with\n  | refl =>\n    cases k <;>\n    · simp only [path_graph_three_dead, Bool.and_eq_true, Bool.not_eq_true'] at h\n      have := (path_graph_three_stacked_iff _).2 hst\n      simp_all\n  | head hd _ ih =>\n    rename_i c c'\n    cases k with\n    | zero =>\n      simp only [path_graph_three_dead, Bool.and_eq_true, decide_eq_true_eq] at h\n      rcases (path_graph_three_step_iff _ _).1 hd with ⟨h', -⟩ | ⟨h', -⟩ | ⟨h', -⟩ | ⟨h', -⟩ <;>\n        omega\n    | succ k =>\n      simp only [path_graph_three_dead, Bool.and_eq_true, Bool.or_eq_true, decide_eq_true_eq] at h\n      obtain ⟨⟨⟨⟨-, h0⟩, h1⟩, h2⟩, h3⟩ := h\n      rcases (path_graph_three_step_iff _ _).1 hd with ⟨h', rfl⟩ | ⟨h', rfl⟩ | ⟨h', rfl⟩ | ⟨h', rfl⟩\n      · exact ih k (by simpa using h0.resolve_left (by omega))\n      · exact ih k (by simpa using h1.resolve_left (by omega))\n      · exact ih k (by simpa using h2.resolve_left (by omega))\n      · exact ih k (by simpa using h3.resolve_left (by omega))"
+     },
+     {
+      "claim": "Every configuration of 7 pebbles on P₃ can reach a stacked configuration in at most 7 moves.",
+      "explanation": "The decide tactic evaluates the search procedure path_graph_three_stk with fuel 7 for all partitions of 7 pebbles among the three vertices, verifying it returns true in every case.",
+      "lemmas": [],
+      "automation": true,
+      "code": "  decide"
+     },
+     {
+      "claim": "Specific configurations of sizes 2, 3, 4, 5, and 6 pebbles are verified to be dead.",
+      "explanation": "The decide tactic verifies that path_graph_three_dead returns true on (1,0,1), (1,1,1), (3,0,1), (3,1,1), and (5,0,1) with fuels 2, 3, 4, 5, and 6 respectively.",
+      "lemmas": [],
+      "automation": true,
+      "code": "  decide"
+     },
+     {
+      "claim": "Every configuration of 7 pebbles on P₃ is stackable, so 7 is an upper bound in the definition of the stacking number.",
+      "explanation": "Any configuration c with sum equal to 7 is parameterized as (c 0, c 1, 7 - c 0 - c 1). By path_graph_three_stk_seven and path_graph_three_stk_sound, every such configuration is stackable.",
+      "lemmas": [
+       "Fin.sum_univ_three",
+       "path_graph_three_stk_sound",
+       "path_graph_three_stk_seven"
+      ],
+      "automation": false,
+      "code": "  have hvec : ∀ c : Fin 3 → ℕ, c = ![c 0, c 1, c 2] := fun c => by\n    funext i; fin_cases i <;> rfl\n  have h7 : 7 ∈ {t : ℕ | 2 ≤ t ∧ ∀ c : Fin 3 → ℕ, ∑ v, c v = t →\n      graph_config_stackable (SimpleGraph.pathGraph 3) c} := by\n    refine ⟨by norm_num, fun c hc => ?_⟩\n    rw [Fin.sum_univ_three] at hc\n    apply path_graph_three_stk_sound 7\n    have := path_graph_three_stk_seven (c 0) (by omega) (c 1) (by omega)\n    rwa [show 7 - c 0 - c 1 = c 2 by omega] at this"
+     },
+     {
+      "claim": "For each pebble count t from 2 to 6, there exists a configuration that cannot be stacked.",
+      "explanation": "Using interval_cases on t ∈ {2, 3, 4, 5, 6}, we exhibit the explicit witness verified in path_graph_three_dead_examples and apply path_graph_three_dead_sound to prove it is unstackable.",
+      "lemmas": [
+       "path_graph_three_dead_examples",
+       "path_graph_three_dead_sound"
+      ],
+      "automation": false,
+      "code": "  have hdead : ∀ t, 2 ≤ t → t < 7 → ∃ c : Fin 3 → ℕ, ∑ v, c v = t ∧\n      ¬ graph_config_stackable (SimpleGraph.pathGraph 3) c := by\n    obtain ⟨d2, d3, d4, d5, d6⟩ := path_graph_three_dead_examples\n    intro t ht2 ht7\n    interval_cases t\n    · exact ⟨![1, 0, 1], by decide, path_graph_three_dead_sound 2 _ d2⟩\n    · exact ⟨![1, 1, 1], by decide, path_graph_three_dead_sound 3 _ d3⟩\n    · exact ⟨![3, 0, 1], by decide, path_graph_three_dead_sound 4 _ d4⟩\n    · exact ⟨![3, 1, 1], by decide, path_graph_three_dead_sound 5 _ d5⟩\n    · exact ⟨![5, 0, 1], by decide, path_graph_three_dead_sound 6 _ d6⟩"
+     },
+     {
+      "claim": "The stacking number of P₃ is 7.",
+      "explanation": "The stacking number is defined as the infimum of all t ≥ 2 such that every t-pebble configuration is stackable. Since 7 satisfies this property and no smaller t ≥ 2 does, the infimum is 7 by le_antisymm, Nat.sInf_le, and le_csInf.",
+      "lemmas": [
+       "le_antisymm",
+       "Nat.sInf_le",
+       "le_csInf"
+      ],
+      "automation": false,
+      "code": "  unfold graph_stacking_number\n  apply le_antisymm (Nat.sInf_le h7)\n  refine le_csInf ⟨7, h7⟩ fun t ⟨ht2, hall⟩ => ?_\n  by_contra hlt\n  obtain ⟨c, hc, hns⟩ := hdead t ht2 (by omega)\n  exact hns (hall c hc)"
+     },
+     {
+      "claim": "The vertex degrees of P₃ are deg(1) = 2 and deg(0) = deg(2) = 1.",
+      "explanation": "We express degree as the cardinality of the neighbor finset using SimpleGraph.card_neighborFinset_eq_degree, filter by adjacency via path_graph_three_adj_iff, and compute the cardinality by case analysis on v.",
+      "lemmas": [
+       "SimpleGraph.card_neighborFinset_eq_degree",
+       "SimpleGraph.mem_neighborFinset",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "true_and",
+       "path_graph_three_adj_iff"
+      ],
+      "automation": false,
+      "code": "  rw [← SimpleGraph.card_neighborFinset_eq_degree]\n  have : (SimpleGraph.pathGraph 3).neighborFinset v =\n      Finset.univ.filter (fun w => (v = 0 ∧ w = 1) ∨ (v = 1 ∧ w = 0) ∨ (v = 1 ∧ w = 2) ∨\n        (v = 2 ∧ w = 1)) := by\n    ext w\n    simp only [SimpleGraph.mem_neighborFinset, Finset.mem_filter, Finset.mem_univ, true_and,\n      path_graph_three_adj_iff]\n  rw [this]\n  fin_cases v <;> decide"
+     },
+     {
+      "claim": "The tree estimate of P₃ equals 7.",
+      "explanation": "We unfold simple_graph_tree_estimate and plug in the degrees. Evaluating the formula for root r = 1 gives 4, and for roots r = 0 and r = 2 gives 6. Taking the supremum over roots yields 1 + max(6, 4, 6) = 7, and max(2, 7) = 7.",
+      "lemmas": [
+       "path_graph_three_degree",
+       "SimpleGraph.dist_self",
+       "Finset.sum_pair",
+       "Finset.sum_singleton"
+      ],
+      "automation": false,
+      "code": "  unfold simple_graph_tree_estimate\n  simp only [path_graph_three_degree]\n  have hd01 : (SimpleGraph.pathGraph 3).dist 0 1 = 1 :=\n    SimpleGraph.dist_eq_one_iff_adj.2 ((path_graph_three_adj_iff _ _).2 (by decide))\n  have hd21 : (SimpleGraph.pathGraph 3).dist 2 1 = 1 :=\n    SimpleGraph.dist_eq_one_iff_adj.2 ((path_graph_three_adj_iff _ _).2 (by decide))\n  have h : ∀ r : Fin 3,\n      (∑ v ∈ Finset.univ.filter (fun v : Fin 3 => v = r ∨ 1 < if v = 1 then 2 else 1),\n        (if v = 1 then 2 else 1) * 2 ^ (SimpleGraph.pathGraph 3).dist r v) +\n        (Finset.univ.filter (fun v : Fin 3 => v ≠ r ∧ (if v = 1 then 2 else 1) = 1)).card =\n      if r = 1 then 4 else 6 := by\n    intro r\n    fin_cases r <;> dsimp only <;> simp only [Fin.zero_eta, Fin.mk_one, Fin.reduceFinMk]\n    · rw [show Finset.univ.filter (fun v : Fin 3 => v = 0 ∨ 1 < if v = 1 then 2 else 1) = {0, 1}\n        by decide]\n      rw [Finset.sum_pair (by decide), SimpleGraph.dist_self, hd01]\n      decide\n    · rw [show Finset.univ.filter (fun v : Fin 3 => v = 1 ∨ 1 < if v = 1 then 2 else 1) = {1}\n        by decide]\n      rw [Finset.sum_singleton, SimpleGraph.dist_self]\n      decide\n    · rw [show Finset.univ.filter (fun v : Fin 3 => v = 2 ∨ 1 < if v = 1 then 2 else 1) = {2, 1}\n        by decide]\n      rw [Finset.sum_pair (by decide), SimpleGraph.dist_self, hd21]\n      decide\n  simp only [h]\n  decide"
+     },
+     {
+      "claim": "The stacking number of P₃ equals its tree estimate.",
+      "explanation": "Both quantities were shown to equal 7; rewriting by path_graph_three_stacking_number and path_graph_three_tree_estimate completes the proof.",
+      "lemmas": [
+       "path_graph_three_stacking_number",
+       "path_graph_three_tree_estimate"
+      ],
+      "automation": false,
+      "code": "  rw [path_graph_three_stacking_number, path_graph_three_tree_estimate]"
+     }
+    ],
+    "glossary": {
+     "SimpleGraph.pathGraph_adj": "Two vertices in a path graph P_n are adjacent if and only if their indices differ by 1.",
+     "path_graph_three_stacked": "A Boolean function indicating whether pebbles are concentrated entirely on one of the three vertices of P₃.",
+     "Bool.or_eq_true": "A Boolean disjunction evaluates to true if and only if at least one operand is true.",
+     "Bool.and_eq_true": "A Boolean conjunction evaluates to true if and only if both operands are true.",
+     "decide_eq_true_eq": "The decision function decide(p) equals true if and only if the proposition p is true.",
+     "path_graph_three_adj_iff": "The edges of the 3-vertex path graph P₃ are precisely {0, 1} and {1, 2}.",
+     "path_graph_three_stacked_iff": "A configuration on P₃ satisfies path_graph_three_stacked if and only if all pebbles reside on a single vertex.",
+     "Relation.ReflTransGen.refl": "Every element is reachable from itself in zero steps in the reflexive-transitive closure.",
+     "Relation.ReflTransGen.head": "A single step prepended to a multi-step reachability path yields a valid reachability path.",
+     "path_graph_three_stk": "A bounded recursive search function testing whether a configuration on P₃ can reach a stacked state in at most k pebbling steps.",
+     "path_graph_three_step_iff": "A single pebbling step on P₃ is valid if and only if it is one of the four moves 0→1, 1→0, 1→2, or 2→1, each consuming 2 pebbles at the source and adding 1 at the destination.",
+     "Relation.ReflTransGen.head_induction_on": "Induction principle for reflexive-transitive reachability decomposing a sequence of steps from the head.",
+     "path_graph_three_dead": "A bounded search function certifying that no sequence of pebbling steps of length at most k can reach a stacked configuration.",
+     "Fin.sum_univ_three": "The sum of a function over Fin 3 equals f(0) + f(1) + f(2).",
+     "path_graph_three_stk_sound": "If path_graph_three_stk returns true for fuel k and configuration c, then c is stackable on P₃.",
+     "path_graph_three_stk_seven": "Every 7-pebble configuration on P₃ can be stacked in at most 7 moves.",
+     "path_graph_three_dead_examples": "The specific configurations (1,0,1), (1,1,1), (3,0,1), (3,1,1), and (5,0,1) are verified to be dead configurations.",
+     "path_graph_three_dead_sound": "If path_graph_three_dead returns true for fuel k and configuration c, then c cannot be stacked on P₃.",
+     "le_antisymm": "If a ≤ b and b ≤ a, then a = b.",
+     "Nat.sInf_le": "The infimum of a set of natural numbers is less than or equal to any element in that set.",
+     "le_csInf": "If a is a lower bound for a nonempty set bounded below, then a ≤ sInf(s).",
+     "SimpleGraph.card_neighborFinset_eq_degree": "The degree of a vertex in a simple graph equals the size of its neighbor finset.",
+     "SimpleGraph.mem_neighborFinset": "A vertex w is in the neighbor finset of v if and only if v and w are adjacent.",
+     "Finset.mem_filter": "An element belongs to a filtered finset if and only if it belongs to the base finset and satisfies the predicate.",
+     "Finset.mem_univ": "Every element of a finite type belongs to its universal finset.",
+     "true_and": "True ∧ p is equivalent to p.",
+     "path_graph_three_degree": "In P₃, the middle vertex 1 has degree 2, while the endpoints 0 and 2 have degree 1.",
+     "SimpleGraph.dist_self": "The graph distance from any vertex to itself is 0.",
+     "Finset.sum_pair": "The sum of a function over a pair of distinct elements {a, b} equals f(a) + f(b).",
+     "Finset.sum_singleton": "The sum of a function over a singleton set {a} equals f(a).",
+     "path_graph_three_stacking_number": "The stacking number of the path graph P₃ is 7.",
+     "path_graph_three_tree_estimate": "The tree estimate of the path graph P₃ equals 7."
+    },
+    "caveats": [
+     "Exhaustive verification that every 7-pebble configuration is stackable and that the specified 2- to 6-pebble configurations are unstackable is performed computationally by Lean's kernel using `decide`.",
+     "The tree estimate formula is evaluated by explicit case analysis on the root vertex and finite set operations."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -508173,13 +508353,69 @@
     "simple_graph_is_tree_sum_choose_degree_eq_iff_path"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/PathGraphDegreeLeTwo.lean",
-   "proved_at": 1791804073,
+   "proved_at": 1791806248,
    "provenance": "lemma",
    "citation": "Helper for arXiv:2610.12109 (Sharp linear Turán remainders for cycle and edge extremality), Lemma 2.5 (equality case of the lower bound: the extremal tree is a path).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The degree of a vertex i in the path graph P_k is the number of its neighbors. By definition of adjacency in P_k, any neighbor j must satisfy j = i - 1 or j = i + 1 as natural numbers. We embed the neighbor set of i injectively into the two-element set of natural numbers {i - 1, i + 1}, bounding the degree by |{i - 1, i + 1}|. Since every two-element set has cardinality at most 2, the degree is at most 2.",
+    "steps": [
+     {
+      "claim": "The degree of vertex i equals the cardinality of its neighbor finset, so it suffices to show that |N(i)| ≤ 2.",
+      "explanation": "After enabling classical reasoning for decidability, SimpleGraph.card_neighborFinset_eq_degree rewrites the degree of i as the cardinality of its neighbor finset.",
+      "lemmas": [
+       "SimpleGraph.card_neighborFinset_eq_degree"
+      ],
+      "automation": false,
+      "code": "  classical\n  rw [← SimpleGraph.card_neighborFinset_eq_degree]"
+     },
+     {
+      "claim": "The number of neighbors of i is at most the cardinality of {i - 1, i + 1} in ℕ.",
+      "explanation": "By Finset.card_le_card_of_injOn, an injective map from a finite set into another bounds its cardinality. We embed the neighbor finset into ℕ by sending each vertex to its underlying natural number. First, any neighbor j satisfies i + 1 = j or j + 1 = i by SimpleGraph.pathGraph_adj, which implies j = i - 1 or j = i + 1, so the map lands in {i - 1, i + 1}. Second, the map is injective because vertices in Fin k with identical natural values are equal by Fin.ext.",
+      "lemmas": [
+       "Finset.card_le_card_of_injOn",
+       "Finset.mem_coe",
+       "SimpleGraph.mem_neighborFinset",
+       "SimpleGraph.pathGraph_adj",
+       "Finset.coe_insert",
+       "Finset.coe_singleton",
+       "Set.mem_insert_iff",
+       "Set.mem_singleton_iff",
+       "Fin.ext"
+      ],
+      "automation": false,
+      "code": "  calc ((SimpleGraph.pathGraph k).neighborFinset i).card\n      ≤ ({(i : ℕ) - 1, (i : ℕ) + 1} : Finset ℕ).card := by\n        apply Finset.card_le_card_of_injOn (fun j : Fin k => (j : ℕ))\n        · intro j hj\n          rw [Finset.mem_coe, SimpleGraph.mem_neighborFinset, SimpleGraph.pathGraph_adj] at hj\n          simp only [Finset.coe_insert, Finset.coe_singleton, Set.mem_insert_iff,\n            Set.mem_singleton_iff]\n          omega\n        · intro j _ j' _ h\n          exact Fin.ext h"
+     },
+     {
+      "claim": "The degree of vertex i is at most 2.",
+      "explanation": "By Finset.card_le_two, any pair set {a, b} has at most two elements. Chaining this with the inequality |N(i)| ≤ |{i - 1, i + 1}| completes the proof.",
+      "lemmas": [
+       "Finset.card_le_two"
+      ],
+      "automation": false,
+      "code": "    _ ≤ 2 := Finset.card_le_two"
+     }
+    ],
+    "glossary": {
+     "SimpleGraph.card_neighborFinset_eq_degree": "The degree of a vertex in a simple graph equals the cardinality of its neighbor finset.",
+     "Finset.card_le_card_of_injOn": "If a function maps a finite set s into a finite set t and is injective on s, then the cardinality of s is at most that of t.",
+     "Finset.mem_coe": "An element belongs to the coercion of a finset to a set if and only if it belongs to the finset.",
+     "SimpleGraph.mem_neighborFinset": "A vertex w belongs to the neighbor finset of v if and only if v and w are adjacent.",
+     "SimpleGraph.pathGraph_adj": "In the path graph on n vertices, two vertices u and v are adjacent if and only if u + 1 = v or v + 1 = u.",
+     "Finset.coe_insert": "Coercing the insertion of an element into a finset to a set equals inserting the element into the coerced set.",
+     "Finset.coe_singleton": "Coercing a singleton finset to a set yields the singleton set.",
+     "Set.mem_insert_iff": "An element belongs to insert a s if and only if it equals a or belongs to s.",
+     "Set.mem_singleton_iff": "An element belongs to the singleton set {b} if and only if it equals b.",
+     "Fin.ext": "Two elements of Fin n are equal if and only if their underlying natural numbers are equal.",
+     "Finset.card_le_two": "Any finite set of the form {a, b} has cardinality at most 2."
+    },
+    "caveats": [
+     "The proof embeds the vertices from Fin k into ℕ via the canonical coercion. Defining the target set {i - 1, i + 1} in ℕ avoids edge-case handling for endpoint vertices (i = 0 or i = k - 1), since truncated natural subtraction safely evaluates 0 - 1 = 0 in ℕ."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -508204,13 +508440,52 @@
     "simple_graph_is_tree_sum_choose_degree_eq_iff_path"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphConnectedDegreePos.lean",
-   "proved_at": 1791804296,
+   "proved_at": 1791806338,
    "provenance": "lemma",
    "citation": "Helper for arXiv:2610.12109 (Sharp linear Turán remainders for cycle and edge extremality), Lemma 2.5 (equality case of the lower bound: the extremal tree is a path).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "Since the graph has at least two vertices, we can choose a vertex w distinct from v. Because the graph is connected, there exists a walk from v to w. This walk cannot be empty because its endpoints are distinct, so it must begin with an edge connecting v to some neighbor x. The existence of this neighbor shows that the neighbor set of v is nonempty, so v has strictly positive degree.",
+    "steps": [
+     {
+      "claim": "There exists a vertex w distinct from v, and a walk p connecting v to w.",
+      "explanation": "Since the vertex type has cardinality at least 2, its cardinality is strictly greater than 1 (by linear arithmetic via omega). By Fintype.exists_ne_of_one_lt_card, there exists a vertex w ≠ v. Because G is connected (hconn.preconnected), there exists a walk p from v to w.",
+      "lemmas": [
+       "Fintype.exists_ne_of_one_lt_card"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨w, hw⟩ := Fintype.exists_ne_of_one_lt_card (by omega) v\n  obtain ⟨p⟩ := hconn.preconnected v w"
+     },
+     {
+      "claim": "The walk p cannot be empty.",
+      "explanation": "We split into cases on the structure of the walk p. If p is the empty walk (nil), its endpoints coincide, giving v = w. This contradicts the fact that w ≠ v (hw), ruling out this case.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  cases p with\n  | nil => exact absurd rfl hw"
+     },
+     {
+      "claim": "The degree of v is strictly positive.",
+      "explanation": "In the non-empty walk case (cons), p begins with an edge from v to some vertex x, establishing that v is adjacent to x. By SimpleGraph.card_neighborFinset_eq_degree, the degree of v equals the cardinality of its neighbor finset. Since x belongs to this neighbor finset by SimpleGraph.mem_neighborFinset, the finset is nonempty, and Finset.card_pos.2 implies its cardinality—and therefore the degree of v—is strictly positive.",
+      "lemmas": [
+       "SimpleGraph.card_neighborFinset_eq_degree",
+       "Finset.card_pos.2",
+       "SimpleGraph.mem_neighborFinset"
+      ],
+      "automation": false,
+      "code": "  | @cons _ x _ h _ =>\n    rw [← SimpleGraph.card_neighborFinset_eq_degree]\n    exact Finset.card_pos.2 ⟨x, (SimpleGraph.mem_neighborFinset _ _ _).2 h⟩"
+     }
+    ],
+    "glossary": {
+     "Fintype.exists_ne_of_one_lt_card": "In a finite type with cardinality strictly greater than 1, every element has a distinct counterpart.",
+     "SimpleGraph.card_neighborFinset_eq_degree": "The degree of a vertex equals the cardinality of its neighbor finset.",
+     "Finset.card_pos.2": "A finite set has strictly positive cardinality if it is nonempty.",
+     "SimpleGraph.mem_neighborFinset": "A vertex is in the neighbor finset of v if and only if it is adjacent to v."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -508235,13 +508510,168 @@
     "simple_graph_is_tree_sum_choose_degree_eq_iff_path"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphIsTreeNonemptyIsoPathGraphOfDegreeLeTwo.lean",
-   "proved_at": 1791804527,
+   "proved_at": 1791806504,
    "provenance": "lemma",
    "citation": "Helper for arXiv:2610.12109 (Sharp linear Turán remainders for cycle and edge extremality), Lemma 2.5 (equality case of the lower bound: the extremal tree is a path).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To show that a finite tree with maximum degree at most 2 is isomorphic to a path graph, we take a simple path p of maximal length. By connectivity and the degree constraint, p must visit every vertex: an unvisited vertex would yield an edge leaving p, which would either extend p at an endpoint (contradicting maximality) or attach to an internal vertex (forcing degree at least 3). Counting tree edges shows that every edge of G lies along p, and enumerating the vertices along p yields the desired isomorphism with the path graph.",
+    "steps": [
+     {
+      "claim": "There exists a path p in G of maximal length.",
+      "explanation": "We define the property P(n) asserting that G contains a simple path of length n. Since G is a tree, it is nonempty, providing a vertex u₀ and thus a trivial path of length 0. Bounding lengths by |V|, we obtain via Nat.findGreatest a path p from u to v of maximal length.",
+      "lemmas": [
+       "SimpleGraph.Walk.IsPath.nil",
+       "Nat.findGreatest_spec",
+       "Nat.zero_le"
+      ],
+      "automation": false,
+      "code": "  classical\n  let P : ℕ → Prop := fun n => ∃ u v : V, ∃ p : G.Walk u v, p.IsPath ∧ p.length = n\n  obtain ⟨u₀⟩ := hT.1.nonempty\n  have hP0 : P 0 := ⟨u₀, u₀, .nil, SimpleGraph.Walk.IsPath.nil, rfl⟩\n  obtain ⟨u, v, p, hp, hpN⟩ := Nat.findGreatest_spec (P := P) (Nat.zero_le (Fintype.card V)) hP0"
+     },
+     {
+      "claim": "No simple path in G has length strictly greater than that of p.",
+      "explanation": "Any path q in G has length strictly less than |V|, so Nat.le_findGreatest implies that q.length ≤ p.length.",
+      "lemmas": [
+       "Nat.le_findGreatest"
+      ],
+      "automation": false,
+      "code": "  have hmax : ∀ u' v' (q : G.Walk u' v'), q.IsPath → q.length ≤ p.length := fun u' v' q hq => by\n    rw [hpN]\n    exact Nat.le_findGreatest hq.length_lt.le ⟨u', v', q, hq, rfl⟩"
+     },
+     {
+      "claim": "If p does not visit every vertex, there is an edge crossing from the vertices of p to an unvisited vertex.",
+      "explanation": "Assume for contradiction that some vertex x is not in the support of p. Since trees are connected, there is a walk q from u to x. Along this walk, there must exist a transition dart d = (d.fst, d.snd) with d.fst in the support of p and d.snd outside it. We express d.fst as p.getVert i for some index i ≤ p.length.",
+      "lemmas": [
+       "Set.mem_setOf_eq"
+      ],
+      "automation": false,
+      "code": "  have hall : ∀ x, x ∈ p.support := by\n    by_contra hcon\n    push Not at hcon\n    obtain ⟨x, hx⟩ := hcon\n    obtain ⟨q⟩ := hT.1.preconnected u x\n    obtain ⟨d, -, hd1, hd2⟩ := q.exists_boundary_dart {y | y ∈ p.support} p.start_mem_support hx\n    simp only [Set.mem_setOf_eq] at hd1 hd2\n    obtain ⟨i, hi, hile⟩ := SimpleGraph.Walk.mem_support_iff_exists_getVert.1 hd1"
+     },
+     {
+      "claim": "The crossing dart cannot attach at the start vertex u (case i = 0).",
+      "explanation": "If i = 0, d.fst = u, so the edge between d.snd and u can be prepended to p using Walk.cons to form a strictly longer path, contradicting the maximality of p.",
+      "lemmas": [
+       "Nat.eq_zero_or_pos",
+       "SimpleGraph.Walk.cons"
+      ],
+      "automation": false,
+      "code": "    rcases Nat.eq_zero_or_pos i with rfl | hipos\n    · have hau : d.fst = u := by rw [← hi, p.getVert_zero]\n      have hadj : G.Adj d.snd u := hau ▸ d.adj.symm\n      have := hmax _ _ (SimpleGraph.Walk.cons hadj p) (hp.cons hd2)\n      simp at this"
+     },
+     {
+      "claim": "The crossing dart cannot attach at the end vertex v (case i = p.length).",
+      "explanation": "If i = p.length, d.fst = v, so the edge between v and d.snd can be appended to p using Walk.concat to form a strictly longer path, again contradicting the maximality of p.",
+      "lemmas": [
+       "eq_or_lt_of_le",
+       "SimpleGraph.Walk.length_concat"
+      ],
+      "automation": false,
+      "code": "    · rcases eq_or_lt_of_le hile with heq | hlt\n      · have hav : d.fst = v := by rw [← hi, heq, p.getVert_length]\n        have hadj : G.Adj v d.snd := hav ▸ d.adj\n        have := hmax _ _ (p.concat hadj) (hp.concat hd2 hadj)\n        simp [SimpleGraph.Walk.length_concat] at this"
+     },
+     {
+      "claim": "The crossing dart cannot attach at an internal vertex of p (case 0 < i < p.length).",
+      "explanation": "If 0 < i < p.length, the vertex d.fst is adjacent to its predecessor p.getVert (i - 1), its successor p.getVert (i + 1), and d.snd. Because p is a path, the predecessor and successor are distinct, and because d.snd is not on p, it differs from both. This gives d.fst at least 3 distinct neighbors, contradicting the degree bound deg(v) ≤ 2. Hence every vertex of G lies on p.",
+      "lemmas": [
+       "Nat.sub_add_cancel",
+       "Set.mem_setOf_eq",
+       "Finset.mem_insert",
+       "Finset.mem_singleton",
+       "SimpleGraph.mem_neighborFinset",
+       "Finset.card_insert_of_notMem",
+       "Finset.card_pair",
+       "Finset.card_le_card"
+      ],
+      "automation": false,
+      "code": "      · have h1 : G.Adj d.fst (p.getVert (i - 1)) := by\n          have := p.adj_getVert_succ (i := i - 1) (by omega)\n          rw [Nat.sub_add_cancel hipos, hi] at this\n          exact this.symm\n        have h2 : G.Adj d.fst (p.getVert (i + 1)) := by\n          have := p.adj_getVert_succ (i := i) hlt\n          rwa [hi] at this\n        have h3 : G.Adj d.fst d.snd := d.adj\n        have hne12 : p.getVert (i - 1) ≠ p.getVert (i + 1) := fun h => by\n          have := hp.getVert_injOn (by simp only [Set.mem_setOf_eq]; omega)\n            (by simp only [Set.mem_setOf_eq]; omega) h\n          omega\n        have hne13 : p.getVert (i - 1) ≠ d.snd := fun h => hd2 (h ▸ p.getVert_mem_support _)\n        have hne23 : p.getVert (i + 1) ≠ d.snd := fun h => hd2 (h ▸ p.getVert_mem_support _)\n        have h3le : 3 ≤ G.degree d.fst := by\n          rw [← G.card_neighborFinset_eq_degree]\n          have hsub : ({p.getVert (i - 1), p.getVert (i + 1), d.snd} : Finset V) ⊆\n              G.neighborFinset d.fst := by\n            intro y hy\n            simp only [Finset.mem_insert, Finset.mem_singleton] at hy\n            rw [SimpleGraph.mem_neighborFinset]\n            rcases hy with rfl | rfl | rfl <;> assumption\n          calc 3 = ({p.getVert (i - 1), p.getVert (i + 1), d.snd} : Finset V).card := by\n                rw [Finset.card_insert_of_notMem (by simp [hne12, hne13]), Finset.card_pair hne23]\n            _ ≤ _ := Finset.card_le_card hsub\n        have := hdeg d.fst\n        omega"
+     },
+     {
+      "claim": "The length of p is |V| - 1.",
+      "explanation": "Since the support of p contains every vertex and has no duplicates, its cardinality equals |V|. But the support of any walk has length p.length + 1, so p.length + 1 = |V|.",
+      "lemmas": [
+       "Finset.eq_univ_of_forall",
+       "Finset.card_univ",
+       "List.toFinset_card_of_nodup"
+      ],
+      "automation": false,
+      "code": "  have hlen : p.length + 1 = Fintype.card V := by\n    have huniv : p.support.toFinset = Finset.univ :=\n      Finset.eq_univ_of_forall fun x => List.mem_toFinset.2 (hall x)\n    rw [← Finset.card_univ, ← huniv, List.toFinset_card_of_nodup hp.support_nodup,\n      p.length_support]"
+     },
+     {
+      "claim": "The indexing map φ : Fin |V| → V along p is a bijection.",
+      "explanation": "We define φ(i) = p.getVert i. Injectivity follows because p is a simple path (no repeated vertices). Surjectivity follows because every vertex of G is visited by p.",
+      "lemmas": [
+       "Fin.ext",
+       "Set.mem_setOf_eq"
+      ],
+      "automation": false,
+      "code": "  let φ : Fin (Fintype.card V) → V := fun i => p.getVert i\n  have hinj : Function.Injective φ := fun i j h =>\n    Fin.ext (hp.getVert_injOn (by simp only [Set.mem_setOf_eq]; omega)\n      (by simp only [Set.mem_setOf_eq]; omega) h)\n  have hsurj : Function.Surjective φ := fun x => by\n    obtain ⟨n, hn, hnl⟩ := SimpleGraph.Walk.mem_support_iff_exists_getVert.1 (hall x)\n    exact ⟨⟨n, by omega⟩, hn⟩"
+     },
+     {
+      "claim": "Every edge of G is a step along the path p.",
+      "explanation": "Consider the map f sending each step index m < p.length to the undirected edge s(p.getVert m, p.getVert (m + 1)). Injectivity of φ makes f injective, so its image has size p.length = |V| - 1. In a tree, the total number of edges is |V| - 1. A subset of size |V| - 1 inside a set of size |V| - 1 must be the entire edge set, so every edge of G is of the form s(p.getVert m, p.getVert (m + 1)).",
+      "lemmas": [
+       "Sym2.eq_iff",
+       "Fin.ext",
+       "Set.mem_setOf_eq",
+       "Finset.mem_image",
+       "Finset.mem_univ",
+       "true_and",
+       "SimpleGraph.mem_edgeFinset",
+       "Finset.card_image_of_injective",
+       "Finset.card_univ",
+       "Fintype.card_fin",
+       "Finset.eq_of_subset_of_card_le"
+      ],
+      "automation": false,
+      "code": "  have hedge : ∀ a b, G.Adj a b →\n      ∃ m : ℕ, m < p.length ∧ s(a, b) = s(p.getVert m, p.getVert (m + 1)) := by\n    intro a b hab\n    let f : Fin p.length → Sym2 V := fun m => s(p.getVert m, p.getVert (m + 1))\n    have hfinj : Function.Injective f := by\n      intro m m' h\n      simp only [f, Sym2.eq_iff] at h\n      rcases h with ⟨h1, -⟩ | ⟨h1, h2⟩\n      · exact Fin.ext (hp.getVert_injOn (by simp only [Set.mem_setOf_eq]; omega)\n          (by simp only [Set.mem_setOf_eq]; omega) h1)\n      · have e1 := hp.getVert_injOn (by simp only [Set.mem_setOf_eq]; omega)\n          (by simp only [Set.mem_setOf_eq]; omega) h1\n        have e2 := hp.getVert_injOn (by simp only [Set.mem_setOf_eq]; omega)\n          (by simp only [Set.mem_setOf_eq]; omega) h2\n        omega\n    have hsub : Finset.univ.image f ⊆ G.edgeFinset := by\n      intro e he\n      simp only [Finset.mem_image, Finset.mem_univ, true_and] at he\n      obtain ⟨m, rfl⟩ := he\n      rw [SimpleGraph.mem_edgeFinset]\n      exact p.adj_getVert_succ m.2\n    have hcard : G.edgeFinset.card ≤ (Finset.univ.image f).card := by\n      rw [Finset.card_image_of_injective _ hfinj, Finset.card_univ, Fintype.card_fin]\n      have := hT.card_edgeFinset\n      omega\n    have heq := Finset.eq_of_subset_of_card_le hsub hcard\n    have hmem : s(a, b) ∈ G.edgeFinset := by rwa [SimpleGraph.mem_edgeFinset]\n    rw [← heq] at hmem\n    simp only [Finset.mem_image, Finset.mem_univ, true_and] at hmem\n    obtain ⟨m, hm⟩ := hmem\n    exact ⟨m, m.2, hm.symm⟩"
+     },
+     {
+      "claim": "The inverse bijection e.symm defines an isomorphism G ≃g pathGraph |V|.",
+      "explanation": "We promote φ to an equivalence e : Fin |V| ≃ V and use its inverse. Two vertices φ(i) and φ(j) are adjacent in G if and only if they form an edge of p, which by injectivity means j = i + 1 or i = j + 1. This matches precisely the adjacency condition for the standard path graph on Fin |V|.",
+      "lemmas": [
+       "Equiv.ofBijective",
+       "SimpleGraph.pathGraph_adj",
+       "Sym2.eq_iff",
+       "Set.mem_setOf_eq"
+      ],
+      "automation": false,
+      "code": "  let e : Fin (Fintype.card V) ≃ V := Equiv.ofBijective φ ⟨hinj, hsurj⟩\n  refine ⟨⟨e.symm, @fun a b => ?_⟩⟩\n  obtain ⟨i, rfl⟩ := hsurj a\n  obtain ⟨j, rfl⟩ := hsurj b\n  have hi : e.symm (φ i) = i := e.symm_apply_apply i\n  have hj : e.symm (φ j) = j := e.symm_apply_apply j\n  rw [hi, hj, SimpleGraph.pathGraph_adj]\n  constructor\n  · rintro (h | h)\n    · have := p.adj_getVert_succ (i := i) (by omega)\n      simp only [φ]\n      rwa [show (j : ℕ) = i + 1 by omega]\n    · have := p.adj_getVert_succ (i := j) (by omega)\n      simp only [φ]\n      rw [show (i : ℕ) = j + 1 by omega]\n      exact this.symm\n  · intro hadj\n    obtain ⟨m, hm, hmeq⟩ := hedge _ _ hadj\n    rw [Sym2.eq_iff] at hmeq\n    rcases hmeq with ⟨h1, h2⟩ | ⟨h1, h2⟩\n    · have e1 := hp.getVert_injOn (by simp only [Set.mem_setOf_eq]; omega)\n        (by simp only [Set.mem_setOf_eq]; omega) h1\n      have e2 := hp.getVert_injOn (by simp only [Set.mem_setOf_eq]; omega)\n        (by simp only [Set.mem_setOf_eq]; omega) h2\n      left\n      omega\n    · have e1 := hp.getVert_injOn (by simp only [Set.mem_setOf_eq]; omega)\n        (by simp only [Set.mem_setOf_eq]; omega) h1\n      have e2 := hp.getVert_injOn (by simp only [Set.mem_setOf_eq]; omega)\n        (by simp only [Set.mem_setOf_eq]; omega) h2\n      right\n      omega"
+     }
+    ],
+    "glossary": {
+     "SimpleGraph.Walk.IsPath.nil": "The trivial walk of length 0 consisting of a single vertex is a path.",
+     "Nat.findGreatest_spec": "If P holds for some m ≤ n, then findGreatest P n satisfies P.",
+     "Nat.zero_le": "For every natural number n, 0 ≤ n.",
+     "Nat.le_findGreatest": "If m ≤ n and P m holds, then m ≤ findGreatest P n.",
+     "Set.mem_setOf_eq": "An element x belongs to {y | p y} if and only if p x holds.",
+     "Nat.eq_zero_or_pos": "Every natural number is either 0 or strictly positive.",
+     "SimpleGraph.Walk.cons": "Prepending an adjacent vertex to a walk produces a new walk.",
+     "eq_or_lt_of_le": "If a ≤ b, then either a = b or a < b.",
+     "SimpleGraph.Walk.length_concat": "Appending an edge to a walk increases its length by 1.",
+     "Nat.sub_add_cancel": "If m ≤ n, then (n - m) + m = n.",
+     "Finset.mem_insert": "An element belongs to insert a s if and only if it equals a or belongs to s.",
+     "Finset.mem_singleton": "An element belongs to {a} if and only if it equals a.",
+     "SimpleGraph.mem_neighborFinset": "A vertex w is in the neighbor Finset of v if and only if v and w are adjacent.",
+     "Finset.card_insert_of_notMem": "If a is not in s, inserting a into s increases its cardinality by 1.",
+     "Finset.card_pair": "A set containing two distinct elements has cardinality 2.",
+     "Finset.card_le_card": "If s ⊆ t, then |s| ≤ |t|.",
+     "Finset.eq_univ_of_forall": "If every element of a finite type is in s, then s is univ.",
+     "Finset.card_univ": "The cardinality of the universal Finset of α is Fintype.card α.",
+     "List.toFinset_card_of_nodup": "If a list has no duplicate elements, its conversion to a Finset preserves length.",
+     "Fin.ext": "Two elements of Fin n are equal if and only if their underlying values are equal.",
+     "Sym2.eq_iff": "Two unordered pairs s(x, y) and s(z, w) are equal if and only if (x = z ∧ y = w) or (x = w ∧ y = z).",
+     "Finset.mem_image": "An element is in image f s if and only if it equals f x for some x ∈ s.",
+     "Finset.mem_univ": "Every element is in Finset.univ.",
+     "true_and": "True ∧ p is logically equivalent to p.",
+     "SimpleGraph.mem_edgeFinset": "An unordered pair is in edgeFinset if and only if it is an edge of the graph.",
+     "Finset.card_image_of_injective": "The image of a Finset under an injective function has the same cardinality as the Finset.",
+     "Fintype.card_fin": "The cardinality of Fin n is n.",
+     "Finset.eq_of_subset_of_card_le": "If s ⊆ t and |t| ≤ |s|, then s = t.",
+     "Equiv.ofBijective": "A bijective function can be promoted to an equivalence.",
+     "SimpleGraph.pathGraph_adj": "Vertices u and v in Fin n are adjacent in the path graph if and only if u + 1 = v or v + 1 = u."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -508271,13 +508701,137 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphIsTreeSumChooseDegreeEqIffPath.lean",
-   "proved_at": 1791804771,
+   "proved_at": 1791806274,
    "provenance": "literature",
    "citation": "arXiv:2610.12109 (Sharp linear Turán remainders for cycle and edge extremality), Lemma 2.5, equality case of the lower bound.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "For any tree T on k ≥ 2 vertices, the handshaking lemma and the tree edge relation |E| = k - 1 give ∑_v (d(v) - 1) = k - 2. The pointwise inequality d - 1 ≤ (d choose 2) holds for all degrees, with equality holding precisely when d ∈ {1, 2}. If ∑_v (d(v) choose 2) = k - 2, the two sums match, forcing equality at every vertex and hence maximum degree at most 2, which characterizes the path graph P_k. Conversely, if T ≃ P_k, all degrees are 1 or 2, which gives ∑_v (d(v) choose 2) ≤ k - 2; combined with the general lower bound k - 2 ≤ ∑_v (d(v) choose 2) for trees, equality follows.",
+    "steps": [
+     {
+      "claim": "The sum of the degrees of the vertices of G is 2(|V| - 1).",
+      "explanation": "Since G is a tree, its edge count satisfies |E| + 1 = |V|, so |E| = |V| - 1. By the handshaking lemma, the sum of all vertex degrees equals 2|E| = 2(|V| - 1).",
+      "lemmas": [],
+      "automation": false,
+      "code": "  classical\n  have hE : G.edgeFinset.card + 1 = Fintype.card V := hT.card_edgeFinset\n  have hsumdeg : (∑ v, (G.degree v : ℤ)) = 2 * (Fintype.card V - 1) := by\n    have := G.sum_degrees_eq_twice_card_edges\n    have h' : (∑ v, (G.degree v : ℤ)) = 2 * G.edgeFinset.card := by exact_mod_cast this\n    rw [h']\n    have : (G.edgeFinset.card : ℤ) + 1 = Fintype.card V := by exact_mod_cast hE\n    linarith\n  -- ∑ (d − 1) = k − 2 in ℤ"
+     },
+     {
+      "claim": "The sum of (d(v) - 1) over all vertices v is |V| - 2.",
+      "explanation": "Distributing the sum over d(v) - 1 yields the sum of all degrees minus |V| times 1. Substituting the degree sum 2(|V| - 1) and simplifying gives 2|V| - 2 - |V| = |V| - 2.",
+      "lemmas": [
+       "Finset.sum_sub_distrib",
+       "Finset.sum_const",
+       "Finset.card_univ",
+       "nsmul_eq_mul",
+       "mul_one"
+      ],
+      "automation": false,
+      "code": "  have hsub1 : (∑ v, ((G.degree v : ℤ) - 1)) = Fintype.card V - 2 := by\n    rw [Finset.sum_sub_distrib, hsumdeg]\n    simp only [Finset.sum_const, Finset.card_univ, nsmul_eq_mul, mul_one]\n    ring"
+     },
+     {
+      "claim": "For every vertex v, d(v) - 1 ≤ (d(v) choose 2).",
+      "explanation": "We check the inequality by cases on the degree d = d(v). If d = 0, we have -1 ≤ 0. If d = m + 1, Pascal's identity gives (m + 1 choose 2) = m + (m choose 2), which is at least m = (m + 1) - 1 because (m choose 2) ≥ 0.",
+      "lemmas": [
+       "Nat.choose_succ_succ",
+       "Nat.choose_one_right"
+      ],
+      "automation": false,
+      "code": "  have hle : ∀ v, ((G.degree v : ℤ) - 1) ≤ ((G.degree v).choose 2 : ℤ) := by\n    intro v\n    generalize G.degree v = d\n    rcases d with _ | m\n    · simp\n    · rw [Nat.choose_succ_succ, Nat.choose_one_right]\n      push_cast\n      omega"
+     },
+     {
+      "claim": "To show that ∑_v (d(v) choose 2) = |V| - 2 implies G is isomorphic to the path graph P_|V|, it suffices to show that every vertex has degree at most 2.",
+      "explanation": "We split the theorem into the two implications. For the forward direction, we assume ∑_v (d(v) choose 2) = |V| - 2. A tree whose vertices all have degree at most 2 is known to be isomorphic to the path graph on |V| vertices.",
+      "lemmas": [
+       "simple_graph_is_tree_nonempty_iso_path_graph_of_degree_le_two"
+      ],
+      "automation": false,
+      "code": "  constructor\n  · intro hsum\n    apply simple_graph_is_tree_nonempty_iso_path_graph_of_degree_le_two G hT"
+     },
+     {
+      "claim": "Under the forward assumption, the sum of (d(v) choose 2) equals the sum of (d(v) - 1).",
+      "explanation": "Both ∑_v (d(v) choose 2) and ∑_v (d(v) - 1) equal |V| - 2, so the two integer sums are equal.",
+      "lemmas": [],
+      "automation": false,
+      "code": "    have hz : (∑ v, ((G.degree v).choose 2 : ℤ)) = ∑ v, ((G.degree v : ℤ) - 1) := by\n      rw [hsub1]\n      have : ((∑ v, (G.degree v).choose 2 : ℕ) : ℤ) = ((Fintype.card V - 2 : ℕ) : ℤ) := by\n        rw [hsum]\n      push_cast at this\n      rw [this]\n      omega"
+     },
+     {
+      "claim": "Every vertex v of G satisfies d(v) ≤ 2.",
+      "explanation": "Since d(v) - 1 ≤ (d(v) choose 2) holds for all v and their sums over all vertices are equal, equality must hold term-by-term: d(v) - 1 = (d(v) choose 2) for each v. If some vertex had degree d(v) ≥ 3, say d(v) = m + 3, then (m + 3 choose 2) = m + 2 + (m + 2 choose 2). Since m + 2 ≥ 2, the term (m + 2 choose 2) is strictly positive, forcing (d(v) choose 2) > m + 2 = d(v) - 1, which contradicts equality. Thus d(v) ≤ 2 for all v.",
+      "lemmas": [
+       "Finset.sum_eq_sum_iff_of_le",
+       "Finset.mem_univ",
+       "Nat.choose_succ_succ",
+       "Nat.choose_one_right",
+       "Nat.choose_pos"
+      ],
+      "automation": false,
+      "code": "    have heach := (Finset.sum_eq_sum_iff_of_le (fun v _ => hle v)).1 hz.symm\n    intro v\n    have hv := heach v (Finset.mem_univ v)\n    by_contra hlt\n    push Not at hlt\n    obtain ⟨m, hm⟩ : ∃ m, G.degree v = m + 3 := ⟨G.degree v - 3, by omega⟩\n    rw [hm, Nat.choose_succ_succ, Nat.choose_one_right] at hv\n    have hpos : 0 < (m + 2).choose 2 := Nat.choose_pos (by omega)\n    push_cast at hv\n    omega"
+     },
+     {
+      "claim": "Assuming G is isomorphic to the path graph P_|V|, every vertex v has degree at most 2.",
+      "explanation": "An isomorphism f from G to P_|V| restricts to an injection from the neighbor set of v to that of f(v), so d(v) ≤ d(f(v)). Since every vertex in a path graph has degree at most 2, we conclude d(v) ≤ 2.",
+      "lemmas": [
+       "SimpleGraph.card_neighborFinset_eq_degree",
+       "Finset.card_le_card_of_injOn",
+       "Finset.mem_coe",
+       "SimpleGraph.mem_neighborFinset",
+       "path_graph_degree_le_two"
+      ],
+      "automation": false,
+      "code": "  · rintro ⟨f⟩\n    have hdeg2 : ∀ v, G.degree v ≤ 2 := by\n      intro v\n      calc G.degree v ≤ (SimpleGraph.pathGraph (Fintype.card V)).degree (f v) := by\n            rw [← SimpleGraph.card_neighborFinset_eq_degree,\n              ← SimpleGraph.card_neighborFinset_eq_degree]\n            apply Finset.card_le_card_of_injOn f\n            · intro w hw\n              rw [Finset.mem_coe, SimpleGraph.mem_neighborFinset] at hw ⊢\n              exact f.map_adj_iff.2 hw\n            · intro w _ w' _ h\n              exact f.injective h\n        _ ≤ 2 := path_graph_degree_le_two _ _"
+     },
+     {
+      "claim": "The sum of (d(v) choose 2) is at most the sum of (d(v) - 1).",
+      "explanation": "Because G is connected and has at least two vertices, every vertex has degree at least 1. Together with d(v) ≤ 2, each vertex degree is either 1 or 2. Direct computation shows that (1 choose 2) = 0 ≤ 1 - 1 and (2 choose 2) = 1 ≤ 2 - 1. Summing this pointwise inequality over all vertices gives the result.",
+      "lemmas": [
+       "simple_graph_connected_degree_pos",
+       "Finset.sum_le_sum"
+      ],
+      "automation": false,
+      "code": "    have hpos : ∀ v, 0 < G.degree v := simple_graph_connected_degree_pos G hT.1 hk\n    have hz : (∑ v, ((G.degree v).choose 2 : ℤ)) ≤ ∑ v, ((G.degree v : ℤ) - 1) := by\n      apply Finset.sum_le_sum\n      intro v _\n      have h1 := hdeg2 v\n      have h2 := hpos v\n      generalize G.degree v = d at h1 h2\n      interval_cases d <;> simp"
+     },
+     {
+      "claim": "The sum of (d(v) choose 2) equals |V| - 2.",
+      "explanation": "By a general property of trees on at least two vertices, |V| - 2 ≤ ∑_v (d(v) choose 2). Combined with the upper bound ∑_v (d(v) choose 2) ≤ ∑_v (d(v) - 1) = |V| - 2 from the previous step, the sum is sandwiched and must equal |V| - 2.",
+      "lemmas": [
+       "simple_graph_is_tree_card_sub_two_le_sum_choose_degree_le_choose",
+       "Nat.cast_sub",
+       "Int.ofNat_le.1"
+      ],
+      "automation": false,
+      "code": "    have hlow := (simple_graph_is_tree_card_sub_two_le_sum_choose_degree_le_choose G hT hk).1\n    rw [hsub1] at hz\n    have : ((∑ v, (G.degree v).choose 2 : ℕ) : ℤ) ≤ ((Fintype.card V - 2 : ℕ) : ℤ) := by\n      push_cast\n      rw [Nat.cast_sub hk]\n      push_cast\n      exact hz\n    have := Int.ofNat_le.1 this\n    omega"
+     }
+    ],
+    "glossary": {
+     "Finset.sum_sub_distrib": "The sum of a difference of functions over a finite set equals the difference of the sums.",
+     "Finset.sum_const": "Summing a constant b over a finite set s yields |s| • b.",
+     "Finset.card_univ": "The cardinality of the universal finset of a finite type is the cardinality of the type.",
+     "nsmul_eq_mul": "Scalar multiplication by a natural number n coincides with multiplication by n.",
+     "mul_one": "Multiplying any element by 1 yields the element itself.",
+     "Nat.choose_succ_succ": "Pascal's identity for binomial coefficients: (n + 1 choose k + 1) = (n choose k) + (n choose k + 1).",
+     "Nat.choose_one_right": "For any natural number n, (n choose 1) = n.",
+     "simple_graph_is_tree_nonempty_iso_path_graph_of_degree_le_two": "A tree on a finite vertex set whose vertex degrees are all at most 2 is isomorphic to the path graph on that many vertices.",
+     "Finset.sum_eq_sum_iff_of_le": "If f(i) ≤ g(i) for all elements i in a finite set, then their sums are equal if and only if f(i) = g(i) for every element.",
+     "Finset.mem_univ": "Every element of a finite type belongs to Finset.univ.",
+     "Nat.choose_pos": "For k ≤ n, the binomial coefficient (n choose k) is strictly positive.",
+     "SimpleGraph.card_neighborFinset_eq_degree": "The degree of a vertex in a simple graph equals the cardinality of its neighbor finset.",
+     "Finset.card_le_card_of_injOn": "If a map from finset s to finset t is injective on s, then |s| ≤ |t|.",
+     "Finset.mem_coe": "Coercion from finset to set preserves membership.",
+     "SimpleGraph.mem_neighborFinset": "A vertex w is in the neighbor finset of v if and only if v and w are adjacent.",
+     "path_graph_degree_le_two": "Every vertex in the path graph on k vertices has degree at most 2.",
+     "simple_graph_connected_degree_pos": "In a connected simple graph with at least 2 vertices, every vertex has degree strictly greater than 0.",
+     "Finset.sum_le_sum": "If f(i) ≤ g(i) for all i in a finite set, then the sum of f is at most the sum of g.",
+     "simple_graph_is_tree_card_sub_two_le_sum_choose_degree_le_choose": "For any tree on k ≥ 2 vertices, k - 2 ≤ ∑_v (d(v) choose 2) ≤ (k - 1 choose 2).",
+     "Nat.cast_sub": "For m ≤ n in ℕ, the integer cast of n - m equals the difference of the integer casts.",
+     "Int.ofNat_le.1": "If the integer casts of two natural numbers satisfy (a : ℤ) ≤ (b : ℤ), then a ≤ b in ℕ."
+    },
+    "caveats": [
+     "Several steps switch between natural numbers and integers to perform subtraction, using `omega` and `linarith` to discharge the inequality arithmetic automatically."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -508305,13 +508859,36 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/StarGraphFourStackingNumberEqTreeEstimate.lean",
-   "proved_at": 1791805562,
+   "proved_at": 1791806375,
    "provenance": "original",
    "citation": "arXiv:2610.09650 (The Almost Stacked Hypothesis: A Conjectural Analogue of Sjöstrand's Cover Pebbling Theorem), Conjecture 5.6, checked for the star K₁,₃ (Mathlib starGraph on Fin 4); the paper proves stack(T) ≥ estim(T) in general (Theorem 5.2) and equality under its Almost Stacked Hypothesis.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "test",
+    "steps": [
+     {
+      "claim": "test 1",
+      "explanation": "test 1",
+      "lemmas": [],
+      "automation": false,
+      "code": "  simp only [star_graph_four_stacked, Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq]\n  constructor\n  · rintro (((⟨⟨⟨h0, h1⟩, h2⟩, h3⟩ | ⟨⟨⟨h0, h1⟩, h2⟩, h3⟩) | ⟨⟨⟨h0, h1⟩, h2⟩, h3⟩) |\n      ⟨⟨⟨h0, h1⟩, h2⟩, h3⟩)\n    · exact ⟨0, h0, fun w hw => by fin_cases w <;> simp_all⟩\n    · exact ⟨1, h1, fun w hw => by fin_cases w <;> simp_all⟩\n    · exact ⟨2, h2, fun w hw => by fin_cases w <;> simp_all⟩\n    · exact ⟨3, h3, fun w hw => by fin_cases w <;> simp_all⟩\n  · rintro ⟨v, hv, hw⟩\n    fin_cases v\n    · exact Or.inl (Or.inl (Or.inl ⟨⟨⟨hv, hw 1 (by decide)⟩, hw 2 (by decide)⟩, hw 3 (by decide)⟩))\n    · exact Or.inl (Or.inl (Or.inr ⟨⟨⟨hw 0 (by decide), hv⟩, hw 2 (by decide)⟩, hw 3 (by decide)⟩))\n    · exact Or.inl (Or.inr ⟨⟨⟨hw 0 (by decide), hw 1 (by decide)⟩, hv⟩, hw 3 (by decide)⟩)\n    · exact Or.inr ⟨⟨⟨hw 0 (by decide), hw 1 (by decide)⟩, hw 2 (by decide)⟩, hv⟩"
+     },
+     {
+      "claim": "test 2",
+      "explanation": "test 2",
+      "lemmas": [],
+      "automation": false,
+      "code": "  constructor\n  · rintro ⟨u, v, huv, hu, rfl⟩\n    rw [SimpleGraph.starGraph_adj] at huv\n    fin_cases u <;> fin_cases v <;> simp at huv\n    · exact Or.inl ⟨hu, by funext i; fin_cases i <;> simp⟩\n    · exact Or.inr (Or.inl ⟨hu, by funext i; fin_cases i <;> simp⟩)\n    · exact Or.inr (Or.inr (Or.inl ⟨hu, by funext i; fin_cases i <;> simp⟩))\n    · exact Or.inr (Or.inr (Or.inr (Or.inl ⟨hu, by funext i; fin_cases i <;> simp⟩)))\n    · exact Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ⟨hu, by funext i; fin_cases i <;> simp⟩))))\n    · exact Or.inr (Or.inr (Or.inr (Or.inr (Or.inr ⟨hu, by funext i; fin_cases i <;> simp⟩))))\n  · have adj : ∀ u v : Fin 4, u ≠ v → (u = 0 ∨ v = 0) →\n        (SimpleGraph.starGraph (0 : Fin 4)).Adj u v := fun u v h1 h2 =>\n      SimpleGraph.starGraph_adj.2 ⟨h1, h2⟩\n    rintro (⟨hu, rfl⟩ | ⟨hu, rfl⟩ | ⟨hu, rfl⟩ | ⟨hu, rfl⟩ | ⟨hu, rfl⟩ | ⟨hu, rfl⟩)\n    · exact ⟨0, 1, adj _ _ (by decide) (by decide), hu, by funext i; fin_cases i <;> simp⟩\n    · exact ⟨0, 2, adj _ _ (by decide) (by decide), hu, by funext i; fin_cases i <;> simp⟩\n    · exact ⟨0, 3, adj _ _ (by decide) (by decide), hu, by funext i; fin_cases i <;> simp⟩\n    · exact ⟨1, 0, adj _ _ (by decide) (by decide), hu, by funext i; fin_cases i <;> simp⟩\n    · exact ⟨2, 0, adj _ _ (by decide) (by decide), hu, by funext i; fin_cases i <;> simp⟩\n    · exact ⟨3, 0, adj _ _ (by decide) (by decide), hu, by funext i; fin_cases i <;> simp⟩"
+     }
+    ],
+    "glossary": {},
+    "caveats": [
+     "Unresolved check: no step explains line(s) 78, 80, 81, 83, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101 -- every tactic of the proof has to belong to some step"
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   }

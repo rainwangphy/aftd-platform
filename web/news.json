@@ -3,6 +3,63 @@
  "entries": [
   {
    "date": "2026-10-12",
+   "kind": "daily",
+   "title": "Daily reading: 39 proved, 2 open",
+   "body": "The Proposer read 0 new paper(s), listed 0 open problem(s), and stated 1 of them in Lean, and posed 9 more from what the knowledgebase already holds (41 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 39 theorem(s); 2 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nFormalized. `cycle_wrap_set_compl_eq_Icc_and_sum` (arXiv:2610.08889 (Consecutive Cycle Sums), Lemma 1. Wrap sets and standard intervals are written out as Finset.Icc unions; the empty…): For 1 ≤ i < j ≤ n, the complement in {1,…,n} of the wrap set W = {j,…,n} ∪ {1,…,i} of the n-cycle is the standard interval {i+1,…,j−1} (empty when j = i+1), and its element sum is T_n − W*, where T_n = n(n+1)/2 and W* is the element sum of W.\n\nProved. `simple_graph_sum_choose_degree_two_le_choose_card_edgeFinset`: In any finite simple graph, the number of pairs of edges sharing a vertex, ∑_v C(d(v),2), is at most C(|E|,2): two distinct edges share at most one vertex.\n\nFormalized. `simple_graph_is_tree_card_sub_two_le_sum_choose_degree_le_choose` (arXiv:2610.12109 (Sharp linear Turán remainders for cycle and edge extremality), Lemma 2.5, the two inequalities (the equality cases are…): For a tree T on k ≥ 2 vertices, σ₂(T) = ∑_v C(d_T(v),2) satisfies k − 2 ≤ σ₂(T) ≤ C(k−1,2).\n\nFormalized. `simple_graph_is_tree_sum_choose_degree_eq_iff_path` (arXiv:2610.12109 (Sharp linear Turán remainders for cycle and edge extremality), Lemma 2.5, equality case of the lower bound.): For a tree T on k ≥ 2 vertices, σ₂(T) = k − 2 if and only if T is isomorphic to the path P_k.\n\nFormalized. `simple_graph_is_tree_sum_choose_degree_eq_iff_star` (arXiv:2610.12109 (Sharp linear Turán remainders for cycle and edge extremality), Lemma 2.5, equality case of the upper bound. The star…): For a tree T on k ≥ 2 vertices, σ₂(T) = C(k−1,2) if and only if T is a star K_{1,k−1}: some vertex r is adjacent to every other vertex and there are no other edges (T = starGraph r).\n\nProved. `word_occurrence_coverage_subset`: Every coverage Cov_w(x) is a set of positions of w, i.e. contained in [1, |w|].\n\nProved. `word_occurrence_coverage_ababa_aba`: The paper's example: in w = ababa the factor aba occurs at positions 1 and 3, so Cov_w(aba) = [1,3] ∪ [3,5] = [1,5] (letters a, b encoded as 0, 1).\n\nProved. `word_occurrence_coverage_nonempty`: The coverage of a nonempty factor of w is nonempty.\n\nProved. `is_string_attractor_Icc`: The set of all positions [1, |w|] is a string attractor of w.\n\nProved. `not_is_string_attractor_empty`: The empty set is not a string attractor of a nonempty word.\n\nProved. `word_min_factor_coverages_subset`: Every inclusion-minimal factor coverage is a factor coverage: H_min(w) ⊆ H(w).\n\nProved. `exists_min_factor_coverage_subset`: Every factor coverage D ∈ H(w) contains some inclusion-minimal factor coverage C ∈ H_min(w).\n\nOpen. `simple_graph_is_tree_stacking_number_eq_tree_estimate` (arXiv:2610.09650): Conjecture: for every finite tree T, stack(T) = estim(T).\n\nOpen. `simple_graph_is_tree_tree_estimate_le_stacking_number` (arXiv:2610.09650): For every finite tree T, stack(T) ≥ estim(T).",
+   "declarations": [
+    "cycle_wrap_set_compl_eq_Icc_and_sum",
+    "simple_graph_sum_choose_degree_two_le_choose_card_edgeFinset",
+    "simple_graph_is_tree_card_sub_two_le_sum_choose_degree_le_choose",
+    "simple_graph_is_tree_sum_choose_degree_eq_iff_path",
+    "simple_graph_is_tree_sum_choose_degree_eq_iff_star",
+    "word_occurrence_coverage_subset",
+    "word_occurrence_coverage_ababa_aba",
+    "word_occurrence_coverage_nonempty",
+    "is_string_attractor_Icc",
+    "not_is_string_attractor_empty",
+    "word_min_factor_coverages_subset",
+    "exists_min_factor_coverage_subset",
+    "is_string_attractor_iff_forall_min_factor_coverage",
+    "word_min_factor_coverages_subset_of_certificate",
+    "regular_expression_typed_parity_length",
+    "regular_expression_typed_parity_zero_any",
+    "not_regular_expression_typed_parity_char_zero",
+    "regular_expression_exists_parity_normal_form",
+    "simple_graph_exists_matching_labeling_card_edgeFinset_le_two_mul_arcs_add",
+    "graph_pebbling_step_sum",
+    "graph_config_stackable_single",
+    "not_graph_config_stackable_zero",
+    "two_le_simple_graph_tree_estimate",
+    "path_graph_two_stacking_number_eq_tree_estimate",
+    "path_graph_three_stacking_number_eq_tree_estimate",
+    "simple_graph_eq_starGraph_of_forall_mem_edge",
+    "freivalds_matrix_kernel_count_le",
+    "pmf_output_indist_of_posterior_eq_prior",
+    "pmf_uniform_group_convolution_eq_uniform",
+    "pmf_uniformOfFintype_bind_prod_eq_uniformOfFintype",
+    "savitch_midpoint_mono",
+    "savitch_depth_topological_potential_bound",
+    "reversible_transition_reachability_equivalence",
+    "urm_halts_toStandardForm_of_halts",
+    "urm_halts_toStandardForm",
+    "path_graph_degree_le_two",
+    "simple_graph_connected_degree_pos",
+    "simple_graph_is_tree_nonempty_iso_path_graph_of_degree_le_two",
+    "star_graph_four_stacking_number_eq_tree_estimate"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.09650",
+     "href": "https://arxiv.org/abs/2610.09650"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-12",
    "kind": "weekly",
    "week": "2026-W41",
    "title": "Week of 5–11 Oct 2026: Pairwise fairness limits for chores, exact poset query complexity, and refuted conjectures",

@@ -6781,6 +6781,7 @@ import AFTD.Kb.Tcs.CycleLabelingComplete
 import AFTD.Kb.Tcs.CycleLabelingCompleteNine
 import AFTD.Kb.Tcs.CycleLabelingCompleteRangeFive
 import AFTD.Kb.Tcs.CycleLabelingCompleteTen
+import AFTD.Kb.Tcs.CycleWrapSetComplEqIccAndSum
 import AFTD.Kb.Tcs.DeciderClassEqCo
 import AFTD.Kb.Tcs.DecisionTree
 import AFTD.Kb.Tcs.DecisionTreeBuildFull
@@ -6855,6 +6856,7 @@ import AFTD.Kb.Tcs.ExistsCycleLabelingCompleteGeEight
 import AFTD.Kb.Tcs.ExistsDisjointFinsetsCard
 import AFTD.Kb.Tcs.ExistsFamilyCardSixNoThreePetalSunflower
 import AFTD.Kb.Tcs.ExistsIsMatchingIsVertexCover
+import AFTD.Kb.Tcs.ExistsMinFactorCoverageSubset
 import AFTD.Kb.Tcs.ExistsNotMemOfSumCardLt
 import AFTD.Kb.Tcs.ExistsTwoColoringOfCardMulTwoLtTwoPow
 import AFTD.Kb.Tcs.ExpNegLeLinear
@@ -6887,6 +6889,7 @@ import AFTD.Kb.Tcs.FinsetUnorderedSumRepCount
 import AFTD.Kb.Tcs.FinsetVcDimLeOfNotContainsTrace
 import AFTD.Kb.Tcs.ForallPowerWellCoveredIffCliqueBlowup
 import AFTD.Kb.Tcs.ForallPowerWellCoveredOfWellCoveredDiamLeTwo
+import AFTD.Kb.Tcs.FreivaldsMatrixKernelCountLe
 import AFTD.Kb.Tcs.G
 import AFTD.Kb.Tcs.GateType
 import AFTD.Kb.Tcs.Gf8MultCoeff
@@ -6896,6 +6899,8 @@ import AFTD.Kb.Tcs.Gf8OracleSyndromeSingleton
 import AFTD.Kb.Tcs.Gf8OracleSyndromeZeroZeroZero
 import AFTD.Kb.Tcs.Gf8OracleTCountGe20
 import AFTD.Kb.Tcs.Gf8OracleTCountLe29
+import AFTD.Kb.Tcs.GraphConfigStackable
+import AFTD.Kb.Tcs.GraphConfigStackableSingle
 import AFTD.Kb.Tcs.GraphDegreePosOfConnectedOfNe
 import AFTD.Kb.Tcs.GraphEdgeConnectivity
 import AFTD.Kb.Tcs.GraphEdgeConnectivityLeMinDegree
@@ -6923,6 +6928,9 @@ import AFTD.Kb.Tcs.GraphMatchingNumTwoMulLeCard
 import AFTD.Kb.Tcs.GraphOllivierCurvature
 import AFTD.Kb.Tcs.GraphOllivierCurvatureDivLeTwoDivDist
 import AFTD.Kb.Tcs.GraphOllivierCurvatureDivMonotoneOn
+import AFTD.Kb.Tcs.GraphPebblingStep
+import AFTD.Kb.Tcs.GraphPebblingStepSum
+import AFTD.Kb.Tcs.GraphStackingNumber
 import AFTD.Kb.Tcs.GraphTreewidth
 import AFTD.Kb.Tcs.GraphWassersteinDist
 import AFTD.Kb.Tcs.GraphWassersteinDistComm
@@ -6985,6 +6993,9 @@ import AFTD.Kb.Tcs.IsResolutionDerivation
 import AFTD.Kb.Tcs.IsResolutionRefutation
 import AFTD.Kb.Tcs.IsSpanningPathGraph
 import AFTD.Kb.Tcs.IsSpanningPathGraphPathGraphThree
+import AFTD.Kb.Tcs.IsStringAttractor
+import AFTD.Kb.Tcs.IsStringAttractorIcc
+import AFTD.Kb.Tcs.IsStringAttractorIffForallMinFactorCoverage
 import AFTD.Kb.Tcs.IsSunflower
 import AFTD.Kb.Tcs.IsSunflowerCoreUnique
 import AFTD.Kb.Tcs.IsSunflowerEmptyCoreIffPairwiseDisjoint
@@ -7191,9 +7202,12 @@ import AFTD.Kb.Tcs.NotEdgeConnectivityGeHalfScaleMulMinDegreeMulLlyLowerBound
 import AFTD.Kb.Tcs.NotFinsetContainsTraceEmpty
 import AFTD.Kb.Tcs.NotFinsetHasNoUniqueSumsZmodFivePair
 import AFTD.Kb.Tcs.NotForallLlyPositiveEdgeConnectivityThresholdEqCeil
+import AFTD.Kb.Tcs.NotGraphConfigStackableZero
+import AFTD.Kb.Tcs.NotIsStringAttractorEmpty
 import AFTD.Kb.Tcs.NotMatroidCommonColorableLoopyOnZero
 import AFTD.Kb.Tcs.NotReComplOfReAndNotComputable
 import AFTD.Kb.Tcs.NotReOfManyOneReducibleAndNotRe
+import AFTD.Kb.Tcs.NotRegularExpressionTypedParityCharZero
 import AFTD.Kb.Tcs.NotSimpleGraphIsStarLikeCompleteThree
 import AFTD.Kb.Tcs.NotTriangleDistinctCompleteFinFour
 import AFTD.Kb.Tcs.NusMinCard
@@ -7274,6 +7288,9 @@ import AFTD.Kb.Tcs.PMTreeCost
 import AFTD.Kb.Tcs.PMTreeRun
 import AFTD.Kb.Tcs.PairEncode
 import AFTD.Kb.Tcs.PairEncodeInjective
+import AFTD.Kb.Tcs.PathGraphDegreeLeTwo
+import AFTD.Kb.Tcs.PathGraphThreeStackingNumberEqTreeEstimate
+import AFTD.Kb.Tcs.PathGraphTwoStackingNumberEqTreeEstimate
 import AFTD.Kb.Tcs.PauliBasis
 import AFTD.Kb.Tcs.PauliBasisToMatrix
 import AFTD.Kb.Tcs.PauliErrorsLe
@@ -7320,6 +7337,9 @@ import AFTD.Kb.Tcs.PmRerank
 import AFTD.Kb.Tcs.PmStepEq
 import AFTD.Kb.Tcs.PmStepFacts
 import AFTD.Kb.Tcs.PmStepInv
+import AFTD.Kb.Tcs.PmfOutputIndistOfPosteriorEqPrior
+import AFTD.Kb.Tcs.PmfUniformGroupConvolutionEqUniform
+import AFTD.Kb.Tcs.PmfUniformOfFintypeBindProdEqUniformOfFintype
 import AFTD.Kb.Tcs.PolyTimeBounded
 import AFTD.Kb.Tcs.PolyTimeSubsetExpTime
 import AFTD.Kb.Tcs.Potential
@@ -7339,6 +7359,10 @@ import AFTD.Kb.Tcs.Regret
 import AFTD.Kb.Tcs.RegretLeOfLogPotentialStep
 import AFTD.Kb.Tcs.RegularBipartiteHasPerfectMatching
 import AFTD.Kb.Tcs.RegularEightTriangleDistinctCardGeFifteen
+import AFTD.Kb.Tcs.RegularExpressionExistsParityNormalForm
+import AFTD.Kb.Tcs.RegularExpressionTypedParity
+import AFTD.Kb.Tcs.RegularExpressionTypedParityLength
+import AFTD.Kb.Tcs.RegularExpressionTypedParityZeroAny
 import AFTD.Kb.Tcs.RelationAcyclic
 import AFTD.Kb.Tcs.RelationChurchRosser
 import AFTD.Kb.Tcs.RelationCod
@@ -7413,6 +7437,7 @@ import AFTD.Kb.Tcs.ResolutionRefutationExistsOfUnsat
 import AFTD.Kb.Tcs.ResolutionRefutationPosNegExample
 import AFTD.Kb.Tcs.RestrictToC
 import AFTD.Kb.Tcs.RestrictToCExtendFromC
+import AFTD.Kb.Tcs.ReversibleTransitionReachabilityEquivalence
 import AFTD.Kb.Tcs.SATtoColorClause
 import AFTD.Kb.Tcs.SATtoColorClauseGadgetColor
 import AFTD.Kb.Tcs.SATtoColorEdgeRelation
@@ -7434,6 +7459,9 @@ import AFTD.Kb.Tcs.SM
 import AFTD.Kb.Tcs.SPerpM
 import AFTD.Kb.Tcs.SauerShelahCardLeMulPow
 import AFTD.Kb.Tcs.SauerShelahCardLeSumChoose
+import AFTD.Kb.Tcs.SavitchDepthTopologicalPotentialBound
+import AFTD.Kb.Tcs.SavitchMidpoint
+import AFTD.Kb.Tcs.SavitchMidpointMono
 import AFTD.Kb.Tcs.SchnorrCommit
 import AFTD.Kb.Tcs.SchnorrExtract
 import AFTD.Kb.Tcs.SchnorrHonest
@@ -7475,11 +7503,18 @@ import AFTD.Kb.Tcs.SimpleGraphCardLeChooseAddOneOfRegularTriangleDistinct
 import AFTD.Kb.Tcs.SimpleGraphCliqueBlowup
 import AFTD.Kb.Tcs.SimpleGraphCliqueBlowupEdist
 import AFTD.Kb.Tcs.SimpleGraphComplRegularTriangleDistinct
+import AFTD.Kb.Tcs.SimpleGraphConnectedDegreePos
 import AFTD.Kb.Tcs.SimpleGraphDominatingSetsContaining
 import AFTD.Kb.Tcs.SimpleGraphEccentEqDiamOfPowerWellCovered
+import AFTD.Kb.Tcs.SimpleGraphEqStarGraphOfForallMemEdge
+import AFTD.Kb.Tcs.SimpleGraphExistsMatchingLabelingCardEdgeFinsetLeTwoMulArcsAdd
 import AFTD.Kb.Tcs.SimpleGraphExistsMaximalIndepSuperset
 import AFTD.Kb.Tcs.SimpleGraphIsStarLike
 import AFTD.Kb.Tcs.SimpleGraphIsStarLikeCompleteTwo
+import AFTD.Kb.Tcs.SimpleGraphIsTreeCardSubTwoLeSumChooseDegreeLeChoose
+import AFTD.Kb.Tcs.SimpleGraphIsTreeNonemptyIsoPathGraphOfDegreeLeTwo
+import AFTD.Kb.Tcs.SimpleGraphIsTreeSumChooseDegreeEqIffPath
+import AFTD.Kb.Tcs.SimpleGraphIsTreeSumChooseDegreeEqIffStar
 import AFTD.Kb.Tcs.SimpleGraphIsTriangleDistinct
 import AFTD.Kb.Tcs.SimpleGraphIsWellCovered
 import AFTD.Kb.Tcs.SimpleGraphIsWellCoveredBot
@@ -7497,6 +7532,8 @@ import AFTD.Kb.Tcs.SimpleGraphPower
 import AFTD.Kb.Tcs.SimpleGraphPowerOne
 import AFTD.Kb.Tcs.SimpleGraphPowerWellCoveredIffCliqueBlowup
 import AFTD.Kb.Tcs.SimpleGraphPowerWellCoveredNotBallUnionSubset
+import AFTD.Kb.Tcs.SimpleGraphSumChooseDegreeTwoLeChooseCardEdgeFinset
+import AFTD.Kb.Tcs.SimpleGraphTreeEstimate
 import AFTD.Kb.Tcs.SimpleGraphTriangleDegree
 import AFTD.Kb.Tcs.SimpleGraphTriangleDegreeBot
 import AFTD.Kb.Tcs.SimpleGraphTriangleDegreeCompl
@@ -7509,6 +7546,7 @@ import AFTD.Kb.Tcs.SprOpt
 import AFTD.Kb.Tcs.SprOptTwoTwo
 import AFTD.Kb.Tcs.SprSignCount
 import AFTD.Kb.Tcs.SprValue
+import AFTD.Kb.Tcs.StarGraphFourStackingNumberEqTreeEstimate
 import AFTD.Kb.Tcs.StdTrichotomousSubsingletonCod
 import AFTD.Kb.Tcs.StdTrichotomousSubsingletonDom
 import AFTD.Kb.Tcs.SubsetSumToPartitionPartition
@@ -7644,6 +7682,9 @@ import AFTD.Kb.Tcs.TimeBoundedMono
 import AFTD.Kb.Tcs.TuringMultiTapeTM
 import AFTD.Kb.Tcs.TuringMultiTapeTMCfg
 import AFTD.Kb.Tcs.TuringTransitionOut
+import AFTD.Kb.Tcs.TwoLeSimpleGraphTreeEstimate
+import AFTD.Kb.Tcs.UrmHaltsToStandardForm
+import AFTD.Kb.Tcs.UrmHaltsToStandardFormOfHalts
 import AFTD.Kb.Tcs.V
 import AFTD.Kb.Tcs.VSub
 import AFTD.Kb.Tcs.VSubIso
@@ -7666,5 +7707,13 @@ import AFTD.Kb.Tcs.Weight
 import AFTD.Kb.Tcs.WellFoundedIffTransGen
 import AFTD.Kb.Tcs.WellFoundedOfTransGen
 import AFTD.Kb.Tcs.WmMistakeBoundLog
+import AFTD.Kb.Tcs.WordFactorCoverages
+import AFTD.Kb.Tcs.WordMinFactorCoverages
+import AFTD.Kb.Tcs.WordMinFactorCoveragesSubset
+import AFTD.Kb.Tcs.WordMinFactorCoveragesSubsetOfCertificate
+import AFTD.Kb.Tcs.WordOccurrenceCoverage
+import AFTD.Kb.Tcs.WordOccurrenceCoverageAbabaAba
+import AFTD.Kb.Tcs.WordOccurrenceCoverageNonempty
+import AFTD.Kb.Tcs.WordOccurrenceCoverageSubset
 import AFTD.Kb.Tcs.Wt
 import AFTD.Kb.Tcs.WtLeN

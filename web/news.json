@@ -2,6 +2,20 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-12",
+   "kind": "weekly",
+   "week": "2026-W41",
+   "title": "Week of 5–11 Oct 2026: Pairwise fairness limits for chores, exact poset query complexity, and refuted conjectures",
+   "body": "Fair division saw the resolution of several open questions: dividing chores fairly among three people using pairwise shares is impossible in general, the exact welfare guarantee from maximizing product utilities for two people was pinned down, and a graph-connectivity conjecture failed. In algorithms, finding minimal elements in two-chain posets was proved to require strictly more comparisons than conjectured. In mechanism design, counterexamples disproved a dictatorship conjecture for facility location with scaling and refuted two published claims in agency and matching.\n\nProved. PMMS allocations of chores can fail to exist for three agents\n\nProved. Price of maximum Nash welfare for two agents equals 27/23\n\nDisproved. Graph linkedness conjecture for two-agent price of connectivity is false\n\nDisproved. Deterministic query complexity for minimal elements of width-two posets is 2n − 3\n\nDisproved. Dictatorship conjecture for facility location with scaling fails for known scaling functions\n\nLean accepted 372 new theorems this week, drawn from 34 papers and 24 topics. Of these, 47 are new here, 5 correct a published claim, 94 formalize a published result and 226 are helper lemmas. 36 statements posed this week are not yet proved. The reading covered 51 new papers. This report covers 16 results in 7 fields.",
+   "declarations": [],
+   "links": [
+    {
+     "label": "Read the weekly report (14 min)",
+     "href": "weekly/2026-W41/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-11",
    "kind": "daily",
    "title": "Daily reading: 42 proved, 5 open",

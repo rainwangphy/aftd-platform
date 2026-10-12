@@ -1,0 +1,509 @@
+{
+ "week": "2026-W41",
+ "start": "2026-10-05",
+ "end": "2026-10-11",
+ "format": 3,
+ "period": "week",
+ "partial": false,
+ "language": "English",
+ "model": "gemini-3.8-flash",
+ "generated": "2026-10-12",
+ "title": "Pairwise fairness limits for chores, exact poset query complexity, and refuted conjectures",
+ "summary": "Fair division saw the resolution of several open questions: dividing chores fairly among three people using pairwise shares is impossible in general, the exact welfare guarantee from maximizing product utilities for two people was pinned down, and a graph-connectivity conjecture failed. In algorithms, finding minimal elements in two-chain posets was proved to require strictly more comparisons than conjectured. In mechanism design, counterexamples disproved a dictatorship conjecture for facility location with scaling and refuted two published claims in agency and matching.",
+ "lead": {
+  "main": "pmms_chores_three_agents_may_not_exist",
+  "title": "Chores cannot always be split fairly among three people",
+  "story": "Suppose three housemates need to divide nine unpleasant chores. Each person experiences a positive cost for each task, and the total burden on any person is simply the sum of the costs of their assigned chores.\n\nA natural fairness benchmark is the pairwise maximin share guarantee. Under this standard, any person who compares their chores against another housemate should feel the split between them is fair: if they could combine all the chores given to the two of them and partition those chores into two piles, their own pile should not be more burdensome than the worse of those two piles. Can chores always be divided so that every person satisfies this pairwise fairness test against every other person?\n\nThey cannot. For three people and nine specific chores, no assignment of chores satisfies the guarantee for everyone. With two people, such a fair allocation is always possible, which makes three the smallest group size where fairness can break down. The result was checked by evaluating all 3^9 possible chore assignments and verifying that each one leaves at least one person with an unfair share."
+ },
+ "fields": [
+  {
+   "name": "Fair Division",
+   "context": "Three open questions were decided: pairwise-MMS chore allocations can fail for three agents, the two-agent price of MNW is exactly 27/23, and the linkedness conjecture fails. Approximation limits were established for temporal EFX, and the two-agent monotone MMS threshold was pinned at three items.",
+   "results": [
+    {
+     "headline": "PMMS allocations of chores can fail to exist for three agents",
+     "plain": "Evenly sharing chores so that nobody envies anyone else after splitting their shared chores into two piles is sometimes impossible for three people.",
+     "before": "Pairwise-MMS chore allocations were known to exist for two agents, while non-existence was only known for four or more agents via EFX counterexamples.",
+     "answer": "Nine chores with strictly positive additive costs admit no allocation that is PMMS for every agent among three agents. Three is the minimum number of agents for non-existence.",
+     "why": "Closes the gap between two and four agents, establishing three as the exact threshold for the non-existence of pairwise-MMS chore allocations.",
+     "idea": "Exhaustively checks all 3⁹ allocations against stored violation certificates, with each certificate verified by the Lean kernel.",
+     "outcome": "proved",
+     "source": "arXiv:2609.10493",
+     "main": "pmms_chores_three_agents_may_not_exist",
+     "declarations": [
+      "pmms_chores_three_agents_may_not_exist",
+      "pmms3c_cost_nat_eq",
+      "pmms3c_verify_sound",
+      "pmms3c_check"
+     ],
+     "highlight": true
+    },
+    {
+     "headline": "Price of maximum Nash welfare for two agents equals 27/23",
+     "plain": "For two people dividing goods, choosing the assignment that maximizes the product of their values guarantees a proven fraction of the best possible total value.",
+     "before": "The price and strong price of maximum Nash welfare for two agents with additive valuations were known to lie in the interval [27/23, 5/4].",
+     "answer": "For two agents with additive normalized valuations, every maximum Nash welfare allocation attains at least 23/27 of optimal social welfare, matching the lower bound of 27/23.",
+     "why": "Pins down the exact price of fairness for maximum Nash welfare with two agents, eliminating the remaining gap.",
+     "idea": "Groups goods into four classes by owner under optimal and MNW allocations, comparing Nash welfare with five candidate allocations via polynomial sum-of-squares certificates.",
+     "outcome": "proved",
+     "source": "arXiv:1905.04910",
+     "main": "mnw_two_agents_welfare_le",
+     "declarations": [
+      "mnw_two_agents_welfare_le",
+      "mnw_two_agents_price_lower_bound",
+      "mnw2_lb_is_mnw",
+      "mnw2_lb_mnw_welfare",
+      "mnw2_lb_opt_welfare",
+      "mnw2_core"
+     ],
+     "highlight": true
+    },
+    {
+     "headline": "Graph linkedness conjecture for two-agent price of connectivity is false",
+     "plain": "A conjecture predicting how well connected pieces of a network can be fairly divided based on graph connectivity properties fails on an eight-node network.",
+     "before": "Conjecture 3.10 claimed that a graph that is (2, k−1)-linked but not (2, k)-linked has two-agent price of connectivity exactly 2k/(2k−1).",
+     "answer": "A 4-connected graph on eight vertices is (2,3)-linked but not (2,4)-linked, where the conjecture predicts 8/7, yet vertex values (5,5,5,1,1,1,12,0) yield a price of at least 15/13.",
+     "why": "Refutes Conjecture 3.10, showing that topological linkedness alone does not characterize the price of connected fair division.",
+     "idea": "Constructs an eight-vertex graph and verifies its linkedness and connectivity properties via exhaustive search over all 256 vertex subsets.",
+     "outcome": "disproved",
+     "source": "arXiv:1908.05433",
+     "main": "poc_linkedness_conjecture_counterexample",
+     "declarations": [
+      "poc_linkedness_conjecture_counterexample",
+      "poc8_linked_two_three",
+      "poc8_not_linked_two_four",
+      "poc8_gmms_check"
+     ],
+     "highlight": true
+    },
+    {
+     "headline": "Approximation ratio for temporal EFX cannot exceed 1/√2 on identical days",
+     "plain": "When dividing items fairly across multiple days with identical values each day, no allocation can guarantee more than a specific fraction of the standard fairness benchmark.",
+     "before": "For two agents over multiple rounds, an algorithm guaranteed a 1/2 approximation to temporal EFX, but the optimal approximation factor remained open.",
+     "answer": "No allocation guarantees an α-TEFX allocation for α > 1/√2, even for two agents with identical additive valuations over three rounds with values 0, 1, and 2 + 2√2.",
+     "why": "Bounds the achievable fairness guarantee in temporal fair division, showing that full temporal EFX is impossible even on identical days.",
+     "idea": "Analyzes all allocations across three identical rounds of three goods, showing every allocation violates the fairness threshold whenever α > 1/√2.",
+     "outcome": "partial",
+     "source": "arXiv:2607.17224",
+     "main": "tfx_identical_days_upper_bound",
+     "declarations": [
+      "tfx_identical_days_upper_bound",
+      "tfx_core",
+      "tfx_no_alphaTEFX"
+     ],
+     "highlight": false
+    },
+    {
+     "headline": "Threshold for two-agent monotone maximin shares is exactly three goods",
+     "plain": "Two people with general preference values over items can always be given their fair share if there are at most three items, but not four.",
+     "before": "For two agents with monotone valuations, MMS allocations were known to exist for at most two goods and could fail for four goods, leaving three goods open.",
+     "answer": "The threshold μ(2) equals 3: an MMS allocation always exists for two agents with monotone valuations over at most three goods, but can fail for four goods.",
+     "why": "Completely resolves the threshold for maximin share existence for two agents under general monotone valuations.",
+     "idea": "Reduces existence to a partition-covering property for two bundles, verifying that any pair of partitions of three goods admits a valid allocation.",
+     "outcome": "proved",
+     "source": "arXiv:2610.06125",
+     "main": "mms_threshold_monotone_two",
+     "declarations": [
+      "mms_threshold_monotone_two",
+      "mms_exists_monotone_two_three",
+      "mms_two_agents_four_goods_not_exists",
+      "mms_exists_monotone_of_partition_cover",
+      "mms_exists_monotone_of_le"
+     ],
+     "highlight": false
+    }
+   ]
+  },
+  {
+   "name": "Algorithm Design & Analysis",
+   "context": "The deterministic query complexity of finding minimal elements in width-two posets was determined to be exactly 2n − 3, disproving a published conjecture. In team competitions, an upper bound on optimal line-up win probability was shown to fail.",
+   "results": [
+    {
+     "headline": "Deterministic query complexity for minimal elements of width-two posets is 2n − 3",
+     "plain": "Finding the smallest elements in a collection of items ordered along two parallel chains requires strictly more comparisons than previously conjectured.",
+     "before": "Section 4 of arXiv:0707.1532 conjectured that the deterministic comparison lower bound (w + 1)n/2 − w is tight for width w, which would predict 3n/2 − 2 queries at width 2.",
+     "answer": "For width 2, the exact deterministic query complexity is 2n − 3 for all n ≥ 2. No deterministic algorithm can achieve 3n/2 − 2 + C queries for any constant C.",
+     "why": "Refutes the tightness conjecture for width-two posets and establishes the exact worst-case comparison complexity.",
+     "idea": "Constructs an adversary maintaining a potential based on components and alive elements that decreases by at most one per query.",
+     "outcome": "disproved",
+     "source": "arXiv:0707.1532",
+     "main": "pm_conjecture_false",
+     "declarations": [
+      "pm_conjecture_false",
+      "pm_exact_complexity",
+      "pm_lower_bound",
+      "pm_alg_run",
+      "pm_alg_correct",
+      "pm_alg_cost_le"
+     ],
+     "highlight": true
+    },
+    {
+     "headline": "Upper bound for optimal team line-ups in match competitions is false",
+     "plain": "A published formula limiting how much a coach can improve a team's winning chances by reordering players fails even on simple matches.",
+     "before": "Theorem 4(2) of arXiv:2605.21234 claimed an optimal line-up beats a maximum-weight matching by at most an error term vanishing when all edge probabilities are 1/2.",
+     "answer": "For every odd n, there is an instance where the maximum-weight matching is unique, has all probabilities 1/2, and wins with probability 1/2, yet an optimal line-up wins with probability at least 1/2 + 1/40.",
+     "why": "Disproves Theorem 4(2) of arXiv:2605.21234 for every choice of lower-order term, invalidating the published line-up comparison bound.",
+     "idea": "Constructs an instance where all edge probabilities in the unique maximum-weight matching are 1/2, but a permuted line-up achieves a strictly positive winning advantage.",
+     "outcome": "disproved",
+     "source": "arXiv:2605.21234",
+     "main": "team_thm4_part2_false",
+     "declarations": [
+      "team_thm4_part2_false",
+      "team_thm4_part2_exists_false",
+      "team_gap",
+      "team_gap_unique",
+      "team2_unique_maxWeight"
+     ],
+     "highlight": false
+    }
+   ]
+  },
+  {
+   "name": "Mechanism Design & Auctions",
+   "context": "A dictatorship conjecture for facility location with scaling effects was refuted for mechanisms aware of the scaling function, while confirmed for scaling-oblivious mechanisms. In contract theory, a core identity in a hardness proof for costly information acquisition was disproved.",
+   "results": [
+    {
+     "headline": "Dictatorship conjecture for facility location with scaling fails for known scaling functions",
+     "plain": "When placing a shared facility on a line where costs scale nonlinearly, fair and manipulation-proof rules exist that do not give total control to one person.",
+     "before": "It was conjectured in arXiv:2402.18908 that all strategyproof, surjective deterministic mechanisms for facility location with scaling effects must be dictatorships.",
+     "answer": "The conjecture fails when mechanisms know the scaling function: for q(y) = 1 − 9y/10, the leftmost mechanism is strategyproof, surjective, and anonymous. It holds if the mechanism is scaling-oblivious.",
+     "why": "Refutes the dictatorship conjecture for scaling-aware mechanisms while identifying the exact condition under which dictatorship is forced.",
+     "idea": "Shows that although preferences are not single-peaked under q, the antitone property of q guarantees strategyproofness of the leftmost location rule.",
+     "outcome": "disproved",
+     "source": "arXiv:2402.18908",
+     "main": "fse_dictatorship_conjecture_false",
+     "declarations": [
+      "fse_dictatorship_conjecture_false",
+      "fse_scaling_oblivious_dictatorship",
+      "fse_conjecture_false_qdep",
+      "fse_leftmost_SP_of_antitone",
+      "fse_q0_not_singlePeaked"
+     ],
+     "highlight": true
+    },
+    {
+     "headline": "Concavification identity in generalized principal-agency hardness proof fails",
+     "plain": "A mathematical equation used to show that designing optimal contracts is hard to approximate does not hold, requiring a new justification for the approximation factor.",
+     "before": "Equation (5.4) of arXiv:2209.01146 claimed that the maximum of u*(σ) − h(σ) over the simplex equals 1/k times the maximum of u* over the hypercube.",
+     "answer": "On graphs with independence number α, the simplex maximum is 1 − 1/α + 1/k while the scaled cube maximum is α/k; they differ whenever 2 ≤ α < k.",
+     "why": "Refutes Equation (5.4) and the auxiliary claim that u* ≤ 1 on the cube; exact hardness remains, but the approximation factor requires a new proof.",
+     "idea": "Computes the explicit maxima of both functions on the three-vertex path, obtaining 5/6 on the simplex and 2/3 on the cube.",
+     "outcome": "disproved",
+     "source": "arXiv:2209.01146",
+     "main": "gpa_eq54_false",
+     "declarations": [
+      "gpa_eq54_false",
+      "gpa_eq54_fails_of_indep",
+      "gpa_lhs_isGreatest",
+      "gpa_rhs_isGreatest",
+      "gpa_cube_max_le_one_false"
+     ],
+     "highlight": false
+    }
+   ]
+  },
+  {
+   "name": "Equilibria in Games",
+   "context": "A conjecture on pure approximate equilibrium guarantees in anonymous games was resolved for two, three, and four strategies. For unweighted maximum cut games, social welfare optima were proved to be strong equilibria for graphs with at most six vertices.",
+   "results": [
+    {
+     "headline": "Pure approximate equilibrium bound in anonymous games settled for up to four strategies",
+     "plain": "In large games where players only care about how many others take each choice, the error needed to guarantee a stable outcome was found for few choices.",
+     "before": "It was conjectured in arXiv:0710.5582 that sλ is a lower bound for pure approximate equilibria of λ-Lipschitz anonymous games with s strategies.",
+     "answer": "For s = 2, every game has a 2λ-equilibrium, matching matching pennies. For s = 3 and s = 4, a cyclic five-player game has no ε-equilibrium for ε < 4λ.",
+     "why": "Confirms the sλ lower bound for s ≤ 4, and shows the bound 4λ exceeds sλ when s = 3.",
+     "idea": "Analyzes matching pennies for s = 2 and an explicit cyclic five-player game with λ = 1/8 for s = 3 and s = 4.",
+     "outcome": "partial",
+     "source": "arXiv:0710.5582",
+     "main": "ag_two_exact",
+     "declarations": [
+      "ag_two_exact",
+      "ag_two_upper",
+      "ag_three_lower",
+      "ag_four_lower"
+     ],
+     "highlight": false
+    },
+    {
+     "headline": "Optimal colorings of Max-k-Cut games are strong equilibria on small graphs",
+     "plain": "When players choose colors to maximize neighbors of different colors, socially best outcomes cannot be derailed by coordinating groups in graphs with up to six nodes.",
+     "before": "Whether unweighted Max-k-Cut games always admit a strong equilibrium, and whether socially optimal colorings are strong equilibria, was open for k ≥ 3.",
+     "answer": "For any k ≥ 1 and every graph on at most 2k vertices, every welfare-optimal coloring is a strong equilibrium. In particular, strong equilibria exist for all graphs on at most six vertices when k ≥ 3.",
+     "why": "Establishes existence of strong equilibria on small graphs, advancing the open question for unweighted cut games.",
+     "idea": "Combines maximum degree bounds with cut welfare decomposition to rule out profitable deviations by coalitions.",
+     "outcome": "partial",
+     "source": "arXiv:2610.04948",
+     "main": "maxcut_strong_equilibrium_exists_of_card_le",
+     "declarations": [
+      "maxcut_strong_equilibrium_exists_of_card_le",
+      "maxcut_optimal_strong_of_degree_le"
+     ],
+     "highlight": false
+    }
+   ]
+  },
+  {
+   "name": "Graph Theory & Graph Algorithms",
+   "context": "Two open problems relating Lin--Lu--Yau Ricci curvature to edge-connectivity were settled, refuting a conjectured threshold formula and a scale-4 curvature inequality. A strict upper bound was also established for the average order of dominating sets.",
+   "results": [
+    {
+     "headline": "Lin--Lu--Yau positive curvature edge-connectivity threshold formula fails at three vertices",
+     "plain": "A proposed formula for the network connection strength required to guarantee positive geometric curvature on all edges fails on a simple three-node graph.",
+     "before": "An open problem from the paper asked whether the edge-connectivity threshold ensuring positive Lin--Lu--Yau curvature on all edges is c(n) = ⌈2n/3 − 1⌉ for all n ≥ 3.",
+     "answer": "The formula fails at n = 3: every connected 3-vertex graph has strictly positive curvature on every edge, so c(3) = 0, whereas the formula yields 1.",
+     "why": "Settles the smallest case only: the threshold for general n, which the paper leaves open, stays open.",
+     "idea": "Directly evaluates the Lin--Lu--Yau curvature on the 3-vertex path and triangle, proving both graphs have positive curvature on all edges.",
+     "outcome": "partial",
+     "source": "arXiv:2610.10559",
+     "main": "not_forall_lly_positive_edge_connectivity_threshold_eq_ceil",
+     "declarations": [
+      "not_forall_lly_positive_edge_connectivity_threshold_eq_ceil",
+      "lly_positive_edge_connectivity_threshold_three",
+      "not_edge_connectivity_ge_half_scale_mul_min_degree_mul_lly_lower_bound",
+      "edge_connectivity_ge_half_scale_mul_min_degree_mul_lly_lower_bound_of_eq_minDegree"
+     ],
+     "highlight": false
+    },
+    {
+     "headline": "Local average dominating set order is strictly below (5n−1)/6 for four or more vertices",
+     "plain": "For any network with at least four nodes and no isolated nodes, the average size of dominant node sets containing any given node is strictly below a known bound.",
+     "before": "Theorem 3.8 of arXiv:2610.11446 proved that in finite graphs without isolated vertices, the local average size of dominating sets containing a vertex is at most (5n−1)/6, leaving sharpness open.",
+     "answer": "For all n ≥ 4, the bound (5n−1)/6 is never attained: every graph of order n ≥ 4 without isolated vertices has average dominating set size strictly less than (5n−1)/6 for every vertex.",
+     "why": "Resolves an open problem from the paper, showing the published upper bound is strictly loose for n ≥ 4.",
+     "idea": "Double-counts dominating sets containing each vertex by splitting into removable and critical vertices, deriving a strict inequality for n ≥ 4.",
+     "outcome": "proved",
+     "source": "arXiv:2610.11446",
+     "main": "simple_graph_local_avg_dominating_order_lt_of_four_le",
+     "declarations": [
+      "simple_graph_local_avg_dominating_order_lt_of_four_le",
+      "simple_graph_local_avg_dominating_order_le_of_no_isolated",
+      "simple_graph_local_avg_dominating_order_ge"
+     ],
+     "highlight": false
+    }
+   ]
+  },
+  {
+   "name": "Combinatorics for TCS",
+   "context": "Circuits of lengths eight, nine, and ten were shown to admit complete cycle sum labelings, answering an open question on circular interval sums. List chromatic numbers of matroid pairs were also verified.",
+   "results": [
+    {
+     "headline": "Complete cycle labelings exist for cycles of length eight, nine, and ten",
+     "plain": "Numbers from one to eight can be arranged around an eight-node loop so that every possible subsegment sum is achieved.",
+     "before": "Sequential orderings 1, ..., n on cycles fail to achieve all consecutive sums for n ≥ 8, leaving open whether any complete cyclic placement exists for n ≥ 8.",
+     "answer": "Complete placements exist for n = 8 (order 1,2,3,4,5,6,8,7), n = 9 (order 1,2,3,4,5,6,8,9,7), and n = 10 (order 1,2,3,4,5,9,7,8,6,10).",
+     "why": "Resolves the open question from the paper affirmatively, demonstrating that cyclic completeness survives beyond the failure of the sequential arrangement.",
+     "idea": "Exhibits explicit cyclic orders and checks by finite computation that every integer up to n(n+1)/2 appears as a cyclic arc sum.",
+     "outcome": "proved",
+     "source": "arXiv:2610.08889",
+     "main": "exists_cycle_labeling_complete_ge_eight",
+     "declarations": [
+      "exists_cycle_labeling_complete_ge_eight",
+      "cycle_labeling_complete_nine",
+      "cycle_labeling_complete_ten",
+      "consecutive_sum_ne_mul_prime_of_two_mul_lt",
+      "consecutive_sum_ne_mul_prime"
+     ],
+     "highlight": false
+    }
+   ]
+  },
+  {
+   "name": "Social Choice Theory",
+   "context": "The Droop Monroe voting rule was proved to satisfy Droop justified representation, but can violate its proportional counterpart. The Condorcet dimension was proved to be at most three for elections with up to four candidates.",
+   "results": [
+    {
+     "headline": "Droop Monroe voting rule satisfies Droop justified representation",
+     "plain": "A standard committee voting rule guarantees that any sufficiently large group of voters agreeing on a candidate gets at least one approved candidate elected.",
+     "before": "Whether the Droop Monroe committee selection rule satisfies Droop justified representation was listed as a core representation property in multiwinner voting.",
+     "answer": "Every committee selected by the Droop Monroe rule satisfies Droop justified representation: every cohesive voter group exceeding the Droop quota contains a voter who approves a committee member.",
+     "why": "Validates the representation guarantee for the Droop Monroe rule, while Lean also confirmed it can violate the stronger proportional property.",
+     "idea": "Argues by contradiction using the size bound on unassigned voters under valid Monroe assignments.",
+     "outcome": "proved",
+     "source": "arXiv:2508.00811",
+     "main": "droop_monroe_satisfies_droop_jr",
+     "declarations": [
+      "droop_monroe_satisfies_droop_jr",
+      "droop_monroe_violates_droop_pjr_plus_of_not_dvd",
+      "droop_valid_assignment_real_voters_card"
+     ],
+     "highlight": false
+    },
+    {
+     "headline": "Condorcet dimension is at most three for elections with four candidates",
+     "plain": "In any election with at most four candidates, there is always a small group of at most three candidates that cannot be beaten by anyone outside.",
+     "before": "It was conjectured that every election has a Condorcet winning set of at most three candidates, but this remained unproven even for four candidates.",
+     "answer": "Every election with at most four candidates and at least one voter has a Condorcet winning set of at most three candidates.",
+     "why": "Proves the smallest nontrivial case of the conjecture that the Condorcet dimension of every election is at most 3.",
+     "idea": "Applies case analysis on candidate count; for four candidates, dropping a candidate ranked first by fewer than half of voters leaves a winning set.",
+     "outcome": "partial",
+     "source": "arXiv:2604.19851",
+     "main": "condorcet_dimension_le_three_of_le_four",
+     "declarations": [
+      "condorcet_dimension_le_three_of_le_four"
+     ],
+     "highlight": false
+    }
+   ]
+  }
+ ],
+ "outlook": [
+  "Does an envy-free up to any chore allocation always exist for three agents with additive chores?",
+  "Is the deterministic query complexity of finding a monotone map fixed point on the five-dimensional grid at most quadratic in the logarithm?",
+  "Does every unweighted maximum cut game with three or more colors admit a strong equilibrium?",
+  "Can every approval voting profile be ordered so that each prefix committee satisfies extended justified representation?",
+  "Can temporal graphs whose snapshots are all spanning paths always be fully explored in near-linear time?"
+ ],
+ "glossary": [
+  {
+   "term": "EFX",
+   "meaning": "Envy-free up to any item: envy disappears whichever single item is removed (any good from the envied bundle, or any chore from the envious agent's own)."
+  },
+  {
+   "term": "MMS",
+   "meaning": "Maximin share: the best value an agent can guarantee by splitting all items into n bundles and receiving the worst one."
+  },
+  {
+   "term": "MNW",
+   "meaning": "Maximum Nash welfare: an allocation maximising the product of the agents' values."
+  },
+  {
+   "term": "PMMS",
+   "meaning": "Pairwise maximin share: for every two agents, re-splitting their combined items into two bundles could not give either one a better worst bundle."
+  },
+  {
+   "term": "TCS",
+   "meaning": "TCS: the branch of mathematics studying computational models and complexity"
+  },
+  {
+   "term": "TEFX",
+   "meaning": "temporal EFX: a round-by-round fairness guarantee extending envy-freeness up to any good"
+  }
+ ],
+ "stats": {
+  "original": 47,
+  "erratum": 5,
+  "literature": 94,
+  "lemma": 226,
+  "theorems": 372,
+  "sources": 34,
+  "topics": 24,
+  "announcements": 3,
+  "open": 36,
+  "papers_read": 51
+ },
+ "issues": [],
+ "rounds": 4,
+ "zh": {
+  "title": "家务分配的两两公平界限、偏序集精确查询复杂度与被否定的猜想",
+  "summary": "公平分配领域解决了若干公开问题：一般情况下三人之间依据两两份额公平分配家务是不可能的，两人最大化效用乘积的精确福利保证得以确定，一个图连通性猜想被推翻。在算法领域，在双链偏序集中寻找极小元被证明需要严格多于先前猜想的比较次数。在机制设计中，反例否定了带缩放设施选址问题的独裁猜想，并推翻了委托代理与匹配竞赛中两项已发表的论断。",
+  "lead": {
+   "title": "家务并不总能在三人之间公平分配",
+   "story": "假设三名室友需要分担九项令人不快的家务。每个人对每项任务都承受正的成本，任何人的总负担就是分配给自己的各项家务成本之和。\n\n一个自然的公平基准是两两最大最小份额保证。在该标准下，任何人在将自己的家务与另一名室友对比时，都应当觉得两人之间的划分是公平的：如果将分配给他们两人的所有家务合并并分成两堆，自己那一堆的负担不应重于两堆中更差的一堆。家务是否总能这样分配，使得每个人相对于其他任何人都满足这一两两公平检验？\n\n并不能。对于三个人和特定的九项家务，没有任何家务分配能对每个人都满足该保证。在只有两人时，这样的公平分配总是可行的，这使得三人成为公平性可能破裂的最小人数。该结果通过评估全部 3^9 种可能的家务分配，并验证每种分配都至少让一人分得不公平的份额来完成核验。"
+  },
+  "results": [
+   {
+    "headline": "三人主体分担家务时可能不存在 PMMS 分配",
+    "plain": "平分家务使得任何两人将各自家务合并分成两堆后都不嫉妒对方，有时对三人而言是不可能的。"
+   },
+   {
+    "headline": "两人主体的最大纳什福利代价等于 27/23",
+    "plain": "两人分配物品时，选择使各自价值乘积最大化的方案，可保证达到可能最优总价值的已知比例。"
+   },
+   {
+    "headline": "关于两人连通性代价的图链接度猜想不成立",
+    "plain": "一项基于图连通性性质预测网络连通部分能如何公平划分的猜想，在一个八节点网络上失效。"
+   },
+   {
+    "headline": "各天相同情形下时序 EFX 的近似比不能超过 1/√2",
+    "plain": "在跨多天且每天价值相同的情况下公平分配物品时，任何分配都无法保证超过标准公平基准的某一特定比例。"
+   },
+   {
+    "headline": "两人单调最大最小份额的阈值恰为三件物品",
+    "plain": "两人对物品具有一般偏好价值时，若至多有三件物品总能获得各自的公平份额，但四件物品时则不然。"
+   },
+   {
+    "headline": "宽度为 2 的偏序集极小元确定性查询复杂度为 2n − 3",
+    "plain": "在沿两条平行链偏序排列的物品集合中寻找极小元，所需的比较次数严格多于先前的猜想。"
+   },
+   {
+    "headline": "比赛对抗中最佳团队出场阵容的上限公式不成立",
+    "plain": "一项已发表的用于限制教练通过调整队员出场顺序能提高多少胜率的公式，即使在简单比赛中也不成立。"
+   },
+   {
+    "headline": "缩放函数已知时带缩放设施选址的独裁猜想不成立",
+    "plain": "在成本呈非线性缩放的直线上放置共享设施时，存在既公平又防操纵且不赋予单个人完全控制权的规则。"
+   },
+   {
+    "headline": "广义委托代理硬度证明中的凹化恒等式不成立",
+    "plain": "用于证明最优合同设计难以近似的一个数学等式并不成立，需要为该近似比提供新的论证。"
+   },
+   {
+    "headline": "策略数至多为 4 的匿名博弈纯近似均衡界限得以确定",
+    "plain": "在博弈方仅关心有多少其他人做出各种选择的大型博弈中，当可选策略较少时，保证稳定结果所需的误差已被求出。"
+   },
+   {
+    "headline": "小图上最大 k-割博弈的最优染色构成强均衡",
+    "plain": "当博弈方通过选择颜色来最大化异色邻居时，在至多六个节点的图中，社会最优结果不会被协同结盟的群体破坏。"
+   },
+   {
+    "headline": "林-陆-丘正曲率边连通度阈值公式在三个顶点时不成立",
+    "plain": "一项为保证所有边均具有正几何曲率所需的网络连接强度公式，在一个简单的三节点图上失效。"
+   },
+   {
+    "headline": "四顶点及以上图的局部平均支配集阶数严格低于 (5n−1)/6",
+    "plain": "对于任何至少有四个节点且无孤立节点的网络，包含任意给定节点的支配节点集的平均大小严格低于已知界限。"
+   },
+   {
+    "headline": "长度为 8、9 和 10 的圈存在完全圈标号",
+    "plain": "1 到 8 的数字可以排列在一个八节点环上，使得所有可能的子段和都能实现。"
+   },
+   {
+    "headline": "杜鲁普-门罗投票规则满足杜鲁普合理代表性",
+    "plain": "一种标准的委员会投票规则能够保证，任何就某候选人达成一致的足够大的选民群体，至少能让一名获认可的候选人当选。"
+   },
+   {
+    "headline": "四名候选人选举的孔多塞维度至多为 3",
+    "plain": "在至多四名候选人的任何选举中，总存在一个至多三名候选人的小子集，其无法被外部任何人击败。"
+   }
+  ],
+  "outlook": [
+   "对于具有可加家务的三名主体，是否总存在至多差任意一项家务无嫉妒的分配？",
+   "在五维网格上寻找单调映射不动点的确定性查询复杂度是否至多为对数的二次方？",
+   "每个具有三种或更多颜色的无权最大割博弈是否都存在强均衡？",
+   "是否每个赞同投票剖面都可以排序，使得每个前缀委员会都满足扩展合理代表性？",
+   "快照均为生成路径的时序图是否总能在近线性时间内完全遍历？"
+  ],
+  "glossary": [
+   {
+    "term": "EFX",
+    "meaning": "至多差一件物品无嫉妒：无论拿走哪一件物品（被嫉妒者的任意物品，或嫉妒者自身的任意家务），嫉妒都会消除。"
+   },
+   {
+    "term": "PMMS",
+    "meaning": "两两最大最小份额：对于任意两名主体，将两人合并的物品重新分成两堆，都无法让其中任何一人获得更好的较差堆。"
+   }
+  ]
+ },
+ "zh_issues": [],
+ "numbers": "Lean accepted 372 new theorems this week, drawn from 34 papers and 24 topics. Of these, 47 are new here, 5 correct a published claim, 94 formalize a published result and 226 are helper lemmas. 36 statements posed this week are not yet proved. The reading covered 51 new papers. This report covers 16 results in 7 fields.",
+ "disclaimer": "Written by a model (gemini-3.8-flash) from the week's Lean-verified results. Every declaration named here was checked by Lean; this summary is a reading aid and is not itself machine-checked.",
+ "minutes": 14,
+ "short_minutes": 3,
+ "outcomes": {
+  "proved": "Proved",
+  "disproved": "Disproved",
+  "partial": "Partial",
+  "new": "New result",
+  "formalized": "Formalized"
+ },
+ "zh_disclaimer": "本文由模型（gemini-3.8-flash）根据本期经 Lean 验证的结果撰写，并从英文版翻译而来。文中提到的每个定理都经过 Lean 检查；本摘要只是阅读辅助，本身未经机器检查。",
+ "zh_outcomes": {
+  "proved": "证明",
+  "disproved": "否定",
+  "partial": "部分结果",
+  "new": "新结果",
+  "formalized": "形式化验证"
+ }
+}

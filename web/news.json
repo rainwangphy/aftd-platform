@@ -2,6 +2,64 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-13",
+   "kind": "daily",
+   "title": "Daily reading: 36 proved, 3 open",
+   "body": "The Proposer read 12 new paper(s), listed 26 open problem(s), and stated 2 of them in Lean, and posed 4 more from what the knowledgebase already holds (38 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 36 theorem(s); 3 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `card_le_twenty_nine_of_regular_eight_triangle_distinct` (arXiv:2610.08478): Every 8-regular triangle-distinct graph has at most 29 vertices: its triangle-degrees are pairwise distinct and each is at most C(8, 2) = 28.\n\nProved. `digraph_invert_invert`: Inverting the same vertex set twice gives back the digraph.\n\nProved. `digraph_invert_is_tournament`: Inverting a vertex set of a tournament gives a tournament.\n\nProved. `digraph_dijoin_is_tournament`: The dijoin of two tournaments is a tournament.\n\nProved. `digraph_inversion_number_eq_zero_of_is_acyclic`: An acyclic digraph has inversion number 0.\n\nProved. `digraph_is_acyclic_of_rank`: A digraph with a numbering of the vertices that increases along every arc is acyclic.\n\nProved. `digraph_directed_triangle_not_acyclic`: The directed triangle 0 → 1 → 2 → 0 is not acyclic.\n\nProved. `digraph_is_acyclic_dijoin`: The dijoin of two acyclic digraphs is acyclic: a directed walk never comes back from the D₂ side to the D₁ side.\n\nProved. `tournament_exists_decycling_family`: Every finite tournament can be made acyclic by finitely many inversions (so its inversion number is attained).\n\nFormalized. `tournament_dijoin_inversion_number_le_add` (arXiv:2610.13798): For finite tournaments D₁, D₂: inv(D₁ → D₂) ≤ inv(D₁) + inv(D₂), by inverting an optimal family of D₁ and then one of D₂.\n\nFormalized. `tournament_dijoin_inversion_number_le_symm_add_two` (arXiv:2610.13798): For finite tournaments D₁, D₂: inv(D₁ → D₂) ≤ inv(D₂ → D₁) + 2 (with D₁, D₂ swapped this gives |inv(D₁ → D₂) − inv(D₂ → D₁)| ≤ 2): invert V(D₁) and V(D₂) first, which turns D₁ → D₂ into the reverse of D₂ → D₁, and a family decycles a digraph iff it decycles…\n\nFormalized. `tournament_inversion_number_le_dijoin` (arXiv:2610.13798): For finite tournaments D₁, D₂: inv(D₁ → D₂) ≥ max(inv(D₁), inv(D₂)), since D₁ and D₂ are induced subtournaments of the dijoin and a decycling family restricts to one.\n\nOpen. `tournament_dijoin_inversion_number_symm` (arXiv:2610.13798): Conjecture (arXiv:2610.13798, Conjecture 4.1): for all finite tournaments D₁, D₂, inv(D₁ → D₂) = inv(D₂ → D₁).\n\nOpen. `tournament_inversion_number_le_min_rank_add_one` (arXiv:2610.13798 (On the failure of additivity of inversion numbers for dijoins), inequality (1.2), quoting an earlier paper.): For a finite tournament D: inv(D) ≤ tmr(D) + 1.\n\nOpen. `poset_height_one_reconstructible` (arXiv:2610.12690): Open problem (arXiv:2610.12690, Sec. 9, from an open problem in a monograph on ordered sets): every finite ordered set of height one with at least four elements is reconstructible from its deck: if P and Q are finite ordered sets of height one, |P| ≥ 4, and…",
+   "declarations": [
+    "card_le_twenty_nine_of_regular_eight_triangle_distinct",
+    "digraph_invert_invert",
+    "digraph_invert_is_tournament",
+    "digraph_dijoin_is_tournament",
+    "digraph_inversion_number_eq_zero_of_is_acyclic",
+    "digraph_is_acyclic_of_rank",
+    "digraph_directed_triangle_not_acyclic",
+    "digraph_is_acyclic_dijoin",
+    "tournament_exists_decycling_family",
+    "tournament_dijoin_inversion_number_le_add",
+    "tournament_dijoin_inversion_number_le_symm_add_two",
+    "tournament_inversion_number_le_dijoin",
+    "tournament_dijoin_inversion_number_symm_of_is_acyclic_left",
+    "tournament_exists_family_length_eq_inversion_number",
+    "multipartite_game_bob_bound_ge_min_threshold",
+    "multipartite_game_threshold_minimizer_small_excess",
+    "deadline_schedule_exists_iff_sorted_deadline_ge",
+    "digraph_flip_by_matrix_zero",
+    "tournament_min_rank_eq_zero_of_is_acyclic",
+    "tournament_exists_decycling_matrix",
+    "tournament_min_rank_le_dijoin",
+    "tournament_min_rank_le_inversion_number",
+    "poset_hypomorphic_refl",
+    "poset_height_one_bool",
+    "poset_hypomorphic_card_lt_pairs_eq",
+    "schnorr_zpow_eq_pow_zmod_val",
+    "schnorr_mem_zpowers_iff_exists_zmod",
+    "schnorr_soundness_affine_related_keys",
+    "schnorr_linear_batch_soundness_bound",
+    "digraph_reverse_is_tournament",
+    "digraph_inversion_number_le_of_adj_iff_reverse",
+    "tournament_inversion_number_reverse",
+    "tournament_dijoin_swap_inversion_number_eq_reverse",
+    "tournament_of_symm_matrix_is_tournament",
+    "lower_ones_matrix_apply_self",
+    "tournament_min_rank_dijoin_le_of_symm_inv"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.13798",
+     "href": "https://arxiv.org/abs/2610.13798"
+    },
+    {
+     "label": "arXiv:2610.12690",
+     "href": "https://arxiv.org/abs/2610.12690"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-12",
    "kind": "daily",
    "title": "Daily reading: 39 proved, 2 open",

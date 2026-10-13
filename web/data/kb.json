@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-13T10:53:04Z",
+ "generated": "2026-10-13T11:11:32Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 51,
   "rejected": 9,
-  "spend": 77.92,
+  "spend": 78.31,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 101733595,
-   "output": 14070474,
-   "cache_read": 208435920
+   "input": 101931615,
+   "output": 14201248,
+   "cache_read": 208512723
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1791888767
+  "last": 1791889887
  },
  "domains": [
   {
@@ -511432,13 +511432,121 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/PosetHypomorphicCardLtPairsEq.lean",
-   "proved_at": 1791883826,
+   "proved_at": 1791889568,
    "provenance": "literature",
    "citation": "The standard counting lemma of reconstruction theory, applied to comparabilities; serves the height-one reconstruction question of arXiv:2610.12690 (Reconstruction of Finite Posets of Width Three), Sec. 9. The bound |P| ≥ 3 is needed: the 2-chain and the 2-antichain have the same deck.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof proceeds by double counting comparable pairs across the deck of single-element deleted subposets. In any finite poset R, each strict inequality a < b survives in exactly |R| − 2 cards (namely those excluding neither a nor b), so summing the comparable pairs over all cards yields (|R| − 2) times the total number of comparable pairs. Because P and Q are hypomorphic, each card of P is order-isomorphic to the corresponding card of Q and therefore contains the same number of comparable pairs. Since |P| = |Q| ≥ 3, the factor |P| − 2 is strictly positive, and cancelling it establishes that P and Q have the same total number of comparable pairs.",
+    "steps": [
+     {
+      "claim": "The posets P and Q have equal cardinality, and their deck of deleted subposets is matched by a bijection σ : P ≃ Q.",
+      "explanation": "Unpacking the hypomorphism hypothesis yields a bijection σ : P ≃ Q such that for every x ∈ P, the single-element deleted subposet P \\ {x} is order-isomorphic to Q \\ {σ x}. By Fintype.card_congr, the existence of σ implies |Q| = |P|.",
+      "lemmas": [
+       "Fintype.card_congr"
+      ],
+      "automation": false,
+      "code": "  classical\n  obtain ⟨σ, hσ⟩ := h\n  have hcard : Fintype.card Q = Fintype.card P := (Fintype.card_congr σ).symm"
+     },
+     {
+      "claim": "For any finite poset R, the sum over x ∈ R of the number of comparable pairs avoiding x equals (|R| − 2) times the total number of comparable pairs in R.",
+      "explanation": "Rewriting set cardinalities as sums of indicators and exchanging the order of summation reduces the identity to evaluating the inner sum for each pair p = (a, b). If a < b, strict inequality ensures a ≠ b, so x avoids both a and b for every element of R except a and b; erasing these two elements leaves |R| − 2 choices. If a ≮ b, the indicator is 0. Summing |R| − 2 over all comparable pairs yields the result.",
+      "lemmas": [
+       "Finset.card_filter",
+       "Finset.sum_comm",
+       "Finset.mul_sum",
+       "Finset.sum_congr",
+       "true_and",
+       "if_true",
+       "mul_one",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "Finset.mem_erase",
+       "and_true",
+       "Finset.card_erase_of_mem",
+       "Finset.card_univ",
+       "Finset.mem_erase.mpr"
+      ],
+      "automation": false,
+      "code": "  have sumP : ∀ (R : Type) [Fintype R] [PartialOrder R] [DecidableRel ((· < ·) : R → R → Prop)],\n      ∑ x : R, (Finset.univ.filter (fun p : R × R => p.1 < p.2 ∧ p.1 ≠ x ∧ p.2 ≠ x)).card =\n        (Fintype.card R - 2) * (Finset.univ.filter (fun p : R × R => p.1 < p.2)).card := by\n    intro R _ _ _\n    simp only [Finset.card_filter]\n    rw [Finset.sum_comm, Finset.mul_sum]\n    apply Finset.sum_congr rfl\n    intro p _\n    by_cases hp : p.1 < p.2\n    · simp only [hp, true_and, if_true, mul_one]\n      rw [← Finset.card_filter]\n      have hfil : Finset.univ.filter (fun x => p.1 ≠ x ∧ p.2 ≠ x) =\n          (Finset.univ.erase p.1).erase p.2 := by\n        ext x\n        simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_erase, and_true]\n        constructor\n        · rintro ⟨h1, h2⟩; exact ⟨fun h' => h2 h'.symm, fun h' => h1 h'.symm⟩\n        · rintro ⟨h1, h2⟩; exact ⟨fun h' => h2 h'.symm, fun h' => h1 h'.symm⟩\n      rw [hfil, Finset.card_erase_of_mem, Finset.card_erase_of_mem (Finset.mem_univ _),\n        Finset.card_univ]\n      · omega\n      · exact Finset.mem_erase.mpr ⟨hp.ne', Finset.mem_univ _⟩\n    · simp [hp]"
+     },
+     {
+      "claim": "For any x ∈ R, the comparable pairs in the subposet R \\ {x} correspond bijectively to pairs (a, b) in R satisfying a < b with a ≠ x and b ≠ x.",
+      "explanation": "Using Finset.card_bij, the canonical projection sending a pair of subtype elements ((a, ha), (b, hb)) to the pair of their underlying elements in R is shown to be a bijection: it maps into pairs avoiding x, is injective by Subtype.ext, and is surjective because every avoiding pair lifts to the subtype.",
+      "lemmas": [
+       "Finset.card_bij",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "true_and",
+       "Prod.mk.injEq",
+       "Subtype.ext"
+      ],
+      "automation": false,
+      "code": "  have subcount : ∀ (R : Type) [Fintype R] [PartialOrder R]\n      [DecidableRel ((· < ·) : R → R → Prop)] (x : R),\n      (Finset.univ.filter (fun p : {y : R // y ≠ x} × {y : R // y ≠ x} => p.1 < p.2)).card =\n        (Finset.univ.filter (fun p : R × R => p.1 < p.2 ∧ p.1 ≠ x ∧ p.2 ≠ x)).card := by\n    intro R _ _ _ x\n    apply Finset.card_bij (fun p _ => ((p.1 : R), (p.2 : R)))\n    · rintro ⟨a, b⟩ hab\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hab ⊢\n      exact ⟨hab, a.2, b.2⟩\n    · rintro ⟨a, b⟩ _ ⟨c, d⟩ _ hh\n      simp only [Prod.mk.injEq] at hh\n      rw [Subtype.ext hh.1, Subtype.ext hh.2]\n    · rintro ⟨a, b⟩ hab\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hab\n      refine ⟨(⟨a, hab.2.1⟩, ⟨b, hab.2.2⟩), ?_, rfl⟩\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and]\n      exact hab.1"
+     },
+     {
+      "claim": "For each x ∈ P, the card P \\ {x} has the same number of comparable pairs as the corresponding card Q \\ {σ x}.",
+      "explanation": "By the hypomorphism assumption, there exists an order isomorphism e between P \\ {x} and Q \\ {σ x}. Mapping each comparable pair (a, b) to (e a, e b) defines a bijection via Finset.card_bij, because e is an order isomorphism and thus preserves strict inequality in both directions and is injective.",
+      "lemmas": [
+       "Finset.card_bij",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "true_and",
+       "Prod.mk.injEq"
+      ],
+      "automation": false,
+      "code": "  have isoc : ∀ x : P,\n      (Finset.univ.filter (fun p : {y : P // y ≠ x} × {y : P // y ≠ x} => p.1 < p.2)).card =\n        (Finset.univ.filter\n          (fun p : {y : Q // y ≠ σ x} × {y : Q // y ≠ σ x} => p.1 < p.2)).card := by\n    intro x\n    obtain ⟨e⟩ := hσ x\n    apply Finset.card_bij (fun p _ => (e p.1, e p.2))\n    · rintro ⟨a, b⟩ hab\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hab ⊢\n      exact e.lt_iff_lt.mpr hab\n    · rintro ⟨a, b⟩ _ ⟨c, d⟩ _ hh\n      simp only [Prod.mk.injEq] at hh\n      rw [e.injective hh.1, e.injective hh.2]\n    · rintro ⟨a, b⟩ hab\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hab\n      refine ⟨(e.symm a, e.symm b), ?_, by simp⟩\n      simp only [Finset.mem_filter, Finset.mem_univ, true_and]\n      exact e.symm.lt_iff_lt.mpr hab"
+     },
+     {
+      "claim": "The sum over x ∈ P of the counts of comparable pairs in P \\ {x} equals the corresponding sum over Q.",
+      "explanation": "Using Equiv.sum_comp, the sum over Q is reindexed via the bijection σ : P ≃ Q. By the subtype equivalence and the isomorphism between cards, the summand at each x ∈ P equals the summand at σ x in Q, so the two sums are identical by Finset.sum_congr.",
+      "lemmas": [
+       "Equiv.sum_comp",
+       "Finset.sum_congr"
+      ],
+      "automation": false,
+      "code": "  have hsum : ∑ x : P, (Finset.univ.filter (fun p : P × P => p.1 < p.2 ∧ p.1 ≠ x ∧ p.2 ≠ x)).card =\n      ∑ y : Q, (Finset.univ.filter (fun p : Q × Q => p.1 < p.2 ∧ p.1 ≠ y ∧ p.2 ≠ y)).card := by\n    rw [← Equiv.sum_comp σ]\n    apply Finset.sum_congr rfl\n    intro x _\n    rw [← subcount P x, ← subcount Q (σ x), isoc x]"
+     },
+     {
+      "claim": "The total number of comparable pairs in P equals the total number of comparable pairs in Q.",
+      "explanation": "Rewriting both sides of the sum equality with the double-counting formula gives (|P| − 2) * card(P's pairs) = (|P| − 2) * card(Q's pairs), since |Q| = |P|. Because |P| ≥ 3, the factor |P| − 2 is strictly positive (verified by linear arithmetic), and cancelling it via Nat.eq_of_mul_eq_mul_left concludes the proof.",
+      "lemmas": [
+       "Nat.eq_of_mul_eq_mul_left"
+      ],
+      "automation": false,
+      "code": "  rw [sumP P, sumP Q, hcard] at hsum\n  exact Nat.eq_of_mul_eq_mul_left (by omega) hsum"
+     }
+    ],
+    "glossary": {
+     "Fintype.card_congr": "A bijection between two finite types implies they have the same cardinality.",
+     "Finset.card_filter": "The cardinality of a filtered finset equals the sum of indicator values of the predicate over the finset.",
+     "Finset.sum_comm": "Double summation over finite sets can be interchanged.",
+     "Finset.mul_sum": "Multiplication distributes over a finite sum from the left.",
+     "Finset.sum_congr": "Two finite sums are equal if their domains are equal and their summands agree at every point.",
+     "true_and": "Conjunction with True simplifies to the second conjunct.",
+     "if_true": "An if-then-else expression whose condition is True evaluates to the then-branch.",
+     "mul_one": "Multiplying by 1 leaves an element unchanged.",
+     "Finset.mem_filter": "An element belongs to a filtered finset if and only if it belongs to the base finset and satisfies the predicate.",
+     "Finset.mem_univ": "Every element of a finite type belongs to the universal finset.",
+     "Finset.mem_erase": "An element belongs to s with b removed if and only if it is not equal to b and belongs to s.",
+     "and_true": "Conjunction with True on the right simplifies to the first conjunct.",
+     "Finset.card_erase_of_mem": "Erasing an element from a finset decreases its cardinality by 1.",
+     "Finset.card_univ": "The cardinality of the universal finset equals the cardinality of the underlying finite type.",
+     "Finset.mem_erase.mpr": "If an element is not equal to b and belongs to s, it belongs to s with b removed.",
+     "Finset.card_bij": "A map between two finsets that is well-defined, injective, and surjective establishes that the finsets have equal cardinality.",
+     "Prod.mk.injEq": "Two pairs are equal if and only if their first and second components are respectively equal.",
+     "Subtype.ext": "Two subtype elements are equal if their underlying values are equal.",
+     "Equiv.sum_comp": "Reindexing a finite sum by an equivalence does not change the sum.",
+     "Nat.eq_of_mul_eq_mul_left": "If n is strictly positive and n * m = n * k, then m = k."
+    },
+    "caveats": [
+     "The definition of hypomorphic posets in this formalization explicitly provides a bijection between the elements along with order isomorphisms between corresponding deleted subposets, rather than equality of cards as an unlabelled multiset.",
+     "To count pairs in subposets, the formal proof repeatedly moves between pairs of subtype elements and pairs in the ambient product type avoiding an element via explicit bijections."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -511469,13 +511577,109 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/TournamentMinRankLeInversionNumber.lean",
-   "proved_at": 1791884673,
+   "proved_at": 1791889543,
    "provenance": "literature",
    "citation": "arXiv:2610.13798 (On the failure of additivity of inversion numbers for dijoins), inequality (1.2), quoting an earlier paper (the sum of the rank-one matrices 1_X 1_Xᵀ over a decycling family is a decycling matrix of rank at most the family size).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To show that the tournament minimum rank tmr(D) is at most the inversion number inv(D), we take an optimal sequence of vertex subsets X₀, ..., X_{k-1} of length k = inv(D) whose sequential inversion makes D acyclic. We form the V × k vertex-subset incidence matrix A over ℤ/2 and its symmetric Gram matrix M = A Aᵀ. By induction, flipping edges of D according to M is equivalent to sequentially inverting along the subsets Xᵢ, producing an acyclic tournament. Consequently, tmr(D) ≤ rank(M) ≤ rank(A) ≤ k = inv(D).",
+    "steps": [
+     {
+      "claim": "Obtain an optimal sequence of vertex subsets achieving the inversion number and define the incidence and rank-one matrices.",
+      "explanation": "By tournament_exists_family_length_eq_inversion_number, there exists a list Xs of k = inv(D) vertex subsets whose successive inversion leaves D acyclic. We define the V × k incidence matrix A where A x i = 1 if x ∈ Xs i and 0 otherwise, and for any set X ⊆ V, the rank-one outer product matrix N(X) where N(X) x y = 1 if both x, y ∈ X and 0 otherwise, working over ℤ/2.",
+      "lemmas": [
+       "tournament_exists_family_length_eq_inversion_number"
+      ],
+      "automation": false,
+      "code": "  classical\n  obtain ⟨Xs, hXl, hXa⟩ := tournament_exists_family_length_eq_inversion_number V D h\n  let A : {n : ℕ} → (Fin n → Set V) → Matrix V (Fin n) (ZMod 2) :=\n    fun X x i => if x ∈ X i then 1 else 0\n  let N : Set V → Matrix V V (ZMod 2) :=\n    fun X x y => (if x ∈ X then 1 else 0) * (if y ∈ X then 1 else 0)"
+     },
+     {
+      "claim": "Flipping a digraph by a symmetric matrix P and then by a matrix M is equivalent to flipping by P + M.",
+      "explanation": "After noting basic arithmetic in ℤ/2 (1 + 1 = 0, 0 ≠ 1, and every element is 0 or 1), we compare the adjacency conditions. Flipping by P swaps an edge (x, y) if P x y = 1, and flipping again by M swaps it if M x y = 1. Using the symmetry of P (P y x = P x y) and checking all four possible value pairs for (P x y, M x y) in {0, 1}², the composed flip agrees with flipping whenever (P + M) x y = 1.",
+      "lemmas": [
+       "Matrix.add_apply"
+      ],
+      "automation": false,
+      "code": "  have h11 : (1 : ZMod 2) + 1 = 0 := rfl\n  have h01 : (0 : ZMod 2) ≠ 1 := by decide\n  have two : ∀ a : ZMod 2, a = 0 ∨ a = 1 := by decide\n  have flip_add : ∀ (E : Digraph V) (P M : Matrix V V (ZMod 2)), (∀ x y, P y x = P x y) →\n      digraph_flip_by_matrix (digraph_flip_by_matrix E P) M =\n        digraph_flip_by_matrix E (P + M) := by\n    intro E P M hP\n    ext x y\n    simp only [digraph_flip_by_matrix, Matrix.add_apply, hP x y]\n    rcases two (P x y) with ha | ha <;> rcases two (M x y) with hb | hb <;>\n      simp [ha, hb, h11]"
+     },
+     {
+      "claim": "Inverting a digraph along a subset X is equivalent to flipping edges by the matrix N(X).",
+      "explanation": "Inverting along X reverses an edge (x, y) if and only if both x ∈ X and y ∈ X. Since N(X) x y = 1 precisely when x, y ∈ X, this coincides with flipping edges by N(X), verified by a case analysis on whether x ∈ X and y ∈ X.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hN : ∀ (E : Digraph V) (X : Set V), digraph_invert E X = digraph_flip_by_matrix E (N X) := by\n    intro E X\n    ext x y\n    simp only [digraph_flip_by_matrix, digraph_invert, N]\n    by_cases hx : x ∈ X <;> by_cases hy : y ∈ X <;> simp [hx, hy]"
+     },
+     {
+      "claim": "Flipping by the Gram matrix A(X) * A(X)ᵀ is equivalent to sequentially inverting the family of subsets X.",
+      "explanation": "By induction on the length n of the sequence X. For n = 0, A(X) * A(X)ᵀ is the zero matrix, which flips no edges, matching the empty sequence of inversions. For n + 1, the matrix product decomposes via Fin.sum_univ_succ into N(X 0) + A(X') * A(X')ᵀ, where X' is the tail of the sequence. Because N(X 0) is symmetric, flip_add shows that flipping by this sum equals flipping by N(X 0) followed by A(X') * A(X')ᵀ. By the induction hypothesis and hN, this matches inverting X 0 followed by inverting the remaining subsets.",
+      "lemmas": [
+       "List.ofFn_succ",
+       "List.foldl_cons",
+       "Matrix.mul_apply",
+       "Matrix.add_apply",
+       "Matrix.transpose_apply",
+       "Fin.sum_univ_succ"
+      ],
+      "automation": false,
+      "code": "  have key : ∀ (n : ℕ) (X : Fin n → Set V) (E : Digraph V),\n      digraph_flip_by_matrix E (A X * (A X).transpose) = (List.ofFn X).foldl digraph_invert E := by\n    intro n\n    induction n with\n    | zero =>\n      intro X E\n      ext x y\n      simp [digraph_flip_by_matrix, Matrix.mul_apply]\n    | succ n ih =>\n      intro X E\n      rw [List.ofFn_succ, List.foldl_cons, ← ih (fun i => X i.succ), hN, flip_add]\n      · congr 1\n        ext x y\n        simp only [Matrix.mul_apply, Matrix.add_apply, Matrix.transpose_apply, Fin.sum_univ_succ]\n        rfl\n      · intro x y\n        simp only [N]\n        ring"
+     },
+     {
+      "claim": "The Gram matrix M = A(Xs) * A(Xs)ᵀ is symmetric.",
+      "explanation": "By Matrix.IsSymm.ext, it suffices to show M j i = M i j. Using Matrix.mul_apply and Matrix.transpose_apply, the entry M i j is ∑ k, A i k * A j k. By commutativity of multiplication (mul_comm and Finset.sum_congr), this equals ∑ k, A j k * A i k = M j i.",
+      "lemmas": [
+       "Matrix.IsSymm.ext",
+       "Matrix.mul_apply",
+       "Matrix.transpose_apply",
+       "Finset.sum_congr",
+       "mul_comm"
+      ],
+      "automation": false,
+      "code": "  have hsymm : (A Xs.get * (A Xs.get).transpose).IsSymm := by\n    apply Matrix.IsSymm.ext\n    intro i j\n    simp only [Matrix.mul_apply, Matrix.transpose_apply]\n    exact Finset.sum_congr rfl (fun k _ => mul_comm _ _)"
+     },
+     {
+      "claim": "Flipping D by M = A(Xs) * A(Xs)ᵀ produces an acyclic tournament.",
+      "explanation": "Using key to rewrite the matrix flip as sequential inversion and List.ofFn_get to identify the indexing function with the list Xs, flipping D by M yields the tournament obtained by sequentially inverting Xs. This digraph is acyclic by the choice of Xs (hypothesis hXa).",
+      "lemmas": [
+       "List.ofFn_get"
+      ],
+      "automation": false,
+      "code": "  have hac : digraph_is_acyclic (digraph_flip_by_matrix D (A Xs.get * (A Xs.get).transpose)) := by\n    rw [key, List.ofFn_get]\n    exact hXa"
+     },
+     {
+      "claim": "The tournament minimum rank of D is at most its inversion number.",
+      "explanation": "Since M = A(Xs) * A(Xs)ᵀ is a symmetric matrix over ℤ/2 that flips D to an acyclic tournament, its rank is an upper bound for tournament_min_rank(D) by Nat.sInf_le. The rank of A * Aᵀ is at most the rank of A by Matrix.rank_mul_le_left, which in turn is bounded by the number of columns |Xs| by Matrix.rank_le_card_width. Because |Xs| = inv(D), we conclude tournament_min_rank(D) ≤ inv(D).",
+      "lemmas": [
+       "Nat.sInf_le",
+       "Matrix.rank_mul_le_left",
+       "Matrix.rank_le_card_width"
+      ],
+      "automation": false,
+      "code": "  calc tournament_min_rank D ≤ (A Xs.get * (A Xs.get).transpose).rank :=\n        Nat.sInf_le ⟨_, hsymm, hac, rfl⟩\n    _ ≤ (A Xs.get).rank := Matrix.rank_mul_le_left _ _\n    _ ≤ Fintype.card (Fin Xs.length) := Matrix.rank_le_card_width _\n    _ = digraph_inversion_number D := by simp [hXl]"
+     }
+    ],
+    "glossary": {
+     "tournament_exists_family_length_eq_inversion_number": "Every finite tournament has a list of vertex subsets of length equal to its inversion number whose sequential inversion yields an acyclic tournament.",
+     "Matrix.add_apply": "The (i, j)-th entry of the sum of two matrices is the sum of their (i, j)-th entries.",
+     "List.ofFn_succ": "Converting a function on Fin (n + 1) to a list yields the value at 0 prepended to the list of the remaining values.",
+     "List.foldl_cons": "Folding a function over a non-empty list a :: l applies the function to the accumulator and the head a, then folds over the tail l.",
+     "Matrix.mul_apply": "The (i, k)-th entry of a matrix product M * N is the sum over j of M i j * N j k.",
+     "Matrix.transpose_apply": "The (i, j)-th entry of the transpose of a matrix M is M j i.",
+     "Fin.sum_univ_succ": "A sum over Fin (n + 1) splits into the term at index 0 plus the sum over the remaining n indices.",
+     "Matrix.IsSymm.ext": "A square matrix is symmetric if A j i = A i j for all indices i and j.",
+     "Finset.sum_congr": "Two sums over finite sets are equal if the sets are equal and the summands agree at each point.",
+     "mul_comm": "Multiplication in a commutative magma is commutative: a * b = b * a.",
+     "List.ofFn_get": "Reconstructing a list from its indexing function yields the original list.",
+     "Nat.sInf_le": "The infimum of a set of natural numbers is less than or equal to any element in the set.",
+     "Matrix.rank_mul_le_left": "The rank of a matrix product A * B is at most the rank of the left factor A.",
+     "Matrix.rank_le_card_width": "The rank of an m × n matrix is at most its number of columns n."
+    },
+    "caveats": [
+     "In Lean, the equivalence between inverting along a family of subsets and flipping edges according to the Gram matrix A Aᵀ over ℤ/2 is established by induction on the length of the list, decomposing A Aᵀ into the sum of outer products of the column indicator vectors."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -511529,13 +511733,31 @@
     "tournament_dijoin_swap_inversion_number_eq_reverse"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/DigraphReverseIsTournament.lean",
-   "proved_at": 1791885769,
+   "proved_at": 1791889541,
    "provenance": "lemma",
    "citation": "Sanity lemma for digraph_reverse (arXiv:2610.13798, Sec. 4).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To prove that the reversal of a tournament D is itself a tournament, we verify its two defining conditions: looplessness and the tournament edge condition between distinct vertices. Both hold directly by unpacking the definition of the reversed graph: a self-loop in the reverse is a self-loop in D, and the condition for an edge between distinct x and y in the reverse is the tournament condition of D applied to the pair (y, x).",
+    "steps": [
+     {
+      "claim": "The reversal of D is loopless and has exactly one directed edge between any pair of distinct vertices.",
+      "explanation": "By definition, a tournament requires two properties. First, it has no self-loops: for any vertex x, the reversed graph has no loop at x if and only if ¬ D.Adj x x, which is provided directly by the loopless property of D (h.1 x). Second, for any two vertices x and y with x ≠ y, there must be an edge from x to y in the reversed graph if and only if there is not an edge from y to x; by definition of digraph_reverse, this unfolds to D.Adj y x ↔ ¬ D.Adj x y. Since x ≠ y implies y ≠ x by Ne.symm, this equivalence is precisely the tournament condition of D applied to the pair (y, x) (h.2 y x).",
+      "lemmas": [
+       "Ne.symm"
+      ],
+      "automation": false,
+      "code": "  ⟨fun x => h.1 x, fun x y hxy => h.2 y x (Ne.symm hxy)⟩"
+     }
+    ],
+    "glossary": {
+     "Ne.symm": "Inequality is symmetric: if a ≠ b, then b ≠ a."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean source alone (no goal states were available). Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -511567,13 +511789,64 @@
     "tournament_dijoin_swap_inversion_number_eq_reverse"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/DigraphInversionNumberLeOfAdjIffReverse.lean",
-   "proved_at": 1791886055,
+   "proved_at": 1791889723,
    "provenance": "lemma",
    "citation": "Helper for the reduction in arXiv:2610.13798 (On the failure of additivity of inversion numbers for dijoins), Sec. 4 (a set of inversions decycles D iff it decycles D̄; inv(D₂ → D₁) = inv(D̄₁ → D̄₂)).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To show that inv(G) ≤ inv(E), we take an optimal decycling family Zs for the tournament E, of length inv(E), and pull it back to G via preimages under f. An induction on the list of subsets shows that inverting G along preimages preserves the reversed adjacency relation at each step: x → y in the inverted G if and only if f(y) → f(x) in the inverted E. Consequently, every directed path in the inverted G reverses to a directed path in the inverted E. Any cycle in the inverted G would therefore push forward to a cycle in the inverted E, contradicting its acyclicity and establishing that the pulled-back family decycles G.",
+    "steps": [
+     {
+      "claim": "There exists an optimal decycling family for the tournament E whose length equals the inversion number of E.",
+      "explanation": "Applying tournament_exists_family_length_eq_inversion_number to the finite tournament E provides a list Zs of vertex subsets whose length is inv(E) and such that inverting E successively along Zs produces an acyclic digraph.",
+      "lemmas": [
+       "tournament_exists_family_length_eq_inversion_number"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨Zs, hZl, hZa⟩ := tournament_exists_family_length_eq_inversion_number U' E hE"
+     },
+     {
+      "claim": "Inverting G along the preimages f⁻¹(Z) preserves the reversed adjacency relation with the inverted tournament E.",
+      "explanation": "We prove by induction on Zs that an arc exists from x to y in the inverted G if and only if an arc exists from f(y) to f(x) in the inverted E. The base case (an empty list) is the initial hypothesis. For the inductive step, inverting along f⁻¹(Z) reverses adjacency between x and y precisely when both vertices lie in f⁻¹(Z), which is equivalent to f(x) and f(y) both lying in Z; thus the single-step inversion preserves the reversed adjacency relation, and the induction hypothesis applies to the rest of the list.",
+      "lemmas": [
+       "List.map_cons",
+       "List.foldl_cons",
+       "digraph_invert",
+       "Set.mem_preimage"
+      ],
+      "automation": false,
+      "code": "  have rev : ∀ (Zs : List (Set U')) (E : Digraph U') (G : Digraph U),\n      (∀ x y, G.Adj x y ↔ E.Adj (f y) (f x)) →\n      ∀ x y, ((Zs.map (f ⁻¹' ·)).foldl digraph_invert G).Adj x y ↔\n        (Zs.foldl digraph_invert E).Adj (f y) (f x) := by\n    intro Zs\n    induction Zs with\n    | nil => intro E G hGE; simpa using hGE\n    | cons Z Zs ih =>\n      intro E G hGE\n      simp only [List.map_cons, List.foldl_cons]\n      apply ih\n      intro x y\n      simp only [digraph_invert, Set.mem_preimage, hGE]\n      tauto"
+     },
+     {
+      "claim": "The inversion number of G is at most that of E, provided that inverting G along the preimage family yields an acyclic digraph.",
+      "explanation": "By definition, the inversion number is the infimum of the lengths of decycling families. The pulled-back family of subsets Zs.map (f ⁻¹' ·) has length equal to the length of Zs, which equals inv(E). By Nat.sInf_le, showing that this family decycles G bounds inv(G) ≤ inv(E).",
+      "lemmas": [
+       "Nat.sInf_le"
+      ],
+      "automation": false,
+      "code": "  apply Nat.sInf_le\n  refine ⟨Zs.map (f ⁻¹' ·), by simp [hZl], ?_⟩"
+     },
+     {
+      "claim": "The digraph obtained by inverting G along the preimage family is acyclic.",
+      "explanation": "Suppose for contradiction that there is a cycle at vertex x in the inverted G. By induction on paths (TransGen), any directed path from u to v in the inverted G reverses to a directed path from f(v) to f(u) in the inverted E, because every individual step reverses by the lemma rev proved in the second step. In particular, the cycle at x in G yields a cycle at f(x) in the inverted E, contradicting the fact that inverting E along Zs yields an acyclic digraph.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  intro x hx\n  apply hZa (f x)\n  have hr := rev Zs E G hGE\n  have key : ∀ x y, Relation.TransGen ((Zs.map (f ⁻¹' ·)).foldl digraph_invert G).Adj x y →\n      Relation.TransGen (Zs.foldl digraph_invert E).Adj (f y) (f x) := by\n    intro x y hxy\n    induction hxy with\n    | single h => exact .single ((hr _ _).1 h)\n    | tail _ h ih => exact .head ((hr _ _).1 h) ih\n  exact key x x hx"
+     }
+    ],
+    "glossary": {
+     "tournament_exists_family_length_eq_inversion_number": "every finite tournament admits a decycling family of vertex subsets whose length equals its inversion number",
+     "List.map_cons": "mapping a function over a cons list applies the function to the head and maps over the tail",
+     "List.foldl_cons": "folding over a cons list applies the fold operation to the accumulator and the head, then continues over the tail",
+     "digraph_invert": "inverting a digraph on a set of vertices reverses arcs between pairs both in the set and leaves all other arcs unchanged",
+     "Set.mem_preimage": "an element belongs to the preimage of a set under a map if and only if its image belongs to the set",
+     "Nat.sInf_le": "the infimum of a set of natural numbers is less than or equal to any element in the set"
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -511602,13 +511875,55 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/TournamentInversionNumberReverse.lean",
-   "proved_at": 1791886351,
+   "proved_at": 1791889588,
    "provenance": "literature",
    "citation": "arXiv:2610.13798 (On the failure of additivity of inversion numbers for dijoins), Sec. 4 (\"a set of inversions decycle D if and only if they decycle D̄, so inv(D) = inv(D̄)\").",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The equality is proved by establishing the mutual bounds inv(D̄) ≤ inv(D) and inv(D) ≤ inv(D̄) via antisymmetry. Each direction applies an existing lemma stating that an arc-reversing vertex map from a digraph into a tournament bounds the inversion number; the identity map gives the required reversal in both directions, using the fact that reversing a tournament produces another tournament.",
+    "steps": [
+     {
+      "claim": "To show inv(D̄) = inv(D), it suffices to prove inv(D̄) ≤ inv(D) and inv(D) ≤ inv(D̄).",
+      "explanation": "By the antisymmetry of the partial order on natural numbers (le_antisymm), an equality follows from proving inequalities in both directions.",
+      "lemmas": [
+       "le_antisymm"
+      ],
+      "automation": false,
+      "code": "  apply le_antisymm"
+     },
+     {
+      "claim": "inv(D̄) ≤ inv(D)",
+      "explanation": "We apply the comparison lemma digraph_inversion_number_le_of_adj_iff_reverse with G = D̄, E = D, and the identity map. The hypothesis that D is a tournament is given by h, and the adjacency-reversal condition (D̄.Adj x y ↔ D.Adj y x) holds definitionally by reflexivity of equivalence (Iff.rfl).",
+      "lemmas": [
+       "digraph_inversion_number_le_of_adj_iff_reverse",
+       "Iff.rfl"
+      ],
+      "automation": false,
+      "code": "  · exact digraph_inversion_number_le_of_adj_iff_reverse _ D id h (fun x y => Iff.rfl)"
+     },
+     {
+      "claim": "inv(D) ≤ inv(D̄)",
+      "explanation": "We apply the same comparison lemma in the opposite direction, with G = D, E = D̄, and the identity map. The requirement that D̄ is a tournament is supplied by digraph_reverse_is_tournament, and the adjacency condition (D.Adj x y ↔ D̄.Adj y x) again holds definitionally by reflexivity (Iff.rfl).",
+      "lemmas": [
+       "digraph_inversion_number_le_of_adj_iff_reverse",
+       "digraph_reverse_is_tournament",
+       "Iff.rfl"
+      ],
+      "automation": false,
+      "code": "  · exact digraph_inversion_number_le_of_adj_iff_reverse D (digraph_reverse D) id\n      (digraph_reverse_is_tournament D h) (fun x y => Iff.rfl)"
+     }
+    ],
+    "glossary": {
+     "le_antisymm": "If a ≤ b and b ≤ a in a partial order, then a = b.",
+     "digraph_inversion_number_le_of_adj_iff_reverse": "If E is a finite tournament and f reverses adjacencies between G and E (that is, G.Adj x y ↔ E.Adj (f y) (f x)), then digraph_inversion_number G ≤ digraph_inversion_number E.",
+     "digraph_reverse_is_tournament": "The reversal of any tournament is also a tournament.",
+     "Iff.rfl": "Any proposition is logically equivalent to itself (P ↔ P)."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -511639,13 +511954,55 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/TournamentDijoinSwapInversionNumberEqReverse.lean",
-   "proved_at": 1791886619,
+   "proved_at": 1791889677,
    "provenance": "literature",
    "citation": "arXiv:2610.13798 (On the failure of additivity of inversion numbers for dijoins), Sec. 4, reduction after Conjecture 4.1 (the reverse of D₂ → D₁ is D̄₁ → D̄₂).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The equality is established by antisymmetry, reducing to proving both directions of the inequality between inv(D₂ → D₁) and inv(D̄₁ → D̄₂). In each direction, the inversion number is bounded using `digraph_inversion_number_le_of_adj_iff_reverse` via the swap map `Sum.swap`, which interchanges the two summands. A four-way case analysis on vertex summands confirms that `Sum.swap` acts as an anti-isomorphism by directly unfolding the definitions of dijoin and reversal.",
+    "steps": [
+     {
+      "claim": "It suffices to show that inv(D₂ → D₁) ≤ inv(D̄₁ → D̄₂) and inv(D̄₁ → D̄₂) ≤ inv(D₂ → D₁).",
+      "explanation": "By antisymmetry of the partial order on natural numbers (`le_antisymm`), the two inversion numbers are equal if each is less than or equal to the other.",
+      "lemmas": [
+       "le_antisymm"
+      ],
+      "automation": false,
+      "code": "  apply le_antisymm"
+     },
+     {
+      "claim": "inv(D₂ → D₁) ≤ inv(D̄₁ → D̄₂)",
+      "explanation": "By `digraph_inversion_number_le_of_adj_iff_reverse`, an inversion number inequality holds whenever there is an adjacency-reversing map into a tournament. The target dijoin D̄₁ → D̄₂ is a tournament because the reversal of a tournament is a tournament (`digraph_reverse_is_tournament`) and the dijoin of tournaments is a tournament (`digraph_dijoin_is_tournament`). Using the canonical swap map `Sum.swap : W ⊕ V → V ⊕ W`, it remains to show that x → y in D₂ → D₁ if and only if y.swap → x.swap in D̄₁ → D̄₂. Case analysis on whether x and y originate from W or V yields four cases; in each case, unfolding the definitions of dijoin and reverse digraph simplifies the equivalence to an identity.",
+      "lemmas": [
+       "digraph_inversion_number_le_of_adj_iff_reverse",
+       "digraph_dijoin_is_tournament",
+       "digraph_reverse_is_tournament"
+      ],
+      "automation": false,
+      "code": "  · apply digraph_inversion_number_le_of_adj_iff_reverse _ _ Sum.swap\n      (digraph_dijoin_is_tournament _ _ (digraph_reverse_is_tournament D₁ h₁)\n        (digraph_reverse_is_tournament D₂ h₂))\n    intro x y\n    rcases x with a | a <;> rcases y with b | b <;> simp [digraph_dijoin, digraph_reverse]"
+     },
+     {
+      "claim": "inv(D̄₁ → D̄₂) ≤ inv(D₂ → D₁)",
+      "explanation": "By the same lemma `digraph_inversion_number_le_of_adj_iff_reverse` applied in the reverse direction with `Sum.swap : V ⊕ W → W ⊕ V`, and using that D₂ → D₁ is a tournament (`digraph_dijoin_is_tournament`), the inequality reduces to the reversed adjacency condition. Case analysis on whether x, y ∈ V ⊕ W come from V or W followed by unfolding the definitions of dijoin and reverse digraph closes all four cases.",
+      "lemmas": [
+       "digraph_inversion_number_le_of_adj_iff_reverse",
+       "digraph_dijoin_is_tournament"
+      ],
+      "automation": false,
+      "code": "  · apply digraph_inversion_number_le_of_adj_iff_reverse _ _ Sum.swap\n      (digraph_dijoin_is_tournament _ _ h₂ h₁)\n    intro x y\n    rcases x with a | a <;> rcases y with b | b <;> simp [digraph_dijoin, digraph_reverse]"
+     }
+    ],
+    "glossary": {
+     "le_antisymm": "In a partial order, if a ≤ b and b ≤ a, then a = b.",
+     "digraph_inversion_number_le_of_adj_iff_reverse": "If E is a finite tournament and f : U → U' is an adjacency-reversing map from G to E (so x is adjacent to y in G iff f(y) is adjacent to f(x) in E), then the inversion number of G is at most that of E.",
+     "digraph_dijoin_is_tournament": "The dijoin of two tournaments is a tournament.",
+     "digraph_reverse_is_tournament": "The reversal of a tournament is a tournament."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -511672,13 +512029,43 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/CardLeTwentyNineOfRegularEightTriangleDistinct.lean",
-   "proved_at": 1791886872,
+   "proved_at": 1791889513,
    "provenance": "lemma",
    "citation": "Pigeonhole bound towards OP-123 (arXiv:2610.08478, Sec. 1). Its recorded dependency on the unproved exists_regular_eight_triangle_distinct blocks the offline build; the r = 8 case of the proved simple_graph_card_le_choose_add_one_of_regular_triangle_distinct is the same bound.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof bounds the number of vertices by viewing the triangle-degree function as an injection into a small set of integers. Since G is 8-regular, any vertex has 8 neighbors and can participate in at most C(8, 2) = 28 triangles, meaning every triangle-degree is an integer in {0, ..., 28}. Because G is triangle-distinct, distinct vertices have distinct triangle-degrees, so the triangle-degree map is injective; by the pigeonhole principle, the graph can have at most 29 vertices.",
+    "steps": [
+     {
+      "claim": "For every vertex v, its triangle-degree is at most 28, so it belongs to {0, ..., 28} (Finset.range 29).",
+      "explanation": "For any vertex v, its triangle-degree is bounded by C(deg(v), 2) using simple_graph_triangle_degree_le_choose. Since G is 8-regular (hreg v), this bound is C(8, 2). A direct calculation (decide) evaluates C(8, 2) = 28. Using Finset.mem_range to rephrase membership in Finset.range 29 as being strictly less than 29, linear arithmetic (omega) closes the goal from triangle-degree ≤ 28.",
+      "lemmas": [
+       "simple_graph_triangle_degree_le_choose",
+       "Finset.mem_range"
+      ],
+      "automation": false,
+      "code": "  have hmaps : ∀ v ∈ (Finset.univ : Finset V),\n      simple_graph_triangle_degree G v ∈ Finset.range 29 := by\n    intro v _\n    have h1 := simple_graph_triangle_degree_le_choose G v\n    rw [hreg v] at h1\n    simp only [Finset.mem_range]\n    have : (8 : ℕ).choose 2 = 28 := by decide\n    omega"
+     },
+     {
+      "claim": "The vertex set of G has cardinality at most 29.",
+      "explanation": "By hypothesis htd, the triangle-degree map is injective on the entire vertex set. Applying Finset.card_le_card_of_injOn to this map from Finset.univ into Finset.range 29 shows that the number of vertices |Finset.univ| is at most |Finset.range 29|. Simplifying cardinalities (simpa) yields |V| ≤ 29.",
+      "lemmas": [
+       "Finset.card_le_card_of_injOn"
+      ],
+      "automation": false,
+      "code": "  have := Finset.card_le_card_of_injOn _ hmaps (htd.injOn)\n  simpa using this"
+     }
+    ],
+    "glossary": {
+     "simple_graph_triangle_degree_le_choose": "In any simple graph, the triangle-degree of a vertex v is at most C(degree(v), 2), the number of pairs of its neighbors.",
+     "Finset.mem_range": "A natural number m belongs to Finset.range n if and only if m < n.",
+     "Finset.card_le_card_of_injOn": "If a function maps a finite set s into a finite set t injectively, then |s| ≤ |t|."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -511762,13 +512149,71 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/TournamentOfSymmMatrixIsTournament.lean",
-   "proved_at": 1791888223,
+   "proved_at": 1791889652,
    "provenance": "lemma",
    "citation": "Sanity lemma for tournament_of_symm_matrix (arXiv:2610.13798).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To show that the graph defined by G is a tournament, the proof checks that there are no self-loops and that between any two distinct vertices exactly one directed edge is present. The absence of self-loops holds because adjacency requires a strict inequality between vertex indices, which is impossible for a vertex and itself. For distinct vertices i ≠ j, trichotomy divides into the cases i < j and j < i; in each case, whether the corresponding matrix entry is 0 or 1 uniquely determines which of the two directed edges is present.",
+    "steps": [
+     {
+      "claim": "Every element of ℤ/2ℤ is either 0 or 1.",
+      "explanation": "Since ℤ/2ℤ has only two elements, the disjunction a = 0 ∨ a = 1 holds for all elements by finite exhaustion, verified by decide.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have two : ∀ a : ZMod 2, a = 0 ∨ a = 1 := by decide"
+     },
+     {
+      "claim": "To show that the constructed graph is a tournament, it suffices to prove that it has no self-loops and that between any two distinct vertices there is a directed edge in exactly one direction.",
+      "explanation": "By definition, a directed graph is a tournament (digraph_is_tournament) if no vertex has a self-loop (∀ i, ¬ Adj i i) and for all distinct pairs i ≠ j, having an edge from i to j is equivalent to not having an edge from j to i (Adj i j ↔ ¬ Adj j i). We split the proof into these two independent goals.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  refine ⟨fun i => ?_, fun i j hij => ?_⟩"
+     },
+     {
+      "claim": "The graph contains no self-loops.",
+      "explanation": "By definition of tournament_of_symm_matrix, an edge from i to j requires either i < j or j < i. When i = j, the strict inequality i < i is false in both disjuncts, so ¬ Adj i i holds immediately.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  · simp [tournament_of_symm_matrix]"
+     },
+     {
+      "claim": "For distinct vertices i ≠ j, it suffices to consider separately the cases i < j and j < i.",
+      "explanation": "Unfolding the definition of adjacency between i and j, we must show that (i < j ∧ G i j = 0 ∨ j < i ∧ G j i = 1) is equivalent to ¬ (j < i ∧ G j i = 0 ∨ i < j ∧ G i j = 1). Since i ≠ j, totality of the linear order on Fin n gives either i < j or j < i.",
+      "lemmas": [
+       "lt_or_gt_of_ne"
+      ],
+      "automation": false,
+      "code": "  · simp only [tournament_of_symm_matrix]\n    rcases lt_or_gt_of_ne hij with h | h"
+     },
+     {
+      "claim": "When i < j, exactly one directed edge connects i and j.",
+      "explanation": "Since i < j, the reverse inequality j < i is false (by not_lt_of_gt). The matrix entry G i j must be either 0 or 1: if G i j = 0, then the directed edge (i, j) exists and (j, i) does not; if G i j = 1, then (i, j) does not exist and (j, i) does. In both cases, the equivalence holds.",
+      "lemmas": [
+       "not_lt_of_gt"
+      ],
+      "automation": false,
+      "code": "    · rcases two (G i j) with h0 | h0 <;> simp [h, h0, not_lt_of_gt h]"
+     },
+     {
+      "claim": "When j < i, exactly one directed edge connects i and j.",
+      "explanation": "Symmetrically, since j < i, the reverse inequality i < j is false (by not_lt_of_gt). The matrix entry G j i is either 0 or 1: if G j i = 0, the edge (j, i) exists and (i, j) does not; if G j i = 1, the edge (i, j) exists and (j, i) does not. In both cases, the equivalence holds.",
+      "lemmas": [
+       "not_lt_of_gt"
+      ],
+      "automation": false,
+      "code": "    · rcases two (G j i) with h0 | h0 <;> simp [h, h0, not_lt_of_gt h]"
+     }
+    ],
+    "glossary": {
+     "lt_or_gt_of_ne": "In a linear order, any two distinct elements satisfy a < b or b < a.",
+     "not_lt_of_gt": "In a preorder, if a < b then b < a is false."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -511795,13 +512240,27 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/LowerOnesMatrixApplySelf.lean",
-   "proved_at": 1791888483,
+   "proved_at": 1791889689,
    "provenance": "lemma",
    "citation": "Sanity lemma for lower_ones_matrix (arXiv:2610.13798).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof unfolds the definition of `lower_ones_matrix` at the diagonal entry (i, i). Because i ≤ i holds reflexively for any index i, the conditional expression if i ≤ i then 1 else 0 simplifies directly to 1.",
+    "steps": [
+     {
+      "claim": "lower_ones_matrix n i i = 1",
+      "explanation": "The simplifier unfolds the definition of `lower_ones_matrix`, which evaluates the entry at (i, i) to `if i ≤ i then 1 else 0`. Since the inequality i ≤ i holds by reflexivity, the `if` condition is true, simplifying the expression to 1.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  simp [lower_ones_matrix]"
+     }
+    ],
+    "glossary": {},
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -511832,13 +512291,111 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/TournamentMinRankDijoinLeOfSymmInv.lean",
-   "proved_at": 1791888767,
+   "proved_at": 1791889887,
    "provenance": "literature",
    "citation": "arXiv:2610.13798 (On the failure of additivity of inversion numbers for dijoins), Proposition 3.1. Stated here is the bound tmr(T(A) → T(B)) ≤ n; the proposition's remark that A is again invertible symmetric is not part of the statement (its symmetry is proved inside the proof).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To bound the tournament minimum rank of the dijoin T(A) → T(B) by n, we construct a 2n × 2n symmetric block matrix M over 𝔽₂ whose blocks are A = L B⁻¹ Lᵀ, L, Lᵀ, and B. We show that flipping the dijoin along M yields an acyclic tournament using an explicit potential function that assigns odd values 2i + 1 to vertices in T(A) and even values 2j to vertices in T(B). Finally, factoring M as P B Pᵀ for a 2n × n matrix P bounds the rank of M by n, which upper bounds the minimum rank.",
+    "steps": [
+     {
+      "claim": "The field 𝔽₂ has only two elements (0 and 1), and the inverse matrix B⁻¹ is symmetric.",
+      "explanation": "Every element of ℤ/2ℤ is decided to be either 0 or 1. Since B is symmetric and invertible, its inverse B⁻¹ is also symmetric because transposition commutes with matrix inversion for invertible matrices.",
+      "lemmas": [
+       "Matrix.transpose_nonsing_inv"
+      ],
+      "automation": false,
+      "code": "  have two : ∀ a : ZMod 2, a = 0 ∨ a = 1 := by decide\n  have hBinvT : (B⁻¹).transpose = B⁻¹ := by rw [Matrix.transpose_nonsing_inv, hB.eq]"
+     },
+     {
+      "claim": "For any symmetric matrix G, flipping the tournament T(G) by G directs all edges towards larger indices: any arc i → j in the flipped graph satisfies i < j.",
+      "explanation": "By symmetry, G j i = G i j. By definition, T(G) has an arc i → j if either i < j with G i j = 0, or j < i with G j i = 1. Flipping T(G) by G keeps or reverses each edge depending on whether G i j = 1 or G i j ≠ 1. In both cases (G i j = 0 and G i j = 1), the condition simplifies directly to i < j.",
+      "lemmas": [
+       "congrFun",
+       "Matrix.transpose_apply"
+      ],
+      "automation": false,
+      "code": "  have diag : ∀ G : Matrix (Fin n) (Fin n) (ZMod 2), G.IsSymm → ∀ i j : Fin n,\n      (G i j = 1 ∧ (tournament_of_symm_matrix G).Adj j i) ∨\n        (G i j ≠ 1 ∧ (tournament_of_symm_matrix G).Adj i j) → (i : ℕ) < j := by\n    intro G hG i j h\n    have hs : G j i = G i j := by\n      have := congrFun (congrFun hG.eq i) j\n      simpa [Matrix.transpose_apply] using this\n    simp only [tournament_of_symm_matrix, hs] at h\n    rcases two (G i j) with h0 | h0 <;> simp [h0] at h <;>\n      exact h"
+     },
+     {
+      "claim": "For any symmetric matrix A, flipping the dijoin tournament T(A) → T(B) by the block matrix M = [A, L; Lᵀ, B] produces an acyclic directed graph.",
+      "explanation": "We show acyclicity by exhibiting a ranking function f strictly increasing along every edge of the flipped graph, mapping inl i to 2i + 1 and inr j to 2j. We analyze an edge x → y in the flipped graph by cases on where x and y lie:\n1. Both in T(A): the edge is in the flipped T(A), so i < j by the diagonal block property, which implies 2i + 1 < 2j + 1.\n2. x in T(A) and y in T(B): the dijoin contains no reverse edges from inr to inl, so this edge must be an unflipped forward edge with matrix entry L i j ≠ 1. By definition of L, this requires ¬(j ≤ i), so i < j, which yields 2i + 1 < 2j.\n3. x in T(B) and y in T(A): the dijoin has no edges from inr to inl, so this edge must arise from flipping an existing forward dijoin edge from inl to inr with matrix entry Lᵀ i j = L j i = 1. By definition of L, this requires i ≤ j, which gives 2i < 2j + 1.\n4. Both in T(B): the edge is in the flipped T(B), so i < j by the diagonal block property, which implies 2i < 2j.\nIn every case, f(x) < f(y), so the flipped graph is acyclic.",
+      "lemmas": [
+       "digraph_is_acyclic_of_rank",
+       "Sum.elim_inl",
+       "not_le",
+       "Sum.elim_inr"
+      ],
+      "automation": false,
+      "code": "  have hdec : ∀ A : Matrix (Fin n) (Fin n) (ZMod 2), A.IsSymm →\n      digraph_is_acyclic (digraph_flip_by_matrix\n        (digraph_dijoin (tournament_of_symm_matrix A) (tournament_of_symm_matrix B))\n        (Matrix.fromBlocks A (lower_ones_matrix n) (lower_ones_matrix n).transpose B)) := by\n    intro A hA\n    apply digraph_is_acyclic_of_rank _\n      (Sum.elim (fun i : Fin n => 2 * (i : ℕ) + 1) (fun j : Fin n => 2 * (j : ℕ)))\n    intro x y hxy\n    rcases x with i | i <;> rcases y with j | j\n    · have := diag A hA i j hxy\n      simp only [Sum.elim_inl]\n      omega\n    · rcases hxy with ⟨_, h⟩ | ⟨h, _⟩\n      · exact h.elim\n      · have hji : ¬ j ≤ i := fun hji => h (by simp [Matrix.fromBlocks, lower_ones_matrix, hji])\n        have hij : (i : ℕ) < j := by rw [not_le] at hji; exact hji\n        simp only [Sum.elim_inl, Sum.elim_inr]\n        omega\n    · rcases hxy with ⟨h, _⟩ | ⟨_, h⟩\n      · have hij : i ≤ j := by\n          by_contra hc\n          simp [Matrix.fromBlocks, lower_ones_matrix, hc] at h\n        have hij' : (i : ℕ) ≤ j := hij\n        simp only [Sum.elim_inl, Sum.elim_inr]\n        omega\n      · exact h.elim\n    · have := diag B hB i j hxy\n      simp only [Sum.elim_inr]\n      omega"
+     },
+     {
+      "claim": "For any matrix L, the block matrix [L B⁻¹ Lᵀ, L; Lᵀ, B] has rank at most n.",
+      "explanation": "The block matrix factors as P * B * Pᵀ, where P = [L B⁻¹; I] is the 2n × n matrix obtained by stacking L B⁻¹ above the identity matrix I. Expanding the block multiplication and using B⁻¹ * B = I, B * B⁻¹ = I, and (B⁻¹)ᵀ = B⁻¹ verifies that the four blocks match. The rank of P * B * Pᵀ is bounded by the rank of P, and since P has width n, its rank is at most n.",
+      "lemmas": [
+       "Matrix.fromRows_mul",
+       "Matrix.transpose_fromRows",
+       "Matrix.fromRows_mul_fromCols",
+       "Matrix.mul_assoc",
+       "Matrix.nonsing_inv_mul",
+       "Matrix.mul_one",
+       "Matrix.transpose_mul",
+       "Matrix.transpose_one",
+       "Matrix.one_mul",
+       "Matrix.mul_nonsing_inv",
+       "Matrix.rank_mul_le_left",
+       "Matrix.rank_le_card_width",
+       "Fintype.card_fin"
+      ],
+      "automation": false,
+      "code": "  have hrank : ∀ L : Matrix (Fin n) (Fin n) (ZMod 2),\n      (Matrix.fromBlocks (L * B⁻¹ * L.transpose) L L.transpose B).rank ≤ n := by\n    intro L\n    have hMP : Matrix.fromBlocks (L * B⁻¹ * L.transpose) L L.transpose B =\n        Matrix.fromRows (L * B⁻¹) 1 * B * (Matrix.fromRows (L * B⁻¹) 1).transpose := by\n      rw [Matrix.fromRows_mul, Matrix.transpose_fromRows, Matrix.fromRows_mul_fromCols]\n      congr 1\n      · rw [Matrix.mul_assoc L B⁻¹ B, Matrix.nonsing_inv_mul B hdet, Matrix.mul_one,\n          Matrix.transpose_mul, hBinvT, Matrix.mul_assoc]\n      · rw [Matrix.transpose_one, Matrix.mul_one, Matrix.mul_assoc, Matrix.nonsing_inv_mul B hdet,\n          Matrix.mul_one]\n      · rw [Matrix.one_mul, Matrix.transpose_mul, hBinvT, ← Matrix.mul_assoc,\n          Matrix.mul_nonsing_inv B hdet, Matrix.one_mul]\n      · rw [Matrix.one_mul, Matrix.transpose_one, Matrix.mul_one]\n    rw [hMP]\n    calc _ ≤ (Matrix.fromRows (L * B⁻¹) 1 * B).rank := Matrix.rank_mul_le_left _ _\n      _ ≤ (Matrix.fromRows (L * B⁻¹) (1 : Matrix (Fin n) (Fin n) (ZMod 2))).rank :=\n          Matrix.rank_mul_le_left _ _\n      _ ≤ Fintype.card (Fin n) := Matrix.rank_le_card_width _\n      _ = n := Fintype.card_fin n"
+     },
+     {
+      "claim": "The block matrix M = [L B⁻¹ Lᵀ, L; Lᵀ, B] is symmetric, certifying that the tournament minimum rank of the dijoin is at most n.",
+      "explanation": "The matrix A = L B⁻¹ Lᵀ is symmetric because Aᵀ = (Lᵀ)ᵀ (B⁻¹)ᵀ Lᵀ = L B⁻¹ Lᵀ = A. Therefore, the block matrix M is symmetric because its diagonal blocks A and B are symmetric and its off-diagonal blocks are mutual transposes. Since M is symmetric and flips the dijoin tournament into an acyclic graph, its rank belongs to the set whose infimum defines the tournament minimum rank. Because the rank of M is at most n, the infimum is at most n as well.",
+      "lemmas": [
+       "Matrix.transpose_mul",
+       "Matrix.transpose_transpose",
+       "Matrix.mul_assoc",
+       "Matrix.IsSymm.fromBlocks",
+       "le_trans",
+       "Nat.sInf_le"
+      ],
+      "automation": false,
+      "code": "  have hAs : (lower_ones_matrix n * B⁻¹ * (lower_ones_matrix n).transpose).IsSymm := by\n    unfold Matrix.IsSymm\n    rw [Matrix.transpose_mul, Matrix.transpose_mul, Matrix.transpose_transpose, hBinvT,\n      Matrix.mul_assoc]\n  have hMs : (Matrix.fromBlocks (lower_ones_matrix n * B⁻¹ * (lower_ones_matrix n).transpose)\n      (lower_ones_matrix n) (lower_ones_matrix n).transpose B).IsSymm :=\n    Matrix.IsSymm.fromBlocks hAs rfl hB\n  exact le_trans (Nat.sInf_le ⟨_, hMs, hdec _ hAs, rfl⟩) (hrank _)"
+     }
+    ],
+    "glossary": {
+     "Fintype.card_fin": "The number of elements in Fin n is n.",
+     "Matrix.IsSymm.fromBlocks": "A 2 × 2 block matrix is symmetric if its diagonal blocks are symmetric and each off-diagonal block is the transpose of the other.",
+     "Matrix.fromRows_mul_fromCols": "Multiplying a column of two blocks by a row of two blocks results in the corresponding 2 × 2 block matrix of products.",
+     "Matrix.fromRows_mul": "Multiplying a two-row block matrix by a matrix on the right distributes to each block row.",
+     "Matrix.mul_assoc": "Matrix multiplication is associative: (L * M) * N = L * (M * N).",
+     "Matrix.mul_nonsing_inv": "Multiplying an invertible matrix on the right by its inverse gives the identity matrix.",
+     "Matrix.mul_one": "Multiplying any matrix on the right by the identity matrix leaves it unchanged.",
+     "Matrix.nonsing_inv_mul": "Multiplying an invertible matrix on the left by its inverse gives the identity matrix.",
+     "Matrix.one_mul": "Multiplying any matrix on the left by the identity matrix leaves it unchanged.",
+     "Matrix.rank_le_card_width": "The rank of a matrix is at most the number of its columns.",
+     "Matrix.rank_mul_le_left": "The rank of a matrix product A * B is at most the rank of the left factor A.",
+     "Matrix.transpose_apply": "The (i, j)-entry of the transpose of a matrix M is the (j, i)-entry of M.",
+     "Matrix.transpose_fromRows": "The transpose of a matrix formed by stacking two block rows is formed by stacking the transposes of the blocks as columns.",
+     "Matrix.transpose_mul": "The transpose of a matrix product is the product of the transposes in reverse order: (M * N)ᵀ = Nᵀ * Mᵀ.",
+     "Matrix.transpose_nonsing_inv": "For any invertible matrix, the transpose of its inverse is the inverse of its transpose.",
+     "Matrix.transpose_one": "The transpose of the identity matrix is the identity matrix.",
+     "Matrix.transpose_transpose": "Taking the transpose of a matrix twice yields the original matrix: (Mᵀ)ᵀ = M.",
+     "Nat.sInf_le": "The infimum of a set of natural numbers is at most any element of that set.",
+     "Sum.elim_inl": "Applying a function defined on a disjoint union by cases to a left-injected element yields the value of the left case function.",
+     "Sum.elim_inr": "Applying a function defined on a disjoint union by cases to a right-injected element yields the value of the right case function.",
+     "congrFun": "If two functions are equal, then their evaluations at any given argument are equal.",
+     "digraph_is_acyclic_of_rank": "A directed graph is acyclic if there exists a ranking function into the natural numbers that strictly increases along every directed edge.",
+     "le_trans": "The less-than-or-equal relation is transitive: if a ≤ b and b ≤ c, then a ≤ c.",
+     "not_le": "For elements of a linear order, a is not less than or equal to b if and only if b < a."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   }

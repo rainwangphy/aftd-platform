@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-14T13:03:48Z",
+ "generated": "2026-10-14T13:18:07Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 60,
   "rejected": 9,
-  "spend": 86.27,
+  "spend": 86.57,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 110117792,
-   "output": 15763187,
-   "cache_read": 229746808
+   "input": 110291982,
+   "output": 15855825,
+   "cache_read": 229961338
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1791983010
+  "last": 1791983882
  },
  "domains": [
   {
@@ -515231,13 +515231,40 @@
     "simple_graph_triangle_cover_number_le_three_mul_packing_number"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphTriangleCoverNumberEqZeroOfCliqueFree.lean",
-   "proved_at": 1791978686,
+   "proved_at": 1791983649,
    "provenance": "lemma",
    "citation": "Sanity lemma for the triangle cover number, arXiv:2610.15539 (Tuza's conjecture under an edge-count condition).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The triangle cover number of a graph is defined as the minimum size of an edge set that intersects every triangle (3-clique). Since the graph is assumed to be triangle-free, the empty set of edges vacuously covers every triangle. Because the empty set has size 0 and the cover number is a non-negative integer, the triangle cover number must be 0.",
+    "steps": [
+     {
+      "claim": "It suffices to show that 0 is the cardinality of a valid triangle cover of G.",
+      "explanation": "The triangle cover number of G is defined as the infimum of the sizes of edge sets that cover all 3-cliques. Since any natural number less than or equal to 0 must be 0 (by Nat.eq_zero_of_le_zero), and the infimum of a set of natural numbers is bounded above by any member of the set (by Nat.sInf_le), it suffices to exhibit a valid triangle cover of size 0.",
+      "lemmas": [
+       "Nat.eq_zero_of_le_zero",
+       "Nat.sInf_le"
+      ],
+      "automation": false,
+      "code": "  apply Nat.eq_zero_of_le_zero\n  apply Nat.sInf_le"
+     },
+     {
+      "claim": "The empty set of edges is a valid triangle cover of size 0.",
+      "explanation": "We choose the edge set F = ∅. Vacuously, all of its elements are edges of G, and its cardinality is 0. Furthermore, the requirement that every 3-clique contains an edge of F is vacuously satisfied because G is assumed to be clique-free of order 3 (h), so no 3-cliques exist in G.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  exact ⟨∅, by simp, fun t ht => absurd ht (h t), rfl⟩"
+     }
+    ],
+    "glossary": {
+     "Nat.eq_zero_of_le_zero": "A natural number that is less than or equal to 0 is equal to 0.",
+     "Nat.sInf_le": "The infimum of a set of natural numbers is at most any element of the set."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -515262,13 +515289,69 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphTrianglePackingNumberEqZeroOfCliqueFree.lean",
-   "proved_at": 1791978946,
+   "proved_at": 1791983705,
    "provenance": "lemma",
    "citation": "Sanity lemma for the triangle packing number, arXiv:2610.15539 (Tuza's conjecture under an edge-count condition).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The triangle packing number of a graph is the supremum of the cardinalities of collections of pairwise edge-disjoint triangles. Because the graph is assumed to be triangle-free (3-clique-free), it cannot contain any triangles, so any valid triangle packing must be empty. Consequently, the only achievable packing cardinality is 0 (witnessed by the empty packing), and the packing number is the supremum of {0}, which is 0.",
+    "steps": [
+     {
+      "claim": "The triangle packing number of G is, by definition, the supremum of the cardinalities of all families of pairwise almost-disjoint triangles in G.",
+      "explanation": "We unfold the definition of `simple_graph_triangle_packing_number`, transforming the goal into showing that the supremum of the set of integers n for which there exists a triangle packing of size n is 0.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  unfold simple_graph_triangle_packing_number"
+     },
+     {
+      "claim": "The set of sizes of valid triangle packings in G is the singleton {0}, which reduces to showing that an integer n is an achievable packing size if and only if n = 0.",
+      "explanation": "We assert that the set of achievable packing sizes is {0}. By set extensionality (`ext`) and unfolding set membership (`Set.mem_ofPred_eq`, `Set.mem_singleton_iff`), this equality is equivalent to proving that a packing of size n exists if and only if n = 0.",
+      "lemmas": [
+       "Set.mem_ofPred_eq",
+       "Set.mem_singleton_iff"
+      ],
+      "automation": false,
+      "code": "  have : {n | ∃ T : Finset (Finset V), (∀ t ∈ T, G.IsNClique 3 t) ∧\n      (T : Set (Finset V)).Pairwise (fun s t => (s ∩ t).card ≤ 1) ∧ T.card = n} = {0} := by\n    ext n\n    simp only [Set.mem_ofPred_eq, Set.mem_singleton_iff]\n    constructor"
+     },
+     {
+      "claim": "Any valid triangle packing in G must be empty, so its cardinality is 0.",
+      "explanation": "Suppose T is a triangle packing in G of size n. A finite set has cardinality 0 if and only if it is empty, which in turn means it contains no elements (`Finset.card_eq_zero`, `Finset.eq_empty_iff_forall_notMem`). If T contained any element t, then t would be a 3-clique in G, contradicting the hypothesis h that G has no 3-cliques. Hence T must be empty and n = |T| = 0.",
+      "lemmas": [
+       "Finset.card_eq_zero",
+       "Finset.eq_empty_iff_forall_notMem"
+      ],
+      "automation": false,
+      "code": "    · rintro ⟨T, hT, -, rfl⟩\n      rw [Finset.card_eq_zero, Finset.eq_empty_iff_forall_notMem]\n      exact fun t ht => h t (hT t ht)"
+     },
+     {
+      "claim": "The packing size 0 is achievable by taking the empty collection of triangles.",
+      "explanation": "Conversely, for n = 0, the empty set ∅ provides the required witness: vacuously, every element of ∅ is a 3-clique and any two elements meet in at most one vertex, and |∅| = 0.",
+      "lemmas": [],
+      "automation": false,
+      "code": "    · rintro rfl\n      exact ⟨∅, by simp, by simp, rfl⟩"
+     },
+     {
+      "claim": "The supremum of the set of packing sizes is 0, concluding the proof.",
+      "explanation": "Substituting the established equality that the set of packing sizes is {0}, the goal simplifies to sSup {0} = 0, which holds by `csSup_singleton`.",
+      "lemmas": [
+       "csSup_singleton"
+      ],
+      "automation": false,
+      "code": "  rw [this, csSup_singleton]"
+     }
+    ],
+    "glossary": {
+     "Set.mem_ofPred_eq": "An element belongs to the set defined by a predicate if and only if the predicate holds for that element.",
+     "Set.mem_singleton_iff": "An element belongs to the singleton set {b} if and only if it equals b.",
+     "Finset.card_eq_zero": "A finite set has cardinality 0 if and only if it is the empty set.",
+     "Finset.eq_empty_iff_forall_notMem": "A finite set is empty if and only if it contains no elements.",
+     "csSup_singleton": "The supremum of a singleton set {a} in a conditionally complete order is a."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -515295,13 +515378,149 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphTriangleCoverNumberLeThreeMulPackingNumber.lean",
-   "proved_at": 1791979210,
+   "proved_at": 1791983732,
    "provenance": "literature",
    "citation": "The trivial bound ν(G) ≤ τ(G) ≤ 3ν(G), recalled in arXiv:2610.15539 (Tuza's conjecture under an edge-count condition), Sec. 1 (display after Conjecture 1.1); the bound Tuza's conjecture improves to 2ν.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To prove τ(G) ≤ 3ν(G), we choose a maximum family T of pairwise edge-disjoint triangles in G, so that |T| = ν(G). Let F be the set of all edges of the triangles in T; then |F| ≤ 3|T| = 3ν(G). By the maximality of T, every triangle in G must share at least two vertices with some triangle in T, meaning that it contains at least one edge of that triangle. Thus F is an edge cover of all triangles in G, which implies τ(G) ≤ |F| ≤ 3ν(G).",
+    "steps": [
+     {
+      "claim": "If the vertex set V is empty, the theorem holds trivially because there are no triangles.",
+      "explanation": "We case-split on whether V is empty or nonempty using `isEmpty_or_nonempty`. When V is empty, any triangle (3-clique) would have 3 vertices in an empty set, yielding 0 = 3 via `Finset.card_empty` and `Finset.eq_empty_of_isEmpty`, an arithmetic contradiction. Thus G has no triangles, so `simple_graph_triangle_cover_number_eq_zero_of_clique_free` shows τ(G) = 0, and 0 ≤ 3ν(G) holds by `Nat.zero_le`.",
+      "lemmas": [
+       "isEmpty_or_nonempty",
+       "simple_graph_triangle_cover_number_eq_zero_of_clique_free",
+       "Finset.eq_empty_of_isEmpty",
+       "Finset.card_empty",
+       "Nat.zero_le"
+      ],
+      "automation": false,
+      "code": "  classical\n  rcases isEmpty_or_nonempty V with hV | hV\n  · rw [simple_graph_triangle_cover_number_eq_zero_of_clique_free G (fun t ht => by\n        have := ht.card_eq\n        rw [Finset.eq_empty_of_isEmpty t, Finset.card_empty] at this\n        omega)]\n    exact Nat.zero_le _"
+     },
+     {
+      "claim": "There exists a maximum family T of pairwise edge-disjoint triangles in G, with |T| = ν(G).",
+      "explanation": "We define P to be the set of sizes of all collections of pairwise edge-disjoint triangles in G. The set P is bounded above by the total number of vertex subsets via `Finset.card_le_univ`, and nonempty because the empty family ∅ has size 0. By `Nat.sSup_mem`, P contains its supremum. Letting T be a packing achieving this maximum size, we have |T| = ν(G), and by `le_csSup`, any other edge-disjoint triangle packing has size at most |T|.",
+      "lemmas": [
+       "Finset.card_le_univ",
+       "Nat.sSup_mem",
+       "le_csSup"
+      ],
+      "automation": false,
+      "code": "  set P : Set ℕ := {n | ∃ T : Finset (Finset V), (∀ t ∈ T, G.IsNClique 3 t) ∧\n    (T : Set (Finset V)).Pairwise (fun s t => (s ∩ t).card ≤ 1) ∧ T.card = n} with hP\n  have hbdd : BddAbove P := by\n    refine ⟨(Finset.univ : Finset (Finset V)).card, ?_⟩\n    rintro n ⟨T, -, -, rfl⟩\n    exact Finset.card_le_univ T\n  have hne : P.Nonempty := ⟨0, ∅, by simp, by simp, rfl⟩\n  obtain ⟨T, hT, hTp, hTc⟩ := Nat.sSup_mem hne hbdd\n  have hmax : ∀ T' : Finset (Finset V), (∀ t ∈ T', G.IsNClique 3 t) →\n      (T' : Set (Finset V)).Pairwise (fun s t => (s ∩ t).card ≤ 1) → T'.card ≤ T.card := by\n    intro T' h1 h2\n    rw [hTc]\n    exact le_csSup hbdd ⟨T', h1, h2, rfl⟩"
+     },
+     {
+      "claim": "Each triangle in T consists of three distinct vertices, and F is defined as the union of the edges of all triangles in T.",
+      "explanation": "Every triangle t ∈ T has cardinality 3, so by `Finset.card_eq_three.1`, it can be written as {x, y, z} with x, y, z pairwise distinct. By `choose!`, we extract vertex choice functions fx, fy, fz. We then define E(t) to be the set of the three edges of t, and F to be the union of E(t) over all t ∈ T.",
+      "lemmas": [
+       "Finset.card_eq_three.1"
+      ],
+      "automation": false,
+      "code": "  -- three edges of each triangle\n  have h3 : ∀ t ∈ T, ∃ x y z : V, x ≠ y ∧ x ≠ z ∧ y ≠ z ∧ t = {x, y, z} := by\n    intro t ht\n    exact Finset.card_eq_three.1 (hT t ht).card_eq\n  choose! fx fy fz hxy hxz hyz hxyz using h3\n  set E : Finset V → Finset (Sym2 V) :=\n    fun t => {s(fx t, fy t), s(fy t, fz t), s(fx t, fz t)} with hE\n  set F := T.biUnion E with hF"
+     },
+     {
+      "claim": "The candidate edge cover F has cardinality at most 3|T|.",
+      "explanation": "By subadditivity of the union (`Finset.card_biUnion_le`), |F| ≤ ∑_{t ∈ T} |E(t)|. Each E(t) is defined by three vertex insertions, so |E(t)| ≤ 3 by `Finset.card_insert_le` and `Nat.succ_le_succ`. Summing this upper bound over all t ∈ T using `Finset.sum_le_sum` gives |F| ≤ ∑_{t ∈ T} 3 = 3|T| via `Finset.sum_const`, `smul_eq_mul`, and `mul_comm`.",
+      "lemmas": [
+       "Finset.card_biUnion_le",
+       "Finset.sum_le_sum",
+       "Finset.card_insert_le",
+       "Nat.succ_le_succ",
+       "Finset.sum_const",
+       "smul_eq_mul",
+       "mul_comm"
+      ],
+      "automation": false,
+      "code": "  have hFcard : F.card ≤ 3 * T.card := by\n    calc F.card ≤ ∑ t ∈ T, (E t).card := Finset.card_biUnion_le\n      _ ≤ ∑ _t ∈ T, 3 := by\n          apply Finset.sum_le_sum\n          intro t _\n          simp only [hE]\n          exact (Finset.card_insert_le _ _).trans\n            (Nat.succ_le_succ ((Finset.card_insert_le _ _).trans (by simp)))\n      _ = 3 * T.card := by rw [Finset.sum_const, smul_eq_mul, mul_comm]"
+     },
+     {
+      "claim": "Every element of F is an edge of the graph G.",
+      "explanation": "Any edge e ∈ F belongs to E(t) for some triangle t ∈ T by `Finset.mem_biUnion`. The three vertices fx(t), fy(t), fz(t) belong to t. Since t is a 3-clique in G, every pair of distinct vertices in t is adjacent in G. Checking each of the three edges in E(t) using `Finset.mem_insert` and `Finset.mem_singleton`, we find that e is an edge of G.",
+      "lemmas": [
+       "Finset.mem_biUnion",
+       "Finset.mem_insert",
+       "Finset.mem_singleton"
+      ],
+      "automation": false,
+      "code": "  have hFedge : ∀ e ∈ F, e ∈ G.edgeSet := by\n    intro e he\n    simp only [hF, Finset.mem_biUnion] at he\n    obtain ⟨t, ht, he⟩ := he\n    have hcl := (hT t ht).isClique\n    have hsub : ∀ x ∈ ({fx t, fy t, fz t} : Finset V), x ∈ t := by\n      intro x hx\n      rw [← hxyz t ht] at hx\n      exact hx\n    have hx : fx t ∈ t := hsub _ (by simp)\n    have hy : fy t ∈ t := hsub _ (by simp)\n    have hz : fz t ∈ t := hsub _ (by simp)\n    simp only [hE, Finset.mem_insert, Finset.mem_singleton] at he\n    rcases he with rfl | rfl | rfl\n    · exact hcl hx hy (hxy t ht)\n    · exact hcl hy hz (hyz t ht)\n    · exact hcl hx hz (hxz t ht)"
+     },
+     {
+      "claim": "Any two distinct vertices of a triangle s ∈ T form one of its three edges in E(s).",
+      "explanation": "Since s = {fx(s), fy(s), fz(s)}, any distinct vertices u, w ∈ s are two distinct vertices among fx(s), fy(s), fz(s). A case analysis on all pairs, using symmetry of unordered pairs (`Sym2.eq_swap`), confirms that the unordered pair {u, w} is in E(s).",
+      "lemmas": [
+       "Finset.mem_insert",
+       "Finset.mem_singleton",
+       "Sym2.eq_swap"
+      ],
+      "automation": false,
+      "code": "  -- every pair of distinct vertices of a packing triangle spans one of its three edges\n  have hpair : ∀ s ∈ T, ∀ u ∈ s, ∀ w ∈ s, u ≠ w → s(u, w) ∈ E s := by\n    intro s hs u hu w hw huw\n    rw [hxyz s hs] at hu hw\n    simp only [Finset.mem_insert, Finset.mem_singleton] at hu hw\n    simp only [hE, Finset.mem_insert, Finset.mem_singleton]\n    rcases hu with rfl | rfl | rfl <;> rcases hw with rfl | rfl | rfl <;>\n      first\n      | exact absurd rfl huw\n      | simp [Sym2.eq_swap]"
+     },
+     {
+      "claim": "The edge set F covers every triangle in G: every triangle contains at least one edge from F.",
+      "explanation": "Let t be a triangle in G. If t shared at most one vertex with every triangle s ∈ T, then t could not already be in T (since |t ∩ t| = 3 by `Finset.inter_self`), and T ∪ {t} would be a pairwise edge-disjoint packing of size |T| + 1 by `Finset.card_insert_of_notMem`. This would contradict the maximality of T. Hence some triangle s ∈ T must share at least two vertices with t: |s ∩ t| ≥ 2. By `Finset.one_lt_card.1`, s ∩ t contains two distinct vertices u and w. Then {u, w} is an edge in E(s) ⊆ F whose endpoints both lie in t.",
+      "lemmas": [
+       "Finset.inter_self",
+       "Finset.mem_insert.1",
+       "Finset.coe_insert",
+       "Finset.inter_comm",
+       "Finset.card_insert_of_notMem",
+       "Finset.one_lt_card.1",
+       "Finset.mem_inter",
+       "Finset.mem_biUnion.2",
+       "Sym2.mem_iff"
+      ],
+      "automation": false,
+      "code": "  have hcover : ∀ t : Finset V, G.IsNClique 3 t → ∃ e ∈ F, ∀ x ∈ e, x ∈ t := by\n    intro t ht\n    -- some packing triangle shares two vertices with `t`\n    have : ∃ s ∈ T, 2 ≤ (s ∩ t).card := by\n      by_contra hno\n      push_neg at hno\n      have htT : t ∉ T := by\n        intro htT\n        have := hno t htT\n        rw [Finset.inter_self, ht.card_eq] at this\n        omega\n      have h1 : ∀ s ∈ insert t T, G.IsNClique 3 s := by\n        intro s hs\n        rcases Finset.mem_insert.1 hs with rfl | hs\n        · exact ht\n        · exact hT s hs\n      have h2 : ((insert t T : Finset (Finset V)) : Set (Finset V)).Pairwise\n          (fun s t => (s ∩ t).card ≤ 1) := by\n        rw [Finset.coe_insert]\n        refine hTp.insert ?_\n        intro s hs _\n        have := hno s hs\n        exact ⟨by rw [Finset.inter_comm]; omega, by omega⟩\n      have := hmax _ h1 h2\n      rw [Finset.card_insert_of_notMem htT] at this\n      omega\n    obtain ⟨s, hs, hst⟩ := this\n    obtain ⟨u, hu, w, hw, huw⟩ := Finset.one_lt_card.1 hst\n    rw [Finset.mem_inter] at hu hw\n    refine ⟨s(u, w), Finset.mem_biUnion.2 ⟨s, hs, hpair s hs u hu.1 w hw.1 huw⟩, ?_⟩\n    intro x hx\n    rw [Sym2.mem_iff] at hx\n    rcases hx with rfl | rfl\n    · exact hu.2\n    · exact hw.2"
+     },
+     {
+      "claim": "The triangle cover number satisfies τ(G) ≤ 3ν(G).",
+      "explanation": "Since F is a valid triangle cover of G, the minimum cover size τ(G) is at most |F| by `Nat.sInf_le`. Chaining this with |F| ≤ 3|T| and |T| = ν(G) yields τ(G) ≤ 3ν(G).",
+      "lemmas": [
+       "Nat.sInf_le"
+      ],
+      "automation": false,
+      "code": "  calc simple_graph_triangle_cover_number G ≤ F.card :=\n        Nat.sInf_le ⟨F, hFedge, hcover, rfl⟩\n    _ ≤ 3 * T.card := hFcard\n    _ = 3 * simple_graph_triangle_packing_number G := by\n        rw [hTc]; rfl"
+     }
+    ],
+    "glossary": {
+     "isEmpty_or_nonempty": "Every type is either empty or nonempty.",
+     "simple_graph_triangle_cover_number_eq_zero_of_clique_free": "If a simple graph contains no triangles (is 3-clique free), its triangle cover number is 0.",
+     "Finset.eq_empty_of_isEmpty": "Any finite set over an empty type is the empty set.",
+     "Finset.card_empty": "The cardinality of the empty set is 0.",
+     "Nat.zero_le": "0 is less than or equal to any natural number.",
+     "Finset.card_le_univ": "The cardinality of any finite subset is at most the cardinality of the full finite type.",
+     "Nat.sSup_mem": "A nonempty set of natural numbers that is bounded above contains its supremum (maximum).",
+     "le_csSup": "Any element in a bounded-above set is at most the supremum of the set.",
+     "Finset.card_eq_three.1": "If a finite set has cardinality 3, then it consists of three pairwise distinct elements.",
+     "Finset.card_biUnion_le": "The cardinality of a union of finite sets is at most the sum of their individual cardinalities.",
+     "Finset.sum_le_sum": "A sum of terms is bounded by the sum of termwise upper bounds.",
+     "Finset.card_insert_le": "Inserting an element into a finite set increases its cardinality by at most 1.",
+     "Nat.succ_le_succ": "If n ≤ m, then n + 1 ≤ m + 1.",
+     "Finset.sum_const": "Summing a constant over a finite set equals the cardinality of the set times the constant.",
+     "smul_eq_mul": "Scalar multiplication of natural numbers coincides with ordinary multiplication.",
+     "mul_comm": "Multiplication of natural numbers is commutative.",
+     "Finset.mem_biUnion": "An element belongs to a union of sets ⋃_{a ∈ s} t(a) if and only if it belongs to t(a) for some a ∈ s.",
+     "Finset.mem_insert": "An element belongs to {a} ∪ s if and only if it equals a or belongs to s.",
+     "Finset.mem_singleton": "An element belongs to the singleton {a} if and only if it equals a.",
+     "Sym2.eq_swap": "An unordered pair is symmetric: s(a, b) = s(b, a).",
+     "Finset.inter_self": "The intersection of a finite set with itself is the set itself.",
+     "Finset.mem_insert.1": "If an element belongs to {a} ∪ s, it equals a or belongs to s.",
+     "Finset.coe_insert": "The coercion of {a} ∪ s to a set equals the set insertion of a into the coercion of s.",
+     "Finset.inter_comm": "Intersection of finite sets is commutative.",
+     "Finset.card_insert_of_notMem": "Inserting an element not already in a finite set increases its cardinality by 1.",
+     "Finset.one_lt_card.1": "If a finite set has cardinality strictly greater than 1, it contains two distinct elements.",
+     "Finset.mem_inter": "An element belongs to the intersection of two finite sets if and only if it belongs to both sets.",
+     "Finset.mem_biUnion.2": "If an element belongs to t(a) for some a ∈ s, it belongs to ⋃_{a ∈ s} t(a).",
+     "Sym2.mem_iff": "A vertex x is an endpoint of an unordered pair s(a, b) if and only if x = a or x = b.",
+     "Nat.sInf_le": "If a natural number belongs to a set, it is an upper bound on the infimum of that set."
+    },
+    "caveats": [
+     "Classical logic is assumed globally at line 4, allowing the proof to use the axiom of choice (`choose!`) on line 28 to pick three distinct vertices for each triangle in the packing."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -515498,13 +515717,68 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/NumberTheory/NatLeastPrimeNotDvdTwo.lean",
-   "proved_at": 1791981974,
+   "proved_at": 1791983714,
    "provenance": "lemma",
    "citation": "Sanity lemma for q(m), arXiv:2610.16562 (The Davenport constant of low-dimensional boxes).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "By definition, the least prime not dividing 2 is the infimum of the set of primes that do not divide 2. The proof establishes equality with 3 by antisymmetry, showing both bounds separately. The upper bound holds because 3 is a prime not dividing 2 and therefore belongs to the set. The lower bound holds because any prime not dividing 2 must be at least 3, ruling out 0 and 1 because they are not prime and 2 because it divides 2.",
+    "steps": [
+     {
+      "claim": "To show that the infimum of the set of primes not dividing 2 equals 3, it suffices to prove that the infimum is at most 3 and at least 3.",
+      "explanation": "Unfolding the definition of nat_least_prime_not_dvd 2 gives the infimum of {p ∈ ℕ | p is prime ∧ ¬ p ∣ 2}. By antisymmetry of partial orders (le_antisymm), establishing equality reduces to establishing the two inequalities: the infimum is at most 3, and 3 is at most the infimum.",
+      "lemmas": [
+       "le_antisymm"
+      ],
+      "automation": false,
+      "code": "  unfold nat_least_prime_not_dvd\n  apply le_antisymm"
+     },
+     {
+      "claim": "The infimum of the set of primes not dividing 2 is at most 3.",
+      "explanation": "By Nat.sInf_le, the infimum of a set of natural numbers is bounded above by any element of that set. The number 3 belongs to the set because 3 is prime (Nat.prime_three) and 3 does not divide 2 (by numeric computation).",
+      "lemmas": [
+       "Nat.sInf_le",
+       "Nat.prime_three"
+      ],
+      "automation": false,
+      "code": "  · exact Nat.sInf_le (show 3 ∈ {p | p.Prime ∧ ¬ p ∣ 2} from ⟨Nat.prime_three, by norm_num⟩)"
+     },
+     {
+      "claim": "To show that 3 is at most the infimum, it suffices to show that 3 is a lower bound for every prime not dividing 2.",
+      "explanation": "By le_csInf, a number is at most the infimum of a nonempty set if it is less than or equal to every element of the set. The set is nonempty because 3 is an element (since 3 is prime by Nat.prime_three and does not divide 2). Thus, it suffices to show that 3 ≤ p for every prime p not dividing 2.",
+      "lemmas": [
+       "le_csInf",
+       "Nat.prime_three"
+      ],
+      "automation": false,
+      "code": "  · apply le_csInf (show ({p | p.Prime ∧ ¬ p ∣ 2} : Set ℕ).Nonempty from ⟨3, Nat.prime_three, by norm_num⟩)"
+     },
+     {
+      "claim": "Every prime not dividing 2 is at least 3.",
+      "explanation": "Let p be a prime such that p does not divide 2. Suppose for contradiction that 3 ≤ p does not hold, which means p < 3. The only natural numbers strictly less than 3 are 0, 1, and 2. The cases p = 0 and p = 1 are ruled out because neither 0 nor 1 is prime (Nat.not_prime_zero and Nat.not_prime_one). The case p = 2 is ruled out because 2 divides itself (dvd_refl), contradicting the assumption that p does not divide 2. Since all cases lead to a contradiction, we conclude 3 ≤ p.",
+      "lemmas": [
+       "Nat.not_prime_zero",
+       "Nat.not_prime_one",
+       "dvd_refl"
+      ],
+      "automation": false,
+      "code": "    rintro p ⟨hp, hpd⟩\n    by_contra h\n    push_neg at h\n    interval_cases p\n    · exact Nat.not_prime_zero hp\n    · exact Nat.not_prime_one hp\n    · exact hpd (dvd_refl 2)"
+     }
+    ],
+    "glossary": {
+     "le_antisymm": "In any partial order, if a ≤ b and b ≤ a, then a = b.",
+     "Nat.sInf_le": "For any set of natural numbers, its infimum is less than or equal to any element in the set.",
+     "Nat.prime_three": "The number 3 is prime.",
+     "le_csInf": "In a conditionally complete lattice, a is less than or equal to the infimum of a nonempty set s if a is a lower bound for every element of s.",
+     "Nat.not_prime_zero": "The number 0 is not prime.",
+     "Nat.not_prime_one": "The number 1 is not prime.",
+     "dvd_refl": "Divisibility is reflexive: every element divides itself."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -515527,13 +515801,31 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/NumberTheory/IntSquareSymmetryOneOneFalse.lean",
-   "proved_at": 1791982200,
+   "proved_at": 1791983721,
    "provenance": "lemma",
    "citation": "Sanity lemma for the square symmetries, arXiv:2610.16562 (The Davenport constant of low-dimensional boxes).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The theorem states that applying the square symmetry with unit signs $(+1, +1)$ and no coordinate swap acts as the identity on any vector $v \\in \\mathbb{Z} \\times \\mathbb{Z}$. The proof unfolds `int_square_symmetry`, reduces the false conditional branch to $(1 \\cdot v_1, 1 \\cdot v_2)$, and simplifies this directly to $v$.",
+    "steps": [
+     {
+      "claim": "$\\operatorname{int\\_square\\_symmetry}(1, 1, \\text{false}, v) = v$",
+      "explanation": "Unfolding the definition of `int_square_symmetry`, the boolean flag $\\text{false}$ selects the unswapped branch $((1 : \\mathbb{Z}) \\cdot v_1, (1 : \\mathbb{Z}) \\cdot v_2)$. The simplifier reduces the multiplications by 1 to $v_1$ and $v_2$, and pair eta-reduction identifies $(v_1, v_2)$ with $v$.",
+      "lemmas": [
+       "int_square_symmetry"
+      ],
+      "automation": true,
+      "code": "  simp [int_square_symmetry]"
+     }
+    ],
+    "glossary": {
+     "int_square_symmetry": "The definition of the symmetry action on a vector $v \\in \\mathbb{Z} \\times \\mathbb{Z}$ given signs $e_1, e_2 \\in \\mathbb{Z}^\\times$ and a boolean coordinate-swap flag, mapping $v$ to $(e_1 v_2, e_2 v_1)$ if the flag is true and $(e_1 v_1, e_2 v_2)$ otherwise."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -515561,13 +515853,84 @@
     "davenport_constant_int_box_two_ge"
    ],
    "lean_path": "lean/AFTD/Kb/NumberTheory/IntBoxExtremalSequenceCounts.lean",
-   "proved_at": 1791982461,
+   "proved_at": 1791983882,
    "provenance": "lemma",
    "citation": "The minimality of S(m) in arXiv:2610.16562 (The Davenport constant of low-dimensional boxes) (proof of Theorem 1): the only zero-sum subsequences of S(m) are empty or all of it.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof solves the system of two linear equations in A, B, C by exploiting divisibility and coprimality constraints. Using linear combinations of the equations, coprimality of M and Q implies that M divides both B and C, so we write B = M·B' and C = M·C'. Eliminating A produces the relation B'(2M−1) = C'(2M−Q), which by coprimality of 2M−1 and 2M−Q forces (2M−1) ∣ C', parametrizing C as M(2M−1)j for an integer j. The bounds 0 ≤ C ≤ M(2M−1) restrict j to {0, 1}, yielding the trivial solution (0, 0, 0) when j = 0 and the extremal non-trivial solution when j = 1.",
+    "steps": [
+     {
+      "claim": "M divides both B and C, allowing us to write B = M * B' and C = M * C' for integers B' and C'.",
+      "explanation": "From M ≥ 2, we have M > 0. Taking -1 times the second equation (ey) gives B = M * (A + B - C), which shows M ∣ B. Similarly, taking -1 times the first equation (ex) gives C * Q = M * (A - B + C), so M ∣ C * Q. Since M and Q are coprime (hcopMQ), Euclid's lemma implies M ∣ C. We can therefore substitute B = M * B' and C = M * C'.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hMpos : 0 < M := by linarith\n  have hMB : M ∣ B := ⟨A + B - C, by linear_combination -1 * ey⟩\n  have hMC : M ∣ C := by\n    have : M ∣ C * Q := ⟨A - B + C, by linear_combination -1 * ex⟩\n    exact hcopMQ.dvd_of_dvd_mul_right this\n  obtain ⟨B', hB'⟩ := hMB\n  obtain ⟨C', hC'⟩ := hMC\n  subst hB' hC'"
+     },
+     {
+      "claim": "A can be expressed in terms of B' and C' as A = C' * M - B' * (M - 1).",
+      "explanation": "Substituting the expressions for B and C into the second equation (ey) gives M * (A + B' * (M - 1) - C' * M) = 0. Since M ≥ 2 > 0, the zero-product lemma mul_eq_zero.1 eliminates the possibility M = 0, leaving A = C' * M - B' * (M - 1).",
+      "lemmas": [
+       "mul_eq_zero.1"
+      ],
+      "automation": false,
+      "code": "  have hA : A = C' * M - B' * (M - 1) := by\n    have : M * (A + B' * (M - 1) - C' * M) = 0 := by linear_combination ey\n    rcases mul_eq_zero.1 this with h | h\n    · linarith\n    · linarith\n  subst hA"
+     },
+     {
+      "claim": "B' and C' satisfy the relation B' * (2 * M - 1) = C' * (2 * M - Q).",
+      "explanation": "Substituting the formula for A into the first equation (ex) yields M * (B' * (2 * M - 1) - C' * (2 * M - Q)) = 0. Applying mul_eq_zero.1 and the fact that M ≠ 0 gives B' * (2 * M - 1) = C' * (2 * M - Q).",
+      "lemmas": [
+       "mul_eq_zero.1"
+      ],
+      "automation": false,
+      "code": "  have hrel : B' * (2 * M - 1) = C' * (2 * M - Q) := by\n    have : M * (B' * (2 * M - 1) - C' * (2 * M - Q)) = 0 := by linear_combination -1 * ex\n    rcases mul_eq_zero.1 this with h | h\n    · linarith\n    · linarith"
+     },
+     {
+      "claim": "2 * M - 1 divides C', so C' = (2 * M - 1) * j for some integer j.",
+      "explanation": "From the relation B' * (2 * M - 1) = C' * (2 * M - Q), we see that 2 * M - 1 divides C' * (2 * M - Q). Since 2 * M - 1 and 2 * M - Q are coprime (hcopZ), Euclid's lemma implies (2 * M - 1) ∣ C'. We define j such that C' = (2 * M - 1) * j and substitute it.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hdvd : (2 * M - 1) ∣ C' := by\n    have : (2 * M - 1) ∣ C' * (2 * M - Q) := ⟨B', by linear_combination -1 * hrel⟩\n    exact hcopZ.dvd_of_dvd_mul_right this\n  obtain ⟨j, hj⟩ := hdvd\n  subst hj"
+     },
+     {
+      "claim": "The integer parameter j satisfies 0 ≤ j ≤ 1, and 2 * M - 1 > 0.",
+      "explanation": "Since M ≥ 2, the quantity M * (2 * M - 1) is strictly positive (hP). Since C = M * (2 * M - 1) * j ≥ 0, if j < 0 then C would be strictly negative by mul_neg_of_pos_of_neg, contradiction; thus 0 ≤ j. Similarly, if j > 1 then j ≥ 2, so C ≥ 2 * M * (2 * M - 1) by mul_le_mul_of_nonneg_left, contradicting C ≤ M * (2 * M - 1); thus j ≤ 1. Finally, 2 * M - 1 > 0 follows from M ≥ 2.",
+      "lemmas": [
+       "mul_neg_of_pos_of_neg",
+       "mul_le_mul_of_nonneg_left"
+      ],
+      "automation": false,
+      "code": "  have hP : 0 < M * (2 * M - 1) := by nlinarith\n  have hj0 : 0 ≤ j := by\n    by_contra h\n    push_neg at h\n    nlinarith [mul_neg_of_pos_of_neg hP h]\n  have hj1 : j ≤ 1 := by\n    by_contra h\n    push_neg at h\n    nlinarith [mul_le_mul_of_nonneg_left (show (2 : ℤ) ≤ j by omega) hP.le]\n  have h2 : 0 < 2 * M - 1 := by linarith"
+     },
+     {
+      "claim": "In the case j = 0, the only solution is (A, B, C) = (0, 0, 0).",
+      "explanation": "Because 0 ≤ j ≤ 1, the only integer choices are j = 0 and j = 1. When j = 0, we have C' = 0 and thus C = 0. The relation becomes B' * (2 * M - 1) = 0. Since 2 * M - 1 > 0, mul_eq_zero.1 forces B' = 0, hence B = 0. Then A = C' * M - B' * (M - 1) = 0, giving the trivial solution (0, 0, 0).",
+      "lemmas": [
+       "mul_eq_zero.1"
+      ],
+      "automation": false,
+      "code": "  rcases (show j = 0 ∨ j = 1 by omega) with rfl | rfl\n  · left\n    have hB0 : B' = 0 := by\n      have : B' * (2 * M - 1) = 0 := by rw [hrel]; ring\n      rcases mul_eq_zero.1 this with h | h\n      · exact h\n      · linarith\n    subst hB0\n    refine ⟨by ring, by ring, by ring⟩"
+     },
+     {
+      "claim": "In the case j = 1, the solution is (A, B, C) = (Q * (M - 1) + M, M * (2 * M - Q), M * (2 * M - 1)).",
+      "explanation": "When j = 1, we have C' = 2 * M - 1, so C = M * (2 * M - 1). The relation becomes (2 * M - 1) * (B' - (2 * M - Q)) = 0. Since 2 * M - 1 > 0, mul_eq_zero.1 forces B' = 2 * M - Q, so B = M * (2 * M - Q). Substituting these values into A yields A = (2 * M - 1) * M - (2 * M - Q) * (M - 1) = Q * (M - 1) + M, completing the second solution.",
+      "lemmas": [
+       "mul_eq_zero.1"
+      ],
+      "automation": false,
+      "code": "  · right\n    have hB1 : B' = 2 * M - Q := by\n      have : (2 * M - 1) * (B' - (2 * M - Q)) = 0 := by linear_combination hrel\n      rcases mul_eq_zero.1 this with h | h\n      · linarith\n      · linarith\n    subst hB1\n    refine ⟨by ring, by ring, by ring⟩"
+     }
+    ],
+    "glossary": {
+     "mul_eq_zero.1": "If a product of two numbers is zero, at least one of the factors is zero (a * b = 0 → a = 0 ∨ b = 0).",
+     "mul_neg_of_pos_of_neg": "The product of a strictly positive number and a strictly negative number is strictly negative (0 < a → b < 0 → a * b < 0).",
+     "mul_le_mul_of_nonneg_left": "Multiplying an inequality b ≤ c on the left by a non-negative number a ≥ 0 preserves the inequality (a * b ≤ a * c)."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -515599,13 +515962,140 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/NumberTheory/DavenportConstantIntBoxTwoGe.lean",
-   "proved_at": 1791982732,
+   "proved_at": 1791983837,
    "provenance": "literature",
    "citation": "arXiv:2610.16562 (The Davenport constant of low-dimensional boxes), Corollary 2 (via Theorem 1's sequence S(m)); the proof here checks minimality of S(m) directly.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To prove that the Davenport constant of the box ⟦-m, m⟧² is at least 4m² - q(m), where q(m) is the smallest prime not dividing m, the proof constructs an explicit minimal zero-sum sequence S(m) of that length. The sequence is supported on three vectors: v₁ = (m, m), v₂ = (-m, m - 1), and v₃ = (m - q, -m), which lie in the box because Bertrand's postulate guarantees q < 2m. Multiplicities k₁, k₂, k₃ are chosen to yield a zero sum of total length 4m² - q, and minimality is established by showing via Diophantine coprimality arguments that the zero-sum system has no non-trivial proper submultiset solutions.",
+    "steps": [
+     {
+      "claim": "The smallest prime not dividing m, denoted q, is well-defined, prime, satisfies q ∤ m, is minimal among such primes, and satisfies q ≥ 2.",
+      "explanation": "By the infinitude of primes (Nat.exists_infinite_primes), there is a prime p ≥ m + 1, which cannot divide m (Nat.le_of_dvd), so the set of primes not dividing m is nonempty. Its infimum q belongs to the set (Nat.sInf_mem), is minimal (Nat.sInf_le), and satisfies q ≥ 2 since all primes are at least 2.",
+      "lemmas": [
+       "Nat.exists_infinite_primes",
+       "Nat.le_of_dvd",
+       "Nat.sInf_mem",
+       "Nat.sInf_le"
+      ],
+      "automation": false,
+      "code": "  set q := nat_least_prime_not_dvd m with hqdef\n  -- the smallest prime not dividing `m`\n  have hne : {p | p.Prime ∧ ¬ p ∣ m}.Nonempty := by\n    obtain ⟨p, hp1, hp2⟩ := Nat.exists_infinite_primes (m + 1)\n    exact ⟨p, hp2, fun h => by have := Nat.le_of_dvd (by omega) h; omega⟩\n  have hq : q.Prime ∧ ¬ q ∣ m := Nat.sInf_mem hne\n  have hqmin : ∀ p, p.Prime → ¬ p ∣ m → q ≤ p := fun p hp hpd => Nat.sInf_le ⟨hp, hpd⟩\n  have hq2 : 2 ≤ q := hq.1.two_le"
+     },
+     {
+      "claim": "q < 2m, and every prime p < q divides m.",
+      "explanation": "By Bertrand's postulate (Nat.exists_prime_lt_and_le_two_mul), there is a prime p with m < p ≤ 2m. Since p > m, p cannot divide m, so q ≤ p ≤ 2m by the minimality of q. If q = 2m, then 2m is prime, forcing m = 1 (Nat.prime_mul_iff), contradicting m ≥ 2; hence q < 2m. Furthermore, any prime strictly less than q must divide m, as otherwise q would not be the smallest prime not dividing m.",
+      "lemmas": [
+       "Nat.exists_prime_lt_and_le_two_mul",
+       "Nat.prime_mul_iff"
+      ],
+      "automation": false,
+      "code": "  have hqle : q ≤ 2 * m := by\n    obtain ⟨p, hp, hmp, hp2m⟩ := Nat.exists_prime_lt_and_le_two_mul m (by omega)\n    exact (hqmin p hp (fun h => by have := Nat.le_of_dvd (by omega) h; omega)).trans hp2m\n  have hqne : q ≠ 2 * m := by\n    intro h\n    have := hq.1\n    rw [h, Nat.prime_mul_iff] at this\n    rcases this with ⟨_, h1⟩ | ⟨_, h1⟩ <;> omega\n  have hsmall : ∀ p, p.Prime → p < q → p ∣ m := by\n    intro p hp hpq\n    by_contra hpd\n    exact absurd (hqmin p hp hpd) (by omega)"
+     },
+     {
+      "claim": "2m - 1 and q - 1 are coprime, and q and m are coprime.",
+      "explanation": "Any common prime divisor p of 2m - 1 and q - 1 would satisfy p ≤ q - 1 < q, so p ∣ m. Then p divides 2m and 2m - 1, hence divides their difference 2m - (2m - 1) = 1 (Nat.dvd_sub), impossible for a prime. Thus 2m - 1 and q - 1 are coprime (Nat.coprime_of_dvd). Similarly, q and m are coprime because q is prime and does not divide m (Nat.Prime.coprime_iff_not_dvd).",
+      "lemmas": [
+       "Nat.coprime_of_dvd",
+       "Nat.dvd_sub",
+       "dvd_mul_of_dvd_right",
+       "Nat.Prime.coprime_iff_not_dvd"
+      ],
+      "automation": false,
+      "code": "  have hcop1 : Nat.Coprime (2 * m - 1) (q - 1) := by\n    apply Nat.coprime_of_dvd\n    intro p hp h1 h2\n    have hpq : p < q := by\n      have := Nat.le_of_dvd (by omega) h2\n      omega\n    have hpm := hsmall p hp hpq\n    have : p ∣ 2 * m - (2 * m - 1) := Nat.dvd_sub (dvd_mul_of_dvd_right hpm 2) h1\n    rw [show 2 * m - (2 * m - 1) = 1 by omega] at this\n    exact hp.one_lt.ne' (Nat.dvd_one.1 this)\n  have hcopqm : Nat.Coprime q m := (Nat.Prime.coprime_iff_not_dvd hq.1).2 hq.2"
+     },
+     {
+      "claim": "The integer counterparts M = (m : ℤ) and Q = (q : ℤ) satisfy 2 ≤ M, 2 ≤ Q, Q < 2M, IsCoprime (2M - 1) (2M - Q), and IsCoprime M Q.",
+      "explanation": "The inequalities follow by casting from ℕ. The integer coprimality IsCoprime (2M - 1) (2M - Q) follows from the coprimality of 2m - 1 and q - 1 because 2M - Q = (2M - 1) + (-1)(Q - 1) and adding a multiple of (2M - 1) preserves coprimality (IsCoprime.add_mul_left_right). Integer coprimality of M and Q follows similarly from q and m being coprime.",
+      "lemmas": [
+       "lt_of_le_of_ne",
+       "Nat.cast_sub",
+       "IsCoprime.add_mul_left_right"
+      ],
+      "automation": false,
+      "code": "  -- integer versions\n  set M : ℤ := (m : ℤ) with hM\n  set Q : ℤ := (q : ℤ) with hQ\n  have hM2 : 2 ≤ M := by rw [hM]; exact_mod_cast hm\n  have hQ2 : 2 ≤ Q := by rw [hQ]; exact_mod_cast hq2\n  have hQle : Q < 2 * M := by rw [hM, hQ]; exact_mod_cast (lt_of_le_of_ne hqle hqne)\n  have hcopZ : IsCoprime (2 * M - 1) (2 * M - Q) := by\n    have h1 : IsCoprime ((2 * m - 1 : ℕ) : ℤ) ((q - 1 : ℕ) : ℤ) := Nat.isCoprime_iff_coprime.2 hcop1\n    push_cast [Nat.cast_sub (show 1 ≤ 2 * m by omega), Nat.cast_sub (show 1 ≤ q by omega)] at h1\n    have : 2 * M - Q = (2 * M - 1) + (-1) * (Q - 1) := by ring\n    rw [this]\n    exact (h1.neg_right.mul_add_left_right 1).symm.symm |> fun h => by\n      simpa [add_comm, mul_comm] using (IsCoprime.add_mul_left_right h1.neg_right 1)\n  have hcopMQ : IsCoprime M Q := by\n    rw [hM, hQ]; exact Nat.isCoprime_iff_coprime.2 hcopqm.symm"
+     },
+     {
+      "claim": "The candidate extremal sequence S(m) is defined as the multiset k₁ • v₁ + k₂ • v₂ + k₃ • v₃ with v₁ = (M, M), v₂ = (-M, M - 1), v₃ = (M - Q, -M), where k₁ = Q(M - 1) + M, k₂ = M(2M - Q), and k₃ = M(2M - 1).",
+      "explanation": "The vectors v₁, v₂, v₃ in ℤ² and their natural multiplicities k₁, k₂, k₃ are set, and their integer values are cast and simplified algebraically. S(m) is defined by replicate additions of these vectors.",
+      "lemmas": [
+       "Nat.cast_sub"
+      ],
+      "automation": false,
+      "code": "  set v₁ : ℤ × ℤ := (M, M) with hv₁\n  set v₂ : ℤ × ℤ := (-M, M - 1) with hv₂\n  set v₃ : ℤ × ℤ := (M - Q, -M) with hv₃\n  set k₁ := q * (m - 1) + m with hk₁\n  set k₂ := 2 * m ^ 2 - m * q with hk₂\n  set k₃ := 2 * m ^ 2 - m with hk₃\n  have hk₁Z : (k₁ : ℤ) = Q * (M - 1) + M := by\n    rw [hk₁]; push_cast [Nat.cast_sub (show 1 ≤ m by omega)]; ring\n  have hk₂Z : (k₂ : ℤ) = M * (2 * M - Q) := by\n    rw [hk₂]\n    have : m * q ≤ 2 * m ^ 2 := by nlinarith\n    push_cast [Nat.cast_sub this]; ring\n  have hk₃Z : (k₃ : ℤ) = M * (2 * M - 1) := by\n    rw [hk₃]\n    have : m ≤ 2 * m ^ 2 := by nlinarith\n    push_cast [Nat.cast_sub this]; ring\n  have hS : davenport_box_extremal_sequence m =\n      Multiset.replicate k₁ v₁ + Multiset.replicate k₂ v₂ + Multiset.replicate k₃ v₃ := rfl"
+     },
+     {
+      "claim": "The vectors v₁, v₂, v₃ are pairwise distinct, and the sum and counts of a v₁ + b v₂ + c v₃ are given by explicit formulas.",
+      "explanation": "Comparing coordinates confirms v₁ ≠ v₂, v₁ ≠ v₃, and v₂ ≠ v₃. The multiset sum distributes over replication and addition to yield (aM - bM + c(M - Q), aM + b(M - 1) - cM), and the element count of x in such a sum is a if x = v₁, b if x = v₂, c if x = v₃, and 0 otherwise.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have h12 : v₁ ≠ v₂ := by\n    intro h; have := congrArg Prod.fst h; simp only [hv₁, hv₂] at this; omega\n  have h13 : v₁ ≠ v₃ := by\n    intro h; have := congrArg Prod.snd h; simp only [hv₁, hv₃] at this; omega\n  have h23 : v₂ ≠ v₃ := by\n    intro h; have := congrArg Prod.snd h; simp only [hv₂, hv₃] at this; omega\n  have hsum3 : ∀ a b c : ℕ, (Multiset.replicate a v₁ + Multiset.replicate b v₂ +\n      Multiset.replicate c v₃).sum = ((a : ℤ) * M - b * M + c * (M - Q),\n        (a : ℤ) * M + b * (M - 1) - c * M) := by\n    intro a b c\n    simp only [Multiset.sum_add, Multiset.sum_replicate, hv₁, hv₂, hv₃, Prod.smul_mk,\n      Prod.mk_add_mk, nsmul_eq_mul]\n    ext <;> simp <;> ring\n  have hcount : ∀ (a b c : ℕ) (x : ℤ × ℤ), (Multiset.replicate a v₁ + Multiset.replicate b v₂ +\n      Multiset.replicate c v₃).count x =\n      (if x = v₁ then a else 0) + (if x = v₂ then b else 0) + (if x = v₃ then c else 0) := by\n    intro a b c x\n    rw [Multiset.count_add, Multiset.count_add, Multiset.count_replicate,\n      Multiset.count_replicate, Multiset.count_replicate]\n    simp only [@eq_comm _ v₁ x, @eq_comm _ v₂ x, @eq_comm _ v₃ x]"
+     },
+     {
+      "claim": "S(m) is nonempty and has zero sum: ∑ S(m) = (0, 0).",
+      "explanation": "The cardinality of S(m) is strictly positive, so S(m) ≠ ∅. Substituting a = k₁, b = k₂, and c = k₃ into the coordinate sum formulas gives 0 in both coordinates by polynomial ring identity.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hmin : multiset_is_minimal_zero_sum (davenport_box_extremal_sequence m) := by\n    refine ⟨?_, ?_, ?_⟩\n    · rw [hS]\n      intro h\n      have := congrArg Multiset.card h\n      simp only [Multiset.card_add, Multiset.card_replicate, Multiset.card_zero] at this\n      omega\n    · rw [hS, hsum3, hk₁Z, hk₂Z, hk₃Z]\n      ext <;> simp <;> ring"
+     },
+     {
+      "claim": "S(m) is minimal: any nonempty submultiset t ≤ S(m) with ∑ t = (0, 0) must equal S(m).",
+      "explanation": "Any submultiset t ≤ S(m) is of the form a • v₁ + b • v₂ + c • v₃ with counts 0 ≤ a ≤ k₁, 0 ≤ b ≤ k₂, 0 ≤ c ≤ k₃ = M(2M - 1). The condition ∑ t = (0, 0) translates into the linear system aM - bM + c(M - Q) = 0 and aM + b(M - 1) - cM = 0. By the uniqueness theorem int_box_extremal_sequence_counts, the only non-negative integer solutions with c ≤ M(2M - 1) are (0, 0, 0) and (k₁, k₂, k₃). Since t is nonempty, the counts must be (k₁, k₂, k₃), so t = S(m).",
+      "lemmas": [
+       "int_box_extremal_sequence_counts"
+      ],
+      "automation": false,
+      "code": "    · intro t ht ht0 hts\n      rw [hS] at ht ⊢\n      set a := t.count v₁\n      set b := t.count v₂\n      set c := t.count v₃\n      have hteq : t = Multiset.replicate a v₁ + Multiset.replicate b v₂ +\n          Multiset.replicate c v₃ := by\n        ext x\n        rw [hcount]\n        by_cases h1 : x = v₁\n        · rw [h1, if_pos rfl, if_neg h12, if_neg h13]\n          simp only [add_zero]\n          rfl\n        by_cases h2 : x = v₂\n        · rw [h2, if_neg h12.symm, if_pos rfl, if_neg h23]\n          simp only [zero_add, add_zero]\n          rfl\n        by_cases h3 : x = v₃\n        · rw [h3, if_neg h13.symm, if_neg h23.symm, if_pos rfl]\n          simp only [zero_add]\n          rfl\n        simp only [h1, h2, h3, if_false, add_zero]\n        rw [Multiset.count_eq_zero]\n        intro hx\n        have := Multiset.mem_of_le ht hx\n        simp only [Multiset.mem_add, Multiset.mem_replicate] at this\n        tauto\n      have ha : a ≤ k₁ := by\n        have := Multiset.count_le_of_le v₁ ht\n        rwa [hcount, if_pos rfl, if_neg h12, if_neg h13, add_zero, add_zero] at this\n      have hb : b ≤ k₂ := by\n        have := Multiset.count_le_of_le v₂ ht\n        rwa [hcount, if_neg h12.symm, if_pos rfl, if_neg h23, zero_add, add_zero] at this\n      have hc : c ≤ k₃ := by\n        have := Multiset.count_le_of_le v₃ ht\n        rwa [hcount, if_neg h13.symm, if_neg h23.symm, if_pos rfl, zero_add, zero_add] at this\n      rw [hteq, hsum3] at hts\n      have ex := congrArg Prod.fst hts\n      have ey := congrArg Prod.snd hts\n      simp only [Prod.fst_zero, Prod.snd_zero] at ex ey\n      set A : ℤ := (a : ℤ) with hAd\n      set B : ℤ := (b : ℤ) with hBd\n      set C : ℤ := (c : ℤ) with hCd\n      have hA0 : 0 ≤ A := Nat.cast_nonneg _\n      have hB0 : 0 ≤ B := Nat.cast_nonneg _\n      have hC0 : 0 ≤ C := Nat.cast_nonneg _\n      have hCle : C ≤ M * (2 * M - 1) := by rw [← hk₃Z, hCd]; exact_mod_cast hc\n      rcases int_box_extremal_sequence_counts M Q A B C hM2 hcopMQ hcopZ hC0 hCle\n          (by linear_combination ex) (by linear_combination ey) with\n        ⟨hA, hB, hC⟩ | ⟨hA, hB, hC⟩\n      · exfalso\n        have ha0 : a = 0 := by rw [hAd] at hA; exact_mod_cast hA\n        have hb0 : b = 0 := by rw [hBd] at hB; exact_mod_cast hB\n        have hc0 : c = 0 := by rw [hCd] at hC; exact_mod_cast hC\n        apply ht0\n        rw [hteq, ha0, hb0, hc0]\n        simp\n      · have ha1 : a = k₁ := by\n          have : A = (k₁ : ℤ) := by rw [hA, hk₁Z]\n          rw [hAd] at this\n          exact_mod_cast this\n        have hb1 : b = k₂ := by\n          have : B = (k₂ : ℤ) := by rw [hB, hk₂Z]\n          rw [hBd] at this\n          exact_mod_cast this\n        have hc1 : c = k₃ := by\n          have : C = (k₃ : ℤ) := by rw [hC, hk₃Z]\n          rw [hCd] at this\n          exact_mod_cast this\n        rw [hteq, ha1, hb1, hc1]"
+     },
+     {
+      "claim": "All elements of S(m) belong to the box ⟦-m, m⟧².",
+      "explanation": "The vectors v₁ = (m, m) and v₂ = (-m, m - 1) trivially lie in [-m, m]². For v₃ = (m - q, -m), the bound 2 ≤ q < 2m implies -m < m - q ≤ m - 2 < m, so both coordinates of v₃ also lie in [-m, m].",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hbox : ∀ x ∈ davenport_box_extremal_sequence m, x ∈ int_box_two m := by\n    intro x hx\n    rw [hS] at hx\n    simp only [Multiset.mem_add, Multiset.mem_replicate] at hx\n    simp only [int_box_two, Finset.mem_product, Finset.mem_Icc]\n    rcases hx with (⟨-, rfl⟩ | ⟨-, rfl⟩) | ⟨-, rfl⟩ <;>\n      simp only [hv₁, hv₂, hv₃] <;> constructor <;> constructor <;> omega"
+     },
+     {
+      "claim": "The multiset cardinality of S(m) is 4m² - q.",
+      "explanation": "The total number of elements is k₁ + k₂ + k₃ = (Q(M - 1) + M) + M(2M - Q) + M(2M - 1) = 4M² - Q = 4m² - q.",
+      "lemmas": [
+       "Nat.cast_sub"
+      ],
+      "automation": false,
+      "code": "  have hcard : Multiset.card (davenport_box_extremal_sequence m) = 4 * m ^ 2 - q := by\n    rw [hS]\n    simp only [Multiset.card_add, Multiset.card_replicate]\n    have h1 : ((k₁ + k₂ + k₃ : ℕ) : ℤ) = ((4 * m ^ 2 - q : ℕ) : ℤ) := by\n      have : q ≤ 4 * m ^ 2 := by nlinarith\n      push_cast [Nat.cast_sub this]\n      rw [hk₁Z, hk₂Z, hk₃Z]\n      ring\n    exact_mod_cast h1"
+     },
+     {
+      "claim": "The Davenport constant of ⟦-m, m⟧² is at least 4m² - q(m).",
+      "explanation": "By definition, the Davenport constant is the supremum of lengths of minimal zero-sum sequences with elements in the set. Since S(m) is such a sequence of length 4m² - q in ⟦-m, m⟧², the Davenport constant is at least 4m² - q by le_sSup.",
+      "lemmas": [
+       "le_sSup"
+      ],
+      "automation": false,
+      "code": "  unfold davenport_constant\n  apply le_sSup\n  exact ⟨_, fun x hx => hbox x hx, hmin, by rw [hcard]⟩"
+     }
+    ],
+    "glossary": {
+     "Nat.exists_infinite_primes": "For any natural number n, there exists a prime p with n ≤ p.",
+     "Nat.le_of_dvd": "If n is positive and m divides n, then m ≤ n.",
+     "Nat.sInf_mem": "If a set of natural numbers is nonempty, its infimum belongs to the set.",
+     "Nat.sInf_le": "If a natural number belongs to a set, then the infimum of the set is at most that number.",
+     "Nat.exists_prime_lt_and_le_two_mul": "Bertrand's postulate: for any positive natural number n, there exists a prime p with n < p ≤ 2n.",
+     "Nat.prime_mul_iff": "A product of natural numbers is prime if and only if one factor is prime and the other is 1.",
+     "Nat.coprime_of_dvd": "Two natural numbers are coprime if no prime divides both of them.",
+     "Nat.dvd_sub": "If k divides m and k divides n, then k divides m - n.",
+     "dvd_mul_of_dvd_right": "If a divides b, then a divides c * b for any c.",
+     "Nat.Prime.coprime_iff_not_dvd": "A prime p is coprime to n if and only if p does not divide n.",
+     "lt_of_le_of_ne": "In a partial order, a ≤ b and a ≠ b imply a < b.",
+     "Nat.cast_sub": "The cast of a difference of natural numbers n - m equals the difference of casts, provided m ≤ n.",
+     "IsCoprime.add_mul_left_right": "In a commutative ring, if x and y are coprime, then x and y + x * z are coprime for any z.",
+     "int_box_extremal_sequence_counts": "For integers M, Q, A, B, C satisfying the coprimality and range conditions of the extremal configuration, the only non-negative integer solutions to the zero-sum system are (0, 0, 0) and (k₁, k₂, k₃).",
+     "le_sSup": "An element of a set in a complete semilattice is bounded above by the supremum of the set."
+    },
+    "caveats": [
+     "The proof relies on an auxiliary lemma, `int_box_extremal_sequence_counts`, which classifies the non-negative integer solutions to the two-dimensional zero-sum linear system."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -515628,13 +516118,136 @@
    "deps": [],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/LayeredCapacityGeometricInequality.lean",
-   "proved_at": 1791983010,
+   "proved_at": 1791983841,
    "provenance": "literature",
    "citation": "arXiv:2610.15520 (Improving the bounds on approximating weighted maximin shares of chores), Lemma 5.3; the proof here uses Bernoulli's inequality instead of the ratio argument.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof establishes the inequality g^(t - 3) * (ℓ + 3) ≤ t * g^ℓ by comparing ℓ with t - 3. If ℓ ≥ t - 3, writing ℓ = (t - 3) + j reduces the claim to t + j ≤ t * g^j, which follows directly from Bernoulli's inequality g^j ≥ 1 + j/t. If ℓ < t - 3, setting t - 3 = ℓ + (i + 1) and using the reciprocal base 1 - 1/(t + 1) = g^(-1) reduces the claim to t - (i + 1) ≤ t * (1 - 1/(t + 1))^(i + 1), which again follows from Bernoulli's inequality since t/(t + 1) ≤ 1. Finally, evaluating the main inequality at ℓ = 0 immediately gives 3 * g^(t - 3) ≤ t, hence g^(t - 3) ≤ t / 3.",
+    "steps": [
+     {
+      "claim": "t ≥ 4 > 0 over the reals, and g = 1 + 1/t > 0.",
+      "explanation": "Cast the hypothesis t ≥ 4 from ℕ to ℝ, which immediately gives t > 0. Define g = 1 + 1/t, which is strictly positive because t > 0.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have htR : (4 : ℝ) ≤ t := by exact_mod_cast ht\n  have htpos : (0 : ℝ) < t := by linarith\n  set g : ℝ := 1 + 1 / (t : ℝ) with hg\n  have hg0 : 0 < g := by positivity"
+     },
+     {
+      "claim": "It suffices to establish g^(t - 3) * (ℓ + 3) ≤ t * g^ℓ for all ℓ ∈ ℕ, split into cases t - 3 ≤ ℓ and ℓ < t - 3.",
+      "explanation": "Introduce ℓ to prove the universal inequality `key`. By totality of order (`le_or_gt`), either t - 3 ≤ ℓ or ℓ < t - 3.",
+      "lemmas": [
+       "le_or_gt"
+      ],
+      "automation": false,
+      "code": "  have key : ∀ ℓ : ℕ, g ^ (t - 3) * (ℓ + 3) ≤ t * g ^ ℓ := by\n    intro ℓ\n    rcases le_or_gt (t - 3) ℓ with hle | hlt"
+     },
+     {
+      "claim": "When ℓ ≥ t - 3, the inequality g^(t - 3) * (ℓ + 3) ≤ t * g^ℓ holds.",
+      "explanation": "Write ℓ = (t - 3) + j for some j ∈ ℕ using `Nat.exists_eq_add_of_le`. Bernoulli's inequality `one_add_mul_le_pow` gives g^j = (1 + 1/t)^j ≥ 1 + j/t. Multiplying this by t > 0 and canceling t * (1/t) = 1 yields t + j ≤ t * g^j. Multiplying both sides by the positive factor g^(t - 3) and noting that (t - 3 + j) + 3 = t + j establishes g^(t - 3) * (ℓ + 3) ≤ t * g^(t - 3) * g^j = t * g^ℓ by `pow_add`.",
+      "lemmas": [
+       "Nat.exists_eq_add_of_le",
+       "one_add_mul_le_pow",
+       "Nat.cast_sub",
+       "pow_add",
+       "pow_pos",
+       "mul_le_mul_of_nonneg_left",
+       "mul_add",
+       "mul_one",
+       "mul_assoc",
+       "mul_comm",
+       "mul_one_div_cancel"
+      ],
+      "automation": false,
+      "code": "    · -- ℓ = (t - 3) + j : Bernoulli for g ^ j\n      obtain ⟨j, rfl⟩ := Nat.exists_eq_add_of_le hle\n      have hB : 1 + (j : ℝ) * (1 / t) ≤ g ^ j :=\n        one_add_mul_le_pow (by have : (0 : ℝ) ≤ 1 / t := by positivity\n                               linarith) j\n      have hcast : ((t - 3 + j : ℕ) : ℝ) + 3 = t + j := by\n        push_cast [Nat.cast_sub (show 3 ≤ t by omega)]\n        ring\n      rw [hcast, pow_add]\n      have hpow : 0 < g ^ (t - 3) := pow_pos hg0 _\n      have : (t : ℝ) + j ≤ t * g ^ j := by\n        have := mul_le_mul_of_nonneg_left hB htpos.le\n        rw [mul_add, mul_one, ← mul_assoc, mul_comm (t : ℝ) j, mul_assoc, mul_one_div_cancel\n          htpos.ne', mul_one] at this\n        linarith\n      calc g ^ (t - 3) * ((t : ℝ) + j) ≤ g ^ (t - 3) * (t * g ^ j) :=\n            mul_le_mul_of_nonneg_left this hpow.le\n        _ = t * (g ^ (t - 3) * g ^ j) := by ring"
+     },
+     {
+      "claim": "When ℓ < t - 3, writing t - 3 = ℓ + (i + 1) and setting h = 1/(t + 1), we have g * (1 - h) = 1 and (1 - h)^(i + 1) ≥ 1 - (i + 1)h.",
+      "explanation": "From ℓ < t - 3, obtain i ∈ ℕ such that t - 3 = ℓ + (i + 1) via `Nat.exists_eq_add_of_lt`. Setting h = 1/(t + 1), direct calculation shows g * (1 - h) = ((t + 1)/t) * (t/(t + 1)) = 1. Since t ≥ 4 implies h ≤ 1, we have -h ≥ -1 ≥ -2, so Bernoulli's inequality `one_add_mul_le_pow` applies with -h and exponent i + 1, giving (1 - h)^(i + 1) ≥ 1 - (i + 1)h.",
+      "lemmas": [
+       "Nat.exists_eq_add_of_lt",
+       "one_add_mul_le_pow",
+       "div_le_one",
+       "sub_eq_add_neg"
+      ],
+      "automation": false,
+      "code": "    · -- t - 3 = ℓ + i : Bernoulli for (1 - 1/(t+1)) ^ i, whose product with g ^ i is 1\n      obtain ⟨i, hi⟩ := Nat.exists_eq_add_of_lt hlt\n      set h : ℝ := 1 / ((t : ℝ) + 1) with hh\n      have hh0 : 0 ≤ h := by positivity\n      have hgh : g * (1 - h) = 1 := by\n        rw [hg, hh]\n        field_simp\n        ring\n      have hB : 1 + ((i + 1 : ℕ) : ℝ) * (-h) ≤ (1 - h) ^ (i + 1) := by\n        have := one_add_mul_le_pow (show (-2 : ℝ) ≤ -h by\n          have : h ≤ 1 := by rw [hh, div_le_one (by linarith)]; linarith\n          linarith) (i + 1)\n        simpa [sub_eq_add_neg] using this"
+     },
+     {
+      "claim": "ℓ + 3 = t - (i + 1), g^(t - 3) = g^ℓ * g^(i + 1), and g^(i + 1) * (1 - h)^(i + 1) = 1.",
+      "explanation": "Rearranging t - 3 = ℓ + (i + 1) gives t = ℓ + (i + 1) + 3, so ℓ + 3 = t - (i + 1). Splitting the exponent gives g^(t - 3) = g^ℓ * g^(i + 1) by `pow_add`. Distributing powers over products gives g^(i + 1) * (1 - h)^(i + 1) = (g * (1 - h))^(i + 1) = 1^(i + 1) = 1 via `mul_pow` and `one_pow`.",
+      "lemmas": [
+       "pow_add",
+       "mul_pow",
+       "one_pow"
+      ],
+      "automation": false,
+      "code": "      have hcast : (ℓ : ℝ) + 3 = t - ((i + 1 : ℕ) : ℝ) := by\n        have : t = ℓ + (i + 1) + 3 := by omega\n        rw [this]\n        push_cast\n        ring\n      rw [hi, show ℓ + i + 1 = ℓ + (i + 1) by ring, pow_add, hcast]\n      have hgi : g ^ (i + 1) * (1 - h) ^ (i + 1) = 1 := by rw [← mul_pow, hgh, one_pow]"
+     },
+     {
+      "claim": "t - (i + 1) ≤ t * (1 - h)^(i + 1).",
+      "explanation": "Multiplying the Bernoulli bound 1 - (i + 1)h ≤ (1 - h)^(i + 1) by t > 0 gives t - t(i + 1)h ≤ t(1 - h)^(i + 1). Since t * h = t/(t + 1) ≤ 1 by `div_le_one` and i + 1 ≥ 0, we have t(i + 1)h ≤ i + 1, hence t - (i + 1) ≤ t - t(i + 1)h ≤ t(1 - h)^(i + 1).",
+      "lemmas": [
+       "mul_le_mul_of_nonneg_left",
+       "mul_one_div",
+       "div_le_one",
+       "Nat.cast_nonneg"
+      ],
+      "automation": false,
+      "code": "      have hti : (t : ℝ) - ((i + 1 : ℕ) : ℝ) ≤ t * (1 - h) ^ (i + 1) := by\n        have h1 : (t : ℝ) * (1 + ((i + 1 : ℕ) : ℝ) * (-h)) ≤ t * (1 - h) ^ (i + 1) :=\n          mul_le_mul_of_nonneg_left hB htpos.le\n        have h2 : (t : ℝ) * h ≤ 1 := by\n          rw [hh, mul_one_div, div_le_one (by linarith)]\n          linarith\n        have h3 : (0 : ℝ) ≤ ((i + 1 : ℕ) : ℝ) := Nat.cast_nonneg _\n        nlinarith"
+     },
+     {
+      "claim": "When ℓ < t - 3, the inequality g^(t - 3) * (ℓ + 3) ≤ t * g^ℓ holds.",
+      "explanation": "Multiplying t - (i + 1) ≤ t * (1 - h)^(i + 1) by the positive factor g^ℓ * g^(i + 1) preserves the inequality. Regrouping the right-hand side produces t * g^ℓ * (g^(i + 1) * (1 - h)^(i + 1)) = t * g^ℓ * 1 = t * g^ℓ, which matches the required bound since the left-hand side is g^(t - 3) * (ℓ + 3).",
+      "lemmas": [
+       "pow_pos",
+       "mul_le_mul_of_nonneg_left",
+       "mul_one"
+      ],
+      "automation": false,
+      "code": "      have hpos : 0 < g ^ ℓ := pow_pos hg0 _\n      have hpos' : 0 < g ^ (i + 1) := pow_pos hg0 _\n      calc g ^ ℓ * g ^ (i + 1) * ((t : ℝ) - ((i + 1 : ℕ) : ℝ))\n          ≤ g ^ ℓ * g ^ (i + 1) * (t * (1 - h) ^ (i + 1)) :=\n            mul_le_mul_of_nonneg_left hti (by positivity)\n        _ = t * g ^ ℓ * (g ^ (i + 1) * (1 - h) ^ (i + 1)) := by ring\n        _ = t * g ^ ℓ := by rw [hgi, mul_one]"
+     },
+     {
+      "claim": "Both conjuncts hold: g^(t - 3) * (ℓ + 3) ≤ t * g^ℓ for all ℓ, and g^(t - 3) ≤ t / 3.",
+      "explanation": "The key inequality handles the first conjunct. Evaluating it at ℓ = 0 gives g^(t - 3) * (0 + 3) ≤ t * g^0, which simplifies via `zero_add`, `pow_zero`, and `mul_one` to 3 * g^(t - 3) ≤ t. Dividing by 3 yields g^(t - 3) ≤ t / 3.",
+      "lemmas": [
+       "CharP.cast_eq_zero",
+       "zero_add",
+       "pow_zero",
+       "mul_one"
+      ],
+      "automation": false,
+      "code": "  refine ⟨key, ?_⟩\n  have := key 0\n  simp only [CharP.cast_eq_zero, zero_add, pow_zero, mul_one] at this\n  linarith"
+     }
+    ],
+    "glossary": {
+     "le_or_gt": "In a linear order, for any two elements either a ≤ b or b < a.",
+     "Nat.exists_eq_add_of_le": "If m ≤ n for natural numbers, then n = m + k for some natural number k.",
+     "one_add_mul_le_pow": "Bernoulli's inequality: (1 + a)^n ≥ 1 + na for any real a ≥ -2 and natural number n.",
+     "Nat.cast_sub": "The cast of the natural difference n - m equals the difference of the casts, provided m ≤ n.",
+     "pow_add": "Exponents add under multiplication: a^(m + n) = a^m * a^n.",
+     "pow_pos": "Any natural power of a strictly positive element is strictly positive.",
+     "mul_le_mul_of_nonneg_left": "Multiplying an inequality b ≤ c on the left by a nonnegative element a ≥ 0 yields a * b ≤ a * c.",
+     "mul_add": "Left distributivity of multiplication over addition: a * (b + c) = a * b + a * c.",
+     "mul_one": "Multiplying on the right by 1 leaves an element unchanged: a * 1 = a.",
+     "mul_assoc": "Multiplication is associative: (a * b) * c = a * (b * c).",
+     "mul_comm": "Multiplication is commutative: a * b = b * a.",
+     "mul_one_div_cancel": "Multiplying a nonzero element by its reciprocal gives 1: a * (1 / a) = 1.",
+     "Nat.exists_eq_add_of_lt": "If m < n for natural numbers, then n = m + k + 1 for some natural number k.",
+     "div_le_one": "For b > 0, a / b ≤ 1 if and only if a ≤ b.",
+     "sub_eq_add_neg": "Subtraction equals addition of the additive inverse: a - b = a + (-b).",
+     "mul_pow": "In a commutative monoid, powers distribute over multiplication: (a * b)^n = a^n * b^n.",
+     "one_pow": "Any power of 1 is 1: 1^n = 1.",
+     "mul_one_div": "Multiplying by 1 / y equals division by y: x * (1 / y) = x / y.",
+     "Nat.cast_nonneg": "The cast of any natural number into an ordered semiring is nonnegative.",
+     "CharP.cast_eq_zero": "In characteristic p, the cast of p is 0; in particular, casting 0 from ℕ gives 0.",
+     "zero_add": "Adding zero on the left is the identity: 0 + a = a.",
+     "pow_zero": "Any element raised to the zeroth power equals 1: a^0 = 1."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   }

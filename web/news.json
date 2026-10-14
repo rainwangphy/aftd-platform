@@ -2,6 +2,70 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-14",
+   "kind": "daily",
+   "title": "Daily reading: 30 proved, 9 open",
+   "body": "The Proposer read 30 new paper(s), listed 65 open problem(s), and stated 5 of them in Lean, and posed 2 more from what the knowledgebase already holds (39 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 30 theorem(s); 9 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `simple_graph_is_k_independent_empty`: The empty vertex set is k-independent, for every k.\n\nProved. `simple_graph_is_k_star_forming_univ`: In a finite graph the whole vertex set is k-star-forming, for every k (there is no vertex outside it).\n\nProved. `simple_graph_is_k_star_forming_mono`: Every superset of a k-star-forming set is k-star-forming.\n\nProved. `simple_graph_k_independent_is_k_independent_one_iff`: A vertex set is 1-independent exactly when it is independent: no two of its vertices are adjacent.\n\nFormalized. `simple_graph_k_independence_number_le_upper_k_star_forming_number` (arXiv:2610.03785 (Upper k-star-forming sets, k-independence, and upper domination), Theorem 2.3 (a theorem the paper cites from earlier…): For every finite graph G and every k, β_k(G) ≤ SF_k(G).\n\nFormalized. `simple_graph_k_independence_number_eq_card_of_degree_lt` (arXiv:2610.03785 (Upper k-star-forming sets, k-independence, and upper domination), Proposition 3.1.): If every vertex of the finite graph G has degree less than k, then β_k(G) = SF_k(G) = |V(G)|.\n\nFormalized. `complete_bipartite_k_independence_number_eq_upper_k_star_forming_number` (arXiv:2610.03785 (Upper k-star-forming sets, k-independence, and upper domination), Theorem 3.2.): For k ≥ 2 and a, b ≥ k, the complete bipartite graph K_{a,b} has β_k(K_{a,b}) = SF_k(K_{a,b}) = max{a, b, 2k − 2}.\n\nFormalized. `exists_triangle_free_k_independence_number_lt_upper_k_star_forming_number` (arXiv:2610.03785 (Upper k-star-forming sets, k-independence, and upper domination), Proposition 7.1 (the explicit graph with edges 02, 08,…): There is a triangle-free graph H on 10 vertices with β_4(H) = 7 < 8 = SF_4(H).\n\nProved. `simple_graph_is_chain_graph_complete_bipartite`: The complete bipartite graph K_{a,b} is a chain graph (all vertices on one side have the same neighbourhood).\n\nFormalized. `perm_distinct_abs_diffs_ascent_count_sub_half_unbounded` (arXiv:2610.15860 (A note on the Slater–Vélez permutation), Lemma 1.): For any permutation (a_n) of the positive integers whose consecutive absolute differences are pairwise distinct, A(X) − X/2 is unbounded above, where A(X) counts the v ≤ X whose successor in the sequence is larger than v.\n\nProved. `greedy_distinct_diff_seq_one_two_two`: The greedy sequence started at 1, 2 has third term 4 (3 is refused since |3 − 2| = 1 is already a difference).\n\nFormalized. `exists_submodule_finrank_inf_eq_of_finrank_inf` (arXiv:2610.17631 (Complete mappings stabilizing Sylow 2-subgroups in central extensions), Lemma 4.1 (stated here for a finite-dimensional…): Let E, F be k-dimensional subspaces of a finite-dimensional vector space with dim(E ∩ F) = k − j, 0 ≤ j ≤ k. Then some k-dimensional subspace W has dim(E ∩ W) = dim(W ∩ F) = k − j.\n\nOpen. `chain_graph_k_independence_number_eq_upper_k_star_forming_number` (arXiv:2610.03785): Conjecture: for every finite chain graph G and every k ≥ 3, β_k(G) = SF_k(G).\n\nOpen. `greedy_distinct_diff_seq_surjective` (arXiv:2610.15860): Conjecture: for any distinct positive integers a₁, a₂, the greedy sequence with distinct consecutive differences started at a₁, a₂ takes every positive integer as a value (it is a permutation of the positive integers).\n\nOpen. `greedy_distinct_diff_seq_one_two_surjective` (arXiv:2610.15860): The greedy sequence with distinct consecutive differences started at 1, 2 takes every positive integer as a value.\n\nOpen. `simple_graph_triangle_cover_number_le_two_mul_packing_number` (arXiv:2610.15539): Tuza's conjecture: every finite simple graph G satisfies τ(G) ≤ 2ν(G).\n\nOpen. `simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_eleven` (arXiv:2610.15269): Tuza's conjecture for graphs of maximum degree at most 11: every finite simple graph G with Δ(G) ≤ 11 satisfies τ(G) ≤ 2ν(G).\n\nOpen. `simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_ten` (arXiv:2610.15539): Every finite simple graph G with maximum degree at most 10 satisfies τ(G) ≤ 2ν(G).\n\nOpen. `tuza_iff_tuza_of_edge_count_ge` (arXiv:2610.15539 (Tuza's conjecture under an edge-count condition), Proposition 1.2.): Tuza's conjecture holds for all finite graphs if and only if, for every c ≥ 0, it holds for all graphs on n ≥ n₀(c) vertices with at least n²/4 − cn edges.\n\nOpen. `chain_graph_two_independence_number_eq_upper_two_star_forming_number` (arXiv:2610.03785 (Upper k-star-forming sets, k-independence, and upper domination), Theorem 6.2 (the case k = 2 of the question whose case…): For every finite chain graph G, the dissociation number β₂(G) equals the upper 2-star-forming number SF₂(G).\n\nOpen. `davenport_constant_int_box_two_eq` (arXiv:2610.16562): Conjecture: for every m ≥ 2, D(⟦−m, m⟧²) = 4m² − q(m), and every minimal zero-sum sequence over ⟦−m, m⟧² of that maximal length is the image of S(m) under one of the eight symmetries of the square.",
+   "declarations": [
+    "simple_graph_is_k_independent_empty",
+    "simple_graph_is_k_star_forming_univ",
+    "simple_graph_is_k_star_forming_mono",
+    "simple_graph_k_independent_is_k_independent_one_iff",
+    "simple_graph_k_independence_number_le_upper_k_star_forming_number",
+    "simple_graph_k_independence_number_eq_card_of_degree_lt",
+    "complete_bipartite_k_independence_number_eq_upper_k_star_forming_number",
+    "exists_triangle_free_k_independence_number_lt_upper_k_star_forming_number",
+    "simple_graph_is_chain_graph_complete_bipartite",
+    "perm_distinct_abs_diffs_ascent_count_sub_half_unbounded",
+    "greedy_distinct_diff_seq_one_two_two",
+    "exists_submodule_finrank_inf_eq_of_finrank_inf",
+    "dimension_lifting_recurrence_bound",
+    "simple_graph_is_k_star_forming_iff",
+    "simple_graph_is_k_independent_iff",
+    "simple_graph_is_k_independent_mono",
+    "finset_nat_mul_card_mul_succ_le_two_mul_sum",
+    "finset_nat_card_mul_succ_le_two_mul_sum_of_pos",
+    "simple_graph_card_low_left_degree_ge",
+    "exists_bin_packing_of_total_capacity_ge",
+    "clique_to_vertex_cover_equivalence",
+    "subset_sum_to_partition_equivalence",
+    "simple_graph_triangle_cover_number_eq_zero_of_clique_free",
+    "simple_graph_triangle_packing_number_eq_zero_of_clique_free",
+    "simple_graph_triangle_cover_number_le_three_mul_packing_number",
+    "nat_least_prime_not_dvd_two",
+    "int_square_symmetry_one_one_false",
+    "int_box_extremal_sequence_counts",
+    "davenport_constant_int_box_two_ge",
+    "layered_capacity_geometric_inequality"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.16562",
+     "href": "https://arxiv.org/abs/2610.16562"
+    },
+    {
+     "label": "arXiv:2610.15860",
+     "href": "https://arxiv.org/abs/2610.15860"
+    },
+    {
+     "label": "arXiv:2610.15539",
+     "href": "https://arxiv.org/abs/2610.15539"
+    },
+    {
+     "label": "arXiv:2610.15269",
+     "href": "https://arxiv.org/abs/2610.15269"
+    },
+    {
+     "label": "arXiv:2610.03785",
+     "href": "https://arxiv.org/abs/2610.03785"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-13",
    "kind": "daily",
    "title": "Daily reading: 36 proved, 3 open",

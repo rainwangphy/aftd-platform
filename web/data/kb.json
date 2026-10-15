@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-15T12:32:21Z",
+ "generated": "2026-10-15T12:50:30Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 65,
   "rejected": 13,
-  "spend": 94.6,
+  "spend": 95.18,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 118770805,
-   "output": 17132232,
-   "cache_read": 260591621
+   "input": 119115391,
+   "output": 17315885,
+   "cache_read": 260783343
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792067516
+  "last": 1792068625
  },
  "domains": [
   {
@@ -517942,13 +517942,124 @@
     "mondrian_seven_rects_partition_defect"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/MondrianSevenRectsIsPartition.lean",
-   "proved_at": 1792061979,
+   "proved_at": 1792068292,
    "provenance": "lemma",
    "citation": "arXiv:2610.19193 (A Bounded-Defect Construction for the Mondrian Art Problem), Sec. 2 (the dissection (3) is a partition) and Proposition 1 (pairwise noncongruence); serves mondrian_seven_rects_partition_defect.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof establishes that the seven parameterized rectangles form a valid Mondrian partition of the 105q × 105q square for any positive integers p, q of the same parity with q < p < 7q. After establishing four arithmetic identities and a general geometric separation criterion for disjointness, the partition condition is split into non-degeneracy, pairwise disjointness and non-congruence, and coverage of the square. Each condition is verified by case analysis on the rectangles and resolved via integer linear arithmetic using Lean's omega tactic, with coverage settled by a coordinate-based decision tree.",
+    "steps": [
+     {
+      "claim": "Four linear arithmetic identities hold relating the coordinate parameters to multiples of q and p.",
+      "explanation": "Under the conditions that p and q share parity with q < p < 7q, we establish four algebraic relations: 7(7q - p) + 7p = 49q (for coordinate a), 5(8q - p) + 5p = 40q (for coordinate d), 5(13q - p) + 5p = 65q (for coordinate e), and 2 · ⌊15(7q + p) / 2⌋ = 105q + 15p (for coordinate f, which is an integer because 7q + p is even). All four identities follow directly by linear integer arithmetic.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have ha : 7 * (7 * q - p) + 7 * p = 49 * q := by omega\n  have hd : 5 * (8 * q - p) + 5 * p = 40 * q := by omega\n  have he : 5 * (13 * q - p) + 5 * p = 65 * q := by omega\n  have hf : 2 * (15 * (7 * q + p) / 2) = 105 * q + 15 * p := by omega"
+     },
+     {
+      "claim": "A geometric criterion for disjointness of two axis-aligned rectangles.",
+      "explanation": "If two rectangles r = [x₁, x₂) × [y₁, y₂) and s = [x'₁, x'₂) × [y'₁, y'₂) are separated horizontally (x₂ ≤ x'₁ or x'₂ ≤ x₁) or vertically (y₂ ≤ y'₁ or y'₂ ≤ y₁), their cell sets are disjoint. Rewriting disjointness with Finset.disjoint_left and expanding cell membership in the Cartesian product of intervals, an element in the intersection would satisfy contradictory linear inequalities, which omega refutes.",
+      "lemmas": [
+       "Finset.disjoint_left",
+       "Finset.mem_product",
+       "Finset.mem_Ico"
+      ],
+      "automation": false,
+      "code": "  have hdisj : ∀ r s : ℕ × ℕ × ℕ × ℕ, (r.2.1 ≤ s.1 ∨ s.2.1 ≤ r.1 ∨ r.2.2.2 ≤ s.2.2.1 ∨\n      s.2.2.2 ≤ r.2.2.1) → Disjoint (mondrian_rect_cells r) (mondrian_rect_cells s) := by\n    intro r s h\n    rw [Finset.disjoint_left]\n    rintro ⟨x, y⟩ h1 h2\n    simp only [mondrian_rect_cells, Finset.mem_product, Finset.mem_Ico] at h1 h2\n    omega"
+     },
+     {
+      "claim": "The list of seven rectangles is rewritten using compact coordinate names a, d, e, f, c.",
+      "explanation": "Unfolding mondrian_seven_rects, we introduce abbreviations for the five key division lines: a = 7(7q - p), d = 5(8q - p), e = 5(13q - p), f = 15(7q + p) / 2, and c = 7(7q + p). This simplifies the coordinates of the seven rectangles and re-expresses the goal and earlier identities in terms of these parameters.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  unfold mondrian_seven_rects\n  generalize 7 * (7 * q - p) = a at ha ⊢\n  generalize 5 * (8 * q - p) = d at hd ⊢\n  generalize 5 * (13 * q - p) = e at he ⊢\n  generalize 15 * (7 * q + p) / 2 = f at hf ⊢\n  generalize hc : 7 * (7 * q + p) = c"
+     },
+     {
+      "claim": "The partition property reduces to non-degeneracy, pairwise disjointness/non-congruence, and square coverage.",
+      "explanation": "The definition mondrian_is_partition requires four conditions: that the list has length at least 2, that every rectangle has strictly positive width and height, that rectangles are pairwise disjoint and non-congruent, and that their union equals the (105q) × (105q) grid. The length condition 2 ≤ 7 is discharged immediately by simplification, leaving the remaining three properties as subgoals.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  refine ⟨by simp, ?_, ?_, ?_⟩"
+     },
+     {
+      "claim": "Every rectangle in the collection has strictly positive width and height.",
+      "explanation": "For each rectangle r in the 7-element list, we case-split on which rectangle it is. In each of the seven cases, the positivity requirements x₁ < x₂ and y₁ < y₂ reduce to linear inequalities in p and q (such as a < 105q and 0 < d), which follow from q < p < 7q and are closed by omega.",
+      "lemmas": [
+       "List.mem_cons",
+       "List.not_mem_nil",
+       "or_false"
+      ],
+      "automation": false,
+      "code": "  · intro r hr\n    simp only [List.mem_cons, List.not_mem_nil, or_false] at hr\n    rcases hr with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> dsimp only <;> omega"
+     },
+     {
+      "claim": "The seven rectangles are pairwise disjoint and pairwise non-congruent.",
+      "explanation": "Expanding the pairwise relation over the 7-element list yields 21 pairs of distinct rectangles, each requiring proofs of disjointness and non-congruence. Each disjointness goal is discharged by the geometric criterion hdisj, checking the coordinate separation with omega. Each non-congruence goal expands the definition of congruence (matching side lengths up to rotation) and is refuted by omega from the parameter bounds q < p < 7q.",
+      "lemmas": [
+       "List.pairwise_cons",
+       "List.mem_cons",
+       "List.not_mem_nil",
+       "or_false",
+       "forall_eq_or_imp",
+       "forall_eq",
+       "List.Pairwise.nil",
+       "and_true"
+      ],
+      "automation": false,
+      "code": "  · simp only [List.pairwise_cons, List.mem_cons, List.not_mem_nil,\n      or_false, forall_eq_or_imp, forall_eq, List.Pairwise.nil, and_true]\n    and_intros\n    all_goals first\n      | exact fun _ h => h.elim\n      | exact hdisj _ _ (by dsimp only; omega)\n      | (simp only [mondrian_rect_congruent, mondrian_rect_width, mondrian_rect_height]; omega)"
+     },
+     {
+      "claim": "Every cell in any of the seven rectangles lies within the 105q × 105q square.",
+      "explanation": "By extensionality on cells (x, y), coverage reduces to two inclusions. For the forward inclusion (⊆), suppose a cell (x, y) belongs to some rectangle r in the list. Splitting across the seven rectangles, the bounds x₁ ≤ x < x₂ and y₁ ≤ y < y₂ guarantee that x < 105q and y < 105q, verified in each case by omega.",
+      "lemmas": [
+       "Finset.mem_biUnion",
+       "List.mem_toFinset",
+       "List.mem_cons",
+       "List.not_mem_nil",
+       "or_false",
+       "Finset.mem_product",
+       "Finset.mem_Ico",
+       "Finset.mem_range"
+      ],
+      "automation": false,
+      "code": "  · ext ⟨x, y⟩\n    simp only [Finset.mem_biUnion, List.mem_toFinset, List.mem_cons,\n      List.not_mem_nil, or_false, mondrian_rect_cells, Finset.mem_product, Finset.mem_Ico,\n      Finset.mem_range]\n    constructor\n    · rintro ⟨r, hr, h⟩\n      rcases hr with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> dsimp only at h <;> omega"
+     },
+     {
+      "claim": "Every cell in the 105q × 105q square is covered by one of the seven rectangles.",
+      "explanation": "For the reverse inclusion (⊇), given a cell (x, y) with x < 105q and y < 105q, a decision tree on the coordinates identifies which rectangle contains it: testing y < d routes to R₂ (if x < a) or R₁; testing y < e routes to R₂ (if x < a), R₆ (if x < 42q), or R₅; testing y < f routes to R₂ (if x < a), R₆ (if x < 42q), R₇ (if x < c), or R₄; and if y ≥ f, testing x < c routes to R₃ or R₄. In each branch, omega verifies that (x, y) satisfies the boundary conditions of the selected rectangle.",
+      "lemmas": [
+       "Or.inl",
+       "Or.inr"
+      ],
+      "automation": false,
+      "code": "    · intro h\n      by_cases h1 : y < d\n      · by_cases h2 : x < a\n        · exact ⟨_, Or.inr (Or.inl rfl), by dsimp only; omega⟩\n        · exact ⟨_, Or.inl rfl, by dsimp only; omega⟩\n      by_cases h3 : y < e\n      · by_cases h2 : x < a\n        · exact ⟨_, Or.inr (Or.inl rfl), by dsimp only; omega⟩\n        by_cases h4 : x < 42 * q\n        · exact ⟨_, Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl rfl))))), by dsimp only; omega⟩\n        · exact ⟨_, Or.inr (Or.inr (Or.inr (Or.inr (Or.inl rfl)))), by dsimp only; omega⟩\n      by_cases h5 : y < f\n      · by_cases h2 : x < a\n        · exact ⟨_, Or.inr (Or.inl rfl), by dsimp only; omega⟩\n        by_cases h4 : x < 42 * q\n        · exact ⟨_, Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl rfl))))), by dsimp only; omega⟩\n        by_cases h6 : x < c\n        · exact ⟨_, Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr rfl))))), by dsimp only; omega⟩\n        · exact ⟨_, Or.inr (Or.inr (Or.inr (Or.inl rfl))), by dsimp only; omega⟩\n      by_cases h6 : x < c\n      · exact ⟨_, Or.inr (Or.inr (Or.inl rfl)), by dsimp only; omega⟩\n      · exact ⟨_, Or.inr (Or.inr (Or.inr (Or.inl rfl))), by dsimp only; omega⟩"
+     }
+    ],
+    "glossary": {
+     "Finset.disjoint_left": "Two finite sets are disjoint if and only if no element of the first belongs to the second.",
+     "Finset.mem_product": "A pair belongs to a Cartesian product of finite sets if and only if its first coordinate belongs to the first set and its second coordinate belongs to the second.",
+     "Finset.mem_Ico": "A value belongs to the half-open interval [a, b) if and only if it is at least a and strictly less than b.",
+     "List.mem_cons": "An element belongs to a prepended list b :: l if and only if it equals b or belongs to l.",
+     "List.not_mem_nil": "No element belongs to the empty list.",
+     "or_false": "Disjunction with false is logically equivalent to the original proposition: (P ∨ False) ↔ P.",
+     "List.pairwise_cons": "A relation holds pairwise on a :: l if and only if a is related to every element of l and the relation holds pairwise on l.",
+     "forall_eq_or_imp": "A universal quantification over a = a' ∨ Q a is equivalent to the property at a' together with universal quantification over Q a.",
+     "forall_eq": "A universal quantification over elements equal to a' is equivalent to evaluating the predicate at a'.",
+     "List.Pairwise.nil": "Any relation holds pairwise vacuously on the empty list.",
+     "and_true": "Conjunction with true is logically equivalent to the original proposition: (P ∧ True) ↔ P.",
+     "Finset.mem_biUnion": "An element belongs to an indexed union of finite sets if and only if it belongs to one of the component sets.",
+     "List.mem_toFinset": "An element belongs to the finite set formed from a list if and only if it belongs to the list.",
+     "Finset.mem_range": "A natural number belongs to the range {0, …, n - 1} if and only if it is strictly less than n.",
+     "Or.inl": "From a proof of A, deduce A ∨ B.",
+     "Or.inr": "From a proof of B, deduce A ∨ B."
+    },
+    "caveats": [
+     "The pairwise disjointness and non-congruence checks in Step 6, as well as the rectangle coverage in Steps 7 and 8, involve dozens of arithmetic cases that Lean resolves using the `omega` decision procedure."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -517979,13 +518090,144 @@
     "mondrian_seven_rects_defect_ge"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/MondrianSevenRectsDefect.lean",
-   "proved_at": 1792062299,
+   "proved_at": 1792068281,
    "provenance": "lemma",
    "citation": "arXiv:2610.19193 (A Bounded-Defect Construction for the Mondrian Art Problem), Proposition 1, formula (4); serves mondrian_seven_rects_partition_defect.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "Since $p$ and $q$ have the same parity and $q < p < 7q$, we write $p = q + 2s$ with $s < 3q$. Evaluating the areas of the seven rectangles in the dissection reveals that each area in $\\mathbb{Z}$ has the form $1575q^2 + c_i F$, where $F = 2s^2 + 2qs - 9q^2 = \\frac{1}{2}(p^2 - 19q^2)$ and the coefficients $c_i$ belong to $\\{-105, -70, 0, 175\\}$. A case split on the sign of $F$ determines which rectangle attains the maximum area and which attains the minimum area. In both cases, the difference between the maximum and minimum area evaluates to $(175 - (-105))|F| = 280|F| = 140|p^2 - 19q^2|$, establishing the defect formula.",
+    "steps": [
+     {
+      "claim": "$p$ can be written as $q + 2s$ for some $s < 3q$.",
+      "explanation": "Because $p$ and $q$ have the same parity ($p \\equiv q \\pmod 2$) and $q < p$, their difference $p - q$ is positive and even, so $p = q + 2s$ with $s = (p - q) / 2$. The hypothesis $p < 7q$ translates to $q + 2s < 7q$, which gives $s < 3q$ by linear arithmetic (`omega`).",
+      "lemmas": [],
+      "automation": false,
+      "code": "  obtain ⟨s, rfl⟩ : ∃ s, p = q + 2 * s := ⟨(p - q) / 2, by omega⟩\n  have hs3 : s < 3 * q := by omega"
+     },
+     {
+      "claim": "The areas of the seven rectangles in `mondrian_seven_rects (q + 2 * s) q` evaluate to explicit factored forms in $q$ and $s$.",
+      "explanation": "Unfolding the definitions of `mondrian_seven_rects`, `mondrian_rect_area`, `mondrian_rect_width`, and `mondrian_rect_height`, and simplifying list mapping with `List.map_cons`, `List.map_nil`, `List.cons.injEq`, and `and_true`, reduces the evaluation to verifying seven width-height products. Each linear factor simplifies to the required form by linear arithmetic (`omega`).",
+      "lemmas": [
+       "mondrian_seven_rects",
+       "List.map_cons",
+       "List.map_nil",
+       "mondrian_rect_area",
+       "mondrian_rect_width",
+       "mondrian_rect_height",
+       "List.cons.injEq",
+       "and_true"
+      ],
+      "automation": false,
+      "code": "  have hmap : (mondrian_seven_rects (q + 2 * s) q).map mondrian_rect_area =\n      [(63 * q + 14 * s) * (35 * q - 10 * s), (42 * q - 14 * s) * (60 * q + 15 * s),\n       (56 * q + 14 * s) * (45 * q - 15 * s), (49 * q - 14 * s) * (45 * q + 10 * s),\n       (63 * q) * (25 * q), (14 * s) * (25 * q + 25 * s), (14 * q + 14 * s) * (25 * s)] := by\n    simp only [mondrian_seven_rects, List.map_cons, List.map_nil, mondrian_rect_area,\n      mondrian_rect_width, mondrian_rect_height, List.cons.injEq, and_true]\n    refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> congr 1 <;> omega"
+     },
+     {
+      "claim": "The defect of the dissection is expressed as the difference between the maximum and minimum of the seven rectangle areas.",
+      "explanation": "Rewriting with the definition of `mondrian_defect` and the computed list of areas `hmap` replaces the defect with the difference between the maximum and minimum elements of the list of seven areas.",
+      "lemmas": [
+       "mondrian_defect"
+      ],
+      "automation": false,
+      "code": "  rw [mondrian_defect, hmap]"
+     },
+     {
+      "claim": "The four subtractions inside the rectangle dimensions do not underflow: $10s \\le 35q$, $14s \\le 42q$, $15s \\le 45q$, and $14s \\le 49q$.",
+      "explanation": "Since $s < 3q$, each inequality follows directly by linear arithmetic (`omega`).",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have c1 : 10 * s ≤ 35 * q := by omega\n  have c2 : 14 * s ≤ 42 * q := by omega\n  have c3 : 15 * s ≤ 45 * q := by omega\n  have c4 : 14 * s ≤ 49 * q := by omega"
+     },
+     {
+      "claim": "With $F = 2s^2 + 2qs - 9q^2 \\in \\mathbb{Z}$, the quantity $p^2 - 19q^2$ equals $2F$.",
+      "explanation": "We introduce the integer variable $F = 2s^2 + 2qs - 9q^2$. Substituting $p = q + 2s$, the expression $(q + 2s)^2 - 19q^2$ expands algebraically to $4s^2 + 4qs - 18q^2 = 2F$, verified by polynomial ring arithmetic (`ring`). We then rewrite the theorem's goal using this relation.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  -- F = 2 s² + 2 q s − 9 q², so that p² − 19 q² = 2F\n  obtain ⟨F, hF⟩ : ∃ F : ℤ, F = 2 * (s : ℤ) ^ 2 + 2 * (q : ℤ) * s - 9 * (q : ℤ) ^ 2 := ⟨_, rfl⟩\n  have hE : ((q + 2 * s : ℕ) : ℤ) ^ 2 - 19 * (q : ℤ) ^ 2 = 2 * F := by rw [hF]; push_cast; ring\n  rw [hE]"
+     },
+     {
+      "claim": "When cast to $\\mathbb{Z}$, the seven rectangle areas are $1575q^2 - 70F$, $1575q^2 - 105F$, $1575q^2 - 105F$, $1575q^2 - 70F$, $1575q^2$, $1575q^2 + 175F$, and $1575q^2 + 175F$.",
+      "explanation": "Each product is expanded in $\\mathbb{Z}$. Subtractions in natural numbers are converted to integer subtractions using `Nat.cast_sub` with the non-negativity bounds $c_1, \\dots, c_4$. Expanding $F = 2s^2 + 2qs - 9q^2$ and simplifying by ring arithmetic (`ring`) shows that every area takes the form $1575q^2 + c_i F$ for coefficients $c_i \\in \\{-105, -70, 0, 175\\}$.",
+      "lemmas": [
+       "Nat.cast_sub"
+      ],
+      "automation": false,
+      "code": "  have A1 : (((63 * q + 14 * s) * (35 * q - 10 * s) : ℕ) : ℤ) = 1575 * (q : ℤ) ^ 2 - 70 * F := by\n    rw [hF]; push_cast [Nat.cast_sub c1]; ring\n  have A2 : (((42 * q - 14 * s) * (60 * q + 15 * s) : ℕ) : ℤ) = 1575 * (q : ℤ) ^ 2 - 105 * F := by\n    rw [hF]; push_cast [Nat.cast_sub c2]; ring\n  have A3 : (((56 * q + 14 * s) * (45 * q - 15 * s) : ℕ) : ℤ) = 1575 * (q : ℤ) ^ 2 - 105 * F := by\n    rw [hF]; push_cast [Nat.cast_sub c3]; ring\n  have A4 : (((49 * q - 14 * s) * (45 * q + 10 * s) : ℕ) : ℤ) = 1575 * (q : ℤ) ^ 2 - 70 * F := by\n    rw [hF]; push_cast [Nat.cast_sub c4]; ring\n  have A5 : (((63 * q) * (25 * q) : ℕ) : ℤ) = 1575 * (q : ℤ) ^ 2 := by push_cast; ring\n  have A6 : (((14 * s) * (25 * q + 25 * s) : ℕ) : ℤ) = 1575 * (q : ℤ) ^ 2 + 175 * F := by\n    rw [hF]; push_cast; ring\n  have A7 : (((14 * q + 14 * s) * (25 * s) : ℕ) : ℤ) = 1575 * (q : ℤ) ^ 2 + 175 * F := by\n    rw [hF]; push_cast; ring"
+     },
+     {
+      "claim": "The area expressions and $q^2$ are abstracted into variables $x_1, \\dots, x_7$ and $Q$.",
+      "explanation": "We replace the seven explicit area expressions with names $x_1, \\dots, x_7$ and substitute $Q = q^2$. This isolates the area comparisons to their linear dependence on $F$.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  generalize (63 * q + 14 * s) * (35 * q - 10 * s) = x1 at A1 ⊢\n  generalize (42 * q - 14 * s) * (60 * q + 15 * s) = x2 at A2 ⊢\n  generalize (56 * q + 14 * s) * (45 * q - 15 * s) = x3 at A3 ⊢\n  generalize (49 * q - 14 * s) * (45 * q + 10 * s) = x4 at A4 ⊢\n  generalize (63 * q) * (25 * q) = x5 at A5 ⊢\n  generalize (14 * s) * (25 * q + 25 * s) = x6 at A6 ⊢\n  generalize (14 * q + 14 * s) * (25 * s) = x7 at A7 ⊢\n  clear hF hE\n  generalize (q : ℤ) ^ 2 = Q at *"
+     },
+     {
+      "claim": "The argument divides into two cases: $F \\ge 0$ and $F < 0$.",
+      "explanation": "By linear order trichotomy (`le_or_gt`), either $0 \\le F$ or $F < 0$.",
+      "lemmas": [
+       "le_or_gt"
+      ],
+      "automation": false,
+      "code": "  rcases le_or_gt 0 F with hF0 | hF0"
+     },
+     {
+      "claim": "When $F \\ge 0$, the maximum area is $x_6$, the minimum area is $x_2$, and the defect is $140|E|$.",
+      "explanation": "Because $F \\ge 0$, the areas $1575Q + c_i F$ are ordered by their coefficients $c_i$. The maximal coefficient is $+175$ (giving $x_6$ as maximum) and the minimal coefficient is $-105$ (giving $x_2$ as minimum). Using `List.max?_eq_some_iff'` and `List.min?_eq_some_iff'`, membership in the list is decomposed by `List.mem_cons`, `List.not_mem_nil`, and `or_false`, with all comparisons verified by `omega`. The defect is therefore $x_6 - x_2 = (1575Q + 175F) - (1575Q - 105F) = 280F$. Since $F \\ge 0$, we have $|2F| = 2F$ by `abs_of_nonneg`, so $140|2F| = 280F$, which matches.",
+      "lemmas": [
+       "List.max?_eq_some_iff'",
+       "List.min?_eq_some_iff'",
+       "List.mem_cons",
+       "List.not_mem_nil",
+       "or_false",
+       "Option.getD_some",
+       "abs_of_nonneg"
+      ],
+      "automation": false,
+      "code": "  · have hmax : [x1, x2, x3, x4, x5, x6, x7].max? = some x6 := by\n      rw [List.max?_eq_some_iff']\n      refine ⟨by simp, ?_⟩\n      intro b hb\n      simp only [List.mem_cons, List.not_mem_nil, or_false] at hb\n      rcases hb with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> omega\n    have hmin : [x1, x2, x3, x4, x5, x6, x7].min? = some x2 := by\n      rw [List.min?_eq_some_iff']\n      refine ⟨by simp, ?_⟩\n      intro b hb\n      simp only [List.mem_cons, List.not_mem_nil, or_false] at hb\n      rcases hb with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> omega\n    rw [hmax, hmin, Option.getD_some, Option.getD_some, abs_of_nonneg (by omega)]\n    omega"
+     },
+     {
+      "claim": "When $F < 0$, the maximum area is $x_2$, the minimum area is $x_6$, and the defect is $140|E|$.",
+      "explanation": "Because $F < 0$, the order of the coefficients reverses: the negative coefficient $-105$ yields the maximum area $x_2$, while $+175$ yields the minimum area $x_6$. Again, `List.max?_eq_some_iff'` and `List.min?_eq_some_iff'` identify the extremes, with membership checked by `List.mem_cons`, `List.not_mem_nil`, and `or_false`. The defect is $x_2 - x_6 = -280F$. Since $F < 0$, $|2F| = -2F$ by `abs_of_neg`, giving $140|2F| = -280F$, which concludes the proof.",
+      "lemmas": [
+       "List.max?_eq_some_iff'",
+       "List.min?_eq_some_iff'",
+       "List.mem_cons",
+       "List.not_mem_nil",
+       "or_false",
+       "Option.getD_some",
+       "abs_of_neg"
+      ],
+      "automation": false,
+      "code": "  · have hmax : [x1, x2, x3, x4, x5, x6, x7].max? = some x2 := by\n      rw [List.max?_eq_some_iff']\n      refine ⟨by simp, ?_⟩\n      intro b hb\n      simp only [List.mem_cons, List.not_mem_nil, or_false] at hb\n      rcases hb with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> omega\n    have hmin : [x1, x2, x3, x4, x5, x6, x7].min? = some x6 := by\n      rw [List.min?_eq_some_iff']\n      refine ⟨by simp, ?_⟩\n      intro b hb\n      simp only [List.mem_cons, List.not_mem_nil, or_false] at hb\n      rcases hb with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> omega\n    rw [hmax, hmin, Option.getD_some, Option.getD_some, abs_of_neg (by omega)]\n    omega"
+     }
+    ],
+    "glossary": {
+     "mondrian_seven_rects": "the dissection into seven rectangles $(x_1, x_2, y_1, y_2)$ parameterized by natural numbers $p$ and $q$",
+     "List.map_cons": "mapping a function over a non-empty list applies it to the head and recurses on the tail: `List.map f (a :: l) = f a :: List.map f l`",
+     "List.map_nil": "mapping a function over the empty list gives the empty list: `List.map f [] = []`",
+     "mondrian_rect_area": "the area of a rectangle, defined as width times height",
+     "mondrian_rect_width": "the width of a rectangle $(x_1, x_2, y_1, y_2)$, defined as $x_2 - x_1$",
+     "mondrian_rect_height": "the height of a rectangle $(x_1, x_2, y_1, y_2)$, defined as $y_2 - y_1$",
+     "List.cons.injEq": "two non-empty lists are equal if and only if their heads are equal and their tails are equal",
+     "and_true": "conjunction with True simplifies: $(p \\land \\text{True}) \\leftrightarrow p$",
+     "mondrian_defect": "the defect of a dissection, defined as the maximum rectangle area minus the minimum rectangle area (defaulting to 0 on an empty list)",
+     "Nat.cast_sub": "for natural numbers $m \\le n$, the integer cast of their difference is the difference of their integer casts: $\\uparrow(n - m) = \\uparrow n - \\uparrow m$",
+     "le_or_gt": "in a linear order, either $a \\le b$ or $b < a$",
+     "List.max?_eq_some_iff'": "the maximum of a list of natural numbers is `some a` if and only if $a$ is in the list and every element $b$ in the list satisfies $b \\le a$",
+     "List.min?_eq_some_iff'": "the minimum of a list of natural numbers is `some a` if and only if $a$ is in the list and every element $b$ in the list satisfies $a \\le b$",
+     "List.mem_cons": "an element belongs to $b :: l$ if and only if it equals $b$ or belongs to $l$",
+     "List.not_mem_nil": "the empty list contains no elements",
+     "or_false": "disjunction with False simplifies: $(p \\lor \\text{False}) \\leftrightarrow p$",
+     "Option.getD_some": "extracting a value from `some a` with default fallback $b$ returns $a$: `(some a).getD b = a`",
+     "abs_of_nonneg": "if $0 \\le a$, then $|a| = a$",
+     "abs_of_neg": "if $a < 0$, then $|a| = -a$"
+    },
+    "caveats": [
+     "The rectangle dimensions and area identities involve extensive polynomial and linear arithmetic over ℕ and ℤ, which Lean verifies using `omega`, `ring`, and `push_cast`.",
+     "Before casting natural number subtractions into integer expressions, the proof explicitly proves four non-negativity bounds (c1 through c4) so that `Nat.cast_sub` can be applied without truncated subtraction issues."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518014,13 +518256,33 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/MondrianSevenRectsPartitionDefect.lean",
-   "proved_at": 1792062565,
+   "proved_at": 1792068218,
    "provenance": "literature",
    "citation": "arXiv:2610.19193 (A Bounded-Defect Construction for the Mondrian Art Problem), Proposition 1 (with the partition property stated before it).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The theorem asserts both that the seven rectangles form a valid Mondrian partition of the $(105q) \\times (105q)$ square and that the defect of this partition is $140 |p^2 - 19q^2|$. The proof directly combines the two previously proven results for these two facts into a single conjunction.",
+    "steps": [
+     {
+      "claim": "The seven rectangles partition the $(105q) \\times (105q)$ square into pairwise noncongruent rectangles, and the defect of the partition is $140 |p^2 - 19q^2|$.",
+      "explanation": "The goal is a conjunction of two assertions. The first conjunct, that the seven rectangles form a valid partition of the $(105q) \\times (105q)$ square into pairwise noncongruent rectangles, is established directly by mondrian_seven_rects_is_partition. The second conjunct, that the defect between the maximum and minimum rectangle areas is $140 |p^2 - 19q^2|$, is established directly by mondrian_seven_rects_defect. Constructing the pair completes the proof.",
+      "lemmas": [
+       "mondrian_seven_rects_is_partition",
+       "mondrian_seven_rects_defect"
+      ],
+      "automation": false,
+      "code": "  ⟨mondrian_seven_rects_is_partition p q hpar hqp hp, mondrian_seven_rects_defect p q hpar hqp hp⟩"
+     }
+    ],
+    "glossary": {
+     "mondrian_seven_rects_is_partition": "For integers $p, q$ of the same parity with $q < p < 7q$, the seven specified rectangles form a valid partition of the $(105q) \\times (105q)$ square into pairwise disjoint, noncongruent rectangles with positive integer dimensions.",
+     "mondrian_seven_rects_defect": "For integers $p, q$ of the same parity with $q < p < 7q$, the defect of the partition (the difference between its largest and smallest rectangle areas) equals $140 |p^2 - 19q^2|$."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean source alone (no goal states were available). Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518049,13 +518311,89 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/MondrianSevenRectsDefectGe.lean",
-   "proved_at": 1792062817,
+   "proved_at": 1792068299,
    "provenance": "literature",
    "citation": "arXiv:2610.19193 (A Bounded-Defect Construction for the Mondrian Art Problem), Proposition 2.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof uses the known formula expressing the defect of the seven-rectangle configuration as 140 · |p² − 19q²|. It first proves that p² − 19q² ≠ 0 using 19-adic valuations: since 19 is prime, p² = 19q² would require 2 · v₁₉(p) = 1 + 2 · v₁₉(q), which is impossible by parity. Next, since p and q share parity with q < p, writing p = q + 2s reveals that p² − 19q² = 2 · (2s² + 2qs − 9q²). Because this nonzero integer has an explicit factor of 2, its absolute value is at least 2, ensuring that the defect is at least 140 · 2 = 280.",
+    "steps": [
+     {
+      "claim": "The defect of the seven-rectangle dissection is 140 · |p² − 19q²| as an integer",
+      "explanation": "We instantiate the known defect formula `mondrian_seven_rects_defect` using the assumed parity condition p % 2 = q % 2 and the inequalities q < p < 7q.",
+      "lemmas": [
+       "mondrian_seven_rects_defect"
+      ],
+      "automation": false,
+      "code": "  have h := mondrian_seven_rects_defect p q hpar hqp hp"
+     },
+     {
+      "claim": "p² − 19q² ≠ 0",
+      "explanation": "Suppose for contradiction that p² − 19q² = 0, so p² = 19q² with p, q > 0 (via `sub_eq_zero.mp`). Since 19 is prime, applying the 19-adic valuation v₁₉ to both sides (via `congrArg`) and expanding using valuation rules for products and powers (`padicValNat.pow`, `padicValNat.mul`, `pow_ne_zero`, `padicValNat_self`) produces the identity 2 · v₁₉(p) = 1 + 2 · v₁₉(q). This equates an even integer with an odd integer, which is impossible.",
+      "lemmas": [
+       "sub_eq_zero.mp",
+       "congrArg",
+       "padicValNat.pow",
+       "padicValNat.mul",
+       "pow_ne_zero",
+       "padicValNat_self"
+      ],
+      "automation": false,
+      "code": "  have hne : (p : ℤ) ^ 2 - 19 * (q : ℤ) ^ 2 ≠ 0 := by\n    intro hE\n    have hEq : p ^ 2 = 19 * q ^ 2 := by exact_mod_cast (sub_eq_zero.mp hE)\n    have hq0 : q ≠ 0 := by omega\n    have hp0 : p ≠ 0 := by omega\n    haveI : Fact (Nat.Prime 19) := ⟨by norm_num⟩\n    have hv := congrArg (padicValNat 19) hEq\n    rw [padicValNat.pow, padicValNat.mul (by norm_num) (pow_ne_zero 2 hq0),\n      padicValNat.pow, padicValNat_self] at hv\n    omega"
+     },
+     {
+      "claim": "There exists a natural number s such that p = q + 2s",
+      "explanation": "Because p and q share the same parity (p % 2 = q % 2) and q < p, their difference p − q is a positive even integer, so setting s = (p − q) / 2 provides the required witness.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  obtain ⟨s, rfl⟩ : ∃ s, p = q + 2 * s := ⟨(p - q) / 2, by omega⟩"
+     },
+     {
+      "claim": "p² − 19q² factors as 2 · (2s² + 2qs − 9q²), and this product is nonzero",
+      "explanation": "Substituting p = q + 2s into p² − 19q² and expanding algebraically yields 2 · (2s² + 2qs − 9q²). Rewriting this expression into both the defect equation and the nonvanishing hypothesis shows that the defect is 140 · |2 · (2s² + 2qs − 9q²)| and that this product does not vanish.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hF : ((q + 2 * s : ℕ) : ℤ) ^ 2 - 19 * (q : ℤ) ^ 2 =\n      2 * (2 * (s : ℤ) ^ 2 + 2 * q * s - 9 * q ^ 2) := by push_cast; ring\n  rw [hF] at h hne"
+     },
+     {
+      "claim": "The integer factor |2s² + 2qs − 9q²| is at least 1",
+      "explanation": "Any nonzero integer has absolute value at least 1 (`Int.one_le_abs`). If 2s² + 2qs − 9q² were zero, multiplying it by 2 would give 0 (`mul_zero`), contradicting our previous finding that 2 · (2s² + 2qs − 9q²) ≠ 0.",
+      "lemmas": [
+       "Int.one_le_abs",
+       "mul_zero"
+      ],
+      "automation": false,
+      "code": "  have h1 : (1 : ℤ) ≤ |2 * (s : ℤ) ^ 2 + 2 * q * s - 9 * q ^ 2| := by\n    apply Int.one_le_abs\n    intro h0\n    apply hne\n    rw [h0, mul_zero]"
+     },
+     {
+      "claim": "The defect of the seven-rectangle dissection is at least 280",
+      "explanation": "Factoring out |2| = 2 from the absolute value (`abs_mul`, `abs_of_pos`) turns 140 · |2 · (2s² + 2qs − 9q²)| into 280 · |2s² + 2qs − 9q²|. Since |2s² + 2qs − 9q²| ≥ 1, linear arithmetic gives 280 ≤ defect in the integers, which `exact_mod_cast` transfers to the natural numbers to conclude the theorem.",
+      "lemmas": [
+       "abs_mul",
+       "abs_of_pos"
+      ],
+      "automation": false,
+      "code": "  rw [abs_mul, abs_of_pos (by norm_num : (0 : ℤ) < 2)] at h\n  have h2 : (280 : ℤ) ≤ (mondrian_defect (mondrian_seven_rects (q + 2 * s) q) : ℤ) := by\n    rw [h]; linarith\n  exact_mod_cast h2"
+     }
+    ],
+    "glossary": {
+     "mondrian_seven_rects_defect": "For natural numbers satisfying the bounds and parity conditions, the defect of the seven-rectangle dissection is 140 · |p² − 19q²|",
+     "sub_eq_zero.mp": "If a − b = 0, then a = b",
+     "congrArg": "If two inputs are equal, applying any function to them yields equal outputs: a = b implies f(a) = f(b)",
+     "padicValNat.pow": "The p-adic valuation of a power is vₚ(aⁿ) = n · vₚ(a)",
+     "padicValNat.mul": "For nonzero natural numbers a and b, the p-adic valuation of their product is vₚ(ab) = vₚ(a) + vₚ(b)",
+     "pow_ne_zero": "In a domain with no zero divisors, powers of a nonzero element are nonzero: a ≠ 0 implies aⁿ ≠ 0",
+     "padicValNat_self": "For any prime p, the p-adic valuation of p is 1, i.e., vₚ(p) = 1",
+     "Int.one_le_abs": "Any nonzero integer has absolute value at least 1",
+     "mul_zero": "Multiplying any element by zero gives zero: a · 0 = 0",
+     "abs_mul": "The absolute value of a product is the product of the absolute values: |ab| = |a| · |b|",
+     "abs_of_pos": "If an element is strictly positive, its absolute value equals itself: a > 0 implies |a| = a"
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518089,13 +518427,68 @@
     "mondrian_liminf_min_defect_seven_le"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/MondrianPellFamilyDefect280.lean",
-   "proved_at": 1792063095,
+   "proved_at": 1792068330,
    "provenance": "literature",
    "citation": "arXiv:2610.19193 (A Bounded-Defect Construction for the Mondrian Art Problem), Theorem 1.1 (the liminf consequence is stated separately as mondrian_liminf_min_defect_seven_le).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The modular condition on the side length n_j ≡ 315 (mod 630) is established immediately by an existing lemma. To produce the partition, the side length is represented as n_j = 105q using parameters from a Pell-type equation p² − 19q² = −2 with q < p < 7q. An explicit seven-rectangle geometric configuration is then instantiated: its validity as a noncongruent partition is guaranteed by these bounds, and its defect evaluates to 140|p² − 19q²| = 140 × 2 = 280.",
+    "steps": [
+     {
+      "claim": "The modular condition on the side length holds, reducing the theorem to constructing the required partition.",
+      "explanation": "The second conjunct, mondrian_pell_side j % 630 = 315, is resolved directly by the lemma mondrian_pell_side_mod, leaving only the existential claim for the 7-rectangle partition of defect 280.",
+      "lemmas": [
+       "mondrian_pell_side_mod"
+      ],
+      "automation": false,
+      "code": "  refine ⟨?_, mondrian_pell_side_mod j⟩"
+     },
+     {
+      "claim": "There exist odd integers p and q satisfying q < p < 7q, p² − 19q² = −2, n_j = 105q, and p ≡ q (mod 2).",
+      "explanation": "The lemma mondrian_pell_side_eq supplies parameters p and q satisfying the Pell-type equation p² − 19q² = −2, the side length relation n_j = 105q, and the bounds q < p < 7q. Since both p and q are odd, linear integer arithmetic (omega) establishes that they have identical parity.",
+      "lemmas": [
+       "mondrian_pell_side_eq"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨p, q, hp1, hq1, hqp, hp7, hE, hn⟩ := mondrian_pell_side_eq j\n  have hpar : p % 2 = q % 2 := by omega"
+     },
+     {
+      "claim": "The list of rectangles mondrian_seven_rects p q is chosen as the candidate partition.",
+      "explanation": "We instantiate the existential witness with the explicit configuration mondrian_seven_rects p q. Unfolding its definition confirms it contains exactly seven rectangles, leaving two subgoals: verifying it partitions the n_j × n_j square and computing its defect.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  refine ⟨mondrian_seven_rects p q, ?_, by simp [mondrian_seven_rects], ?_⟩"
+     },
+     {
+      "claim": "The candidate rectangles form a valid Mondrian partition of the n_j × n_j square.",
+      "explanation": "Rewriting the side length n_j to 105q using the equality from the Pell parameters, the partition property follows from mondrian_seven_rects_is_partition, since p and q satisfy the required parity equality and bounds q < p < 7q.",
+      "lemmas": [
+       "mondrian_seven_rects_is_partition"
+      ],
+      "automation": false,
+      "code": "  · rw [hn]\n    exact mondrian_seven_rects_is_partition p q hpar hqp hp7"
+     },
+     {
+      "claim": "The defect of the partition is 280.",
+      "explanation": "By mondrian_seven_rects_defect, the defect of this configuration is 140|p² − 19q²|. Substituting p² − 19q² = −2 yields 140|−2| = 280, which simplifies by arithmetic (norm_num) and is cast from integers to natural numbers.",
+      "lemmas": [
+       "mondrian_seven_rects_defect"
+      ],
+      "automation": false,
+      "code": "  · have h := mondrian_seven_rects_defect p q hpar hqp hp7\n    rw [hE] at h\n    norm_num at h\n    exact_mod_cast h"
+     }
+    ],
+    "glossary": {
+     "mondrian_pell_side_mod": "For every j, the sequence side length satisfies n_j ≡ 315 (mod 630).",
+     "mondrian_pell_side_eq": "For every j, there exist odd positive integers p and q such that q < p < 7q, p² − 19q² = −2, and n_j = 105q.",
+     "mondrian_seven_rects_is_partition": "If p and q have the same parity and q < p < 7q, the seven rectangles defined by mondrian_seven_rects p q form a valid Mondrian partition of the (105q) × (105q) square into pairwise noncongruent rectangles.",
+     "mondrian_seven_rects_defect": "If p and q have the same parity and q < p < 7q, the defect of the partition mondrian_seven_rects p q equals 140|p² − 19q²|."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518124,13 +518517,52 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/MondrianLiminfMinDefectSevenLe.lean",
-   "proved_at": 1792063355,
+   "proved_at": 1792068359,
    "provenance": "literature",
    "citation": "arXiv:2610.19193 (A Bounded-Defect Construction for the Mondrian Art Problem), Theorem 1.1 ('Consequently liminf M(n) ≤ 280'; the partitions used have seven rectangles, so the bound holds for M₇).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To show that liminf_{n→∞} M₇(n) ≤ 280, it suffices to find an unbounded sequence of square side lengths admitting a 7-rectangle Mondrian partition of defect at most 280. We consider the sequence s_j = mondrian_pell_side j generated by a Pell-type recurrence, which is shown by induction to satisfy s_j ≥ j and thus grow to infinity. For each j, the lemma mondrian_pell_family_defect_280 provides an explicit 7-rectangle partition of the s_j × s_j square with defect 280, showing M₇(s_j) ≤ 280 holds frequently and yielding the liminf bound.",
+    "steps": [
+     {
+      "claim": "The sequence of square side lengths satisfies j ≤ mondrian_pell_side j for all j, and in particular grows without bound.",
+      "explanation": "We prove a stronger invariant by induction on j: j + 315 ≤ mondrian_pell_side j and mondrian_pell_side j + 1 ≤ mondrian_pell_side (j + 1). For j = 0, the side lengths are mondrian_pell_side 0 = 315 and mondrian_pell_side 1 = 106785, which satisfy both inequalities. In the inductive step from n to n + 1, the first inequality (n + 1) + 315 ≤ mondrian_pell_side (n + 1) follows from the induction hypotheses n + 315 ≤ mondrian_pell_side n and mondrian_pell_side n < mondrian_pell_side (n + 1). The second inequality uses the recurrence mondrian_pell_side (n + 2) = 340 * mondrian_pell_side (n + 1) - mondrian_pell_side n; since mondrian_pell_side n < mondrian_pell_side (n + 1), linear arithmetic confirms it exceeds mondrian_pell_side (n + 1) + 1. Finally, j ≤ j + 315 ≤ mondrian_pell_side j yields j ≤ mondrian_pell_side j.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hgrow : ∀ j, j ≤ mondrian_pell_side j := by\n    have key : ∀ j, j + 315 ≤ mondrian_pell_side j ∧ mondrian_pell_side j + 1 ≤ mondrian_pell_side (j + 1) := by\n      intro j\n      induction j with\n      | zero => simp [mondrian_pell_side]\n      | succ n ih =>\n        obtain ⟨h1, h2⟩ := ih\n        have e : mondrian_pell_side (n + 2) = 340 * mondrian_pell_side (n + 1) - mondrian_pell_side n := rfl\n        refine ⟨by omega, ?_⟩\n        rw [e]; omega\n    exact fun j => by have := (key j).1; omega"
+     },
+     {
+      "claim": "To show liminf_{n→∞} M₇(n) ≤ 280, it suffices to show that for every threshold N, M₇(mondrian_pell_side N) ≤ 280.",
+      "explanation": "By Filter.liminf_le_of_frequently_le', the limit inferior along Filter.atTop is at most 280 if M₇(n) ≤ 280 holds frequently. Rewriting this condition with Filter.frequently_atTop means that for any threshold N, there must exist some b ≥ N with M₇(b) ≤ 280. Choosing b = mondrian_pell_side N, the growth lemma guarantees N ≤ mondrian_pell_side N, so it suffices to show M₇(mondrian_pell_side N) ≤ 280.",
+      "lemmas": [
+       "Filter.liminf_le_of_frequently_le'",
+       "Filter.frequently_atTop"
+      ],
+      "automation": false,
+      "code": "  apply Filter.liminf_le_of_frequently_le'\n  rw [Filter.frequently_atTop]\n  intro N\n  refine ⟨mondrian_pell_side N, hgrow N, ?_⟩"
+     },
+     {
+      "claim": "M₇(mondrian_pell_side N) ≤ 280, completing the proof.",
+      "explanation": "The lemma mondrian_pell_family_defect_280 provides a partition P of the square of side mondrian_pell_side N into 7 rectangles with defect exactly 280. Because M₇(n) is defined as the infimum of defects over all valid 7-rectangle partitions of an n × n square, iInf₂_le bounds this infimum by the defect of P, which is 280.",
+      "lemmas": [
+       "mondrian_pell_family_defect_280",
+       "iInf₂_le"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨⟨P, hP, hlen, hdef⟩, -⟩ := mondrian_pell_family_defect_280 N\n  calc mondrian_min_defect_seven (mondrian_pell_side N) ≤ (mondrian_defect P : ℕ∞) :=\n        iInf₂_le P ⟨hP, hlen⟩\n    _ = 280 := by rw [hdef]; rfl"
+     }
+    ],
+    "glossary": {
+     "Filter.liminf_le_of_frequently_le'": "If a property holds frequently along a filter, then the limit inferior along that filter is bounded above by any value that bounds the property.",
+     "Filter.frequently_atTop": "A predicate holds frequently along the atTop filter if and only if for every threshold a, there exists some b ≥ a satisfying the predicate.",
+     "mondrian_pell_family_defect_280": "For every index j, there exists a 7-rectangle Mondrian partition of the square of side mondrian_pell_side j with defect 280, and the side length is congruent to 315 modulo 630.",
+     "iInf₂_le": "The infimum of a doubly indexed family ⨅ i, ⨅ j, f i j is bounded above by any particular entry f i j."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518162,13 +518594,138 @@
     "zero_sum_w_ge"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/ZeroSumBasisSeqWBad.lean",
-   "proved_at": 1792064302,
+   "proved_at": 1792068428,
    "provenance": "literature",
    "citation": "arXiv:2610.19965 (Proofs and disproofs of some conjectures on zero-sum problems), Lemma 3.1 (first part; the bound on w_r(n) is zero_sum_w_ge).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The sequence E_{r,n} is formed by concatenating n - 1 copies of e_j and n - 1 copies of -e_j for each of the r standard basis vectors, giving total length 2r(n - 1). Every element has a coordinate of ±1, which cannot be divisible by n > 1, so the sequence is admissible. For any subsequence and any coordinate j, the coordinate sum is bounded between -(n - 1) and n - 1 because the positive and negative entries across the entire sequence each sum to n - 1. Any integer in this range divisible by n must be 0, which is divisible by n², precluding any subsequence whose sum is ≡ 0 (mod n) but ≢ 0 (mod n²).",
+    "steps": [
+     {
+      "claim": "For every coordinate j, the sum of the positive parts max(a j, 0) over all vectors a in the sequence equals n - 1.",
+      "explanation": "Unfolding the definition of the sequence, each basis direction i contributes n - 1 copies of e_i and n - 1 copies of -e_i. Projecting onto coordinate j and taking max(·, 0), only the n - 1 copies of e_j contribute a value of 1, while all -e_i and all other e_i (i ≠ j) contribute 0. Summing across all indices yields (n - 1) · 1 = n - 1.",
+      "lemmas": [
+       "List.flatMap",
+       "List.sum_flatten",
+       "Function.comp_def",
+       "Pi.single_apply",
+       "Fin.sum_univ_def"
+      ],
+      "automation": false,
+      "code": "  have hpos : ∀ j : Fin r,\n      ((zero_sum_basis_seq r n).map (fun a => max (a j) 0)).sum = ((n - 1 : ℕ) : ℤ) := by\n    intro j\n    simp [zero_sum_basis_seq, List.flatMap, List.sum_flatten, Function.comp_def, Pi.single_apply]\n    rw [← Fin.sum_univ_def, ← Fin.sum_univ_def]\n    have h1 : ∀ i : Fin r, max (if j = i then (1 : ℤ) else 0) 0 = if j = i then 1 else 0 := by\n      intro i; split_ifs <;> simp\n    have h2 : ∀ i : Fin r, max (-if j = i then (1 : ℤ) else 0) 0 = 0 := by\n      intro i; split_ifs <;> simp\n    simp [h1, h2]"
+     },
+     {
+      "claim": "For every coordinate j, the sum of the negative parts max(-a j, 0) over all vectors a in the sequence equals n - 1.",
+      "explanation": "Similarly, taking max(-a j, 0) isolates negative entries. At coordinate j, only the n - 1 copies of -e_j evaluate to 1, while all other vectors evaluate to 0, giving a total sum of n - 1.",
+      "lemmas": [
+       "List.flatMap",
+       "List.sum_flatten",
+       "Function.comp_def",
+       "Pi.single_apply",
+       "Fin.sum_univ_def"
+      ],
+      "automation": false,
+      "code": "  have hneg : ∀ j : Fin r,\n      ((zero_sum_basis_seq r n).map (fun a => max (-a j) 0)).sum = ((n - 1 : ℕ) : ℤ) := by\n    intro j\n    simp [zero_sum_basis_seq, List.flatMap, List.sum_flatten, Function.comp_def, Pi.single_apply]\n    rw [← Fin.sum_univ_def, ← Fin.sum_univ_def]\n    have h1 : ∀ i : Fin r, max (if j = i then (1 : ℤ) else 0) 0 = if j = i then 1 else 0 := by\n      intro i; split_ifs <;> simp\n    have h2 : ∀ i : Fin r, max (-if j = i then (1 : ℤ) else 0) 0 = 0 := by\n      intro i; split_ifs <;> simp\n    simp [h1, h2]"
+     },
+     {
+      "claim": "The cast of n - 1 from ℕ to ℤ equals (n : ℤ) - 1.",
+      "explanation": "Since n > 1, we have 1 ≤ n, so natural subtraction n - 1 commutes with the integer cast.",
+      "lemmas": [
+       "Nat.cast_sub"
+      ],
+      "automation": false,
+      "code": "  have hcast : ((n - 1 : ℕ) : ℤ) = (n : ℤ) - 1 := by push_cast [Nat.cast_sub hn.le]; ring"
+     },
+     {
+      "claim": "The goal is split into admissibility, absence of good subsequences, and sequence length, and admissibility is established.",
+      "explanation": "The proof decomposes into three conjuncts. To show admissibility, any vector a in the sequence is either e_j or -e_j for some index j. Its j-th coordinate is therefore 1 or -1. Since n > 1, n cannot divide 1 or -1 (which would force n ≤ 1), so coordinate j is not divisible by n.",
+      "lemmas": [
+       "List.mem_flatMap",
+       "List.mem_finRange",
+       "true_and",
+       "List.mem_append",
+       "List.mem_replicate",
+       "Pi.single_eq_same",
+       "Int.le_of_dvd",
+       "one_pos",
+       "Pi.neg_apply",
+       "Int.dvd_neg"
+      ],
+      "automation": false,
+      "code": "  refine ⟨⟨?_, ?_⟩, ?_⟩\n  · intro a ha\n    simp only [zero_sum_basis_seq, List.mem_flatMap, List.mem_finRange, true_and, List.mem_append,\n      List.mem_replicate] at ha\n    obtain ⟨j, (⟨-, rfl⟩ | ⟨-, rfl⟩)⟩ := ha\n    · refine ⟨j, ?_⟩\n      simp only [Pi.single_eq_same]\n      intro h\n      have := Int.le_of_dvd one_pos h\n      omega\n    · refine ⟨j, ?_⟩\n      simp only [Pi.neg_apply, Pi.single_eq_same]\n      intro h\n      have := Int.le_of_dvd one_pos ((Int.dvd_neg).mp h)\n      omega"
+     },
+     {
+      "claim": "For any subsequence I and any coordinate j, the coordinate sum is bounded between -(n - 1) and n - 1.",
+      "explanation": "For the upper bound, each entry A_i(j) is bounded by max(A_i(j), 0). Summing over the subcollection I is at most summing over the entire sequence (since max(·, 0) ≥ 0), which equals n - 1 by the earlier positive sum calculation. Similarly, summing -A_i(j) over I is at most n - 1 by the negative sum calculation, which negates to the lower bound -(n - 1) ≤ ∑_{i ∈ I} A_i(j).",
+      "lemmas": [
+       "Finset.sum_le_sum",
+       "le_max_left",
+       "Finset.sum_le_sum_of_subset_of_nonneg",
+       "Finset.subset_univ",
+       "le_max_right",
+       "Fin.sum_univ_fun_getElem",
+       "Finset.sum_neg_distrib"
+      ],
+      "automation": false,
+      "code": "  · rintro I ⟨-, hdiv, j, hj⟩\n    apply hj\n    have hup : ∑ i ∈ I, (zero_sum_basis_seq r n).get i j ≤ ((n - 1 : ℕ) : ℤ) := by\n      calc ∑ i ∈ I, (zero_sum_basis_seq r n).get i j\n          ≤ ∑ i ∈ I, max ((zero_sum_basis_seq r n).get i j) 0 :=\n            Finset.sum_le_sum (fun i _ => le_max_left _ _)\n        _ ≤ ∑ i, max ((zero_sum_basis_seq r n).get i j) 0 :=\n            Finset.sum_le_sum_of_subset_of_nonneg (Finset.subset_univ _)\n              (fun i _ _ => le_max_right _ _)\n        _ = ((zero_sum_basis_seq r n).map (fun a => max (a j) 0)).sum := by\n            simpa using Fin.sum_univ_fun_getElem (zero_sum_basis_seq r n) (fun a => max (a j) 0)\n        _ = _ := hpos j\n    have hlo : -((n - 1 : ℕ) : ℤ) ≤ ∑ i ∈ I, (zero_sum_basis_seq r n).get i j := by\n      have : ∑ i ∈ I, -(zero_sum_basis_seq r n).get i j ≤ ((n - 1 : ℕ) : ℤ) := by\n        calc ∑ i ∈ I, -(zero_sum_basis_seq r n).get i j\n            ≤ ∑ i ∈ I, max (-(zero_sum_basis_seq r n).get i j) 0 :=\n              Finset.sum_le_sum (fun i _ => le_max_left _ _)\n          _ ≤ ∑ i, max (-(zero_sum_basis_seq r n).get i j) 0 :=\n              Finset.sum_le_sum_of_subset_of_nonneg (Finset.subset_univ _)\n                (fun i _ _ => le_max_right _ _)\n          _ = ((zero_sum_basis_seq r n).map (fun a => max (-a j) 0)).sum := by\n              simpa using Fin.sum_univ_fun_getElem (zero_sum_basis_seq r n) (fun a => max (-a j) 0)\n          _ = _ := hneg j\n      rw [Finset.sum_neg_distrib] at this\n      linarith"
+     },
+     {
+      "claim": "No subsequence has all coordinate sums divisible by n and at least one not divisible by n².",
+      "explanation": "Suppose for contradiction that I is such a subsequence, so n divides every coordinate sum, but n² does not divide the sum at some coordinate j. Writing the j-th coordinate sum as n · k for an integer k, the bounds -(n - 1) ≤ n · k ≤ n - 1 together with n > 1 force k = 0 (as k ≤ -1 gives n · k ≤ -n < -(n - 1) and k ≥ 1 gives n · k ≥ n > n - 1). Thus the sum is 0, which is divisible by n², a contradiction.",
+      "lemmas": [
+       "lt_trichotomy",
+       "mul_zero",
+       "dvd_zero"
+      ],
+      "automation": false,
+      "code": "    obtain ⟨k, hk⟩ := hdiv j\n    rw [hk] at hup hlo ⊢\n    rw [hcast] at hup hlo\n    have hn' : (1 : ℤ) < n := by exact_mod_cast hn\n    have hk0 : k = 0 := by\n      rcases lt_trichotomy k 0 with h | h | h\n      · nlinarith\n      · exact h\n      · nlinarith\n    rw [hk0, mul_zero]\n    exact dvd_zero _"
+     },
+     {
+      "claim": "The sequence has length 2 * r * (n - 1).",
+      "explanation": "The sequence consists of r blocks, each containing two sublists of length n - 1, giving total length r · ((n - 1) + (n - 1)) = 2 · r · (n - 1).",
+      "lemmas": [
+       "List.length_flatMap"
+      ],
+      "automation": false,
+      "code": "  · simp [zero_sum_basis_seq, List.length_flatMap]\n    ring"
+     }
+    ],
+    "glossary": {
+     "Fin.sum_univ_def": "The sum of a function over Fin n equals the sum over the list of all indices in Fin n.",
+     "Fin.sum_univ_fun_getElem": "The sum of f evaluated at each element of a list l equals the sum of the mapped list l.map f.",
+     "Finset.sum_le_sum": "If f i ≤ g i for all i in a finite set, then ∑ i, f i ≤ ∑ i, g i.",
+     "Finset.sum_le_sum_of_subset_of_nonneg": "If s ⊆ t and f is non-negative on t \\ s, then the sum of f over s is at most the sum of f over t.",
+     "Finset.sum_neg_distrib": "The sum of -f i over a finite set equals the negation of the sum of f i.",
+     "Finset.subset_univ": "Any finite subset of a finite type is a subset of the full universe Finset.univ.",
+     "Function.comp_def": "The definition of function composition: (f ∘ g)(x) = f(g(x)).",
+     "Int.dvd_neg": "An integer divides -b if and only if it divides b.",
+     "Int.le_of_dvd": "If b > 0 and a divides b, then a ≤ b.",
+     "List.flatMap": "Maps a function that returns lists over a list and flattens the resulting list of lists.",
+     "List.length_flatMap": "The length of a flat-mapped list is the sum of the lengths of the resulting sublists.",
+     "List.mem_append": "An element belongs to the concatenation s ++ t if and only if it belongs to s or to t.",
+     "List.mem_finRange": "Every element of Fin n belongs to List.finRange n.",
+     "List.mem_flatMap": "An element belongs to a flat-mapped list if and only if it belongs to the image list of some element in the original list.",
+     "List.mem_replicate": "An element b belongs to List.replicate n a if and only if n ≠ 0 and b = a.",
+     "List.sum_flatten": "The sum of the elements of a concatenated list of lists equals the sum of the sums of each inner list.",
+     "Nat.cast_sub": "For m ≤ n, casting n - m to an additive group with one yields ↑n - ↑m.",
+     "Pi.neg_apply": "Pointwise negation of a function: (-f) i = -f i.",
+     "Pi.single_apply": "The indicator function Pi.single i x evaluated at index i' equals x if i' = i and 0 otherwise.",
+     "Pi.single_eq_same": "The indicator function Pi.single i x evaluated at the same index i equals x.",
+     "dvd_zero": "Any element divides zero.",
+     "le_max_left": "Any element a satisfies a ≤ max a b.",
+     "le_max_right": "Any element b satisfies b ≤ max a b.",
+     "lt_trichotomy": "In any linear order, exactly one of a < b, a = b, or b < a holds.",
+     "mul_zero": "Multiplying any element by zero yields zero: a * 0 = 0.",
+     "one_pos": "0 < 1 in any nontrivial ordered semiring.",
+     "true_and": "True ∧ p is equivalent to p."
+    },
+    "caveats": [
+     "In the formalization, zero_sum_w_bad n A defines a sequence A to be admissible with no 'good' subsequence, where a subsequence is defined as 'good' if its sum is ≡ 0 (mod n) but ≢ 0 (mod n²). Thus, proving zero_sum_w_bad establishes that no such subsequence exists."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518198,13 +518755,86 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/ZeroSumWGe.lean",
-   "proved_at": 1792064563,
+   "proved_at": 1792068398,
    "provenance": "literature",
    "citation": "arXiv:2610.19965 (Proofs and disproofs of some conjectures on zero-sum problems), Lemma 3.1 (consequence).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The constant $w_r(n)$ is defined as the infimum of all sequence lengths $N$ such that every admissible sequence in $(\\mathbb{Z}/n^2\\mathbb{Z})^r$ of length $N$ contains a good zero-sum subsequence. To establish the lower bound $w_r(n) \\ge 2r(n-1)+1$, it suffices to show that any such length $N$ satisfies $N \\ge 2r(n-1)+1$. Assuming for contradiction that $N \\le 2r(n-1)$, we truncate the known admissible sequence `zero_sum_basis_seq r n` of length $2r(n-1)$ to its first $N$ elements. This prefix is an admissible sequence of length $N$ and must therefore contain a good subsequence; but embedding this subsequence back into the original sequence produces a good subsequence of `zero_sum_basis_seq r n`, contradicting the fact that this sequence was constructed to contain none.",
+    "steps": [
+     {
+      "claim": "To show $w_r(n) \\ge 2r(n-1) + 1$, it suffices to show that any candidate length $N$ guaranteeing a good subsequence satisfies $N \\ge 2r(n-1) + 1$.",
+      "explanation": "Unfolding the definition of $w_r(n)$, it is the infimum over all sequence lengths $N$ such that every admissible sequence of length $N$ has a good subsequence. By `le_iInf₂`, a number is a lower bound for this infimum if it is bounded above by every such $N$.",
+      "lemmas": [
+       "le_iInf₂"
+      ],
+      "automation": false,
+      "code": "  unfold zero_sum_w\n  refine le_iInf₂ (fun N hN => ?_)"
+     },
+     {
+      "claim": "Assume for contradiction that $N \\le 2r(n-1)$.",
+      "explanation": "Assuming for contradiction that $2r(n-1) + 1 \\le N$ is false, `not_le` gives $N < 2r(n-1) + 1$. Stripping the coercion to $\\mathbb{N}_\\infty$ using `Nat.cast_lt`, linear arithmetic (`omega`) implies $N \\le 2r(n-1)$.",
+      "lemmas": [
+       "not_le",
+       "Nat.cast_lt"
+      ],
+      "automation": false,
+      "code": "  by_contra hlt\n  rw [not_le] at hlt\n  have hle : N ≤ 2 * r * (n - 1) := by\n    have := (Nat.cast_lt (α := ℕ∞)).mp hlt\n    omega"
+     },
+     {
+      "claim": "The prefix of length $N$ of `zero_sum_basis_seq r n` is admissible and must contain a good subsequence indexed by $I$.",
+      "explanation": "By `zero_sum_basis_seq_w_bad`, there is an admissible sequence `zero_sum_basis_seq r n` of length $2r(n-1)$ that contains no good subsequence. Since $N \\le 2r(n-1)$, taking its prefix of length $N$ gives a sequence of length exactly $N$. Every vector in this prefix is in the original sequence (`List.mem_of_mem_take`), so the prefix is also admissible. By the hypothesis on $N$, this prefix must contain a good subsequence, giving a nonempty index set $I$ whose coordinate sums are divisible by $n$, with some coordinate $j$ not divisible by $n^2$.",
+      "lemmas": [
+       "zero_sum_basis_seq_w_bad",
+       "List.mem_of_mem_take"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨hbad, hlen⟩ := zero_sum_basis_seq_w_bad r n hn\n  have htl : ((zero_sum_basis_seq r n).take N).length ≤ (zero_sum_basis_seq r n).length := by\n    simp\n  obtain ⟨I, hIne, hIdiv, j, hj⟩ := hN ((zero_sum_basis_seq r n).take N) (by simp [hlen]; omega)\n    (fun a ha => hbad.1 a (List.mem_of_mem_take ha))"
+     },
+     {
+      "claim": "The coordinate sums over $I$ in the prefix equal the coordinate sums over the embedded indices in the full sequence.",
+      "explanation": "Because the prefix length $N$ is at most the total length, indices of the prefix embed injectively into indices of the full sequence via `Fin.castLE`. Using `Finset.sum_map`, the sum over the mapped indices equals the sum over $I$ evaluated at the mapped positions. Since the prefix shares its elements at each index with the full sequence (`List.getElem_take`), `Finset.sum_congr` confirms that every coordinate sum is preserved.",
+      "lemmas": [
+       "Fin.castLE",
+       "Fin.castLE_injective",
+       "Finset.sum_map",
+       "Finset.sum_congr",
+       "List.getElem_take"
+      ],
+      "automation": false,
+      "code": "  have hsum : ∀ j, ∑ i ∈ I.map ⟨Fin.castLE htl, Fin.castLE_injective htl⟩,\n      (zero_sum_basis_seq r n).get i j = ∑ i ∈ I, ((zero_sum_basis_seq r n).take N).get i j := by\n    intro j\n    rw [Finset.sum_map]\n    refine Finset.sum_congr rfl (fun i _ => ?_)\n    simp [List.getElem_take]"
+     },
+     {
+      "claim": "The embedded subsequence is a good subsequence of `zero_sum_basis_seq r n`, yielding a contradiction.",
+      "explanation": "The image of $I$ under the embedding is nonempty because $I$ is nonempty. Rewriting the coordinate sums of the full sequence to those of the prefix, the sums are all divisible by $n$, and the $j$-th coordinate sum is not divisible by $n^2$. Thus the mapped index set is a good subsequence of `zero_sum_basis_seq r n`, contradicting the fact that `zero_sum_basis_seq r n` has no good subsequence.",
+      "lemmas": [
+       "Fin.castLE",
+       "Fin.castLE_injective"
+      ],
+      "automation": false,
+      "code": "  apply hbad.2 (I.map ⟨Fin.castLE htl, Fin.castLE_injective htl⟩)\n  refine ⟨hIne.map, fun j => ?_, j, ?_⟩\n  · rw [hsum]; exact hIdiv j\n  · rw [hsum]; exact hj"
+     }
+    ],
+    "glossary": {
+     "le_iInf₂": "A lower bound for all terms in a doubly indexed family is a lower bound for its infimum.",
+     "not_le": "In a linear order, $\\neg (a \\le b)$ is equivalent to $b < a$.",
+     "Nat.cast_lt": "The strict inequality $m < n$ between natural numbers is preserved under coercion to $\\mathbb{N}_\\infty$.",
+     "zero_sum_basis_seq_w_bad": "The canonical sequence `zero_sum_basis_seq r n` has length $2r(n-1)$ and is bad: it is admissible, but contains no good subsequence.",
+     "List.mem_of_mem_take": "Any element belonging to a prefix `List.take i l` is also an element of the original list $l$.",
+     "Fin.castLE": "Embeds $\\text{Fin } n$ into $\\text{Fin } m$ whenever $n \\le m$.",
+     "Fin.castLE_injective": "The canonical embedding from $\\text{Fin } n$ to $\\text{Fin } m$ when $n \\le m$ is injective.",
+     "Finset.sum_map": "Summing a function over the image of a finite set under an embedding equals summing the pull-back of that function over the original finite set.",
+     "Finset.sum_congr": "Two finite sums are equal if their index sets are equal and their summands agree on each index.",
+     "List.getElem_take": "The $i$-th element of a prefix `List.take j xs` is equal to the $i$-th element of the list `xs`."
+    },
+    "caveats": [
+     "The quantity $w_r(n)$ takes values in $\\mathbb{N}_\\infty = \\mathbb{N} \\cup \\{\\infty\\}$, where an empty infimum evaluates to $\\infty$. The lower bound is therefore stated and proven in $\\mathbb{N}_\\infty$.",
+     "Vectors in the group are formalized as integer-valued functions $\\text{Fin } r \\to \\mathbb{Z}$, and a subsequence of a list $A$ is represented by a set of position indices $I \\subseteq \\text{Fin } A.\\text{length}$."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518232,13 +518862,115 @@
     "kayak_paddle_leap_group_ne_of_even_second"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/KayakPaddleHopMapsSecondCycle.lean",
-   "proved_at": 1792065565,
+   "proved_at": 1792068524,
    "provenance": "lemma",
    "citation": "Serves kayak_paddle_leap_group_ne_of_even_cycle; arXiv:2610.18463 (The group generated by a graph's derangements), Question 2.20 (list entry OP-301).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The vertex set of the second cycle C_m in the kayak paddle graph KP(k, m, l) consists of all vertices with index at least the junction s = k + l - 1. The proof shows that any hop h preserves this set by first showing that neighbours of the open path T = {v | s < v} cannot leave the second cycle, and that adjacency inside T is simply path adjacency. It then proves that the junction vertex s cannot be mapped out of the second cycle: if h s < s, the inverse hop g = h⁻¹ would map T into itself by shifting each vertex by ±1, which would injectively map the m/2 vertices with odd offset from s into the m/2 - 1 vertices with even offset, violating the pigeonhole principle since m is even. Finally, combining the junction property with the path neighbour property ensures every vertex with s ≤ v satisfies s ≤ h v.",
+    "steps": [
+     {
+      "claim": "Any neighbour of a vertex in the open path T = {w | s < w} belongs to the second cycle (has index at least s).",
+      "explanation": "We define the junction vertex s = k + l - 1, which connects the handle path to the second cycle C_m. Any vertex w with s < w lies strictly inside C_m. Unfolding the definition of adjacency in the kayak paddle graph (simple_graph_kayak_paddle, SimpleGraph.fromRel_adj), the only edges incident to w are within C_m, connecting to vertices with index at least s. Linear arithmetic (omega) verifies that no edges to the handle or the first cycle can reach w.",
+      "lemmas": [
+       "simple_graph_kayak_paddle",
+       "SimpleGraph.fromRel_adj"
+      ],
+      "automation": false,
+      "code": "  set s := k + l - 1 with hs\n  -- neighbours of the open path T = {v | s < v} stay in the second cycle\n  have stepA : ∀ u w : Fin (k + m + l - 1), s < (w : ℕ) →\n      (simple_graph_kayak_paddle k m l).Adj w u → s ≤ (u : ℕ) := by\n    intro u w hw hadj\n    simp only [simple_graph_kayak_paddle, SimpleGraph.fromRel_adj] at hadj\n    omega"
+     },
+     {
+      "claim": "Any two adjacent vertices in the open path T are consecutive along the path (w = u + 1 or u = w + 1).",
+      "explanation": "Suppose u and w both lie strictly beyond s and are adjacent. From the kayak paddle relation, the only possible adjacency between them is within C_m, where their offsets from s satisfy (w - s) = (u - s + 1) % m (or symmetrically). By splitting on whether (u - s + 1) < m or ≥ m (Nat.lt_or_ge): if it is less than m, the modulo is the identity (Nat.mod_eq_of_lt), so w = u + 1; if it is at least m, since u < k + m + l - 1, the offset equals m, making the modulo zero (Nat.mod_self), which would mean w = s, contradicting s < w. The symmetric case is identical.",
+      "lemmas": [
+       "simple_graph_kayak_paddle",
+       "SimpleGraph.fromRel_adj",
+       "Nat.lt_or_ge",
+       "Nat.mod_eq_of_lt",
+       "Nat.mod_self"
+      ],
+      "automation": false,
+      "code": "  have stepB : ∀ u w : Fin (k + m + l - 1), s < (u : ℕ) → s < (w : ℕ) →\n      (simple_graph_kayak_paddle k m l).Adj u w → (w : ℕ) = u + 1 ∨ (u : ℕ) = w + 1 := by\n    intro u w hu hw hadj\n    have hu' := u.isLt\n    have hw' := w.isLt\n    simp only [simple_graph_kayak_paddle, SimpleGraph.fromRel_adj] at hadj\n    obtain ⟨-, h1 | h1⟩ := hadj\n    · rcases h1 with h1 | h1 | h1 | ⟨-, -, h1⟩\n      · omega\n      · omega\n      · omega\n      · rcases Nat.lt_or_ge ((u : ℕ) - s + 1) m with h2 | h2\n        · rw [Nat.mod_eq_of_lt h2] at h1; omega\n        · have : (u : ℕ) - s + 1 = m := by omega\n          rw [this, Nat.mod_self] at h1; omega\n    · rcases h1 with h1 | h1 | h1 | ⟨-, -, h1⟩\n      · omega\n      · omega\n      · omega\n      · rcases Nat.lt_or_ge ((w : ℕ) - s + 1) m with h2 | h2\n        · rw [Nat.mod_eq_of_lt h2] at h1; omega\n        · have : (w : ℕ) - s + 1 = m := by omega\n          rw [this, Nat.mod_self] at h1; omega"
+     },
+     {
+      "claim": "Set up proof by contradiction that the junction vertex s remains in the second cycle, s ≤ h s.",
+      "explanation": "We note that s is strictly less than the total number of vertices (hN). To prove that h maps s into the second cycle (s ≤ h s), we suppose for contradiction that h s < s (by_contra, not_le), and unpack the hypothesis that m is even.",
+      "lemmas": [
+       "not_le"
+      ],
+      "automation": false,
+      "code": "  have hN : s < k + m + l - 1 := by omega\n  have hjun : s ≤ (h ⟨s, hN⟩ : ℕ) := by\n    by_contra hlt\n    rw [not_le] at hlt\n    obtain ⟨m2, hm2⟩ := he"
+     },
+     {
+      "claim": "The inverse permutation g = h⁻¹ maps the open path T into itself, shifting each vertex by ±1 along the path.",
+      "explanation": "Since h is a hop, g t is adjacent to h (g t) = t. For any t in T (s < t), stepA implies s ≤ g t. If g t were s, then applying h would yield t = h s < s, contradicting s < t (Fin.ext). Hence s < g t, so g t is in T. Since both t and g t are in T and adjacent, stepB ensures that g t = t + 1 or t = g t + 1.",
+      "lemmas": [
+       "Fin.ext"
+      ],
+      "automation": false,
+      "code": "    set g := h⁻¹ with hg\n    have gT : ∀ t : Fin (k + m + l - 1), s < (t : ℕ) →\n        s < (g t : ℕ) ∧ ((g t : ℕ) = t + 1 ∨ (t : ℕ) = g t + 1) := by\n      intro t ht\n      have hadj : (simple_graph_kayak_paddle k m l).Adj (g t) t := by\n        have := hh (g t)\n        simpa [hg] using this\n      have h1 : s ≤ (g t : ℕ) := stepA (g t) t ht hadj.symm\n      have h2 : (g t : ℕ) ≠ s := by\n        intro heq\n        have : g t = ⟨s, hN⟩ := Fin.ext heq\n        have hgt : h (g t) = t := by simp [hg]\n        rw [this] at hgt\n        rw [hgt] at hlt\n        omega\n      have h3 : s < (g t : ℕ) := by omega\n      exact ⟨h3, (stepB (g t) t h3 ht hadj).symm⟩"
+     },
+     {
+      "claim": "The assumption h s < s leads to a contradiction via a parity counting argument on T.",
+      "explanation": "We consider the action ψ of g on indices, restricted to the set A of odd offsets from s (size m / 2) and the set B of even offsets from s (size m / 2 - 1) (Finset.card_image_of_injective, Finset.card_range). Since g shifts each vertex by ±1, it flips parity, mapping elements of A into B (Finset.mem_image, Finset.mem_range, dif_pos, Fin.val_mk). Because g is a permutation, ψ is injective on A (Set.InjOn, Finset.coe_image, Set.mem_image, Finset.mem_coe, Fin.ext, congrArg, Fin.val). By the pigeonhole principle (Finset.card_le_card_of_injOn), |A| ≤ |B|, meaning m / 2 ≤ m / 2 - 1, which is impossible (omega). Thus s ≤ h s.",
+      "lemmas": [
+       "Finset.card_image_of_injective",
+       "Finset.card_range",
+       "Finset.mem_image",
+       "Finset.mem_range",
+       "Fin.val_mk",
+       "dif_pos",
+       "Finset.coe_image",
+       "Set.mem_image",
+       "Finset.mem_coe",
+       "Fin.ext",
+       "congrArg",
+       "Fin.val",
+       "Finset.card_le_card_of_injOn"
+      ],
+      "automation": false,
+      "code": "    let ψ : ℕ → ℕ := fun a => if ha : a < k + m + l - 1 then (g ⟨a, ha⟩ : ℕ) else 0\n    let A : Finset ℕ := (Finset.range (m / 2)).image (fun t => s + 1 + 2 * t)\n    let B : Finset ℕ := (Finset.range (m / 2 - 1)).image (fun t => s + 2 + 2 * t)\n    have hA : A.card = m / 2 :=\n      by rw [Finset.card_image_of_injective _ (fun x y hxy => by simp at hxy; omega), Finset.card_range]\n    have hB : B.card = m / 2 - 1 :=\n      by rw [Finset.card_image_of_injective _ (fun x y hxy => by simp at hxy; omega), Finset.card_range]\n    have hmaps : ∀ a ∈ A, ψ a ∈ B := by\n      intro a ha\n      simp only [A, Finset.mem_image, Finset.mem_range] at ha\n      obtain ⟨t, ht, rfl⟩ := ha\n      have hlt' : s + 1 + 2 * t < k + m + l - 1 := by omega\n      have hgt := gT ⟨s + 1 + 2 * t, hlt'⟩ (by show s < s + 1 + 2 * t; omega)\n      simp only [Fin.val_mk] at hgt\n      have hbound := (g ⟨s + 1 + 2 * t, hlt'⟩).isLt\n      simp only [ψ, B, Finset.mem_image, Finset.mem_range]\n      rw [dif_pos hlt']\n      generalize hx : ((g ⟨s + 1 + 2 * t, hlt'⟩ : Fin _) : ℕ) = x at hgt hbound ⊢\n      rcases hgt with ⟨h1, h2 | h2⟩\n      · exact ⟨t, by omega, by omega⟩\n      · exact ⟨t - 1, by omega, by omega⟩\n    have hinj : Set.InjOn ψ A := by\n      intro a ha b hb hab\n      simp only [A, Finset.coe_image, Set.mem_image, Finset.mem_coe, Finset.mem_range] at ha hb\n      obtain ⟨t, ht, rfl⟩ := ha\n      obtain ⟨u, hu, rfl⟩ := hb\n      have h1 : s + 1 + 2 * t < k + m + l - 1 := by omega\n      have h2 : s + 1 + 2 * u < k + m + l - 1 := by omega\n      simp only [ψ] at hab\n      rw [dif_pos h1, dif_pos h2] at hab\n      have := g.injective (Fin.ext hab)\n      simpa using congrArg Fin.val this\n    have := Finset.card_le_card_of_injOn ψ hmaps hinj\n    rw [hA, hB] at this\n    omega"
+     },
+     {
+      "claim": "Every vertex in the second cycle (s ≤ v) is mapped into the second cycle (s ≤ h v).",
+      "explanation": "We split into cases on whether v = s or s < v (Nat.eq_or_lt_of_le). If v = s, then h v = h s ≥ s by the junction property established above (Fin.ext). If s < v, then v lies in the open path T; since h v is adjacent to v by the hop hypothesis, stepA directly implies s ≤ h v.",
+      "lemmas": [
+       "Nat.eq_or_lt_of_le",
+       "Fin.ext"
+      ],
+      "automation": false,
+      "code": "  rcases Nat.eq_or_lt_of_le hv with hv' | hv'\n  · have : v = ⟨s, hN⟩ := Fin.ext hv'.symm\n    rw [this]; exact hjun\n  · exact stepA (h v) v hv' (hh v)"
+     }
+    ],
+    "glossary": {
+     "simple_graph_kayak_paddle": "definition of the kayak paddle graph KP(k, m, l), consisting of a k-cycle, a path of length l, and an m-cycle",
+     "SimpleGraph.fromRel_adj": "two vertices in a graph built from a relation are adjacent if and only if they are distinct and related in either direction",
+     "Nat.lt_or_ge": "for any natural numbers n and m, either n < m or n ≥ m",
+     "Nat.mod_eq_of_lt": "if a < b, then a % b = a",
+     "Nat.mod_self": "for any natural number n, n % n = 0",
+     "not_le": "in a linear order, ¬(a ≤ b) is equivalent to b < a",
+     "Fin.ext": "two elements of Fin n are equal if their underlying natural values are equal",
+     "Finset.card_image_of_injective": "the image of a finite set under an injective map has the same cardinality as the original set",
+     "Finset.card_range": "the finite set range n = {0, 1, ..., n - 1} has cardinality n",
+     "Finset.mem_image": "an element is in the image of a finite set under f if and only if it is f(a) for some element a in the set",
+     "Finset.mem_range": "a natural number m is in range n if and only if m < n",
+     "Fin.val_mk": "the underlying natural value of ⟨m, h⟩ in Fin n is m",
+     "dif_pos": "a dependent if-then-else expression evaluates to the then-branch when the condition is true",
+     "Finset.coe_image": "the set coercion of the image of a finite set is the image of the set coercion",
+     "Set.mem_image": "an element y is in f '' s if and only if y = f x for some x in s",
+     "Finset.mem_coe": "an element is in the set coercion of a finite set if and only if it is in the finite set",
+     "congrArg": "if two inputs are equal, then the values of a function applied to them are equal",
+     "Fin.val": "the canonical projection from Fin n to ℕ giving its underlying value",
+     "Finset.card_le_card_of_injOn": "an injective map from a finite set s into a finite set t implies |s| ≤ |t|",
+     "Nat.eq_or_lt_of_le": "if n ≤ m, then n = m or n < m"
+    },
+    "caveats": [
+     "Linear arithmetic and graph edge conditions are handled by `omega`, which dispatches inequalities to verify that vertices in the open path cannot connect to the first cycle or handle."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518266,13 +518998,112 @@
     "kayak_paddle_leap_group_ne_of_even_first"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/KayakPaddleHopMapsFirstCycle.lean",
-   "proved_at": 1792065831,
+   "proved_at": 1792068532,
    "provenance": "lemma",
    "citation": "Serves kayak_paddle_leap_group_ne_of_even_cycle; arXiv:2610.18463 (The group generated by a graph's derangements), Question 2.20 (list entry OP-301).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The kayak paddle graph KP(k, m, l) consists of a k-cycle, an m-cycle, and a path of length l connecting them, attached to the first cycle at vertex 0. The remaining vertices 1, ..., k-1 of the first cycle form an open path whose neighbors remain inside the cycle. To show every hop h preserves the cycle, it suffices to show h(0) < k, since hops from any other cycle vertex cannot escape. If h(0) ≥ k, the inverse permutation g = h⁻¹ must preserve the open path and shift every vertex by ±1, toggling parity. But for even k, the open path has k/2 odd vertices and only k/2 - 1 even vertices, making an injective parity-reversing map impossible.",
+    "steps": [
+     {
+      "claim": "Any neighbor in KP(k, m, l) of a vertex in the open path T = {w | 0 < w < k} belongs to the first cycle (has index < k).",
+      "explanation": "By definition of the kayak paddle graph, the only vertex in the first cycle with edges outside that cycle is the junction vertex 0, which connects to the path at vertex k. Since 0 < w < k, w cannot be 0, so every edge incident to w must lead to another vertex in the first cycle. Linear arithmetic (omega) verifies that all clauses of the adjacency relation outside the first cycle require one endpoint to be at least k, which is incompatible with w < k and w > 0.",
+      "lemmas": [
+       "SimpleGraph.fromRel_adj"
+      ],
+      "automation": false,
+      "code": "  have stepA : ∀ u w : Fin (k + m + l - 1), 0 < (w : ℕ) → (w : ℕ) < k →\n      (simple_graph_kayak_paddle k m l).Adj w u → (u : ℕ) < k := by\n    intro u w hw hwk hadj\n    simp only [simple_graph_kayak_paddle, SimpleGraph.fromRel_adj] at hadj\n    omega"
+     },
+     {
+      "claim": "Adjacency between any two vertices in the open path T is standard path adjacency: |u - w| = 1.",
+      "explanation": "Adjacent vertices in the first cycle must satisfy w ≡ u + 1 (mod k) or u ≡ w + 1 (mod k). Because both u and w are strictly positive and strictly less than k, neither is 0. Consequently, the modular wrap-around case (k - 1) + 1 ≡ 0 (mod k) cannot occur. Simplifying the modular arithmetic across all cases proves that w = u + 1 or u = w + 1.",
+      "lemmas": [
+       "SimpleGraph.fromRel_adj",
+       "Nat.lt_or_ge",
+       "Nat.mod_eq_of_lt",
+       "Nat.mod_self"
+      ],
+      "automation": false,
+      "code": "  have stepB : ∀ u w : Fin (k + m + l - 1), 0 < (u : ℕ) → (u : ℕ) < k → 0 < (w : ℕ) →\n      (w : ℕ) < k → (simple_graph_kayak_paddle k m l).Adj u w →\n      (w : ℕ) = u + 1 ∨ (u : ℕ) = w + 1 := by\n    intro u w hu huk hw hwk hadj\n    simp only [simple_graph_kayak_paddle, SimpleGraph.fromRel_adj] at hadj\n    obtain ⟨-, h1 | h1⟩ := hadj\n    · rcases h1 with ⟨-, -, h1⟩ | h1 | h1 | h1\n      · rcases Nat.lt_or_ge ((u : ℕ) + 1) k with h2 | h2\n        · rw [Nat.mod_eq_of_lt h2] at h1; omega\n        · have : (u : ℕ) + 1 = k := by omega\n          rw [this, Nat.mod_self] at h1; omega\n      · omega\n      · omega\n      · omega\n    · rcases h1 with ⟨-, -, h1⟩ | h1 | h1 | h1\n      · rcases Nat.lt_or_ge ((w : ℕ) + 1) k with h2 | h2\n        · rw [Nat.mod_eq_of_lt h2] at h1; omega\n        · have : (w : ℕ) + 1 = k := by omega\n          rw [this, Nat.mod_self] at h1; omega\n      · omega\n      · omega\n      · omega"
+     },
+     {
+      "claim": "Under the assumption that h(0) ≥ k, the inverse permutation g = h⁻¹ maps the open path T into itself and acts as a path neighbor: g(t) = t + 1 or t = g(t) + 1.",
+      "explanation": "Assume for contradiction that h(0) ≥ k. Setting g = h⁻¹, every vertex t is adjacent to g(t) because g(t) is adjacent to h(g(t)) = t. For any t in the open path T (0 < t < k), its neighbor g(t) must satisfy g(t) < k by stepA. Furthermore, g(t) cannot be 0, as g(t) = 0 would imply h(0) = h(g(t)) = t < k, contradicting h(0) ≥ k. Thus 0 < g(t) < k, meaning g(t) ∈ T. Applying stepB to the adjacent vertices t and g(t) in T shows that g(t) = t + 1 or t = g(t) + 1.",
+      "lemmas": [
+       "not_lt",
+       "Fin.ext"
+      ],
+      "automation": false,
+      "code": "  have hN : 0 < k + m + l - 1 := by omega\n  have hjun : (h ⟨0, hN⟩ : ℕ) < k := by\n    by_contra hlt\n    rw [not_lt] at hlt\n    obtain ⟨k2, hk2⟩ := he\n    set g := h⁻¹ with hg\n    have gT : ∀ t : Fin (k + m + l - 1), 0 < (t : ℕ) → (t : ℕ) < k →\n        0 < (g t : ℕ) ∧ (g t : ℕ) < k ∧ ((g t : ℕ) = t + 1 ∨ (t : ℕ) = g t + 1) := by\n      intro t ht htk\n      have hadj : (simple_graph_kayak_paddle k m l).Adj (g t) t := by\n        have := hh (g t)\n        simpa [hg] using this\n      have h1 : (g t : ℕ) < k := stepA (g t) t ht htk hadj.symm\n      have h2 : (g t : ℕ) ≠ 0 := by\n        intro heq\n        have : g t = ⟨0, hN⟩ := Fin.ext heq\n        have hgt : h (g t) = t := by simp [hg]\n        rw [this] at hgt\n        rw [hgt] at hlt\n        omega\n      have h3 : 0 < (g t : ℕ) := by omega\n      exact ⟨h3, h1, (stepB (g t) t h3 h1 ht htk hadj).symm⟩"
+     },
+     {
+      "claim": "The map ψ induced by g maps the odd vertices A ⊆ T into the even vertices B ⊆ T.",
+      "explanation": "Let A = {1 + 2t | 0 ≤ t < k/2} be the odd vertices in T and B = {2 + 2t | 0 ≤ t < k/2 - 1} be the even vertices in T. Since the affine maps t ↦ 1 + 2t and t ↦ 2 + 2t are injective, |A| = k/2 and |B| = k/2 - 1. For any a ∈ A, a is odd and in T, so g(a) ∈ T differs from a by 1. Being adjacent to an odd vertex along the path, g(a) must be an even vertex strictly between 0 and k, which places it in B.",
+      "lemmas": [
+       "Finset.card_image_of_injective",
+       "Finset.card_range",
+       "Finset.mem_image",
+       "Finset.mem_range",
+       "dif_pos"
+      ],
+      "automation": false,
+      "code": "    let ψ : ℕ → ℕ := fun a => if ha : a < k + m + l - 1 then (g ⟨a, ha⟩ : ℕ) else 0\n    let A : Finset ℕ := (Finset.range (k / 2)).image (fun t => 1 + 2 * t)\n    let B : Finset ℕ := (Finset.range (k / 2 - 1)).image (fun t => 2 + 2 * t)\n    have hA : A.card = k / 2 :=\n      by rw [Finset.card_image_of_injective _ (fun x y hxy => by simp at hxy; omega), Finset.card_range]\n    have hB : B.card = k / 2 - 1 :=\n      by rw [Finset.card_image_of_injective _ (fun x y hxy => by simp at hxy; omega), Finset.card_range]\n    have hmaps : ∀ a ∈ A, ψ a ∈ B := by\n      intro a ha\n      simp only [A, Finset.mem_image, Finset.mem_range] at ha\n      obtain ⟨t, ht, rfl⟩ := ha\n      have hlt' : 1 + 2 * t < k + m + l - 1 := by omega\n      have hgt := gT ⟨1 + 2 * t, hlt'⟩ (by show 0 < 1 + 2 * t; omega)\n        (by show 1 + 2 * t < k; omega)\n      simp only at hgt\n      simp only [ψ, B, Finset.mem_image, Finset.mem_range]\n      rw [dif_pos hlt']\n      generalize hx : ((g ⟨1 + 2 * t, hlt'⟩ : Fin _) : ℕ) = x at hgt ⊢\n      rcases hgt with ⟨h1, h1', h2 | h2⟩\n      · exact ⟨t, by omega, by omega⟩\n      · exact ⟨t - 1, by omega, by omega⟩"
+     },
+     {
+      "claim": "The map ψ is injective on A, which forces |A| ≤ |B| and yields a contradiction, proving h(0) < k.",
+      "explanation": "Since g is a permutation, it is injective, so ψ is injective on A. By the pigeonhole principle (Finset.card_le_card_of_injOn), this injection implies |A| ≤ |B|, which means k/2 ≤ k/2 - 1. Linear arithmetic flags this contradiction, refuting the assumption h(0) ≥ k and concluding that h(0) < k.",
+      "lemmas": [
+       "Finset.coe_image",
+       "Set.mem_image",
+       "Finset.mem_coe",
+       "Finset.mem_range",
+       "dif_pos",
+       "Fin.ext",
+       "congrArg",
+       "Fin.val",
+       "Finset.card_le_card_of_injOn"
+      ],
+      "automation": false,
+      "code": "    have hinj : Set.InjOn ψ A := by\n      intro a ha b hb hab\n      simp only [A, Finset.coe_image, Set.mem_image, Finset.mem_coe, Finset.mem_range] at ha hb\n      obtain ⟨t, ht, rfl⟩ := ha\n      obtain ⟨u, hu, rfl⟩ := hb\n      have h1 : 1 + 2 * t < k + m + l - 1 := by omega\n      have h2 : 1 + 2 * u < k + m + l - 1 := by omega\n      simp only [ψ] at hab\n      rw [dif_pos h1, dif_pos h2] at hab\n      have := g.injective (Fin.ext hab)\n      simpa using congrArg Fin.val this\n    have := Finset.card_le_card_of_injOn ψ hmaps hinj\n    rw [hA, hB] at this\n    omega"
+     },
+     {
+      "claim": "For every vertex v with v < k, h(v) < k.",
+      "explanation": "We split into cases on whether v = 0 or v > 0. If v = 0, h(v) < k is the junction result h(0) < k just established. If v > 0, then 0 < v < k, so v belongs to the open path T. Since h is a hop, h(v) is adjacent to v, so stepA immediately gives h(v) < k.",
+      "lemmas": [
+       "Nat.eq_zero_or_pos",
+       "Fin.ext"
+      ],
+      "automation": false,
+      "code": "  rcases Nat.eq_zero_or_pos (v : ℕ) with hv' | hv'\n  · have : v = ⟨0, hN⟩ := Fin.ext hv'\n    rw [this]; exact hjun\n  · exact stepA (h v) v hv' hv (hh v)"
+     }
+    ],
+    "glossary": {
+     "SimpleGraph.fromRel_adj": "In a graph defined from a relation r, two vertices v and w are adjacent if and only if v ≠ w and either r(v, w) or r(w, v) holds.",
+     "Nat.lt_or_ge": "For any natural numbers n and m, either n < m or n ≥ m.",
+     "Nat.mod_eq_of_lt": "If a natural number a is strictly less than b, then a % b = a.",
+     "Nat.mod_self": "For any natural number n, n % n = 0.",
+     "not_lt": "In a linear order, a is not strictly less than b if and only if b ≤ a.",
+     "Fin.ext": "Two elements of Fin n are equal if and only if their underlying natural values are equal.",
+     "Finset.card_image_of_injective": "The image of a finite set under an injective function has the same cardinality as the original set.",
+     "Finset.card_range": "The finite set range n = {0, 1, ..., n - 1} has cardinality n.",
+     "Finset.mem_image": "An element b belongs to the image of a finite set s under f if and only if b = f a for some a ∈ s.",
+     "Finset.mem_range": "A natural number m belongs to range n if and only if m < n.",
+     "dif_pos": "When a decidable condition c holds, the dependent conditional if c then t else e reduces to the then-branch.",
+     "Finset.coe_image": "Coercing the image of a finite set to a set yields the set-theoretic image of the coerced set.",
+     "Set.mem_image": "An element y belongs to the set image f '' s if and only if y = f x for some x ∈ s.",
+     "Finset.mem_coe": "An element belongs to the set coercion of a finite set if and only if it belongs to the finite set.",
+     "congrArg": "If two values are equal, then applying any function f to both yields equal results.",
+     "Fin.val": "The canonical embedding mapping an element of Fin n to its underlying natural number.",
+     "Finset.card_le_card_of_injOn": "If a function maps a finite set s into a finite set t and is injective on s, then |s| ≤ |t|.",
+     "Nat.eq_zero_or_pos": "Every natural number is either equal to 0 or strictly positive."
+    },
+    "caveats": [
+     "To apply Mathlib's finite set cardinality lemmas to the permutation g = h⁻¹ (which acts on Fin (k + m + l - 1)), the formal proof defines an auxiliary function ψ : ℕ → ℕ using a dependent if-then-else (dite), extending g by zero outside its domain."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518302,13 +519133,107 @@
     "kayak_paddle_leap_group_ne_of_even_cycle"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/KayakPaddleLeapGroupNeOfEvenSecond.lean",
-   "proved_at": 1792066090,
+   "proved_at": 1792068577,
    "provenance": "lemma",
    "citation": "Serves kayak_paddle_leap_group_ne_of_even_cycle; arXiv:2610.18463 (The group generated by a graph's derangements), Question 2.20 (list entry OP-301).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof shows that the leap group of KP(k, m, l) is contained in the set-stabilizer subgroup S of permutations preserving the vertices of the second cycle C₂ = {v | k + l - 1 ≤ v}. Because the second cycle has even length m, every hop maps C₂ into C₂, and since C₂ is finite and hops are injective, every hop maps C₂ bijectively onto C₂; thus the entire leap group is contained in S. The proof then exhibits a transposition and a product of two transpositions that swap a vertex of C₂ with a vertex outside C₂. Neither permutation belongs to S, which implies the leap group can be neither the symmetric group nor the alternating group.",
+    "steps": [
+     {
+      "claim": "The permutations preserving the second cycle form a subgroup S of the symmetric group.",
+      "explanation": "We define s = k + l - 1, which is the starting vertex index of the second cycle, and note s < k + m + l - 1. We define S as the set of all permutations g of the vertices such that s ≤ g(v) ↔ s ≤ v for every vertex v; that is, g preserves the vertex set of the second cycle and its complement. We verify that S is a subgroup: it contains the identity permutation, is closed under composition (since the equivalences chain), and is closed under inversion (by applying the equivalence for g to g⁻¹(v)).",
+      "lemmas": [
+       "Set.mem_setOf_eq",
+       "Equiv.Perm.mul_apply",
+       "Equiv.Perm.inv_def",
+       "Equiv.apply_symm_apply"
+      ],
+      "automation": false,
+      "code": "  set s := k + l - 1 with hs\n  have hN : s < k + m + l - 1 := by omega\n  let S : Subgroup (Equiv.Perm (Fin (k + m + l - 1))) :=\n    { carrier := {g | ∀ v, s ≤ (g v : ℕ) ↔ s ≤ (v : ℕ)}\n      mul_mem' := fun {a b} ha hb v => by\n        simp only [Set.mem_setOf_eq, Equiv.Perm.mul_apply] at *\n        rw [ha, hb]\n      one_mem' := fun v => by simp\n      inv_mem' := fun {a} ha v => by\n        simp only [Set.mem_setOf_eq] at *\n        have := ha (a⁻¹ v)\n        simp only [Equiv.Perm.inv_def, Equiv.apply_symm_apply] at this ⊢\n        exact this.symm }"
+     },
+     {
+      "claim": "The leap group of the kayak paddle graph is contained in the subgroup S.",
+      "explanation": "Because the leap group is generated by hops, Subgroup.closure_le reduces the claim to showing that every hop h belongs to S, meaning s ≤ h(v) ↔ s ≤ v. The backward direction s ≤ v → s ≤ h(v) is given directly by kayak_paddle_hop_maps_second_cycle, which guarantees that when m is even, any hop sends the second cycle into itself. For the forward direction s ≤ h(v) → s ≤ v, suppose for contradiction that v < s. Letting C be the finite set of vertices with index ≥ s, h maps C into C. Since h is injective, |h(C)| = |C|, so h(C) = C. Since h(v) ∈ C = h(C), injectivity forces v ∈ C, meaning s ≤ v, which contradicts v < s.",
+      "lemmas": [
+       "Subgroup.closure_le",
+       "not_le",
+       "kayak_paddle_hop_maps_second_cycle",
+       "Finset.mem_image",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "true_and",
+       "Finset.eq_of_subset_of_card_le",
+       "Finset.card_image_of_injective",
+       "Finset.mem_image.mp"
+      ],
+      "automation": false,
+      "code": "  have hle : simple_graph_leap_group (simple_graph_kayak_paddle k m l) ≤ S := by\n    refine (Subgroup.closure_le S).mpr fun h hh v => ?_\n    constructor\n    · intro hv\n      by_contra hv'\n      rw [not_le] at hv'\n      -- h maps the second cycle into itself, hence onto itself (finite), so v outside maps outside\n      have hinto : ∀ w : Fin (k + m + l - 1), s ≤ (w : ℕ) → s ≤ (h w : ℕ) :=\n        fun w hw => kayak_paddle_hop_maps_second_cycle k m l hk hm hl he h hh w hw\n      let C : Finset (Fin (k + m + l - 1)) := Finset.univ.filter fun w => s ≤ (w : ℕ)\n      have hsub : C.image h ⊆ C := by\n        intro x hx\n        simp only [C, Finset.mem_image, Finset.mem_filter, Finset.mem_univ, true_and] at hx ⊢\n        obtain ⟨w, hw, rfl⟩ := hx\n        exact hinto w hw\n      have heq : C.image h = C :=\n        Finset.eq_of_subset_of_card_le hsub (by rw [Finset.card_image_of_injective _ h.injective])\n      have hmem : h v ∈ C.image h := by\n        rw [heq]; simp [C, hv]\n      obtain ⟨w, hw, hwv⟩ := Finset.mem_image.mp hmem\n      have := h.injective hwv\n      subst this\n      simp [C] at hw\n      omega\n    · intro hv\n      exact kayak_paddle_hop_maps_second_cycle k m l hk hm hl he h hh v hv"
+     },
+     {
+      "claim": "The vertices a = s, b = 0, and c = 1 are pairwise distinct.",
+      "explanation": "Since k ≥ 3, m ≥ 3, and l ≥ 1, linear arithmetic confirms that 0, 1, and s = k + l - 1 are strictly less than the total number of vertices k + m + l - 1, yielding valid vertices a = s, b = 0, and c = 1 in Fin (k + m + l - 1). Moreover, s = k + l - 1 ≥ 3, so s ≠ 0 and s ≠ 1, and 0 ≠ 1. By Fin.ext_iff, the three vertices a, b, and c are pairwise distinct.",
+      "lemmas": [
+       "Fin.ext_iff"
+      ],
+      "automation": false,
+      "code": "  have h0 : (0 : ℕ) < k + m + l - 1 := by omega\n  have h1 : (1 : ℕ) < k + m + l - 1 := by omega\n  let a : Fin (k + m + l - 1) := ⟨s, hN⟩\n  let b : Fin (k + m + l - 1) := ⟨0, h0⟩\n  let c : Fin (k + m + l - 1) := ⟨1, h1⟩\n  have hab : a ≠ b := by simp [a, b, Fin.ext_iff]; omega\n  have hbc : b ≠ c := by simp [b, c, Fin.ext_iff]\n  have hac : a ≠ c := by simp [a, c, Fin.ext_iff]; omega"
+     },
+     {
+      "claim": "The leap group is not the full symmetric group.",
+      "explanation": "We split the goal into two disproofs and suppose for contradiction that the leap group equals ⊤. Then the transposition swap(a, b) would belong to the leap group, hence to S. Because s ≤ a, membership in S requires s ≤ swap(a, b)(a). By Equiv.swap_apply_left, swap(a, b)(a) = b = 0, which implies s ≤ 0. But s ≥ 3, so linear arithmetic yields a contradiction.",
+      "lemmas": [
+       "Subgroup.mem_top",
+       "Equiv.swap_apply_left"
+      ],
+      "automation": false,
+      "code": "  refine ⟨fun htop => ?_, fun halt => ?_⟩\n  · have hmem : Equiv.swap a b ∈ S := hle (htop ▸ Subgroup.mem_top _)\n    have := (hmem a).mpr (by simp [a])\n    rw [Equiv.swap_apply_left] at this\n    simp [b] at this\n    omega"
+     },
+     {
+      "claim": "The leap group is not the alternating group.",
+      "explanation": "Supposing for contradiction that the leap group equals the alternating group, consider the product of two transpositions swap(a, b) * swap(b, c). Because a, b, c are pairwise distinct, each transposition has sign -1, so the product has sign (-1) * (-1) = 1 and thus belongs to the alternating group. It must therefore belong to S. Evaluating at a, the transposition swap(b, c) fixes a because a ≠ b and a ≠ c, and then swap(a, b) sends a to b = 0. Membership in S then implies s ≤ 0, which again contradicts s ≥ 3.",
+      "lemmas": [
+       "Equiv.Perm.mem_alternatingGroup",
+       "Equiv.Perm.sign_mul",
+       "Equiv.Perm.sign_swap",
+       "Equiv.Perm.mul_apply",
+       "Equiv.swap_apply_of_ne_of_ne",
+       "Equiv.swap_apply_left"
+      ],
+      "automation": false,
+      "code": "  · have halt' : Equiv.swap a b * Equiv.swap b c ∈ alternatingGroup (Fin (k + m + l - 1)) := by\n      rw [Equiv.Perm.mem_alternatingGroup, Equiv.Perm.sign_mul, Equiv.Perm.sign_swap hab,\n        Equiv.Perm.sign_swap hbc]\n      rfl\n    have hmem : Equiv.swap a b * Equiv.swap b c ∈ S := hle (halt ▸ halt')\n    have := (hmem a).mpr (by simp [a])\n    rw [Equiv.Perm.mul_apply, Equiv.swap_apply_of_ne_of_ne hab hac, Equiv.swap_apply_left] at this\n    simp [b] at this\n    omega"
+     }
+    ],
+    "glossary": {
+     "Set.mem_setOf_eq": "Membership in a set defined by comprehension {y | p y} is equivalent to the predicate p x holding.",
+     "Equiv.Perm.mul_apply": "Permutation multiplication corresponds to composition: (f * g) x = f (g x).",
+     "Equiv.Perm.inv_def": "The group inverse f⁻¹ of a permutation is given by its inverse equivalence f.symm.",
+     "Equiv.apply_symm_apply": "Applying an equivalence after its inverse is the identity: e (e⁻¹ x) = x.",
+     "Subgroup.closure_le": "The subgroup generated by a set k is contained in a subgroup K if and only if k ⊆ K.",
+     "not_le": "In a linear order, ¬(a ≤ b) is equivalent to b < a.",
+     "kayak_paddle_hop_maps_second_cycle": "For a kayak paddle graph with an even second cycle of length m, every hop maps vertices of the second cycle (indices ≥ k + l - 1) to vertices of the second cycle.",
+     "Finset.mem_image": "An element b belongs to the image f(s) of a finite set s if and only if b = f a for some a ∈ s.",
+     "Finset.mem_filter": "An element a belongs to the filtered finset {x ∈ s | p x} if and only if a ∈ s and p a holds.",
+     "Finset.mem_univ": "Every element of a finite type belongs to its universal finset.",
+     "true_and": "The conjunction True ∧ p simplifies to p.",
+     "Finset.eq_of_subset_of_card_le": "If a finite set s is a subset of t and |t| ≤ |s|, then s = t.",
+     "Finset.card_image_of_injective": "The image of a finite set under an injective map has the same cardinality as the original set.",
+     "Finset.mem_image.mp": "If an element belongs to the image f(s), there exists a preimage in s.",
+     "Fin.ext_iff": "Two elements of Fin n are equal if and only if their underlying natural numbers are equal.",
+     "Subgroup.mem_top": "Every element of a group belongs to the top (maximal) subgroup ⊤.",
+     "Equiv.swap_apply_left": "The transposition swap(a, b) maps a to b.",
+     "Equiv.Perm.mem_alternatingGroup": "A permutation belongs to the alternating group if and only if its sign is 1.",
+     "Equiv.Perm.sign_mul": "The sign of a product of permutations is the product of their signs.",
+     "Equiv.Perm.sign_swap": "The transposition of two distinct elements has sign -1.",
+     "Equiv.swap_apply_of_ne_of_ne": "A transposition swap(a, b) fixes any element distinct from both a and b."
+    },
+    "caveats": [
+     "The vertex set of the kayak paddle graph is modeled by `Fin (k + m + l - 1)`, so bounds on vertex indices and their distinctness are handled by linear integer arithmetic (`omega`)."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518338,13 +519263,105 @@
     "kayak_paddle_leap_group_ne_of_even_cycle"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/KayakPaddleLeapGroupNeOfEvenFirst.lean",
-   "proved_at": 1792066352,
+   "proved_at": 1792068625,
    "provenance": "lemma",
    "citation": "Serves kayak_paddle_leap_group_ne_of_even_cycle; arXiv:2610.18463 (The group generated by a graph's derangements), Question 2.20 (list entry OP-301).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof establishes that the leap group of a kayak paddle graph $\\mathrm{KP}(k, m, l)$ with even $k$ is neither the full symmetric group nor the alternating group. It defines a subgroup $S$ consisting of all permutations that setwise stabilize the first cycle $C_k = \\{v \\mid v < k\\}$, and proves that every hop belongs to $S$ using the fact that hops map $C_k$ into itself together with a counting argument on finite sets. It then constructs a transposition and an even permutation that move a vertex from $C_k$ outside $C_k$, showing neither can belong to $S$ and thereby ruling out both candidate groups.",
+    "steps": [
+     {
+      "claim": "The set $S$ of permutations that setwise stabilize the first cycle $\\{v \\mid v < k\\}$ forms a subgroup.",
+      "explanation": "Define $S$ as the set of permutations $g$ satisfying $g(v) < k \\iff v < k$ for every vertex $v$. It is verified that $S$ is closed under multiplication (since $(a * b)(v) < k \\iff b(v) < k \\iff v < k$), contains the identity permutation, and is closed under inverses (by applying the membership condition for $a$ to $a^{-1}(v)$).",
+      "lemmas": [
+       "Set.mem_setOf_eq",
+       "Equiv.Perm.mul_apply",
+       "Equiv.Perm.inv_def",
+       "Equiv.apply_symm_apply"
+      ],
+      "automation": false,
+      "code": "  let S : Subgroup (Equiv.Perm (Fin (k + m + l - 1))) :=\n    { carrier := {g | ∀ v, (g v : ℕ) < k ↔ (v : ℕ) < k}\n      mul_mem' := fun {a b} ha hb v => by\n        simp only [Set.mem_setOf_eq, Equiv.Perm.mul_apply] at *\n        rw [ha, hb]\n      one_mem' := fun v => by simp\n      inv_mem' := fun {a} ha v => by\n        simp only [Set.mem_setOf_eq] at *\n        have := ha (a⁻¹ v)\n        simp only [Equiv.Perm.inv_def, Equiv.apply_symm_apply] at this ⊢\n        exact this.symm }"
+     },
+     {
+      "claim": "The leap group of the kayak paddle graph is contained in $S$.",
+      "explanation": "By `Subgroup.closure_le`, it suffices to show that every hop $h$ belongs to $S$, i.e., $h(v) < k \\iff v < k$. The right-to-left implication is the lemma `kayak_paddle_hop_maps_first_cycle`, which states that hops map the first cycle into itself when $k$ is even. For the left-to-right implication, suppose for contradiction that $h(v) < k$ but $v \\ge k$. Letting $C = \\{w \\mid w < k\\}$, $h(C) \\subseteq C$. Because $h$ is injective and $C$ is finite, $|h(C)| = |C|$, which implies $h(C) = C$. Thus $h(v) \\in C = h(C)$, so $h(v) = h(w)$ for some $w \\in C$. Injectivity of $h$ gives $v = w < k$, a contradiction.",
+      "lemmas": [
+       "Subgroup.closure_le",
+       "kayak_paddle_hop_maps_first_cycle",
+       "Finset.mem_image",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "true_and",
+       "Finset.eq_of_subset_of_card_le",
+       "Finset.card_image_of_injective",
+       "Finset.mem_image.mp"
+      ],
+      "automation": false,
+      "code": "  have hle : simple_graph_leap_group (simple_graph_kayak_paddle k m l) ≤ S := by\n    refine (Subgroup.closure_le S).mpr fun h hh v => ?_\n    constructor\n    · intro hv\n      by_contra hv'\n      have hinto : ∀ w : Fin (k + m + l - 1), (w : ℕ) < k → (h w : ℕ) < k :=\n        fun w hw => kayak_paddle_hop_maps_first_cycle k m l hk hm hl he h hh w hw\n      let C : Finset (Fin (k + m + l - 1)) := Finset.univ.filter fun w => (w : ℕ) < k\n      have hsub : C.image h ⊆ C := by\n        intro x hx\n        simp only [C, Finset.mem_image, Finset.mem_filter, Finset.mem_univ, true_and] at hx ⊢\n        obtain ⟨w, hw, rfl⟩ := hx\n        exact hinto w hw\n      have heq : C.image h = C :=\n        Finset.eq_of_subset_of_card_le hsub (by rw [Finset.card_image_of_injective _ h.injective])\n      have hmem : h v ∈ C.image h := by\n        rw [heq]; simp [C, hv]\n      obtain ⟨w, hw, hwv⟩ := Finset.mem_image.mp hmem\n      have := h.injective hwv\n      subst this\n      simp [C] at hw\n      omega\n    · intro hv\n      exact kayak_paddle_hop_maps_first_cycle k m l hk hm hl he h hh v hv"
+     },
+     {
+      "claim": "The vertices $a = 0$, $b = k + l - 1$, and $c = k + l$ are valid and pairwise distinct.",
+      "explanation": "From $k \\ge 3$, $m \\ge 3$, and $l \\ge 1$, linear arithmetic shows that $0$, $k + l - 1$, and $k + l$ are strictly less than the total number of vertices $k + m + l - 1$. Defining $a, b, c$ as the corresponding elements of `Fin (k + m + l - 1)`, they are pairwise distinct because $0 < k \\le k + l - 1 < k + l$.",
+      "lemmas": [
+       "Fin.ext_iff"
+      ],
+      "automation": false,
+      "code": "  have h0 : (0 : ℕ) < k + m + l - 1 := by omega\n  have h1 : k + l - 1 < k + m + l - 1 := by omega\n  have h2 : k + l < k + m + l - 1 := by omega\n  let a : Fin (k + m + l - 1) := ⟨0, h0⟩\n  let b : Fin (k + m + l - 1) := ⟨k + l - 1, h1⟩\n  let c : Fin (k + m + l - 1) := ⟨k + l, h2⟩\n  have hab : a ≠ b := by simp [a, b, Fin.ext_iff]; omega\n  have hbc : b ≠ c := by simp [b, c, Fin.ext_iff]; omega\n  have hac : a ≠ c := by simp [a, c, Fin.ext_iff]; omega"
+     },
+     {
+      "claim": "The leap group cannot be the full symmetric group $\\top$.",
+      "explanation": "Assuming for contradiction that the leap group equals $\\top$, the transposition $(a\\ b)$ must belong to the leap group, hence to $S$. Since $(a\\ b)(a) = b$ and $a = 0 < k$, membership in $S$ requires $b < k$, which means $k + l - 1 < k$. This contradicts $l \\ge 1$.",
+      "lemmas": [
+       "Subgroup.mem_top",
+       "Equiv.swap_apply_left"
+      ],
+      "automation": false,
+      "code": "  refine ⟨fun htop => ?_, fun halt => ?_⟩\n  · have hmem : Equiv.swap a b ∈ S := hle (htop ▸ Subgroup.mem_top _)\n    have := (hmem a).mpr (by simp [a]; omega)\n    rw [Equiv.swap_apply_left] at this\n    simp [b] at this\n    omega"
+     },
+     {
+      "claim": "The leap group cannot be the alternating group.",
+      "explanation": "Assuming for contradiction that the leap group is the alternating group, the product of transpositions $(a\\ b)(b\\ c)$ has sign $(-1)(-1) = 1$, so it belongs to the alternating group and thus to $S$. Because $a \\ne b$ and $a \\ne c$, the transposition $(b\\ c)$ fixes $a$, and then $(a\\ b)$ sends $a$ to $b$. Since this permutation belongs to $S$ and $a < k$, we must have $b < k$, which again asserts $k + l - 1 < k$, contradicting $l \\ge 1$.",
+      "lemmas": [
+       "Equiv.Perm.mem_alternatingGroup",
+       "Equiv.Perm.sign_mul",
+       "Equiv.Perm.sign_swap",
+       "Equiv.Perm.mul_apply",
+       "Equiv.swap_apply_of_ne_of_ne",
+       "Equiv.swap_apply_left"
+      ],
+      "automation": false,
+      "code": "  · have halt' : Equiv.swap a b * Equiv.swap b c ∈ alternatingGroup (Fin (k + m + l - 1)) := by\n      rw [Equiv.Perm.mem_alternatingGroup, Equiv.Perm.sign_mul, Equiv.Perm.sign_swap hab,\n        Equiv.Perm.sign_swap hbc]\n      rfl\n    have hmem : Equiv.swap a b * Equiv.swap b c ∈ S := hle (halt ▸ halt')\n    have := (hmem a).mpr (by simp [a]; omega)\n    rw [Equiv.Perm.mul_apply, Equiv.swap_apply_of_ne_of_ne hab hac, Equiv.swap_apply_left] at this\n    simp [b] at this\n    omega"
+     }
+    ],
+    "glossary": {
+     "Set.mem_setOf_eq": "An element $x$ belongs to $\\{y \\mid P(y)\\}$ if and only if $P(x)$ holds.",
+     "Equiv.Perm.mul_apply": "The group operation on permutations is composition: $(f * g)(x) = f(g(x))$.",
+     "Equiv.Perm.inv_def": "The group inverse of a permutation is its inverse equivalence ($f^{-1} = f.\\mathrm{symm}$).",
+     "Equiv.apply_symm_apply": "Applying an equivalence to its inverse value yields the original element: $e(e^{-1}(x)) = x$.",
+     "Subgroup.closure_le": "The subgroup generated by a subset $k$ is contained in a subgroup $K$ if and only if $k \\subseteq K$.",
+     "kayak_paddle_hop_maps_first_cycle": "In a kayak paddle graph $\\mathrm{KP}(k, m, l)$ with $k \\ge 3$ even, $m \\ge 3$, and $l \\ge 1$, every hop permutation maps vertices of the first cycle $\\{v \\mid v < k\\}$ into the first cycle.",
+     "Finset.mem_image": "An element $b$ belongs to the image $f(s)$ of a finite set $s$ if and only if $b = f(a)$ for some $a \\in s$.",
+     "Finset.mem_filter": "An element $a$ belongs to the filtered set $\\{x \\in s \\mid P(x)\\}$ if and only if $a \\in s$ and $P(a)$ holds.",
+     "Finset.mem_univ": "Every element of a finite type belongs to the universal finite set `Finset.univ`.",
+     "true_and": "The logical simplification $(\\mathrm{True} \\land p) = p$.",
+     "Finset.eq_of_subset_of_card_le": "If $s \\subseteq t$ are finite sets and $|t| \\le |s|$, then $s = t$.",
+     "Finset.card_image_of_injective": "The image of a finite set under an injective function has the same cardinality as the domain set.",
+     "Finset.mem_image.mp": "If an element is in the image $f(s)$, then it equals $f(a)$ for some $a \\in s$.",
+     "Fin.ext_iff": "Two elements of `Fin n` are equal if and only if their underlying natural numbers are equal.",
+     "Subgroup.mem_top": "Every element of a group belongs to the top subgroup $\\top$.",
+     "Equiv.swap_apply_left": "The transposition $(a\\ b)$ maps $a$ to $b$.",
+     "Equiv.Perm.mem_alternatingGroup": "A permutation belongs to the alternating group if and only if its sign is $1$.",
+     "Equiv.Perm.sign_mul": "The sign of a product of permutations is the product of their signs: $\\mathrm{sign}(f * g) = \\mathrm{sign}(f)\\mathrm{sign}(g)$.",
+     "Equiv.Perm.sign_swap": "The sign of a transposition of two distinct elements is $-1$.",
+     "Equiv.swap_apply_of_ne_of_ne": "A transposition $(a\\ b)$ fixes any element distinct from both $a$ and $b$."
+    },
+    "caveats": [
+     "In the formal definition of the kayak paddle graph $\\mathrm{KP}(k, m, l)$, vertices are indexed by `Fin (k + m + l - 1)`. The condition $(v : \\mathbb{N}) < k$ identifies the vertices of the first cycle."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518373,13 +519390,48 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/KayakPaddleLeapGroupNeOfEvenCycle.lean",
-   "proved_at": 1792066608,
+   "proved_at": 1792068190,
    "provenance": "original",
    "citation": "arXiv:2610.18463 (The group generated by a graph's derangements), Question 2.20 (and the sentence before it: 'We believe that many, if not all, kayak paddle graphs have leap group equal to either S_n or A_n'); list entry OP-301 (a partial classification).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof proceeds by case analysis on the hypothesis that at least one of the cycle lengths k or m is even. In either case, the conclusion that the leap group of the kayak paddle graph is neither the symmetric nor the alternating group is established directly by the corresponding lemma for that cycle.",
+    "steps": [
+     {
+      "claim": "It suffices to consider separately the case where k is even and the case where m is even.",
+      "explanation": "The hypothesis states that k is even or m is even, so we split into two cases corresponding to the disjuncts.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  rcases he with he | he"
+     },
+     {
+      "claim": "If k is even, the leap group of the kayak paddle graph is neither the symmetric nor the alternating group.",
+      "explanation": "This case is resolved immediately by the specialized lemma kayak_paddle_leap_group_ne_of_even_first applied to k, m, l and the hypotheses that k ≥ 3, m ≥ 3, l ≥ 1, and k is even.",
+      "lemmas": [
+       "kayak_paddle_leap_group_ne_of_even_first"
+      ],
+      "automation": false,
+      "code": "  · exact kayak_paddle_leap_group_ne_of_even_first k m l hk hm hl he"
+     },
+     {
+      "claim": "If m is even, the leap group of the kayak paddle graph is neither the symmetric nor the alternating group.",
+      "explanation": "This case is resolved immediately by the specialized lemma kayak_paddle_leap_group_ne_of_even_second applied to k, m, l and the hypotheses that k ≥ 3, m ≥ 3, l ≥ 1, and m is even.",
+      "lemmas": [
+       "kayak_paddle_leap_group_ne_of_even_second"
+      ],
+      "automation": false,
+      "code": "  · exact kayak_paddle_leap_group_ne_of_even_second k m l hk hm hl he"
+     }
+    ],
+    "glossary": {
+     "kayak_paddle_leap_group_ne_of_even_first": "For a kayak paddle graph KP(k, m, l) with k, m ≥ 3 and l ≥ 1, if the first cycle has even length k, its leap group is neither the full symmetric group ⊤ nor the alternating group.",
+     "kayak_paddle_leap_group_ne_of_even_second": "For a kayak paddle graph KP(k, m, l) with k, m ≥ 3 and l ≥ 1, if the second cycle has even length m, its leap group is neither the full symmetric group ⊤ nor the alternating group."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -518406,13 +519458,90 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/KayakPaddleThreeThreeOneLeapGroupEqTop.lean",
-   "proved_at": 1792067516,
+   "proved_at": 1792068606,
    "provenance": "literature",
    "citation": "arXiv:2610.18463 (The group generated by a graph's derangements), Lemma 2.19 with n = 3 (two triangles joined by a path of length 2n − 5 = 1); a case of the odd-cycle half of list entry OP-301. Proof differs from the paper's (explicit generators instead of 2-transitivity and Jordan's theorem).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The leap group of a graph is the subgroup of the symmetric group generated by all hops (permutations sending every vertex to a neighbour). For the kayak paddle graph KP(3, 3, 1) on 6 vertices, four hops are identified and checked computationally. Multiplying these hops produces a full 6-cycle σ = (0 5 2 4 1 3) and a transposition τ = (0 5) swapping adjacent elements under σ. Because any full cycle and adjacent transposition generate the entire symmetric group S₆, the leap group is all of S₆.",
+    "steps": [
+     {
+      "claim": "Adjacency in the kayak paddle graph KP(3, 3, 1) is decidable",
+      "explanation": "Unfolding the definition of KP(3, 3, 1) allows Lean's typeclass synthesis to establish that adjacency between vertices is decidable, enabling decision procedures to verify graph properties by finite case evaluation.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  letI : DecidableRel (simple_graph_kayak_paddle 3 3 1).Adj := by\n    unfold simple_graph_kayak_paddle; infer_instance"
+     },
+     {
+      "claim": "Define four candidate permutations H₀, H₁, H₂, H₄ on the 6 vertices",
+      "explanation": "We define permutations H₀ = (0 1 2)(3 4 5), H₁ = (0 1 2)(3 5 4), H₂ = (0 2 1)(3 4 5), and H₄ = (0 3)(1 2)(4 5) in S₆. These correspond to cycling the two triangles independently and reflecting/swapping across the bridge.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  let H0 : Equiv.Perm (Fin 6) := List.formPerm [0, 1, 2] * List.formPerm [3, 4, 5]\n  let H1 : Equiv.Perm (Fin 6) := List.formPerm [0, 1, 2] * List.formPerm [3, 5, 4]\n  let H2 : Equiv.Perm (Fin 6) := List.formPerm [0, 2, 1] * List.formPerm [3, 4, 5]\n  let H4 : Equiv.Perm (Fin 6) := Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 4 5"
+     },
+     {
+      "claim": "The permutations H₀, H₁, H₂, H₄ are hops and belong to the leap group",
+      "explanation": "For each of the four permutations, decision procedures verify by exhaustive evaluation that every vertex is mapped to an adjacent vertex, satisfying the definition of a hop. Since the leap group is defined as the subgroup generated by all hops, Subgroup.subset_closure places each permutation in the leap group.",
+      "lemmas": [
+       "Subgroup.subset_closure"
+      ],
+      "automation": false,
+      "code": "  have m0 : H0 ∈ simple_graph_leap_group (simple_graph_kayak_paddle 3 3 1) :=\n    Subgroup.subset_closure (show simple_graph_is_hop _ H0 by unfold simple_graph_is_hop; decide)\n  have m1 : H1 ∈ simple_graph_leap_group (simple_graph_kayak_paddle 3 3 1) :=\n    Subgroup.subset_closure (show simple_graph_is_hop _ H1 by unfold simple_graph_is_hop; decide)\n  have m2 : H2 ∈ simple_graph_leap_group (simple_graph_kayak_paddle 3 3 1) :=\n    Subgroup.subset_closure (show simple_graph_is_hop _ H2 by unfold simple_graph_is_hop; decide)\n  have m4 : H4 ∈ simple_graph_leap_group (simple_graph_kayak_paddle 3 3 1) :=\n    Subgroup.subset_closure (show simple_graph_is_hop _ H4 by unfold simple_graph_is_hop; decide)"
+     },
+     {
+      "claim": "Explicit words in H₀, H₁, H₂, H₄ equal the 6-cycle σ = (0 5 2 4 1 3) and the transposition τ = (0 5)",
+      "explanation": "Direct composition of the permutations evaluated by kernel computation shows that H₄ * H₂ * H₄ * H₁ * H₄ * H₀ is the 6-cycle σ = (0 5 2 4 1 3), and H₄ * H₂ * H₄ * H₁ * H₀ * H₄ * H₁ * H₀ is the transposition τ = (0 5).",
+      "lemmas": [],
+      "automation": true,
+      "code": "  have hσ : H4 * H2 * H4 * H1 * H4 * H0 = List.formPerm [0, 5, 2, 4, 1, 3] := by\n    decide +kernel\n  have hτ : H4 * H2 * H4 * H1 * H0 * H4 * H1 * H0 = Equiv.swap 0 5 := by\n    decide +kernel"
+     },
+     {
+      "claim": "The cycle σ and the transposition τ belong to the leap group",
+      "explanation": "Because σ and τ are products of H₀, H₁, H₂, and H₄, which were shown to be in the leap group, repeated application of subgroup closure under multiplication (mul_mem) shows that both σ and τ belong to the leap group.",
+      "lemmas": [
+       "mul_mem"
+      ],
+      "automation": false,
+      "code": "  have mσ : List.formPerm ([0, 5, 2, 4, 1, 3] : List (Fin 6)) ∈\n      simple_graph_leap_group (simple_graph_kayak_paddle 3 3 1) := by\n    rw [← hσ]\n    exact mul_mem (mul_mem (mul_mem (mul_mem (mul_mem m4 m2) m4) m1) m4) m0\n  have mτ : Equiv.swap (0 : Fin 6) 5 ∈ simple_graph_leap_group (simple_graph_kayak_paddle 3 3 1) := by\n    rw [← hτ]\n    exact mul_mem (mul_mem (mul_mem (mul_mem (mul_mem (mul_mem (mul_mem m4 m2) m4) m1) m0) m4) m1) m0"
+     },
+     {
+      "claim": "σ is a full-support cycle on Fin 6 with σ(0) = 5",
+      "explanation": "The list [0, 5, 2, 4, 1, 3] has no duplicates and length 6 ≥ 2, so by List.isCycle_formPerm its associated permutation is a cycle. Because the list exhausts all 6 vertices, List.support_formPerm_of_nodup shows its support is ⊤. Finally, direct evaluation shows σ(0) = 5.",
+      "lemmas": [
+       "List.isCycle_formPerm",
+       "List.support_formPerm_of_nodup"
+      ],
+      "automation": false,
+      "code": "  have hcyc : (List.formPerm ([0, 5, 2, 4, 1, 3] : List (Fin 6))).IsCycle :=\n    List.isCycle_formPerm (by decide) (by decide)\n  have hsupp : (List.formPerm ([0, 5, 2, 4, 1, 3] : List (Fin 6))).support = ⊤ := by\n    rw [List.support_formPerm_of_nodup _ (by decide) (by decide)]\n    decide\n  have h05 : List.formPerm ([0, 5, 2, 4, 1, 3] : List (Fin 6)) 0 = 5 := by decide"
+     },
+     {
+      "claim": "The leap group of KP(3, 3, 1) is the full symmetric group ⊤",
+      "explanation": "A classical theorem of symmetric groups states that a full cycle together with a transposition of two adjacent elements in the cycle generates the full symmetric group (Equiv.Perm.closure_cycle_adjacent_swap). Here σ is a full 6-cycle and τ = (0 5) = (0 σ(0)) swaps adjacent vertices, so the subgroup generated by {σ, τ} is ⊤. By Subgroup.closure_le, showing the leap group equals ⊤ reduces to showing that both generators σ and τ lie in the leap group, which holds by the previous steps.",
+      "lemmas": [
+       "eq_top_iff",
+       "Equiv.Perm.closure_cycle_adjacent_swap",
+       "Subgroup.closure_le"
+      ],
+      "automation": false,
+      "code": "  rw [eq_top_iff, ← Equiv.Perm.closure_cycle_adjacent_swap hcyc hsupp 0, h05, Subgroup.closure_le]\n  intro g hg\n  rcases hg with rfl | rfl\n  · exact mσ\n  · exact mτ"
+     }
+    ],
+    "glossary": {
+     "Subgroup.subset_closure": "Any generating set of a group is contained in the subgroup it generates.",
+     "mul_mem": "If two elements belong to a sub-algebraic structure closed under multiplication, their product also belongs to it.",
+     "List.isCycle_formPerm": "The cyclic permutation formed from a list is a cycle if the list contains no duplicates and has length at least 2.",
+     "List.support_formPerm_of_nodup": "The support of the permutation formed from a duplicate-free list that is not a singleton is the set of elements in the list.",
+     "eq_top_iff": "An element in a bounded-above partial order equals the top element if and only if it is greater than or equal to the top element.",
+     "Equiv.Perm.closure_cycle_adjacent_swap": "A full-support cycle and a transposition of two adjacent elements in the cycle generate the entire symmetric group.",
+     "Subgroup.closure_le": "The subgroup generated by a set k is contained in a subgroup K if and only if k ⊆ K."
+    },
+    "caveats": [
+     "Verification that the candidate permutations are hops, the algebraic simplification of permutation products into a 6-cycle and an adjacent transposition, and the support calculations are discharged by computational reflection (`decide` and `decide +kernel`)."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   }

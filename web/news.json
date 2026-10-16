@@ -2,6 +2,65 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-16",
+   "kind": "daily",
+   "title": "Daily reading: 29 proved, 8 open",
+   "body": "The Proposer read 14 new paper(s), listed 27 open problem(s), and stated 5 of them in Lean, and posed 0 more from what the knowledgebase already holds (37 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 29 theorem(s); 8 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `simple_graph_is_color_connecting_edge_set`: In a connected edge-coloured graph, the whole edge set is colour-connecting.\n\nProved. `simple_graph_is_color_connecting_mono`: A set of edges containing a colour-connecting set is colour-connecting.\n\nProved. `simple_graph_wild_number_le_card_edge_finset`: The wild number of a finite connected edge-coloured graph is at most its number of edges.\n\nProved. `simple_graph_wild_number_le_of_is_color_connecting`: The wild number is at most the size of any colour-connecting set.\n\nFormalized. `wild_number_complete_bipartite_min_proper_coloring` (arXiv:2610.22142 (Wild number for spanning trees in complete and complete bipartite graphs), Theorem 4.2. The Lean takes proper colourings…): Let 2 ≤ m ≤ n. For every proper edge colouring of the complete bipartite graph K_{m,n} with n colours (these are exactly its minimum proper edge colourings, since its chromatic index is its maximum degree n), the wild number is n.\n\nFormalized. `wild_number_complete_graph_min_proper_coloring_ge` (arXiv:2610.22142): Let n ≥ 3 and let ρ be a minimum proper edge colouring of K_n (a proper colouring with χ'(K_n) colours). Then wld_ρ(K_n) ≥ ⌊4⌈n/2⌉/3⌋.\n\nFormalized. `wild_number_complete_graph_two_coloring_range` (arXiv:2610.22142 (Wild number for spanning trees in complete and complete bipartite graphs), Theorem 3.1 (with 0 ≤ wld automatic in ℕ).): Let n ≥ 4. Every (surjective) 2-edge-colouring of K_n has wild number at most n − 2, and every integer 0 ≤ k ≤ n − 2 is the wild number of some 2-edge-colouring of K_n.\n\nProved. `digraph_edge_count_eq_cut_add`: For any vertex set A, the edges of a digraph split into those inside A, from A to its complement, from the complement to A, and inside the complement.\n\nProved. `allocation_is_envy_freeable_of_envy_free`: An envy-free allocation is envy-freeable (with zero payments).\n\nProved. `allocation_is_ef1_of_envy_free`: An envy-free allocation is EF1.\n\nFormalized. `exists_submodular_instance_no_ef1_envy_freeable_allocation_with_bobw_lottery` (arXiv:2610.14994 (Best-of-both-worlds fair division via subsidies), Theorem 5.1 (the instance: t = (5, 8, 11, 0), u = (9, 1, 0, 10) on…): There is an instance with three agents and four indivisible goods, each agent having a normalized monotone submodular valuation, in which no complete allocation is both EF1 and envy-freeable, yet some lottery over complete allocations is ex-ante envy-free…\n\nProved. `group_is_complete_mapping_id_zmod_three`: In the cyclic group of order 3 the identity map is a complete mapping (x ↦ x² is a bijection in odd order).\n\nOpen. `wild_number_complete_graph_min_proper_coloring_eq` (arXiv:2610.22142): Conjecture: for every n ≥ 3 and every minimum proper edge colouring ρ of K_n, wld_ρ(K_n) = ⌊4⌈n/2⌉/3⌋.\n\nOpen. `digraph_exists_bipartition_both_cuts_ge_ceil_div_six` (arXiv:2610.21381): Let G be a finite loopless digraph with m edges and minimum outdegree at least 2. Then there is a vertex bipartition V = A ⊔ B with e(A, B) ≥ ⌈m/6⌉ and e(B, A) ≥ ⌈m/6⌉.\n\nOpen. `digraph_exists_bipartition_both_cuts_ge_min_outdegree_bound` (arXiv:2610.21381): Conjecture: for every integer d ≥ 2, every finite loopless digraph with m edges and minimum outdegree at least d has a vertex bipartition V = A ⊔ B with both e(A, B) and e(B, A) at least ⌈(d − 1)m / (2(2d − 1))⌉.\n\nOpen. `poset_nonempty_order_iso_of_card_order_hom_eq_of_connected` (arXiv:2610.20802 (Two short proofs of the A^A theorem), Lemma 2.4.): Let X and Y be finite posets (possibly empty). If for every finite nonempty connected poset Z the number of order-preserving maps Z → X equals the number of order-preserving maps Z → Y, then X and Y are order-isomorphic. (A poset is connected when its…\n\nOpen. `subcubic_three_vertices_max_degree_le_one_exists_rich_neighbor_five_coloring` (arXiv:2610.21868): Every finite simple graph of maximum degree at most 3 in which each vertex of degree 3 has at most one neighbour of degree 3 (Δ(G[V_3]) ≤ 1) admits a rich-neighbor 5-edge-colouring.\n\nOpen. `subcubic_three_vertices_max_degree_le_two_exists_rich_neighbor_five_coloring` (arXiv:2610.21868): Question: does every finite simple graph of maximum degree at most 3 in which each vertex of degree 3 has at most two neighbours of degree 3 (Δ(G[V_3]) ≤ 2) admit a rich-neighbor 5-edge-colouring?\n\nOpen. `subcubic_connected_ne_complete_four_exists_rich_neighbor_five_coloring` (arXiv:2610.21868): Conjecture: every finite connected simple graph of maximum degree at most 3 other than K_4 admits a rich-neighbor 5-edge-colouring.\n\nOpen. `mutual_power_divergence_information_subadditive_of_two_thirds_le` (arXiv:2610.21231): Conjecture: for every β ∈ [2/3, 1), the mutual f_β-information (power divergence) is subadditive under Y ← X → Z: Ĩ_{f_β}(X; YZ) ≤ Ĩ_{f_β}(X; Y) + Ĩ_{f_β}(X; Z). (It fails at β = 1/4 and β = 1/2.)",
+   "declarations": [
+    "simple_graph_is_color_connecting_edge_set",
+    "simple_graph_is_color_connecting_mono",
+    "simple_graph_wild_number_le_card_edge_finset",
+    "simple_graph_wild_number_le_of_is_color_connecting",
+    "wild_number_complete_bipartite_min_proper_coloring",
+    "wild_number_complete_graph_min_proper_coloring_ge",
+    "wild_number_complete_graph_two_coloring_range",
+    "digraph_edge_count_eq_cut_add",
+    "allocation_is_envy_freeable_of_envy_free",
+    "allocation_is_ef1_of_envy_free",
+    "exists_submodular_instance_no_ef1_envy_freeable_allocation_with_bobw_lottery",
+    "group_is_complete_mapping_id_zmod_three",
+    "exists_complete_mapping_stabilizing_sylow_two_of_normal",
+    "simple_graph_is_tree_exists_superadditive_balanced_separator",
+    "simple_graph_is_rich_neighbor_coloring_of_forall_rich",
+    "power_divergence_generator_one",
+    "mutual_f_information_of_independent",
+    "power_divergence_quarter_root_bounds",
+    "power_divergence_half_root_bounds",
+    "mutual_power_divergence_information_not_subadditive_quarter",
+    "mutual_hellinger_information_not_subadditive",
+    "digraph_apex_over_bidirected_complete_edge_count",
+    "digraph_apex_over_bidirected_complete_out_degree",
+    "digraph_apex_over_bidirected_complete_min_cut_le",
+    "digraph_apex_over_bidirected_complete_three_max_min_cut",
+    "mutual_power_divergence_information_eq_sum_rpow",
+    "digraph_min_cut_additive_bound_fails_for_every_d",
+    "wild_number_complete_graph_le_sub_one",
+    "wild_number_complete_three_min_proper_coloring_eq"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.22142",
+     "href": "https://arxiv.org/abs/2610.22142"
+    },
+    {
+     "label": "arXiv:2610.21868",
+     "href": "https://arxiv.org/abs/2610.21868"
+    },
+    {
+     "label": "arXiv:2610.21381",
+     "href": "https://arxiv.org/abs/2610.21381"
+    },
+    {
+     "label": "arXiv:2610.21231",
+     "href": "https://arxiv.org/abs/2610.21231"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-15",
    "kind": "daily",
    "title": "Daily reading: 25 proved, 6 open",

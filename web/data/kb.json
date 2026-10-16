@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-16T10:22:54Z",
+ "generated": "2026-10-16T10:37:33Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 73,
   "rejected": 13,
-  "spend": 97.97,
+  "spend": 98.34,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 122004223,
-   "output": 17869090,
-   "cache_read": 267982876
+   "input": 122209983,
+   "output": 17986171,
+   "cache_read": 268185735
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792146152
+  "last": 1792147047
  },
  "domains": [
   {
@@ -521796,13 +521796,170 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/WildNumberCompleteBipartiteMinProperColoring.lean",
-   "proved_at": 1792140752,
+   "proved_at": 1792146936,
    "provenance": "literature",
    "citation": "arXiv:2610.22142 (Wild number for spanning trees in complete and complete bipartite graphs), Theorem 4.2. The Lean takes proper colourings with n colours (Fin n); since χ'(K_{m,n}) = Δ = n, these are exactly the minimum proper colourings of the paper.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To prove that the wild number of K_{m,n} is n under any n-edge-colouring, we construct a colour-connecting set of size n and show that no smaller colour-connecting set exists. The star W0 at any chosen left vertex has size n and is colour-connecting because it connects to all right vertices directly and to all left vertices via monochromatic edges of the given colour class. Conversely, each colour class has size at most m, while the union of any colour class with a colour-connecting set W must be a connected spanning subgraph on m + n vertices, requiring at least m + n - 1 edges. Pairing an edge w ∈ W with its colour class gives m + n ≤ m + |W|, which forces |W| ≥ n.",
+    "steps": [
+     {
+      "claim": "Every pair connecting a left vertex to a right vertex is an edge of K_{m,n}.",
+      "explanation": "By definition of the complete bipartite graph, any pair of the form s(Sum.inl a, Sum.inr b) belongs to the edge set; this is checked directly by simp.",
+      "lemmas": [],
+      "automation": true,
+      "code": "theorem wild_kmn_adj (m n : ℕ) (a : Fin m) (b : Fin n) :\n    s(Sum.inl a, Sum.inr b) ∈ (completeBipartiteGraph (Fin m) (Fin n)).edgeSet := by\n  simp\n"
+     },
+     {
+      "claim": "Two edges incident to the same left vertex with the same colour must have the same right endpoint.",
+      "explanation": "Suppose, for contradiction, that b ≠ b' but the edges (a, b) and (a, b') share the same colour. Since both edges share the common vertex Sum.inl a, they are distinct adjacent vertices in the line graph. Because c is a proper colouring, adjacent edges must receive distinct colours, yielding a contradiction.",
+      "lemmas": [
+       "congrArg",
+       "Subtype.val"
+      ],
+      "automation": false,
+      "code": "theorem wild_kmn_same_color_eq (m n : ℕ)\n    (c : (completeBipartiteGraph (Fin m) (Fin n)).lineGraph.Coloring (Fin n))\n    (a : Fin m) (b b' : Fin n)\n    (h : c ⟨s(Sum.inl a, Sum.inr b), wild_kmn_adj m n a b⟩ =\n      c ⟨s(Sum.inl a, Sum.inr b'), wild_kmn_adj m n a b'⟩) : b = b' := by\n  by_contra hne\n  apply c.valid _ h\n  refine ⟨fun h' => hne ?_, ⟨Sum.inl a, by simp, by simp⟩⟩\n  have := congrArg Subtype.val h'\n  simpa using this\n"
+     },
+     {
+      "claim": "Every left vertex is incident to edges of all n colours.",
+      "explanation": "The assignment sending each right vertex b to the colour of the edge (a, b) is injective by wild_kmn_same_color_eq. Since the domain and codomain are both finite sets of size n, injectivity implies surjectivity, so every colour col is realized by some edge incident to a.",
+      "lemmas": [
+       "wild_kmn_same_color_eq"
+      ],
+      "automation": false,
+      "code": "theorem wild_kmn_sees_all_colors (m n : ℕ)\n    (c : (completeBipartiteGraph (Fin m) (Fin n)).lineGraph.Coloring (Fin n))\n    (a : Fin m) (col : Fin n) :\n    ∃ b : Fin n, c ⟨s(Sum.inl a, Sum.inr b), wild_kmn_adj m n a b⟩ = col := by\n  have hinj : Function.Injective fun b : Fin n => c ⟨s(Sum.inl a, Sum.inr b), wild_kmn_adj m n a b⟩ :=\n    fun b b' h => wild_kmn_same_color_eq m n c a b b' h\n  exact (Finite.injective_iff_surjective.1 hinj) col\n"
+     },
+     {
+      "claim": "Every edge of K_{m,n} connects a left vertex to a right vertex.",
+      "explanation": "By induction on the unordered pair representation of an edge f = s(x, y), we perform case analysis on which side each vertex lies on. Edges with both endpoints on the left or both on the right are impossible by definition of bipartite graphs. An edge with one left and one right endpoint already has the desired form, possibly after swapping the endpoints with Sym2.eq_swap.",
+      "lemmas": [
+       "Sym2.ind",
+       "Sym2.eq_swap"
+      ],
+      "automation": false,
+      "code": "theorem wild_kmn_edge_cases (m n : ℕ) (f : Sym2 (Fin m ⊕ Fin n))\n    (hf : f ∈ (completeBipartiteGraph (Fin m) (Fin n)).edgeSet) :\n    ∃ a b, f = s(Sum.inl a, Sum.inr b) := by\n  induction f using Sym2.ind with\n  | h x y =>\n    rcases x with a | b <;> rcases y with a' | b'\n    · simp at hf\n    · exact ⟨a, b', rfl⟩\n    · exact ⟨a', b, Sym2.eq_swap⟩\n    · simp at hf\n"
+     },
+     {
+      "claim": "The star W0 at a chosen left vertex a0 has cardinality n.",
+      "explanation": "Since m ≥ 2, we can choose a left vertex a0 = 0 ∈ Fin m. We let W0 be the set of all edges connecting a0 to vertices in Fin n. Because the map b ↦ s(Sum.inl a0, Sum.inr b) is injective, the cardinality of W0 equals |Fin n| = n.",
+      "lemmas": [
+       "Finset.card_image_of_injective",
+       "Finset.card_univ",
+       "Fintype.card_fin"
+      ],
+      "automation": false,
+      "code": "theorem wild_number_complete_bipartite_min_proper_coloring (m n : ℕ) (hm : 2 ≤ m) (hmn : m ≤ n)\n    (c : (completeBipartiteGraph (Fin m) (Fin n)).lineGraph.Coloring (Fin n)) :\n    simple_graph_wild_number (completeBipartiteGraph (Fin m) (Fin n)) c = n := by\n  classical\n  have a0 : Fin m := ⟨0, by omega⟩\n  -- the star at a left vertex is colour-connecting\n  let W0 : Finset (Sym2 (Fin m ⊕ Fin n)) :=\n    Finset.univ.image fun b : Fin n => s(Sum.inl a0, Sum.inr b)\n  have hW0card : W0.card = n := by\n    rw [Finset.card_image_of_injective, Finset.card_univ, Fintype.card_fin]\n    intro b b' h\n    simpa using h"
+     },
+     {
+      "claim": "The star W0 is colour-connecting for c.",
+      "explanation": "First, every element in W0 is an edge of K_{m,n} by wild_kmn_adj. Second, for any edge e, the subgraph formed by W0 and the colour class of e is connected: every right vertex b is directly reachable from a0 via W0, and every left vertex a is incident to some edge of colour c(e) connecting it to a right vertex b by wild_kmn_sees_all_colors, so a is reachable from a0 via b.",
+      "lemmas": [
+       "wild_kmn_adj",
+       "SimpleGraph.connected_iff_exists_forall_reachable",
+       "SimpleGraph.Adj.reachable",
+       "SimpleGraph.fromEdgeSet_adj",
+       "Or.inr",
+       "wild_kmn_sees_all_colors",
+       "Sym2.eq_swap",
+       "Or.inl"
+      ],
+      "automation": false,
+      "code": "  have hW0 : simple_graph_is_color_connecting (completeBipartiteGraph (Fin m) (Fin n)) c ↑W0 := by\n    refine ⟨?_, fun e => ?_⟩\n    · intro f hf\n      simp only [W0, Finset.coe_image, Finset.coe_univ, Set.image_univ, Set.mem_range] at hf\n      obtain ⟨b, rfl⟩ := hf\n      exact wild_kmn_adj m n a0 b\n    · rw [SimpleGraph.connected_iff_exists_forall_reachable]\n      refine ⟨Sum.inl a0, fun v => ?_⟩\n      have hr : ∀ b : Fin n, (SimpleGraph.fromEdgeSet ({f | ∃ hf : f ∈ (completeBipartiteGraph (Fin m) (Fin n)).edgeSet, c ⟨f, hf⟩ = c e} ∪\n          ↑W0)).Reachable (Sum.inl a0) (Sum.inr b) := by\n        intro b\n        apply SimpleGraph.Adj.reachable\n        rw [SimpleGraph.fromEdgeSet_adj]\n        refine ⟨Or.inr ?_, by simp⟩\n        simp [W0]\n      rcases v with a | b\n      · obtain ⟨b, hb⟩ := wild_kmn_sees_all_colors m n c a (c e)\n        refine (hr b).trans (SimpleGraph.Adj.reachable ?_)\n        rw [SimpleGraph.fromEdgeSet_adj, Sym2.eq_swap]\n        exact ⟨Or.inl ⟨wild_kmn_adj m n a b, hb⟩, by simp⟩\n      · exact hr b"
+     },
+     {
+      "claim": "For any colour-connecting set W and any edge e, the colour class of e has size at most m.",
+      "explanation": "Let W be colour-connecting. For any edge e, each left vertex a has an incident edge of colour c(e) by wild_kmn_sees_all_colors, and by wild_kmn_same_color_eq this right neighbour g(a) is unique. Any edge of colour c(e) connects some left vertex a to g(a) by wild_kmn_edge_cases, so the colour class is contained in {s(Sum.inl a, Sum.inr (g(a))) | a ∈ Fin m}, which has size at most m.",
+      "lemmas": [
+       "wild_kmn_sees_all_colors",
+       "wild_kmn_edge_cases",
+       "wild_kmn_same_color_eq"
+      ],
+      "automation": false,
+      "code": "  -- every colour-connecting set has at least n edges\n  have hlow : ∀ W : Finset (Sym2 (Fin m ⊕ Fin n)), simple_graph_is_color_connecting (completeBipartiteGraph (Fin m) (Fin n)) c ↑W →\n      n ≤ W.card := by\n    intro W hW\n    -- the colour class of an edge e has at most m edges\n    have hclass : ∀ e : (completeBipartiteGraph (Fin m) (Fin n)).edgeSet, ∃ CF : Finset (Sym2 (Fin m ⊕ Fin n)), CF.card ≤ m ∧\n        {f | ∃ hf : f ∈ (completeBipartiteGraph (Fin m) (Fin n)).edgeSet, c ⟨f, hf⟩ = c e} ⊆ ↑CF := by\n      intro e\n      choose g hg using fun a => wild_kmn_sees_all_colors m n c a (c e)\n      refine ⟨Finset.univ.image fun a => s(Sum.inl a, Sum.inr (g a)), ?_, ?_⟩\n      · exact Finset.card_image_le.trans (by simp)\n      · rintro f ⟨hf, hfc⟩\n        obtain ⟨a, b, rfl⟩ := wild_kmn_edge_cases m n f hf\n        simp only [Finset.coe_image, Finset.coe_univ, Set.image_univ, Set.mem_range]\n        refine ⟨a, ?_⟩\n        have : g a = b := wild_kmn_same_color_eq m n c a (g a) b ((hg a).trans hfc.symm)\n        rw [this]"
+     },
+     {
+      "claim": "Any edge set R containing the union of a colour class and W has size at least m + n - 1.",
+      "explanation": "Because W is colour-connecting, the subgraph induced by the colour class of e and W is connected and spans all m + n vertices of K_{m,n}. Any connected graph on m + n vertices has at least m + n - 1 edges, so any finite superset R of these edges satisfies m + n ≤ |R| + 1.",
+      "lemmas": [
+       "Nat.card_eq_fintype_card",
+       "Fintype.card_sum",
+       "Fintype.card_fin",
+       "Set.ncard_coe_finset",
+       "Nat.card_coe_set_eq",
+       "Nat.card_mono",
+       "Finset.finite_toSet",
+       "SimpleGraph.edgeSet_fromEdgeSet"
+      ],
+      "automation": false,
+      "code": "    have hcount : ∀ e : (completeBipartiteGraph (Fin m) (Fin n)).edgeSet, ∀ R : Finset (Sym2 (Fin m ⊕ Fin n)),\n        {f | ∃ hf : f ∈ (completeBipartiteGraph (Fin m) (Fin n)).edgeSet, c ⟨f, hf⟩ = c e} ∪ ↑W ⊆ ↑R → m + n ≤ R.card + 1 := by\n      intro e R hR\n      have hc := (hW.2 e).card_vert_le_card_edgeSet_add_one\n      rw [Nat.card_eq_fintype_card, Fintype.card_sum, Fintype.card_fin, Fintype.card_fin] at hc\n      have : Nat.card (SimpleGraph.fromEdgeSet ({f | ∃ hf : f ∈ (completeBipartiteGraph (Fin m) (Fin n)).edgeSet, c ⟨f, hf⟩ = c e} ∪\n          ↑W)).edgeSet ≤ R.card := by\n        rw [← Set.ncard_coe_finset, ← Nat.card_coe_set_eq]\n        apply Nat.card_mono (Finset.finite_toSet R)\n        rw [SimpleGraph.edgeSet_fromEdgeSet]\n        exact Set.sdiff_subset.trans hR\n      omega"
+     },
+     {
+      "claim": "Every colour-connecting set W has cardinality at least n.",
+      "explanation": "If W is nonempty, pick an edge w ∈ W. Its colour class C has size at most m and contains w. Setting R = C ∪ (W \\ {w}), the union C ∪ W is contained in R, so m + n ≤ |R| + 1 ≤ |C| + (|W| - 1) + 1 ≤ m + |W|, which yields n ≤ |W|. If W is empty, the colour class C of an edge spans all m + n vertices, forcing m + n ≤ |C| + 1 ≤ m + 1, so n ≤ 1, contradicting 2 ≤ m ≤ n.",
+      "lemmas": [
+       "wild_kmn_adj",
+       "Finset.mem_union_left",
+       "Finset.mem_union_right",
+       "Finset.card_union_le",
+       "Finset.card_erase_of_mem",
+       "Finset.not_nonempty_iff_eq_empty"
+      ],
+      "automation": false,
+      "code": "    by_cases hne : W.Nonempty\n    · obtain ⟨w, hw⟩ := hne\n      have hwE : w ∈ (completeBipartiteGraph (Fin m) (Fin n)).edgeSet := hW.1 hw\n      obtain ⟨CF, hCF, hsub⟩ := hclass ⟨w, hwE⟩\n      have hwC : w ∈ CF := hsub ⟨hwE, rfl⟩\n      have := hcount ⟨w, hwE⟩ (CF ∪ W.erase w) (by\n        intro f hf\n        rcases hf with hf | hf\n        · exact Finset.mem_coe.2 (Finset.mem_union_left _ (hsub hf))\n        · by_cases hfw : f = w\n          · subst hfw; exact Finset.mem_coe.2 (Finset.mem_union_left _ hwC)\n          · exact Finset.mem_coe.2 (Finset.mem_union_right _ (Finset.mem_erase.2 ⟨hfw, hf⟩)))\n      have h1 := Finset.card_union_le CF (W.erase w)\n      have h2 := Finset.card_erase_of_mem hw\n      have h3 := Finset.card_pos.2 ⟨w, hw⟩\n      omega\n    · rw [Finset.not_nonempty_iff_eq_empty] at hne\n      subst hne\n      obtain ⟨CF, hCF, hsub⟩ := hclass ⟨_, wild_kmn_adj m n a0 ⟨0, by omega⟩⟩\n      have := hcount ⟨_, wild_kmn_adj m n a0 ⟨0, by omega⟩⟩ CF (by simpa using hsub)\n      omega"
+     },
+     {
+      "claim": "The wild number of K_{m,n} under colouring c is n.",
+      "explanation": "By definition, the wild number is the infimum of the sizes of colour-connecting sets. The upper bound is witnessed by W0 of size n via Nat.sInf_le, and the lower bound follows from le_csInf since every colour-connecting set has size at least n. By le_antisymm, the wild number equals n.",
+      "lemmas": [
+       "le_antisymm",
+       "Nat.sInf_le",
+       "le_csInf"
+      ],
+      "automation": false,
+      "code": "  unfold simple_graph_wild_number\n  apply le_antisymm\n  · have h := Nat.sInf_le (show W0.card ∈ {k | ∃ W : Finset (Sym2 (Fin m ⊕ Fin n)), W.card = k ∧\n        simple_graph_is_color_connecting (completeBipartiteGraph (Fin m) (Fin n)) c ↑W} from\n        ⟨W0, rfl, hW0⟩)\n    rw [hW0card] at h\n    exact h\n  · exact le_csInf ⟨n, W0, hW0card, hW0⟩ fun k ⟨W, hk, hW⟩ => by rw [← hk]; exact hlow W hW"
+     }
+    ],
+    "glossary": {
+     "congrArg": "Applying a function to both sides of an equality preserves the equality.",
+     "Subtype.val": "Extracts the underlying value from a subtype element.",
+     "wild_kmn_same_color_eq": "In a proper edge colouring of K_{m,n}, any two edges incident to the same left vertex with the same colour have identical right endpoints.",
+     "Sym2.ind": "To prove a property for all unordered pairs, it suffices to prove it for pairs of the form s(x, y).",
+     "Sym2.eq_swap": "An unordered pair is symmetric in its two arguments: s(a, b) = s(b, a).",
+     "Finset.card_image_of_injective": "The image of a finite set under an injective function has the same cardinality as the original set.",
+     "Finset.card_univ": "The cardinality of the universal finset of a finite type equals the type's cardinality.",
+     "Fintype.card_fin": "The finite type Fin n has cardinality n.",
+     "wild_kmn_adj": "Any pair connecting a left vertex Sum.inl a and a right vertex Sum.inr b is an edge of the complete bipartite graph K_{m,n}.",
+     "SimpleGraph.connected_iff_exists_forall_reachable": "A graph is connected if and only if there exists a vertex from which every vertex is reachable.",
+     "SimpleGraph.Adj.reachable": "Adjacent vertices in a graph are reachable from one another.",
+     "SimpleGraph.fromEdgeSet_adj": "In a graph defined from an edge set, v and w are adjacent if and only if s(v, w) belongs to the edge set and v ≠ w.",
+     "Or.inr": "Proves a disjunction from its right disjunct.",
+     "wild_kmn_sees_all_colors": "In a proper edge colouring of K_{m,n} with n colours, every left vertex is incident to an edge of each colour.",
+     "Or.inl": "Proves a disjunction from its left disjunct.",
+     "wild_kmn_edge_cases": "Every edge in K_{m,n} connects some left vertex Sum.inl a to some right vertex Sum.inr b.",
+     "Nat.card_eq_fintype_card": "The Nat.card of a finite type is equal to its Fintype.card.",
+     "Fintype.card_sum": "The cardinality of a sum type α ⊕ β is the sum of the cardinalities of α and β.",
+     "Set.ncard_coe_finset": "The set cardinality of the underlying set of a finset equals the finset cardinality.",
+     "Nat.card_coe_set_eq": "The Nat.card of a set coerced to a type equals its set cardinality ncard.",
+     "Nat.card_mono": "If s ⊆ t and t is finite, the cardinality of s is at most that of t.",
+     "Finset.finite_toSet": "The underlying set of any finset is finite.",
+     "SimpleGraph.edgeSet_fromEdgeSet": "The edge set of a graph built from a set of pairs consists of those pairs minus self-loops.",
+     "Finset.mem_union_left": "An element belonging to s also belongs to the union s ∪ t.",
+     "Finset.mem_union_right": "An element belonging to t also belongs to the union s ∪ t.",
+     "Finset.card_union_le": "The cardinality of a union of two finsets is at most the sum of their cardinalities.",
+     "Finset.card_erase_of_mem": "Erasing an element from a finset decreases its cardinality by 1.",
+     "Finset.not_nonempty_iff_eq_empty": "A finset is not nonempty if and only if it is empty.",
+     "le_antisymm": "If a ≤ b and b ≤ a, then a = b.",
+     "Nat.sInf_le": "An element of a set of natural numbers is greater than or equal to the infimum of the set.",
+     "le_csInf": "If a lower bound holds for all elements of a nonempty set, it is bounded above by the infimum."
+    },
+    "caveats": [
+     "The proof handles the case where W is empty separately, deriving a contradiction by showing that a connected spanning subgraph of K_{m,n} must have at least m + n - 1 edges, which would force n ≤ 1.",
+     "Several numerical inequalities on graph orders and edge counts are closed by the `omega` linear integer arithmetic decision procedure."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -521827,13 +521984,48 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphIsTreeExistsSuperadditiveBalancedSeparator.lean",
-   "proved_at": 1792141672,
+   "proved_at": 1792146997,
    "provenance": "literature",
    "citation": "arXiv:2610.16703 (Piercing boxes and products of trees), Lemma 2.2. The components of T − v are written as the classes of reachability from w ≠ v in T with the edges at v deleted.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "test",
+    "steps": [
+     {
+      "claim": "test 1",
+      "explanation": "test",
+      "lemmas": [],
+      "automation": false,
+      "code": "  induction 𝒮 using Finset.induction_on with\n  | empty => simpa using hf0 ∅\n  | insert C 𝒮 hC ih =>\n    rw [Finset.sum_insert hC, Finset.biUnion_insert]\n    have hd' : (𝒮 : Set (Finset V)).PairwiseDisjoint id :=\n      hd.subset (by rw [Finset.coe_insert]; exact Set.subset_insert _ _)\n    have hdisj : Disjoint C (𝒮.biUnion id) := by\n      rw [Finset.disjoint_biUnion_right]\n      intro D hD\n      exact hd (by simp) (by simp [hD]) (fun h => hC (h ▸ hD))\n    have := hsup C _ hdisj\n    have := ih hd'\n    simp only [id] at *\n    linarith"
+     },
+     {
+      "claim": "test 2",
+      "explanation": "test",
+      "lemmas": [],
+      "automation": false,
+      "code": "  induction p with\n  | nil => exact SimpleGraph.Reachable.refl _\n  | @cons a b z h p ih =>\n    have hb : ∀ y, (T.deleteIncidenceSet u).Reachable b y → y ≠ v :=\n      fun y hy => ha y (h.reachable.trans hy)\n    refine SimpleGraph.Reachable.trans ?_ (ih hb)\n    apply SimpleGraph.Adj.reachable\n    rw [SimpleGraph.deleteIncidenceSet_adj] at h ⊢\n    exact ⟨h.1, ha _ (SimpleGraph.Reachable.refl _), hb _ (SimpleGraph.Reachable.refl _)⟩"
+     },
+     {
+      "claim": "test 3",
+      "explanation": "test",
+      "lemmas": [],
+      "automation": false,
+      "code": "  intro x y h\n  rw [SimpleGraph.deleteIncidenceSet_adj] at h\n  rw [SimpleGraph.deleteEdges_adj]\n  refine ⟨h.1, ?_⟩\n  simp only [Set.mem_singleton_iff, Sym2.eq_iff]\n  rintro (⟨rfl, rfl⟩ | ⟨rfl, rfl⟩) <;> rcases ha with rfl | rfl <;> simp_all"
+     },
+     {
+      "claim": "test 4",
+      "explanation": "test",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hmono : ∀ A B : Finset V, A ⊆ B → f A ≤ f B := by\n    intro A B hAB\n    have := hsup A (B \\ A) Finset.disjoint_sdiff\n    rw [Finset.union_sdiff_of_subset hAB] at this\n    linarith [hf0 (B \\ A)]\n  have mem_comp : ∀ v w u, u ∈ (Finset.univ.filter fun u => (T.deleteIncidenceSet v).Reachable w u) ↔\n      (T.deleteIncidenceSet v).Reachable w u := by\n    intro v w u; simp\n  have not_reach : ∀ v w, w ≠ v → ¬ (T.deleteIncidenceSet v).Reachable w v := by\n    intro v w hw h\n    obtain ⟨p⟩ := h.symm\n    cases p with\n    | nil => exact hw rfl\n    | cons h' _ => exact (SimpleGraph.deleteIncidenceSet_adj.1 h').2.1 rfl\n  have comp_eq : ∀ v w w', (T.deleteIncidenceSet v).Reachable w w' →\n      (Finset.univ.filter fun u => (T.deleteIncidenceSet v).Reachable w u) =\n        (Finset.univ.filter fun u => (T.deleteIncidenceSet v).Reachable w' u) := by\n    intro v w w' h\n    ext z\n    rw [mem_comp, mem_comp]\n    exact ⟨fun hz => h.symm.trans hz, fun hz => h.trans hz⟩\n  have hsum : ∀ v, ∑ C ∈ (Finset.univ.erase v).image\n      (fun w => Finset.univ.filter fun u => (T.deleteIncidenceSet v).Reachable w u), f C ≤\n        f Finset.univ := by\n    intro v\n    refine (tree_separator_superadditive_sum_le f hf0 hsup _ ?_).trans\n      (hmono _ _ (Finset.subset_univ _))\n    intro C hC D hD hCD\n    simp only [Finset.coe_image, Set.mem_image, Finset.mem_coe] at hC hD\n    obtain ⟨w1, -, rfl⟩ := hC\n    obtain ⟨w2, -, rfl⟩ := hD\n    rw [Function.onFun, Finset.disjoint_left]\n    intro z hz1 hz2\n    apply hCD\n    simp only [id] at hz1 hz2\n    exact comp_eq v w1 w2 (((mem_comp _ _ _).1 hz1).trans ((mem_comp _ _ _).1 hz2).symm)\n  by_contra hcon\n  have heavy : ∀ v, ∃ w, w ≠ v ∧ f Finset.univ / 2 <\n      f (Finset.univ.filter fun u => (T.deleteIncidenceSet v).Reachable w u) := by\n    intro v\n    by_contra h\n    apply hcon\n    refine ⟨v, fun w hw => ?_, hsum v⟩\n    by_contra h2\n    exact h ⟨w, hw, lt_of_not_ge h2⟩\n  obtain ⟨v0⟩ := hT.1.nonempty\n  let P := (Finset.univ : Finset (V × V)).filter fun p => p.2 ≠ p.1 ∧ f Finset.univ / 2 <\n      f (Finset.univ.filter fun u => (T.deleteIncidenceSet p.1).Reachable p.2 u)\n  have hPne : P.Nonempty := by\n    obtain ⟨w, hw, hh⟩ := heavy v0\n    exact ⟨(v0, w), by simp [P, hw, hh]⟩\n  obtain ⟨⟨v, w⟩, hp, hmin⟩ := P.exists_min_image\n    (fun p => (Finset.univ.filter fun u => (T.deleteIncidenceSet p.1).Reachable p.2 u).card) hPne\n  simp only [P, Finset.mem_filter, Finset.mem_univ, true_and] at hp\n  obtain ⟨hwv, hheavy⟩ := hp\n  -- a neighbour u of v in the heavy component C\n  obtain ⟨q⟩ := hT.1.preconnected w v\n  obtain ⟨d, -, hd1, hd2⟩ := q.exists_boundary_dart\n    (↑(Finset.univ.filter fun u => (T.deleteIncidenceSet v).Reachable w u) : Set V)\n    (by rw [Finset.mem_coe, mem_comp]) (by rw [Finset.mem_coe, mem_comp]; exact not_reach v w hwv)\n  rw [Finset.mem_coe, mem_comp] at hd1 hd2\n  have hfst : d.fst ≠ v := fun h => not_reach v w hwv (h ▸ hd1)\n  have hsnd : d.snd = v := by\n    by_contra hne\n    exact hd2 (hd1.trans (SimpleGraph.Adj.reachable\n      (SimpleGraph.deleteIncidenceSet_adj.2 ⟨d.adj, hfst, hne⟩)))\n  set u := d.fst with hu_def\n  have huv : T.Adj u v := hsnd ▸ d.adj\n  have hwu : (T.deleteIncidenceSet v).Reachable w u := hd1\n  have hvu : v ≠ u := fun h => hfst h.symm\n  -- the component of v in T - u is disjoint from C\n  have hdisj : Disjoint (Finset.univ.filter fun z => (T.deleteIncidenceSet u).Reachable v z)\n      (Finset.univ.filter fun z => (T.deleteIncidenceSet v).Reachable w z) := by\n    rw [Finset.disjoint_left]\n    intro z hz1 hz2\n    rw [mem_comp] at hz1 hz2\n    have h1 := hz1.mono (tree_separator_delete_le T u v u (Or.inl rfl))\n    have h2 := (hz2.symm.trans hwu).mono (tree_separator_delete_le T u v v (Or.inr rfl))\n    have hb := SimpleGraph.isAcyclic_iff_forall_adj_isBridge.1 hT.2 huv\n    rw [SimpleGraph.isBridge_iff] at hb\n    exact hb (h1.trans h2).symm\n  have hsmall : f (Finset.univ.filter fun z => (T.deleteIncidenceSet u).Reachable v z) <\n      f Finset.univ / 2 := by\n    have h1 := hsup _ _ hdisj\n    have h2 := hmono _ Finset.univ (Finset.subset_univ\n      ((Finset.univ.filter fun z => (T.deleteIncidenceSet u).Reachable v z) ∪\n        (Finset.univ.filter fun z => (T.deleteIncidenceSet v).Reachable w z)))\n    linarith\n  obtain ⟨x, hxu, hxheavy⟩ := heavy u\n  have hxv : ¬ (T.deleteIncidenceSet u).Reachable x v := by\n    intro h\n    rw [comp_eq u x v h] at hxheavy\n    linarith\n  have hsub : (Finset.univ.filter fun z => (T.deleteIncidenceSet u).Reachable x z) ⊆\n      (Finset.univ.filter fun z => (T.deleteIncidenceSet v).Reachable w z).erase u := by\n    intro z hz\n    rw [mem_comp] at hz\n    rw [Finset.mem_erase, mem_comp]\n    refine ⟨fun hzu => not_reach u x hxu (hzu ▸ hz), ?_⟩\n    obtain ⟨q'⟩ := hT.1.preconnected x u\n    obtain ⟨d', -, hd'1, hd'2⟩ := q'.exists_boundary_dart\n      (↑(Finset.univ.filter fun z => (T.deleteIncidenceSet u).Reachable x z) : Set V)\n      (by rw [Finset.mem_coe, mem_comp]) (by rw [Finset.mem_coe, mem_comp]; exact not_reach u x hxu)\n    rw [Finset.mem_coe, mem_comp] at hd'1 hd'2\n    have hfst' : d'.fst ≠ u := fun h => not_reach u x hxu (h ▸ hd'1)\n    have hsnd' : d'.snd = u := by\n      by_contra hne\n      exact hd'2 (hd'1.trans (SimpleGraph.Adj.reachable\n        (SimpleGraph.deleteIncidenceSet_adj.2 ⟨d'.adj, hfst', hne⟩)))\n    have hyv : d'.fst ≠ v := fun h => hxv (h ▸ hd'1)\n    have hall : ∀ t, (T.deleteIncidenceSet u).Reachable d'.fst t → t ≠ v :=\n      fun t ht htv => hxv (htv ▸ hd'1.trans ht)\n    have hyz : (T.deleteIncidenceSet u).Reachable d'.fst z := hd'1.symm.trans hz\n    obtain ⟨pyz⟩ := hyz\n    have h1 : (T.deleteIncidenceSet v).Reachable u d'.fst :=\n      SimpleGraph.Adj.reachable (SimpleGraph.deleteIncidenceSet_adj.2\n        ⟨hsnd' ▸ d'.adj.symm, hvu.symm, hyv⟩)\n    exact hwu.trans (h1.trans (tree_separator_reachable_transfer T u v _ _ pyz hall))\n  have hcard := lt_of_le_of_lt (Finset.card_le_card hsub)\n    (Finset.card_erase_lt_of_mem ((mem_comp _ _ _).2 hwu))\n  have := hmin (u, x) (by simp [P, hxu, hxheavy])\n  simp only at this\n  omega"
+     }
+    ],
+    "glossary": {},
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -521861,13 +522053,310 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/WildNumberCompleteGraphTwoColoringRange.lean",
-   "proved_at": 1792143373,
+   "proved_at": 1792146944,
    "provenance": "literature",
    "citation": "arXiv:2610.22142 (Wild number for spanning trees in complete and complete bipartite graphs), Theorem 3.1 (with 0 ≤ wld automatic in ℕ).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The wild number of an edge-colouring is the minimum number of edges needed to make every monochromatic subgraph connected. For any surjective 2-edge-colouring of K_n (n ≥ 4), at least one color class is connected, and the components of the other color class (at most n - 1 of them) can be connected by a star on their representatives, showing the wild number is at most n - 2. Conversely, every integer k from 0 to n - 2 is attained: k = 0 is achieved by coloring a Hamiltonian path with 0 and its complement with 1, while k ≥ 1 is achieved by coloring a clique of size n - k with 0 and all other edges with 1.",
+    "steps": [
+     {
+      "claim": "Reachability in G implies reachability in G' if every edge of G connects vertices reachable in G'.",
+      "explanation": "We induct on the walk connecting u to v in G. In the base case of an empty walk, u is reachable from u by reflexivity. For a step u - v - ... - w, the edge uv gives reachability in G' by hypothesis, which combines with the inductive hypothesis by transitivity.",
+      "lemmas": [
+       "SimpleGraph.Reachable.refl"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨p⟩ := huv\n  induction p with\n  | nil => exact SimpleGraph.Reachable.refl _\n  | cons hadj _ ih => exact (h _ _ hadj).trans ih"
+     },
+     {
+      "claim": "If a spanning subgraph on V with edge set S ⊆ R is connected, then |V| ≤ |R| + 1.",
+      "explanation": "A connected graph on V has at least |V| - 1 edges. Since S ⊆ R and R is finite, the number of edges is at most |R|, whence |V| ≤ |R| + 1.",
+      "lemmas": [
+       "Nat.card_eq_fintype_card",
+       "Set.ncard_coe_finset",
+       "Nat.card_coe_set_eq",
+       "Nat.card_mono",
+       "Finset.finite_toSet",
+       "SimpleGraph.edgeSet_fromEdgeSet",
+       "Set.sdiff_subset"
+      ],
+      "automation": false,
+      "code": "  have hc := hS.card_vert_le_card_edgeSet_add_one\n  rw [Nat.card_eq_fintype_card] at hc\n  have : Nat.card (SimpleGraph.fromEdgeSet S).edgeSet ≤ R.card := by\n    rw [← Set.ncard_coe_finset, ← Nat.card_coe_set_eq]\n    apply Nat.card_mono (Finset.finite_toSet R)\n    rw [SimpleGraph.edgeSet_fromEdgeSet]\n    exact Set.sdiff_subset.trans hR\n  omega"
+     },
+     {
+      "claim": "A color-connecting set of size ≤ k together with a lower bound of k on all color-connecting sets implies the wild number is k.",
+      "explanation": "By definition, the wild number is the infimum of the sizes of all color-connecting sets. The set W0 gives an upper bound of k, and the hypothesis provides a lower bound of k for any color-connecting set, yielding equality by antisymmetry.",
+      "lemmas": [
+       "le_antisymm",
+       "simple_graph_wild_number_le_of_is_color_connecting",
+       "le_csInf"
+      ],
+      "automation": false,
+      "code": "  apply le_antisymm\n  · exact (simple_graph_wild_number_le_of_is_color_connecting G γ W0 hW0).trans hk\n  · exact le_csInf ⟨_, W0, rfl, hW0⟩ fun j ⟨W, hj, hW⟩ => by rw [← hj]; exact hlow W hW"
+     },
+     {
+      "claim": "Any pair of distinct vertices in K_n forms an edge of the complete graph.",
+      "explanation": "In the complete graph ⊤, the edge set consists of all pairs of distinct vertices.",
+      "lemmas": [],
+      "automation": true,
+      "code": "  simpa using h"
+     },
+     {
+      "claim": "Two distinct vertices x ≠ y are adjacent in the monochromatic subgraph H(c) iff edge {x, y} has color c.",
+      "explanation": "We define H(c) as the subgraph spanned by edges of color c. For any x ≠ y, {x, y} is an edge in the complete graph, and belongs to H(c) if and only if its color is c.",
+      "lemmas": [
+       "wild_two_top_mem_edgeSet",
+       "SimpleGraph.fromEdgeSet_adj",
+       "Set.mem_setOf_eq"
+      ],
+      "automation": false,
+      "code": "  classical\n  let H : Fin 2 → SimpleGraph (Fin n) := fun c =>\n    SimpleGraph.fromEdgeSet {f | ∃ hf : f ∈ (⊤ : SimpleGraph (Fin n)).edgeSet, γ ⟨f, hf⟩ = c}\n  haveI : Nonempty (Fin n) := ⟨⟨0, by omega⟩⟩\n  have hHadj : ∀ c x y (hxy : x ≠ y),\n      (H c).Adj x y ↔ γ ⟨s(x, y), wild_two_top_mem_edgeSet hxy⟩ = c := by\n    intro c x y hxy\n    simp only [H, SimpleGraph.fromEdgeSet_adj, Set.mem_setOf_eq]\n    constructor\n    · rintro ⟨⟨hf, hc⟩, -⟩; exact hc\n    · intro hc; exact ⟨⟨wild_two_top_mem_edgeSet hxy, hc⟩, hxy⟩"
+     },
+     {
+      "claim": "For distinct vertices x ≠ y, if {x, y} is not an edge in H(c), it is an edge in H(1 - c).",
+      "explanation": "Since every edge receives color 0 or 1, any edge not of color c must have color 1 - c.",
+      "lemmas": [],
+      "automation": true,
+      "code": "  have hcompl : ∀ c x y, x ≠ y → ¬ (H c).Adj x y → (H (1 - c)).Adj x y := by\n    intro c x y hxy h\n    rw [hHadj c x y hxy] at h\n    rw [hHadj (1 - c) x y hxy]\n    revert h\n    generalize γ ⟨s(x, y), wild_two_top_mem_edgeSet hxy⟩ = a\n    fin_cases a <;> fin_cases c <;> simp\n  -- one of the two classes is connected"
+     },
+     {
+      "claim": "At least one of the two monochromatic subgraphs H(0) or H(1) is connected.",
+      "explanation": "If H(0) is connected, we are done. If not, let a and b be vertices in different components of H(0). For every vertex y, either y is reachable from a in H(0), in which case y cannot be reachable from b in H(0) so both {a, b} and {b, y} are edges in H(1); or y is not reachable from a in H(0), so {a, y} is directly an edge in H(1). In either case, a can reach y in H(1), so H(1) is connected.",
+      "lemmas": [
+       "SimpleGraph.Preconnected",
+       "SimpleGraph.connected_iff_exists_forall_reachable",
+       "SimpleGraph.Reachable.refl"
+      ],
+      "automation": false,
+      "code": "  have hone : ∃ c, (H c).Connected := by\n    by_cases h0 : (H 0).Connected\n    · exact ⟨0, h0⟩\n    · refine ⟨1, ?_⟩\n      have h0' : ¬ (H 0).Preconnected := fun hp => h0 ⟨hp⟩\n      simp only [SimpleGraph.Preconnected, not_forall] at h0'\n      obtain ⟨a, b, hab⟩ := h0'\n      rw [SimpleGraph.connected_iff_exists_forall_reachable]\n      refine ⟨a, fun y => ?_⟩\n      by_cases hy : (H 0).Reachable a y\n      · -- y is in a's component: go through b\n        have hby : ¬ (H 0).Reachable b y := fun h => hab (hy.trans h.symm)\n        have hab' : a ≠ b := fun h => hab (h ▸ SimpleGraph.Reachable.refl _)\n        have hby' : b ≠ y := fun h => hby (h ▸ SimpleGraph.Reachable.refl _)\n        have h1 : (H 1).Adj a b := hcompl 0 a b hab' (fun h => hab h.reachable)\n        have h2 : (H 1).Adj b y := hcompl 0 b y hby' (fun h => hby h.reachable)\n        exact h1.reachable.trans h2.reachable\n      · have hay : a ≠ y := fun h => hy (h ▸ SimpleGraph.Reachable.refl _)\n        exact (hcompl 0 a y hay (fun h => hy h.reachable)).reachable"
+     },
+     {
+      "claim": "Component representatives for the disconnected color define a star W connecting a base representative to all other components.",
+      "explanation": "Let c1 be a connected color and c0 = 1 - c1. We choose a representative vertex r(C) for each connected component C of H(c0), fix a base component C0 containing 0, and form W by joining r(C0) to r(C) for every other component C.",
+      "lemmas": [
+       "Quot.out",
+       "Quot.out_eq"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨c1, hc1⟩ := hone\n  set c0 := 1 - c1 with hc0\n  have hγc : ∀ e, γ e = c0 ∨ γ e = c1 := by\n    intro e\n    generalize γ e = a\n    fin_cases a <;> fin_cases c1 <;> simp [hc0]\n  -- representatives of the components of H c0\n  let r : (H c0).ConnectedComponent → Fin n := fun C => Quot.out C\n  have hr : ∀ C, (H c0).connectedComponentMk (r C) = C := fun C => Quot.out_eq C\n  let C0 := (H c0).connectedComponentMk ⟨0, by omega⟩\n  let W : Finset (Sym2 (Fin n)) := (Finset.univ.erase C0).image fun C => s(r C0, r C)\n  have hrne : ∀ C, C ≠ C0 → r C0 ≠ r C := by\n    intro C hC h\n    apply hC\n    rw [← hr C, ← hr C0, h]"
+     },
+     {
+      "claim": "The star W is color-connecting for the 2-edge-colouring γ.",
+      "explanation": "Every edge in W connects representatives of different components, so its endpoints are distinct and it is an edge of K_n. Augmenting H(c1) by W preserves its connectivity. In H(c0) ∪ W, any vertex y can reach its component representative r(C) within H(c0), and r(C) is connected to r(C0) by an edge of W, so every vertex is reachable from r(C0).",
+      "lemmas": [
+       "wild_two_top_mem_edgeSet",
+       "SimpleGraph.connected_iff_exists_forall_reachable",
+       "SimpleGraph.fromEdgeSet_mono",
+       "Set.subset_union_left",
+       "SimpleGraph.ConnectedComponent.exact",
+       "SimpleGraph.Reachable.trans",
+       "SimpleGraph.Adj.reachable",
+       "SimpleGraph.fromEdgeSet_adj",
+       "Or.inr",
+       "Finset.mem_univ",
+       "and_true"
+      ],
+      "automation": false,
+      "code": "  have hW : simple_graph_is_color_connecting (⊤ : SimpleGraph (Fin n)) γ ↑W := by\n    refine ⟨?_, fun e => ?_⟩\n    · intro f hf\n      simp only [W, Finset.coe_image, Set.mem_image, Finset.mem_coe, Finset.mem_erase] at hf\n      obtain ⟨C, ⟨hC, -⟩, rfl⟩ := hf\n      exact wild_two_top_mem_edgeSet (hrne C hC)\n    · rcases hγc e with he | he\n      · rw [he]\n        rw [SimpleGraph.connected_iff_exists_forall_reachable]\n        refine ⟨r C0, fun y => ?_⟩\n        have hle : H c0 ≤ SimpleGraph.fromEdgeSet\n            ({f | ∃ hf : f ∈ (⊤ : SimpleGraph (Fin n)).edgeSet, γ ⟨f, hf⟩ = c0} ∪ ↑W) :=\n          SimpleGraph.fromEdgeSet_mono Set.subset_union_left\n        have hy : (H c0).Reachable (r ((H c0).connectedComponentMk y)) y :=\n          SimpleGraph.ConnectedComponent.exact (hr _)\n        by_cases hC : (H c0).connectedComponentMk y = C0\n        · rw [hC] at hy\n          exact hy.mono hle\n        · refine SimpleGraph.Reachable.trans (SimpleGraph.Adj.reachable ?_) (hy.mono hle)\n          rw [SimpleGraph.fromEdgeSet_adj]\n          refine ⟨Or.inr ?_, hrne _ hC⟩\n          simp only [W, Finset.coe_image, Set.mem_image, Finset.mem_coe, Finset.mem_erase,\n            Finset.mem_univ, and_true]\n          exact ⟨_, hC, rfl⟩\n      · rw [he]\n        exact hc1.mono (SimpleGraph.fromEdgeSet_mono Set.subset_union_left)"
+     },
+     {
+      "claim": "The wild number of any surjective 2-edge-colouring of K_n is at most n - 2.",
+      "explanation": "Because γ is surjective, color c0 contains at least one edge, so two vertices belong to the same component of H(c0). Thus H(c0) has at most n - 1 components, meaning the star W has size at most n - 2. Since W is color-connecting, the wild number is at most |W| ≤ n - 2.",
+      "lemmas": [
+       "simple_graph_wild_number_le_of_is_color_connecting",
+       "Sym2.ind",
+       "Fintype.card_lt_of_surjective_not_injective",
+       "SimpleGraph.ConnectedComponent.sound",
+       "Finset.card_image_le",
+       "Finset.card_erase_of_mem",
+       "Finset.card_univ"
+      ],
+      "automation": false,
+      "code": "  refine (simple_graph_wild_number_le_of_is_color_connecting _ γ W hW).trans ?_\n  -- H c0 has an edge, so it has fewer than n components\n  obtain ⟨⟨f, hf⟩, he⟩ := hγ c0\n  induction f using Sym2.ind with\n  | h x y =>\n  have hxy' : x ≠ y := by simpa using hf\n  have hadj : (H c0).Adj x y := (hHadj c0 x y hxy').2 he\n  have hcard : Fintype.card (H c0).ConnectedComponent < n := by\n    have := Fintype.card_lt_of_surjective_not_injective (H c0).connectedComponentMk\n      (fun C => ⟨r C, hr C⟩) (fun hinj => hxy' (hinj (SimpleGraph.ConnectedComponent.sound hadj.reachable)))\n    simpa using this\n  have hWc : W.card ≤ (Finset.univ.erase C0).card := Finset.card_image_le\n  rw [Finset.card_erase_of_mem (Finset.mem_univ _), Finset.card_univ] at hWc\n  omega\n"
+     },
+     {
+      "claim": "The path coloring on unordered pairs is well-defined.",
+      "explanation": "The condition that indices differ by 1 is symmetric in i and j, so it lifts to Sym2(Fin n).",
+      "lemmas": [],
+      "automation": true,
+      "code": "    fun i j => by simp only [or_comm]⟩"
+     },
+     {
+      "claim": "The block coloring on unordered pairs is well-defined.",
+      "explanation": "The condition that both indices are strictly less than n - k is symmetric in i and j, so it lifts to Sym2(Fin n).",
+      "lemmas": [],
+      "automation": true,
+      "code": "    fun i j => by simp only [and_comm]⟩"
+     },
+     {
+      "claim": "Adjacency in the monochromatic graph of color c augmented by W is characterized by the edge having color c or belonging to W.",
+      "explanation": "By definition of a graph from an edge set, distinct vertices x ≠ y are adjacent in H(c) ∪ W iff the pair {x, y} belongs to the edge set of color c or to W.",
+      "lemmas": [
+       "SimpleGraph.fromEdgeSet_adj",
+       "Or.inl",
+       "Or.inr",
+       "wild_two_top_mem_edgeSet"
+      ],
+      "automation": false,
+      "code": "  simp only [SimpleGraph.fromEdgeSet_adj, Set.mem_union, Set.mem_setOf_eq]\n  constructor\n  · rintro ⟨h | h, hxy⟩\n    · exact ⟨hxy, Or.inl h.2⟩\n    · exact ⟨hxy, Or.inr h⟩\n  · rintro ⟨hxy, h | h⟩\n    · exact ⟨Or.inl ⟨wild_two_top_mem_edgeSet hxy, h⟩, hxy⟩\n    · exact ⟨Or.inr h, hxy⟩"
+     },
+     {
+      "claim": "Adjacency in the monochromatic graph of color c without augmentation is characterized by the edge having color c.",
+      "explanation": "This is the special case of the augmented adjacency characterization with W = ∅.",
+      "lemmas": [
+       "wild_two_fromEdgeSet_adj"
+      ],
+      "automation": false,
+      "code": "  have := wild_two_fromEdgeSet_adj γ c ∅ x y\n  simpa using this"
+     },
+     {
+      "claim": "For k = 0, the path coloring is surjective.",
+      "explanation": "We define γ using wild_two_path_color. Edge {0, 1} has color 0 and edge {0, 2} has color 1 (valid since n ≥ 4), proving surjectivity.",
+      "lemmas": [
+       "Nat.eq_zero_or_pos",
+       "wild_two_path_color",
+       "wild_two_top_mem_edgeSet"
+      ],
+      "automation": false,
+      "code": "  classical\n  have h0n : 0 < n := by omega\n  haveI : Nonempty (Fin n) := ⟨⟨0, h0n⟩⟩\n  have two : ∀ a : Fin 2, a = 0 ∨ a = 1 := by decide\n  rcases Nat.eq_zero_or_pos k with rfl | hk1\n  · -- k = 0: a Hamiltonian path and its complement\n    let γ : (⊤ : SimpleGraph (Fin n)).edgeSet → Fin 2 := fun e => wild_two_path_color n e.1\n    refine ⟨γ, ?_, ?_⟩\n    · intro c\n      rcases two c with rfl | rfl\n      · exact ⟨⟨s(⟨0, h0n⟩, ⟨1, by omega⟩), wild_two_top_mem_edgeSet (by simp [Fin.ext_iff])⟩,\n          by simp [γ, wild_two_path_color]⟩\n      · exact ⟨⟨s(⟨0, h0n⟩, ⟨2, by omega⟩), wild_two_top_mem_edgeSet (by simp [Fin.ext_iff])⟩,\n          by simp [γ, wild_two_path_color]⟩"
+     },
+     {
+      "claim": "For k = 0, color 0 is connected.",
+      "explanation": "Color 0 is the Hamiltonian path 0 - 1 - ... - (n-1). By induction on m, vertex 0 can reach every vertex m.",
+      "lemmas": [
+       "wild_two_wild_number_eq_of",
+       "Finset.coe_empty",
+       "Set.union_empty",
+       "SimpleGraph.connected_iff_exists_forall_reachable",
+       "wild_two_fromEdgeSet_adj'",
+       "wild_two_path_color",
+       "SimpleGraph.Adj.reachable"
+      ],
+      "automation": false,
+      "code": "    · refine wild_two_wild_number_eq_of _ _ 0 ∅ ⟨by simp, fun e => ?_⟩ (by simp) (fun _ _ => by simp)\n      rw [Finset.coe_empty, Set.union_empty, SimpleGraph.connected_iff_exists_forall_reachable]\n      refine ⟨⟨0, h0n⟩, fun y => ?_⟩\n      rcases two (γ e) with hce | hce\n      · -- the path\n        obtain ⟨m, hm⟩ := y\n        induction m with\n        | zero => exact SimpleGraph.Reachable.refl _\n        | succ m ih =>\n          refine (ih (by omega)).trans (SimpleGraph.Adj.reachable ?_)\n          rw [wild_two_fromEdgeSet_adj' γ]\n          exact ⟨by simp [Fin.ext_iff], by rw [hce]; simp [γ, wild_two_path_color]⟩"
+     },
+     {
+      "claim": "For k = 0, color 1 is connected, so the wild number is 0.",
+      "explanation": "Color 1 is the complement of the Hamiltonian path. Vertex 0 reaches any vertex m ≥ 2 directly since |m - 0| ≥ 2, and reaches 1 via the path 0 - 3 - 1 since n ≥ 4. Thus both colors are connected without adding any edges, showing the wild number is 0.",
+      "lemmas": [
+       "wild_two_fromEdgeSet_adj'",
+       "wild_two_path_color",
+       "SimpleGraph.Adj.reachable",
+       "SimpleGraph.Reachable.refl",
+       "SimpleGraph.Reachable.trans"
+      ],
+      "automation": false,
+      "code": "      · -- the complement of the path (n ≥ 4)\n        obtain ⟨m, hm⟩ := y\n        rcases Nat.lt_or_ge m 2 with h2 | h2\n        · interval_cases m\n          · exact SimpleGraph.Reachable.refl _\n          · have a1 : (SimpleGraph.fromEdgeSet {f | ∃ hf : f ∈ (⊤ : SimpleGraph (Fin n)).edgeSet,\n                γ ⟨f, hf⟩ = γ e}).Adj ⟨0, h0n⟩ ⟨3, by omega⟩ := by\n              rw [wild_two_fromEdgeSet_adj' γ]\n              exact ⟨by simp [Fin.ext_iff], by rw [hce]; simp [γ, wild_two_path_color]⟩\n            have a2 : (SimpleGraph.fromEdgeSet {f | ∃ hf : f ∈ (⊤ : SimpleGraph (Fin n)).edgeSet,\n                γ ⟨f, hf⟩ = γ e}).Adj ⟨3, by omega⟩ ⟨1, hm⟩ := by\n              rw [wild_two_fromEdgeSet_adj' γ]\n              exact ⟨by simp [Fin.ext_iff], by rw [hce]; simp [γ, wild_two_path_color]⟩\n            exact a1.reachable.trans a2.reachable\n        · apply SimpleGraph.Adj.reachable\n          rw [wild_two_fromEdgeSet_adj' γ]\n          refine ⟨by simp [Fin.ext_iff]; omega, ?_⟩\n          rw [hce]\n          simp [γ, wild_two_path_color] <;> omega\n  · -- k ≥ 1: a clique on n - k vertices, all other pairs coloured 1"
+     },
+     {
+      "claim": "For k ≥ 1, the block coloring is surjective.",
+      "explanation": "We define γ using wild_two_block_color with a clique of size n - k on {0, ..., n - k - 1}. Edge {0, 1} has color 0 (since n - k ≥ 2) and edge {0, n - 1} has color 1 (since n - 1 ≥ n - k), proving surjectivity.",
+      "lemmas": [
+       "wild_two_block_color",
+       "wild_two_top_mem_edgeSet"
+      ],
+      "automation": false,
+      "code": "    let γ : (⊤ : SimpleGraph (Fin n)).edgeSet → Fin 2 := fun e => wild_two_block_color n k e.1\n    have hcol : ∀ x y : Fin n, wild_two_block_color n k s(x, y) =\n        if x.val < n - k ∧ y.val < n - k then 0 else 1 := fun x y => rfl\n    let z : Fin n := ⟨0, h0n⟩\n    let last : Fin n := ⟨n - 1, by omega⟩\n    refine ⟨γ, ?_, ?_⟩\n    · intro c\n      rcases two c with rfl | rfl\n      · refine ⟨⟨s(z, ⟨1, by omega⟩), wild_two_top_mem_edgeSet (by simp [z, Fin.ext_iff])⟩, ?_⟩\n        show wild_two_block_color n k s(z, ⟨1, by omega⟩) = 0\n        rw [hcol, if_pos (by simp [z]; omega)]\n      · refine ⟨⟨s(z, last), wild_two_top_mem_edgeSet (by simp [z, last, Fin.ext_iff]; omega)⟩, ?_⟩\n        show wild_two_block_color n k s(z, last) = 1\n        rw [hcol, if_neg (by simp [z, last]; omega)]"
+     },
+     {
+      "claim": "For k ≥ 1, the set W0 of k edges from 0 to the remaining vertices is color-connecting.",
+      "explanation": "Let W0 be the k edges joining vertex 0 to the vertices {n - k, ..., n - 1}. In color 0 plus W0, 0 connects to all vertices < n - k via color 0 and to all vertices ≥ n - k via W0. In color 1, vertex n - 1 is adjacent to every other vertex because no pair containing n - 1 is entirely inside the clique.",
+      "lemmas": [
+       "wild_two_top_mem_edgeSet",
+       "SimpleGraph.connected_iff_exists_forall_reachable",
+       "wild_two_fromEdgeSet_adj",
+       "wild_two_block_color",
+       "SimpleGraph.Adj.reachable",
+       "Finset.card_image_le"
+      ],
+      "automation": false,
+      "code": "    · let W0 : Finset (Sym2 (Fin n)) :=\n        (Finset.range k).image fun t => s(z, (⟨n - 1 - t, by omega⟩ : Fin n))\n      have hW0mem : ∀ j : Fin n, n - k ≤ j.val → s(z, j) ∈ W0 := fun j hj => by\n        simp only [W0, Finset.mem_image, Finset.mem_range]\n        refine ⟨n - 1 - j.val, by omega, ?_⟩\n        congr 1\n        exact Fin.ext (by simp; omega)\n      have hW0card : W0.card ≤ k := Finset.card_image_le.trans (by simp)\n      have hW0 : simple_graph_is_color_connecting (⊤ : SimpleGraph (Fin n)) γ ↑W0 := by\n        refine ⟨?_, fun e => ?_⟩\n        · intro f hf\n          simp only [W0, Finset.coe_image, Finset.coe_range, Set.mem_image, Set.mem_Iio] at hf\n          obtain ⟨t, ht, rfl⟩ := hf\n          exact wild_two_top_mem_edgeSet (by simp only [ne_eq, Fin.ext_iff, z]; omega)\n        · rw [SimpleGraph.connected_iff_exists_forall_reachable]\n          rcases two (γ e) with hce | hce\n          · refine ⟨z, fun y => ?_⟩\n            by_cases hyz : y = z\n            · rw [hyz]\n            apply SimpleGraph.Adj.reachable\n            rw [wild_two_fromEdgeSet_adj γ]\n            refine ⟨Ne.symm hyz, ?_⟩\n            by_cases hy : y.val < n - k\n            · left\n              rw [hce]\n              show wild_two_block_color n k s(z, y) = 0\n              rw [hcol, if_pos ⟨by simp [z]; omega, hy⟩]\n            · right\n              exact Finset.mem_coe.2 (hW0mem y (by omega))\n          · refine ⟨last, fun y => ?_⟩\n            by_cases hyl : y = last\n            · rw [hyl]\n            apply SimpleGraph.Adj.reachable\n            rw [wild_two_fromEdgeSet_adj γ]\n            refine ⟨Ne.symm hyl, Or.inl ?_⟩\n            rw [hce]\n            show wild_two_block_color n k s(last, y) = 1\n            rw [hcol, if_neg (by simp [last]; omega)]"
+     },
+     {
+      "claim": "For k ≥ 1, every color-connecting set has size at least k, so the wild number is k.",
+      "explanation": "Let W be any color-connecting set. Consider a star P of n - k - 1 edges from 0 spanning the clique. Since color 0 plus W is connected and any color 0 edge within the clique can be routed through 0 using P, the graph spanned by P ∪ W is connected. Hence n ≤ |P ∪ W| + 1 ≤ (n - k - 1) + |W| + 1 = n - k + |W|, which forces |W| ≥ k. By wild_two_wild_number_eq_of, the wild number is k.",
+      "lemmas": [
+       "wild_two_wild_number_eq_of",
+       "wild_two_top_mem_edgeSet",
+       "wild_two_block_color",
+       "wild_two_fromEdgeSet_adj",
+       "wild_two_reachable_of_adj_reachable",
+       "wild_two_card_le_of_connected",
+       "Finset.card_union_le",
+       "Fintype.card_fin",
+       "Finset.card_image_le",
+       "SimpleGraph.connected_iff_exists_forall_reachable",
+       "SimpleGraph.Adj.reachable"
+      ],
+      "automation": false,
+      "code": "      refine wild_two_wild_number_eq_of _ _ k W0 hW0 hW0card (fun W hW => ?_)\n      -- lower bound: transfer connectivity of (class 0) ∪ W to (a star in the clique) ∪ W\n      let P : Finset (Sym2 (Fin n)) :=\n        (Finset.range (n - k - 1)).image fun t => s(z, (⟨(t + 1) % n, Nat.mod_lt _ h0n⟩ : Fin n))\n      have hPcard : P.card ≤ n - k - 1 := Finset.card_image_le.trans (by simp)\n      have he01 : s(z, (⟨1, by omega⟩ : Fin n)) ∈ (⊤ : SimpleGraph (Fin n)).edgeSet :=\n        wild_two_top_mem_edgeSet (by simp [Fin.ext_iff, z])\n      have hconn := hW.2 ⟨_, he01⟩\n      have hc0 : γ ⟨_, he01⟩ = 0 := by\n        show wild_two_block_color n k s(z, ⟨1, by omega⟩) = 0\n        rw [hcol, if_pos (by simp [z]; omega)]\n      rw [hc0] at hconn\n      have hstar : ∀ x : Fin n, x.val < n - k →\n          (SimpleGraph.fromEdgeSet (↑P ∪ ↑W : Set (Sym2 (Fin n)))).Reachable z x := by\n        intro x hx\n        by_cases hxz : x = z\n        · rw [hxz]\n        apply SimpleGraph.Adj.reachable\n        rw [SimpleGraph.fromEdgeSet_adj]\n        refine ⟨Or.inl ?_, Ne.symm hxz⟩\n        simp only [P, Finset.coe_image, Finset.coe_range, Set.mem_image, Set.mem_Iio]\n        have : x.val ≠ 0 := fun h => hxz (Fin.ext h)\n        refine ⟨x.val - 1, by omega, ?_⟩\n        congr 1\n        exact Fin.ext (by simp only; rw [Nat.mod_eq_of_lt (by omega)]; omega)\n      have hconn' : (SimpleGraph.fromEdgeSet (↑P ∪ ↑W : Set (Sym2 (Fin n)))).Connected := by\n        rw [SimpleGraph.connected_iff_exists_forall_reachable]\n        refine ⟨z, fun y => wild_two_reachable_of_adj_reachable ?_ (hconn.preconnected z y)⟩\n        intro a b hab\n        rw [wild_two_fromEdgeSet_adj γ] at hab\n        obtain ⟨hab, h | h⟩ := hab\n        · have h' : wild_two_block_color n k s(a, b) = 0 := h\n          rw [hcol] at h'\n          split_ifs at h' with hh\n          · exact (hstar a hh.1).symm.trans (hstar b hh.2)\n          · exact absurd h' (by decide)\n        · apply SimpleGraph.Adj.reachable\n          rw [SimpleGraph.fromEdgeSet_adj]\n          exact ⟨Or.inr h, hab⟩\n      have h1 := wild_two_card_le_of_connected _ (P ∪ W) hconn' (by rw [Finset.coe_union])\n      rw [Fintype.card_fin] at h1\n      have h2 := Finset.card_union_le P W\n      omega"
+     },
+     {
+      "claim": "Every surjective 2-edge-colouring of K_n has wild number at most n - 2, and every 0 ≤ k ≤ n - 2 is attained.",
+      "explanation": "The upper bound wild_two_upper and the attainability theorem wild_two_attain directly establish the two parts of the conjunction.",
+      "lemmas": [
+       "wild_two_upper",
+       "wild_two_attain"
+      ],
+      "automation": false,
+      "code": "  exact ⟨fun γ hγ => wild_two_upper n hn γ hγ, fun k hk => wild_two_attain n hn k hk⟩"
+     }
+    ],
+    "glossary": {
+     "SimpleGraph.Reachable.refl": "Every vertex is reachable from itself by an empty walk.",
+     "Nat.card_eq_fintype_card": "For a finite type α, its cardinality as a natural number equals Fintype.card α.",
+     "Set.ncard_coe_finset": "The set cardinality of a coerced finite set equals its finset cardinality.",
+     "Nat.card_coe_set_eq": "The cardinality of a coerced set as a type equals its set cardinality.",
+     "Nat.card_mono": "Cardinality is monotonic with respect to subset inclusion for finite sets.",
+     "Finset.finite_toSet": "The underlying set of a finite set is finite.",
+     "SimpleGraph.edgeSet_fromEdgeSet": "The edge set of the simple graph built from a set of pairs is the set minus self-loops.",
+     "Set.sdiff_subset": "Set difference S \\\\ T is a subset of S.",
+     "le_antisymm": "If a ≤ b and b ≤ a, then a = b.",
+     "simple_graph_wild_number_le_of_is_color_connecting": "Any color-connecting set W provides an upper bound |W| on the wild number.",
+     "le_csInf": "A lower bound on a nonempty set is at most the infimum of the set.",
+     "wild_two_top_mem_edgeSet": "Any pair of distinct vertices forms an edge of the complete graph.",
+     "SimpleGraph.fromEdgeSet_adj": "Vertices v and w are adjacent in the graph from edge set S iff {v, w} ∈ S and v ≠ w.",
+     "Set.mem_setOf_eq": "Membership in {y | p y} is equivalent to p x.",
+     "SimpleGraph.Preconnected": "A graph is preconnected if every pair of vertices is connected by a walk.",
+     "SimpleGraph.connected_iff_exists_forall_reachable": "A graph is connected iff there exists a vertex that can reach every vertex.",
+     "Quot.out": "Picks a representative element from an equivalence class.",
+     "Quot.out_eq": "The representative chosen by Quot.out belongs to the equivalence class.",
+     "SimpleGraph.fromEdgeSet_mono": "Enlarging the set of edges enlarges the resulting graph.",
+     "Set.subset_union_left": "Any set is a subset of its union with another set.",
+     "SimpleGraph.ConnectedComponent.exact": "Vertices in the same connected component are reachable from each other.",
+     "SimpleGraph.Reachable.trans": "Reachability in a graph is transitive.",
+     "SimpleGraph.Adj.reachable": "Adjacent vertices in a graph are reachable from each other.",
+     "Or.inr": "Disjunction introduction from the right disjunct.",
+     "Finset.mem_univ": "Every element of a finite type belongs to the universal finset.",
+     "and_true": "Conjunction with True simplifies to the proposition.",
+     "Sym2.ind": "Induction principle for unordered pairs: any property holding on all {x, y} holds on Sym2.",
+     "Fintype.card_lt_of_surjective_not_injective": "A surjective but non-injective map between finite types implies the target has strictly smaller cardinality.",
+     "SimpleGraph.ConnectedComponent.sound": "Reachable vertices belong to the same connected component.",
+     "Finset.card_image_le": "The cardinality of the image of a finset is at most the cardinality of the domain finset.",
+     "Finset.card_erase_of_mem": "Erasing an element from a finset reduces its cardinality by 1.",
+     "Finset.card_univ": "The cardinality of the universal finset is the cardinality of the underlying finite type.",
+     "Or.inl": "Disjunction introduction from the left disjunct.",
+     "wild_two_fromEdgeSet_adj": "In the graph of color c edges augmented by W, distinct vertices are adjacent iff their edge has color c or belongs to W.",
+     "wild_two_fromEdgeSet_adj'": "In the monochromatic graph of color c, distinct vertices are adjacent iff their edge has color c.",
+     "Nat.eq_zero_or_pos": "Every natural number is either 0 or strictly positive.",
+     "wild_two_path_color": "The 2-coloring of K_n coloring a Hamiltonian path 0 and other edges 1.",
+     "Finset.coe_empty": "The coercion of the empty finset to a set is the empty set.",
+     "Set.union_empty": "Union of any set with the empty set is the set itself.",
+     "wild_two_block_color": "The 2-coloring of K_n coloring a clique of size n - k with 0 and other edges with 1.",
+     "wild_two_reachable_of_adj_reachable": "Reachability transfers between graphs if every edge of the first graph connects vertices reachable in the second.",
+     "wild_two_card_le_of_connected": "If a spanning subgraph with edge set S ⊆ R is connected, then |V| ≤ |R| + 1.",
+     "wild_two_wild_number_eq_of": "A color-connecting set of size ≤ k and a lower bound of k on all color-connecting sets imply the wild number is k.",
+     "Finset.card_union_le": "The cardinality of the union of two finsets is at most the sum of their cardinalities.",
+     "Fintype.card_fin": "The cardinality of Fin n is n.",
+     "wild_two_upper": "Every surjective 2-edge-colouring of K_n (n ≥ 4) has wild number at most n - 2.",
+     "wild_two_attain": "For every 0 ≤ k ≤ n - 2, there is a surjective 2-edge-colouring of K_n with wild number k."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -521892,13 +522381,119 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/ExistsCompleteMappingStabilizingSylowTwoOfNormal.lean",
-   "proved_at": 1792144648,
+   "proved_at": 1792147028,
    "provenance": "literature",
    "citation": "arXiv:2610.17631 (Complete mappings stabilizing Sylow 2-subgroups in central quotients of special linear groups), Lemma 3.2.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof constructs a complete mapping θ on G stabilizing P by extending the given complete mappings φ on N and τ on G/N. Coset representatives x(t) for t ∈ G/N are chosen in P whenever t belongs to the projection π(P). Two bijections A, B : (G/N) × N → G are defined such that their product is also bijective, allowing θ = B ∘ A⁻¹ to serve as a complete mapping on G. A careful containment check shows θ(P) ⊆ P, from which injectivity and finiteness imply θ(P) = P.",
+    "steps": [
+     {
+      "claim": "Obtain complete mappings φ on N and τ on G/N, and record that they map elements of P ∩ N into P and cosets in π(P) into π(P).",
+      "explanation": "From the hypotheses hN and hQ, we extract complete mappings φ : N → N and τ : G/N → G/N stabilizing P ∩ N and π(P) respectively. Since φ(P ∩ N) = P ∩ N and τ(π(P)) = π(P), any n ∈ P ∩ N satisfies φ(n) ∈ P, and any coset t ∈ π(P) satisfies τ(t) ∈ π(P).",
+      "lemmas": [],
+      "automation": false,
+      "code": "  classical\n  obtain ⟨φ, ⟨hφ, hφc⟩, hφP⟩ := hN\n  obtain ⟨τ, ⟨hτ, hτc⟩, hτP⟩ := hQ\n  have hφP' : ∀ n : N, (n : G) ∈ (P : Subgroup G) → (φ n : G) ∈ (P : Subgroup G) := by\n    intro n hn\n    have : φ n ∈ φ '' {x : N | (x : G) ∈ (P : Subgroup G)} := ⟨n, hn, rfl⟩\n    rw [hφP] at this\n    exact this\n  have hτP' : ∀ t, t ∈ (P : Subgroup G).map (QuotientGroup.mk' N) →\n      τ t ∈ (P : Subgroup G).map (QuotientGroup.mk' N) := by\n    intro t ht\n    have : τ t ∈ τ '' ((P : Subgroup G).map (QuotientGroup.mk' N) : Set (G ⧸ N)) := ⟨t, ht, rfl⟩\n    rw [hτP] at this\n    exact this"
+     },
+     {
+      "claim": "Choose coset representatives x : G/N → G such that x(t) ∈ P whenever t ∈ π(P), and note that elements of N project to 1 in G/N.",
+      "explanation": "For each coset t ∈ G/N, if t lies in the projection π(P), we choose a representative in P; otherwise, by surjectivity of the quotient map, we pick an arbitrary representative in G. The axiom of choice yields a selection function x : G/N → G satisfying π(x(t)) = t and x(t) ∈ P when t ∈ π(P). We also note that elements of N project to 1 in G/N.",
+      "lemmas": [
+       "Subgroup.mem_map.1",
+       "QuotientGroup.mk_surjective",
+       "QuotientGroup.eq_one_iff"
+      ],
+      "automation": false,
+      "code": "  -- representatives, chosen in P over the image of P\n  have hrep : ∀ t : G ⧸ N, ∃ g : G, (g : G ⧸ N) = t ∧\n      (t ∈ (P : Subgroup G).map (QuotientGroup.mk' N) → g ∈ (P : Subgroup G)) := by\n    intro t\n    by_cases ht : t ∈ (P : Subgroup G).map (QuotientGroup.mk' N)\n    · obtain ⟨p, hp, rfl⟩ := Subgroup.mem_map.1 ht\n      exact ⟨p, rfl, fun _ => hp⟩\n    · obtain ⟨g, rfl⟩ := QuotientGroup.mk_surjective t\n      exact ⟨g, rfl, fun h => absurd h ht⟩\n  choose x hx hxP using hrep\n  have hmkN : ∀ n : N, ((n : G) : G ⧸ N) = 1 := fun n => (QuotientGroup.eq_one_iff (n : G)).2 n.2"
+     },
+     {
+      "claim": "Define coordinate maps A, B : (G/N) × N → G and compute their projections to G/N and their product.",
+      "explanation": "We define A(t, n) = x(t) * x(τ(t)) * n * (x(τ(t)))⁻¹ and B(t, n) = x(τ(t)) * φ(n). In the quotient G/N, since elements of N project to 1, we compute π(A(t, n)) = t and π(B(t, n)) = τ(t). Group simplification shows that the product is A(t, n) * B(t, n) = x(t) * x(τ(t)) * (n * φ(n)).",
+      "lemmas": [
+       "QuotientGroup.mk_mul",
+       "QuotientGroup.mk_inv",
+       "mul_one",
+       "Subgroup.coe_mul"
+      ],
+      "automation": false,
+      "code": "  let A : (G ⧸ N) × N → G := fun p => x p.1 * x (τ p.1) * (p.2 : G) * (x (τ p.1))⁻¹\n  let B : (G ⧸ N) × N → G := fun p => x (τ p.1) * (φ p.2 : G)\n  have hAmk : ∀ p, ((A p : G) : G ⧸ N) = p.1 := by\n    intro p\n    simp only [A, QuotientGroup.mk_mul, QuotientGroup.mk_inv, hx, hmkN]\n    group\n  have hBmk : ∀ p, ((B p : G) : G ⧸ N) = τ p.1 := by\n    intro p\n    simp only [B, QuotientGroup.mk_mul, hx, hmkN, mul_one]\n  have hAB : ∀ p, A p * B p = x p.1 * x (τ p.1) * ((p.2 * φ p.2 : N) : G) := by\n    intro p\n    simp only [A, B, Subgroup.coe_mul]\n    group"
+     },
+     {
+      "claim": "The maps A, B, and p ↦ A(p) * B(p) are all bijections between (G/N) × N and G.",
+      "explanation": "Lagrange's theorem shows |G| = |G/N| * |N| = |(G/N) × N|. To show A is injective, if A(t, n) = A(t', n'), projecting to G/N gives t = t', and then group cancellation yields n = n'. For B, projecting to G/N gives τ(t) = τ(t'), so t = t' by injectivity of τ, and cancelling x(τ(t)) gives φ(n) = φ(n'), whence n = n' by injectivity of φ. For A * B, projecting to G/N gives t * τ(t) = t' * τ(t'), so t = t' because τ is a complete mapping; then n * φ(n) = n' * φ(n') implies n = n' because φ is a complete mapping. Since the domain and codomain are finite of the same size, injectivity implies bijectivity for all three maps.",
+      "lemmas": [
+       "Nat.card_prod",
+       "Subgroup.card_eq_card_quotient_mul_card_subgroup",
+       "mul_left_inj",
+       "mul_right_inj",
+       "Prod.ext",
+       "Subtype.ext",
+       "congrArg",
+       "QuotientGroup.mk_mul"
+      ],
+      "automation": false,
+      "code": "  have hcard : Nat.card G ≤ Nat.card ((G ⧸ N) × N) := by\n    rw [Nat.card_prod, ← Subgroup.card_eq_card_quotient_mul_card_subgroup]\n  have hAinj : Function.Injective A := by\n    rintro ⟨t, n⟩ ⟨t', n'⟩ h\n    have ht : t = t' := by\n      have e1 := hAmk (t, n)\n      have e2 := hAmk (t', n')\n      rw [h] at e1\n      exact e1.symm.trans e2\n    subst ht\n    simp only [A, mul_left_inj, mul_right_inj] at h\n    exact Prod.ext rfl (Subtype.ext h)\n  have hBinj : Function.Injective B := by\n    rintro ⟨t, n⟩ ⟨t', n'⟩ h\n    have ht : t = t' := hτ.1 (by rw [← hBmk (t, n), ← hBmk (t', n'), h])\n    subst ht\n    simp only [B, mul_right_inj] at h\n    exact Prod.ext rfl (hφ.1 (Subtype.ext h))\n  have hCinj : Function.Injective fun p => A p * B p := by\n    rintro ⟨t, n⟩ ⟨t', n'⟩ h\n    have h' : A (t, n) * B (t, n) = A (t', n') * B (t', n') := h\n    have ht : t = t' := by\n      apply hτc.1\n      have e1 := hAmk (t, n)\n      have e2 := hBmk (t, n)\n      have e3 := hAmk (t', n')\n      have e4 := hBmk (t', n')\n      have := congrArg (fun g : G => (g : G ⧸ N)) h'\n      simp only [QuotientGroup.mk_mul] at this\n      rw [e1, e2, e3, e4] at this\n      exact this\n    subst ht\n    rw [hAB, hAB] at h'\n    simp only [mul_right_inj] at h'\n    exact Prod.ext rfl (hφc.1 (Subtype.ext h'))\n  have hAbij : Function.Bijective A := hAinj.bijective_of_nat_card_le hcard\n  have hBbij : Function.Bijective B := hBinj.bijective_of_nat_card_le hcard\n  have hCbij : Function.Bijective fun p => A p * B p := hCinj.bijective_of_nat_card_le hcard"
+     },
+     {
+      "claim": "The map θ = B ∘ A⁻¹ : G → G is a complete mapping on G.",
+      "explanation": "Using the bijection A to form an equivalence eA : (G/N) × N ≃ G, we define θ(g) = B(eA.symm(g)). As a composition of bijections B and eA.symm, θ is bijective. Furthermore, g * θ(g) = A(eA.symm(g)) * B(eA.symm(g)) = (p ↦ A(p) * B(p))(eA.symm(g)), which is also a composition of bijections and thus bijective. Hence θ is a complete mapping on G.",
+      "lemmas": [
+       "Equiv.ofBijective",
+       "Function.comp"
+      ],
+      "automation": false,
+      "code": "  let eA := Equiv.ofBijective A hAbij\n  have heA : ∀ g, A (eA.symm g) = g := fun g => eA.apply_symm_apply g\n  refine ⟨fun g => B (eA.symm g), ⟨hBbij.comp eA.symm.bijective, ?_⟩, ?_⟩\n  · have : (fun g => g * B (eA.symm g)) = (fun p => A p * B p) ∘ eA.symm := by\n      funext g\n      simp only [Function.comp, heA]\n    rw [this]\n    exact hCbij.comp eA.symm.bijective"
+     },
+     {
+      "claim": "The complete mapping θ maps the subgroup P into itself: θ(P) ⊆ P.",
+      "explanation": "Let g ∈ P and write g = A(t, n) with (t, n) = eA.symm(g). Projecting to G/N gives t = π(g) ∈ π(P). By our choice of coset representatives, x(t) ∈ P, and since τ stabilizes π(P), τ(t) ∈ π(P), which gives x(τ(t)) ∈ P. Solving for n gives n = (x(t) * x(τ(t)))⁻¹ * g * x(τ(t)), which lies in P because g, x(t), and x(τ(t)) all belong to P. Thus n ∈ P ∩ N, so φ(n) ∈ P because φ stabilizes P ∩ N. It follows that θ(g) = B(t, n) = x(τ(t)) * φ(n) is a product of elements of P, hence in P.",
+      "lemmas": [
+       "Subgroup.mem_map_of_mem",
+       "mul_mem",
+       "inv_mem"
+      ],
+      "automation": false,
+      "code": "  · have hsub : (fun g => B (eA.symm g)) '' ((P : Subgroup G) : Set G) ⊆ ((P : Subgroup G) : Set G) := by\n      rintro _ ⟨g, hg, rfl⟩\n      set p := eA.symm g with hp\n      have hAp : A p = g := heA g\n      have hq : p.1 ∈ (P : Subgroup G).map (QuotientGroup.mk' N) := by\n        rw [← hAmk p, hAp]\n        exact Subgroup.mem_map_of_mem _ hg\n      have h1 := hxP _ hq\n      have h2 := hxP _ (hτP' _ hq)\n      have hn : ((p.2 : N) : G) ∈ (P : Subgroup G) := by\n        have : ((p.2 : N) : G) = (x p.1 * x (τ p.1))⁻¹ * g * x (τ p.1) := by\n          rw [← hAp]\n          simp only [A]\n          group\n        rw [this]\n        exact mul_mem (mul_mem (inv_mem (mul_mem h1 h2)) hg) h2\n      exact mul_mem h2 (hφP' _ hn)"
+     },
+     {
+      "claim": "The mapping θ stabilizes P, that is, θ(P) = P.",
+      "explanation": "Since θ is injective, the image θ(P) has the same finite cardinality as P. Because θ(P) ⊆ P and P is finite, this implies θ(P) = P.",
+      "lemmas": [
+       "Set.eq_of_subset_of_ncard_le",
+       "Set.ncard_image_of_injective"
+      ],
+      "automation": false,
+      "code": "    have hinj : Function.Injective fun g => B (eA.symm g) := hBinj.comp eA.symm.injective\n    exact Set.eq_of_subset_of_ncard_le hsub (by rw [Set.ncard_image_of_injective _ hinj])"
+     }
+    ],
+    "glossary": {
+     "Prod.ext": "Two pairs are equal if and only if both their first components and their second components are equal.",
+     "QuotientGroup.mk_inv": "The canonical projection from a group to a quotient group preserves inverses: π(a⁻¹) = π(a)⁻¹.",
+     "QuotientGroup.mk_mul": "The canonical projection from a group to a quotient group preserves multiplication: π(a b) = π(a) π(b).",
+     "mul_one": "Multiplying by the identity on the right leaves an element unchanged: a * 1 = a.",
+     "QuotientGroup.mk_surjective": "The canonical projection from a group to a quotient group is surjective.",
+     "QuotientGroup.eq_one_iff": "An element projects to the trivial element in the quotient group G/N if and only if it belongs to N.",
+     "Subgroup.coe_mul": "The coercion of a product of subgroup elements to the ambient group equals the product of their coercions: ↑(x * y) = ↑x * ↑y.",
+     "Nat.card_prod": "The cardinality of the Cartesian product of two types is the product of their cardinalities: |α × β| = |α| * |β|.",
+     "Subgroup.card_eq_card_quotient_mul_card_subgroup": "Lagrange's index formula: for any subgroup N of a group G, |G| = |G/N| * |N|.",
+     "mul_left_inj": "In a group, right multiplication by an element is injective: b * a = c * a ↔ b = c.",
+     "mul_right_inj": "In a group, left multiplication by an element is injective: a * b = a * c ↔ b = c.",
+     "Subtype.ext": "Two subtype elements are equal if their underlying values are equal.",
+     "congrArg": "Equal arguments yield equal function values: if a = b then f(a) = f(b).",
+     "Equiv.ofBijective": "A bijective function can be promoted to a two-sided type equivalence (a bijection with an inverse).",
+     "Function.comp": "The definition of function composition: (f ∘ g)(x) = f(g(x)).",
+     "Subgroup.mem_map_of_mem": "If x belongs to a subgroup K, its image f(x) belongs to the image subgroup f(K).",
+     "mul_mem": "A subgroup is closed under multiplication: if a ∈ S and b ∈ S, then a * b ∈ S.",
+     "inv_mem": "A subgroup is closed under inverses: if x ∈ S, then x⁻¹ ∈ S.",
+     "Set.eq_of_subset_of_ncard_le": "If s ⊆ t and |t| ≤ |s| for a finite set t, then s = t.",
+     "Set.ncard_image_of_injective": "An injective function preserves the cardinality of any set: |f '' s| = |s|.",
+     "Subgroup.mem_map.1": "An element belongs to the image of a subgroup under f if and only if it is of the form f(x) for some x in the subgroup."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -521927,13 +522522,236 @@
     "wild_number_complete_three_min_proper_coloring_eq"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/WildNumberCompleteGraphMinProperColoringGe.lean",
-   "proved_at": 1792145614,
+   "proved_at": 1792146894,
    "provenance": "literature",
    "citation": "arXiv:2610.22142 (Wild number for spanning trees in complete and complete bipartite graphs), Theorem 3.4. ⌈n/2⌉ is written (n + 1) / 2 in ℕ; a minimum proper colouring is a colouring of the line graph by Fin k with k = χ'(K_n) = chromatic number of the line graph.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "To prove that any proper edge colouring of K_n with χ'(K_n) colours has wild number at least ⌊4⌈n/2⌉/3⌋, we analyse any colour-connecting edge set W. We show that vertices of degree 1 in W (leaves) cannot share an edge in W, bounding their number by |W|, and that at most one vertex is untouched by W (none if n is odd). Combining the degree sum formula with these bounds yields 3|W| ≥ 2|touched|, from which linear arithmetic over integer division establishes the required lower bound.",
+    "steps": [
+     {
+      "claim": "In the complete graph K_n, any pair of distinct vertices forms an edge.",
+      "explanation": "By definition of the complete graph, an edge exists between any two distinct vertices.",
+      "lemmas": [],
+      "automation": true,
+      "code": "theorem wild_kn_mem {n : ℕ} {u v : Fin n} (h : u ≠ v) : s(u, v) ∈ (⊤ : SimpleGraph (Fin n)).edgeSet := by\n  simpa using h"
+     },
+     {
+      "claim": "In a proper edge colouring, two distinct edges sharing an endpoint cannot have the same colour.",
+      "explanation": "By contradiction, if they had the same colour, they would be adjacent edges in the line graph with identical colours, violating properness.",
+      "lemmas": [
+       "congrArg",
+       "Sym2.eq_iff"
+      ],
+      "automation": false,
+      "code": "theorem wild_kn_same_color {n k : ℕ} (c : (⊤ : SimpleGraph (Fin n)).lineGraph.Coloring (Fin k))\n    {u v w : Fin n} (hv : u ≠ v) (hw : u ≠ w)\n    (h : c ⟨s(u, v), wild_kn_mem hv⟩ = c ⟨s(u, w), wild_kn_mem hw⟩) : v = w := by\n  by_contra hne\n  apply c.valid _ h\n  refine ⟨fun h' => hne ?_, ⟨u, by simp, by simp⟩⟩\n  have := congrArg Subtype.val h'\n  simp only [Sym2.eq_iff] at this\n  rcases this with ⟨-, h1⟩ | ⟨h1, h2⟩\n  · exact h1\n  · exact h2.trans h1\n"
+     },
+     {
+      "claim": "In a graph where u and v have no neighbours outside {u, v}, anything reachable from u is u or v.",
+      "explanation": "By induction on the length of a walk starting at u or v, every step must remain in {u, v}.",
+      "lemmas": [
+       "Or.inl",
+       "Or.inr",
+       "id"
+      ],
+      "automation": false,
+      "code": "/-- In a graph where u and v have no neighbours outside {u, v}, everything reachable from u is u or v. -/\ntheorem wild_kn_closed_pair {V : Type*} (G : SimpleGraph V) (u v : V)\n    (hu : ∀ x, G.Adj u x → x = v) (hv : ∀ x, G.Adj v x → x = u) {y : V} (hy : G.Reachable u y) :\n    y = u ∨ y = v := by\n  obtain ⟨p⟩ := hy\n  have key : ∀ a b (p : G.Walk a b), (a = u ∨ a = v) → b = u ∨ b = v := by\n    intro a b p\n    induction p with\n    | nil => exact id\n    | cons h _ ih =>\n      intro ha\n      apply ih\n      rcases ha with rfl | rfl\n      · exact Or.inr (hu _ h)\n      · exact Or.inl (hv _ h)\n  exact key _ _ p (Or.inl rfl)"
+     },
+     {
+      "claim": "If every edge colour appeared at u, all vertices would see the exact same set of colours.",
+      "explanation": "Each vertex has degree n - 1, so it sees n - 1 distinct colours. By assumption each colour at any vertex appears at u, so the colour sets are identical by cardinality.",
+      "lemmas": [
+       "Finset.card_erase_of_mem",
+       "Finset.card_image_of_injOn",
+       "Finset.card_univ",
+       "Finset.eq_of_subset_of_card_le",
+       "Finset.mem_univ",
+       "Finset.ne_of_mem_erase",
+       "Fintype.card_fin",
+       "Ne.symm",
+       "dif_pos",
+       "wild_kn_same_color"
+      ],
+      "automation": false,
+      "code": "theorem wild_kn_exists_missing_color_of_odd {n k : ℕ} (hn : 3 ≤ n) (hodd : n % 2 = 1)\n    (c : (⊤ : SimpleGraph (Fin n)).lineGraph.Coloring (Fin k)) (u : Fin n) :\n    ∃ e : (⊤ : SimpleGraph (Fin n)).edgeSet, ∀ x (hx : u ≠ x), c ⟨s(u, x), wild_kn_mem hx⟩ ≠ c e := by\n  classical\n  by_contra hno\n  push_neg at hno\n  have h01 : (⟨0, by omega⟩ : Fin n) ≠ ⟨1, by omega⟩ := by simp [Fin.ext_iff]\n  let i0 := c ⟨s(⟨0, by omega⟩, ⟨1, by omega⟩), wild_kn_mem h01⟩\n  let col : Fin n → Fin n → Fin k := fun v x => if h : v ≠ x then c ⟨s(v, x), wild_kn_mem h⟩ else i0\n  have hcol : ∀ v x (h : v ≠ x), col v x = c ⟨s(v, x), wild_kn_mem h⟩ := fun v x h => dif_pos h\n  let Cv : Fin n → Finset (Fin k) := fun v => (Finset.univ.erase v).image (col v)\n  have hCv : ∀ v, (Cv v).card = n - 1 := by\n    intro v\n    rw [Finset.card_image_of_injOn, Finset.card_erase_of_mem (Finset.mem_univ _), Finset.card_univ,\n      Fintype.card_fin]\n    intro a ha b hb hab\n    have ha' := Ne.symm (Finset.ne_of_mem_erase ha)\n    have hb' := Ne.symm (Finset.ne_of_mem_erase hb)\n    rw [hcol v a ha', hcol v b hb'] at hab\n    exact wild_kn_same_color c ha' hb' hab\n  -- every colour used anywhere is a colour at u, so every vertex sees all of them\n  have hsub : ∀ v, Cv v ⊆ Cv u := by\n    intro v j hj\n    obtain ⟨x, hx, rfl⟩ := Finset.mem_image.1 hj\n    have hx' := Ne.symm (Finset.ne_of_mem_erase hx)\n    obtain ⟨y, hy, hyc⟩ := hno ⟨s(v, x), wild_kn_mem hx'⟩\n    refine Finset.mem_image.2 ⟨y, Finset.mem_erase.2 ⟨Ne.symm hy, Finset.mem_univ _⟩, ?_⟩\n    rw [hcol u y hy, hcol v x hx']\n    exact hyc\n  have heq : ∀ v, Cv v = Cv u := fun v =>\n    Finset.eq_of_subset_of_card_le (hsub v) (by rw [hCv, hCv])"
+     },
+     {
+      "claim": "For odd n, there is always a colour missing at any vertex u.",
+      "explanation": "If every colour appeared at u, a chosen colour would be incident to every vertex, yielding a 1-factor and forcing n to be even, contradiction.",
+      "lemmas": [
+       "Finset.card_eq_sum_card_fiberwise",
+       "Finset.card_pair",
+       "Finset.card_univ",
+       "Finset.mem_filter",
+       "Finset.mem_image_of_mem",
+       "Finset.mem_singleton",
+       "Finset.sum_congr",
+       "Finset.sum_const",
+       "Fintype.card_fin",
+       "Or.inl",
+       "Or.inr",
+       "Sym2.eq_iff",
+       "Sym2.eq_swap",
+       "true_and",
+       "wild_kn_same_color"
+      ],
+      "automation": true,
+      "code": "  have hi0 : i0 ∈ Cv u := by\n    rw [← heq ⟨0, by omega⟩]\n    refine Finset.mem_image.2 ⟨⟨1, by omega⟩, Finset.mem_erase.2 ⟨Ne.symm h01, Finset.mem_univ _⟩, ?_⟩\n    rw [hcol _ _ h01]\n  have hall : ∀ v, ∃ x, ∃ hx : v ≠ x, c ⟨s(v, x), wild_kn_mem hx⟩ = i0 := by\n    intro v\n    rw [← heq v] at hi0\n    obtain ⟨x, hx, hxc⟩ := Finset.mem_image.1 hi0\n    have hx' := Ne.symm (Finset.ne_of_mem_erase hx)\n    exact ⟨x, hx', by rw [← hcol v x hx']; exact hxc⟩\n  choose partner hpne hpi using hall\n  have hpp : ∀ v, partner (partner v) = v := by\n    intro v\n    have h1 := hpi (partner v)\n    have h2 := hpi v\n    have h2' : c ⟨s(partner v, v), wild_kn_mem (Ne.symm (hpne v))⟩ = i0 := by\n      rw [← h2]; congr 2; exact Sym2.eq_swap\n    exact wild_kn_same_color c (hpne (partner v)) (Ne.symm (hpne v)) (h1.trans h2'.symm)\n  let e : Fin n → Sym2 (Fin n) := fun v => s(v, partner v)\n  have hfib : ∀ v, (Finset.univ.filter fun w => e w = e v) = {v, partner v} := by\n    intro v\n    ext w\n    simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_insert,\n      Finset.mem_singleton, e, Sym2.eq_iff]\n    constructor\n    · rintro (⟨h, -⟩ | ⟨h, -⟩)\n      · exact Or.inl h\n      · exact Or.inr h\n    · rintro (rfl | rfl)\n      · exact Or.inl ⟨rfl, rfl⟩\n      · exact Or.inr ⟨rfl, hpp v⟩\n  have hsum := Finset.card_eq_sum_card_fiberwise (f := e) (s := Finset.univ)\n    (t := Finset.univ.image e) (fun x _ => Finset.mem_image_of_mem e (Finset.mem_univ x))\n  have h2 : ∀ b ∈ Finset.univ.image e, (Finset.univ.filter fun a => e a = b).card = 2 := by\n    intro b hb\n    obtain ⟨v, -, rfl⟩ := Finset.mem_image.1 hb\n    rw [hfib v, Finset.card_pair (hpne v)]\n  rw [Finset.sum_congr rfl h2, Finset.sum_const, smul_eq_mul, Finset.card_univ,\n    Fintype.card_fin] at hsum\n  omega"
+     },
+     {
+      "claim": "Adjacency in G'(W, i) means two distinct vertices share an edge of colour i or an edge in W.",
+      "explanation": "This rewrites adjacency in the subgraph formed by the union of edges of colour i and W.",
+      "lemmas": [
+       "Finset.mem_coe",
+       "Set.mem_setOf_eq",
+       "Set.mem_union",
+       "SimpleGraph.fromEdgeSet_adj",
+       "wild_kn_mem"
+      ],
+      "automation": false,
+      "code": "theorem wild_number_complete_graph_min_proper_coloring_ge (n k : ℕ) (hn : 3 ≤ n)\n    (hk : (⊤ : SimpleGraph (Fin n)).lineGraph.chromaticNumber = k)\n    (c : (⊤ : SimpleGraph (Fin n)).lineGraph.Coloring (Fin k)) :\n    4 * ((n + 1) / 2) / 3 ≤ simple_graph_wild_number (⊤ : SimpleGraph (Fin n)) c := by\n  classical\n  -- the class of colour i together with W\n  let G' : Finset (Sym2 (Fin n)) → Fin k → SimpleGraph (Fin n) := fun W i =>\n    SimpleGraph.fromEdgeSet ({f | ∃ hf : f ∈ (⊤ : SimpleGraph (Fin n)).edgeSet, c ⟨f, hf⟩ = i} ∪ ↑W)\n  have hG'adj : ∀ W i x y, (G' W i).Adj x y ↔ x ≠ y ∧\n      ((∃ h : x ≠ y, c ⟨s(x, y), wild_kn_mem h⟩ = i) ∨ s(x, y) ∈ W) := by\n    intro W i x y\n    simp only [G', SimpleGraph.fromEdgeSet_adj, Set.mem_union, Set.mem_setOf_eq, Finset.mem_coe]\n    constructor\n    · rintro ⟨h | h, hxy⟩\n      · exact ⟨hxy, Or.inl ⟨hxy, h.2⟩⟩\n      · exact ⟨hxy, Or.inr h⟩\n    · rintro ⟨hxy, ⟨h, hc⟩ | h⟩\n      · exact ⟨Or.inl ⟨wild_kn_mem h, hc⟩, hxy⟩\n      · exact ⟨Or.inr h, hxy⟩"
+     },
+     {
+      "claim": "For n ≥ 3, any pair of vertices has a third vertex outside the pair.",
+      "explanation": "If all vertices belonged to a two-element set, the total number of vertices would be at most 2, contradicting n ≥ 3.",
+      "lemmas": [
+       "Finset.card_le_card",
+       "Finset.card_le_two",
+       "Finset.card_univ",
+       "Fintype.card_fin"
+      ],
+      "automation": true,
+      "code": "  -- a third vertex always exists\n  have third : ∀ u v : Fin n, ∃ w, w ≠ u ∧ w ≠ v := by\n    intro u v\n    by_contra h\n    push_neg at h\n    have : (Finset.univ : Finset (Fin n)) ⊆ {u, v} := fun w _ => by\n      by_cases hw : w = u\n      · simp [hw]\n      · simp [h w hw]\n    have := Finset.card_le_card this\n    rw [Finset.card_univ, Fintype.card_fin] at this\n    have := Finset.card_le_two (a := u) (b := v)\n    omega"
+     },
+     {
+      "claim": "A closed pair {u, v} cannot exist in G'(W, c(uv)).",
+      "explanation": "If u and v only connected to each other, a third vertex would be unreachable from u, contradicting connectivity.",
+      "lemmas": [
+       "SimpleGraph.Connected.preconnected",
+       "wild_kn_closed_pair",
+       "wild_kn_mem"
+      ],
+      "automation": false,
+      "code": "  have hlow : ∀ W : Finset (Sym2 (Fin n)),\n      simple_graph_is_color_connecting (⊤ : SimpleGraph (Fin n)) c ↑W →\n        4 * ((n + 1) / 2) / 3 ≤ W.card := by\n    intro W hW\n    have conn : ∀ (u v : Fin n) (huv : u ≠ v), (G' W (c ⟨s(u, v), wild_kn_mem huv⟩)).Connected :=\n      fun u v huv => hW.2 ⟨s(u, v), wild_kn_mem huv⟩\n    -- (F) a closed pair contradicts connectivity\n    have no_closed : ∀ (u v : Fin n) (huv : u ≠ v),\n        (∀ x, (G' W (c ⟨s(u, v), wild_kn_mem huv⟩)).Adj u x → x = v) →\n        (∀ x, (G' W (c ⟨s(u, v), wild_kn_mem huv⟩)).Adj v x → x = u) → False := by\n      intro u v huv h1 h2\n      obtain ⟨w, hwu, hwv⟩ := third u v\n      rcases wild_kn_closed_pair _ u v h1 h2 ((conn u v huv).preconnected u w) with h | h\n      · exact hwu h\n      · exact hwv h\n    let touched : Finset (Fin n) := Finset.univ.filter fun v => ∃ f ∈ W, v ∈ f"
+     },
+     {
+      "claim": "At most one vertex is untouched by W, so |touched| ≥ n - 1.",
+      "explanation": "Two untouched vertices would form a closed pair in the subgraph of their connecting colour, contradicting connectivity.",
+      "lemmas": [
+       "Finset.card_filter_add_card_filter_not",
+       "Finset.card_le_one",
+       "Finset.card_univ",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "Fintype.card_fin",
+       "Sym2.eq_swap",
+       "Sym2.mem_mk_left",
+       "true_and",
+       "wild_kn_same_color",
+       "wild_kn_mem"
+      ],
+      "automation": true,
+      "code": "    -- (F1) at most one vertex is untouched\n    have F1 : n - 1 ≤ touched.card := by\n      have : (Finset.univ.filter fun v => v ∉ touched).card ≤ 1 := by\n        rw [Finset.card_le_one]\n        intro u hu v hv\n        by_contra huv\n        simp only [Finset.mem_filter, Finset.mem_univ, true_and, touched, not_exists,\n          not_and] at hu hv\n        apply no_closed u v huv\n        · intro x hx\n          rw [hG'adj] at hx\n          obtain ⟨hux, ⟨h, hc⟩ | hw⟩ := hx\n          · exact wild_kn_same_color c h huv hc\n          · exact absurd (Sym2.mem_mk_left u x) (hu _ hw)\n        · intro x hx\n          rw [hG'adj] at hx\n          obtain ⟨hvx, ⟨h, hc⟩ | hw⟩ := hx\n          · have hc' : c ⟨s(v, x), wild_kn_mem h⟩ = c ⟨s(v, u), wild_kn_mem (Ne.symm huv)⟩ := by\n              rw [hc]; congr 2; exact Sym2.eq_swap\n            exact wild_kn_same_color c h (Ne.symm huv) hc'\n          · exact absurd (Sym2.mem_mk_left v x) (hv _ hw)\n      have hsplit := Finset.card_filter_add_card_filter_not (s := Finset.univ)\n        (p := fun v => v ∈ touched)\n      rw [Finset.card_univ, Fintype.card_fin] at hsplit\n      have htt : (Finset.univ.filter fun v => v ∈ touched) = touched := by\n        ext v; simp\n      rw [htt] at hsplit\n      omega\n    -- (F1') for odd n every vertex is touched"
+     },
+     {
+      "claim": "For odd n, every vertex is touched by W, so |touched| ≥ n.",
+      "explanation": "If some vertex u were untouched, by the missing colour lemma for odd n there is a colour missing at u, leaving u with degree 0 in that colour's subgraph, contradicting connectivity.",
+      "lemmas": [
+       "Finset.card_univ",
+       "Finset.eq_univ_iff_forall",
+       "Finset.mem_filter",
+       "Finset.mem_univ",
+       "Fintype.card_fin",
+       "Sym2.mem_mk_left",
+       "true_and",
+       "wild_kn_exists_missing_color_of_odd"
+      ],
+      "automation": false,
+      "code": "    have F1' : n % 2 = 1 → n ≤ touched.card := by\n      intro hodd\n      have : touched = Finset.univ := by\n        rw [Finset.eq_univ_iff_forall]\n        intro u\n        by_contra hu\n        simp only [Finset.mem_filter, Finset.mem_univ, true_and, touched, not_exists,\n          not_and] at hu\n        obtain ⟨e, he⟩ := wild_kn_exists_missing_color_of_odd hn hodd c u\n        obtain ⟨w, hwu, -⟩ := third u u\n        obtain ⟨p⟩ := (hW.2 e).preconnected u w\n        cases p with\n        | nil => exact hwu rfl\n        | cons h _ =>\n          have h' : (G' W (c e)).Adj u _ := h\n          rw [hG'adj] at h'\n          obtain ⟨-, ⟨hx, hc⟩ | hw⟩ := h'\n          · exact he _ hx hc\n          · exact hu _ hw (Sym2.mem_mk_left _ _)\n      rw [this, Finset.card_univ, Fintype.card_fin]"
+     },
+     {
+      "claim": "The sum of degrees in W equals 2|W|.",
+      "explanation": "By the handshaking lemma, summing vertex degrees in the subgraph W counts each edge in W twice.",
+      "lemmas": [
+       "Finset.card_eq_sum_ones",
+       "Finset.card_filter",
+       "Finset.card_pair",
+       "Finset.sum_comm",
+       "Finset.sum_congr",
+       "Finset.sum_mul",
+       "Sym2.ind",
+       "mul_comm",
+       "one_mul"
+      ],
+      "automation": false,
+      "code": "    -- degrees in W\n    let d : Fin n → ℕ := fun v => (W.filter fun f => v ∈ f).card\n    have hhand : ∑ v, d v = 2 * W.card := by\n      simp only [d, Finset.card_filter]\n      rw [Finset.sum_comm]\n      rw [mul_comm, Finset.card_eq_sum_ones, Finset.sum_mul]\n      refine Finset.sum_congr rfl fun f hf => ?_\n      have hfE : f ∈ (⊤ : SimpleGraph (Fin n)).edgeSet := hW.1 (Finset.mem_coe.2 hf)\n      induction f using Sym2.ind with\n      | h a b =>\n        have hab : a ≠ b := by simpa using hfE\n        rw [← Finset.card_filter, one_mul]\n        have : (Finset.univ.filter fun v => v ∈ s(a, b)) = {a, b} := by\n          ext v; simp\n        rw [this, Finset.card_pair hab]\n    -- a leaf's edge is shared with no other leaf"
+     },
+     {
+      "claim": "Partitioning touched vertices into leaves and higher-degree vertices gives |L| + 2|Bg| ≤ 2|W|.",
+      "explanation": "Every touched vertex has degree 1 or degree at least 2 in W. Summing lower bounds on degrees over L and Bg gives the inequality.",
+      "lemmas": [
+       "Finset.card_pos",
+       "Finset.disjoint_left",
+       "Finset.mem_filter",
+       "Finset.mem_union",
+       "Finset.mem_univ",
+       "Finset.subset_univ",
+       "Finset.sum_le_sum_of_subset",
+       "Finset.sum_union",
+       "true_and"
+      ],
+      "automation": false,
+      "code": "    let L : Finset (Fin n) := Finset.univ.filter fun v => d v = 1\n    let Bg : Finset (Fin n) := Finset.univ.filter fun v => 2 ≤ d v\n    have htouch : touched = L ∪ Bg := by\n      ext v\n      simp only [touched, L, Bg, d, Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_union]\n      constructor\n      · rintro ⟨f, hf, hvf⟩\n        have : 1 ≤ (W.filter fun f => v ∈ f).card :=\n          Finset.card_pos.2 ⟨f, Finset.mem_filter.2 ⟨hf, hvf⟩⟩\n        omega\n      · intro h\n        have : 0 < (W.filter fun f => v ∈ f).card := by omega\n        obtain ⟨f, hf⟩ := Finset.card_pos.1 this\n        exact ⟨f, (Finset.mem_filter.1 hf).1, (Finset.mem_filter.1 hf).2⟩\n    have hdisj : Disjoint L Bg := by\n      rw [Finset.disjoint_left]\n      intro v hv hv'\n      simp only [L, Bg, Finset.mem_filter, Finset.mem_univ, true_and] at hv hv'\n      omega\n    have hdeg : L.card + 2 * Bg.card ≤ ∑ v, d v := by\n      calc L.card + 2 * Bg.card = ∑ v ∈ L, 1 + ∑ v ∈ Bg, 2 := by simp [mul_comm]\n        _ ≤ ∑ v ∈ L, d v + ∑ v ∈ Bg, d v := by\n          gcongr with v hv v hv\n          · simp only [L, Finset.mem_filter] at hv; omega\n          · simp only [Bg, Finset.mem_filter] at hv; omega\n        _ = ∑ v ∈ L ∪ Bg, d v := (Finset.sum_union hdisj).symm\n        _ ≤ ∑ v, d v := Finset.sum_le_sum_of_subset (Finset.subset_univ _)"
+     },
+     {
+      "claim": "Leaves in W do not share an edge, so |L| ≤ |W|.",
+      "explanation": "If two leaves shared an edge in W, that edge would be their only incident edge in W, making them a closed pair in the subgraph of that edge's colour, which is impossible. Hence the map from leaves to their unique incident edges in W is injective.",
+      "lemmas": [
+       "Finset.card_eq_one",
+       "Finset.card_le_card_of_injOn",
+       "Finset.mem_filter",
+       "Finset.mem_singleton",
+       "Finset.mem_singleton_self",
+       "Finset.mem_univ",
+       "Sym2.eq_iff",
+       "Sym2.eq_swap",
+       "Sym2.ind",
+       "Sym2.mem_iff",
+       "Sym2.mem_mk_left",
+       "true_and",
+       "wild_kn_same_color",
+       "wild_kn_mem"
+      ],
+      "automation": false,
+      "code": "    have hleaf : ∀ v ∈ L, ∃ f, W.filter (fun f => v ∈ f) = {f} := by\n      intro v hv\n      simp only [L, Finset.mem_filter, Finset.mem_univ, true_and, d] at hv\n      exact Finset.card_eq_one.1 hv\n    haveI : Nonempty (Sym2 (Fin n)) := ⟨s(⟨0, by omega⟩, ⟨0, by omega⟩)⟩\n    choose! ef hef using hleaf\n    have hLW : L.card ≤ W.card := by\n      refine Finset.card_le_card_of_injOn ef (fun v hv => ?_) (fun u hu v hv huv => ?_)\n      · have := (Finset.mem_filter.1 ((hef v hv).symm ▸ Finset.mem_singleton_self (ef v))).1\n        exact this\n      · by_contra hne\n        have hu' := (Finset.mem_filter.1 ((hef u hu).symm ▸ Finset.mem_singleton_self (ef u)))\n        have hv' := (Finset.mem_filter.1 ((hef v hv).symm ▸ Finset.mem_singleton_self (ef v)))\n        -- ef u = s(u, v)\n        have huvf : ef u = s(u, v) := by\n          have h1 : u ∈ ef u := hu'.2\n          have h2 : v ∈ ef u := huv ▸ hv'.2\n          have hE : ef u ∈ (⊤ : SimpleGraph (Fin n)).edgeSet := hW.1 (Finset.mem_coe.2 hu'.1)\n          revert h1 h2 hE\n          induction ef u using Sym2.ind with\n          | h a b =>\n            intro h1 h2 hE\n            have hab : a ≠ b := by simpa using hE\n            simp only [Sym2.mem_iff] at h1 h2\n            rw [Sym2.eq_iff]\n            rcases h1 with rfl | rfl <;> rcases h2 with rfl | rfl\n            · exact absurd rfl hne\n            · exact Or.inl ⟨rfl, rfl⟩\n            · exact Or.inr ⟨rfl, rfl⟩\n            · exact absurd rfl hne\n        have only : ∀ w, w ∈ L → ∀ f ∈ W, w ∈ f → f = ef w := by\n          intro w hw f hf hwf\n          have : f ∈ W.filter (fun f => w ∈ f) := Finset.mem_filter.2 ⟨hf, hwf⟩\n          rw [hef w hw] at this\n          exact Finset.mem_singleton.1 this\n        apply no_closed u v hne\n        · intro x hx\n          rw [hG'adj] at hx\n          obtain ⟨hux, ⟨h, hc⟩ | hw⟩ := hx\n          · exact wild_kn_same_color c h hne hc\n          · have := only u hu _ hw (Sym2.mem_mk_left u x)\n            rw [huvf, Sym2.eq_iff] at this\n            rcases this with ⟨-, h⟩ | ⟨h1, -⟩\n            · exact h\n            · exact absurd h1 hne\n        · intro x hx\n          rw [hG'adj] at hx\n          obtain ⟨hvx, ⟨h, hc⟩ | hw⟩ := hx\n          · have hc' : c ⟨s(v, x), wild_kn_mem h⟩ = c ⟨s(v, u), wild_kn_mem (Ne.symm hne)⟩ := by\n              rw [hc]; congr 2; exact Sym2.eq_swap\n            exact wild_kn_same_color c h (Ne.symm hne) hc'\n          · have := only v hv _ hw (Sym2.mem_mk_left v x)\n            rw [← huv, huvf, Sym2.eq_iff] at this\n            rcases this with ⟨h1, -⟩ | ⟨-, h⟩\n            · exact absurd h1.symm hne\n            · exact h\n    have htc : touched.card = L.card + Bg.card := by"
+     },
+     {
+      "claim": "The inequalities imply |W| ≥ ⌊4⌈n/2⌉/3⌋.",
+      "explanation": "Combining |touched| = |L| + |Bg|, |L| + 2|Bg| ≤ 2|W|, and |L| ≤ |W| yields 2|touched| ≤ 3|W|. Using |touched| ≥ n - 1 (even n) or |touched| ≥ n (odd n) and integer division finishes the arithmetic.",
+      "lemmas": [
+       "Finset.card_union_of_disjoint",
+       "Nat.mod_two_eq_zero_or_one"
+      ],
+      "automation": true,
+      "code": "      rw [htouch, Finset.card_union_of_disjoint hdisj]\n    rcases Nat.mod_two_eq_zero_or_one n with h0 | h1\n    · omega\n    · have := F1' h1\n      omega\n  -- the edge set of K_n is colour-connecting, so the infimum is over a nonempty set"
+     },
+     {
+      "claim": "The wild number is at least ⌊4⌈n/2⌉/3⌋.",
+      "explanation": "The complete graph itself is connected, so the full edge set is colour-connecting, ensuring the set of candidate sizes is nonempty. Since every colour-connecting set satisfies the lower bound, its infimum does as well.",
+      "lemmas": [
+       "SimpleGraph.connected_top",
+       "le_csInf"
+      ],
+      "automation": false,
+      "code": "  have hne : (Finset.univ.filter fun f : Sym2 (Fin n) => f ∈ (⊤ : SimpleGraph (Fin n)).edgeSet).card ∈\n      {k | ∃ W : Finset (Sym2 (Fin n)), W.card = k ∧\n        simple_graph_is_color_connecting (⊤ : SimpleGraph (Fin n)) c ↑W} := by\n    refine ⟨_, rfl, ?_, fun e => ?_⟩\n    · intro f hf; simpa using hf\n    · haveI : Nonempty (Fin n) := ⟨⟨0, by omega⟩⟩\n      refine SimpleGraph.connected_top.mono ?_\n      intro a b hab\n      rw [SimpleGraph.fromEdgeSet_adj]\n      refine ⟨Or.inr (by simpa using hab), hab⟩\n  exact le_csInf ⟨_, hne⟩ fun j ⟨W, hj, hW⟩ => by rw [← hj]; exact hlow W hW"
+     }
+    ],
+    "glossary": {},
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -521962,13 +522780,90 @@
     "wild_number_complete_three_min_proper_coloring_eq"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/WildNumberCompleteGraphLeSubOne.lean",
-   "proved_at": 1792145896,
+   "proved_at": 1792147047,
    "provenance": "literature",
    "citation": "arXiv:2610.22142 (Wild number for spanning trees in complete and complete bipartite graphs), Sec. 2, inequality (1) (0 ≤ wld_γ(G) ≤ n − 1 for an n-vertex connected graph), here for K_n.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The proof shows that the wild number of any edge-coloured complete graph K_n (with n ≥ 1) is at most n - 1 by exhibiting an explicit color-connecting set of edges. It chooses an arbitrary vertex z and defines W to be the spanning star centered at z, consisting of the edges {z, j} for all j ≠ z. Because every vertex is directly adjacent to z along an edge in W, the graph containing W (plus any monochromatic edges) is connected, making W color-connecting. The bound follows because the star W contains at most n - 1 edges.",
+    "steps": [
+     {
+      "claim": "Define a candidate edge set W as the spanning star centered at vertex z = 0.",
+      "explanation": "Since n ≥ 1, the index 0 exists as a vertex z ∈ Fin n. We define W to be the set of unordered pairs {z, j} connecting z to all other vertices j ∈ Fin n with j ≠ z.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  classical\n  let z : Fin n := ⟨0, by omega⟩\n  let W : Finset (Sym2 (Fin n)) := (Finset.univ.erase z).image fun j => s(z, j)"
+     },
+     {
+      "claim": "Every pair in W is an edge of the complete graph K_n.",
+      "explanation": "To show W ⊆ (⊤ : SimpleGraph (Fin n)).edgeSet, take any f ∈ W. Unfolding the definition of W via Finset.coe_image, Set.mem_image, Finset.mem_coe, and Finset.mem_erase, f has the form {z, j} for some j ≠ z. Since z ≠ j by Ne.symm, the pair {z, j} connects distinct vertices and is therefore an edge of the complete graph.",
+      "lemmas": [
+       "Finset.coe_image",
+       "Set.mem_image",
+       "Finset.mem_coe",
+       "Finset.mem_erase",
+       "Ne.symm"
+      ],
+      "automation": false,
+      "code": "  have hW : simple_graph_is_color_connecting (⊤ : SimpleGraph (Fin n)) γ ↑W := by\n    refine ⟨?_, fun e => ?_⟩\n    · intro f hf\n      simp only [W, Finset.coe_image, Set.mem_image, Finset.mem_coe, Finset.mem_erase] at hf\n      obtain ⟨j, ⟨hj, -⟩, rfl⟩ := hf\n      simpa using Ne.symm hj"
+     },
+     {
+      "claim": "For every edge e, the subgraph containing all edges of color γ(e) together with W is connected, so W is color-connecting.",
+      "explanation": "By SimpleGraph.connected_iff_exists_forall_reachable, connectivity reduces to showing that z can reach every vertex y. If y = z, reachability is trivial. If y ≠ z, SimpleGraph.Adj.reachable shows reachability follows from adjacency. By SimpleGraph.fromEdgeSet_adj, adjacency holds because z ≠ y (from Ne.symm) and {z, y} belongs to the allowed edges: choosing the second disjunct via Or.inr, {z, y} ∈ W holds by definition of W (simplified via Finset.coe_image, Set.mem_image, Finset.mem_coe, Finset.mem_erase, Finset.mem_univ, and and_true) because y ≠ z.",
+      "lemmas": [
+       "SimpleGraph.connected_iff_exists_forall_reachable",
+       "SimpleGraph.Adj.reachable",
+       "SimpleGraph.fromEdgeSet_adj",
+       "Or.inr",
+       "Ne.symm",
+       "Finset.coe_image",
+       "Set.mem_image",
+       "Finset.mem_coe",
+       "Finset.mem_erase",
+       "Finset.mem_univ",
+       "and_true"
+      ],
+      "automation": false,
+      "code": "    · rw [SimpleGraph.connected_iff_exists_forall_reachable]\n      refine ⟨z, fun y => ?_⟩\n      by_cases hy : y = z\n      · rw [hy]\n      apply SimpleGraph.Adj.reachable\n      rw [SimpleGraph.fromEdgeSet_adj]\n      refine ⟨Or.inr ?_, Ne.symm hy⟩\n      simp only [W, Finset.coe_image, Set.mem_image, Finset.mem_coe, Finset.mem_erase,\n        Finset.mem_univ, and_true]\n      exact ⟨y, hy, rfl⟩"
+     },
+     {
+      "claim": "The wild number of K_n under γ is bounded by n - 1.",
+      "explanation": "By simple_graph_wild_number_le_of_is_color_connecting, the wild number is bounded above by |W|. Applying Finset.card_image_le bounds |W| by the size of (Finset.univ.erase z). Finally, removing z from Finset.univ leaves n - 1 elements by Finset.card_erase_of_mem, Finset.mem_univ, Finset.card_univ, and Fintype.card_fin.",
+      "lemmas": [
+       "simple_graph_wild_number_le_of_is_color_connecting",
+       "Finset.card_image_le",
+       "Finset.card_erase_of_mem",
+       "Finset.mem_univ",
+       "Finset.card_univ",
+       "Fintype.card_fin"
+      ],
+      "automation": false,
+      "code": "  refine (simple_graph_wild_number_le_of_is_color_connecting _ γ W hW).trans ?_\n  refine Finset.card_image_le.trans ?_\n  rw [Finset.card_erase_of_mem (Finset.mem_univ _), Finset.card_univ, Fintype.card_fin]"
+     }
+    ],
+    "glossary": {
+     "and_true": "For any proposition p, p ∧ True is equivalent to p.",
+     "Finset.card_erase_of_mem": "Deleting an element from a finite set containing it decreases the cardinality of the set by 1.",
+     "Finset.card_image_le": "The cardinality of the image of a finite set under any function is at most the cardinality of the original finite set.",
+     "Finset.card_univ": "The cardinality of the universal finset of a finite type equals the cardinality of the type.",
+     "Finset.coe_image": "The set coercion of the image of a finite set under a function equals the image of its set coercion.",
+     "Finset.mem_coe": "An element belongs to the set coercion of a finite set if and only if it belongs to the finite set.",
+     "Finset.mem_erase": "An element a belongs to s \\ {b} if and only if a ≠ b and a ∈ s.",
+     "Finset.mem_univ": "Every element of a finite type belongs to its universal finset.",
+     "Fintype.card_fin": "The finite type Fin n has cardinality n.",
+     "Ne.symm": "Inequality is symmetric: if a ≠ b, then b ≠ a.",
+     "Or.inr": "From B, one can deduce A ∨ B.",
+     "Set.mem_image": "An element y is in the image f '' s if and only if there exists x ∈ s such that f x = y.",
+     "SimpleGraph.Adj.reachable": "Adjacent vertices in a graph are reachable from each other.",
+     "SimpleGraph.connected_iff_exists_forall_reachable": "A graph is connected if and only if there exists a vertex from which every vertex is reachable.",
+     "SimpleGraph.fromEdgeSet_adj": "Two vertices v and w are adjacent in the graph induced by edge set s if and only if {v, w} ∈ s and v ≠ w.",
+     "simple_graph_wild_number_le_of_is_color_connecting": "If a finite edge set W is color-connecting for (G, γ), then the wild number of (G, γ) is at most the cardinality of W."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   },
@@ -521995,13 +522890,50 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/WildNumberCompleteThreeMinProperColoringEq.lean",
-   "proved_at": 1792146152,
+   "proved_at": 1792147046,
    "provenance": "literature",
    "citation": "arXiv:2610.22142 (Wild number for spanning trees in complete and complete bipartite graphs), Theorem 3.5 (the exact values for 3 ≤ n ≤ 12), case n = 3; it is the case n = 3 of the Sec. 6 conjecture.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
+   "explanation": {
+    "summary": "The theorem is proved by squeezing the wild number of K₃ under a minimum proper edge colouring between established general bounds. A general upper bound for complete graphs K_n shows that the wild number is at most n - 1 = 2 when n = 3. A general lower bound for minimum proper edge colourings of K_n shows that the wild number is at least ⌊4⌈n/2⌉/3⌋ = 2 when n = 3. Squeezing between these matching bounds forces the wild number to be exactly 2.",
+    "steps": [
+     {
+      "claim": "The wild number of K₃ under the colouring c is at most 3 - 1.",
+      "explanation": "Applying the general upper bound wild_number_complete_graph_le_sub_one to the complete graph on 3 vertices shows that the wild number under c is at most 3 - 1, discharging the hypothesis 1 ≤ 3 by simple arithmetic evaluation.",
+      "lemmas": [
+       "wild_number_complete_graph_le_sub_one"
+      ],
+      "automation": false,
+      "code": "  have h1 := wild_number_complete_graph_le_sub_one 3 (by norm_num) c"
+     },
+     {
+      "claim": "The wild number of K₃ under c is at least 4 * ((3 + 1) / 2) / 3.",
+      "explanation": "Applying the general lower bound wild_number_complete_graph_min_proper_coloring_ge to n = 3 and colour count k establishes that any minimum proper edge colouring has wild number at least 4 * ((3 + 1) / 2) / 3. The precondition 3 ≤ 3 is supplied by reflexivity (le_refl), and the hypothesis that k is the chromatic index of K₃ comes from the theorem's assumptions.",
+      "lemmas": [
+       "wild_number_complete_graph_min_proper_coloring_ge",
+       "le_refl"
+      ],
+      "automation": false,
+      "code": "  have h2 := wild_number_complete_graph_min_proper_coloring_ge 3 k (le_refl 3) hk c"
+     },
+     {
+      "claim": "The wild number of K₃ under c is equal to 2.",
+      "explanation": "Evaluating the integer arithmetic in both bounds simplifies the upper bound to ≤ 2 and the lower bound to ≥ 2. Since the wild number is sandwiched between 2 and 2, linear integer arithmetic (omega) closes the goal by concluding it equals 2.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  norm_num at h1 h2\n  omega"
+     }
+    ],
+    "glossary": {
+     "wild_number_complete_graph_le_sub_one": "For any complete graph on n vertices (with n ≥ 1) and any edge colouring, the wild number is at most n - 1.",
+     "wild_number_complete_graph_min_proper_coloring_ge": "For any complete graph on n vertices (with n ≥ 3), if k is the chromatic index and c is a proper edge colouring using k colours, then the wild number is at least 4 * ((n + 1) / 2) / 3 in integer arithmetic (representing ⌊4⌈n/2⌉/3⌋).",
+     "le_refl": "The less-than-or-equal relation is reflexive: for every element a, a ≤ a."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
    "funder": "",
    "problem": null
   }

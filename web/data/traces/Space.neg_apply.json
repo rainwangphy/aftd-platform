@@ -1,0 +1,1 @@
+{"name":"Space.neg_apply","v":1,"source_hash":"843f5f27920a68c8","lines":["d : ℕ","p : Space d","i : Fin d","⊢ (-p).val i = -p.val i"],"goals":[[0,1,2,3]],"steps":[{"line":5,"col":27,"end_line":5,"end_col":30,"tactic":"rfl","before":[0],"after":[],"used":["Real","Space","Space.instNeg","Eq.refl","Space.val","Neg.neg"]}],"steps_total":1,"truncated":false}

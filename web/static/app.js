@@ -286,6 +286,229 @@
   }
 })();
 
+(function sourceLines() {
+  // A declaration page whose explanation names lines of the source: "lines
+  // 3–5" highlights them there. (The link alone already jumps to #L3.)
+  const pre = document.querySelector('pre.lines');
+  if (!pre) return;
+  const lineEls = [...pre.querySelectorAll('.ln')];
+  let lit = [];
+  function show(a, b) {
+    for (const el of lit) el.classList.remove('ex');
+    lit = lineEls.slice(a - 1, b);
+    for (const el of lit) el.classList.add('ex');
+    if (lit[0]) lit[0].scrollIntoView({block: 'center', behavior: 'smooth'});
+  }
+  for (const a of document.querySelectorAll('a.lines')) {
+    a.addEventListener('click', ev => {
+      ev.preventDefault();
+      const l1 = +a.dataset.l1, l2 = +a.dataset.l2;
+      try { history.replaceState(null, '', '#L' + l1); } catch (_) {}
+      show(l1, l2);
+      document.dispatchEvent(new CustomEvent('aftd:lines', {detail: {l1, l2}}));
+    });
+  }
+  const m = /^#L(\d+)$/.exec(location.hash);
+  if (m) show(+m[1], +m[1]);
+})();
+
+(function stepper() {
+  // The proof stepper: Lean's goals before and after each tactic, as an
+  // infoview shows them, read from trace.json beside the page -- fetched only
+  // when the reader gets near the proof. Every string from the trace goes in
+  // as text, never as markup.
+  const box = document.querySelector('.stepper[data-trace]');
+  if (!box) return;
+  const pre = box.querySelector('pre.lines');
+  const panel = box.querySelector('.st-panel');
+  const lineEls = [...pre.querySelectorAll('.ln')];
+  const pos = panel.querySelector('.st-pos');
+  const tac = panel.querySelector('.st-tac');
+  const beforeEl = panel.querySelector('.st-before');
+  const afterEl = panel.querySelector('.st-after');
+  const usedEl = panel.querySelector('.st-used');
+  const prev = panel.querySelector('.st-prev');
+  const next = panel.querySelector('.st-next');
+  const hl = (window.CSS && CSS.highlights && window.Highlight) ? CSS.highlights : null;
+  let T = null, cur = -1, loading = null, pending = null;
+  const byLine = new Map();  // line -> indices of the steps that start there
+
+  const el = (tag, cls, text) => {
+    const x = document.createElement(tag);
+    if (cls) x.className = cls;
+    if (text != null) x.textContent = text;
+    return x;
+  };
+  const goalText = g => T.goals[g].map(i => T.lines[i]).join('\n');
+
+  // One goal, laid out like the infoview: an optional case tag, the
+  // hypotheses with their names picked out, then the target after ⊢.
+  // `seen` holds the lines of the state before; what is new is marked.
+  function goalEl(text, seen) {
+    const box = el('div', 'goal');
+    let last = null;
+    text.split('\n').forEach((line, i) => {
+      if (last && /^\s/.test(line) && !line.trimStart().startsWith('⊢')) {
+        last.append('\n' + line);  // a long type, wrapped by Lean's printer
+        return;
+      }
+      let row;
+      if (i === 0 && /^case /.test(line)) row = el('div', 'g-case', line);
+      else if (line.startsWith('⊢')) row = el('div', 'g-tgt', line);
+      else {
+        row = el('div', 'g-hyp');
+        const k = line.indexOf(' : ');
+        if (k > 0) { row.append(el('span', 'g-name', line.slice(0, k))); row.append(line.slice(k)); }
+        else row.textContent = line;
+      }
+      if (seen && !seen.has(line)) row.classList.add('new');
+      box.append(row);
+      last = row;
+    });
+    return box;
+  }
+
+  function stateEl(target, ids, more, seen, emptyText) {
+    target.replaceChildren();
+    if (ids == null) { target.append(el('p', 'g-none', 'Lean did not record this state.')); return; }
+    if (!ids.length) { target.append(el('p', 'g-none g-done', emptyText)); return; }
+    ids.forEach(g => target.append(goalEl(goalText(g), seen)));
+    if (more) target.append(el('p', 'g-none', `… and ${more} more goal${more === 1 ? '' : 's'}`));
+  }
+
+  // Columns are Lean's: code points into the line, not UTF-16 units.
+  function point(lineEl, col) {
+    const w = document.createTreeWalker(lineEl, NodeFilter.SHOW_TEXT);
+    let n, left = col, lastNode = null;
+    while ((n = w.nextNode())) {
+      lastNode = n;
+      const s = n.data;
+      let i = 0;
+      while (i < s.length && left > 0) { i += s.codePointAt(i) > 0xffff ? 2 : 1; left--; }
+      if (left === 0 && i < s.length) return [n, i];
+      if (left === 0) return [n, s.length];
+    }
+    return lastNode ? [lastNode, lastNode.data.length] : null;
+  }
+
+  function mark(st) {
+    for (const x of pre.querySelectorAll('.ln.sel, .ln.span')) x.classList.remove('sel', 'span');
+    for (let l = st.line; l <= st.end_line; l++) {
+      const x = lineEls[l - 1];
+      if (x) x.classList.add(l === st.line ? 'sel' : 'span');
+    }
+    if (!hl) return;
+    try {
+      const a = point(lineEls[st.line - 1], st.col), b = point(lineEls[st.end_line - 1], st.end_col);
+      if (!a || !b) return;
+      const r = new Range();
+      r.setStart(a[0], a[1]);
+      r.setEnd(b[0], b[1]);
+      hl.set('aftd-tactic', new Highlight(r));
+    } catch (_) { /* the line highlight is enough */ }
+  }
+
+  function select(i, scroll) {
+    if (!T || i < 0 || i >= T.steps.length) return;
+    cur = i;
+    const st = T.steps[i];
+    mark(st);
+    pos.textContent = `Tactic ${i + 1} of ${T.steps.length} · line ${st.line}`;
+    tac.textContent = st.tactic;
+    const seen = new Set();
+    for (const g of st.before || []) for (const k of T.goals[g]) seen.add(T.lines[k]);
+    stateEl(beforeEl, st.before, st.more_before, null, 'No goals.');
+    stateEl(afterEl, st.after, st.more_after, st.before ? seen : null,
+            'No goals left: this tactic closes its goal.');
+    usedEl.replaceChildren();
+    if (st.used && st.used.length) {
+      usedEl.append('Uses ');
+      st.used.forEach((u, k) => { if (k) usedEl.append(', '); usedEl.append(el('code', '', u)); });
+    }
+    prev.disabled = i === 0;
+    next.disabled = i === T.steps.length - 1;
+    if (scroll) lineEls[st.line - 1].scrollIntoView({block: 'nearest'});
+  }
+
+  function onLine(l) {
+    const here = byLine.get(l);
+    if (!here) return false;
+    // Again on the same line: the next tactic on it.
+    const k = here.indexOf(cur);
+    select(k >= 0 ? here[(k + 1) % here.length] : here[0], false);
+    return true;
+  }
+
+  function init(data) {
+    T = data;
+    T.steps.forEach((st, i) => {
+      if (!byLine.has(st.line)) byLine.set(st.line, []);
+      byLine.get(st.line).push(i);
+    });
+    for (const [l] of byLine) {
+      const x = lineEls[l - 1];
+      if (x) { x.classList.add('t'); x.title = 'Show the goals at this tactic'; }
+    }
+    pre.classList.add('stepping');
+    panel.hidden = false;
+    const hint = box.querySelector('.st-hint');
+    if (hint) hint.hidden = false;
+    select(0, false);
+    if (pending) { const p = pending; pending = null; p(); }
+  }
+
+  function load() {
+    if (!loading) {
+      loading = fetch(box.dataset.trace)
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(init)
+        .catch(() => { /* the source is still there to read */ });
+    }
+    return loading;
+  }
+
+  pre.addEventListener('click', ev => {
+    const x = ev.target.closest('.ln');
+    if (!x || !T) return;
+    if (window.getSelection && String(getSelection()).length) return;  // copying, not choosing
+    onLine(+x.dataset.l);
+  });
+  prev.addEventListener('click', () => select(cur - 1, true));
+  next.addEventListener('click', () => select(cur + 1, true));
+  box.addEventListener('keydown', ev => {
+    if (!T || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    if (ev.key === 'ArrowLeft' || ev.key === 'k') { ev.preventDefault(); select(cur - 1, true); }
+    else if (ev.key === 'ArrowRight' || ev.key === 'j') { ev.preventDefault(); select(cur + 1, true); }
+  });
+  // Outside any field, the arrows step too, once the stepper is on screen.
+  let inView = false;
+  document.addEventListener('keydown', ev => {
+    if (!T || !inView || ev.metaKey || ev.ctrlKey || ev.altKey || box.contains(ev.target)) return;
+    if (ev.target.closest && ev.target.closest('input, textarea, select, [contenteditable]')) return;
+    if (ev.key === 'ArrowLeft') { ev.preventDefault(); select(cur - 1, true); }
+    else if (ev.key === 'ArrowRight') { ev.preventDefault(); select(cur + 1, true); }
+  });
+  // An explanation's "lines 3–5": the first tactic there.
+  document.addEventListener('aftd:lines', ev => {
+    const go = () => {
+      for (let l = ev.detail.l1; l <= ev.detail.l2; l++) if (byLine.has(l)) { select(byLine.get(l)[0], false); return; }
+    };
+    if (T) go(); else { pending = go; load(); }
+  });
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(items => {
+      for (const it of items) {
+        inView = it.isIntersecting;
+        if (it.isIntersecting) load();
+      }
+    }, {rootMargin: '400px 0px'});
+    io.observe(box);
+  } else {
+    load();
+  }
+})();
+
 window.addEventListener('DOMContentLoaded', () => {
   // KaTeX is loaded only on pages that show submitted statements, and only
   // elements marked .math are rendered, so a "$21" elsewhere stays a price.

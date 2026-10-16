@@ -1,0 +1,1 @@
+{"name":"Cslib.ωSequence.extract_0u_extract_l","v":1,"source_hash":"ba3149e8ab1ca7ca","lines":["α : Type u","xs : ωSequence α","n i : ℕ","⊢ (xs.extract 0 n).extract i = xs.extract i n"],"goals":[[0,1,2,3]],"steps":[{"line":11,"col":2,"end_line":11,"end_col":7,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

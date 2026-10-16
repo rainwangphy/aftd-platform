@@ -1,0 +1,1 @@
+{"name":"poc8_gmms_check_all","v":1,"source_hash":"b96105d428b3af5a","lines":["⊢ ∀ (b0 b1 b2 b3 b4 b5 b6 b7 : Bool), poc8_gmms_ok ![b0, b1, b2, b3, b4, b5, b6, b7] = true"],"goals":[[0]],"steps":[{"line":3,"col":2,"end_line":3,"end_col":16,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

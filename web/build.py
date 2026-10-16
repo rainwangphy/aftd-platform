@@ -7,6 +7,9 @@ Inputs, all under `web/`:
 
 * `data/kb.json` -- written by `scripts/snapshot.py` on the machine that runs
   the loop, and committed. Every declaration the site shows comes from here.
+* `data/traces/<name>.json` -- written with it: for each proved theorem with
+  tactics, Lean's goals before and after every tactic. Optional: a page
+  without one shows its proof as plain source.
 * `data/problems.json` -- written by `fetch_problems.py` from GitHub issues at
   build time. Optional: without it the site simply has no community problems.
 * `site.json` -- the repository and branch that every outbound link points at.
@@ -27,7 +30,9 @@ Pages:
                                 use), then as a searchable list
     results/                    the page's old address, forwarding to the new one
     d/<name>/                   one declaration: statement, proof, dependencies,
-                                the problem it answers, challenges against it
+                                the problem it answers, challenges against it;
+                                with a trace, a proof stepper (Lean's goals at
+                                each tactic, read from d/<name>/trace.json)
     problems/                   community problems by status, what is open, and
                                 how to submit a problem or challenge a result
     problems/<number>/          one reviewed problem and what answers it
@@ -91,8 +96,13 @@ class Site:
         news: list[dict] | None = None,
         weekly: list[dict] | None = None,
         monthly: list[dict] | None = None,
+        traces_dir: Path | None = None,
     ):
         self.kb = kb
+        # Where each declaration's proof trace is (`scripts/snapshot.py`
+        # writes `data/traces/<slug>.json`): read only to be copied next to
+        # its page, which loads it when the reader gets to the proof.
+        self.traces_dir = traces_dir
         self.cfg = cfg
         self.repo = cfg["repo"]
         self.branch = cfg.get("branch", "master")
@@ -131,6 +141,38 @@ class Site:
 
     def reports(self, period: str) -> list[dict]:
         return self.monthly if period == "month" else self.weekly
+
+    def trace(self, d: dict) -> dict | None:
+        """A declaration's proof trace, if the snapshot says it has one and its
+        file is there, with every step pointing inside its source -- or None."""
+        if not d.get("trace") or self.traces_dir is None:
+            return None
+        p = self.traces_dir / f"{slug(d['name'])}.json"
+        try:
+            t = json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return None
+        n = d["source"].count("\n") + 1
+        lines = t.get("lines") if isinstance(t.get("lines"), list) else []
+        goals = t.get("goals") if isinstance(t.get("goals"), list) else []
+        if not all(isinstance(g, list) and all(
+                isinstance(i, int) and 0 <= i < len(lines) for i in g) for g in goals):
+            return None
+
+        def state(x) -> bool:
+            return x is None or (isinstance(x, list) and all(
+                isinstance(i, int) and 0 <= i < len(goals) for i in x))
+
+        steps = [
+            st for st in t.get("steps") or []
+            if isinstance(st, dict)
+            and isinstance(st.get("line"), int) and 1 <= st["line"] <= n
+            and isinstance(st.get("end_line"), int) and st["line"] <= st["end_line"] <= n
+            and state(st.get("before")) and state(st.get("after"))
+        ]
+        if not steps:
+            return None
+        return {**t, "name": d["name"], "steps": steps}
 
     def verified(self, d: dict) -> bool:
         """Whether a theorem's axioms are all trusted. An empty list is the
@@ -339,25 +381,44 @@ _LEAN_TOKEN = re.compile(
 )
 
 
-def highlight_lean(src: str) -> str:
-    """Lean source as escaped HTML with <span> classes for the stylesheet."""
-    out = []
+def _lean_tokens(src: str):
+    """(class, text) for each token of `src`; the class is "" for plain text."""
     for m in _LEAN_TOKEN.finditer(src):
         text = m.group(0)
         if m.group("c"):
-            out.append(f'<span class="lc">{e(text)}</span>')
+            yield "lc", text
         elif m.group("w"):
-            cls = (
+            yield (
                 "lk" if text in _LEAN_DECL
                 else "lt" if text in _LEAN_TERM
                 else "lx" if text in _LEAN_TACTIC
                 else "ls" if text in ("Type", "Prop", "Sort", "Type*")
                 else ""
-            )
-            out.append(f'<span class="{cls}">{e(text)}</span>' if cls else e(text))
+            ), text
         else:
-            out.append(e(text))
-    return "".join(out)
+            yield "", text
+
+
+def highlight_lean(src: str) -> str:
+    """Lean source as escaped HTML with <span> classes for the stylesheet."""
+    return "".join(
+        f'<span class="{cls}">{e(text)}</span>' if cls else e(text)
+        for cls, text in _lean_tokens(src)
+    )
+
+
+def highlight_lean_lines(src: str) -> list[str]:
+    """`highlight_lean`, one string per source line: a token that runs over
+    several lines (a block comment) is closed at each line end and reopened
+    on the next, so every line is well-formed HTML on its own."""
+    lines = [""]
+    for cls, text in _lean_tokens(src):
+        for i, part in enumerate(text.split("\n")):
+            if i:
+                lines.append("")
+            if part:
+                lines[-1] += f'<span class="{cls}">{e(part)}</span>' if cls else e(part)
+    return lines
 
 
 # ------------------------------------------------------------------- layout
@@ -1379,7 +1440,9 @@ Click a node to follow its chain; double-click to open its proof.</p></div>
 </section>"""
 
 
-def render_decl(s: Site, d: dict) -> str:
+def render_decl(s: Site, d: dict, trace: dict | None = None) -> str:
+    """One declaration's page. With `trace` (`Site.trace`), its Lean source is
+    a proof stepper: the goals before and after each tactic, beside it."""
     root = "../../"
     badges = [kind_badge(d)]
     if s.verified(d):
@@ -1418,6 +1481,7 @@ def render_decl(s: Site, d: dict) -> str:
             f'<li><p class="claim">{e(st["claim"])}'
             + (' <span class="auto">automation</span>' if st["automation"] else "")
             + f'</p><p class="why">{e(st["explanation"])}</p>'
+            + lines_link(st.get("lines"), d["source"])
             + (
                 '<p class="uses">uses '
                 + ", ".join(f"<code>{e(l)}</code>" for l in st["lemmas"])
@@ -1453,9 +1517,7 @@ def render_decl(s: Site, d: dict) -> str:
         if d.get("lean_path")
         else ""
     )
-    parts.append(
-        f'<h2>Lean source{src_link}</h2>{codebox(highlight_lean(d["source"]), "src")}'
-    )
+    parts.append(source_section(d, src_link, trace, numbered=bool(x)))
     ch = s.challenges.get(d["name"], [])
     if ch:
         items = "".join(
@@ -1480,6 +1542,60 @@ def render_decl(s: Site, d: dict) -> str:
         body="".join(parts),
         script=True,
         description=clip(d["informal"] or d["statement"], 180),
+    )
+
+
+def lines_link(lines, source: str) -> str:
+    """"lines 3–5", pointing at those lines of the source below (app.js
+    highlights them; without it, the link still jumps there)."""
+    n = source.count("\n") + 1
+    if not (isinstance(lines, list) and len(lines) == 2
+            and all(isinstance(x, int) for x in lines) and 1 <= lines[0] <= lines[1] <= n):
+        return ""
+    a, b = lines
+    label = f"line {a}" if a == b else f"lines {a}&ndash;{b}"
+    return f'<p class="uses"><a class="lines" href="#L{a}" data-l1="{a}" data-l2="{b}">{label}</a></p>'
+
+
+def source_section(d: dict, src_link: str, trace: dict | None, numbered: bool) -> str:
+    """The Lean source. Plain, unless an explanation points into it (then its
+    lines are numbered and addressable, `#L12`) or Lean's trace of the proof
+    is there: then it is a proof stepper, as in Lean's infoview -- choose a
+    tactic and the goals Lean had before and after it are shown beside it.
+    app.js does the stepping, from `trace.json` beside the page, fetched
+    only when the reader gets near the proof."""
+    head = f'<h2 id="source">Lean source{src_link}</h2>'
+    if not trace and not numbered:
+        return head + codebox(highlight_lean(d["source"]), "src")
+    lines = "".join(
+        f'<span class="ln" id="L{i}" data-l="{i}">{html_line}</span>'
+        for i, html_line in enumerate(highlight_lean_lines(d["source"]), 1)
+    )
+    pre = (f'<div class="codebox"><button type="button" class="copy" hidden>Copy</button>'
+           f'<pre class="src lean lines" tabindex="0">{lines}</pre></div>')
+    if not trace:
+        return head + pre
+    n = len(trace["steps"])
+    total = int(trace.get("steps_total") or n)
+    cut = (f'<p class="small st-cut">Lean&rsquo;s trace was cut to the first {n} of '
+           f'{total} tactics.</p>' if total > n else "")
+    return (
+        f'<section class="stepper" data-trace="trace.json" data-steps="{n}">{head}'
+        '<p class="small st-hint" hidden>Choose a tactic &mdash; a marked line &mdash; to see '
+        'the goals Lean had before and after it, as in Lean&rsquo;s infoview. Step with '
+        '<kbd>&larr;</kbd> <kbd>&rarr;</kbd> or <kbd>j</kbd> <kbd>k</kbd>.</p>'
+        f'{cut}<div class="st-grid">{pre}'
+        '<aside class="st-panel" aria-label="Goals" hidden>'
+        '<div class="st-bar"><button type="button" class="st-prev" aria-label="Previous tactic" '
+        'title="Previous tactic (&larr;)">&lsaquo;</button>'
+        '<span class="st-pos" aria-live="polite"></span>'
+        '<button type="button" class="st-next" aria-label="Next tactic" '
+        'title="Next tactic (&rarr;)">&rsaquo;</button></div>'
+        '<pre class="st-tac lean"></pre>'
+        '<h3>Before</h3><div class="st-before"></div>'
+        '<h3>After</h3><div class="st-after"></div>'
+        '<p class="st-used small"></p>'
+        '</aside></div></section>'
     )
 
 
@@ -2361,8 +2477,9 @@ def build(
     news: list[dict] | None = None,
     weekly: list[dict] | None = None,
     monthly: list[dict] | None = None,
+    traces_dir: Path | None = None,
 ) -> dict[str, int]:
-    s = Site(kb, issues, cfg, news, weekly, monthly)
+    s = Site(kb, issues, cfg, news, weekly, monthly, traces_dir=traces_dir)
     if out.exists():
         shutil.rmtree(out)
     shutil.copytree(HERE / "static", out / "static")
@@ -2390,8 +2507,16 @@ def build(
     write(CHAT_INDEX, json.dumps(index, ensure_ascii=False, separators=(",", ":")))
     write(CHAT_DETAIL, json.dumps(detail, ensure_ascii=False, separators=(",", ":")))
     write("404.html", render_404(s))
+    traced = 0
     for d in s.decls:
-        write(f"d/{slug(d['name'])}/index.html", render_decl(s, d))
+        t = s.trace(d)
+        write(f"d/{slug(d['name'])}/index.html", render_decl(s, d, t))
+        if t:
+            # Beside its page, which fetches it only when the reader gets to
+            # the proof: thousands of these would not belong in one file.
+            write(f"d/{slug(d['name'])}/trace.json",
+                  json.dumps(t, ensure_ascii=False, separators=(",", ":")))
+            traced += 1
     published = [p for p in s.problems if p["status"] not in ("pending", "declined")]
     for p in published:
         write(f"problems/{p['number']}/index.html", render_problem(s, p))
@@ -2404,6 +2529,7 @@ def build(
         "news": len(s.news),
         "weekly": len(s.weekly),
         "monthly": len(s.monthly),
+        "traces": traced,
     }
 
 
@@ -2416,6 +2542,8 @@ def main() -> int:
     ap.add_argument("--news", default=str(HERE / "news.json"))
     ap.add_argument("--weekly", default=str(HERE / "weekly"))
     ap.add_argument("--monthly", default=str(HERE / "monthly"))
+    ap.add_argument("--traces", default=str(HERE / "data" / "traces"),
+                    help="the proof traces, one file per declaration")
     args = ap.parse_args()
     kb = json.loads(Path(args.kb).read_text(encoding="utf-8"))
     cfg = json.loads(Path(args.config).read_text(encoding="utf-8"))
@@ -2431,11 +2559,12 @@ def main() -> int:
                 for f in sorted(p.glob("*.json"))] if p.is_dir() else []
 
     n = build(kb, issues, cfg, Path(args.out), news, reports(args.weekly),
-              reports(args.monthly))
+              reports(args.monthly), traces_dir=Path(args.traces))
     print(
         f"wrote {args.out}  ({n['declarations']} declaration pages, "
         f"{n['problems']} problem pages, {n['news']} news entries, "
-        f"{n['weekly']} weekly and {n['monthly']} monthly reports)"
+        f"{n['weekly']} weekly and {n['monthly']} monthly reports, "
+        f"{n['traces']} proof traces)"
     )
     return 0
 

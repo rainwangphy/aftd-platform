@@ -1,0 +1,1 @@
+{"name":"Cslib.LTS.Execution.refl","v":1,"source_hash":"273295430ce4376c","lines":["State : Type u_1","Label : Type u_2","lts : LTS State Label","s : State","⊢ lts.Execution s [] s [s]"],"goals":[[0,1,2,3,4]],"steps":[{"line":8,"col":2,"end_line":8,"end_col":7,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

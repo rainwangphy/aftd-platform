@@ -1,0 +1,1 @@
+{"name":"SMRHN.PlusU1.cubeSol","v":1,"source_hash":"0bf3dba9ca2f6bb6","lines":["n : ℕ","S : (PlusU1 n).Sols","⊢ accCube S.val = 0"],"goals":[[0,1,2]],"steps":[{"line":9,"col":2,"end_line":9,"end_col":18,"tactic":"exact S.cubicSol","before":[0],"after":[],"used":["SMRHN.PlusU1","ACCSystem.Sols.cubicSol"]}],"steps_total":1,"truncated":false}

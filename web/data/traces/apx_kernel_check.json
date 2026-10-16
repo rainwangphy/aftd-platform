@@ -1,0 +1,1 @@
+{"name":"apx_kernel_check","v":1,"source_hash":"1dfb31b55f342229","lines":["⊢ apx_search [] (List.map (fun p => (p, apx_candidates p)) apx_profiles) = true"],"goals":[[0]],"steps":[{"line":3,"col":2,"end_line":3,"end_col":16,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

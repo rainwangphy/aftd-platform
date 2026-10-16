@@ -1,0 +1,1 @@
+{"name":"Cslib.URM.Step.deterministic","v":1,"source_hash":"833e0533c453d3b6","lines":["p : Program","⊢ Relator.RightUnique (Step p)"],"goals":[[0,1]],"steps":[{"line":7,"col":74,"end_line":7,"end_col":106,"tactic":"grind only [Relator.RightUnique]","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

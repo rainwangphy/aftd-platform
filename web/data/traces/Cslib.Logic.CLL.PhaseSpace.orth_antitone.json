@@ -1,0 +1,1 @@
+{"name":"Cslib.Logic.CLL.PhaseSpace.orth_antitone","v":1,"source_hash":"9e1931adbe138d7d","lines":["P : Type u_1","inst✝ : PhaseSpace P","X Y : Set P","hXY : X ⊆ Y","⊢ Y⫠ ⊆ X⫠"],"goals":[[0,1,2,3,4]],"steps":[{"line":16,"col":91,"end_line":16,"end_col":96,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

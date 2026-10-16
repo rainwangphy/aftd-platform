@@ -396,6 +396,61 @@ a.stretch::after{content:"";position:absolute;inset:0;border-radius:var(--radius
 .ax code{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--rule)}
 .ax code.ok{color:var(--proved);border-color:var(--proved)}
 .ax code.bad{color:var(--bad);border-color:var(--bad)}
+/* numbered source, and the proof stepper (Lean's goals at each tactic) */
+pre.lines{padding-left:4px}
+pre.lines .ln{display:block;position:relative;padding-left:3.4em;min-height:1.6em;border-radius:3px}
+pre.lines .ln::before{content:attr(data-l);position:absolute;left:0;width:2.6em;text-align:right;
+  color:var(--ink-3);opacity:.6;user-select:none;-webkit-user-select:none;font-variant-numeric:tabular-nums}
+pre.lines .ln.ex{background:var(--tint)}
+pre.lines .ln:target{background:var(--tint)}
+pre.stepping .ln.t{cursor:pointer}
+pre.stepping .ln.t::before{color:var(--accent);opacity:1;font-weight:700}
+pre.stepping .ln.t:hover{background:var(--rule-2)}
+pre.stepping .ln.span{background:var(--accent-soft);border-radius:0}
+pre.stepping .ln.sel{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+::highlight(aftd-tactic){background-color:var(--accent);color:var(--on-accent)}
+pre.lines:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stepper{display:flex;flex-direction:column;gap:10px}
+.stepper h2{margin:0}
+.st-hint{margin:0;color:var(--ink-3)}
+.st-hint kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--rule);border-bottom-width:2px;
+  border-radius:4px;padding:0 4px;background:var(--panel)}
+.st-cut{margin:0;color:var(--ink-3);font-style:italic}
+.st-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;align-items:start}
+.st-grid pre.src{max-height:78vh}
+.st-panel{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto;background:var(--panel);
+  border:1px solid var(--rule);border-radius:var(--radius);padding:10px 12px 12px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:6px}
+.st-panel>*{flex-shrink:0}
+.st-bar{display:flex;align-items:center;gap:8px}
+.st-pos{flex:1;text-align:center;font-size:12px;font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.st-prev,.st-next{font:inherit;font-size:18px;line-height:1;width:34px;height:30px;border-radius:8px;cursor:pointer;
+  color:var(--accent);background:var(--panel-2);border:1px solid var(--rule)}
+.st-prev:hover:not(:disabled),.st-next:hover:not(:disabled){border-color:var(--accent)}
+.st-prev:disabled,.st-next:disabled{color:var(--ink-3);opacity:.5;cursor:default}
+.st-tac{border-left:3px solid var(--accent);max-height:7.5em;overflow:auto}
+.st-panel h3{margin:4px 0 0;font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3)}
+.st-before,.st-after{display:flex;flex-direction:column;gap:6px}
+.goal{font-family:var(--mono);font-size:12px;line-height:1.55;background:var(--panel-2);border:1px solid var(--rule-2);
+  border-radius:8px;padding:7px 10px;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.goal .g-case{color:var(--ink-3);font-size:11px;margin-bottom:2px}
+.goal .g-name{color:var(--code-t);font-weight:600}
+.goal .g-tgt{margin-top:3px;padding-top:3px;border-top:1px dashed var(--rule)}
+.goal .new{background:var(--accent-soft);border-radius:3px;margin-inline:-4px;padding-inline:4px}
+.goal .g-tgt.new{border-top-color:var(--accent)}
+.goal .g-tgt:first-child,.goal .g-case+.g-tgt{border-top:0;margin-top:0;padding-top:0}
+.g-none{margin:0;font-size:12.5px;color:var(--ink-3);font-style:italic}
+.g-done{color:var(--proved);font-style:normal;font-weight:600}
+.st-used{margin:2px 0 0;color:var(--ink-3);line-height:1.6}
+.st-used code{font-size:11px}
+@media (max-width:860px){
+  .st-grid{grid-template-columns:minmax(0,1fr)}
+  .st-grid pre.src{max-height:52vh}
+  /* On a phone the goals stay in sight at the foot of the screen while the
+     source scrolls above them. */
+  .st-panel{top:auto;bottom:0;max-height:44vh;border-radius:var(--radius) var(--radius) 0 0;
+    box-shadow:0 -10px 30px -18px rgba(0,0,0,.45)}
+}
 .codebox{position:relative}
 .copy{position:absolute;top:7px;right:7px;z-index:1;font:inherit;font-size:11.5px;font-weight:600;
       color:var(--ink-2);background:var(--panel);border:1px solid var(--rule);border-radius:7px;

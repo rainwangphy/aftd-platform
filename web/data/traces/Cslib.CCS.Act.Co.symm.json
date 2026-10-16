@@ -1,0 +1,1 @@
+{"name":"Cslib.CCS.Act.Co.symm","v":1,"source_hash":"ed4824362bd99170","lines":["Name✝ : Type u_1","μ μ' : Act Name✝","h : μ.Co μ'","⊢ μ'.Co μ"],"goals":[[0,1,2,3]],"steps":[{"line":6,"col":68,"end_line":6,"end_col":73,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

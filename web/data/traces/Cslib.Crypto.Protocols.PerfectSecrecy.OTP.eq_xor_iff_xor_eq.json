@@ -1,0 +1,1 @@
+{"name":"Cslib.Crypto.Protocols.PerfectSecrecy.OTP.eq_xor_iff_xor_eq","v":1,"source_hash":"1e94cd9a90b2855e","lines":["l : ℕ","c m k : BitVec l","⊢ c = k ^^^ m ↔ c ^^^ m = k"],"goals":[[0,1,2]],"steps":[{"line":5,"col":40,"end_line":5,"end_col":45,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

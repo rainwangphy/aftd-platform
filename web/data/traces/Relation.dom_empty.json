@@ -1,0 +1,1 @@
+{"name":"Relation.dom_empty","v":1,"source_hash":"e2ee99ebbd884f97","lines":["α : Type u_2","β : Type u_1","⊢ dom emptyHRelation = ∅"],"goals":[[0,1,2]],"steps":[{"line":5,"col":73,"end_line":5,"end_col":78,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

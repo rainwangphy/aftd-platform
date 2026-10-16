@@ -364,7 +364,8 @@ def main() -> int:
         check("a listed problem links a verified declaration, and names an unproved one unlinked",
               'href="../d/answer_ten/"' in lit and "<code>machine_open</code>" in lit)
         check("the counts returned match",
-              n == {"declarations": 2, "problems": 2, "news": 6, "weekly": 0, "monthly": 0}, str(n))
+              n == {"declarations": 2, "problems": 2, "news": 6, "weekly": 0, "monthly": 0,
+                    "traces": 0}, str(n))
 
         print("news")
         home = pages["index.html"]
@@ -621,6 +622,84 @@ def main() -> int:
           "machine_open" in refused({**daily, "declarations": ["machine_open"]}))
     check("a malformed date is refused", refused({**base, "kind": "launch", "date": "2 Oct"}) != "")
 
+    print("proof stepper")
+    src = ("/-- A doc comment\n  over two lines -/\ntheorem stepped (h : P) : P ∧ P := by\n"
+           "  constructor\n  · exact h\n  · exact h")
+    trace = {
+        "v": 1, "lines": ["h : P", "⊢ P ∧ P", "case left", "⊢ P", "case right"],
+        "goals": [[0, 1], [2, 0, 3], [4, 0, 3]],
+        "steps": [
+            {"line": 4, "col": 2, "end_line": 4, "end_col": 13, "tactic": "constructor",
+             "before": [0], "after": [1, 2], "used": ["And.intro"]},
+            {"line": 5, "col": 4, "end_line": 5, "end_col": 11, "tactic": "exact h",
+             "before": [1], "after": [], "used": []},
+            {"line": 6, "col": 4, "end_line": 6, "end_col": 11, "tactic": "exact h",
+             "before": [2], "after": None, "used": []},
+            {"line": 99, "col": 0, "end_line": 99, "end_col": 1, "tactic": "beyond the source",
+             "before": [0], "after": [0], "used": []},
+        ],
+        "steps_total": 4, "truncated": False,
+    }
+    expl = {"summary": "Both halves are h.", "glossary": {}, "caveats": [], "disclaimer": "d",
+            "steps": [{"claim": "split", "explanation": "two goals", "lemmas": [],
+                       "automation": False, "code": "  constructor", "lines": [4, 6]},
+                      {"claim": "bad", "explanation": "x", "lemmas": [], "automation": False,
+                       "code": "", "lines": [7, 40]}]}
+    sdata = kb([decl("stepped", source=src, trace={"steps": 4, "truncated": False},
+                     explanation=expl),
+                decl("no_file", trace={"steps": 2, "truncated": False}),
+                decl("plain_two")], [])
+    with tempfile.TemporaryDirectory() as tmp:
+        tdir = Path(tmp) / "traces"
+        tdir.mkdir()
+        (tdir / "stepped.json").write_text(json.dumps({"name": "stepped", **trace}),
+                                           encoding="utf-8")
+        (tdir / "plain_two.json").write_text("{}", encoding="utf-8")  # not in the snapshot's say
+        out = Path(tmp) / "_site"
+        n = build(sdata, [], cfg, out, [], traces_dir=tdir)
+        page = (out / "d/stepped/index.html").read_text(encoding="utf-8")
+        check("a traced theorem's page has the stepper", 'class="stepper" data-trace="trace.json"' in page)
+        check("with a goal panel, prev/next and the keyboard hint",
+              all(x in page for x in ('class="st-panel"', 'class="st-prev"', 'class="st-next"',
+                                      "<kbd>&larr;</kbd>")))
+        check("its source lines are numbered and addressable",
+              '<span class="ln" id="L4" data-l="4">' in page)
+        check("a block comment over two lines stays well-formed on each",
+              '<span class="ln" id="L1" data-l="1"><span class="lc">/-- A doc comment</span></span>'
+              in page and '<span class="ln" id="L2" data-l="2"><span class="lc">  over two lines -/'
+              '</span></span>' in page, page[page.find('id="L1"') - 40:page.find('id="L3"')])
+        check("an explanation step links its lines", 'href="#L4" data-l1="4" data-l2="6">lines 4&ndash;6'
+              in page)
+        check("a step citing lines past the source links nothing", 'data-l1="7"' not in page)
+        tj = out / "d/stepped/trace.json"
+        check("the trace is written beside the page", tj.is_file())
+        t = json.loads(tj.read_text(encoding="utf-8")) if tj.is_file() else {}
+        check("with every step inside the source, and none outside it",
+              [s["line"] for s in t.get("steps", [])] == [4, 5, 6], str(t.get("steps")))
+        check("goals and lines travel with it", t.get("lines") == trace["lines"]
+              and t.get("goals") == trace["goals"])
+        check("the count of traces written is returned", n.get("traces") == 1, str(n))
+        nofile = (out / "d/no_file/index.html").read_text(encoding="utf-8")
+        check("a trace the snapshot names but whose file is missing: no stepper",
+              "stepper" not in nofile and not (out / "d/no_file/trace.json").exists())
+        plain = (out / "d/plain_two/index.html").read_text(encoding="utf-8")
+        check("an untraced, unexplained theorem: no stepper, and its source as before",
+              "stepper" not in plain and 'class="ln"' not in plain
+              and '<pre class="src lean">' in plain and not (out / "d/plain_two/trace.json").exists())
+        bad = dict(trace, goals=[[0, 99]])
+        (tdir / "stepped.json").write_text(json.dumps(bad), encoding="utf-8")
+        build(sdata, [], cfg, out, [], traces_dir=tdir)
+        page = (out / "d/stepped/index.html").read_text(encoding="utf-8")
+        check("a trace pointing outside its own pools is not published",
+              "stepper" not in page and not (out / "d/stepped/trace.json").exists())
+        check("but the explanation's line links still work", 'id="L4"' in page and 'href="#L4"' in page)
+        build(sdata, [], cfg, out, [])
+        check("no traces directory: no stepper anywhere",
+              "stepper" not in (out / "d/stepped/index.html").read_text(encoding="utf-8"))
+    js = (ROOT / "web" / "static" / "app.js").read_text(encoding="utf-8")
+    check("the stepper sets every string from the trace as text, never as markup",
+          "innerHTML" not in js[js.find("(function stepper()"):js.find("window.addEventListener('DOMContentLoaded'")])
+
     snap = ROOT / "web" / "data" / "kb.json"
     if snap.is_file():
         print("committed snapshot")
@@ -633,7 +712,7 @@ def main() -> int:
                       for f in sorted((ROOT / "web" / "weekly").glob("*.json"))]
             try:
                 n = build(real, [], json.loads((ROOT / "web" / "site.json").read_text()), out,
-                          news, weekly)
+                          news, weekly, traces_dir=ROOT / "web" / "data" / "traces")
                 err = ""
             except ValueError as ex:
                 n, err = {"declarations": -1}, str(ex)
@@ -643,9 +722,17 @@ def main() -> int:
                        for dep in d["deps"] if dep not in {x["name"] for x in real["declarations"]}]
             check("every dependency of a verified declaration is itself on the site",
                   not missing, str(missing[:5]))
+            traced = sum(1 for d in real["declarations"] if d.get("trace"))
+            check("every proof trace the snapshot names is published",
+                  n.get("traces", 0) == traced, f"{n.get('traces')} of {traced}")
 
     print(f"\n{'ALL PASSED' if not FAILS else str(FAILS) + ' FAILED'}")
     return 1 if FAILS else 0
+
+
+def test_main():
+    """So pytest runs the script too (it has no test functions of its own)."""
+    assert main() == 0
 
 
 if __name__ == "__main__":

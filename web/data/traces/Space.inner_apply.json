@@ -1,0 +1,1 @@
+{"name":"Space.inner_apply","v":1,"source_hash":"adaa5148cb48ba15","lines":["d : ℕ","p q : Space d","⊢ inner ℝ p q = ∑ i, p.val i * q.val i"],"goals":[[0,1,2]],"steps":[{"line":4,"col":39,"end_line":4,"end_col":42,"tactic":"rfl","before":[0],"after":[],"used":["Real","Inner.inner","Space","Eq.refl","Space.instInnerReal"]}],"steps_total":1,"truncated":false}

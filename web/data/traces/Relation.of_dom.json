@@ -1,0 +1,1 @@
+{"name":"Relation.of_dom","v":1,"source_hash":"253b55e935520a03","lines":["α : Type u_2","β : Type u_1","r : α → β → Prop","a : α","b : β","hab : r a b","⊢ a ∈ dom r"],"goals":[[0,1,2,3,4,5,6]],"steps":[{"line":4,"col":56,"end_line":4,"end_col":61,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

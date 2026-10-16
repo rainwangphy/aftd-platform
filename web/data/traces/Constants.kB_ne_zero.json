@@ -1,0 +1,1 @@
+{"name":"Constants.kB_ne_zero","v":1,"source_hash":"28a31ee21849c507","lines":["⊢ kB ≠ 0"],"goals":[[0]],"steps":[{"line":6,"col":2,"end_line":6,"end_col":19,"tactic":"linarith [kB_pos]","before":[0],"after":[],"used":["Not.intro","Real","Real.instZero","Zero.toOfNat0","Constants.kB","OfNat.ofNat","Eq"]}],"steps_total":1,"truncated":false}

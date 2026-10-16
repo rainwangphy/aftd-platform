@@ -1,0 +1,1 @@
+{"name":"Cslib.URM.Step.no_step_of_halted","v":1,"source_hash":"d64a06d08962d781","lines":["p : Program","s s' : State","hhalted : s.isHalted p","⊢ ¬Step p s s'"],"goals":[[0,1,2,3]],"steps":[{"line":7,"col":2,"end_line":7,"end_col":24,"tactic":"grind [State.isHalted]","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

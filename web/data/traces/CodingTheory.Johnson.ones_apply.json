@@ -1,0 +1,1 @@
+{"name":"CodingTheory.Johnson.ones_apply","v":1,"source_hash":"e4eb0987e8509479","lines":["n : ℕ","i : Fin n","⊢ ones.ofLp i = 1"],"goals":[[0,1,2]],"steps":[{"line":5,"col":100,"end_line":5,"end_col":111,"tactic":"simp [ones]","before":[0],"after":[],"used":["Real","Real.instOne","eq_self","of_eq_true","One.toOfNat1","OfNat.ofNat","Eq"]}],"steps_total":1,"truncated":false}

@@ -1,0 +1,1 @@
+{"name":"Kruskal.erase_append_perm","v":1,"source_hash":"dc34516d0eb0cba0","lines":["n : ℕ","l : List (WEdge n)","e : WEdge n","he : e ∈ l","⊢ l.Perm (l.erase e ++ [e])"],"goals":[[0,1,2,3,4]],"steps":[{"line":4,"col":36,"end_line":4,"end_col":41,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

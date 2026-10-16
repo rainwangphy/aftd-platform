@@ -1,0 +1,1 @@
+{"name":"Cslib.Turing.StackTape.length_cons_some","v":1,"source_hash":"6d0fb157848b7c45","lines":["Symbol : Type u_1","a : Symbol","l : StackTape Symbol","⊢ (cons (some a) l).length = l.length + 1"],"goals":[[0,1,2,3]],"steps":[{"line":8,"col":2,"end_line":8,"end_col":26,"tactic":"grind [cons_some_toList]","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

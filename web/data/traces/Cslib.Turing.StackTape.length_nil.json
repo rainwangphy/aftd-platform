@@ -1,0 +1,1 @@
+{"name":"Cslib.Turing.StackTape.length_nil","v":1,"source_hash":"d0f6bae2a46be7e7","lines":["Symbol : Type u_1","⊢ nil.length = 0"],"goals":[[0,1]],"steps":[{"line":7,"col":84,"end_line":7,"end_col":89,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

@@ -1,0 +1,1 @@
+{"name":"Cslib.Turing.StackTape.length_mapSome","v":1,"source_hash":"a0178e57305c97d0","lines":["Symbol : Type u_1","l : List Symbol","⊢ (mapSome l).length = l.length"],"goals":[[0,1,2]],"steps":[{"line":7,"col":100,"end_line":7,"end_col":105,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

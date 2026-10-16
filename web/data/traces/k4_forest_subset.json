@@ -1,0 +1,1 @@
+{"name":"k4_forest_subset","v":1,"source_hash":"03719d51634c50f7","lines":["⊢ ∀ ⦃I J : Finset (Fin 6)⦄, k4_forest J → I ⊆ J → k4_forest I"],"goals":[[0]],"steps":[{"line":3,"col":2,"end_line":3,"end_col":16,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

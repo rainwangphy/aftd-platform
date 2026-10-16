@@ -1,0 +1,1 @@
+{"name":"BoolBLR.BLR_completeness_aux_h_linear","v":1,"source_hash":"b3196d799c4e9599","lines":["n : ℕ","f : hypercube n → Bool","hlin : is_linear_bool f","⊢ ∀ (x y : hypercube n), f (xor_vec x y) = (f x ^^ f y)"],"goals":[[0,1,2,3]],"steps":[{"line":5,"col":2,"end_line":5,"end_col":12,"tactic":"exact hlin","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

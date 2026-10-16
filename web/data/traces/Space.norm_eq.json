@@ -1,0 +1,1 @@
+{"name":"Space.norm_eq","v":1,"source_hash":"5a93b7e709141227","lines":["d : ℕ","p : Space d","⊢ ‖p‖ = √(∑ i, p.val i ^ 2)"],"goals":[[0,1,2]],"steps":[{"line":4,"col":2,"end_line":4,"end_col":5,"tactic":"rfl","before":[0],"after":[],"used":["Norm.norm","Real","Space","Space.instNorm","Eq.refl"]}],"steps_total":1,"truncated":false}

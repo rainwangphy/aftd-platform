@@ -1,0 +1,1 @@
+{"name":"Relation.cod_empty","v":1,"source_hash":"d6f678dd2b360960","lines":["α : Sort u_2","β : Type u_1","⊢ cod emptyHRelation = ∅"],"goals":[[0,1,2]],"steps":[{"line":5,"col":73,"end_line":5,"end_col":78,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

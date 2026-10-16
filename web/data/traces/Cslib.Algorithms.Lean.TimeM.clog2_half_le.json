@@ -1,0 +1,1 @@
+{"name":"Cslib.Algorithms.Lean.TimeM.clog2_half_le","v":1,"source_hash":"ddafbd284b03e348","lines":["n : ℕ","h : n > 1","⊢ clog 2 ((n + 1) / 2) ≤ clog 2 n - 1"],"goals":[[0,1,2]],"steps":[{"line":8,"col":2,"end_line":8,"end_col":41,"tactic":"grind [Nat.clog_of_one_lt one_lt_two h]","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

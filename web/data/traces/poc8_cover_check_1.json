@@ -1,0 +1,1 @@
+{"name":"poc8_cover_check_1","v":1,"source_hash":"66f45582ad1fed53","lines":["⊢ ∀ (y a b c : Fin 8), poc8_cover_ok 1 y a b c = true"],"goals":[[0]],"steps":[{"line":2,"col":2,"end_line":2,"end_col":16,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

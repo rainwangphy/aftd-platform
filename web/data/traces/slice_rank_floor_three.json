@@ -1,0 +1,1 @@
+{"name":"slice_rank_floor_three","v":1,"source_hash":"2119ecdb93ad6616","lines":["⊢ slice_rank_floor 3 = 20"],"goals":[[0]],"steps":[{"line":3,"col":2,"end_line":3,"end_col":5,"tactic":"rfl","before":[0],"after":[],"used":["instOfNatNat","slice_rank_floor","Nat","Eq.refl","OfNat.ofNat"]}],"steps_total":1,"truncated":false}

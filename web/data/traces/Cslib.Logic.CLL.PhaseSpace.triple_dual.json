@@ -1,0 +1,1 @@
+{"name":"Cslib.Logic.CLL.PhaseSpace.triple_dual","v":1,"source_hash":"b8658fe02c62b180","lines":["P : Type u_1","inst✝ : PhaseSpace P","G : Set P","⊢ G⫠⫠⫠⫠⫠ = G⫠⫠⫠"],"goals":[[0,1,2,3]],"steps":[{"line":15,"col":79,"end_line":15,"end_col":98,"tactic":"grind [triple_orth]","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

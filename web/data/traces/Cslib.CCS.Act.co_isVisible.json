@@ -1,0 +1,1 @@
+{"name":"Cslib.CCS.Act.co_isVisible","v":1,"source_hash":"59ff5f6c1efc0214","lines":["Name✝ : Type u_1","μ μ' : Act Name✝","h : μ.Co μ'","⊢ μ.IsVisible ∧ μ'.IsVisible"],"goals":[[0,1,2,3]],"steps":[{"line":6,"col":88,"end_line":6,"end_col":93,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

@@ -1,0 +1,1 @@
+{"name":"Relation.of_cod","v":1,"source_hash":"10e5c88c0e93e265","lines":["α : Sort u_2","β : Type u_1","r : α → β → Prop","a : α","b : β","hab : r a b","⊢ b ∈ cod r"],"goals":[[0,1,2,3,4,5,6]],"steps":[{"line":4,"col":56,"end_line":4,"end_col":61,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

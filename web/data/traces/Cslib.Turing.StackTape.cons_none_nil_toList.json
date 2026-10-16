@@ -1,0 +1,1 @@
+{"name":"Cslib.Turing.StackTape.cons_none_nil_toList","v":1,"source_hash":"6c3fff0dcc0e7ca1","lines":["Symbol : Type u_1","⊢ (cons none nil).toList = []"],"goals":[[0,1]],"steps":[{"line":8,"col":2,"end_line":8,"end_col":24,"tactic":"grind only [nil, cons]","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

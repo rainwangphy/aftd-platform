@@ -1,0 +1,1 @@
+{"name":"lxv_check_eq_true","v":1,"source_hash":"372c51c4f3a9ee65","lines":["⊢ lxv_check = true"],"goals":[[0]],"steps":[{"line":1,"col":49,"end_line":1,"end_col":63,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

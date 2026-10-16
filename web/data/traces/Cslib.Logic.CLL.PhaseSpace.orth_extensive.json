@@ -1,0 +1,1 @@
+{"name":"Cslib.Logic.CLL.PhaseSpace.orth_extensive","v":1,"source_hash":"162ebccded54404c","lines":["P : Type u_1","inst✝ : PhaseSpace P","X : Set P","⊢ X ⊆ X⫠⫠"],"goals":[[0,1,2,3]],"steps":[{"line":16,"col":76,"end_line":16,"end_col":81,"tactic":"grind","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

@@ -3,6 +3,68 @@
  "entries": [
   {
    "date": "2026-10-17",
+   "kind": "daily",
+   "title": "Daily reading: 36 proved, 10 open",
+   "body": "The Proposer read 0 new paper(s), listed 0 open problem(s), and stated 3 of them in Lean, and posed 0 more from what the knowledgebase already holds (46 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 36 theorem(s); 10 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nProved. `simple_graph_cycle_power_six_one_sanity`: Sanity check: in C_6 (the first power of the 6-cycle), vertices 0 and 5 are adjacent (they wrap around) and 0 and 2 are not.\n\nProved. `simple_graph_has_equivalence_cover_mono`: If G is covered by s equivalence subgraphs, it is covered by any larger number t of them (pad with the edgeless equivalence subgraph).\n\nProved. `simple_graph_equivalence_covering_number_top`: Sanity check: a complete graph with at least two vertices has equivalence covering number 1.\n\nFormalized. `simple_graph_equivalence_covering_number_cycle_power_of_le` (arXiv:2610.15635 (Covering powers of cycles with equivalence subgraphs), Theorem 1.2 (the case n ≤ 2k + 1; the Lean adds n ≥ 2 so that the…): If 2 ≤ n ≤ 2k + 1 then every two vertices of C_n are at cyclic distance at most k, so C_n^k = K_n and eq(C_n^k) = 1.\n\nProved. `simple_graph_equivalence_covering_number_cycle_power_forty_six_three` (arXiv:2610.15635): eq(C_46^3) = 4: the smallest case of the open problem (k = 3, n = 46 even, 4 ∤ 46, 46 ≥ 45), where the paper only knows eq ∈ {3, 4, 5}.\n\nProved. `mixed_graph_has_cycle_directed_triangle`: Sanity check: the directed triangle 0 → 1 → 2 → 0 has a 3-cycle.\n\nProved. `mixed_graph_has_girth_directed_triangle`: Sanity check: the directed triangle has girth 3.\n\nProved. `mixed_graph_is_valid_directed_triangle`: Sanity check: the directed triangle is a mixed graph (no loops, no antiparallel arcs).\n\nFormalized. `mixed_graph_card_ge_of_is_regular` (arXiv:2610.14110 (New mixed cages, bounds and computational results), Theorem 3.1 (the lower bound n(r,z,g) ≥ r + 2z + 1 used for g = 3 in…): Every (r, z)-regular mixed graph on a finite nonempty vertex set has at least r + 2z + 1 vertices.\n\nFormalized. `mixed_cage_order_girth_three` (arXiv:2610.14110 (New mixed cages, bounds and computational results), Theorem 5.1.): For all r ≥ 1 and z ≥ 1, the minimum order of an (r, z, 3)-mixed cage is n(r, z, 3) = r + 2z + 1.\n\nFormalized. `mixed_cage_order_one_girth_three` (arXiv:2610.14110): The case g = 3 of the conjecture: n(1, z, 3) = N(z, 3), i.e. 2z + 2 for every z ≥ 1 (both parities agree).\n\nProved. `latin_square_is_add`: Sanity check: the addition table of Z/n is a Latin square.\n\nOpen. `simple_graph_equivalence_covering_number_cycle_power_ge` (arXiv:2610.15635 (Covering powers of cycles with equivalence subgraphs), Lemma 2.2 (the lower bound of Theorem 1.2).): For k ≥ 1 and n ≥ 2k + 2, eq(C_n^k) ≥ 1 + ⌈log₂(k + 1)⌉.\n\nOpen. `simple_graph_equivalence_covering_number_cycle_power_dvd` (arXiv:2610.15635 (Covering powers of cycles with equivalence subgraphs), Theorem 2.6.): For k ≥ 1 and q ≥ 2, the k-th power of the cycle on q(k + 1) vertices has equivalence covering number exactly 1 + ⌈log₂(k + 1)⌉.\n\nOpen. `simple_graph_equivalence_covering_number_cycle_power_two_pow_even_not_dvd` (arXiv:2610.15635): Let k + 1 = 2^m with m ≥ 1, and let n ≥ max{2k + 2, k²(k + 2)} be even with k + 1 not dividing n. Then eq(C_n^k) = 2 + ⌈log₂(k + 1)⌉ = m + 2 (the larger of the two values the paper leaves open).\n\nOpen. `mixed_cage_order_one_le` (arXiv:2610.14110 (New mixed cages, bounds and computational results), Theorem 4.2 (with Definition 4.1).): For z ≥ 1 and g ≥ 3, n(1, z, g) ≤ N(z, g), where N(z, g) = z(g − 1) + 2 for even z and (z + 1)(g − 1) for odd z: the circulant M(z, g) on 2m = N(z, g) vertices with arcs of jumps 1..⌈z/2⌉ and m+1..m+⌊z/2⌋ and the antipodal edges is a (1, z, g)-mixed graph.\n\nOpen. `mixed_cage_order_one_eq` (arXiv:2610.14110): For all z ≥ 1 and g ≥ 3, the minimum order of a mixed graph that is 1-regular in edges and z-regular in arcs with girth g is n(1, z, g) = N(z, g), where N(z, g) = z(g − 1) + 2 if z is even and (z + 1)(g − 1) if z is odd.\n\nOpen. `latin_square_exists_principal_isotope_avoiding` (arXiv:2610.20008): If L and L' are any Latin squares of the same order n > 1, there are permutations π, ρ of {1, ..., n} with L'(π(i), ρ(j)) ≠ L(i, j) for all i, j: some principal isotope of L' avoids L.\n\nOpen. `postage_stamp_number_two_eq` (arXiv:2610.19470 (Positivity and negativity for h-bases for n), Theorem 1.1 (classical; cited there).): The classical postage stamp number for three stamps: n_h(2) = ⌊(h² + 6h + 1)/4⌋ for every h ≥ 1.\n\nOpen. `postage_stamp_number_neg_two_eq_of_mod_four_eq_two` (arXiv:2610.19470 (Positivity and negativity for h-bases for n), Theorem 3.3 (with the value of n_h(2) from Theorem 1.1).): If h ≥ 2 and h ≡ 2 (mod 4), then n♭_h(2) = n_h(2) = (h² + 6h)/4.\n\nOpen. `postage_stamp_number_neg_two_eq_of_mod_four_eq_zero` (arXiv:2610.19470 (Positivity and negativity for h-bases for n), Theorem 3.4 (with the value of n_h(2) from Theorem 1.1).): If h ≥ 8 and h ≡ 0 (mod 4), then n♭_h(2) = n_h(2) = (h² + 6h)/4.\n\nOpen. `postage_stamp_number_three_lt_neg`: For four-element sets (k = 3) and every h ≥ 8, sets containing a negative integer do strictly better than nonnegative ones: n♭_h(3) > n_h(3). This reverses the three-element case, where n♭_h(2) ≤ n_h(2) for every h.",
+   "declarations": [
+    "simple_graph_cycle_power_six_one_sanity",
+    "simple_graph_has_equivalence_cover_mono",
+    "simple_graph_equivalence_covering_number_top",
+    "simple_graph_equivalence_covering_number_cycle_power_of_le",
+    "simple_graph_equivalence_covering_number_cycle_power_forty_six_three",
+    "mixed_graph_has_cycle_directed_triangle",
+    "mixed_graph_has_girth_directed_triangle",
+    "mixed_graph_is_valid_directed_triangle",
+    "mixed_graph_card_ge_of_is_regular",
+    "mixed_cage_order_girth_three",
+    "mixed_cage_order_one_girth_three",
+    "latin_square_is_add",
+    "latin_square_exists_principal_isotope_avoiding_self",
+    "int_mem_h_fold_sumset_two_example",
+    "postage_stamp_basis_range_one_zero_one_two",
+    "postage_stamp_basis_range_ge_of_mod_four_eq_two",
+    "postage_stamp_basis_range_ge_of_mod_four_eq_zero",
+    "simple_graph_not_has_equivalence_cover_cycle_power_three_of_not_dvd",
+    "int_mem_h_fold_sumset_of_list",
+    "int_mem_h_fold_sumset_le_of_forall_le",
+    "postage_stamp_basis_range_eight_neg_four_one_thirteen_fourteen",
+    "postage_stamp_basis_range_succ_le_card_pow",
+    "postage_stamp_number_neg_three_eight_ge",
+    "postage_stamp_number_three_eight_eq",
+    "postage_stamp_number_three_eight_lt_neg",
+    "simple_graph_cycle_power_three_layer_weight_le",
+    "simple_graph_cycle_power_three_layer_weight_eq_imp",
+    "simple_graph_cycle_power_three_cover_three_tight",
+    "simple_graph_cycle_power_three_cover_three_tight_dvd",
+    "zmod_intCast_eq_intCast_iff_of_abs_sub_lt",
+    "simple_graph_cycle_power_three_adj_iff",
+    "fin_three_false_of_four_pairwise_ne",
+    "fin_three_not_forall_eq_or_eq",
+    "fin_three_eq_of_five_ne",
+    "simple_graph_has_equivalence_cover_cycle_power_three_of_mod_four_eq_two",
+    "simple_graph_equivalence_covering_number_cycle_power_three_of_mod_four_eq_two"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.15635",
+     "href": "https://arxiv.org/abs/2610.15635"
+    },
+    {
+     "label": "arXiv:2610.14110",
+     "href": "https://arxiv.org/abs/2610.14110"
+    },
+    {
+     "label": "arXiv:2610.20008",
+     "href": "https://arxiv.org/abs/2610.20008"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-17",
    "kind": "launch",
    "title": "TCSlib complete, and 581 declarations from QuantumInfo",
    "body": "The seven TCSlib roots left out on 8 October now compile on our Mathlib, so the 59 declarations they held back came in: among them the Hamming and quantum Hamming bounds, the quantum Singleton bound, list-decoding capacity, BLR soundness, Newman's theorem, Kruskal's optimality and the Johnson-Lindenstrauss lemma. Statements are as the library writes them; only proofs were adapted to our Lean version.\n\nQuantumInfo, the quantum information part of PhysLib, gave 581 declarations, 387 of them theorems, each checked interactively and then built offline with `lake build` like every other import. The rest of the library stays out for now."

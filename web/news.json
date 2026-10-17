@@ -4,8 +4,8 @@
   {
    "date": "2026-10-17",
    "kind": "launch",
-   "title": "TCSlib complete, and the first 183 declarations of QuantumInfo",
-   "body": "The seven TCSlib roots left out on 8 October now compile on our Mathlib, so the 59 declarations they held back came in: among them the Hamming and quantum Hamming bounds, the quantum Singleton bound, list-decoding capacity, BLR soundness, Newman's theorem, Kruskal's optimality and the Johnson-Lindenstrauss lemma. Statements are as the library writes them; only proofs were adapted to our Lean version.\n\nQuantumInfo, the quantum information part of PhysLib, started with a pilot: 183 of its first 200 declarations, 128 of them theorems, each checked interactively and then built offline with `lake build` like every other import. The rest of the library follows."
+   "title": "TCSlib complete, and 581 declarations from QuantumInfo",
+   "body": "The seven TCSlib roots left out on 8 October now compile on our Mathlib, so the 59 declarations they held back came in: among them the Hamming and quantum Hamming bounds, the quantum Singleton bound, list-decoding capacity, BLR soundness, Newman's theorem, Kruskal's optimality and the Johnson-Lindenstrauss lemma. Statements are as the library writes them; only proofs were adapted to our Lean version.\n\nQuantumInfo, the quantum information part of PhysLib, gave 581 declarations, 387 of them theorems, each checked interactively and then built offline with `lake build` like every other import. The rest of the library stays out for now."
   },
   {
    "date": "2026-10-16",

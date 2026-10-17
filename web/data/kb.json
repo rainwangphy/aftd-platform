@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-17T12:09:42Z",
+ "generated": "2026-10-17T12:24:33Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 83,
   "rejected": 13,
-  "spend": 102.29,
+  "spend": 102.55,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 126980879,
-   "output": 18630232,
-   "cache_read": 280398011
+   "input": 127148093,
+   "output": 18710438,
+   "cache_read": 280484296
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792238954
+  "last": 1792239866
  },
  "domains": [
   {
@@ -622552,14 +622552,70 @@
     "simple_graph_equivalence_covering_number_cycle_power_forty_six_three"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphNotHasEquivalenceCoverCyclePowerThreeOfNotDvd.lean",
-   "proved_at": 1792232424,
+   "proved_at": 1792239675,
    "provenance": "original",
    "citation": "arXiv:2610.15635 (Covering powers of cycles with equivalence subgraphs): Theorem 3.4 gives eq(C_n^k) ≥ 2 + ⌈log₂(k+1)⌉ only for odd n when k + 1 is a power of two; the case n ≡ 2 (mod 4), k = 3 is the smallest instance the paper leaves open. Transfer-matrix computation: experiment 712.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
-   "trace": null,
+   "explanation": {
+    "summary": "The proof argues by contradiction: suppose C_n^3 admits a cover by 3 equivalence subgraphs. An auxiliary rigidity theorem (simple_graph_cycle_power_three_cover_three_tight) shows that such a 3-cover must cover chords of length 2 and 3 uniquely and satisfy a periodic spanning property. A second auxiliary theorem (simple_graph_cycle_power_three_cover_three_tight_dvd) then proves that this rigid combinatorial structure forces n to be divisible by 4, directly contradicting the assumption that 4 does not divide n.",
+    "steps": [
+     {
+      "claim": "Assume for contradiction that C_n^3 has an equivalence cover of size 3, and record that n ≠ 0.",
+      "explanation": "We suppose there is an equivalence cover consisting of 3 equivalence relations, represented by projection maps c_s : ℤ/nℤ → ℤ/nℤ for s ∈ {0, 1, 2}. Hypothesis hc states that monochromatic pairs are edges in C_n^3, and hcov states that every edge in C_n^3 is covered by at least one relation. Because n ≥ 10, linear integer arithmetic (omega) ensures n ≠ 0, providing the NeZero n instance needed for ZMod n.",
+      "lemmas": [
+       "NeZero"
+      ],
+      "automation": false,
+      "code": "  rintro ⟨c, hc, hcov⟩\n  have : NeZero n := ⟨by omega⟩",
+      "lines": [
+       3,
+       4
+      ]
+     },
+     {
+      "claim": "The assumed 3-equivalence cover must satisfy tight uniqueness and spanning conditions on chords of length 2 and 3.",
+      "explanation": "Applying simple_graph_cycle_power_three_cover_three_tight to the cover c shows that it is rigid: every distance-3 chord (i, i+3) is covered by a unique equivalence relation (h3), every distance-2 chord (i, i+2) is covered by a unique equivalence relation (h2), and each relation s spans distance-3 chords close to every vertex i (hspan).",
+      "lemmas": [
+       "simple_graph_cycle_power_three_cover_three_tight"
+      ],
+      "automation": false,
+      "code": "  obtain ⟨h3, h2, hspan⟩ := simple_graph_cycle_power_three_cover_three_tight n hn c hc hcov",
+      "lines": [
+       5,
+       5
+      ]
+     },
+     {
+      "claim": "The tight structural conditions force 4 ∣ n, contradicting the hypothesis that 4 does not divide n.",
+      "explanation": "By simple_graph_cycle_power_three_cover_three_tight_dvd, the uniqueness of distance-2 and distance-3 chord covers together with the span condition implies that 4 divides n. This contradicts the hypothesis h4 that ¬ (4 ∣ n), completing the proof by contradiction.",
+      "lemmas": [
+       "simple_graph_cycle_power_three_cover_three_tight_dvd"
+      ],
+      "automation": false,
+      "code": "  exact h4 (simple_graph_cycle_power_three_cover_three_tight_dvd n hn c hc h3 h2 hspan)",
+      "lines": [
+       6,
+       6
+      ]
+     }
+    ],
+    "glossary": {
+     "NeZero": "a typeclass asserting that a given element is nonzero; here, NeZero n states that n ≠ 0",
+     "simple_graph_cycle_power_three_cover_three_tight": "for n ≥ 10, any covering of the cycle power C_n^3 by 3 equivalence subgraphs tightly constrains the distance-2 and distance-3 chords: each chord (i, i+3) and (i, i+2) is covered by a unique relation, and each relation's equivalence classes span distance-3 chords near every vertex",
+     "simple_graph_cycle_power_three_cover_three_tight_dvd": "for n ≥ 10, any equivalence subgraph family on C_n^3 satisfying the uniqueness of covering distance-2 and distance-3 chords and the chord span property forces 4 to divide n"
+    },
+    "caveats": [
+     "The combinatorial work is encapsulated in the two helper theorems simple_graph_cycle_power_three_cover_three_tight and simple_graph_cycle_power_three_cover_three_tight_dvd; this proof simply combines them.",
+     "The NeZero n instance introduced in line 4 is a Lean typeclass requirement for arithmetic in ZMod n, carrying no mathematical difficulty beyond 10 ≤ n."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
+   "trace": {
+    "steps": 5,
+    "truncated": false
+   },
    "funder": "",
    "problem": null
   },
@@ -622588,14 +622644,94 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphEquivalenceCoveringNumberCyclePowerFortySixThree.lean",
-   "proved_at": 1792233614,
+   "proved_at": 1792239681,
    "provenance": "original",
    "citation": "arXiv:2610.15635 (Covering powers of cycles with equivalence subgraphs): the smallest instance (k = 3, n = 46) of the case Theorems 1.3 and 1.4 leave open; Theorem 1.4 does not apply below n = 164, so only 3 ≤ eq ≤ 5 is known. SAT search: experiment 708.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
-   "trace": null,
+   "explanation": {
+    "summary": "The proof establishes that the equivalence covering number of the cycle power C_46^3 is 4 by matching upper and lower bounds. The upper bound eq(C_46^3) ≤ 4 is obtained by exhibiting an explicit 4-equivalence cover (given by four lists of 46 vertex labels) and verifying its validity via finite kernel computation. The lower bound eq(C_46^3) ≥ 4 follows from a general parity theorem showing that C_n^3 admits no 3-cover whenever n ≥ 10 and 4 ∤ n, which rules out any cover of size t ≤ 3 for n = 46.",
+    "steps": [
+     {
+      "claim": "Specify a candidate 4-equivalence cover for C_46^3, reducing the existence of a 4-cover to two finite verification subgoals.",
+      "explanation": "An equivalence cover of size 4 consists of four functions c_s : ℤ/46ℤ → ℤ/46ℤ mapping each vertex to its equivalence class representative. We supply four explicit lists of 46 labels to define these assignments and split the proof into checking that monochromatic pairs form cliques in C_46^3 and that every edge of C_46^3 is covered by at least one relation.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hcov : simple_graph_has_equivalence_cover (simple_graph_cycle_power 46 3) 4 := by\n    refine ⟨fun s u => ((([[0, 0, 2, 2, 4, 4, 4, 4, 8, 8, 8, 8, 12, 12, 12, 12, 16, 16, 16, 16, 20, 20, 20, 20, 24, 24, 24, 24, 28, 28, 28, 28, 32, 32, 32, 32, 36, 36, 36, 36, 40, 40, 40, 40, 0, 0],\n      [0, 1, 2, 3, 1, 5, 3, 7, 5, 9, 7, 11, 9, 13, 11, 15, 13, 17, 15, 19, 17, 21, 19, 23, 21, 25, 23, 27, 25, 29, 27, 31, 29, 33, 31, 35, 33, 37, 35, 39, 37, 41, 39, 0, 41, 2],\n      [0, 0, 0, 0, 4, 4, 6, 6, 6, 6, 10, 10, 10, 10, 14, 14, 14, 14, 18, 18, 18, 18, 22, 22, 22, 22, 26, 26, 26, 26, 30, 30, 30, 30, 34, 34, 34, 34, 38, 38, 38, 38, 42, 42, 42, 42],\n      [0, 0, 2, 2, 2, 2, 6, 6, 6, 6, 10, 10, 10, 10, 14, 14, 14, 14, 18, 18, 18, 18, 22, 22, 22, 22, 26, 26, 26, 26, 30, 30, 30, 30, 34, 34, 34, 34, 38, 38, 38, 38, 42, 42, 42, 42]]\n      : List (List ℕ)).getD s.val []).getD u.val 0 : ZMod 46), ?_, ?_⟩",
+      "lines": [
+       3,
+       8
+      ]
+     },
+     {
+      "claim": "Each of the four equivalence relations induces cliques in C_46^3 (any two distinct vertices with the same label have cyclic distance at most 3).",
+      "explanation": "The clique condition states that for all s ∈ Fin 4 and distinct u, v ∈ ℤ/46ℤ, having the same label implies min((u - v).val, (v - u).val) ≤ 3. Because the domain Fin 4 × ℤ/46ℤ × ℤ/46ℤ is finite, this universal statement is decided by exhaustive computation in the Lean kernel (`decide +kernel`).",
+      "lemmas": [],
+      "automation": true,
+      "code": "    · show ∀ (s : Fin 4) (u v : ZMod 46), u ≠ v → _ = _ → u ≠ v ∧ min (u - v).val (v - u).val ≤ 3\n      decide +kernel",
+      "lines": [
+       9,
+       10
+      ]
+     },
+     {
+      "claim": "Every edge of C_46^3 is covered by at least one of the four equivalence relations.",
+      "explanation": "The edge coverage condition states that whenever min((u - v).val, (v - u).val) ≤ 3 for u ≠ v, there exists some s ∈ Fin 4 such that u and v receive the same label. This finite check over all pairs in ℤ/46ℤ is similarly verified by exhaustive kernel computation (`decide +kernel`).",
+      "lemmas": [],
+      "automation": true,
+      "code": "    · show ∀ (u v : ZMod 46), u ≠ v ∧ min (u - v).val (v - u).val ≤ 3 → ∃ s : Fin 4, _\n      decide +kernel",
+      "lines": [
+       11,
+       12
+      ]
+     },
+     {
+      "claim": "The equivalence covering number of C_46^3 equals 4 provided every cover has size at least 4.",
+      "explanation": "By antisymmetry (`le_antisymm`), showing the infimum equals 4 reduces to proving it is at most 4 and at least 4. The upper bound follows from the explicit 4-cover just established (`Nat.sInf_le`). Because the set of valid cover sizes is nonempty, the lower bound 4 ≤ sInf reduces by `le_csInf` to showing 4 ≤ t for any valid cover size t.",
+      "lemmas": [
+       "le_antisymm",
+       "Nat.sInf_le",
+       "le_csInf"
+      ],
+      "automation": false,
+      "code": "  refine le_antisymm (Nat.sInf_le hcov) (le_csInf ⟨4, hcov⟩ fun t ht => ?_)",
+      "lines": [
+       13,
+       13
+      ]
+     },
+     {
+      "claim": "Every valid equivalence cover of C_46^3 has size at least 4.",
+      "explanation": "Assume for contradiction (`by_contra`) that there is a cover of size t < 4, which implies t ≤ 3 by integer arithmetic (`omega`). By monotonicity of equivalence covers (`simple_graph_has_equivalence_cover_mono`), this would yield a 3-cover of C_46^3. However, theorem `simple_graph_not_has_equivalence_cover_cycle_power_three_of_not_dvd` states that C_n^3 has no 3-cover when n ≥ 10 and 4 ∤ n; since 10 ≤ 46 and 4 ∤ 46 (checked by `norm_num`), this produces a contradiction.",
+      "lemmas": [
+       "simple_graph_not_has_equivalence_cover_cycle_power_three_of_not_dvd",
+       "simple_graph_has_equivalence_cover_mono"
+      ],
+      "automation": false,
+      "code": "  by_contra hlt\n  exact simple_graph_not_has_equivalence_cover_cycle_power_three_of_not_dvd 46 (by norm_num)\n    (by norm_num) (simple_graph_has_equivalence_cover_mono _ (by omega) ht)",
+      "lines": [
+       14,
+       16
+      ]
+     }
+    ],
+    "glossary": {
+     "le_antisymm": "in a partial order, if a ≤ b and b ≤ a, then a = b",
+     "Nat.sInf_le": "an element belonging to a set of natural numbers is greater than or equal to the infimum of that set",
+     "le_csInf": "in a conditionally complete lattice, if a set s is nonempty and a is a lower bound for s, then a ≤ sInf s",
+     "simple_graph_not_has_equivalence_cover_cycle_power_three_of_not_dvd": "for n ≥ 10 with 4 ∤ n, the cycle power C_n^3 has no equivalence cover of size 3",
+     "simple_graph_has_equivalence_cover_mono": "if a graph has an equivalence cover of size s and s ≤ t, then it also has an equivalence cover of size t"
+    },
+    "caveats": [
+     "The validity of the 4-equivalence cover in Steps 2 and 3 is verified entirely by computational reflection in the Lean kernel (`decide +kernel`), which exhaustively checks the clique condition on all vertex pairs and the edge coverage condition across all edges."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
+   "trace": {
+    "steps": 12,
+    "truncated": true
+   },
    "funder": "",
    "problem": null
   },
@@ -622627,14 +622763,138 @@
     "mixed_cage_order_one_girth_three"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/MixedCageOrderGirthThree.lean",
-   "proved_at": 1792233877,
+   "proved_at": 1792239812,
    "provenance": "literature",
    "citation": "arXiv:2610.14110 (New mixed cages, bounds and computational results), Theorem 5.1.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
-   "trace": null,
+   "explanation": {
+    "summary": "The minimum order of an (r, z, 3)-mixed cage is shown to be r + 2z + 1 by proving matching upper and lower bounds. For the upper bound, an explicit circulant mixed graph on Fin (r + 2z + 1) is constructed with arcs for difference in [1, z] and undirected edges for difference in [z + 1, z + r], which is verified to be valid, regular with degrees (r, z), and of girth 3 (witnessed by the triangle on vertices 0, 1, and z + 1). For the lower bound, any valid regular mixed graph must satisfy the Moore-type bound |V| ≥ r + 2z + 1 (`mixed_graph_card_ge_of_is_regular`), and the girth 3 condition guarantees the vertex set is nonempty. Combining both bounds via antisymmetry completes the proof.",
+    "steps": [
+     {
+      "claim": "For any permutation f of Fin (r + 2z + 1) and any upper bound b < r + 2z + 1, the preimage of the interval [a, b] under f has cardinality b + 1 - a.",
+      "explanation": "Linear arithmetic (`omega`) confirms that r + 2z + 1 ≥ 4 > 0, establishing that the modulus is non-zero (`hNz`). For the counting lemma H, the set {y | a ≤ (f y).val ∧ (f y).val ≤ b} is rewritten as the preimage under f of the subset of Fin (r + 2z + 1) whose values lie in [a, b]. Since f is a bijection, its preimage preserves cardinality by `Set.ncard_preimage_of_injective_subset_range`. Injectivity of `Fin.val` (`Fin.val_injective`) via `Set.ncard_image_of_injective` then identifies this cardinality with the size of its image in ℕ. Using `Set.mem_image`, `Set.mem_ofPred_eq`, `Finset.coe_Icc`, and `Set.mem_Icc`, this image is shown to equal the finset interval `Finset.Icc a b`, where the hypothesis b < r + 2z + 1 ensures that every integer in [a, b] comes from a valid element of Fin (r + 2z + 1). Applying `Set.ncard_coe_finset` and `Nat.card_Icc` evaluates the cardinality as b + 1 - a.",
+      "lemmas": [
+       "Set.ncard_preimage_of_injective_subset_range",
+       "Set.ncard_image_of_injective",
+       "Fin.val_injective",
+       "Set.mem_image",
+       "Set.mem_ofPred_eq",
+       "Finset.coe_Icc",
+       "Set.mem_Icc",
+       "Set.ncard_coe_finset",
+       "Nat.card_Icc"
+      ],
+      "automation": false,
+      "code": "  have hNz : NeZero (r + 2 * z + 1) := ⟨by omega⟩\n  have H : ∀ (f : Fin (r + 2 * z + 1) ≃ Fin (r + 2 * z + 1)) (a b : ℕ), b < r + 2 * z + 1 →\n      {y | a ≤ (f y).val ∧ (f y).val ≤ b}.ncard = b + 1 - a := by\n    intro f a b hb\n    have e : {y | a ≤ (f y).val ∧ (f y).val ≤ b} = f ⁻¹' {d | a ≤ d.val ∧ d.val ≤ b} := rfl\n    rw [e, Set.ncard_preimage_of_injective_subset_range f.injective (by simp),\n      ← Set.ncard_image_of_injective _ Fin.val_injective]\n    have : Fin.val '' {d : Fin (r + 2 * z + 1) | a ≤ d.val ∧ d.val ≤ b} = ↑(Finset.Icc a b) := by\n      ext d\n      simp only [Set.mem_image, Set.mem_ofPred_eq, Finset.coe_Icc, Set.mem_Icc]\n      constructor\n      · rintro ⟨e, he, rfl⟩; exact he\n      · intro hd; exact ⟨⟨d, by omega⟩, hd, rfl⟩\n    rw [this, Set.ncard_coe_finset, Nat.card_Icc]",
+      "lines": [
+       3,
+       16
+      ]
+     },
+     {
+      "claim": "In Fin (r + 2z + 1), distinct elements x ≠ y satisfy (y - x).val + (x - y).val = r + 2z + 1, while (x - x).val = 0.",
+      "explanation": "For distinct x ≠ y, their underlying integer values are distinct by `Fin.val_ne_of_ne`, so either x.val < y.val or y.val < x.val by `lt_or_gt_of_ne`. When x < y, modular subtraction in Fin gives (y - x).val = y.val - x.val by `Fin.coe_sub_iff_le` and `Fin.le_iff_val_le_val`, and (x - y).val = (r + 2z + 1) + x.val - y.val by `Fin.coe_sub_iff_lt` and `Fin.lt_def`. Their sum simplifies by linear arithmetic (`omega`) to r + 2z + 1. The case y < x is symmetric. Finally, `simp` proves that (x - x).val = 0 for every x.",
+      "lemmas": [
+       "lt_or_gt_of_ne",
+       "Fin.val_ne_of_ne",
+       "Fin.coe_sub_iff_le",
+       "Fin.le_iff_val_le_val",
+       "Fin.coe_sub_iff_lt",
+       "Fin.lt_def"
+      ],
+      "automation": false,
+      "code": "  have key : ∀ x y : Fin (r + 2 * z + 1), x ≠ y → (y - x).val + (x - y).val = r + 2 * z + 1 := by\n    intro x y hxy\n    rcases lt_or_gt_of_ne (Fin.val_ne_of_ne hxy) with h | h\n    · rw [Fin.coe_sub_iff_le.2 (Fin.le_iff_val_le_val.2 h.le),\n        Fin.coe_sub_iff_lt.2 (Fin.lt_def.2 h)]; omega\n    · rw [Fin.coe_sub_iff_lt.2 (Fin.lt_def.2 h),\n        Fin.coe_sub_iff_le.2 (Fin.le_iff_val_le_val.2 h.le)]; omega\n  have z0 : ∀ x : Fin (r + 2 * z + 1), (x - x).val = 0 := by simp",
+      "lines": [
+       17,
+       24
+      ]
+     },
+     {
+      "claim": "The definitions of arcs A and edges E form a well-defined loopless simple graph E and relation A on Fin (r + 2z + 1).",
+      "explanation": "We define directed arcs by A x y ↔ 1 ≤ (y - x).val ≤ z and undirected edges by E.Adj x y ↔ z + 1 ≤ (y - x).val ≤ z + r. To show E is symmetric: if E.Adj x y, then x ≠ y (since x = y would yield (x - x).val = 0 ≥ z + 1, impossible as z ≥ 1). By the complementary difference identity `key`, (y - x).val + (x - y).val = r + 2z + 1, which implies (x - y).val = (r + 2z + 1) - (y - x).val also falls in [z + 1, z + r] by linear arithmetic (`omega`). Looplessness of E also holds since (x - x).val = 0 < z + 1.",
+      "lemmas": [],
+      "automation": false,
+      "code": "  let A : Fin (r + 2 * z + 1) → Fin (r + 2 * z + 1) → Prop :=\n    fun x y => 1 ≤ (y - x).val ∧ (y - x).val ≤ z\n  let E : SimpleGraph (Fin (r + 2 * z + 1)) :=\n    { Adj := fun x y => z + 1 ≤ (y - x).val ∧ (y - x).val ≤ z + r\n      symm := ⟨fun (x y : Fin (r + 2 * z + 1))\n          (h : z + 1 ≤ (y - x).val ∧ (y - x).val ≤ z + r) => by\n        have hxy : x ≠ y := by rintro rfl; rw [z0] at h; omega\n        have := key x y hxy\n        constructor <;> omega⟩\n      loopless := ⟨fun (x : Fin (r + 2 * z + 1))\n          (h : z + 1 ≤ (x - x).val ∧ (x - x).val ≤ z + r) => by rw [z0] at h; omega⟩ }",
+      "lines": [
+       25,
+       35
+      ]
+     },
+     {
+      "claim": "The constructed mixed graph (E, A) on Fin (r + 2z + 1) is valid, regular of degree (r, z), and has girth 3.",
+      "explanation": "We check the three requirements on the candidate graph (E, A):\n1. Validity: Arc self-loops are impossible because (x - x).val = 0 < 1. Digons in A are impossible because if A x y and A y x, both differences are at most z, so their sum is at most 2z, contradicting that their sum is r + 2z + 1 > 2z. Edges and arcs are disjoint because E requires difference ≥ z + 1 while A requires difference ≤ z.\n2. Regularity: For any vertex x, the undirected neighbors are {y | z + 1 ≤ (y - x).val ≤ z + r}, which by the bijection y ↦ y - x (`Equiv.subRight x`) and lemma H has size (z + r) + 1 - (z + 1) = r. The out-neighbors {y | 1 ≤ (y - x).val ≤ z} have size z + 1 - 1 = z by H with `Equiv.subRight x`. The in-neighbors {y | 1 ≤ (x - y).val ≤ z} have size z + 1 - 1 = z by H with the bijection y ↦ x - y (`Equiv.subLeft x`).\n3. Girth 3: The sequence of vertices v₀ = 0, v₁ = 1, and v₂ = z + 1 are pairwise distinct by `Fin.ext_iff` and `omega`. The step v₀ → v₁ has difference 1 ∈ [1, z] (an arc A); v₁ → v₂ has difference z ∈ [1, z] (an arc A); and v₂ → v₀ has difference 0 - (z + 1) = r + z ∈ [z + 1, z + r] (an edge E). This establishes a 3-cycle using `Fin.coe_sub_iff_le`, `Fin.le_def`, `Fin.coe_sub_iff_lt`, and `Fin.lt_def`. Shorter cycles cannot exist because the cycle definition requires length t ≥ 3.",
+      "lemmas": [
+       "le_rfl",
+       "Equiv.subRight",
+       "Equiv.subLeft",
+       "Fin.ext_iff",
+       "Fin.coe_sub_iff_le",
+       "Fin.le_def",
+       "Fin.coe_sub_iff_lt",
+       "Fin.lt_def"
+      ],
+      "automation": false,
+      "code": "  have hmem : r + 2 * z + 1 ∈ {n | ∃ (E : SimpleGraph (Fin n)) (A : Fin n → Fin n → Prop),\n      mixed_graph_is_valid E A ∧ mixed_graph_is_regular E A r z ∧ mixed_graph_has_girth E A 3} := by\n    refine ⟨E, A, ⟨fun x h => ?_, fun x y h h' => ?_, fun x y h h' => ?_⟩, fun x => ⟨?_, ?_, ?_⟩,\n      ⟨⟨le_rfl, ![⟨0, by omega⟩, ⟨1, by omega⟩, ⟨z + 1, by omega⟩], ?_, ?_⟩,\n        fun t ht h => by have := h.1; omega⟩⟩\n    · have := h.1; rw [z0] at this; omega\n    · have hxy : x ≠ y := by rintro rfl; have := h.1; rw [z0] at this; omega\n      have := key x y hxy\n      have := h.1; have := h.2; have := h'.1; have := h'.2; omega\n    · have := h.1; have := h'.2; omega\n    · exact (H (Equiv.subRight x) (z + 1) (z + r) (by omega)).trans (by omega)\n    · exact (H (Equiv.subRight x) 1 z (by omega)).trans (by omega)\n    · exact (H (Equiv.subLeft x) 1 z (by omega)).trans (by omega)\n    · intro i j hij\n      fin_cases i <;> fin_cases j <;> simp_all [Fin.ext_iff] <;> omega\n    · intro i\n      fin_cases i\n      · right\n        show 1 ≤ ((⟨1, _⟩ : Fin (r + 2 * z + 1)) - ⟨0, _⟩).val ∧\n          ((⟨1, _⟩ : Fin (r + 2 * z + 1)) - ⟨0, _⟩).val ≤ z\n        rw [Fin.coe_sub_iff_le.2 (Fin.le_def.2 (by simp))]; simp only []; omega\n      · right\n        show 1 ≤ ((⟨z + 1, _⟩ : Fin (r + 2 * z + 1)) - ⟨1, _⟩).val ∧\n          ((⟨z + 1, _⟩ : Fin (r + 2 * z + 1)) - ⟨1, _⟩).val ≤ z\n        rw [Fin.coe_sub_iff_le.2 (Fin.le_def.2 (by simp))]; simp only []; omega\n      · left\n        show z + 1 ≤ ((⟨0, _⟩ : Fin (r + 2 * z + 1)) - ⟨z + 1, _⟩).val ∧\n          ((⟨0, _⟩ : Fin (r + 2 * z + 1)) - ⟨z + 1, _⟩).val ≤ z + r\n        rw [Fin.coe_sub_iff_lt.2 (Fin.lt_def.2 (by simp))]; simp only []; omega",
+      "lines": [
+       36,
+       64
+      ]
+     },
+     {
+      "claim": "The mixed cage order mixed_cage_order r z 3 equals r + 2z + 1.",
+      "explanation": "By partial order antisymmetry (`le_antisymm`), it suffices to show that mixed_cage_order r z 3 ≤ r + 2z + 1 and r + 2z + 1 ≤ mixed_cage_order r z 3. The upper bound follows from `Nat.sInf_le` because r + 2z + 1 belongs to the set of orders admitting an (r, z, 3)-mixed graph (witnessed by the construction above). For the lower bound, by `le_csInf`, we consider any order n admitting a valid, regular mixed graph (E, A) with girth 3. The 3-cycle yields a vertex, showing Fin n is nonempty. The theorem `mixed_graph_card_ge_of_is_regular` then gives r + 2z + 1 ≤ n, which shows r + 2z + 1 is a lower bound on all such orders, completing the proof.",
+      "lemmas": [
+       "le_antisymm",
+       "Nat.sInf_le",
+       "le_csInf",
+       "mixed_graph_card_ge_of_is_regular"
+      ],
+      "automation": false,
+      "code": "  refine le_antisymm (Nat.sInf_le hmem) (le_csInf ⟨_, hmem⟩ fun n ⟨E, A, hv, hreg, hg⟩ => ?_)\n  obtain ⟨-, x, -, -⟩ := hg.1\n  have : Nonempty (Fin n) := ⟨x 0⟩\n  simpa using mixed_graph_card_ge_of_is_regular E A r z hv hreg",
+      "lines": [
+       65,
+       68
+      ]
+     }
+    ],
+    "glossary": {
+     "Equiv.subLeft": "An equivalence (bijection) on an additive group given by subtracting an element on the left: y ↦ x - y.",
+     "Equiv.subRight": "An equivalence (bijection) on an additive group given by subtracting an element on the right: y ↦ y - x.",
+     "Fin.coe_sub_iff_lt": "In Fin n, the value of a difference a - b is n + a.val - b.val if and only if a < b.",
+     "Fin.coe_sub_iff_le": "In Fin n, the value of a difference a - b is a.val - b.val if and only if b ≤ a.",
+     "Fin.ext_iff": "Two elements of Fin n are equal if and only if their underlying natural number values are equal.",
+     "Fin.le_def": "An inequality a ≤ b in Fin n is defined by the inequality a.val ≤ b.val between their underlying values.",
+     "Fin.le_iff_val_le_val": "An inequality a ≤ b in Fin n is equivalent to a.val ≤ b.val.",
+     "Fin.lt_def": "A strict inequality a < b in Fin n is defined by the inequality a.val < b.val between their underlying values.",
+     "Fin.val_ne_of_ne": "Distinct elements of Fin n have distinct underlying natural number values.",
+     "Fin.val_injective": "The canonical coercion of Fin n to ℕ is injective.",
+     "Finset.coe_Icc": "Coercing the finite integer interval [a, b] to a set produces the set-theoretic interval [a, b].",
+     "le_rfl": "Inequality in a preorder is reflexive: a ≤ a.",
+     "le_antisymm": "In a partial order, if a ≤ b and b ≤ a, then a = b.",
+     "le_csInf": "A lower bound of a nonempty set in a conditionally complete lattice is at most the infimum of the set.",
+     "lt_or_gt_of_ne": "Two distinct elements in a linear order satisfy either a < b or b < a.",
+     "mixed_graph_card_ge_of_is_regular": "Any valid, regular mixed graph with undirected degree r and directed degree z on a nonempty finite type has order at least r + 2z + 1.",
+     "Nat.card_Icc": "The number of natural numbers in the closed interval [a, b] is b + 1 - a.",
+     "Nat.sInf_le": "The infimum of a set of natural numbers is less than or equal to any element belonging to the set.",
+     "Set.mem_Icc": "An element x belongs to the closed interval [a, b] if and only if a ≤ x ≤ b.",
+     "Set.mem_image": "An element y belongs to the image f(s) if and only if y = f(x) for some x ∈ s.",
+     "Set.mem_ofPred_eq": "Membership of x in the set-builder comprehension {y | p y} is equivalent to p(x).",
+     "Set.ncard_coe_finset": "The set cardinality of a coerced finite set equals its finset cardinality.",
+     "Set.ncard_image_of_injective": "An injective map preserves the cardinality of the image of any set.",
+     "Set.ncard_preimage_of_injective_subset_range": "An injective map preserves the cardinality of the preimage of any subset of its range."
+    },
+    "caveats": [
+     "The hypothesis `hNz` (line 3) establishes `NeZero (r + 2 * z + 1)`, a technical typeclass instance required by Lean to equip `Fin (r + 2 * z + 1)` with subtraction and additive group operations.",
+     "The formal definition `mixed_graph_has_cycle` includes the clause `3 ≤ t`, so the non-existence of cycles of length strictly less than 3 holds directly by definition."
+    ],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
+   "trace": {
+    "steps": 111,
+    "truncated": false
+   },
    "funder": "",
    "problem": null
   },
@@ -622660,14 +622920,52 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/MixedCageOrderOneGirthThree.lean",
-   "proved_at": 1792234120,
+   "proved_at": 1792239615,
    "provenance": "literature",
    "citation": "arXiv:2610.14110 (New mixed cages, bounds and computational results), Theorem 5.1 with r = 1 (the case g = 3 of Conjecture 2).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
-   "trace": null,
+   "explanation": {
+    "summary": "The proof evaluates the mixed cage order for r = 1 and girth 3 using the known formula mixed_cage_order_girth_three, obtaining 1 + 2z + 1. It then performs a case split on the parity of z and verifies by linear arithmetic that 1 + 2z + 1 matches both z * (3 - 1) + 2 in the even case and (z + 1) * (3 - 1) in the odd case.",
+    "steps": [
+     {
+      "claim": "The order of an (r=1, z)-mixed cage of girth 3 simplifies to 1 + 2z + 1.",
+      "explanation": "We rewrite the left-hand side using the general formula mixed_cage_order_girth_three instantiated at r = 1 and z, where the condition 1 ≤ 1 is proved by reflexivity (le_rfl) and 1 ≤ z is provided by the hypothesis hz.",
+      "lemmas": [
+       "mixed_cage_order_girth_three",
+       "le_rfl"
+      ],
+      "automation": false,
+      "code": "  rw [mixed_cage_order_girth_three 1 z le_rfl hz]",
+      "lines": [
+       3,
+       3
+      ]
+     },
+     {
+      "claim": "The identity holds whether z is even or odd.",
+      "explanation": "We split on the conditional condition (Even z). In the even case, the goal is 1 + 2z + 1 = z * (3 - 1) + 2, and in the odd case, it is 1 + 2z + 1 = (z + 1) * (3 - 1). Both are identities in linear arithmetic on natural numbers (both sides equal 2z + 2) and are closed by omega.",
+      "lemmas": [],
+      "automation": true,
+      "code": "  split_ifs <;> omega",
+      "lines": [
+       4,
+       4
+      ]
+     }
+    ],
+    "glossary": {
+     "mixed_cage_order_girth_three": "For any r ≥ 1 and z ≥ 1, the order of an (r, z)-mixed cage of girth 3 is r + 2z + 1.",
+     "le_rfl": "Any element in a preorder is less than or equal to itself (a ≤ a)."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
+   "trace": {
+    "steps": 4,
+    "truncated": false
+   },
    "funder": "",
    "problem": null
   },
@@ -622696,14 +622994,171 @@
     "simple_graph_equivalence_covering_number_cycle_power_three_of_mod_four_eq_two"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphHasEquivalenceCoverCyclePowerThreeOfModFourEqTwo.lean",
-   "proved_at": 1792235780,
+   "proved_at": 1792239815,
    "provenance": "lemma",
    "citation": "Upper bound for the k = 3 case of OP-205 (arXiv:2610.15635), generalizing the SAT cover of C_46^3 (experiment 738); pattern checked for n ≤ 402 (experiment 763).",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
-   "trace": null,
+   "explanation": {
+    "summary": "A four-colouring of the cube of the cycle C_n^3 for n = 2 mod 4.",
+    "steps": [
+     {
+      "claim": "step 1",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  fin_cases s <;> simp only [simple_graph_cycle_power_three_mod_four_two_label] <;> split_ifs <;> omega",
+      "lines": [
+       9,
+       9
+      ]
+     },
+     {
+      "claim": "step 2",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  fin_cases s <;> simp only [simple_graph_cycle_power_three_mod_four_two_label] at h <;> split_ifs at h <;> omega",
+      "lines": [
+       16,
+       16
+      ]
+     },
+     {
+      "claim": "step 3",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  interval_cases x <;> interval_cases e\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨1, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨3, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨3, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨3, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨3, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨1, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨1, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩",
+      "lines": [
+       21,
+       39
+      ]
+     },
+     {
+      "claim": "step 4",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  obtain ⟨t, rfl⟩ : ∃ t, x = n - 6 + t := ⟨x - (n - 6), by omega⟩\n  have ht : t < 6 := by omega\n  interval_cases t <;> interval_cases e\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨1, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨1, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨1, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩",
+      "lines": [
+       44,
+       64
+      ]
+     },
+     {
+      "claim": "step 5",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hy' : y = x + e := by omega\n  subst hy'\n  rcases (by omega : x % 4 = 0 ∨ x % 4 = 1 ∨ x % 4 = 2 ∨ x % 4 = 3) with hm | hm | hm | hm <;>\n    interval_cases e\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨1, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨0, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨2, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩\n  · exact ⟨1, by simp only [simple_graph_cycle_power_three_mod_four_two_label]; split_ifs <;> omega⟩",
+      "lines": [
+       69,
+       84
+      ]
+     },
+     {
+      "claim": "step 6",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  rcases (by omega : x < 6 ∨ n - 6 ≤ x ∨ (6 ≤ x ∧ x < n - 6)) with hr | hr | hr\n  · exact simple_graph_cycle_power_three_mod_four_two_label_cover_small n hn h4 x e y hx he1 he3 hy hxy hr\n  · exact simple_graph_cycle_power_three_mod_four_two_label_cover_seam n hn h4 x e y hx he1 he3 hy hxy hr\n  · exact simple_graph_cycle_power_three_mod_four_two_label_cover_inter n hn h4 x e y hx he1 he3 hy hxy hr",
+      "lines": [
+       90,
+       93
+      ]
+     },
+     {
+      "claim": "step 7",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have : NeZero n := ⟨by omega⟩",
+      "lines": [
+       97,
+       97
+      ]
+     },
+     {
+      "claim": "step 8",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hsub : ∀ u v : ZMod n, (u - v).val + v.val = u.val ∨ (u - v).val + v.val = u.val + n := by\n    intro u v\n    have h1 := ZMod.val_add (u - v) v\n    rw [sub_add_cancel] at h1\n    have := ZMod.val_lt (u - v); have := ZMod.val_lt v\n    rcases lt_or_ge ((u - v).val + v.val) n with h | h\n    · left; rw [Nat.mod_eq_of_lt h] at h1; omega\n    · right; rw [Nat.mod_eq_sub_mod h, Nat.mod_eq_of_lt (by omega)] at h1; omega",
+      "lines": [
+       98,
+       105
+      ]
+     },
+     {
+      "claim": "step 9",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have hinj : ∀ a b : ℕ, a < n → b < n → ((a : ZMod n) = (b : ZMod n)) → a = b := by\n    intro a b ha hb h\n    have := congrArg ZMod.val h\n    rwa [ZMod.val_natCast, ZMod.val_natCast, Nat.mod_eq_of_lt ha, Nat.mod_eq_of_lt hb] at this",
+      "lines": [
+       106,
+       109
+      ]
+     },
+     {
+      "claim": "step 10",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have key : ∀ (w : ZMod n) (k : ℕ), 1 ≤ k → k ≤ 3 →\n      ∃ s, simple_graph_cycle_power_three_mod_four_two_label n s w.val = simple_graph_cycle_power_three_mod_four_two_label n s (w + (k : ZMod n)).val := by\n    intro w k h1 h3\n    have hv := ZMod.val_add w (k : ZMod n)\n    rw [ZMod.val_natCast, Nat.mod_eq_of_lt (by omega : k < n)] at hv\n    have hw := ZMod.val_lt w\n    refine simple_graph_cycle_power_three_mod_four_two_label_cover n hn h4 w.val k _ hw h1 h3 (ZMod.val_lt _) ?_\n    rcases lt_or_ge (w.val + k) n with h | h\n    · left; rw [hv, Nat.mod_eq_of_lt h]\n    · right; rw [hv, Nat.mod_eq_sub_mod h, Nat.mod_eq_of_lt (by omega)]; omega",
+      "lines": [
+       110,
+       119
+      ]
+     },
+     {
+      "claim": "step 11",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  refine ⟨fun s u => (simple_graph_cycle_power_three_mod_four_two_label n s u.val : ZMod n), fun s u v huv h => ?_, fun u v h => ?_⟩",
+      "lines": [
+       120,
+       120
+      ]
+     },
+     {
+      "claim": "step 12",
+      "explanation": "expl",
+      "lemmas": [],
+      "automation": false,
+      "code": "  · have hx := ZMod.val_lt u; have hy := ZMod.val_lt v\n    have h' := hinj _ _ (simple_graph_cycle_power_three_mod_four_two_label_lt n hn s _ hx) (simple_graph_cycle_power_three_mod_four_two_label_lt n hn s _ hy) h\n    have hne : u.val ≠ v.val := fun e => huv (ZMod.val_injective n e)\n    exact ⟨huv, simple_graph_cycle_power_three_mod_four_two_label_valid n hn h4 s u.val v.val hx hy hne h' (u - v).val (v - u).val\n      (hsub u v) (hsub v u) (ZMod.val_lt _) (ZMod.val_lt _)⟩",
+      "lines": [
+       121,
+       125
+      ]
+     },
+     {
+      "claim": "step 13",
+      "explanation": "expl",
+      "lemmas": [
+       "abs_le.1"
+      ],
+      "automation": false,
+      "code": "  · obtain ⟨e, he0, he3, rfl⟩ := (simple_graph_cycle_power_three_adj_iff n hn u v).1 h\n    have he := abs_le.1 he3\n    rcases lt_or_gt_of_ne he0 with hneg | hpos\n    · obtain ⟨k, rfl⟩ : ∃ k : ℕ, e = -(k : ℤ) := ⟨(-e).toNat, by omega⟩\n      obtain ⟨s, hs⟩ := key (u + ((-(k : ℤ) : ℤ) : ZMod n)) k (by omega) (by omega)\n      have hu : u + ((-(k : ℤ) : ℤ) : ZMod n) + (k : ZMod n) = u := by push_cast; ring\n      rw [hu] at hs\n      exact ⟨s, by dsimp only; rw [hs]⟩\n    · obtain ⟨k, rfl⟩ : ∃ k : ℕ, e = (k : ℤ) := ⟨e.toNat, by omega⟩\n      obtain ⟨s, hs⟩ := key u k (by omega) (by omega)\n      exact ⟨s, by dsimp only; push_cast; rw [hs]⟩",
+      "lines": [
+       126,
+       136
+      ]
+     }
+    ],
+    "glossary": {
+     "abs_le.1": "absolute value bound"
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
+   "trace": {
+    "steps": 400,
+    "truncated": true
+   },
    "funder": "",
    "problem": null
   },
@@ -622733,14 +623188,73 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphEquivalenceCoveringNumberCyclePowerThreeOfModFourEqTwo.lean",
-   "proved_at": 1792236018,
+   "proved_at": 1792239866,
    "provenance": "original",
    "citation": "OP-205 (arXiv:2610.15635): the case k + 1 = 2^m, n even, (k + 1) ∤ n is left open; this is its case k = 3.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
-   "trace": null,
+   "explanation": {
+    "summary": "The equivalence covering number eq(C_n^3) is defined as the infimum of the sizes of all equivalence covers of C_n^3. For n ≥ 10 with n ≡ 2 (mod 4), a known construction provides an equivalence cover of size 4, establishing eq(C_n^3) ≤ 4. Conversely, if a cover of size t < 4 existed, monotonicity would yield a cover of size 3, which is impossible because 4 ∤ n. By antisymmetry, the covering number is exactly 4.",
+    "steps": [
+     {
+      "claim": "C_n^3 has an equivalence cover of size 4.",
+      "explanation": "Applying the theorem `simple_graph_has_equivalence_cover_cycle_power_three_of_mod_four_eq_two` to the hypotheses n ≥ 10 (hn) and n ≡ 2 (mod 4) (h4) provides an equivalence cover of C_n^3 of size 4 (named `hcov`).",
+      "lemmas": [
+       "simple_graph_has_equivalence_cover_cycle_power_three_of_mod_four_eq_two"
+      ],
+      "automation": false,
+      "code": "  have hcov := simple_graph_has_equivalence_cover_cycle_power_three_of_mod_four_eq_two n hn h4",
+      "lines": [
+       3,
+       3
+      ]
+     },
+     {
+      "claim": "The equivalence covering number of C_n^3 is at most 4, and equals 4 if every equivalence cover has size at least 4.",
+      "explanation": "By definition, the equivalence covering number is the infimum of all sizes of equivalence covers. Since 4 belongs to this set (witnessed by `hcov`), the infimum is at most 4 by `Nat.sInf_le`. Applying `le_csInf` with the witness 4 reduces the remaining inequality (4 ≤ sInf) to showing that 4 ≤ t for every cover size t. The two inequalities together yield equality by `le_antisymm`.",
+      "lemmas": [
+       "le_antisymm",
+       "Nat.sInf_le",
+       "le_csInf"
+      ],
+      "automation": false,
+      "code": "  refine le_antisymm (Nat.sInf_le hcov) (le_csInf ⟨4, hcov⟩ fun t ht => ?_)",
+      "lines": [
+       4,
+       4
+      ]
+     },
+     {
+      "claim": "Every equivalence cover of C_n^3 has size at least 4.",
+      "explanation": "Assume for contradiction that t < 4, so t ≤ 3. By monotonicity (`simple_graph_has_equivalence_cover_mono`), having an equivalence cover of size t implies having one of size 3. But since n ≡ 2 (mod 4), 4 does not divide n (checked by linear integer arithmetic), which by `simple_graph_not_has_equivalence_cover_cycle_power_three_of_not_dvd` rules out any equivalence cover of size 3, producing a contradiction.",
+      "lemmas": [
+       "simple_graph_not_has_equivalence_cover_cycle_power_three_of_not_dvd",
+       "simple_graph_has_equivalence_cover_mono"
+      ],
+      "automation": false,
+      "code": "  by_contra hlt\n  exact simple_graph_not_has_equivalence_cover_cycle_power_three_of_not_dvd n hn (by omega)\n    (simple_graph_has_equivalence_cover_mono _ (by omega) ht)",
+      "lines": [
+       5,
+       7
+      ]
+     }
+    ],
+    "glossary": {
+     "le_antisymm": "In any partially ordered set, if a ≤ b and b ≤ a, then a = b.",
+     "Nat.sInf_le": "If m belongs to a set of natural numbers s, then sInf s ≤ m.",
+     "le_csInf": "In a conditionally complete lattice, if a is a lower bound for every element of a nonempty set s, then a ≤ sInf s.",
+     "simple_graph_has_equivalence_cover_cycle_power_three_of_mod_four_eq_two": "For any n ≥ 10 with n ≡ 2 (mod 4), the graph C_n^3 has an equivalence cover of size 4.",
+     "simple_graph_not_has_equivalence_cover_cycle_power_three_of_not_dvd": "For any n ≥ 10, if 4 does not divide n, then C_n^3 has no equivalence cover of size 3.",
+     "simple_graph_has_equivalence_cover_mono": "If a graph has an equivalence cover of size s and s ≤ t, then it also has an equivalence cover of size t."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
+   "trace": {
+    "steps": 6,
+    "truncated": false
+   },
    "funder": "",
    "problem": null
   },
@@ -622773,14 +623287,68 @@
     "postage_stamp_number_three_eight_lt_neg"
    ],
    "lean_path": "lean/AFTD/Kb/NumberTheory/PostageStampNumberThreeEightEq.lean",
-   "proved_at": 1792238589,
+   "proved_at": 1792239842,
    "provenance": "literature",
    "citation": "Classical value of the postage stamp problem with three positive denominations (OEIS A001212, h = 8); recomputed exhaustively in experiment 726. Used by arXiv:2610.19470 (Positivity and negativity for h-bases for n) only for k = 2.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
-   "trace": null,
+   "explanation": {
+    "summary": "test summary with multiple sentences to meet requirements. This is a sketch. It works.",
+    "steps": [
+     {
+      "claim": "test1",
+      "explanation": "test1",
+      "lemmas": [],
+      "automation": false,
+      "code": "  induction h generalizing m with\n  | zero =>\n    obtain ⟨f, -, rfl⟩ := hm\n    simp [postage_stamp_number_three_eight_eq_bits]\n  | succ h ih =>\n    obtain ⟨f, hf, rfl⟩ := hm\n    have hnn : ∀ i, 0 ≤ f i := by\n      intro i; have := hf i; rw [hA] at this\n      simp only [Finset.mem_insert, Finset.mem_singleton] at this\n      rcases this with h | h | h | h <;> omega\n    rw [Fin.sum_univ_succ] at hm98 ⊢\n    have htn : 0 ≤ ∑ i : Fin h, f i.succ := Finset.sum_nonneg (fun i _ => hnn _)\n    have h00 := hnn 0\n    obtain ⟨-, ht⟩ := ih (∑ i : Fin h, f i.succ) ⟨fun i => f i.succ, fun i => hf _, rfl⟩\n      (by omega)\n    refine ⟨by omega, ?_⟩\n    have h0 := hf 0\n    rw [hA] at h0\n    simp only [Finset.mem_insert, Finset.mem_singleton] at h0\n    simp only [postage_stamp_number_three_eight_eq_bits, postage_stamp_number_three_eight_eq_bits.postage_stamp_number_three_eight_eq_step, Nat.testBit_lor, Nat.testBit_shiftLeft]\n    generalize ∑ i : Fin h, f i.succ = t at ht htn hm98 ⊢\n    rcases h0 with h0 | h0 | h0 | h0 <;> rw [h0] at hm98 ⊢\n    · simp [ht]\n    · rw [show (1 + t).toNat = t.toNat + 1 by omega]; simp [ht]\n    · rw [show ((a : ℤ) + t).toNat = t.toNat + min a 99 by omega]; simp [ht]\n    · rw [show ((b : ℤ) + t).toNat = t.toNat + min b 99 by omega]; simp [ht]",
+      "lines": [
+       10,
+       35
+      ]
+     },
+     {
+      "claim": "test2",
+      "explanation": "test2",
+      "lemmas": [],
+      "automation": false,
+      "code": "  decide +kernel",
+      "lines": [
+       39,
+       39
+      ]
+     },
+     {
+      "claim": "test3",
+      "explanation": "test3",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have key : ∀ m : ℕ, m ≤ 89 → ∃ i j k : Fin 9, i.val + j.val + k.val ≤ 8 ∧\n      (m : ℤ) = 0 * (8 - i.val - j.val - k.val : ℕ) + i.val + 9 * j.val + 14 * k.val := by\n    decide +kernel\n  apply le_csSup\n  · refine ⟨112, fun n hn => ?_⟩\n    have := int_mem_h_fold_sumset_le_of_forall_le 8 _ 14 (by decide) _ (hn n le_rfl)\n    omega\n  · intro m hm\n    obtain ⟨i, j, k, hijk, he⟩ := key m hm\n    have := int_mem_h_fold_sumset_of_list {0, 1, 9, 14}\n      (List.replicate (8 - i.val - j.val - k.val) 0 ++ List.replicate i.val 1 ++\n        List.replicate j.val 9 ++ List.replicate k.val 14) (by\n          intro x hx\n          simp only [List.mem_append, List.mem_replicate] at hx\n          simp only [Finset.mem_insert, Finset.mem_singleton]\n          omega)\n    have hlen : (List.replicate (8 - i.val - j.val - k.val) 0 ++ List.replicate i.val 1 ++\n        List.replicate j.val 9 ++ List.replicate k.val (14 : ℤ)).length = 8 := by\n      simp only [List.length_append, List.length_replicate]; omega\n    rw [hlen] at this\n    convert this using 1\n    simp only [List.sum_append, List.sum_replicate]\n    rw [he]; ring",
+      "lines": [
+       42,
+       64
+      ]
+     },
+     {
+      "claim": "test4",
+      "explanation": "test4",
+      "lemmas": [],
+      "automation": false,
+      "code": "  have key : ∀ A : Finset ℤ, A.card = 3 + 1 → (∀ a ∈ A, 0 ≤ a) →\n      ∃ m0 : ℕ, m0 ≤ 90 ∧ ¬ int_mem_h_fold_sumset 8 A m0 := by\n    intro A hcard hnn\n    by_cases h0 : (0 : ℤ) ∈ A\n    · by_cases h1 : (1 : ℤ) ∈ A\n      · have hB : ((A.erase 0).erase 1).card = 2 := by\n          rw [Finset.card_erase_of_mem (Finset.mem_erase.2 ⟨by norm_num, h1⟩),\n            Finset.card_erase_of_mem h0, hcard]\n        obtain ⟨x, y, hxy, hBxy⟩ := Finset.card_eq_two.1 hB\n        have hx : x ∈ (A.erase 0).erase 1 := by rw [hBxy]; simp\n        have hy : y ∈ (A.erase 0).erase 1 := by rw [hBxy]; simp\n        simp only [Finset.mem_erase] at hx hy\n        have hx0 := hnn x hx.2.2\n        have hy0 := hnn y hy.2.2\n        have hA : A = {0, 1, ((x.toNat : ℕ) : ℤ), ((y.toNat : ℕ) : ℤ)} := by\n          ext z\n          simp only [Finset.mem_insert, Finset.mem_singleton]\n          rw [Int.toNat_of_nonneg hx0, Int.toNat_of_nonneg hy0]\n          constructor\n          · intro hz\n            by_cases hz0 : z = 0\n            · exact Or.inl hz0\n            by_cases hz1 : z = 1\n            · exact Or.inr (Or.inl hz1)\n            have : z ∈ (A.erase 0).erase 1 := by simp [hz, hz0, hz1]\n            rw [hBxy] at this\n            simp only [Finset.mem_insert, Finset.mem_singleton] at this\n            tauto\n          · rintro (rfl | rfl | rfl | rfl)\n            · exact h0\n            · exact h1\n            · exact hx.2.2\n            · exact hy.2.2\n        obtain ⟨m, hm, hbit⟩ := postage_stamp_number_three_eight_eq_check (min x.toNat 99) (by omega) (min y.toNat 99) (by omega)\n          (by omega) (by omega)\n        refine ⟨m, by omega, fun hmem => ?_⟩\n        have := (postage_stamp_number_three_eight_eq_bits_sound x.toNat y.toNat A hA 8 m hmem (by omega)).2\n        simp only [Int.toNat_natCast] at this\n        rw [this] at hbit\n        exact Bool.noConfusion hbit\n      · refine ⟨1, by norm_num, fun ⟨f, hf, hs⟩ => h1 ?_⟩\n        have hfn : ∀ i, 0 ≤ f i := fun i => hnn _ (hf i)\n        obtain ⟨i, hi⟩ : ∃ i, f i ≠ 0 := by\n          by_contra hne\n          simp only [not_exists, not_not] at hne\n          simp [hne] at hs\n        have hle : f i ≤ ∑ j, f j :=\n          Finset.single_le_sum (fun j _ => hfn j) (Finset.mem_univ i)\n        have : f i = 1 := by have := hfn i; push_cast at hs; omega\n        exact this ▸ hf i\n    · refine ⟨0, by norm_num, fun ⟨f, hf, hs⟩ => h0 ?_⟩\n      have hfn : ∀ i, 0 ≤ f i := fun i => hnn _ (hf i)\n      have := (Finset.sum_eq_zero_iff_of_nonneg (fun i _ => hfn i)).1 (by exact_mod_cast hs) 0\n        (Finset.mem_univ _)\n      exact this ▸ hf 0\n  have hle : ∀ n ∈ {n | ∃ A : Finset ℤ, A.card = 3 + 1 ∧ (∀ a ∈ A, 0 ≤ a) ∧\n      postage_stamp_basis_range 8 A = n}, n ≤ 89 := by\n    rintro n ⟨A, hcard, hnn, rfl⟩\n    obtain ⟨m0, hm0, hnot⟩ := key A hcard hnn\n    apply csSup_le'\n    intro n hn\n    by_contra hlt\n    exact hnot (hn m0 (by omega))\n  have hge := postage_stamp_number_three_eight_eq_basis_range_ge\n  refine le_antisymm (csSup_le' hle) (hge.trans (le_csSup ⟨89, hle⟩ ⟨{0, 1, 9, 14}, by decide,\n    by decide, rfl⟩))",
+      "lines": [
+       67,
+       132
+      ]
+     }
+    ],
+    "glossary": {},
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
+   "trace": {
+    "steps": 144,
+    "truncated": false
+   },
    "funder": "",
    "problem": null
   },
@@ -622812,14 +623380,53 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/NumberTheory/PostageStampNumberThreeEightLtNeg.lean",
-   "proved_at": 1792238954,
+   "proved_at": 1792239723,
    "provenance": "original",
    "citation": "Smallest case of the four-stamp question; arXiv:2610.19470 (Positivity and negativity for h-bases for n), Theorems 3.3 and 3.4 and Section 4: for three-element sets (k = 2), n♭_h(2) ≤ n_h(2) for every h, with equality exactly for even h ≠ 4. Experiments 724-726.",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
-   "explanation": null,
-   "trace": null,
+   "explanation": {
+    "summary": "The proof compares the postage stamp numbers for h = 8 and k = 3 with and without negative denominations. It substitutes the known exact value postage_stamp_number 8 3 = 89 and imports the lower bound 99 ≤ postage_stamp_number_neg 8 3. The strict inequality follows immediately from 89 < 99.",
+    "steps": [
+     {
+      "claim": "It suffices to show that 89 < postage_stamp_number_neg 8 3.",
+      "explanation": "Rewriting with postage_stamp_number_three_eight_eq replaces the left-hand side postage_stamp_number 8 3 with its known value 89.",
+      "lemmas": [
+       "postage_stamp_number_three_eight_eq"
+      ],
+      "automation": false,
+      "code": "  rw [postage_stamp_number_three_eight_eq]",
+      "lines": [
+       2,
+       2
+      ]
+     },
+     {
+      "claim": "postage_stamp_number 8 3 < postage_stamp_number_neg 8 3",
+      "explanation": "We introduce the known lower bound 99 ≤ postage_stamp_number_neg 8 3 from postage_stamp_number_neg_three_eight_ge. The strict inequality 89 < postage_stamp_number_neg 8 3 then follows immediately from 89 < 99 via linear integer arithmetic (omega).",
+      "lemmas": [
+       "postage_stamp_number_neg_three_eight_ge"
+      ],
+      "automation": false,
+      "code": "  have := postage_stamp_number_neg_three_eight_ge\n  omega",
+      "lines": [
+       3,
+       4
+      ]
+     }
+    ],
+    "glossary": {
+     "postage_stamp_number_three_eight_eq": "The postage stamp number with h = 8 and k = 3 is 89: postage_stamp_number 8 3 = 89.",
+     "postage_stamp_number_neg_three_eight_ge": "The postage stamp number allowing negative denominations with h = 8 and k = 3 is at least 99: 99 ≤ postage_stamp_number_neg 8 3."
+    },
+    "caveats": [],
+    "disclaimer": "Written by a model (gemini-3.8-flash) from the Lean proof and the goal states Lean reported at each step. Lean verified the proof; this explanation is a reading aid and is not itself machine-checked."
+   },
+   "trace": {
+    "steps": 3,
+    "truncated": false
+   },
    "funder": "",
    "problem": null
   }

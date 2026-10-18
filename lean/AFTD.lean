@@ -6005,11 +6005,15 @@ import AFTD.Kb.Tcs.CommunicationComplexityUniformOnUnivMeasureRealEqCardFilter
 import AFTD.Kb.Tcs.CommunicationComplexityUnitFiniteProbabilitySpace
 import AFTD.Kb.Tcs.CommunicationComplexityUnitMeasureSpace
 import AFTD.Kb.Tcs.CommunicationComplexityVariationalIntegralMulLeIntegralKlFunAddCgf
+import AFTD.Kb.Tcs.ComparisonSelectionComplexity
 import AFTD.Kb.Tcs.ComparisonSortDecisionTreeHeightGe
 import AFTD.Kb.Tcs.ComparisonSortHeightGeHalfNLogbHalfN
 import AFTD.Kb.Tcs.ComparisonTree
+import AFTD.Kb.Tcs.ComparisonTreeBind
 import AFTD.Kb.Tcs.ComparisonTreeDepth
 import AFTD.Kb.Tcs.ComparisonTreeEval
+import AFTD.Kb.Tcs.ComparisonTreeSelectsRank
+import AFTD.Kb.Tcs.ComparisonTreeSelectsRankOneZero
 import AFTD.Kb.Tcs.CompleteBipartiteKIndependenceNumberEqUpperKStarFormingNumber
 import AFTD.Kb.Tcs.ComplexLaplaceConvergenceDomain
 import AFTD.Kb.Tcs.ComplexLaplaceEndpointEnvelope
@@ -7181,6 +7185,7 @@ import AFTD.Kb.Tcs.Gf8OracleSyndromeZeroZeroZero
 import AFTD.Kb.Tcs.Gf8OracleTCountGe20
 import AFTD.Kb.Tcs.Gf8OracleTCountLe29
 import AFTD.Kb.Tcs.GloveNumber
+import AFTD.Kb.Tcs.GloveNumberCompleteGraphEqIffGe
 import AFTD.Kb.Tcs.GloveNumberCompleteGraphUpperBound
 import AFTD.Kb.Tcs.GloveNumberK2
 import AFTD.Kb.Tcs.GloveNumberK3
@@ -7972,7 +7977,14 @@ import AFTD.Kb.Tcs.MatroidSboListColorableTwoOfColorableTwo
 import AFTD.Kb.Tcs.MatroidSboReductionPairsOfTwoIndep
 import AFTD.Kb.Tcs.MatroidStronglyBaseOrderable
 import AFTD.Kb.Tcs.MatroidStronglyBaseOrderableFreeOn
+import AFTD.Kb.Tcs.MdfrbfColourInj
 import AFTD.Kb.Tcs.MdfrbfCompress
+import AFTD.Kb.Tcs.MdfrbfCompressSubsetIff
+import AFTD.Kb.Tcs.MdfrbfCompressionBound
+import AFTD.Kb.Tcs.MdfrbfCompressionCard
+import AFTD.Kb.Tcs.MdfrbfDiamondTransfer
+import AFTD.Kb.Tcs.MdfrbfFanTransfer
+import AFTD.Kb.Tcs.MdfrbfFibreSubset
 import AFTD.Kb.Tcs.MeasurableComplexLaplaceIntegrand
 import AFTD.Kb.Tcs.MidIdx
 import AFTD.Kb.Tcs.MidpointCertificateMatrixMinorAbsLe
@@ -8069,6 +8081,7 @@ import AFTD.Kb.Tcs.NonzeroRootsEqOfCharpolyEqXPow
 import AFTD.Kb.Tcs.NormComplexLaplaceIntegrandHorizontalLeEndpointEnvelope
 import AFTD.Kb.Tcs.NormComplexLaplaceIntegrandLeEnvelope
 import AFTD.Kb.Tcs.NormComplexLaplaceIntegrandVerticalLeEndpointEnvelope
+import AFTD.Kb.Tcs.NotComparisonTreeSelectsRankTwoLeafOne
 import AFTD.Kb.Tcs.NotComputableOfManyOneReducible
 import AFTD.Kb.Tcs.NotCutLayerPotentialAvgBound
 import AFTD.Kb.Tcs.NotCycleLabelingCompleteRangeEight
@@ -8758,6 +8771,7 @@ import AFTD.Kb.Tcs.UniformSuperposition
 import AFTD.Kb.Tcs.UrmHaltsToStandardForm
 import AFTD.Kb.Tcs.UrmHaltsToStandardFormOfHalts
 import AFTD.Kb.Tcs.V
+import AFTD.Kb.Tcs.VSelection
 import AFTD.Kb.Tcs.VSub
 import AFTD.Kb.Tcs.VSubIso
 import AFTD.Kb.Tcs.VSubUnivEqTop

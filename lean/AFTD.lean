@@ -2375,6 +2375,12 @@ import AFTD.Kb.GameTheoryEconomics.SpiderBlockedIncomingOneOutwardOne
 import AFTD.Kb.GameTheoryEconomics.SpiderBlockedIncomingOneOutwardOptionsEq
 import AFTD.Kb.GameTheoryEconomics.SpiderBlockedOptionvals
 import AFTD.Kb.GameTheoryEconomics.SpiderBlockedTwoThreeLevelFiveOptions
+import AFTD.Kb.GameTheoryEconomics.SpiderBlockedTwoThreeLevelFiveSubIncomingTwoThree
+import AFTD.Kb.GameTheoryEconomics.SpiderBlockedTwoThreeLevelFiveSubShortLegs
+import AFTD.Kb.GameTheoryEconomics.SpiderBlockedTwoThreeLevelFiveSubSumEight
+import AFTD.Kb.GameTheoryEconomics.SpiderBlockedTwoThreeLevelFiveSubSumNine
+import AFTD.Kb.GameTheoryEconomics.SpiderBlockedTwoThreeLevelFiveSubSumSeven
+import AFTD.Kb.GameTheoryEconomics.SpiderBlockedTwoThreeLevelFiveSubSumSix
 import AFTD.Kb.GameTheoryEconomics.SpiderBlockedTwoThreeLevelFour
 import AFTD.Kb.GameTheoryEconomics.SpiderBlockedTwoThreeReversal
 import AFTD.Kb.GameTheoryEconomics.SpiderBlockedVal
@@ -2386,12 +2392,15 @@ import AFTD.Kb.GameTheoryEconomics.SpiderGammaRootOptions
 import AFTD.Kb.GameTheoryEconomics.SpiderGammaSwapTwo
 import AFTD.Kb.GameTheoryEconomics.SpiderGrundyVal
 import AFTD.Kb.GameTheoryEconomics.SpiderGrundyValOneOneOne
+import AFTD.Kb.GameTheoryEconomics.SpiderGrundyValOneOneUpToFive
 import AFTD.Kb.GameTheoryEconomics.SpiderLegEnd
 import AFTD.Kb.GameTheoryEconomics.SpiderMexIncomingOneOutward
 import AFTD.Kb.GameTheoryEconomics.SpiderMexIncomingOneOutwardAllLtMem
 import AFTD.Kb.GameTheoryEconomics.SpiderMexIncomingOneOutwardNotMem
 import AFTD.Kb.GameTheoryEconomics.SpiderMexOneTwo
 import AFTD.Kb.GameTheoryEconomics.SpiderMexTwoLegOneFree
+import AFTD.Kb.GameTheoryEconomics.SpiderNoneOneInwardOneOutwardOpts
+import AFTD.Kb.GameTheoryEconomics.SpiderNoneOneInwardOneOutwardRawOpts
 import AFTD.Kb.GameTheoryEconomics.SpiderReverseCentreStatus
 import AFTD.Kb.GameTheoryEconomics.SpiderReverseLegEnd
 import AFTD.Kb.GameTheoryEconomics.SpiderRho
@@ -7665,6 +7674,7 @@ import AFTD.Kb.Tcs.IsFeasibleSchedule
 import AFTD.Kb.Tcs.IsGeneralizedTreeShift
 import AFTD.Kb.Tcs.IsHermitianInnerLeSupEigenvalueMulInner
 import AFTD.Kb.Tcs.IsIsotropic
+import AFTD.Kb.Tcs.IsKTight
 import AFTD.Kb.Tcs.IsMatchingSupDisjointEncard
 import AFTD.Kb.Tcs.IsMatchingVertsEncardLeTwoMul
 import AFTD.Kb.Tcs.IsMaximalSelfAdjoint
@@ -8924,6 +8934,7 @@ import AFTD.Kb.Tcs.TuringMultiTapeTM
 import AFTD.Kb.Tcs.TuringMultiTapeTMCfg
 import AFTD.Kb.Tcs.TuringTransitionOut
 import AFTD.Kb.Tcs.TwoCounterInstr
+import AFTD.Kb.Tcs.TwoCounterMachine
 import AFTD.Kb.Tcs.TwoDisjointCorrectableSetsBoundLogicalDimension
 import AFTD.Kb.Tcs.TwoLeSimpleGraphTreeEstimate
 import AFTD.Kb.Tcs.UniformSuperposition

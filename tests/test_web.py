@@ -440,7 +440,7 @@ def main() -> int:
               "title": "September 2026: ten", "body": "MONTHLY-LEDE",
               "links": [{"label": "Read the monthly report", "href": "monthly/2026-09/"}]}]
     card3 = {**{k: v for k, v in card.items() if k != "question"},
-             "plain": "WEEKLY-PLAIN", "before": "WEEKLY-BEFORE"}
+             "plain": "WEEKLY-PLAIN", "before": "WEEKLY-BEFORE", "research": "WEEKLY-RESEARCH"}
     zh = {"title": "十是答案", "summary": "ZH-SUMMARY",
           "lead": {"title": "ZH-LEAD", "story": "ZH-P1\n\nZH-P2", "caption": "ZH-CAP",
                    "header": ["甲", "乙"], "rows": [["1", "2"]]},
@@ -464,6 +464,11 @@ def main() -> int:
         check("format 3: the minute, then the story, then the cards",
               0 < w3.find("WEEKLY-SUMMARY") < w3.find("LEAD-TITLE") < w3.find("At a glance")
               < w3.find("WEEKLY-BEFORE"), "")
+        check("the research-level results have a section after the minute, before the story",
+              0 < w3.find("WEEKLY-SUMMARY") < w3.find("<h2>Research-level results</h2>")
+              < w3.find("WEEKLY-RESEARCH") < w3.find("LEAD-TITLE")
+              and "<h2>研究级成果</h2>" in z3
+              and "Research-level results" not in pages.get("weekly/2026-W40/index.html", "-"), "")
         check("the story keeps its paragraphs and its example table",
               "<p>LEAD-P1</p><p>LEAD-P2</p>" in w3 and "<caption>LEAD-CAPTION</caption>" in w3
               and "<td>10</td>" in w3 and 'href="#r-answer_ten">The result in full' in w3)

@@ -1868,6 +1868,15 @@ def weekly_highlights(r: dict) -> list[dict]:
     return [x for f in r["fields"] for x in f["results"] if x.get("highlight")]
 
 
+def weekly_research(r: dict) -> list[dict] | None:
+    """The report's research-level results, each card carrying why it is one;
+    None for a report written before cards said (it shows no such section)."""
+    results = [x for f in r["fields"] for x in f["results"]]
+    if not any("research" in x for x in results):
+        return None
+    return [x for x in results if x.get("research")]
+
+
 def outcome_badge(r: dict, x: dict) -> str:
     label = (r.get("outcomes") or {}).get(x["outcome"], x["outcome"].title())
     return badge(label, f"wk-{x['outcome']}")
@@ -2029,6 +2038,15 @@ def render_weekly(s: Site, i: int, period: str = "week") -> str:
         f'<li>{outcome_badge(r, x)} <a href="#{aid[id(x)]}">{e(x["headline"])}</a>{plain(x)}</li>'
         for x in weekly_highlights(r)
     )
+    research = weekly_research(r)
+    research_sec = "" if research is None else (
+        '<h2>Research-level results</h2>' + (
+            '<ul class="wk-hls">' + "".join(
+                f'<li>{outcome_badge(r, x)} <a href="#{aid[id(x)]}">{e(x["headline"])}</a>'
+                f'<p class="wk-plain">{e(x["research"])}</p></li>' for x in research)
+            + "</ul>" if research else
+            f'<p class="prose">None this {P["noun"]}: every result below is a step, a small '
+            f'case or a formalization.</p>'))
     rows, last = [], None
     for f, x, a in anchors:
         if f is not last:
@@ -2144,6 +2162,7 @@ def render_weekly(s: Site, i: int, period: str = "week") -> str:
     <ul class="wk-hls">{hl}</ul>
     <p class="wk-num">{e(r.get("numbers", ""))}</p>
   </div>
+  {research_sec}
   {lead}
   <h2>At a glance</h2>
   <div class="wk-table-wrap"><table class="wk-table">
@@ -2197,6 +2216,14 @@ def render_weekly_zh(s: Site, i: int, period: str = "week") -> str:
             f'<p class="news-links"><a href="../#{a}" lang="en">英文详情 &rarr;</a>'
             f'<a href="{root}d/{slug(x["main"])}/">Lean 证明 &rarr;</a></p></li>'
         )
+    research = weekly_research(r)
+    zh_of = {id(x): t for x, t in zip(results, zr)}
+    research_sec = "" if research is None else (
+        "<h2>研究级成果</h2>" + (
+            "<ul>" + "".join(
+                f'<li><a href="#{result_id(x)}">{e(zh_of[id(x)]["headline"])}</a></li>'
+                for x in research if id(x) in zh_of) + "</ul>"
+            if research else f'<p class="prose">{this}没有研究级成果。</p>'))
     lead = ""
     ld = z.get("lead") or {}
     if ld.get("story"):
@@ -2231,6 +2258,7 @@ def render_weekly_zh(s: Site, i: int, period: str = "week") -> str:
     <div class="wk-sum-col"><p class="wk-sum">{e(z["summary"])}</p>
     {scoreboard(r, labels, "仍未解决")}</div>
   </div>
+  {research_sec}
   {lead}
   <h2>{this}全部结果</h2>
   <ol class="wk-zh-list">{"".join(items)}</ol>

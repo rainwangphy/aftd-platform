@@ -874,3 +874,13 @@ button.share{font-size:13px}
   .chat-opts a.small{margin-left:0}
 }
 @media (prefers-reduced-motion:reduce){.chat-wait{animation:none}}
+
+/* research blog: a post reads as a short paper */
+.post{display:flex;flex-direction:column;gap:30px;max-width:76ch}
+.post h2{margin:0 0 10px;font-family:var(--prose);font-size:23px;font-weight:600}
+.post .prose p{margin:0 0 .8em}
+.post .prose ul,.post .prose ol{margin:0 0 .8em;padding-left:1.4em}
+.post-abstract{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--radius);padding:16px 20px}
+.post-thm{margin:14px 0 0;border-left:3px solid var(--accent);padding-left:14px}
+.post-thm figcaption{font-size:14px;color:var(--ink-2);margin-bottom:6px}
+.post-nav{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:16px}

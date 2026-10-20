@@ -1,0 +1,44 @@
+{
+ "slug": "2026-10-02-op-49",
+ "date": "2026-10-02",
+ "key": "OP-49",
+ "title": "Every Weighted Voting Game Is Determined by Its Swing Table Among All Simple Games",
+ "abstract": "Conjecture 10.2 of arXiv:2607.07013 asks whether every weighted voting game is determined by its swing table among all simple games: if $f$ is a weighted simple game and $g$ is any simple game with the same swing table, must $f = g$? This swing-rigidity conjecture is shown to hold. The proof proceeds by reducing the problem to the uniqueness of weighted games given their winning coalition counts (`weighted_game_eq_of_chow_parameters_eq`). Specifically, two simple games sharing an identical swing table must have equal numbers of total winning coalitions (`simple_game_card_winning_eq_of_swing_table_eq`) and equal numbers of winning coalitions containing each individual player (`simple_game_card_winning_mem_eq_of_swing_table_eq`). The complete proof has been formalized and mechanically verified in Lean as `weighted_game_eq_of_swing_table_eq`.",
+ "introduction": "A simple game on $n$ players is defined by a monotone function from coalitions to $\\{0, 1\\}$ mapping the empty coalition to 0 and the grand coalition to 1, where coalitions evaluated to 1 are called winning (`is_simple_game`). For each player $i$ and integer $k$, the swing table entry $T(i, k)$ counts the coalitions $S$ of size $k$ not containing $i$ for which $S$ is losing and $S \\cup \\{i\\}$ is winning (`swing_table`). Because semivalues depend only on player swing counts across coalition sizes, any two simple games with the same swing table yield identical semivalues.\n\nDistinct non-weighted simple games can share a swing table, meaning semivalues cannot differentiate between them. However, whether weighted voting games—games where winning coalitions are those whose sum of player weights meets or exceeds a quota (`is_weighted_game`)—can share a swing table with another simple game remained open. Computer evaluations reported in arXiv:2607.07013 provided numerical evidence: an exhaustive census at $n = 5$ and searches at $n = 6, 7$ uncovered no weighted game sharing its swing table with any other game. Based on these observations, arXiv:2607.07013 posed the swing-rigidity conjecture (Conjecture 10.2, listed in Section 11): is every weighted voting game determined by its swing table among all simple games?\n\nThis post presents the resolution of this conjecture. We show that if $f$ is a weighted simple game and $g$ is any simple game possessing the same swing table as $f$, then $f = g$. The theorem is formalized in Lean as `weighted_game_eq_of_swing_table_eq`.",
+ "result": "The main theorem establishes the swing-rigidity conjecture:\n\nIf $f$ is a weighted simple game on $n$ players and $g$ is a simple game on $n$ players such that for every player $i$ and coalition size $k$,\n$$\\text{swing\\_table}(f, i, k) = \\text{swing\\_table}(g, i, k),$$\nthen $f = g$.\n\nIn Lean, `weighted_game_eq_of_swing_table_eq` universally quantifies over the number of players $n : \\mathbb{N}$ and functions $f, g : \\text{Finset } (\\text{Fin } n) \\to \\text{Bool}$, hypothesizes `is_simple_game f`, `is_weighted_game f`, `is_simple_game g`, and the pointwise equality $\\forall i\\ k, \\text{swing\\_table } f\\ i\\ k = \\text{swing\\_table } g\\ i\\ k$, and concludes $f = g$ without restriction on $n$.\n\nThe supporting results establish how coalition invariants are determined by swing tables and how they imply identity:\n\n- `simple_game_card_winning_eq_of_swing_table_eq`: If two simple games $f$ and $g$ have identical swing tables, then they have the same total number of winning coalitions, $|\\{S \\mid f(S) = \\text{true}\\}| = |\\{S \\mid g(S) = \\text{true}\\}|$.\n- `simple_game_card_winning_mem_eq_of_swing_table_eq`: If two simple games $f$ and $g$ have identical swing tables, then for every player $i$, they have the same number of winning coalitions containing $i$, $|\\{S \\mid f(S) = \\text{true} \\wedge i \\in S\\}| = |\\{S \\mid g(S) = \\text{true} \\wedge i \\in S\\}|$.\n- `weighted_game_eq_of_chow_parameters_eq`: If $f$ is a weighted game and $g$ is any boolean coalition function with the same total number of winning coalitions as $f$ and the same number of winning coalitions containing $i$ for every player $i$, then $f = g$.",
+ "proof": "The proof proceeds by reducing the problem to the theorem that a weighted voting game is uniquely determined among all boolean coalition functions by its coalition counts (`weighted_game_eq_of_chow_parameters_eq`).\n\nBy definition, a weighted game $f$ is governed by nonnegative player weights $w_i$ and a quota $q$ such that $f(S) = \\text{true}$ if and only if $\\sum_{i \\in S} w_i \\ge q$ (`is_weighted_game`). Lemma `weighted_game_eq_of_chow_parameters_eq` guarantees that if $f$ is weighted and $g$ is any boolean coalition function satisfying\n$$|\\{S \\mid f(S) = \\text{true}\\}| = |\\{S \\mid g(S) = \\text{true}\\}|$$\nand, for every player $i$,\n$$|\\{S \\mid f(S) = \\text{true} \\wedge i \\in S\\}| = |\\{S \\mid g(S) = \\text{true} \\wedge i \\in S\\}|,$$\nthen $f = g$.\n\nTo apply this result to two simple games $f$ and $g$ having identical swing tables, the proof establishes two intermediate steps:\n\n- `simple_game_card_winning_eq_of_swing_table_eq`: For any simple game, the boundary between losing and winning coalitions along chains of coalitions is recorded by swing events, where a losing coalition becomes winning upon adding a player. Because $f$ and $g$ are monotone games with $f(\\emptyset) = g(\\emptyset) = \\text{false}$ and $f(\\{0, \\dots, n-1\\}) = g(\\{0, \\dots, n-1\\}) = \\text{true}$ (`is_simple_game`), their total number of winning coalitions is determined by the swing table entries $\\text{swing\\_table}(f, i, k)$ across players $i$ and sizes $k$. Consequently, if $f$ and $g$ have the same swing table, they have the exact same number of winning coalitions.\n- `simple_game_card_winning_mem_eq_of_swing_table_eq`: For a fixed player $i$, the winning coalitions containing $i$ partition into those that were already winning without $i$ and those where $i$ is a swing player for a losing coalition of size $k$. By monotonicity, the swing table entries for player $i$ account for all transitions from losing to winning upon adding $i$. This relationship allows the count of winning coalitions containing player $i$ to be recovered from the swing table. Hence, identical swing tables imply that the number of winning coalitions containing $i$ in $f$ matches that in $g$ for every player $i$.\n\nFinally, combining `simple_game_card_winning_eq_of_swing_table_eq` and `simple_game_card_winning_mem_eq_of_swing_table_eq` provides the exact hypotheses required by `weighted_game_eq_of_chow_parameters_eq`. Applying `weighted_game_eq_of_chow_parameters_eq` to $f$ and $g$ yields $f = g$, completing the proof of `weighted_game_eq_of_swing_table_eq`.",
+ "discussion": "The theorem `weighted_game_eq_of_swing_table_eq` settles the swing-rigidity conjecture (Conjecture 10.2 of arXiv:2607.07013) in full generality. The question asked whether a weighted voting game is determined by its swing table among all simple games; the theorem answers this affirmatively for all player set sizes $n$, with no restriction to small cases.\n\nThe result does not extend to non-weighted simple games. As noted in arXiv:2607.07013, distinct non-weighted simple games can share an identical swing table, meaning that semivalues cannot distinguish between them. Thus, weightedness of $f$ (`is_weighted_game f`) is essential for rigidity: simple games in general are not determined by their swing tables. In addition, the result assumes that $g$ is a simple game (`is_simple_game g`), although the underlying parameter uniqueness lemma `weighted_game_eq_of_chow_parameters_eq` applies to general boolean functions on coalitions.\n\nThe material names no further open questions beyond this conjecture from Section 11 of arXiv:2607.07013.",
+ "main": "weighted_game_eq_of_swing_table_eq",
+ "theorems": [
+  "weighted_game_eq_of_swing_table_eq"
+ ],
+ "declarations": [
+  "weighted_game_eq_of_swing_table_eq",
+  "weighted_game_eq_of_chow_parameters_eq",
+  "simple_game_card_winning_eq_of_swing_table_eq",
+  "simple_game_card_winning_mem_eq_of_swing_table_eq",
+  "is_simple_game",
+  "swing_table",
+  "is_weighted_game"
+ ],
+ "references": [
+  {
+   "id": "arXiv:2607.07013",
+   "title": "What Semivalues Cannot See: The Information Content of Anonymous Marginal Values"
+  }
+ ],
+ "problem": {
+  "ref": "OP-49",
+  "title": "Swing rigidity of weighted voting games",
+  "source": "arXiv:2607.07013"
+ },
+ "research": [
+  "settles OP-49 (Swing rigidity of weighted voting games)"
+ ],
+ "topic": "general_equilibrium",
+ "status": "approved",
+ "reviewed_by": "Claude Code",
+ "model": "gemini-3.8-flash",
+ "drafted": "2026-10-20",
+ "format": 1
+}

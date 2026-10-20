@@ -1,0 +1,42 @@
+{
+ "slug": "2026-10-10-op-165",
+ "date": "2026-10-10",
+ "key": "OP-165",
+ "title": "The edge-connectivity threshold for positive Lin–Lu–Yau curvature is not $\\lceil 2n/3 - 1 \\rceil$ for all $n \\ge 3$",
+ "abstract": "For each integer $n \\ge 3$, let $c(n)$ be the smallest integer $k$ such that every connected simple graph on $n$ vertices with edge-connectivity at least $k$ has strictly positive Lin–Lu–Yau curvature on every edge. A question asked in arXiv:2610.10559 is whether $c(n) = \\lceil 2n/3 - 1 \\rceil$ for all $n \\ge 3$. This question is answered in the negative. The conjectured formula fails at $n = 3$, where every connected graph on 3 vertices has positive Lin–Lu–Yau curvature on every edge, yielding $c(3) = 0$ while the formula evaluates to $1$. Furthermore, the failure is not limited to this degenerate case: an exact computation shows that $c(5) = 2$ whereas $\\lceil 2 \\cdot 5 / 3 - 1 \\rceil = 3$. The refutation has been formalized and verified in Lean.",
+ "introduction": "For each integer $n \\ge 3$, let $c(n)$ denote the smallest integer $k$ such that every connected simple graph $G$ on $n$ vertices with edge-connectivity $\\kappa'(G) \\ge k$ satisfies $\\kappa_{\\mathrm{LLY}}(x, y) > 0$ for all edges $xy \\in E(G)$.\n\nIn arXiv:2610.10559, Theorem 1.3 proves that an edge-connectivity of at least $2n/3 - 1$ guarantees $\\kappa_{\\mathrm{LLY}}(x, y) > 0$ for every edge. Furthermore, Theorem 1.4 of arXiv:2610.10559 establishes sharpness of this bound by constructing counterexample graphs with edge-connectivity $\\kappa'(G) = 2n/3 - 2$ and an edge of negative curvature, under the hypothesis that $2n/3$ is an even integer at least $6$. Following Theorem 1.4, arXiv:2610.10559 asked whether $c(n) = \\lceil 2n/3 - 1 \\rceil$ for all $n \\ge 3$, leaving open the exact threshold for general values of $n$, particularly when $2n/3$ is not an even integer.\n\nThis post presents a Lean 4 formalization refuting this question. Specifically, the theorem `not_forall_lly_positive_edge_connectivity_threshold_eq_ceil` shows that the proposed formula fails at $n = 3$, where $c(3) = 0$ while $\\lceil 2 \\cdot 3 / 3 - 1 \\rceil = 1$. The formalization also includes the non-degenerate failure at $n = 5$, where $c(5) = 2$ while $\\lceil 2 \\cdot 5 / 3 - 1 \\rceil = 3$.",
+ "result": "The main theorem, `not_forall_lly_positive_edge_connectivity_threshold_eq_ceil`, refutes the conjectured threshold formula by establishing that it is not the case that $c(n) = \\lceil 2n/3 - 1 \\rceil$ for all integers $n \\ge 3$, where $c(n)$ is the minimum edge-connectivity threshold ensuring everywhere positive Lin–Lu–Yau curvature. In Lean, the theorem `not_forall_lly_positive_edge_connectivity_threshold_eq_ceil` expresses this refutation as the negation of the universal quantification over natural numbers $n : \\mathbb{N}$ with $3 \\le n$, equating `lly_positive_edge_connectivity_threshold` applied to $n$ with the natural ceiling of $(2n/3) - 1$.\n\nThe supporting results formalized alongside the main theorem add the following:\n\n- `lly_positive_edge_connectivity_threshold`: defines the threshold $c(n)$ as the smallest natural number $k$ such that every connected simple graph on $n$ vertices with edge-connectivity at least $k$ has strictly positive Lin–Lu–Yau curvature $\\kappa_{\\mathrm{LLY}}(x, y) > 0$ on every edge $xy$.\n- `lly_curvature_pos_of_edge_connectivity_ge`: proves the upper bound from Theorem 1.3 of arXiv:2610.10559, showing that if a finite connected graph on $n$ vertices has edge-connectivity $\\kappa'(G) \\ge 2n/3 - 1$, then every edge $xy$ satisfies $\\kappa_{\\mathrm{LLY}}(x, y) > 0$.\n- `lly_positive_edge_connectivity_threshold_three`: computes $c(3) = 0$, showing that every connected graph on 3 vertices has positive Lin–Lu–Yau curvature on every edge regardless of edge-connectivity.\n- `lly_positive_edge_connectivity_threshold_five`: establishes that $c(5) = 2$, showing that every connected graph on 5 vertices with edge-connectivity at least 2 has positive Lin–Lu–Yau curvature on every edge, while the tree on 5 vertices with degree sequence containing a vertex of degree 3 (edges $01, 03, 04, 12$) has edge-connectivity 1 and $\\kappa_{\\mathrm{LLY}}(0, 1) = -1/3$.",
+ "proof": "The proof of `not_forall_lly_positive_edge_connectivity_threshold_eq_ceil` proceeds by contradiction using $n = 3$ as an explicit counterexample.\n\nAssume for contradiction that the formula holds universally: for every natural number $n \\ge 3$, $c(n) = \\lceil 2n/3 - 1 \\rceil$. Specializing this universal hypothesis to $n = 3$, using the reflexivity of inequality to discharge the condition $3 \\le 3$, yields:\n$$ c(3) = \\left\\lceil \\frac{2 \\cdot 3}{3} - 1 \\right\\rceil. $$\n\nNext, rewriting with `lly_positive_edge_connectivity_threshold_three` substitutes the known value $c(3) = 0$. This substitution reduces the equality to:\n$$ 0 = \\left\\lceil \\frac{2 \\cdot 3}{3} - 1 \\right\\rceil. $$\n\nFinally, numerical computation evaluates the right-hand side: the expression $(2 \\cdot 3)/3 - 1$ simplifies to $1$, whose integer ceiling is $1$. The equality therefore reduces to $0 = 1$, which is a contradiction. This completes the proof.",
+ "discussion": "The theorem settles the question posed in arXiv:2610.10559 by disproving that $c(n) = \\lceil 2n/3 - 1 \\rceil$ holds for all $n \\ge 3$.\n\nWhile the contradiction in `not_forall_lly_positive_edge_connectivity_threshold_eq_ceil` relies on $n = 3$, the failure of the formula is not merely a small, degenerate artifact. Exact computations of $c(n)$ for $n \\le 6$ (computed via Theorem 2.2 of arXiv:2610.10559 and minimum-cost flow) yield:\n\n- $c(3) = 0$, whereas $\\lceil 2 \\cdot 3 / 3 - 1 \\rceil = 1$;\n- $c(4) = 2$, whereas $\\lceil 2 \\cdot 4 / 3 - 1 \\rceil = 2$;\n- $c(5) = 2$, whereas $\\lceil 2 \\cdot 5 / 3 - 1 \\rceil = 3$;\n- $c(6) = 3$, whereas $\\lceil 2 \\cdot 6 / 3 - 1 \\rceil = 3$.\n\nAs established by `lly_positive_edge_connectivity_threshold_five`, the threshold also fails at $n = 5$, where $c(5) = 2 < 3$.\n\nThe positive result `lly_curvature_pos_of_edge_connectivity_ge` guarantees that an edge-connectivity of at least $2n/3 - 1$ ensures strictly positive Lin–Lu–Yau curvature on every edge. Theorem 1.4 of arXiv:2610.10559 provides sharpness by constructing graphs with edge-connectivity $2n/3 - 2$ having an edge of negative curvature, but only when $2n/3$ is an even integer at least $6$. For general values of $n$—in particular when $2n/3$ is not an even integer—the exact minimum edge-connectivity threshold $c(n)$ guaranteeing everywhere positive Lin–Lu–Yau curvature remains open.",
+ "main": "not_forall_lly_positive_edge_connectivity_threshold_eq_ceil",
+ "theorems": [
+  "not_forall_lly_positive_edge_connectivity_threshold_eq_ceil"
+ ],
+ "declarations": [
+  "not_forall_lly_positive_edge_connectivity_threshold_eq_ceil",
+  "lly_positive_edge_connectivity_threshold",
+  "lly_curvature_pos_of_edge_connectivity_ge",
+  "lly_positive_edge_connectivity_threshold_three",
+  "lly_positive_edge_connectivity_threshold_five"
+ ],
+ "references": [
+  {
+   "id": "arXiv:2610.10559",
+   "title": "Edge-Connectivity versus Lin--Lu--Yau Curvature"
+  }
+ ],
+ "problem": {
+  "ref": "OP-165",
+  "title": "Exact edge-connectivity threshold for positive Lin-Lu-Yau curvature",
+  "source": "arXiv:2610.10559"
+ },
+ "research": [
+  "refutes OP-165 (Exact edge-connectivity threshold for positive Lin-Lu-Yau curvature)"
+ ],
+ "topic": "graphs",
+ "status": "approved",
+ "reviewed_by": "Claude Code",
+ "model": "gemini-3.8-flash",
+ "drafted": "2026-10-20",
+ "format": 1
+}

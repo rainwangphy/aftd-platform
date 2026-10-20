@@ -1,0 +1,49 @@
+{
+ "slug": "2026-10-03-op-69",
+ "date": "2026-10-03",
+ "key": "OP-69",
+ "title": "Quota and Population Monotonicity for Four States Are Incompatible at a Common House Size",
+ "abstract": "Can an apportionment method for four states satisfy the quota rule and avoid population paradoxes when all comparisons are restricted to a common house size? While quota and population monotonicity are compatible for three states and incompatible for five states, the four-state case without auxiliary regularity assumptions remained open when comparisons cannot span different house sizes. This post presents the Lean 4 formalization settling this question in the negative via theorem `quota_population_monotone_incompatible_four_states_common_house`. There is no deterministic apportionment solution for four states satisfying quota and population monotonicity at a common house size. The impossibility is witnessed at house size 8 by twelve explicit population profiles, where every quota-compliant seat allocation produces a population paradox between at least one pair of profiles. The result is verified by a kernel computation in Lean.",
+ "introduction": "In apportionment, a house of size $h$ is distributed among states according to their strictly positive population vectors. Two standard criteria in apportionment theory are the quota rule and population monotonicity. The quota rule requires that each state receives either the floor or the ceiling of its standard quota $h p_i / \\sum_k p_k$. Population monotonicity forbids a state whose population weakly increases from losing a seat to a state whose population weakly decreases.\n\nWithout auxiliary regularity conditions such as order preservation or anonymity, quota and population monotonicity are incompatible for five states (arXiv:2202.11061). For three states, Webster's method is compatible with both requirements. For four states, arXiv:2608.02759 showed that quota and population monotonicity are incompatible when comparisons may span different house sizes, using profiles across house sizes 3, 5, 8, and 10. However, as noted in Section 5 of arXiv:2608.02759, the four-state problem without auxiliary regularity assumptions remained open when every monotonicity comparison is restricted to a common house size.\n\nThis post presents the formal refutation `quota_population_monotone_incompatible_four_states_common_house`. There is no deterministic apportionment solution for four states satisfying quota and population monotonicity when comparisons are restricted to profiles at the same house size. In fact, twelve population profiles at house size 8 already force a population paradox.",
+ "result": "The main theorem is `quota_population_monotone_incompatible_four_states_common_house`:\n\nNo apportionment solution for four states satisfies quota and avoids population paradoxes between profiles at the same house size. More precisely, there is no function $f$ mapping any four-state population vector $p$ and house size $h$ to a seat vector $s$ such that, whenever all state populations are strictly positive, $s$ satisfies `satisfies_quota` at $(p, h)$, and no pair of positive profiles $(p, p')$ satisfies `population_paradox` at common house size $h$.\n\nIn the Lean statement, an apportionment solution is represented as a function of type $(\\text{Fin } 4 \\to \\mathbb{N}) \\to \\mathbb{N} \\to (\\text{Fin } 4 \\to \\mathbb{N})$, universal quantifiers over population profiles $p$ and $p'$ are restricted to strictly positive components by assuming $\\forall i, 0 < p\\ i$, and the avoidance of population paradoxes is restricted to identical house sizes by applying `population_paradox` with both house size arguments set to $h$.\n\nThe supporting lemmas characterize quota allocations, candidate sets, and the paradox condition:\n\n- `satisfies_quota`: states that the seat allocation sums to $h$ and each state $i$ receives either $\\lfloor h p_i / \\sum_k p_k \\rfloor$ or $\\lceil h p_i / \\sum_k p_k \\rceil$.\n- `population_paradox`: specifies a paradox between $(p, h)$ and $(p', h')$ when two distinct states $i \\ne j$ satisfy $p'_i \\ge p_i$ and $p'_j \\le p_j$, but state $i$ loses a seat while state $j$ gains one.\n- `apx_profiles`: defines the twelve four-state population profiles of the witness, in each of which state 2 has population 30.\n- `apx_mem_candidates`: establishes that any seat vector satisfying quota at house size 8 for a positive profile belongs to an explicitly listed candidate set.\n- `apx_paradox_iff`: proves that a population paradox at a common house size is equivalent to a computable Boolean condition on candidate seat vectors.\n- `apx_search_sound`: establishes that if a pruned search over profile candidates finds a paradox in every assignment, no paradox-free quota solution exists.\n- `apx_kernel_check`: verifies the success of the pruned search on the twelve profiles at house size 8 via kernel computation.",
+ "proof": "The proof of `quota_population_monotone_incompatible_four_states_common_house` argues by contradiction. Assume there exists an apportionment function $f$ that assigns a seat vector $f(p, h)$ to every population vector $p$ and house size $h$, satisfying `satisfies_quota` for all positive profiles and avoiding `population_paradox` between any two positive profiles at the same house size.\n\nThe contradiction is obtained by restricting $f$ to house size $h = 8$ and to the twelve specific population profiles provided by `apx_profiles`. In each profile in `apx_profiles`, all four state populations are strictly positive, and state 2 always has population 30.\n\nThe verification proceeds in several steps:\n\n- Candidate reduction: By `apx_mem_candidates`, any seat vector $f(p, 8)$ that satisfies `satisfies_quota` for a profile $p$ in `apx_profiles` must belong to a precomputed finite list of candidate seat vectors. Under quota, the seats sum to 8 and each state receives either the floor or the ceiling of its standard quota $8 p_i / \\sum_k p_k$. This leaves only a small number of candidate seat allocations for each profile.\n- Paradox characterization: By `apx_paradox_iff`, checking `population_paradox` between profiles $p$ and $p'$ at common house size $h = 8$ is equivalent to evaluating a Boolean test on their chosen candidate allocations. A paradox occurs if two distinct states $i \\ne j$ satisfy $p'_i \\ge p_i$ and $p'_j \\le p_j$, but $f(p', 8)_i < f(p, 8)_i$ and $f(p', 8)_j > f(p, 8)_j$.\n- Soundness of the search: Lemma `apx_search_sound` shows that if a pruned branch-and-bound search across candidate assignments for the twelve profiles determines that every combination exhibits a population paradox between some pair of profiles, then no valid assignment exists.\n- Kernel execution: Lemma `apx_kernel_check` certifies the execution of the pruned search inside the Lean kernel. The kernel exhaustively explores the candidate space for the twelve profiles at house size 8 and confirms that every candidate branch contains a population paradox.\n\nCombining `apx_search_sound`, `apx_kernel_check`, and `apx_mem_candidates`, every seat assignment for the twelve profiles satisfying quota at house size 8 incurs a population paradox. This contradicts the hypothesis on $f$, concluding the proof of `quota_population_monotone_incompatible_four_states_common_house`.",
+ "discussion": "Theorem `quota_population_monotone_incompatible_four_states_common_house` refutes the open problem formulated in Section 5 of arXiv:2608.02759. In that work, quota and population monotonicity were shown to be incompatible for four states when comparisons are allowed to span different house sizes, using profiles at house sizes 3, 5, 8, and 10. The source left open whether a deterministic solution exists when all monotonicity comparisons are restricted to a common house size, without auxiliary regularity assumptions such as order preservation or anonymity.\n\nThe result shows that restricting comparisons to a common house size does not resolve the incompatibility. Together with previous findings, this completes the classification of quota and population monotonicity across small numbers of states without order-preservation assumptions: for three states, Webster's method is compatible with both quota and population monotonicity; for five states, arXiv:2202.11061 established incompatibility; and for four states, incompatibility holds even when all comparisons are confined to a single house size $h = 8$.\n\nThe impossibility is established via a finite counterexample of twelve profiles at house size 8. The proof does not require varying house sizes or imposing regularity conditions on the apportionment method. The material does not formulate further open variants of the four-state problem.",
+ "main": "quota_population_monotone_incompatible_four_states_common_house",
+ "theorems": [
+  "quota_population_monotone_incompatible_four_states_common_house"
+ ],
+ "declarations": [
+  "quota_population_monotone_incompatible_four_states_common_house",
+  "satisfies_quota",
+  "population_paradox",
+  "apx_profiles",
+  "apx_mem_candidates",
+  "apx_paradox_iff",
+  "apx_search_sound",
+  "apx_kernel_check"
+ ],
+ "references": [
+  {
+   "id": "arXiv:2608.02759",
+   "title": "Quota and Population Monotonicity Across House Sizes are Incompatible for Apportionment to Four States"
+  },
+  {
+   "id": "arXiv:2202.11061",
+   "title": ""
+  }
+ ],
+ "problem": {
+  "ref": "OP-69",
+  "title": "Quota and population monotonicity for four states at a common house size",
+  "source": "arXiv:2608.02759"
+ },
+ "research": [
+  "refutes OP-69 (Quota and population monotonicity for four states at a common house size)"
+ ],
+ "topic": "social_choice",
+ "status": "approved",
+ "reviewed_by": "Claude Code",
+ "model": "gemini-3.8-flash",
+ "drafted": "2026-10-20",
+ "format": 1
+}

@@ -1,0 +1,40 @@
+{
+ "slug": "2026-10-03-arxiv-2410-15738",
+ "date": "2026-10-03",
+ "key": "arXiv:2410.15738",
+ "title": "The Cost of EF1 for Indivisible Chores Is Not at Least $1 - 1/n$ for All $n \\ge 1$",
+ "abstract": "In the fair division of indivisible chores, does the cost of envy-freeness up to one chore (EF1) satisfy the lower bound of $1 - 1/n$ for every number of agents $n \\ge 1$? A published theorem claimed that the cost of EF1 is at least $1 - 1/n$ for all $n \\ge 1$, but this universal lower bound is false. For two agents, the cost of EF1 is at most $3 - 2\\sqrt{2}$, which is strictly less than $1/2 = 1 - 1/2$. Consequently, the lower bound fails at $n = 2$. The published lower-bound construction requires envy-freeness up to one chore among agents $1, 3, \\dots, n$, a condition that demands a third agent and cannot be instantiated when $n = 2$. These results have been formalized and verified in Lean.",
+ "introduction": "In the allocation of indivisible chores, the cost of envy-freeness up to one chore, denoted by `cost_of_ef1`, measures the efficiency loss of fair allocations. For $n$ agents, `cost_of_ef1` is defined as the supremum over normalized instances of the difference between the minimum social cost of an EF1 allocation and the optimal social cost.\n\nIn the paper \"A Fair Allocation is Approximately Optimal for Indivisible Chores, or Is It?\" (arXiv:2410.15738 v1), Theorem 7 stated that the cost of EF1 is at most $1$ and at least $1 - 1/n$ for every number of agents $n \\ge 1$.\n\nThis post shows that the lower-bound claim of Theorem 7 is false. Specifically, the bound fails when $n = 2$. For two agents, the cost of EF1 is at most $3 - 2\\sqrt{2}$. Since $3 - 2\\sqrt{2} < 1/2$, the cost of EF1 for two agents is strictly less than $1 - 1/2 = 1/2$. The published lower-bound construction relies on envy-freeness up to one chore among agents $1, 3, \\dots, n$, an argument requiring a third agent that breaks down when $n = 2$. As a result, the universal statement that the cost of EF1 is at least $1 - 1/n$ for all $n \\ge 1$ does not hold.",
+ "result": "The main theorem is `not_forall_cost_of_ef1_ge_one_sub_inv`, which disproves the universal lower bound asserted in Theorem 7 of arXiv:2410.15738 v1:\n\nIt is false that for every natural number $n \\ge 1$, the cost of EF1 is at least $1 - 1/n$:\n$$\\neg \\, \\forall n \\ge 1, \\quad 1 - \\frac{1}{n} \\le \\text{cost\\_of\\_ef1}(n).$$\n\nThe Lean statement of `not_forall_cost_of_ef1_ge_one_sub_inv` formalizes this English statement as the negation of a universal quantification over natural numbers $n : \\mathbb{N}$ with hypothesis $1 \\le n$, asserting that the real inequality $1 - 1 / (n : \\mathbb{R}) \\le \\text{cost\\_of\\_ef1}(n)$ does not hold for all such $n$.\n\nThe refutation is established via the further result `cost_of_ef1_two_lt_one_sub_inv`, which evaluates the cost for two agents:\n\nThe cost of EF1 for two agents is strictly less than $1 - 1/2$:\n$$\\text{cost\\_of\\_ef1}(2) < 1 - \\frac{1}{2}.$$\n\nThis theorem isolates the counterexample at $n = 2$, showing that the lower bound $1 - 1/n$ already fails for two agents.",
+ "proof": "The refutation proceeds by showing that $n = 2$ violates the lower bound $1 - 1/n$, combining an upper bound on `cost_of_ef1` for two agents with an algebraic comparison.\n\nThe first step establishes an upper bound on the cost of EF1 for two agents. By lemma `cost_of_ef1_two_le`, the cost of EF1 for two agents satisfies:\n$$\\text{cost\\_of\\_ef1}(2) \\le 3 - 2\\sqrt{2}.$$\nHere `cost_of_ef1` is defined as the supremum over normalized chore-allocation instances of the minimum social cost of an EF1 allocation minus the optimal social cost.\n\nThe second step is the numerical bound given by lemma `ef1cost_alpha_lt_half`:\n$$3 - 2\\sqrt{2} < \\frac{1}{2}.$$\nThis inequality is an arithmetic comparison between the real algebraic number $3 - 2\\sqrt{2}$ and $1/2$. Since $(5/2)^2 = 25/4 = 6.25 < 8 = (2\\sqrt{2})^2$, we have $2\\sqrt{2} > 5/2$, which implies $3 - 2\\sqrt{2} < 3 - 5/2 = 1/2$.\n\nThe third step proves `cost_of_ef1_two_lt_one_sub_inv`. Combining `cost_of_ef1_two_le` and `ef1cost_alpha_lt_half` by transitivity yields:\n$$\\text{cost\\_of\\_ef1}(2) \\le 3 - 2\\sqrt{2} < \\frac{1}{2} = 1 - \\frac{1}{2}.$$\nThus, the cost of EF1 for two agents is strictly less than $1 - 1/2$.\n\nFinally, the main theorem `not_forall_cost_of_ef1_ge_one_sub_inv` is proved by contradiction. Assume for the sake of contradiction that for every natural number $n \\ge 1$, the inequality $1 - 1/n \\le \\text{cost\\_of\\_ef1}(n)$ holds. Specializing this universal hypothesis to $n = 2$, which satisfies $1 \\le 2$, gives:\n$$1 - \\frac{1}{2} \\le \\text{cost\\_of\\_ef1}(2).$$\nThis directly contradicts the strict inequality $\\text{cost\\_of\\_ef1}(2) < 1 - 1/2$ established by `cost_of_ef1_two_lt_one_sub_inv`. Hence the universal claim is false.\n\nThe failure of the lower bound in arXiv:2410.15738 v1 arises from the construction in Theorem 7. The lower-bound construction in that paper requires enforcing envy-freeness up to one chore among agents $1, 3, \\dots, n$. This requires the presence of a third agent, meaning the construction cannot be carried out when $n = 2$.",
+ "discussion": "The result provides a counterexample to the lower-bound portion of Theorem 7 in arXiv:2410.15738 v1, which asserted that the cost of EF1 for indivisible chores is at least $1 - 1/n$ for every $n \\ge 1$.\n\nThis counterexample is specific to $n = 2$, where the cost of EF1 is bounded from above by $3 - 2\\sqrt{2} \\approx 0.1716$, strictly below $1 - 1/2 = 0.5$. The result does not refute the lower bound for $n \\ge 3$. In arXiv:2410.15738 v1, the lower-bound construction relies on EF1 holding among agents $1, 3, \\dots, n$. Because this construction requires a third agent, the argument breaks down when $n = 2$. Whether the lower bound of $1 - 1/n$ holds for all $n \\ge 3$ is not determined by this result.",
+ "main": "not_forall_cost_of_ef1_ge_one_sub_inv",
+ "theorems": [
+  "cost_of_ef1_two_lt_one_sub_inv",
+  "not_forall_cost_of_ef1_ge_one_sub_inv"
+ ],
+ "declarations": [
+  "not_forall_cost_of_ef1_ge_one_sub_inv",
+  "cost_of_ef1_two_lt_one_sub_inv",
+  "cost_of_ef1",
+  "cost_of_ef1_two_le",
+  "ef1cost_alpha_lt_half"
+ ],
+ "references": [
+  {
+   "id": "arXiv:2410.15738",
+   "title": ""
+  }
+ ],
+ "problem": {},
+ "research": [
+  "shows a published claim false (A Fair Allocation is Approximately Optimal for Indivisible Chores, or Is It?, arXiv:2410.15738 v1, Theorem 7 ('the cost of EF1 is at most 1 and at least 1 - 1/n'): false at n = 2, where the cost is at most 3 - 2 sqrt 2 < 1/2; the lower-bound construction needs EF1 among agents 1, 3, ..., n and so a third agent)",
+  "shows a published claim false (A Fair Allocation is Approximately Optimal for Indivisible Chores, or Is It?, arXiv:2410.15738 v1, Theorem 7 ('the cost of EF1 is at most 1 and at least 1 - 1/n'): false at n = 2, where the cost is at most 3 - 2 sqrt 2 < 1/2; the lower-bound construction needs EF1 among agents 1, 3, ..., n and so a third agent)"
+ ],
+ "topic": "fair_division",
+ "status": "approved",
+ "reviewed_by": "Claude Code",
+ "model": "gemini-3.8-flash",
+ "drafted": "2026-10-20",
+ "format": 1
+}

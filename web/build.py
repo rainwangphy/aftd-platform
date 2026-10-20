@@ -20,6 +20,8 @@ Inputs, all under `web/`:
   (`aftd interpret --week` / `--month`): what
   Lean accepted that week, in words. Same rule: every declaration a report
   names must be verified, or the build stops.
+* `blog/<slug>.json` -- the research blog's posts (`aftd blog approve`): one
+  research-level result written up as a short paper. Same rule.
 
 Pages:
 
@@ -42,6 +44,11 @@ Pages:
                                 from the button beside the dependency graph: a chat that
                                 runs in the browser on the reader's own API key,
                                 reading chat/kb-index.json and chat/kb-detail.json
+    blog/                       the research blog: research-level results, one
+                                post each, newest first
+    blog/<slug>/                one post: abstract, introduction, the main result
+                                with its Lean statement, proof, discussion,
+                                references
     reports/                    the summary reports, weekly and monthly, newest
                                 first, tagged by period, with search and filters
     weekly/<week>/              one week: what was settled, what is open
@@ -97,6 +104,7 @@ class Site:
         weekly: list[dict] | None = None,
         monthly: list[dict] | None = None,
         traces_dir: Path | None = None,
+        blog: list[dict] | None = None,
     ):
         self.kb = kb
         # Where each declaration's proof trace is (`scripts/snapshot.py`
@@ -138,6 +146,7 @@ class Site:
         self.weekly = check_weekly(self, weekly or [])
         self.monthly = check_weekly(self, monthly or [], "month")
         self.news = check_news(self, news or [])
+        self.blog = check_blog(self, blog or [])
 
     def reports(self, period: str) -> list[dict]:
         return self.monthly if period == "month" else self.weekly
@@ -334,6 +343,40 @@ def check_weekly(s: Site, reports: list[dict], period: str = "week") -> list[dic
     return sorted(out, key=lambda r: r["week"], reverse=True)
 
 
+BLOG_FORMATS = (1,)
+BLOG_SECTIONS = ("abstract", "introduction", "result", "proof", "discussion")
+
+
+def check_blog(s: Site, posts: list[dict]) -> list[dict]:
+    """The research blog's posts, newest first. Held to the News rule: a post
+    that names a declaration Lean has not verified stops the build."""
+    out, seen = [], set()
+    for p in posts:
+        where = f"blog post {p.get('slug', '?')!r}"
+        if p.get("format") not in BLOG_FORMATS:
+            raise ValueError(f"{where}: format {p.get('format')!r}, this build reads {BLOG_FORMATS}")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}-[a-z0-9-]+", p.get("slug", "")) or p["slug"] in seen:
+            raise ValueError(f"{where}: a slug is the date and a key, once")
+        seen.add(p["slug"])
+        time.strptime(p.get("date", ""), "%Y-%m-%d")
+        if p.get("status") != "approved":
+            raise ValueError(f"{where}: only an approved post is published")
+        missing = [k for k in ("title", *BLOG_SECTIONS) if not str(p.get(k) or "").strip()]
+        if missing:
+            raise ValueError(f"{where}: empty {', '.join(missing)}")
+        # A post names the definitions its theorems are about, too.
+        names = p.get("declarations") or []
+        bad = [n for n in names if n not in s.by_name
+               or not (s.by_name[n]["is_def"] or s.verified(s.by_name[n]))]
+        if bad:
+            raise ValueError(f"{where}: not a verified declaration: {', '.join(bad)}")
+        if p.get("main") not in names or not s.verified(s.by_name[p["main"]]):
+            raise ValueError(f"{where}: its main theorem {p.get('main')!r} must be a verified "
+                             "theorem among its declarations")
+        out.append(p)
+    return sorted(out, key=lambda p: (p["date"], p["slug"]), reverse=True)
+
+
 def slug(name: str) -> str:
     """A declaration name as a URL segment. Lean names here are plain
     identifiers; anything else is percent-encoded rather than guessed at."""
@@ -426,6 +469,7 @@ NAME = "AFTD"
 FULL_NAME = "Auto-Formalizing Theoretical Domains"
 NAV = [
     ("knowledgebase/", "Knowledgebase"),
+    ("blog/", "Research Blog"),
     ("reports/", "Summary Reports"),
     ("problems/", "Open Problems"),
 ]
@@ -493,7 +537,6 @@ def page(
       <span class="brand-full">{FULL_NAME}</span>
     </a>
     <nav aria-label="Site">{links}
-      <a class="ext" href="{e(s.discussions())}">Discuss</a>
       <a class="ext" href="{e(s.gh)}">GitHub</a>
     </nav>
   </div>
@@ -515,6 +558,7 @@ def page(
       <h2>Explore</h2>
       <a href="{root}knowledgebase/">Knowledgebase</a>
       <a href="{root}knowledgebase/#graph">Dependency graph</a>
+      <a href="{root}blog/">Research Blog</a>
       <a href="{root}problems/">Open Problems</a>
       <a href="{root}index.html#news">News</a>
       <a href="{root}reports/">Summary Reports</a>
@@ -2271,6 +2315,114 @@ def render_weekly_zh(s: Site, i: int, period: str = "week") -> str:
                 description=z["summary"], script=True, lang="zh-CN", alternate="../")
 
 
+def blog_paras(s: Site, text: str, root: str) -> str:
+    """A post's prose: paragraphs, math left to KaTeX, a `name` the
+    knowledgebase has linked to its page."""
+    def link(m: re.Match) -> str:
+        name = html.unescape(m.group(1))
+        return (f'<a class="decl" href="{root}d/{slug(name)}/"><code>{m.group(1)}</code></a>'
+                if name in s.by_name else m.group(0))
+
+    def para(x: str) -> str:
+        lines = [y.strip() for y in x.strip().splitlines() if y.strip()]
+        for tag, item in (("ul", r"[-*]\s+"), ("ol", r"\d+[.)]\s+")):
+            if len(lines) > 1 and all(re.match(item, y) for y in lines[1:]):
+                head = "" if re.match(item, lines[0]) else lines.pop(0)
+                lis = "".join(f"<li>{re.sub(r'<code>([^<]+)</code>', link, tex_prose(re.sub(item, '', y, count=1)))}</li>"
+                              for y in lines)
+                return (para(head) if head else "") + f"<{tag}>{lis}</{tag}>"
+        return f'<p>{re.sub(r"<code>([^<]+)</code>", link, tex_prose(" ".join(lines)))}</p>'
+
+    return "".join(para(x) for x in re.split(r"\n\s*\n", text or "") if x.strip())
+
+
+def blog_byline(p: dict) -> str:
+    bits = [f"<span>{e(p['date'])}</span>"]
+    if p.get("problem"):
+        bits.append(f'<span class="small">{e(p["problem"].get("ref", ""))}</span>')
+    bits.append(f'<span class="small">reviewed by {e(p.get("reviewed_by") or "?")}</span>')
+    return "".join(bits)
+
+
+def render_blog(s: Site) -> str:
+    """Every post, newest first."""
+    root = "../"
+    items = "".join(
+        f'<article class="news-item" id="{e(p["slug"])}">'
+        f'<p class="news-when">{badge("Research", "rp-week")}{blog_byline(p)}</p>'
+        f'<div class="news-main"><h3><a href="{root}blog/{e(p["slug"])}/">{e(p["title"])}</a></h3>'
+        f'<div class="prose math">{blog_paras(s, p["abstract"], root)}</div></div></article>'
+        for p in s.blog)
+    body = f"""
+<header class="phead">
+  <p class="eyebrow">Research-level results, written up</p>
+  <h1>Research Blog</h1>
+  <p class="lead full">The results Lean accepted that settle, refute or advance an open
+  question, answer a question posed here, or show a published claim false &mdash; each
+  written up the way a short paper is: the question and where it comes from, what was
+  known, the result with its Lean statement, how the proof goes, and what it leaves
+  open. Every theorem a post names links to its Lean proof.</p>
+</header>
+<section id="posts">
+  {f'<div class="news-list">{items}</div>' if items else '<p class="prose">No post yet.</p>'}
+</section>"""
+    return page(s, title="Research Blog", root=root, active="blog/", body=body,
+                description="Research-level results, each written up as a short paper "
+                            "and checked in Lean.")
+
+
+def render_post(s: Site, i: int) -> str:
+    """One post, laid out as a paper. The main theorem's Lean statement is the
+    knowledgebase's, never the post's own text."""
+    p = s.blog[i]
+    root = "../../"
+    d = s.by_name[p["main"]]
+    sig = d.get("statement") or d.get("signature") or ""
+    lean = codebox(highlight_lean(sig), "sig") if sig else ""
+    heads = ["Introduction", "Main result", "Proof", "Discussion"]
+    secs = []
+    for k, (key, head) in enumerate(zip(BLOG_SECTIONS[1:], heads), 1):
+        extra = ""
+        if key == "result":
+            extra = (f'<figure class="post-thm"><figcaption>Theorem '
+                     f'{decl_link(root, p["main"])} (Lean&nbsp;4, verified)</figcaption>{lean}</figure>')
+        secs.append(f'<section><h2>{k}. {head}</h2><div class="prose math">'
+                    f'{blog_paras(s, p[key], root)}</div>{extra}</section>')
+    refs = "".join(
+        f'<li><a href="https://arxiv.org/abs/{e(r["id"].removeprefix("arXiv:"))}">{e(r["id"])}</a>'
+        + (f" &mdash; {e(r['title'])}" if r.get("title") else "") + "</li>"
+        for r in p.get("references") or [])
+    research = "".join(f"<li>{e(x)}</li>" for x in p.get("research") or [])
+    nav = []
+    if i + 1 < len(s.blog):
+        q = s.blog[i + 1]
+        nav.append(f'<a href="{root}blog/{e(q["slug"])}/">&larr; {e(q["title"])}</a>')
+    if i > 0:
+        q = s.blog[i - 1]
+        nav.append(f'<a href="{root}blog/{e(q["slug"])}/">{e(q["title"])} &rarr;</a>')
+    body = f"""
+<article class="post">
+<header class="phead">
+  <p class="eyebrow"><a href="{root}blog/">Research Blog</a></p>
+  <h1>{e(p["title"])}</h1>
+  <p class="news-when">{blog_byline(p)}</p>
+</header>
+<section class="post-abstract"><h2>Abstract</h2><div class="prose math">{blog_paras(s, p["abstract"], root)}</div></section>
+{"".join(secs)}
+<section><h2>Why it is research-level</h2><ul class="prose">{research}</ul></section>
+<section><h2>Lean declarations</h2><div class="news-decls">{related(s, p["declarations"], root)}</div>
+<p class="small">Each one elaborated against Mathlib, and <code>#print axioms</code> returned
+nothing outside <code>{e(" · ".join(s.kb["trusted_axioms"]))}</code>.</p></section>
+{f'<section><h2>References</h2><ol class="prose">{refs}</ol></section>' if refs else ""}
+<p class="small">Drafted by {e(p.get("model") or "a model")} from the knowledgebase,
+checked against it, and reviewed by {e(p.get("reviewed_by") or "?")}. Only the Lean is
+verified; the prose is a reading of it.</p>
+{f'<nav class="post-nav">{"".join(nav)}</nav>' if nav else ""}
+</article>"""
+    return page(s, title=p["title"], root=root, active="blog/", body=body,
+                description=clip(p["abstract"], 200), math=True)
+
+
 def render_moved(s: Site, to: str) -> str:
     """A page that has moved: it forwards to its new address, keeping the
     query and the anchor so a shared, filtered link still lands where it
@@ -2506,8 +2658,9 @@ def build(
     weekly: list[dict] | None = None,
     monthly: list[dict] | None = None,
     traces_dir: Path | None = None,
+    blog: list[dict] | None = None,
 ) -> dict[str, int]:
-    s = Site(kb, issues, cfg, news, weekly, monthly, traces_dir=traces_dir)
+    s = Site(kb, issues, cfg, news, weekly, monthly, traces_dir=traces_dir, blog=blog)
     if out.exists():
         shutil.rmtree(out)
     shutil.copytree(HERE / "static", out / "static")
@@ -2524,6 +2677,9 @@ def build(
     write("submit/index.html", render_moved(s, "problems/#submit"))
     write("news/index.html", render_moved(s, "#news"))
     write("reports/index.html", render_reports(s))
+    write("blog/index.html", render_blog(s))
+    for i, p in enumerate(s.blog):
+        write(f"blog/{p['slug']}/index.html", render_post(s, i))
     write("weekly/index.html", render_moved(s, "reports/"))
     for period, P in PERIODS.items():
         for i, r in enumerate(s.reports(period)):
@@ -2557,6 +2713,7 @@ def build(
         "news": len(s.news),
         "weekly": len(s.weekly),
         "monthly": len(s.monthly),
+        "blog": len(s.blog),
         "traces": traced,
     }
 
@@ -2570,6 +2727,7 @@ def main() -> int:
     ap.add_argument("--news", default=str(HERE / "news.json"))
     ap.add_argument("--weekly", default=str(HERE / "weekly"))
     ap.add_argument("--monthly", default=str(HERE / "monthly"))
+    ap.add_argument("--blog", default=str(HERE / "blog"))
     ap.add_argument("--traces", default=str(HERE / "data" / "traces"),
                     help="the proof traces, one file per declaration")
     args = ap.parse_args()
@@ -2587,11 +2745,11 @@ def main() -> int:
                 for f in sorted(p.glob("*.json"))] if p.is_dir() else []
 
     n = build(kb, issues, cfg, Path(args.out), news, reports(args.weekly),
-              reports(args.monthly), traces_dir=Path(args.traces))
+              reports(args.monthly), traces_dir=Path(args.traces), blog=reports(args.blog))
     print(
         f"wrote {args.out}  ({n['declarations']} declaration pages, "
         f"{n['problems']} problem pages, {n['news']} news entries, "
-        f"{n['weekly']} weekly and {n['monthly']} monthly reports, "
+        f"{n['weekly']} weekly and {n['monthly']} monthly reports, {n['blog']} blog posts, "
         f"{n['traces']} proof traces)"
     )
     return 0

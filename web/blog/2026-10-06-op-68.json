@@ -1,0 +1,49 @@
+{
+ "slug": "2026-10-06-op-68",
+ "date": "2026-10-06",
+ "key": "OP-68",
+ "title": "The linkedness conjecture for the two-agent price of connectivity is refuted by an eight-vertex graph",
+ "abstract": "Conjecture 3.10 of arXiv:1908.05433 states that if a connected graph $G$ is $(2, k-1)$-linked but not $(2, k)$-linked for an integer $k \\ge 2$, its two-agent price of connectivity $\\mathrm{PoC}(G, 2)$ equals $2k / (2k - 1)$. This post reports on a formal refutation of the conjecture in Lean. For $k = 4$, the conjecture asserts that the price of connectivity must equal $8/7$. We present an 8-vertex graph that is $(2, 3)$-linked but not $(2, 4)$-linked, together with an additive valuation under which the unconstrained maximin share is 15 while every connected bipartition leaves the smaller part with value at most 13. This yields a price of connectivity of at least $15/13 > 8/7$, disproving the conjecture. The proof in Lean verifies the linkedness properties and exhaustively checks all 256 bipartitions of the graph.",
+ "introduction": "In the fair division of indivisible goods among agents, connectivity constraints require each agent's bundle to form a connected subgraph of an underlying graph $G$. In arXiv:1908.05433, this setting is investigated for two agents whose valuations are additive over the vertices of a connected graph $G$. For an additive valuation $u$, the maximin share $\\mathrm{MMS}(u, 2)$ is the maximum over all bipartitions of the vertices of the minimum value between the two parts. When the bipartition is constrained so that both parts induce connected subgraphs of $G$, the optimal guaranteed value is the connected maximin share $G\\text{-}\\mathrm{MMS}(G, u, 2)$. The price of connectivity, $\\mathrm{PoC}(G, 2)$, is the supremum over all non-negative additive valuations $u$ of the ratio $\\mathrm{MMS}(u, 2) / G\\text{-}\\mathrm{MMS}(G, u, 2)$.\n\nA graph $G$ is defined to be $(a, b)$-linked if for any disjoint vertex sets $M_1$ and $M_2$ of sizes $a$ and $b$ respectively, there exist disjoint connected subgraphs containing $M_1$ and $M_2$. Proposition 3.9 of arXiv:1908.05433 showed that if $G$ is not $(2, k)$-linked, then $\\mathrm{PoC}(G, 2) \\ge 2k / (2k - 1)$. Conjecture 3.10 of arXiv:1908.05433 stated that if $G$ is $(2, k - 1)$-linked but not $(2, k)$-linked, then the price of connectivity is exactly $2k / (2k - 1)$.\n\nThis conjecture was known to hold in specific settings in arXiv:1908.05433: Corollary 3.6 settled the case $k = 2$, and Theorem 3.11 established the conjecture for graphs formed by removing a non-empty matching from a complete graph.\n\nThis post presents the formal refutation of Conjecture 3.10 in Lean via the theorem `poc_linkedness_conjecture_counterexample`. For $k = 4$, the conjecture predicts $\\mathrm{PoC}(G, 2) = 8/7$. We exhibit a graph on 8 vertices that is $(2, 3)$-linked and not $(2, 4)$-linked, together with an additive valuation that achieves a ratio of at least $15/13$. Because $15/13 > 8/7$, the conjecture does not hold.",
+ "result": "The main theorem is `poc_linkedness_conjecture_counterexample`.\n\nTheorem (`poc_linkedness_conjecture_counterexample`). There exists a simple graph $G$ on 8 vertices that is $(2, 3)$-linked and not $(2, 4)$-linked, a non-negative valuation $u : \\mathrm{Fin}\\; 8 \\to \\mathbb{R}$, and a vertex subset $S \\subseteq \\mathrm{Fin}\\; 8$ such that for every subset $T \\subseteq \\mathrm{Fin}\\; 8$ where both $T$ and $T^c$ induce connected subgraphs in $G$,\n$$8 \\min\\left(\\sum_{v \\in T} u(v), \\sum_{v \\in T^c} u(v)\\right) < 7 \\min\\left(\\sum_{v \\in S} u(v), \\sum_{v \\in S^c} u(v)\\right).$$\n\nIn the Lean statement, the graph $G$ has type SimpleGraph (Fin 8), the linkedness hypotheses are stated using `is_ab_linked`, and the inequality quantifies over the valuation $u$ and finsets $S$ and $T$, requiring $8 \\min(u(T), u(T^c)) < 7 \\min(u(S), u(S^c))$ whenever both $T$ and $T^c$ satisfy `is_connected_vertex_set`.\n\nThe accompanying definitions and lemmas provide the concrete components of the counterexample:\n\n- `poc8_graph` specifies the 8-vertex graph $G$, containing 18 edges.\n- `poc8_u` defines the non-negative valuation $u = (5, 5, 5, 1, 1, 1, 12, 0)$.\n- `poc8_linked_two_three` proves that $G$ is $(2, 3)$-linked according to the definition `is_ab_linked`.\n- `poc8_not_linked_two_four` proves that $G$ is not $(2, 4)$-linked.\n- `poc8_gmms_check` verifies that every bipartition satisfies `poc8_gmms_ok`.\n- `poc8_discb_sound` proves soundness of the Boolean disconnectedness test for `is_connected_vertex_set`.\n- `poc8_val_eq` proves that the recursive fold `poc8_val` correctly computes the sum of $u$ over any vertex set.",
+ "proof": "The proof proceeds by explicitly constructing the graph and valuation, verifying the linkedness properties, and exhaustively checking all bipartitions.\n\nThe graph $G$ is defined in `poc8_graph` on vertex set $\\{0, 1, \\dots, 7\\}$ with 18 edges:\n$04, 05, 06, 07, 13, 15, 16, 17, 23, 24, 26, 27, 36, 37, 45, 47, 57, 67$.\nThe valuation vector is defined in `poc8_u` as $u = (5, 5, 5, 1, 1, 1, 12, 0)$.\n\nTo verify the linkedness conditions:\nThe lemma `poc8_linked_two_three` establishes that $G$ is $(2, 3)$-linked. By the definition `is_ab_linked`, for every pair of disjoint subsets $M_1, M_2 \\subset \\{0, \\dots, 7\\}$ with $|M_1| = 2$ and $|M_2| = 3$, there must exist disjoint subsets $S_1 \\supseteq M_1$ and $S_2 \\supseteq M_2$ such that each induces a connected subgraph. The lemma confirms that any 2 terminals and 3 further terminals are separated by a connected bipartition of $G$.\n\nThe lemma `poc8_not_linked_two_four` demonstrates that $G$ is not $(2, 4)$-linked. Choosing terminals $M_1 = \\{0, 1\\}$ and $M_2 = \\{2, 5, 6, 7\\}$, any disjoint sets $S_1 \\supseteq M_1$ and $S_2 \\supseteq M_2$ require $S_1 \\subseteq \\{0, 1, 3, 4\\}$. In the subgraph of $G$ induced by $\\{0, 1, 3, 4\\}$, the only edges are $13$ and $04$. Thus the vertices $\\{0, 4\\}$ have no path to $\\{1, 3\\}$, meaning $\\{0, 4\\}$ is cut off from $\\{1, 3\\}$. Since $M_1 = \\{0, 1\\} \\subseteq S_1$, any $S_1$ containing $M_1$ must contain vertices in both disconnected components, so $S_1$ is disconnected. Hence no disjoint connected sets exist for this choice of terminals.\n\nNext, consider the unconstrained bipartition $S = \\{0, 1, 2, 7\\}$ and $S^c = \\{3, 4, 5, 6\\}$. Summing the valuations:\n$$\\sum_{v \\in S} u(v) = 5 + 5 + 5 + 0 = 15, \\quad \\sum_{v \\in S^c} u(v) = 1 + 1 + 1 + 12 = 15.$$\nThus $\\min(u(S), u(S^c)) = 15$, and 7 times this value is $7 \\cdot 15 = 105$.\n\nIt remains to show that for every subset $T \\subseteq \\{0, \\dots, 7\\}$ such that both $T$ and $T^c$ satisfy `is_connected_vertex_set`, the value $8 \\min(u(T), u(T^c))$ is strictly less than 105. Since the valuations are integers, this means the smaller part must have value at most 13.\n\nAll 256 bipartitions of the 8 vertices are verified by `poc8_gmms_check`, which confirms that each bipartition satisfies `poc8_gmms_ok`: either 8 times the smaller part value is below 105, or one of the two parts is disconnected. The soundness of the Boolean disconnectedness test is established by `poc8_discb_sound`, certifying that accepted sets do not satisfy `is_connected_vertex_set`. Finally, `poc8_val_eq` proves that the folded value computed by `poc8_val` agrees with the real sum of $u$ over the selected vertices. Combining these facts completes the proof of `poc_linkedness_conjecture_counterexample`.",
+ "discussion": "Conjecture 3.10 of arXiv:1908.05433 conjectured that being $(2, k - 1)$-linked but not $(2, k)$-linked implies $\\mathrm{PoC}(G, 2) = 2k / (2k - 1)$. Proposition 3.9 of the same paper had shown the lower bound $\\mathrm{PoC}(G, 2) \\ge 2k / (2k - 1)$ for any graph that is not $(2, k)$-linked. The counterexample formalized in `poc_linkedness_conjecture_counterexample` shows that the lower bound is not always tight when $(2, k - 1)$-linkedness holds: for $k = 4$, the graph $G$ has $\\mathrm{PoC}(G, 2) \\ge 15/13 > 8/7$.\n\nThis result specifically refutes the conjecture at $k = 4$. It does not address whether the conjecture holds for $k = 3$, nor does it establish the exact value of $\\mathrm{PoC}(G, 2)$ for the 8-vertex graph beyond the lower bound $15/13$. Furthermore, since the conjecture was shown to hold for $k = 2$ (Corollary 3.6 of arXiv:1908.05433) and for complete graphs minus a non-empty matching (Theorem 3.11), the question of characterizing the class of graphs for which the bound $\\mathrm{PoC}(G, 2) = 2k / (2k - 1)$ holds remains open.",
+ "main": "poc_linkedness_conjecture_counterexample",
+ "theorems": [
+  "poc_linkedness_conjecture_counterexample"
+ ],
+ "declarations": [
+  "poc_linkedness_conjecture_counterexample",
+  "is_ab_linked",
+  "is_connected_vertex_set",
+  "poc8_graph",
+  "poc8_u",
+  "poc8_linked_two_three",
+  "poc8_not_linked_two_four",
+  "poc8_gmms_check",
+  "poc8_gmms_ok",
+  "poc8_discb_sound",
+  "poc8_val_eq",
+  "poc8_val"
+ ],
+ "references": [
+  {
+   "id": "arXiv:1908.05433",
+   "title": "The Price of Connectivity in Fair Division"
+  }
+ ],
+ "problem": {
+  "ref": "OP-68",
+  "title": "Linkedness and the two-agent price of connectivity",
+  "source": "arXiv:1908.05433"
+ },
+ "research": [
+  "refutes OP-68 (Linkedness and the two-agent price of connectivity)"
+ ],
+ "topic": "fair_division",
+ "status": "approved",
+ "reviewed_by": "Claude Code",
+ "model": "gemini-3.8-flash",
+ "drafted": "2026-10-20",
+ "format": 1
+}

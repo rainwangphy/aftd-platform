@@ -1,0 +1,39 @@
+{
+ "slug": "2026-10-04-arxiv-2511-13678",
+ "date": "2026-10-04",
+ "key": "arXiv:2511.13678",
+ "title": "Binary-Type Publication Choice Problems with Monotone Cost Ratios and Non-Competitive Venues Admit Multiple Pure-Strategy Equilibria",
+ "abstract": "Theorem 4.1 in arXiv:2511.13678v2 asserted that every binary-type Publication Choice Problem satisfying the standing assumptions along with Assumption 1 (monotone cost ratio) and Assumption 2 (non-competitive venue) admits a unique pure-strategy equilibrium. This claim is false. A counterexample featuring two venues, parameters $\\alpha = 1/2$ and $\\beta = 2$, and types $\\theta = (1, 8)$ satisfies the standing assumptions and Assumptions 1 and 2, but possesses three pure-strategy equilibria with pairwise different venue impacts and strictly positive publication amounts. The formal verification of this counterexample and the non-uniqueness theorem is checked in Lean 4.",
+ "introduction": "The Publication Choice Problem, studied in arXiv:2511.13678v2, models the strategic choices of researchers allocating their publications across competing venues. In this model, researcher types differ in productivity or quality, and each venue has an endogenous impact determined by the publications it attracts.\n\nTheorem 4.1 of arXiv:2511.13678v2 asserted that when there are two researcher types (a binary-type problem), the pure-strategy equilibrium is unique under the standing assumptions of the model combined with Assumption 1 and Assumption 2. The standing assumptions require the parameter $\\alpha$ to lie in $(0, 1)$, $\\beta > 1$, and all type densities, types, and costs to be strictly positive, with costs strictly increasing in the venue index. Assumption 1 requires a monotone cost ratio: for types $\\theta_i < \\theta_{i'}$ and venues $j < j'$, the publication costs satisfy $c_{ij} / c_{i'j} < c_{ij'} / c_{i'j'}$. Assumption 2 posits a non-competitive venue, specifying that the least competitive venue has the same publication cost for every researcher type.\n\nThis post shows that Theorem 4.1 of arXiv:2511.13678v2 is false. A binary-type Publication Choice Problem satisfying all standing assumptions and Assumptions 1 and 2 can admit multiple pure-strategy equilibria.",
+ "result": "The main result is `publication_choice_binary_equilibrium_not_unique`.\n\nTheorem (`publication_choice_binary_equilibrium_not_unique`). *Theorem 4.1 of arXiv:2511.13678 is false: not every binary-type Publication Choice Problem satisfying the standing assumptions `pcp_is_valid`, Assumption 1 `pcp_monotone_cost_ratio`, and Assumption 2 `pcp_noncompetitive_venue` has a unique pure-strategy equilibrium.*\n\nIn the Lean statement, the theorem expresses the negation of the universal proposition that for all parameters $\\alpha, \\beta : \\mathbb{R}$, type and density vectors $\\theta, \\mu : \\text{Fin } 2 \\to \\mathbb{R}$, and cost functions $c : \\text{Fin } 2 \\to \\text{Fin } 2 \\to \\mathbb{R}$ satisfying `pcp_is_valid` $\\alpha$ $\\beta$ $\\theta$ $\\mu$ $c$, `pcp_monotone_cost_ratio` $\\theta$ $c$, and `pcp_noncompetitive_venue` $c$, any two action-impact pairs $(a, v)$ and $(a', v')$ satisfying `pcp_is_equilibrium` $\\alpha$ $\\beta$ $\\theta$ $\\mu$ $c$ must satisfy $v = v'$.\n\nThe refutation relies on `publication_choice_three_equilibria`, which demonstrates that a binary-type problem with two venues, $\\alpha = 1/2$, $\\beta = 2$, and types $\\theta = (1, 8)$ satisfying Assumptions 1 and 2 has three distinct pure-strategy equilibria with pairwise different venue impacts and strictly positive publication amounts.",
+ "proof": "The proof of `publication_choice_binary_equilibrium_not_unique` operates by establishing an explicit counterexample using `publication_choice_three_equilibria`.\n\nThe counterexample is constructed with two researcher types and two venues. The parameters are chosen as $\\alpha = 1/2$, $\\beta = 2$, with type vector $\\theta = (1, 8)$ and positive density vector $\\mu$. The publication cost matrix $c$ is defined such that:\n- Costs are strictly positive and strictly increasing across venues for each type, fulfilling `pcp_is_valid`.\n- For venue index $0$, costs are equal across both types, fulfilling `pcp_noncompetitive_venue`.\n- The ratio of costs across venues satisfies $c_{00} / c_{10} < c_{01} / c_{11}$, satisfying `pcp_monotone_cost_ratio`.\n\nLemma `publication_choice_three_equilibria` provides three distinct action profiles and impact vectors $(a_1, v_1)$, $(a_2, v_2)$, and $(a_3, v_3)$ for this instance. For each profile $k \\in \\{1, 2, 3\\}$, the predicate `pcp_is_equilibrium` is verified by checking that:\n- Every researcher type best responds to the venue impacts $v_k$, meaning the chosen publication amounts maximize utility.\n- Venue impacts $v_k$ are consistent with the aggregate publication amounts determined by $a_k$.\n- All publication amounts in $a_k$ are strictly positive.\n\nThe verification checks that the resulting impact vectors $v_1, v_2, v_3$ are pairwise distinct, in particular $v_1 \\neq v_2$. Since both $(a_1, v_1)$ and $(a_2, v_2)$ are equilibria of the same valid problem satisfying Assumptions 1 and 2, but $v_1 \\neq v_2$, the universal implication asserting uniqueness fails.",
+ "discussion": "Theorem `publication_choice_binary_equilibrium_not_unique` refutes the uniqueness assertion of Theorem 4.1 from arXiv:2511.13678v2 by counterexample. The counterexample shows that even with binary types and two venues, satisfying the standing assumptions alongside the monotone cost ratio condition (Assumption 1) and the non-competitive venue condition (Assumption 2) is insufficient to guarantee uniqueness of equilibrium venue impacts.\n\nThe counterexample in `publication_choice_three_equilibria` specifically exhibits three pure-strategy equilibria with positive publication allocations. The material is silent on whether further assumptions could guarantee uniqueness or what characterizes the full set of equilibria beyond this counterexample.",
+ "main": "publication_choice_binary_equilibrium_not_unique",
+ "theorems": [
+  "publication_choice_binary_equilibrium_not_unique"
+ ],
+ "declarations": [
+  "publication_choice_binary_equilibrium_not_unique",
+  "pcp_is_valid",
+  "pcp_monotone_cost_ratio",
+  "pcp_noncompetitive_venue",
+  "pcp_is_equilibrium",
+  "publication_choice_three_equilibria"
+ ],
+ "references": [
+  {
+   "id": "arXiv:2511.13678",
+   "title": ""
+  }
+ ],
+ "problem": {},
+ "research": [
+  "shows a published claim false (The Publication Choice Problem, AAAI 2026 (arXiv:2511.13678v2), Theorem 4.1 (a binary-type problem satisfying the standing assumptions and Assumptions 1-2 has a unique pure-strategy equilibrium): false; counterexample alpha = 1/2, beta = 2, two venues, types (1, 8), three equilibria)"
+ ],
+ "topic": "equilibria",
+ "status": "approved",
+ "reviewed_by": "Claude Code",
+ "model": "gemini-3.8-flash",
+ "drafted": "2026-10-20",
+ "format": 1
+}

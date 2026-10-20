@@ -364,7 +364,7 @@ def main() -> int:
         check("a listed problem links a verified declaration, and names an unproved one unlinked",
               'href="../d/answer_ten/"' in lit and "<code>machine_open</code>" in lit)
         check("the counts returned match",
-              n == {"declarations": 2, "problems": 2, "news": 6, "weekly": 0, "monthly": 0,
+              n == {"declarations": 2, "problems": 2, "news": 6, "weekly": 0, "monthly": 0, "blog": 0,
                     "traces": 0}, str(n))
 
         print("news")
@@ -626,6 +626,47 @@ def main() -> int:
     check("a daily entry may not list an open statement as proved",
           "machine_open" in refused({**daily, "declarations": ["machine_open"]}))
     check("a malformed date is refused", refused({**base, "kind": "launch", "date": "2 Oct"}) != "")
+
+    print("research blog")
+    post = {"format": 1, "slug": "2026-10-02-op-10", "date": "2026-10-02", "key": "OP-10",
+            "title": f"Ten is the answer {evil}", "abstract": "BLOG-ABSTRACT $x$",
+            "introduction": "BLOG-INTRO", "result": "It is `answer_ten`.",
+            "proof": "Steps:\n- first `plain_one`\n- then done", "discussion": "BLOG-DISC",
+            "main": "answer_ten", "theorems": ["answer_ten"],
+            "declarations": ["answer_ten", "plain_one"],
+            "references": [{"id": "arXiv:2609.10493", "title": "A paper"}],
+            "problem": {"ref": "OP-10", "title": "t", "source": "arXiv:2609.10493"},
+            "research": ["settles OP-10"], "status": "approved", "reviewed_by": "Claude Code",
+            "model": "m"}
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "_site"
+        n = build(data, [], cfg, out, [], blog=[post])
+        check("a post is built, with the blog's index", n["blog"] == 1
+              and (out / "blog" / "index.html").is_file()
+              and (out / "blog" / "2026-10-02-op-10" / "index.html").is_file())
+        page_ = (out / "blog" / "2026-10-02-op-10" / "index.html").read_text()
+        home = (out / "index.html").read_text()
+        check("the nav has the blog right after the knowledgebase, and no Discuss tab",
+              re.search(r'knowledgebase/">Knowledgebase</a><a href="blog/">Research Blog</a>', home)
+              is not None and ">Discuss<" not in home)
+        check("a post shows its main theorem's Lean statement and links the names",
+              "BLOG-ABSTRACT" in page_ and 'href="../../d/answer_ten/"' in page_
+              and "<li>first" in page_ and evil not in page_)
+
+    def brefused(**kw) -> str:
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                build(data, [], cfg, Path(tmp) / "_site", [], blog=[{**post, **kw}])
+        except ValueError as ex:
+            return str(ex)
+        return ""
+
+    check("a draft is not published", "approved" in brefused(status="draft"))
+    check("a post may not name an open statement",
+          "machine_open" in brefused(declarations=["answer_ten", "machine_open"]))
+    check("its main theorem must be among its declarations",
+          brefused(main="plain_two") != "")
+    check("a post with an empty section is refused", "proof" in brefused(proof=" "))
 
     print("proof stepper")
     src = ("/-- A doc comment\n  over two lines -/\ntheorem stepped (h : P) : P ∧ P := by\n"

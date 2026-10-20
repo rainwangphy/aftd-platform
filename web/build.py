@@ -469,7 +469,7 @@ NAME = "AFTD"
 FULL_NAME = "Auto-Formalizing Theoretical Domains"
 NAV = [
     ("knowledgebase/", "Knowledgebase"),
-    ("blog/", "Research Blog"),
+    ("blog/", "Research Blogs"),
     ("reports/", "Summary Reports"),
     ("problems/", "Open Problems"),
 ]
@@ -558,7 +558,7 @@ def page(
       <h2>Explore</h2>
       <a href="{root}knowledgebase/">Knowledgebase</a>
       <a href="{root}knowledgebase/#graph">Dependency graph</a>
-      <a href="{root}blog/">Research Blog</a>
+      <a href="{root}blog/">Research Blogs</a>
       <a href="{root}problems/">Open Problems</a>
       <a href="{root}index.html#news">News</a>
       <a href="{root}reports/">Summary Reports</a>
@@ -2356,7 +2356,7 @@ def render_blog(s: Site) -> str:
     body = f"""
 <header class="phead">
   <p class="eyebrow">Research-level results, written up</p>
-  <h1>Research Blog</h1>
+  <h1>Research Blogs</h1>
   <p class="lead full">The results Lean accepted that settle, refute or advance an open
   question, answer a question posed here, or show a published claim false &mdash; each
   written up the way a short paper is: the question and where it comes from, what was
@@ -2366,7 +2366,7 @@ def render_blog(s: Site) -> str:
 <section id="posts">
   {f'<div class="news-list">{items}</div>' if items else '<p class="prose">No post yet.</p>'}
 </section>"""
-    return page(s, title="Research Blog", root=root, active="blog/", body=body,
+    return page(s, title="Research Blogs", root=root, active="blog/", body=body,
                 description="Research-level results, each written up as a short paper "
                             "and checked in Lean.")
 
@@ -2403,7 +2403,7 @@ def render_post(s: Site, i: int) -> str:
     body = f"""
 <article class="post">
 <header class="phead">
-  <p class="eyebrow"><a href="{root}blog/">Research Blog</a></p>
+  <p class="eyebrow"><a href="{root}blog/">Research Blogs</a></p>
   <h1>{e(p["title"])}</h1>
   <p class="news-when">{blog_byline(p)}</p>
 </header>

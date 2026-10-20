@@ -647,7 +647,7 @@ def main() -> int:
         page_ = (out / "blog" / "2026-10-02-op-10" / "index.html").read_text()
         home = (out / "index.html").read_text()
         check("the nav has the blog right after the knowledgebase, and no Discuss tab",
-              re.search(r'knowledgebase/">Knowledgebase</a><a href="blog/">Research Blog</a>', home)
+              re.search(r'knowledgebase/">Knowledgebase</a><a href="blog/">Research Blogs</a>', home)
               is not None and ">Discuss<" not in home)
         check("a post shows its main theorem's Lean statement and links the names",
               "BLOG-ABSTRACT" in page_ and 'href="../../d/answer_ten/"' in page_

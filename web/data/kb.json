@@ -1,26 +1,26 @@
 {
  "schema": 1,
- "generated": "2026-10-20T03:49:55Z",
+ "generated": "2026-10-20T04:05:41Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 9107,
-  "definitions": 3620,
-  "theorems": 5487,
+  "declarations": 9109,
+  "definitions": 3621,
+  "theorems": 5488,
   "topics": 42,
   "domains": 7,
-  "open": 195,
-  "rejected": 62,
-  "spend": 222.65,
+  "open": 193,
+  "rejected": 63,
+  "spend": 209.09,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 229655285,
-   "output": 53446355,
-   "cache_read": 837990904
+   "input": 230850441,
+   "output": 53617609,
+   "cache_read": 842796015
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792467460
+  "last": 1792469046
  },
  "domains": [
   {
@@ -320,7 +320,7 @@
      "name": "fair_division",
      "title": "Fair Division",
      "target": 20,
-     "proved": 403
+     "proved": 405
     },
     {
      "name": "matching_markets",
@@ -169642,6 +169642,7 @@
     "round_robin_three_agents_pne_not_alpha_ef1_of_three_quarters_lt",
     "SocialChoice.FairDivision.Indivisible.rawBestGood_mem",
     "is_guaranteed_round_robin_ef1_factor",
+    "is_guaranteed_sequence_ef1_factor",
     "SocialChoice.FairDivision.Indivisible.mmsValue_le_proportional_share_additive",
     "SocialChoice.FairDivision.Indivisible.agent0_efx",
     "SocialChoice.FairDivision.Indivisible.AdditiveInstance.toAdditiveValuation",
@@ -169709,6 +169710,7 @@
     "round_robin_three_agents_pne_not_alpha_ef1_of_three_quarters_lt",
     "SocialChoice.FairDivision.Indivisible.AdditiveInstance.toValuation",
     "is_guaranteed_round_robin_ef1_factor",
+    "is_guaranteed_sequence_ef1_factor",
     "SocialChoice.FairDivision.Indivisible.mmsValue_le_proportional_share_additive",
     "SocialChoice.FairDivision.Indivisible.agent0_efx",
     "round_robin_pne_ef1_pair_of_count_le_two",
@@ -658224,6 +658226,7 @@
     "g"
    ],
    "used_by": [
+    "not_is_guaranteed_round_robin_ef1_factor_three_fifteen_sixteenths",
     "not_is_guaranteed_round_robin_ef1_factor_three_of_three_quarters_lt"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/RoundRobinThreeAgentsPneNotAlphaEf1OfThreeQuartersLt.lean",
@@ -666671,6 +666674,7 @@
     "SocialChoice.FairDivision.Indivisible.AdditiveValuation"
    ],
    "used_by": [
+    "not_is_guaranteed_round_robin_ef1_factor_three_fifteen_sixteenths",
     "round_robin_alpha",
     "not_is_guaranteed_round_robin_ef1_factor_three_of_three_quarters_lt"
    ],
@@ -666775,7 +666779,9 @@
     "is_picking_sequence_pne",
     "round_robin_sequence"
    ],
-   "used_by": [],
+   "used_by": [
+    "not_is_guaranteed_round_robin_ef1_factor_three_fifteen_sixteenths"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/NotIsGuaranteedRoundRobinEf1FactorThreeOfThreeQuartersLt.lean",
    "proved_at": 1792466911,
    "provenance": "lemma",
@@ -666808,6 +666814,72 @@
    "citation": "arXiv:2610.23686, Sec. 2",
    "lean_from": null,
    "reading": "A list `seq` of elements of `Fin n` is recursively balanced if, for every natural number `s`, the sublist obtained by dropping the first `s * n` elements of `seq` and taking the first `n` elements of what remains has no duplicate elements (`List.Nodup`).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_guaranteed_sequence_ef1_factor",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 9108,
+   "informal": "A factor α is guaranteed for a picking sequence mechanism seq with n agents if for every nonnegative additive valuation profile and every pure Nash equilibrium reported ranking profile, the outcome of the picking sequence is α-EF1.",
+   "statement": "def is_guaranteed_sequence_ef1_factor (n : ℕ) (seq : List (Fin n)) (α : ℝ) : Prop",
+   "source": "/-- A factor α is guaranteed for a picking sequence if at every pure Nash equilibrium under nonnegative additive valuations, the induced allocation is α-EF1. -/\ndef is_guaranteed_sequence_ef1_factor (n : ℕ) (seq : List (Fin n)) (α : ℝ) : Prop :=\n  ∀ (w : Fin n → Fin seq.length → ℝ),\n    (∀ i g, 0 ≤ w i g) →\n    ∀ (rank : Fin n → Fin seq.length ≃ Fin seq.length),\n      is_picking_sequence_pne\n        (SocialChoice.FairDivision.Indivisible.AdditiveValuation.toValuation ⟨w⟩)\n        seq rank →\n      is_alpha_ef1 α\n        (SocialChoice.FairDivision.Indivisible.AdditiveValuation.toValuation ⟨w⟩)\n        (picking_sequence_outcome seq rank)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "SocialChoice.FairDivision.Indivisible.AdditiveValuation.toValuation",
+    "is_alpha_ef1",
+    "SocialChoice.FairDivision.Indivisible.AdditiveValuation",
+    "picking_sequence_outcome",
+    "is_picking_sequence_pne"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsGuaranteedSequenceEf1Factor.lean",
+   "proved_at": 1792468190,
+   "provenance": "literature",
+   "citation": "arXiv:2610.23686, Sec. 2 and Sec. 6",
+   "lean_from": null,
+   "reading": "For a given number of agents `n : ℕ`, picking sequence `seq : List (Fin n)`, and real factor `α : ℝ`, `is_guaranteed_sequence_ef1_factor n seq α` asserts:\n\nFor all valuation weight profiles `w : Fin n → Fin seq.length → ℝ`,\nif all weights are non-negative (for all agents `i` and goods `g`, `0 ≤ w i g`),\nthen for all ranking strategy profiles `rank : Fin n → (Fin seq.length ≃ Fin seq.length)`,\nif `rank` is a pure Nash equilibrium of the picking sequence game (that is, for every agent `i` and every alternate ranking permutation `r`, agent `i`'s additive valuation for their bundle under unilateral deviation to `r` is at most their valuation under `rank`),\nthen the resulting allocation satisfies `α`-EF1 (envy-freeness up to one good scaled by `α`): for every pair of distinct agents `i ≠ j`, whenever agent `j`'s bundle is nonempty, there exists a good `g` in `j`'s bundle such that `α` times agent `i`'s valuation of `(j's bundle \\ {g})` is at most agent `i`'s valuation of `i`'s own bundle.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "not_is_guaranteed_round_robin_ef1_factor_three_fifteen_sixteenths",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 9109,
+   "informal": "15/16 is not a guaranteed EF1 factor for Round-Robin pure Nash equilibria with three agents: there exists an 8-good additive instance whose pure Nash equilibrium outcome is not (15/16)-EF1.",
+   "statement": "theorem not_is_guaranteed_round_robin_ef1_factor_three_fifteen_sixteenths :\n    ¬ is_guaranteed_round_robin_ef1_factor 3 (15 / 16)",
+   "source": "/-- 15/16 is not a guaranteed EF1 factor for Round-Robin pure Nash equilibria with three agents. -/\ntheorem not_is_guaranteed_round_robin_ef1_factor_three_fifteen_sixteenths :\n    ¬ is_guaranteed_round_robin_ef1_factor 3 (15 / 16) := by\n  apply not_is_guaranteed_round_robin_ef1_factor_three_of_three_quarters_lt\n  norm_num",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "is_guaranteed_round_robin_ef1_factor",
+    "round_robin_three_agents_pne_not_alpha_ef1_of_three_quarters_lt",
+    "not_is_guaranteed_round_robin_ef1_factor_three_of_three_quarters_lt"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/NotIsGuaranteedRoundRobinEf1FactorThreeFifteenSixteenths.lean",
+   "proved_at": 1792469046,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.23686, Prop. 1 and Sec. 6",
+   "lean_from": null,
+   "reading": "The theorem asserts the negation of `is_guaranteed_round_robin_ef1_factor 3 (15 / 16)`.\n\nThat is, it is not the case that for 3 agents, every pure Nash equilibrium ranking profile in a round-robin picking game with non-negative additive valuations guarantees an allocation that is $(15/16)$-EF1 (envy-free up to one good with approximation factor $15/16$).\n\nEquivalently, there exists some number of goods $m \\in \\mathbb{N}$, a profile of non-negative additive valuation weights $w : \\mathrm{Fin}\\ 3 \\to \\mathrm{Fin}\\ m \\to \\mathbb{R}$, and a profile of rankings $\\mathrm{rank} : \\mathrm{Fin}\\ 3 \\to (\\mathrm{Fin}\\ m \\simeq \\mathrm{Fin}\\ m)$ such that:\n1. $\\mathrm{rank}$ is a pure Nash equilibrium of the round-robin picking sequence (no agent $i$ can unilaterally change their reported ranking to obtain a bundle with strictly higher value according to their additive valuation), yet\n2. The resulting allocation is not $(15/16)$-EF1: there exist distinct agents $i, j \\in \\mathrm{Fin}\\ 3$ where agent $j$'s allocated bundle $A(j)$ is nonempty, and for all goods $g \\in A(j)$, $(15/16) \\cdot v_i(A(j) \\setminus \\{g\\}) > v_i(A(i))$.",
    "roundtrip": "faithful",
    "explanation": null,
    "trace": null,
@@ -667352,23 +667424,6 @@
    "created": 1791264051
   },
   {
-   "name": "is_guaranteed_round_robin_ef1_factor_three_half",
-   "kind": "theorem",
-   "status": "proving",
-   "topic": "fair_division",
-   "domain": "game_theory_economics",
-   "informal": "For three agents, every pure Nash equilibrium of the Round-Robin mechanism with nonnegative additive valuations induces a (1/2)-EF1 allocation.",
-   "statement": "theorem is_guaranteed_round_robin_ef1_factor_three_half :\n    is_guaranteed_round_robin_ef1_factor 3 (1 / 2)",
-   "attempts": 1,
-   "deps": [
-    "is_guaranteed_round_robin_ef1_factor"
-   ],
-   "problem": null,
-   "provenance": "literature",
-   "citation": "arXiv:2610.23686, Thm. 1",
-   "created": 1792466183
-  },
-  {
    "name": "iterated_round_robin_two_agents_adjacent_swaps_converges",
    "kind": "theorem",
    "status": "stated",
@@ -667423,32 +667478,14 @@
    "created": 1791264989
   },
   {
-   "name": "not_is_guaranteed_round_robin_ef1_factor_three_fifteen_sixteenths",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "fair_division",
-   "domain": "game_theory_economics",
-   "informal": "15/16 is not a guaranteed EF1 factor for Round-Robin pure Nash equilibria with three agents: there exists an 8-good additive instance whose pure Nash equilibrium outcome is not (15/16)-EF1.",
-   "statement": "theorem not_is_guaranteed_round_robin_ef1_factor_three_fifteen_sixteenths :\n    ¬ is_guaranteed_round_robin_ef1_factor 3 (15 / 16)",
-   "attempts": 0,
-   "deps": [
-    "is_guaranteed_round_robin_ef1_factor",
-    "round_robin_three_agents_pne_not_alpha_ef1_of_three_quarters_lt"
-   ],
-   "problem": null,
-   "provenance": "lemma",
-   "citation": "arXiv:2610.23686, Prop. 1 and Sec. 6",
-   "created": 1792465768
-  },
-  {
    "name": "round_robin_alpha_three_eq_two_thirds",
    "kind": "theorem",
-   "status": "stated",
+   "status": "proving",
    "topic": "fair_division",
    "domain": "game_theory_economics",
    "informal": "The best guaranteed EF1 factor for Round-Robin pure Nash equilibria with three agents is 2/3.",
    "statement": "theorem round_robin_alpha_three_eq_two_thirds : round_robin_alpha 3 = 2 / 3",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [
     "round_robin_alpha"
    ],
@@ -670296,12 +670333,12 @@
   {
    "name": "code_transmissions_cross_cut_le",
    "kind": "theorem",
-   "status": "stated",
+   "status": "proving",
    "topic": "information",
    "domain": "tcs",
    "informal": "In a causal linear network code on net, the number of transmissions whose endpoints are separated by a vertex set S is at most T * cutCapacity net S.",
    "statement": "theorem code_transmissions_cross_cut_le\n    {V : Type} [Fintype V] [DecidableEq V] {K : Type} [Fintype K] [DecidableEq K]\n    (F : Type) [Field F] (net : CapacitatedNetwork V) (sess : UnicastSessions V K)\n    (code : CausalLinearNetworkCode V K F net sess) (S : Finset V) :\n    ((Finset.univ.filter (fun m : Fin code.M => (code.snd m ∈ S) ≠ (code.rcv m ∈ S))).card : ℝ)\n      ≤ (code.T : ℝ) * cutCapacity net S",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [
     "cutCapacity",
     "CausalLinearNetworkCode"
@@ -676015,10 +676052,6 @@
     {
      "node": "not_is_guaranteed_round_robin_ef1_factor_three_of_three_quarters_lt",
      "role": "partial"
-    },
-    {
-     "node": "is_guaranteed_round_robin_ef1_factor_three_half",
-     "role": "partial"
     }
    ],
    "added": 1792382184
@@ -676607,6 +676640,51 @@
    "rationale": "",
    "links": [],
    "added": 1792467926
+  },
+  {
+   "id": 400,
+   "ref": "OP-400",
+   "title": "Polynomial-time ranking and unranking of S-avoiding permutations for three or more offsets",
+   "statement": "Let n be a positive integer, and let S ⊂ ℤ be a finite subset with |S| ≥ 3. A permutation π of {1, ..., n} is S-avoiding if π(i) - i - s ≢ 0 (mod n) for every i ∈ {1, ..., n} and every s ∈ S. The lexicographic ranking problem asks for the position of a given S-avoiding permutation in the lexicographic order of all S-avoiding permutations of {1, ..., n}, and the unranking problem asks for the permutation at a given index. Does there exist an algorithm that performs lexicographic ranking and unranking of S-avoiding permutations of {1, ..., n} in time polynomial in n for every fixed finite set S ⊂ ℤ with |S| ≥ 3, or in particular for S = {-1, 0, 1}?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.23958",
+   "source_title": "Unranking $S$-avoiding permutations with two forbidden offsets",
+   "location": "Remark 6.5",
+   "rationale": "Kagey (Discrete Appl. Math. 355, 2024) posed Open Question 40 asking for polynomial-time ranking and unranking algorithms for S-avoiding permutations. Theorem 5.3 settles the question for all sets S with |S| ≤ 2 by showing the forbidden board graph is 2-regular. The paper explicitly remarks that for |S| ≥ 3, the graph has degree 2(|S|-1) ≥ 4, so prefix deletion can leave components of unbounded treewidth, leaving the complexity open.",
+   "links": [],
+   "added": 1792468297
+  },
+  {
+   "id": 402,
+   "ref": "OP-402",
+   "title": "Gao-Zhuang Conjecture on the Gao Constant of Finite Groups",
+   "statement": "Let $G$ be a finite group. Is it true that $\\mathsf{E}(G) = |G| + \\mathsf{d}(G)$, where $\\mathsf{E}(G)$ is the Gao constant of $G$ and $\\mathsf{d}(G)$ is the small Davenport constant of $G$?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.26122",
+   "source_title": "The Erd\\H{o}s--Ginzburg--Ziv theorem for finite groups",
+   "location": "Conjecture 1.3",
+   "rationale": "This conjecture (Conjecture 1.3 in the paper) posits that the Gao constant equals |G| + d(G) for every finite group. The paper verifies several bounds and corollaries consistent with it, but the general equality remains open.",
+   "links": [],
+   "added": 1792468571
+  },
+  {
+   "id": 404,
+   "ref": "OP-404",
+   "title": "Nearly doubly regular property of arborescence-maximizing regular tournaments of order 4k + 1",
+   "statement": "Let $k \\ge 1$ be an integer and let $n = 4k + 1$. A tournament $T$ on $n$ vertices is regular if every vertex has outdegree $2k$. For two distinct vertices $i \\neq j$, let $c_{ij} = |N_T^+(i) \\cap N_T^+(j)|$ denote the number of common outneighbors of $i$ and $j$. The tournament $T$ is called nearly doubly regular if $c_{ij} \\in \\{k-1, k\\}$ for all pairs of distinct vertices $i \\neq j$. Is it true that every regular tournament of order $4k+1$ that maximizes the total number of arborescences $\\tau(T)$ among all regular tournaments of order $4k+1$ is nearly doubly regular?",
+   "status": "open",
+   "topic": "graphs",
+   "domain": "tcs",
+   "source": "arXiv:2610.25886",
+   "source_title": "Extremal arborescences in graph orientations",
+   "location": "Conjecture 6.1",
+   "rationale": "At order $n \\equiv 3 \\pmod 4$, arborescence maximizers among regular tournaments are known to be doubly regular tournaments. At order $n = 4k+1$, doubly regular tournaments cannot exist due to non-integrality of common outneighbor counts, and nearly doubly regular (NDR) tournaments are the nearest-integer analogue. The conjecture is verified computationally for orders 5, 9, 13, and 17.",
+   "links": [],
+   "added": 1792468788
   }
  ],
  "grants": []

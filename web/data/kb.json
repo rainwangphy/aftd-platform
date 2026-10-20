@@ -1,26 +1,26 @@
 {
  "schema": 1,
- "generated": "2026-10-20T15:03:49Z",
+ "generated": "2026-10-20T21:06:16Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 9200,
-  "definitions": 3658,
-  "theorems": 5542,
+  "declarations": 9226,
+  "definitions": 3674,
+  "theorems": 5552,
   "topics": 42,
   "domains": 7,
-  "open": 230,
-  "rejected": 64,
-  "spend": 229.4,
+  "open": 295,
+  "rejected": 66,
+  "spend": 237.07,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 250229771,
-   "output": 59148809,
-   "cache_read": 918493232
+   "input": 258503135,
+   "output": 61609849,
+   "cache_read": 976659874
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792508610
+  "last": 1792530361
  },
  "domains": [
   {
@@ -46,7 +46,7 @@
      "name": "automata",
      "title": "Automata & Formal Languages",
      "target": 30,
-     "proved": 110
+     "proved": 116
     },
     {
      "name": "complexity_basics",
@@ -100,7 +100,7 @@
      "name": "algorithms",
      "title": "Algorithm Design & Analysis",
      "target": 30,
-     "proved": 543
+     "proved": 546
     },
     {
      "name": "data_structures",
@@ -118,7 +118,7 @@
      "name": "combinatorics",
      "title": "Combinatorics for TCS",
      "target": 25,
-     "proved": 410
+     "proved": 424
     },
     {
      "name": "information",
@@ -302,7 +302,7 @@
      "name": "equilibria",
      "title": "Equilibria in Games",
      "target": 20,
-     "proved": 693
+     "proved": 696
     },
     {
      "name": "social_choice",
@@ -129550,6 +129550,7 @@
     "MatrixGame.toMixedProfile_one",
     "MatrixGame.minimax",
     "MatrixGame.optimalColumnSet_convex",
+    "saddle_gap_marginal_payoff_bounds",
     "MatrixGame.optimalColumnSet_nonempty",
     "MatrixGame.instFintypeStrategyFinOfNatNatToStrategicGame"
    ],
@@ -129603,7 +129604,8 @@
     "MatrixGame"
    ],
    "used_by": [
-    "MatrixGame.Ej"
+    "MatrixGame.Ej",
+    "saddle_gap_marginal_payoff_bounds"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MatrixGamePayoffAgainstColumn.lean",
    "proved_at": 1791434708,
@@ -129668,6 +129670,7 @@
     "MatrixGame.minimax_optimal_strategies",
     "MatrixGame.IsMaximin",
     "MatrixGame.mem_optimalRowStrategies_iff_E_ge",
+    "saddle_gap_marginal_payoff_bounds",
     "MatrixGame.optimalColumnSet_nonempty"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MatrixGameEj.lean",
@@ -129729,6 +129732,7 @@
     "MatrixGame.maximin",
     "MatrixGame.IsEpsilonOptimalRow",
     "MatrixGame.mem_optimalRowStrategies_iff_E_ge",
+    "saddle_gap_marginal_payoff_bounds",
     "MatrixGame.optimalColumnSet_nonempty"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MatrixGameGuaranteeI.lean",
@@ -129866,6 +129870,7 @@
     "MatrixGame.mem_optimalRowStrategies_iff_E_ge",
     "MatrixGame.support_complementarity_row",
     "MatrixGame.optimalColumnSet_convex",
+    "saddle_gap_marginal_payoff_bounds",
     "MatrixGame.optimalColumnSet_nonempty"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MatrixGameValue.lean",
@@ -129925,7 +129930,8 @@
     "MatrixGame.optimalRowStrategies_image_isPolytope",
     "MatrixGame.image_optimalRowStrategies_eq",
     "MatrixGame.mem_optimalRowStrategies_iff_E_ge",
-    "MatrixGame.support_complementarity_row"
+    "MatrixGame.support_complementarity_row",
+    "saddle_gap_marginal_payoff_bounds"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/MatrixGameOptimalRowStrategies.lean",
    "proved_at": 1791434708,
@@ -636112,6 +636118,7 @@
     "orderEmbedding_of_diamond_copy",
     "diamond_poset_ramsey_number_le",
     "five_diamond_ramsey_property_four_mul_le",
+    "five_diamond_poset_ramsey_number_le",
     "inst_partial_order_diamond_poset",
     "exists_poset_ramsey_property_diamond"
    ],
@@ -636150,6 +636157,7 @@
     "orderEmbedding_of_diamond_copy",
     "diamond_poset_ramsey_number_le",
     "five_diamond_ramsey_property_four_mul_le",
+    "five_diamond_poset_ramsey_number_le",
     "exists_poset_ramsey_property_diamond"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/InstPartialOrderDiamondPoset.lean",
@@ -636216,7 +636224,8 @@
    ],
    "used_by": [
     "five_diamond_poset_ramsey_number_ge",
-    "diamond_poset_ramsey_number_le"
+    "diamond_poset_ramsey_number_le",
+    "five_diamond_poset_ramsey_number_le"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/PosetRamseyNumber.lean",
    "proved_at": 1792294629,
@@ -649357,7 +649366,9 @@
     "diamond_poset_ramsey_property",
     "poset_ramsey_property"
    ],
-   "used_by": [],
+   "used_by": [
+    "five_diamond_poset_ramsey_number_le"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/DiamondPosetRamseyNumberLe.lean",
    "proved_at": 1792412312,
    "provenance": "literature",
@@ -661985,12 +661996,16 @@
    "deps": [],
    "used_by": [
     "diag_two_counter_machine_reach_rel_iff",
+    "op_360_single_counter_update_strictly_less_expressive",
     "single_counter_step_preserves_one_coord",
     "two_counter_machine_is_single_counter_update",
+    "single_counter_symmetric_cannot_match_diag_reach",
     "two_counter_machine_step",
     "TwoCounterMachine",
     "two_counter_machine_is_symmetric",
+    "two_counter_machine_zero_test_step",
     "two_counter_machine_is_vass",
+    "two_counter_machine_update_step",
     "diag_two_counter_machine_is_symmetric"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterInstr.lean",
@@ -662092,12 +662107,17 @@
    ],
    "used_by": [
     "diag_two_counter_machine_reach_rel_iff",
+    "op_360_single_counter_update_strictly_less_expressive",
     "single_counter_step_preserves_one_coord",
     "two_counter_machine_is_single_counter_update",
+    "single_counter_symmetric_cannot_match_diag_reach",
     "two_counter_machine_step",
     "two_counter_machine_reach_rel",
     "two_counter_machine_is_symmetric",
+    "two_counter_machine_zero_test_state_reach",
+    "two_counter_machine_zero_test_step",
     "two_counter_machine_is_vass",
+    "two_counter_machine_update_step",
     "diag_two_counter_machine_is_symmetric"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterMachine.lean",
@@ -663218,6 +663238,8 @@
     "TwoCounterMachine"
    ],
    "used_by": [
+    "op_360_single_counter_update_strictly_less_expressive",
+    "single_counter_symmetric_cannot_match_diag_reach",
     "diag_two_counter_machine_is_symmetric"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterMachineIsSymmetric.lean",
@@ -663549,6 +663571,7 @@
    "used_by": [
     "diag_two_counter_machine_reach_rel_iff",
     "single_counter_step_preserves_one_coord",
+    "single_counter_symmetric_cannot_match_diag_reach",
     "two_counter_machine_reach_rel"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterMachineStep.lean",
@@ -663688,7 +663711,9 @@
     "TwoCounterMachine"
    ],
    "used_by": [
-    "diag_two_counter_machine_reach_rel_iff"
+    "diag_two_counter_machine_reach_rel_iff",
+    "op_360_single_counter_update_strictly_less_expressive",
+    "single_counter_symmetric_cannot_match_diag_reach"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterMachineReachRel.lean",
    "proved_at": 1792429104,
@@ -672856,7 +672881,9 @@
     "TwoCounterInstr"
    ],
    "used_by": [
-    "single_counter_step_preserves_one_coord"
+    "op_360_single_counter_update_strictly_less_expressive",
+    "single_counter_step_preserves_one_coord",
+    "single_counter_symmetric_cannot_match_diag_reach"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterMachineIsSingleCounterUpdate.lean",
    "proved_at": 1792462733,
@@ -678074,7 +678101,9 @@
    "deps": [
     "MatrixGame"
    ],
-   "used_by": [],
+   "used_by": [
+    "saddle_gap_marginal_payoff_bounds"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SaddleGapGame.lean",
    "proved_at": 1792492111,
    "provenance": "literature",
@@ -678740,7 +678769,9 @@
    "axioms": [],
    "clean": false,
    "deps": [],
-   "used_by": [],
+   "used_by": [
+    "saddle_gap_marginal_payoff_bounds"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SaddleGapFirstMarginal.lean",
    "proved_at": 1792493419,
    "provenance": "literature",
@@ -679389,7 +679420,10 @@
     "IsSingleCounterUpdate",
     "TwoCounterInstr"
    ],
-   "used_by": [],
+   "used_by": [
+    "op_360_single_counter_update_strictly_less_expressive",
+    "single_counter_symmetric_cannot_match_diag_reach"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/SingleCounterStepPreservesOneCoord.lean",
    "proved_at": 1792502832,
    "provenance": "lemma",
@@ -679494,7 +679528,10 @@
     "TwoCounterMachine",
     "TwoCounterInstr"
    ],
-   "used_by": [],
+   "used_by": [
+    "op_360_single_counter_update_strictly_less_expressive",
+    "single_counter_symmetric_cannot_match_diag_reach"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/DiagTwoCounterMachineIsSymmetric.lean",
    "proved_at": 1792502743,
    "provenance": "lemma",
@@ -679580,7 +679617,10 @@
     "TwoCounterMachine",
     "TwoCounterInstr"
    ],
-   "used_by": [],
+   "used_by": [
+    "op_360_single_counter_update_strictly_less_expressive",
+    "single_counter_symmetric_cannot_match_diag_reach"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/DiagTwoCounterMachineReachRelIff.lean",
    "proved_at": 1792502843,
    "provenance": "lemma",
@@ -680436,13 +680476,826 @@
    "axioms": [],
    "clean": false,
    "deps": [],
-   "used_by": [],
+   "used_by": [
+    "saddle_gap_marginal_payoff_bounds"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SaddleGapSecondMarginal.lean",
    "proved_at": 1792508004,
    "provenance": "literature",
    "citation": "arXiv:2610.25524 Section 4, p. 11",
    "lean_from": null,
    "reading": "Given a natural number $n$ and a probability distribution $\\sigma$ on $\\mathrm{Fin}(n) \\times \\mathrm{Fin}(n)$ (represented as an element of the standard simplex `stdSimplex ℝ (Fin n × Fin n)`), `saddle_gap_second_marginal` defines the second marginal distribution as an element of the standard simplex `stdSimplex ℝ (Fin n)`, whose value at each $j \\in \\mathrm{Fin}(n)$ is given by $\\sum_{i : \\mathrm{Fin}(n)} \\sigma(i, j)$.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "saddle_gap_first_payoff_pure_ge_of_sub_ge",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "seq": 9201,
+   "informal": "For an n-by-n matrix A with nonnegative entries, probability vectors a and b in `stdSimplex ℝ (Fin n)`, and real number v, if `Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v` for all k in Fin n, then `Matrix.vecMul a.val A k ≥ v` for all k in Fin n.",
+   "statement": "lemma saddle_gap_first_payoff_pure_ge_of_sub_ge {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (a b : stdSimplex ℝ (Fin n)) (v : ℝ) (h : ∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) (k : Fin n) : Matrix.vecMul a.val A k ≥ v",
+   "source": "/-- Pure column payoff is at least v when the difference between first and second marginal payoffs is at least v and the matrix is nonnegative. -/\nlemma saddle_gap_first_payoff_pure_ge_of_sub_ge {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (a b : stdSimplex ℝ (Fin n)) (v : ℝ) (h : ∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) (k : Fin n) : Matrix.vecMul a.val A k ≥ v := by\n  have h_nonneg : 0 ≤ Matrix.mulVec A b.val k := by\n    simp [Matrix.mulVec, dotProduct]\n    apply Finset.sum_nonneg\n    intro i _\n    exact mul_nonneg (hA_nonneg k i) (b.2.1 i)\n  have hk := h k\n  linarith",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [],
+   "used_by": [
+    "saddle_gap_marginal_payoff_bounds"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SaddleGapFirstPayoffPureGeOfSubGe.lean",
+   "proved_at": 1792509845,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.25524 Lemma 4.2",
+   "lean_from": null,
+   "reading": "Let $n$ be a natural number. Let $A$ be an $n \\times n$ real matrix with non-negative entries ($A_{i, j} \\ge 0$ for all $i, j \\in \\mathrm{Fin}(n)$). Let $a$ and $b$ be vectors in the standard simplex over $\\mathrm{Fin}(n)$ (i.e., non-negative real vectors whose entries sum to $1$). Let $v$ be a real number. Assume that for all indices $k' \\in \\mathrm{Fin}(n)$, the $k'$-th component of $a^\\top A - A b$ is at least $v$ (that is, $(a^\\top A)_{k'} - (A b)_{k'} \\ge v$). Then for any index $k \\in \\mathrm{Fin}(n)$, the $k$-th component of $a^\\top A$ is at least $v$ (that is, $(a^\\top A)_k \\ge v$).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "saddle_gap_self_payoff_ge_two_v_of_sub_ge",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "seq": 9202,
+   "informal": "For an n-by-n matrix A with nonnegative entries, probability vectors a and b in `stdSimplex ℝ (Fin n)`, and real number v, if `Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v` for all k in Fin n, then `dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v`.",
+   "statement": "lemma saddle_gap_self_payoff_ge_two_v_of_sub_ge {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (a b : stdSimplex ℝ (Fin n)) (v : ℝ) (h : ∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) : dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v",
+   "source": "/-- Averaging the saddle-gap marginal difference inequality over a and b yields the self-payoff bound aᵀ A a ≥ 2v. -/\nlemma saddle_gap_self_payoff_ge_two_v_of_sub_ge {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (a b : stdSimplex ℝ (Fin n)) (v : ℝ) (h : ∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) : dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v := by\n  have h_dot (p : stdSimplex ℝ (Fin n)) :\n      v ≤ dotProduct p.val (fun k => Matrix.vecMul a.val A k - Matrix.mulVec A b.val k) := by\n    have hp_nonneg : ∀ k, 0 ≤ p.val k := p.2.1\n    have hp_sum : ∑ k, p.val k = 1 := p.2.2\n    have h1 : ∑ k, p.val k * v ≤ ∑ k, p.val k * (Matrix.vecMul a.val A k - Matrix.mulVec A b.val k) := by\n      apply Finset.sum_le_sum\n      intro k _\n      exact mul_le_mul_of_nonneg_left (h k) (hp_nonneg k)\n    have h2 : ∑ k, p.val k * v = (∑ k, p.val k) * v := (Finset.sum_mul _ _ _).symm\n    rw [hp_sum, one_mul] at h2\n    unfold dotProduct\n    linarith\n  have h_sub (p : stdSimplex ℝ (Fin n)) :\n      dotProduct p.val (fun k => Matrix.vecMul a.val A k - Matrix.mulVec A b.val k) =\n        dotProduct p.val (Matrix.vecMul a.val A) - dotProduct p.val (Matrix.mulVec A b.val) := by\n    have : (fun k => Matrix.vecMul a.val A k - Matrix.mulVec A b.val k) =\n        Matrix.vecMul a.val A - Matrix.mulVec A b.val := rfl\n    rw [this]\n    exact dotProduct_sub p.val (Matrix.vecMul a.val A) (Matrix.mulVec A b.val)\n  have ha : v ≤ dotProduct a.val (Matrix.vecMul a.val A) - dotProduct a.val (Matrix.mulVec A b.val) := by\n    rw [← h_sub a]\n    exact h_dot a\n  have hb : v ≤ dotProduct b.val (Matrix.vecMul a.val A) - dotProduct b.val (Matrix.mulVec A b.val) := by\n    rw [← h_sub b]\n    exact h_dot b\n  have h_comm1 : dotProduct a.val (Matrix.vecMul a.val A) = dotProduct a.val (Matrix.mulVec A a.val) := by\n    rw [dotProduct_comm]\n    exact (Matrix.dotProduct_mulVec a.val A a.val).symm\n  have h_comm2 : dotProduct b.val (Matrix.vecMul a.val A) = dotProduct a.val (Matrix.mulVec A b.val) := by\n    rw [dotProduct_comm]\n    exact (Matrix.dotProduct_mulVec a.val A b.val).symm\n  have hb_nonneg : 0 ≤ dotProduct b.val (Matrix.mulVec A b.val) := by\n    unfold dotProduct Matrix.mulVec\n    apply Finset.sum_nonneg\n    intro i _\n    apply mul_nonneg (b.2.1 i)\n    unfold dotProduct\n    apply Finset.sum_nonneg\n    intro j _\n    exact mul_nonneg (hA_nonneg i j) (b.2.1 j)\n  rw [h_comm1] at ha\n  rw [h_comm2] at hb\n  linarith",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [],
+   "used_by": [
+    "saddle_gap_marginal_payoff_bounds"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SaddleGapSelfPayoffGeTwoVOfSubGe.lean",
+   "proved_at": 1792510395,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.25524 Lemma 4.2",
+   "lean_from": null,
+   "reading": "For any natural number $n$, any $n \\times n$ real matrix $A$ (indexed by $\\mathrm{Fin}\\ n$), if all entries of $A$ are non-negative ($0 \\le A_{i,j}$ for all $i, j \\in \\mathrm{Fin}\\ n$), then for any probability distributions $a, b$ in the standard simplex $\\mathrm{stdSimplex}\\ \\mathbb{R}\\ (\\mathrm{Fin}\\ n)$ and any real number $v$, if for every index $k \\in \\mathrm{Fin}\\ n$, the $k$-th component of the vector-matrix product $a^T A$ minus the $k$-th component of the matrix-vector product $A b$ is at least $v$ (that is, $(a^T A)_k - (A b)_k \\ge v$), then the quadratic form $a^T A a$ (the dot product of $a$ and $A a$) is at least $2v$.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "poset_lt_pair_count",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9203,
+   "informal": "The number of comparable pairs (ordered pairs a < b) of an ordered set, as a natural number.",
+   "statement": "noncomputable def poset_lt_pair_count (P : Type*) [PartialOrder P] : Nat",
+   "source": "/-- The number of strict-comparable ordered pairs of an ordered set. -/\nnoncomputable def poset_lt_pair_count (P : Type*) [PartialOrder P] : Nat := Nat.card {p : P × P // p.1 < p.2}",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/PosetLtPairCount.lean",
+   "proved_at": 1792510563,
+   "provenance": "lemma",
+   "citation": "step towards poset_height_one_reconstructible",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "saddle_gap_marginal_payoff_bounds",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "seq": 9204,
+   "informal": "Let n be a positive natural number. For any matrix A : Matrix (Fin n) (Fin n) ℝ with non-negative entries and any optimal row strategy σ in `(saddle_gap_game A).optimalRowStrategies`, let a = saddle_gap_first_marginal σ and b = saddle_gap_second_marginal σ in `stdSimplex ℝ (Fin n)`. Then for every k in Fin n, `Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ (saddle_gap_game A).value`, `Matrix.vecMul a.val A k ≥ (saddle_gap_game A).value` for all k in Fin n, and `dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * (saddle_gap_game A).value`.",
+   "statement": "theorem saddle_gap_marginal_payoff_bounds {n : ℕ} [NeZero n] (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (σ : stdSimplex ℝ (Fin n × Fin n)) (hσ : σ ∈ (saddle_gap_game A).optimalRowStrategies) : let a := saddle_gap_first_marginal σ; let b := saddle_gap_second_marginal σ; let v := (saddle_gap_game A).value; (∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) ∧ (∀ k : Fin n, Matrix.vecMul a.val A k ≥ v) ∧ dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v",
+   "source": "lemma saddle_gap_marginal_payoff_bounds_helper_ej {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ)\n    (σ : stdSimplex ℝ (Fin n × Fin n)) (k : Fin n) :\n    (saddle_gap_game A).Ej σ k =\n      Matrix.vecMul (saddle_gap_first_marginal σ).val A k -\n      Matrix.mulVec A (saddle_gap_second_marginal σ).val k := by\n  dsimp [MatrixGame.Ej, MatrixGame.payoffAgainstColumn, saddle_gap_game,\n         saddle_gap_first_marginal, saddle_gap_second_marginal,\n         Matrix.vecMul, Matrix.mulVec, dotProduct]\n  rw [Fintype.sum_prod_type]\n  simp_rw [mul_sub, Finset.sum_sub_distrib]\n  congr 1\n  · congr 1 with i\n    rw [Finset.sum_mul]\n    rfl\n  · rw [Finset.sum_comm]\n    congr 1 with j\n    rw [Finset.mul_sum]\n    apply Finset.sum_congr rfl\n    intro i _\n    exact mul_comm (σ (i, j)) (A k j)\n\n/-- Payoff and self-payoff guarantees from saddle-gap marginal distributions (arXiv:2610.25524 Lemma 4.2). -/\ntheorem saddle_gap_marginal_payoff_bounds {n : ℕ} [NeZero n] (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (σ : stdSimplex ℝ (Fin n × Fin n)) (hσ : σ ∈ (saddle_gap_game A).optimalRowStrategies) : let a := saddle_gap_first_marginal σ; let b := saddle_gap_second_marginal σ; let v := (saddle_gap_game A).value; (∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) ∧ (∀ k : Fin n, Matrix.vecMul a.val A k ≥ v) ∧ dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v := by\n  intro a b v\n  have h1 : ∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v := by\n    intro k\n    have hopt : (saddle_gap_game A).guarantee_I σ = v := hσ\n    rw [← saddle_gap_marginal_payoff_bounds_helper_ej A σ k]\n    rw [← hopt]\n    dsimp [MatrixGame.guarantee_I]\n    apply Finset.inf'_le\n    exact Finset.mem_univ k\n  have h2 : ∀ k : Fin n, Matrix.vecMul a.val A k ≥ v :=\n    saddle_gap_first_payoff_pure_ge_of_sub_ge A hA_nonneg a b v h1\n  have h3 : dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v :=\n    saddle_gap_self_payoff_ge_two_v_of_sub_ge A hA_nonneg a b v h1\n  exact ⟨h1, h2, h3⟩",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "saddle_gap_game",
+    "saddle_gap_first_marginal",
+    "saddle_gap_second_marginal",
+    "saddle_gap_first_payoff_pure_ge_of_sub_ge",
+    "saddle_gap_self_payoff_ge_two_v_of_sub_ge",
+    "MatrixGame.value",
+    "MatrixGame.optimalRowStrategies",
+    "MatrixGame.guarantee_I",
+    "MatrixGame.Ej",
+    "MatrixGame",
+    "MatrixGame.payoffAgainstColumn"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SaddleGapMarginalPayoffBounds.lean",
+   "proved_at": 1792511086,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25524 Lemma 4.2",
+   "lean_from": null,
+   "reading": "For any positive natural number $n$ (with typeclass instance `NeZero n`), any $n \\times n$ real matrix $A$, assuming that all entries of $A$ are non-negative ($0 \\le A_{i, j}$ for all $i, j \\in \\mathrm{Fin}\\ n$), and for any mixed strategy $\\sigma$ in the standard simplex over $\\mathrm{Fin}\\ n \\times \\mathrm{Fin}\\ n$ that is an optimal row strategy for the matrix game `saddle_gap_game A`:\n\nLet $a$ be the first marginal distribution of $\\sigma$ (in the standard simplex over $\\mathrm{Fin}\\ n$),\nlet $b$ be the second marginal distribution of $\\sigma$ (in the standard simplex over $\\mathrm{Fin}\\ n$), and\nlet $v$ be the value of the matrix game `saddle_gap_game A`.\n\nThen all three of the following hold:\n1. For every $k \\in \\mathrm{Fin}\\ n$, $(a^T A)_k - (A b)_k \\ge v$;\n2. For every $k \\in \\mathrm{Fin}\\ n$, $(a^T A)_k \\ge v$;\n3. The quadratic form $a^T A a \\ge 2v$ (i.e., the dot product of $a$ with $A a$ is at least $2v$).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "nus_collision_subspace",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9205,
+   "informal": "The right kernel of the collision matrix of A ⊆ Z/pZ: the submodule of functions x : A → Z/pZ with x a + x b = x c + x d for every collision a + b = c + d inside A. Its codimension, n − finrank, is the F_p-rank of the collision matrix.",
+   "statement": "def nus_collision_subspace (p : ℕ) (A : Finset (ZMod p)) : Submodule (ZMod p) (↥A → ZMod p)",
+   "source": "/-- The F_p-valued collision-preserving functions on A, i.e. the right kernel of the collision matrix (paper Section 2). -/\ndef nus_collision_subspace (p : ℕ) (A : Finset (ZMod p)) : Submodule (ZMod p) (↥A → ZMod p) where\n  carrier := {x | ∀ a b c d : ↥A, ((a : ZMod p) + (b : ZMod p) = (c : ZMod p) + (d : ZMod p)) → x a + x b = x c + x d}\n  zero_mem' := by intro a b c d _; simp\n  add_mem' := by\n    intro x y hx hy a b c d h\n    have h1 := hx a b c d h\n    have h2 := hy a b c d h\n    simp only [Pi.add_apply]\n    calc x a + y a + (x b + y b) = (x a + x b) + (y a + y b) := by ring\n      _ = (x c + x d) + (y c + y d) := by rw [h1, h2]\n      _ = x c + y c + (x d + y d) := by ring\n  smul_mem' := by\n    intro r x hx a b c d h\n    have h1 := hx a b c d h\n    simp only [Pi.smul_apply]\n    calc r • x a + r • x b = r • (x a + x b) := by rw [smul_add]\n      _ = r • (x c + x d) := by rw [h1]\n      _ = r • x c + r • x d := by rw [smul_add]",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/NusCollisionSubspace.lean",
+   "proved_at": 1792516263,
+   "provenance": "lemma",
+   "citation": "step towards nus_min_card_ge_near_quadratic",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "five_diamond_poset_ramsey_number_le",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9206,
+   "informal": "For every natural number k with 1 ≤ k, the k-color poset Ramsey number of the 5-diamond DiamondPoset 5 is at most 5 * k.",
+   "statement": "theorem five_diamond_poset_ramsey_number_le (k : ℕ) (hk : 1 ≤ k) : poset_ramsey_number (DiamondPoset 5) k ≤ 5 * k",
+   "source": "/-- For any k >= 1, the k-color poset Ramsey number of DiamondPoset 5 is at most 5 * k. -/\ntheorem five_diamond_poset_ramsey_number_le (k : ℕ) (hk : 1 ≤ k) : poset_ramsey_number (DiamondPoset 5) k ≤ 5 * k := diamond_poset_ramsey_number_le 5 (by decide) k hk",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "DiamondPoset",
+    "inst_partial_order_diamond_poset",
+    "poset_ramsey_number",
+    "diamond_poset_ramsey_number_le"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/FiveDiamondPosetRamseyNumberLe.lean",
+   "proved_at": 1792516463,
+   "provenance": "literature",
+   "citation": "arXiv:2610.20545, The k-color poset Ramsey number of the diamond is 2k, Theorem 2",
+   "lean_from": null,
+   "reading": "For every natural number $k$ such that $1 \\le k$, the poset Ramsey number of `DiamondPoset 5` with $k$ colors is at most $5k$.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "unit_incidence_matrix",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9207,
+   "informal": "The matrix whose row i is the unit difference e_{u i} − e_{v i} in Z^{n}.",
+   "statement": "def unit_incidence_matrix {m n : Type*} [DecidableEq n] (u v : m → n) : Matrix m n ℤ",
+   "source": "/-- Matrix whose rows are differences of standard basis vectors (the rows of a collision matrix after splitting into two sides). -/\ndef unit_incidence_matrix {m n : Type*} [DecidableEq n] (u v : m → n) : Matrix m n ℤ := Matrix.of (fun i j => (if u i = j then (1 : ℤ) else 0) - (if v i = j then 1 else 0))",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/UnitIncidenceMatrix.lean",
+   "proved_at": 1792516684,
+   "provenance": "lemma",
+   "citation": "step towards nus_min_card_ge_near_quadratic",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "graph_has_no_indep_six",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9208,
+   "informal": "A simple graph has no independent set of size 6 if every 6-element subset of vertices contains two distinct adjacent vertices.",
+   "statement": "def graph_has_no_indep_six {V : Type*} (G : SimpleGraph V) : Prop",
+   "source": "/-- A graph has no independent set of size 6 if every 6 vertices span at least one edge. -/\ndef graph_has_no_indep_six {V : Type*} (G : SimpleGraph V) : Prop :=\n  ∀ S : Finset V, S.card = 6 → ∃ v ∈ S, ∃ w ∈ S, G.Adj v w",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "card_edgeFinset_ge_55_of_no_indep_six",
+    "balanced_five_coloring_exists_color_class_bounds_and_properties"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/GraphHasNoIndepSix.lean",
+   "proved_at": 1792516903,
+   "provenance": "literature",
+   "citation": "scout/2610-24484-erd-h-o-s-gy-arf-as-balanced-five-colorings.md:1267",
+   "lean_from": null,
+   "reading": "Given a type `V` and a simple graph `G` on `V`, `graph_has_no_indep_six G` asserts that for every finite subset `S` of `V`, if `S` has cardinality 6, then there exist elements `v ∈ S` and `w ∈ S` such that `v` and `w` are adjacent in `G`.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "edges_ord_within",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9209,
+   "informal": "For a simple graph G and a finite subset S of vertices, the number of directed edges (ordered pairs of distinct adjacent vertices) spanned by S.",
+   "statement": "noncomputable def edges_ord_within {V : Type*} (G : SimpleGraph V) (S : Finset V) : ℕ",
+   "source": "/-- Number of ordered pairs of distinct adjacent vertices within a subset S. -/\nnoncomputable def edges_ord_within {V : Type*} (G : SimpleGraph V) (S : Finset V) : ℕ :=\n  letI : DecidableRel G.Adj := Classical.decRel _\n  (S.offDiag.filter (fun p => G.Adj p.1 p.2)).card",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "graph_satisfies_property_l",
+    "balanced_five_coloring_color_class_property_l"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/EdgesOrdWithin.lean",
+   "proved_at": 1792519416,
+   "provenance": "literature",
+   "citation": "scout/2610-24484-erd-h-o-s-gy-arf-as-balanced-five-colorings.md:1271",
+   "lean_from": null,
+   "reading": "Given a type `V`, a simple graph `G` on `V`, and a finite set of vertices `S : Finset V`, `edges_ord_within G S` is defined as the number of ordered pairs `(u, v)` in `S.offDiag` (i.e., pairs of distinct elements `u, v ∈ S`) such that `u` and `v` are adjacent in `G`. This corresponds to the number of ordered edges (or twice the number of undirected edges) of `G` with both endpoints in `S`.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "graph_satisfies_property_l",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9210,
+   "informal": "A simple graph satisfies property (L) if every 6-element subset of vertices spans at most 22 directed edges.",
+   "statement": "def graph_satisfies_property_l {V : Type*} (G : SimpleGraph V) : Prop",
+   "source": "/-- Property (L): every 6 vertices span at most 11 undirected edges (at most 22 directed edges). -/\ndef graph_satisfies_property_l {V : Type*} (G : SimpleGraph V) : Prop :=\n  ∀ S : Finset V, S.card = 6 → edges_ord_within G S ≤ 22",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "edges_ord_within"
+   ],
+   "used_by": [
+    "balanced_five_coloring_color_class_property_l",
+    "balanced_five_coloring_exists_color_class_bounds_and_properties"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/GraphSatisfiesPropertyL.lean",
+   "proved_at": 1792520815,
+   "provenance": "literature",
+   "citation": "scout/2610-24484-erd-h-o-s-gy-arf-as-balanced-five-colorings.md:1275",
+   "lean_from": null,
+   "reading": "For a simple graph `G` on a type `V`, `graph_satisfies_property_l G` asserts that for every finite subset `S` of `V` with cardinality 6, the number of ordered pairs `(u, v) ∈ S × S` with `u ≠ v` such that `u` is adjacent to `v` in `G` is at most 22 (which, since `G` is undirected and loopless, is equivalent to `S` spanning at most 11 undirected edges).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "two_counter_machine_update_step",
+   "kind": "def",
+   "is_def": true,
+   "topic": "automata",
+   "domain": "tcs",
+   "seq": 9211,
+   "informal": "The zero-test-free (update-only) one-step relation of a 2-counter machine M: an update transition from c₁.1 to c₂.1 with integer displacement (w₁, w₂) that is realised on the counters.",
+   "statement": "def two_counter_machine_update_step {Q : Type*} (M : TwoCounterMachine Q) (c₁ c₂ : Q × ℕ × ℕ) : Prop",
+   "source": "/-- The update (2-VASS) part of the one-step relation: the counters move by (w₁, w₂) and neither counter is inspected. -/\ndef two_counter_machine_update_step {Q : Type*} (M : TwoCounterMachine Q) (c₁ c₂ : Q × ℕ × ℕ) : Prop :=\n  ∃ w₁ w₂ : ℤ,\n    (c₁.1, TwoCounterInstr.update w₁ w₂, c₂.1) ∈ M.transitions ∧\n    (c₁.2.1 : ℤ) + w₁ = c₂.2.1 ∧ (c₁.2.2 : ℤ) + w₂ = c₂.2.2",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "TwoCounterInstr",
+    "TwoCounterMachine"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterMachineUpdateStep.lean",
+   "proved_at": 1792524303,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "two_counter_machine_zero_test_step",
+   "kind": "def",
+   "is_def": true,
+   "topic": "automata",
+   "domain": "tcs",
+   "seq": 9212,
+   "informal": "The zero-test one-step relation of a 2-counter machine M: a zero test on counter i is taken (which requires counter i to be 0) and the counter vector is left unchanged.",
+   "statement": "def two_counter_machine_zero_test_step {Q : Type*} (M : TwoCounterMachine Q) (c₁ c₂ : Q × ℕ × ℕ) : Prop",
+   "source": "/-- The zero-test part of the one-step relation: only the control state can change, both counters are preserved. -/\ndef two_counter_machine_zero_test_step {Q : Type*} (M : TwoCounterMachine Q) (c₁ c₂ : Q × ℕ × ℕ) : Prop :=\n  ((c₁.1, TwoCounterInstr.zeroTest₁, c₂.1) ∈ M.transitions ∧ c₁.2.1 = 0 ∧ c₂.2 = c₁.2) ∨\n  ((c₁.1, TwoCounterInstr.zeroTest₂, c₂.1) ∈ M.transitions ∧ c₁.2.2 = 0 ∧ c₂.2 = c₁.2)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "TwoCounterInstr",
+    "TwoCounterMachine"
+   ],
+   "used_by": [
+    "two_counter_machine_zero_test_state_reach"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterMachineZeroTestStep.lean",
+   "proved_at": 1792524535,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "two_counter_machine_boundary",
+   "kind": "def",
+   "is_def": true,
+   "topic": "automata",
+   "domain": "tcs",
+   "seq": 9213,
+   "informal": "A configuration of a 2-counter machine lies on the boundary if at least one of its two counters is zero.",
+   "statement": "def two_counter_machine_boundary {Q : Type*} (c : Q × ℕ × ℕ) : Prop",
+   "source": "/-- The boundary predicate: at least one counter is zero. Zero tests are enabled exactly at boundary configurations. -/\ndef two_counter_machine_boundary {Q : Type*} (c : Q × ℕ × ℕ) : Prop := c.2.1 = 0 ∨ c.2.2 = 0",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterMachineBoundary.lean",
+   "proved_at": 1792524777,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "two_counter_machine_zero_test_state_reach",
+   "kind": "def",
+   "is_def": true,
+   "topic": "automata",
+   "domain": "tcs",
+   "seq": 9214,
+   "informal": "q' is reachable from q by a sequence of zero tests while the counter vector is held fixed at p.",
+   "statement": "def two_counter_machine_zero_test_state_reach {Q : Type*} (M : TwoCounterMachine Q) (p : ℕ × ℕ) (q q' : Q) : Prop",
+   "source": "/-- Zero-test reachability at a frozen counter vector p: the reflexive-transitive closure of the zero-test step relation restricted to the fibre over p. -/\ndef two_counter_machine_zero_test_state_reach {Q : Type*} (M : TwoCounterMachine Q) (p : ℕ × ℕ) (q q' : Q) : Prop :=\n  Relation.ReflTransGen (fun a b : Q => two_counter_machine_zero_test_step M (a, p) (b, p)) q q'",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "two_counter_machine_zero_test_step",
+    "TwoCounterMachine"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/TwoCounterMachineZeroTestStateReach.lean",
+   "proved_at": 1792525016,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "card_edgeFinset_ge_55_of_no_indep_six",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9215,
+   "informal": "If a simple graph on 26 vertices has no independent set of size 6, then it has at least 55 edges.",
+   "statement": "theorem card_edgeFinset_ge_55_of_no_indep_six\n    {V : Type*} [Fintype V] [DecidableEq V] (hcard : Fintype.card V = 26)\n    (G : SimpleGraph V) [DecidableRel G.Adj] (hA : graph_has_no_indep_six G) :\n    55 ≤ G.edgeFinset.card",
+   "source": "/-- Any graph on 26 vertices with no independent set of size 6 has at least 55 edges. -/\ntheorem card_edgeFinset_ge_55_of_no_indep_six\n    {V : Type*} [Fintype V] [DecidableEq V] (hcard : Fintype.card V = 26)\n    (G : SimpleGraph V) [DecidableRel G.Adj] (hA : graph_has_no_indep_six G) :\n    55 ≤ G.edgeFinset.card := by\n  open Finset in\n  have hcf : Gᶜ.CliqueFree 6 := by\n    intro t ht\n    rw [SimpleGraph.isNClique_iff] at ht\n    obtain ⟨hcl, hcard6⟩ := ht\n    obtain ⟨v, hv, w, hw, hadj⟩ := hA t hcard6\n    have hne : v ≠ w := hadj.ne\n    have hcompl : Gᶜ.Adj v w := hcl hv hw hne\n    rw [SimpleGraph.compl_adj] at hcompl\n    exact hcompl.2 hadj\n  have hbound : (Gᶜ).edgeFinset.card ≤ 270 := by\n    have h := SimpleGraph.CliqueFree.card_edgeFinset_le (G := Gᶜ) (r := 5) hcf\n    simp [hcard] at h\n    exact h\n  have hcompl_edge : (Gᶜ).edgeFinset = (⊤ : SimpleGraph V).edgeFinset \\ G.edgeFinset := by\n    ext e\n    induction e using Sym2.ind with\n    | _ v w =>\n      simp [SimpleGraph.mem_edgeFinset, SimpleGraph.mem_edgeSet, SimpleGraph.compl_adj]\n  have hsum : (Gᶜ).edgeFinset.card + G.edgeFinset.card = 325 := by\n    rw [hcompl_edge]\n    rw [Finset.card_sdiff_add_card_eq_card\n      (SimpleGraph.edgeFinset_subset_edgeFinset.2 le_top)]\n    rw [SimpleGraph.card_edgeFinset_top_eq_card_choose_two, hcard]\n    norm_num [Nat.choose_two_right]\n  omega",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "graph_has_no_indep_six"
+   ],
+   "used_by": [
+    "balanced_five_coloring_exists_color_class_bounds_and_properties"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/CardEdgeFinsetGe55OfNoIndepSix.lean",
+   "proved_at": 1792525654,
+   "provenance": "literature",
+   "citation": "scout/2610-24484-erd-h-o-s-gy-arf-as-balanced-five-colorings.md:1291",
+   "lean_from": null,
+   "reading": "For any finite type $V$ with decidable equality having cardinality 26, and any simple graph $G$ on $V$ with decidable adjacency: if $G$ has no independent set of size 6 (i.e., `graph_has_no_indep_six G`), then the number of edges of $G$ (`G.edgeFinset.card`) is at least 55.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "edge_color_class_graph",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9216,
+   "informal": "For an arbitrary type V, given an edge coloring c : Sym2 V → Fin 5 and a color k : Fin 5, edge_color_class_graph c k is the simple graph on V where distinct vertices v, w : V are adjacent if and only if c(s(v, w)) = k.",
+   "statement": "@[reducible] def edge_color_class_graph {V : Type*} (c : Sym2 V → Fin 5) (k : Fin 5) : SimpleGraph V",
+   "source": "/-- The monochromatic subgraph for a given color under an edge coloring. -/\n@[reducible] def edge_color_class_graph {V : Type*} (c : Sym2 V → Fin 5) (k : Fin 5) : SimpleGraph V where\n  Adj v w := v ≠ w ∧ c s(v, w) = k\n  symm := ⟨fun _ _ h => ⟨h.1.symm, by rw [Sym2.eq_swap]; exact h.2⟩⟩\n  loopless := ⟨fun _ h => h.1 rfl⟩",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "balanced_five_coloring_exists_class_card_edgeFinset_le_65",
+    "balanced_five_coloring_color_class_property_l",
+    "balanced_five_coloring_exists_color_class_bounds_and_properties"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/EdgeColorClassGraph.lean",
+   "proved_at": 1792525876,
+   "provenance": "literature",
+   "citation": "scout/2610-24484-erd-h-o-s-gy-arf-as-balanced-five-colorings.md:1259",
+   "lean_from": null,
+   "reading": "Given a type `V`, a function `c : Sym2 V → Fin 5` (assigning an element of `Fin 5` to each unordered pair of elements of `V`), and a target value `k : Fin 5`, `edge_color_class_graph c k` is the simple graph on the vertex set `V` where two vertices `v, w : V` are adjacent if and only if `v ≠ w` and `c s(v, w) = k` (i.e., the monochromatic subgraph for color `k`).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_balanced_five_coloring",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9217,
+   "informal": "For an arbitrary type V, an edge coloring c : Sym2 V → Fin 5 is balanced if for every 6-element subset S : Finset V with S.card = 6 and every color k : Fin 5, there exist distinct vertices v, w ∈ S such that c(s(v, w)) = k.",
+   "statement": "def is_balanced_five_coloring {V : Type*} (c : Sym2 V → Fin 5) : Prop",
+   "source": "/-- A 5-coloring of the edges of a complete graph is balanced if every 6 vertices span all 5 colors. -/\ndef is_balanced_five_coloring {V : Type*} (c : Sym2 V → Fin 5) : Prop :=\n  ∀ S : Finset V, S.card = 6 → ∀ k : Fin 5, ∃ v ∈ S, ∃ w ∈ S, v ≠ w ∧ c s(v, w) = k",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "balanced_five_coloring_color_class_property_l",
+    "balanced_five_coloring_exists_color_class_bounds_and_properties"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/IsBalancedFiveColoring.lean",
+   "proved_at": 1792526325,
+   "provenance": "literature",
+   "citation": "scout/2610-24484-erd-h-o-s-gy-arf-as-balanced-five-colorings.md:1263",
+   "lean_from": null,
+   "reading": "For a type `V` and a function `c : Sym2 V → Fin 5` (a 5-coloring of unordered pairs of elements of `V`), `is_balanced_five_coloring c` asserts that for every finite subset `S` of `V`, if the cardinality of `S` is 6, then for every color `k : Fin 5`, there exist distinct elements `v, w ∈ S` such that `c s(v, w) = k` (i.e., every color in `Fin 5` appears at least once among the unordered pairs of distinct elements in `S`).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "balanced_five_coloring_color_class_property_l",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9218,
+   "informal": "For an arbitrary type V, in any balanced edge coloring c : Sym2 V → Fin 5, every color class graph edge_color_class_graph c k satisfies property (L).",
+   "statement": "theorem balanced_five_coloring_color_class_property_l\n    {V : Type*} (c : Sym2 V → Fin 5) (hc : is_balanced_five_coloring c) (k : Fin 5) :\n    graph_satisfies_property_l (edge_color_class_graph c k)",
+   "source": "/-- Every color class of a balanced 5-coloring satisfies property (L). -/\ntheorem balanced_five_coloring_color_class_property_l\n    {V : Type*} (c : Sym2 V → Fin 5) (hc : is_balanced_five_coloring c) (k : Fin 5) :\n    graph_satisfies_property_l (edge_color_class_graph c k) := by\n  classical\n  intro S hS\n  -- Each colour class of `S.offDiag` has at least two elements: balancedness gives one pair,\n  -- and both orders of that pair lie in the class.\n  have h2 : ∀ j : Fin 5, 2 ≤ (S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = j)).card := by\n    intro j\n    obtain ⟨v, hv, w, hw, hne, hcol⟩ := hc S hS j\n    have hvw : (v, w) ∈ S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = j) := by\n      simp only [Finset.mem_filter, Finset.mem_offDiag]\n      exact ⟨⟨hv, hw, hne⟩, hcol⟩\n    have hwv : (w, v) ∈ S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = j) := by\n      simp only [Finset.mem_filter, Finset.mem_offDiag]\n      refine ⟨⟨hw, hv, hne.symm⟩, ?_⟩\n      rw [Sym2.eq_swap]\n      exact hcol\n    have hne' : (v, w) ≠ (w, v) := fun h => hne (congrArg Prod.fst h)\n    have hpair : ({(v, w), (w, v)} : Finset (V × V)) ⊆\n        S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = j) := by\n      intro x hx\n      simp only [Finset.mem_insert, Finset.mem_singleton] at hx\n      rcases hx with rfl | rfl\n      · exact hvw\n      · exact hwv\n    have := Finset.card_le_card hpair\n    rw [Finset.card_pair hne'] at this\n    omega\n  -- The five colour classes partition the 30 ordered pairs of `S.offDiag`.\n  have hsum : ∑ j : Fin 5, (S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = j)).card = 30 := by\n    have h := Finset.card_eq_sum_card_fiberwise (s := S.offDiag)\n      (f := fun p : V × V => c s(p.1, p.2)) (t := Finset.univ)\n      (fun p _ => Finset.mem_univ _)\n    rw [Finset.offDiag_card, hS] at h\n    norm_num at h\n    exact h.symm\n  -- Hence the class of `k` has at most 30 - 4 * 2 = 22 elements.\n  have hkey : (S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = k)).card ≤ 22 := by\n    have hsplit := Finset.add_sum_erase Finset.univ\n      (fun j : Fin 5 => (S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = j)).card)\n      (Finset.mem_univ k)\n    have hbound : 8 ≤ ∑ j ∈ Finset.univ.erase k,\n        (S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = j)).card := by\n      have hc4 := Finset.card_nsmul_le_sum (Finset.univ.erase k)\n        (fun j : Fin 5 => (S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = j)).card) 2\n        (fun j _ => h2 j)\n      have hcard : (Finset.univ.erase k).card = 4 := by\n        rw [Finset.card_erase_of_mem (Finset.mem_univ k)]\n        simp\n      rw [hcard] at hc4\n      simpa using hc4\n    rw [hsum] at hsplit\n    omega\n  -- The filtered set of directed edges of the colour class is exactly this class.\n  have hEq : edges_ord_within (edge_color_class_graph c k) S\n      = (S.offDiag.filter (fun p : V × V => c s(p.1, p.2) = k)).card := by\n    rw [edges_ord_within]\n    congr 1\n    ext p\n    simp only [Finset.mem_filter, Finset.mem_offDiag]\n    tauto\n  rw [hEq]\n  exact hkey",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "edge_color_class_graph",
+    "is_balanced_five_coloring",
+    "graph_satisfies_property_l",
+    "edges_ord_within"
+   ],
+   "used_by": [
+    "balanced_five_coloring_exists_color_class_bounds_and_properties"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/BalancedFiveColoringColorClassPropertyL.lean",
+   "proved_at": 1792527407,
+   "provenance": "literature",
+   "citation": "scout/2610-24484-erd-h-o-s-gy-arf-as-balanced-five-colorings.md:1283",
+   "lean_from": null,
+   "reading": "Let $V$ be a type. Let $c : \\mathrm{Sym}^2(V) \\to \\mathrm{Fin}\\ 5$ be a 5-coloring of pairs of elements of $V$. Assume $c$ is a balanced 5-coloring (that is, for every 6-element subset $S \\subseteq V$ and every color $i \\in \\mathrm{Fin}\\ 5$, there exist distinct $v, w \\in S$ such that $c(\\{v, w\\}) = i$). Then for every color $k \\in \\mathrm{Fin}\\ 5$, the monochromatic graph for color $k$ (the simple graph on $V$ with edges between distinct $v, w$ such that $c(\\{v, w\\}) = k$) satisfies property L (that is, for every 6-element subset $S \\subseteq V$, the number of ordered pairs of distinct adjacent vertices within $S$ is at most 22).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "balanced_five_coloring_exists_class_card_edgeFinset_le_65",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9219,
+   "informal": "For an arbitrary finite type V with 26 elements, in any edge coloring c : Sym2 V → Fin 5, some color class graph has at most 65 edges.",
+   "statement": "theorem balanced_five_coloring_exists_class_card_edgeFinset_le_65\n    {V : Type*} [Fintype V] [DecidableEq V]\n    (c : Sym2 V → Fin 5) (hcard : Fintype.card V = 26) :\n    ∃ k : Fin 5, (edge_color_class_graph c k).edgeFinset.card ≤ 65",
+   "source": "lemma balanced_five_coloring_exists_class_card_edgeFinset_le_65_key_edge\n    {V : Type*} [Fintype V] [DecidableEq V]\n    (c : Sym2 V → Fin 5) (k : Fin 5) :\n    (edge_color_class_graph c k).edgeFinset = (⊤ : SimpleGraph V).edgeFinset.filter (fun e => c e = k) := by\n  ext e\n  rw [SimpleGraph.mem_edgeFinset, Finset.mem_filter, SimpleGraph.mem_edgeFinset]\n  induction e using Sym2.ind with\n  | _ a b =>\n    simp only [SimpleGraph.mem_edgeSet, edge_color_class_graph, SimpleGraph.top_adj]\n\nlemma balanced_five_coloring_exists_class_card_edgeFinset_le_65_sum_class_card\n    {V : Type*} [Fintype V] [DecidableEq V]\n    (c : Sym2 V → Fin 5) :\n    ∑ k : Fin 5, (edge_color_class_graph c k).edgeFinset.card = (⊤ : SimpleGraph V).edgeFinset.card := by\n  simp only [balanced_five_coloring_exists_class_card_edgeFinset_le_65_key_edge]\n  rw [Finset.card_eq_sum_card_fiberwise (s := (⊤ : SimpleGraph V).edgeFinset) (f := c) (t := Finset.univ)]\n  simp\n\n/-- In any 5-coloring of K_26, some color class has at most 65 edges. -/\ntheorem balanced_five_coloring_exists_class_card_edgeFinset_le_65\n    {V : Type*} [Fintype V] [DecidableEq V]\n    (c : Sym2 V → Fin 5) (hcard : Fintype.card V = 26) :\n    ∃ k : Fin 5, (edge_color_class_graph c k).edgeFinset.card ≤ 65 := by\n  by_contra h\n  push Not at h\n  have hsum := balanced_five_coloring_exists_class_card_edgeFinset_le_65_sum_class_card c\n  rw [SimpleGraph.card_edgeFinset_top_eq_card_choose_two, hcard] at hsum\n  have hch : Nat.choose 26 2 = 325 := by decide\n  rw [hch] at hsum\n  have hlower : (∑ k : Fin 5, (edge_color_class_graph c k).edgeFinset.card) ≥ 5 * 66 := by\n    calc ∑ k : Fin 5, (edge_color_class_graph c k).edgeFinset.card\n        ≥ ∑ _k : Fin 5, 66 := by\n          apply Finset.sum_le_sum\n          intro k _\n          have := h k\n          omega\n      _ = 5 * 66 := by simp\n  omega",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "edge_color_class_graph"
+   ],
+   "used_by": [
+    "balanced_five_coloring_exists_color_class_bounds_and_properties"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/BalancedFiveColoringExistsClassCardEdgeFinsetLe65.lean",
+   "proved_at": 1792527735,
+   "provenance": "literature",
+   "citation": "scout/2610-24484-erd-h-o-s-gy-arf-as-balanced-five-colorings.md:1287",
+   "lean_from": null,
+   "reading": "For any finite type V with decidable equality such that the cardinality of V is 26, and for any 5-coloring c : Sym2 V → Fin 5 of unordered pairs of elements of V, there exists a color k : Fin 5 such that the edge set of the simple graph on V with edges {v, w} (v ≠ w) satisfying c(s(v, w)) = k has cardinality at most 65.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "balanced_five_coloring_exists_color_class_bounds_and_properties",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9220,
+   "informal": "For an arbitrary finite type V with 26 elements, if c : Sym2 V → Fin 5 is a balanced edge coloring, then some color class graph has no independent set of size 6, satisfies property (L), and has between 55 and 65 edges.",
+   "statement": "theorem balanced_five_coloring_exists_color_class_bounds_and_properties\n    {V : Type*} [Fintype V] [DecidableEq V]\n    (hcard : Fintype.card V = 26) (c : Sym2 V → Fin 5) (hc : is_balanced_five_coloring c) :\n    ∃ k : Fin 5,\n      graph_has_no_indep_six (edge_color_class_graph c k) ∧\n      graph_satisfies_property_l (edge_color_class_graph c k) ∧\n      55 ≤ (edge_color_class_graph c k).edgeFinset.card ∧\n      (edge_color_class_graph c k).edgeFinset.card ≤ 65",
+   "source": "/-- Some color class of a balanced 5-coloring of K_26 has alpha <= 5, satisfies property (L), and has between 55 and 65 edges. -/\ntheorem balanced_five_coloring_exists_color_class_bounds_and_properties\n    {V : Type*} [Fintype V] [DecidableEq V]\n    (hcard : Fintype.card V = 26) (c : Sym2 V → Fin 5) (hc : is_balanced_five_coloring c) :\n    ∃ k : Fin 5,\n      graph_has_no_indep_six (edge_color_class_graph c k) ∧\n      graph_satisfies_property_l (edge_color_class_graph c k) ∧\n      55 ≤ (edge_color_class_graph c k).edgeFinset.card ∧\n      (edge_color_class_graph c k).edgeFinset.card ≤ 65 := by\n  obtain ⟨k, hk65⟩ := balanced_five_coloring_exists_class_card_edgeFinset_le_65 c hcard\n  refine ⟨k, ?_, balanced_five_coloring_color_class_property_l c hc k, ?_, hk65⟩\n  · intro S hS\n    obtain ⟨v, hv, w, hw, hvw, hc'⟩ := hc S hS k\n    exact ⟨v, hv, w, hw, hvw, hc'⟩\n  · exact card_edgeFinset_ge_55_of_no_indep_six hcard (edge_color_class_graph c k)\n      (fun S hS => by\n        obtain ⟨v, hv, w, hw, hvw, hc'⟩ := hc S hS k\n        exact ⟨v, hv, w, hw, hvw, hc'⟩)",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "edge_color_class_graph",
+    "is_balanced_five_coloring",
+    "graph_has_no_indep_six",
+    "graph_satisfies_property_l",
+    "balanced_five_coloring_color_class_property_l",
+    "balanced_five_coloring_exists_class_card_edgeFinset_le_65",
+    "card_edgeFinset_ge_55_of_no_indep_six"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/BalancedFiveColoringExistsColorClassBoundsAndProperties.lean",
+   "proved_at": 1792527960,
+   "provenance": "literature",
+   "citation": "scout/2610-24484-erd-h-o-s-gy-arf-as-balanced-five-colorings.md:324",
+   "lean_from": null,
+   "reading": "Let $V$ be a finite type with decidable equality having cardinality 26. Let $c : \\mathrm{Sym}^2(V) \\to \\{0, 1, 2, 3, 4\\}$ be a 5-coloring of pairs of vertices. Suppose $c$ is a \"balanced five coloring\", meaning that for every 6-element subset $S \\subseteq V$ and every color $k \\in \\{0, 1, 2, 3, 4\\}$, there exist distinct $v, w \\in S$ with $c(s(v, w)) = k$.\n\nThen there exists a color $k \\in \\{0, 1, 2, 3, 4\\}$ such that the simple graph $G_k$ on $V$ formed by edges of color $k$ (i.e. $v \\sim w \\iff v \\neq w \\wedge c(s(v, w)) = k$) satisfies:\n1. $G_k$ has no independent set of size 6 (every 6-element subset of $V$ contains at least one edge of $G_k$).\n2. $G_k$ satisfies \"property L\": for every 6-element subset $S \\subseteq V$, the number of directed/ordered pairs of distinct vertices $(v, w) \\in S \\times S$ with $v \\sim_{G_k} w$ is at most 22 (equivalently, the induced subgraph $G_k[S]$ has at most 11 edges).\n3. The number of edges in $G_k$ is at least 55.\n4. The number of edges in $G_k$ is at most 65.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "single_counter_symmetric_cannot_match_diag_reach",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "automata",
+   "domain": "tcs",
+   "seq": 9221,
+   "informal": "No finite-state symmetric 2-counter machine with single-counter updates can have reachability relation equal to that of the diagonal machine between false and true.",
+   "statement": "theorem single_counter_symmetric_cannot_match_diag_reach :\n    ∀ (Q' : Type) (_ : Finite Q') (M' : TwoCounterMachine Q') (_ : two_counter_machine_is_symmetric M')\n      (_ : two_counter_machine_is_single_counter_update M') (q0 q1 : Q'),\n      two_counter_machine_reach_rel M' q0 q1 ≠\n        two_counter_machine_reach_rel (⟨{(false, TwoCounterInstr.update 1 1, true)}⟩ : TwoCounterMachine Bool) false true",
+   "source": "def single_counter_symmetric_cannot_match_diag_reach_instr_abs_sum :\n    TwoCounterInstr → ℕ\n  | TwoCounterInstr.update w1 w2 => w1.natAbs + w2.natAbs\n  | _ => 0\n\nnoncomputable def single_counter_symmetric_cannot_match_diag_reach_weight_bound\n    {Q : Type*} (M : TwoCounterMachine Q) : ℕ :=\n  M.transitions.sum (fun t => single_counter_symmetric_cannot_match_diag_reach_instr_abs_sum t.2.1)\n\nlemma single_counter_symmetric_cannot_match_diag_reach_weight_bound_spec\n    {Q : Type*} (M : TwoCounterMachine Q) (q q' : Q) (w1 w2 : ℤ)\n    (hmem : (q, TwoCounterInstr.update w1 w2, q') ∈ M.transitions) :\n    w1.natAbs ≤ single_counter_symmetric_cannot_match_diag_reach_weight_bound M ∧\n      w2.natAbs ≤ single_counter_symmetric_cannot_match_diag_reach_weight_bound M := by\n  unfold single_counter_symmetric_cannot_match_diag_reach_weight_bound\n  have hnonneg : ∀ i ∈ M.transitions,\n      0 ≤ single_counter_symmetric_cannot_match_diag_reach_instr_abs_sum i.2.1 := by\n    intro i _; cases i.2.1 <;> simp [single_counter_symmetric_cannot_match_diag_reach_instr_abs_sum]\n  have hle := Finset.single_le_sum\n    (f := fun t => single_counter_symmetric_cannot_match_diag_reach_instr_abs_sum t.2.1) hnonneg hmem\n  have hval : single_counter_symmetric_cannot_match_diag_reach_instr_abs_sum\n      (TwoCounterInstr.update w1 w2) = w1.natAbs + w2.natAbs := rfl\n  rw [show (⟨q, TwoCounterInstr.update w1 w2, q'⟩ : Q × TwoCounterInstr × Q).2.1\n        = TwoCounterInstr.update w1 w2 from rfl] at hle\n  simp only [hval] at hle\n  constructor <;> omega\n\nlemma single_counter_symmetric_cannot_match_diag_reach_alt_endpoint\n    {Q : Type*} (M : TwoCounterMachine Q)\n    (hsym : two_counter_machine_is_symmetric M)\n    (hsc : two_counter_machine_is_single_counter_update M)\n    (B : ℕ)\n    (hB : ∀ (q q' : Q) (a b : ℤ),\n      (q, TwoCounterInstr.update a b, q') ∈ M.transitions → a.natAbs ≤ B ∧ b.natAbs ≤ B)\n    (s0 : Q) (x : ℕ × ℕ) (t : Q) (y : ℕ × ℕ)\n    (h : Relation.ReflTransGen (two_counter_machine_step M) (s0, x) (t, y))\n    (hxy : x ≠ y) (hbig1 : 2 * B + 1 ≤ y.1) (hbig2 : 2 * B + 1 ≤ y.2) :\n    ∃ y' : ℕ × ℕ, y' ≠ y ∧\n      Relation.ReflTransGen (two_counter_machine_step M) (s0, x) (t, y') := by\n  classical\n  revert hbig1 hbig2\n  let motive : (z : Q × ℕ × ℕ) →\n      Relation.ReflTransGen (two_counter_machine_step M) (s0, x) z → Prop :=\n    fun z _ => x ≠ z.2 → 2 * B + 1 ≤ z.2.1 → 2 * B + 1 ≤ z.2.2 →\n      ∃ y' : ℕ × ℕ, y' ≠ z.2 ∧\n        Relation.ReflTransGen (two_counter_machine_step M) (s0, x) (z.1, y')\n  have hmain : motive (t, y) h := by\n    refine Relation.ReflTransGen.rec (motive := motive) ?base ?step h\n    · intro hxx; exact absurd rfl hxx\n    · intro b c hpath hstep ih hxc hb1 hb2\n      rcases hstep with ⟨w1, w2, htrans, heq1, heq2⟩ | ⟨htr, hz, hce⟩ | ⟨htr, hz, hce⟩\n      · by_cases hzero : w1 = 0 ∧ w2 = 0\n        · obtain ⟨hw1, hw2⟩ := hzero\n          subst hw1; subst hw2\n          have hc1 : c.2.1 = b.2.1 := by omega\n          have hc2 : c.2.2 = b.2.2 := by omega\n          have hbc : b.2 = c.2 := by ext <;> simp [hc1, hc2]\n          have ihx : x ≠ b.2 := by rw [hbc]; exact hxc\n          have ihb1 : 2 * B + 1 ≤ b.2.1 := by rw [← hc1]; exact hb1\n          have ihb2 : 2 * B + 1 ≤ b.2.2 := by rw [← hc2]; exact hb2\n          obtain ⟨y', hy'ne, hy'path⟩ := ih ihx ihb1 ihb2\n          refine ⟨y', ?_, ?_⟩\n          · rw [← hbc]; exact hy'ne\n          · exact Relation.ReflTransGen.tail hy'path\n              (Or.inl ⟨0, 0, by simpa using htrans, by simp, by simp⟩)\n        · have hsingle : w1 = 0 ∨ w2 = 0 := hsc b.1 c.1 w1 w2 htrans\n          have hwne : w1 ≠ w2 := by\n            intro he\n            apply hzero\n            rcases hsingle with h1 | h2\n            · subst h1; subst he; exact ⟨rfl, rfl⟩\n            · subst h2; subst he; exact ⟨rfl, rfl⟩\n          obtain ⟨hbw1, hbw2⟩ := hB b.1 c.1 w1 w2 htrans\n          have hbnd1 : |w1| ≤ (B : ℤ) := by\n            rw [← Int.natCast_natAbs]; exact_mod_cast hbw1\n          have hbnd2 : |w2| ≤ (B : ℤ) := by\n            rw [← Int.natCast_natAbs]; exact_mod_cast hbw2\n          have hbnd1lo := (abs_le.mp hbnd1).1\n          have hbnd1hi := (abs_le.mp hbnd1).2\n          have hbnd2lo := (abs_le.mp hbnd2).1\n          have hbnd2hi := (abs_le.mp hbnd2).2\n          have hpos1 : (0 : ℤ) ≤ (b.2.1 : ℤ) + w2 := by\n            have : (b.2.1 : ℤ) = (c.2.1 : ℤ) - w1 := by omega\n            rw [this]; omega\n          have hpos2 : (0 : ℤ) ≤ (b.2.2 : ℤ) + w1 := by\n            have : (b.2.2 : ℤ) = (c.2.2 : ℤ) - w2 := by omega\n            rw [this]; omega\n          refine ⟨(((b.2.1 : ℤ) + w2).toNat, ((b.2.2 : ℤ) + w1).toNat), ?_, ?_⟩\n          · intro heq\n            have h1' : (↑(((b.2.1 : ℤ) + w2).toNat) : ℤ) = (c.2.1 : ℤ) := by\n              have := congrArg (fun p : ℕ × ℕ => p.1) heq\n              exact_mod_cast this\n            rw [Int.toNat_of_nonneg hpos1] at h1'\n            have hEq : ((b.2.1 : ℤ) + w1) = (c.2.1 : ℤ) := heq1\n            omega\n          · exact Relation.ReflTransGen.tail hpath\n              (Or.inl ⟨w2, w1, hsym b.1 c.1 w1 w2 htrans,\n                by rw [Int.toNat_of_nonneg hpos1], by rw [Int.toNat_of_nonneg hpos2]⟩)\n      · have : c.2.1 = 0 := by rw [hce, hz]\n        omega\n      · have : c.2.2 = 0 := by rw [hce, hz]\n        omega\n  exact hmain hxy\n\n/-- No finite-state symmetric 2-counter machine with single-counter updates can reproduce the reachability relation of the diagonal machine. -/\ntheorem single_counter_symmetric_cannot_match_diag_reach :\n    ∀ (Q' : Type) (_ : Finite Q') (M' : TwoCounterMachine Q') (_ : two_counter_machine_is_symmetric M')\n      (_ : two_counter_machine_is_single_counter_update M') (q0 q1 : Q'),\n      two_counter_machine_reach_rel M' q0 q1 ≠\n        two_counter_machine_reach_rel (⟨{(false, TwoCounterInstr.update 1 1, true)}⟩ : TwoCounterMachine Bool) false true := by\n  intro Q' _ M' hsym hsc q0 q1 hEq\n  exfalso\n  classical\n  let B : ℕ := single_counter_symmetric_cannot_match_diag_reach_weight_bound M'\n  have hB : ∀ (q q' : Q') (a b : ℤ),\n      (q, TwoCounterInstr.update a b, q') ∈ M'.transitions → a.natAbs ≤ B ∧ b.natAbs ≤ B :=\n    fun q q' a b h => single_counter_symmetric_cannot_match_diag_reach_weight_bound_spec M' q q' a b h\n  let u : ℕ × ℕ := (2 * B + 1, 2 * B + 1)\n  let w : ℕ × ℕ := (u.1 + 1, u.2 + 1)\n  have hwd : (u, w) ∈ two_counter_machine_reach_rel\n      (⟨{(false, TwoCounterInstr.update 1 1, true)}⟩ : TwoCounterMachine Bool) false true := by\n    rw [diag_two_counter_machine_reach_rel_iff]\n    exact ⟨rfl, rfl⟩\n  rw [← hEq] at hwd\n  have hpath : Relation.ReflTransGen (two_counter_machine_step M') (q0, u) (q1, w) := by\n    simpa only [two_counter_machine_reach_rel, Set.mem_ofPred_eq] using hwd\n  have hxy : u ≠ w := by\n    intro hh\n    have := congrArg (fun p : ℕ × ℕ => p.1) hh\n    simp [w] at this\n  have hbig1 : 2 * B + 1 ≤ w.1 := by simp [w, u]\n  have hbig2 : 2 * B + 1 ≤ w.2 := by simp [w, u]\n  obtain ⟨y', hy'ne, hy'path⟩ :=\n    single_counter_symmetric_cannot_match_diag_reach_alt_endpoint M' hsym hsc B hB q0 u q1 w hpath hxy hbig1 hbig2\n  have hmemM : (u, y') ∈ two_counter_machine_reach_rel M' q0 q1 := by\n    simpa only [two_counter_machine_reach_rel, Set.mem_ofPred_eq] using hy'path\n  rw [hEq] at hmemM\n  rw [diag_two_counter_machine_reach_rel_iff] at hmemM\n  apply hy'ne\n  ext\n  · exact hmemM.1\n  · exact hmemM.2",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "single_counter_step_preserves_one_coord",
+    "diag_two_counter_machine_is_symmetric",
+    "diag_two_counter_machine_reach_rel_iff",
+    "TwoCounterInstr",
+    "two_counter_machine_is_single_counter_update",
+    "TwoCounterMachine",
+    "two_counter_machine_step",
+    "two_counter_machine_is_symmetric",
+    "two_counter_machine_reach_rel"
+   ],
+   "used_by": [
+    "op_360_single_counter_update_strictly_less_expressive"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/SingleCounterSymmetricCannotMatchDiagReach.lean",
+   "proved_at": 1792528498,
+   "provenance": "lemma",
+   "citation": "step towards op_360_single_counter_update_strictly_less_expressive",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "op_360_single_counter_update_strictly_less_expressive",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "automata",
+   "domain": "tcs",
+   "seq": 9222,
+   "informal": "There exists a symmetric 2-counter machine M over a finite state type Q and states q, q' in Q whose reachability relation two_counter_machine_reach_rel M q q' cannot be realized as the reachability relation two_counter_machine_reach_rel M' q0 q1 between any states q0, q1 of any finite-state symmetric 2-counter machine M' with single-counter updates.",
+   "statement": "theorem op_360_single_counter_update_strictly_less_expressive :\n    ∃ (Q : Type) (_ : Finite Q) (M : TwoCounterMachine Q) (_ : two_counter_machine_is_symmetric M) (q q' : Q),\n      ∀ (Q' : Type) (_ : Finite Q') (M' : TwoCounterMachine Q') (_ : two_counter_machine_is_symmetric M')\n        (_ : two_counter_machine_is_single_counter_update M') (q0 q1 : Q'),\n        two_counter_machine_reach_rel M' q0 q1 ≠ two_counter_machine_reach_rel M q q'",
+   "source": "/-- Open Problem OP-360: The single-counter update fragment of symmetric 2-counter machines is strictly less expressive in terms of reachability relations than unrestricted symmetric 2-counter machines. -/\ntheorem op_360_single_counter_update_strictly_less_expressive :\n    ∃ (Q : Type) (_ : Finite Q) (M : TwoCounterMachine Q) (_ : two_counter_machine_is_symmetric M) (q q' : Q),\n      ∀ (Q' : Type) (_ : Finite Q') (M' : TwoCounterMachine Q') (_ : two_counter_machine_is_symmetric M')\n        (_ : two_counter_machine_is_single_counter_update M') (q0 q1 : Q'),\n        two_counter_machine_reach_rel M' q0 q1 ≠ two_counter_machine_reach_rel M q q' := by\n  refine ⟨Bool, inferInstance, ⟨{(false, TwoCounterInstr.update 1 1, true)}⟩,\n    diag_two_counter_machine_is_symmetric, false, true, ?_⟩\n  intro Q' hQ' M' hsymm hsc q0 q1\n  exact single_counter_symmetric_cannot_match_diag_reach Q' hQ' M' hsymm hsc q0 q1",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "two_counter_machine_is_symmetric",
+    "two_counter_machine_is_single_counter_update",
+    "two_counter_machine_reach_rel",
+    "single_counter_step_preserves_one_coord",
+    "diag_two_counter_machine_is_symmetric",
+    "diag_two_counter_machine_reach_rel_iff",
+    "single_counter_symmetric_cannot_match_diag_reach",
+    "TwoCounterInstr",
+    "TwoCounterMachine"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/Op360SingleCounterUpdateStrictlyLessExpressive.lean",
+   "proved_at": 1792530361,
+   "provenance": "literature",
+   "citation": "scout/2610-23495-symmetric-two-counter-machines.md:304",
+   "lean_from": null,
+   "reading": "There exist a finite state type $Q$ (in `Type 0`), a two-counter machine $M$ over $Q$ whose counter-update transitions are symmetric (whenever $(q, \\text{update}(w_1, w_2), q') \\in M.\\text{transitions}$, the swapped transition $(q, \\text{update}(w_2, w_1), q')$ is also in $M.\\text{transitions}$), and states $q, q' \\in Q$, such that:\nfor every finite state type $Q'$ (in `Type 0`), every two-counter machine $M'$ over $Q'$, if $M'$ has symmetric counter-update transitions and all its update transitions update at most one counter (for every $(q_a, \\text{update}(w_1, w_2), q_b) \\in M'.\\text{transitions}$, $w_1 = 0 \\lor w_2 = 0$), then for all states $q_0, q_1 \\in Q'$,\nthe counter reachability relation from $q_0$ to $q_1$ in $M'$ does not equal the counter reachability relation from $q$ to $q'$ in $M$.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "is_pseudometric",
+   "kind": "def",
+   "is_def": true,
+   "topic": "algorithms",
+   "domain": "tcs",
+   "seq": 9223,
+   "informal": "For an arbitrary type V and function d : V → V → ℝ, d is a pseudometric if d(u, u) = 0 for all u : V, d(u, v) = d(v, u) for all u, v : V, and d(u, w) ≤ d(u, v) + d(v, w) for all u, v, w : V.",
+   "statement": "def is_pseudometric {V : Type*} (d : V → V → ℝ) : Prop",
+   "source": "/-- A pseudometric satisfies reflexivity, symmetry, and the triangle inequality. -/\ndef is_pseudometric {V : Type*} (d : V → V → ℝ) : Prop :=\n  (∀ u, d u u = 0) ∧ (∀ u v, d u v = d v u) ∧ (∀ u v w, d u w ≤ d u v + d v w)",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/IsPseudometric.lean",
+   "proved_at": 1792529460,
+   "provenance": "literature",
+   "citation": "arXiv:2610.23032 Section 4",
+   "lean_from": null,
+   "reading": "Given a type `V` and a function `d : V → V → ℝ`, `is_pseudometric d` is defined as the conjunction of three conditions:\n1. `∀ u : V, d u u = 0` (identity of indiscernibles in one direction: every point has distance 0 to itself),\n2. `∀ u v : V, d u v = d v u` (symmetry), and\n3. `∀ u v w : V, d u w ≤ d u v + d v w` (the triangle inequality).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "ordinal_profile_consistent",
+   "kind": "def",
+   "is_def": true,
+   "topic": "algorithms",
+   "domain": "tcs",
+   "seq": 9224,
+   "informal": "Given a distance function d : V → V → ℝ and an ordinal profile represented as a family of linear orders π : V → LinearOrder V, π is consistent with d if for all i, j, k : V, whenever j < k according to the linear order π i, we have d(i, j) ≤ d(i, k).",
+   "statement": "def ordinal_profile_consistent {V : Type*} (d : V → V → ℝ) (π : V → LinearOrder V) : Prop",
+   "source": "/-- An ordinal profile is consistent with a pseudometric d if preference implies smaller or equal distance. -/\ndef ordinal_profile_consistent {V : Type*} (d : V → V → ℝ) (π : V → LinearOrder V) : Prop :=\n  ∀ i j k : V, @LT.lt V (π i).toLT j k → d i j ≤ d i k",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/OrdinalProfileConsistent.lean",
+   "proved_at": 1792529929,
+   "provenance": "literature",
+   "citation": "arXiv:2610.23032 Section 4",
+   "lean_from": null,
+   "reading": "Given a type `V`, a distance/cost function `d : V → V → ℝ`, and a family of linear orders `π : V → LinearOrder V` assigning a linear order on `V` to each element `i : V`, `ordinal_profile_consistent d π` asserts that for all `i, j, k : V`, if `j < k` in the linear order `π i`, then `d i j ≤ d i k`.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "galvin_conflict_arc",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9225,
+   "informal": "Galvin's orientation of the conflict graph of a properly edge-coloured bipartite multigraph, in fibre form. Read f e as the left endpoint (part X) and g e as the right endpoint (part Y). Two edges conflict when they are distinct and share a left or a right endpoint. At a shared left endpoint arcs go from the larger colour m to the smaller; at a shared right endpoint from the smaller colour to the larger. On a pair of parallel edges (same f and same g) both disjuncts fire, so such a pair carries a digon -- this is deliberate and necessary.",
+   "statement": "def galvin_conflict_arc {α : Type*} (f g m : α → ℕ) (e₁ e₂ : α) : Prop",
+   "source": "/-- Galvin's orientation of the line graph of a properly edge-coloured bipartite multigraph (f = left endpoint, g = right endpoint, digons kept on parallel edges). -/\ndef galvin_conflict_arc {α : Type*} (f g m : α → ℕ) (e₁ e₂ : α) : Prop := e₁ ≠ e₂ ∧ ((f e₁ = f e₂ ∧ m e₂ < m e₁) ∨ (g e₁ = g e₂ ∧ m e₁ < m e₂))",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/GalvinConflictArc.lean",
+   "proved_at": 1792530121,
+   "provenance": "lemma",
+   "citation": "step towards galvin_bipartite_multigraph_list_edge_colouring",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "graph_cost",
+   "kind": "def",
+   "is_def": true,
+   "topic": "algorithms",
+   "domain": "tcs",
+   "seq": 9226,
+   "informal": "For a finite vertex type V with [Fintype V], a pairwise distance function d : V → V → ℝ, and a simple graph T on V, graph_cost d T is defined as (1/2) * ∑ u : V, ∑ v : V, if T.Adj u v then d u v else 0.",
+   "statement": "noncomputable def graph_cost {V : Type*} [Fintype V] (d : V → V → ℝ) (T : SimpleGraph V) : ℝ",
+   "source": "/-- The total cost of a graph under distance function d. -/\nnoncomputable def graph_cost {V : Type*} [Fintype V] (d : V → V → ℝ) (T : SimpleGraph V) : ℝ :=\n  letI : DecidableRel T.Adj := Classical.decRel _\n  (1 / 2 : ℝ) * ∑ u : V, ∑ v : V, if T.Adj u v then d u v else 0",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/GraphCost.lean",
+   "proved_at": 1792530313,
+   "provenance": "literature",
+   "citation": "arXiv:2610.23032 Section 4",
+   "lean_from": null,
+   "reading": "Given a finite type `V`, a cost/weight function `d : V → V → ℝ`, and a simple graph `T : SimpleGraph V`, `graph_cost d T` is defined as half the sum over all ordered pairs of vertices `(u, v) : V × V` of `d u v` if `u` and `v` are adjacent in `T`, and `0` otherwise:\n  `(1 / 2) * ∑ u : V, ∑ v : V, if T.Adj u v then d u v else 0`.",
    "roundtrip": "faithful",
    "explanation": null,
    "trace": null,
@@ -681059,36 +681912,6 @@
    "created": 1792502649
   },
   {
-   "name": "saddle_gap_first_payoff_pure_ge_of_sub_ge",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "equilibria",
-   "domain": "game_theory_economics",
-   "informal": "For an n-by-n matrix A with nonnegative entries, probability vectors a and b in `stdSimplex ℝ (Fin n)`, and real number v, if `Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v` for all k in Fin n, then `Matrix.vecMul a.val A k ≥ v` for all k in Fin n.",
-   "statement": "lemma saddle_gap_first_payoff_pure_ge_of_sub_ge {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (a b : stdSimplex ℝ (Fin n)) (v : ℝ) (h : ∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) (k : Fin n) : Matrix.vecMul a.val A k ≥ v",
-   "attempts": 0,
-   "deps": [],
-   "problem": null,
-   "provenance": "lemma",
-   "citation": "arXiv:2610.25524 Lemma 4.2",
-   "created": 1792508270
-  },
-  {
-   "name": "saddle_gap_self_payoff_ge_two_v_of_sub_ge",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "equilibria",
-   "domain": "game_theory_economics",
-   "informal": "For an n-by-n matrix A with nonnegative entries, probability vectors a and b in `stdSimplex ℝ (Fin n)`, and real number v, if `Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v` for all k in Fin n, then `dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v`.",
-   "statement": "lemma saddle_gap_self_payoff_ge_two_v_of_sub_ge {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (a b : stdSimplex ℝ (Fin n)) (v : ℝ) (h : ∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) : dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v",
-   "attempts": 0,
-   "deps": [],
-   "problem": null,
-   "provenance": "lemma",
-   "citation": "arXiv:2610.25524 Lemma 4.2",
-   "created": 1792508584
-  },
-  {
    "name": "irr_step_changed_agent_strict",
    "kind": "theorem",
    "status": "stated",
@@ -681612,12 +682435,48 @@
    "statement": "theorem op_153_eventually_subexp_bound_positive_quadratic (g : Polynomial ℤ)\n    (hdeg : g.degree = 2) (hint : is_intersective g)\n    (hpos : ∀ n : ℕ, 0 < n → 0 < g.eval (n : ℤ)) :\n    ∃ c > 0, ∃ C > 0, ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N →\n      ∀ A ⊆ Finset.Icc 1 N,\n      (∀ a ∈ A, ∀ b ∈ A, a ≠ b → ¬ ∃ n : ℕ, 0 < n ∧ (a : ℤ) - b = g.eval (n : ℤ)) →\n      (A.card : ℝ) ≤ C * (N : ℝ) * Real.exp (-c * Real.sqrt (Real.log (N : ℝ) * Real.log (Real.log (N : ℝ))))",
    "attempts": 0,
    "deps": [
-    "op_153_positive_quadratic_eventually_strict_mono"
+    "op_153_positive_quadratic_eventually_strict_mono",
+    "op_153_positive_quadratic_eventually_quadratic_lower_bound",
+    "op_153_positive_quadratic_sublevel_card_bound"
    ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards op_153_subexp_bound_intersective_quadratic",
    "created": 1792439240
+  },
+  {
+   "name": "op_153_positive_quadratic_eventually_quadratic_lower_bound",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "elementary_number_theory",
+   "domain": "number_theory",
+   "informal": "A degree-2 integer polynomial strictly positive on positive integers satisfies $n^2 \\le 2 g(n)$ for all sufficiently large positive integers $n$.",
+   "statement": "theorem op_153_positive_quadratic_eventually_quadratic_lower_bound (g : Polynomial ℤ)\n    (hdeg : g.degree = 2) (hpos : ∀ n : ℕ, 0 < n → 0 < g.eval (n : ℤ)) :\n    ∃ M : ℕ, ∀ n : ℕ, M ≤ n → (n : ℤ) ^ 2 ≤ 2 * g.eval (n : ℤ)",
+   "attempts": 0,
+   "deps": [
+    "op_153_positive_quadratic_eventually_strict_mono"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards op_153_eventually_subexp_bound_positive_quadratic",
+   "created": 1792525882
+  },
+  {
+   "name": "op_153_positive_quadratic_sublevel_card_bound",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "elementary_number_theory",
+   "domain": "number_theory",
+   "informal": "For a degree-2 integer polynomial strictly positive on positive integers, the number of positive integers $n \\le N$ with $g(n) \\le N$ is $O(\\sqrt{N})$.",
+   "statement": "theorem op_153_positive_quadratic_sublevel_card_bound (g : Polynomial ℤ)\n    (hdeg : g.degree = 2) (hpos : ∀ n : ℕ, 0 < n → 0 < g.eval (n : ℤ)) :\n    ∃ C > 0, ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N →\n      (((Finset.Icc 1 N).filter (fun (n : ℕ) => g.eval (n : ℤ) ≤ (N : ℤ))).card : ℝ) ≤\n        C * Real.sqrt (N : ℝ)",
+   "attempts": 0,
+   "deps": [
+    "op_153_positive_quadratic_eventually_quadratic_lower_bound"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards op_153_eventually_subexp_bound_positive_quadratic",
+   "created": 1792525905
   },
   {
    "name": "op_153_subexp_bound_intersective_quadratic",
@@ -681749,6 +682608,40 @@
    "created": 1790914775
   },
   {
+   "name": "is_submodular_add",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "submodular",
+   "domain": "optimization",
+   "informal": "The pointwise sum of two submodular set functions is submodular.",
+   "statement": "theorem is_submodular_add {m : ℕ} (f g : Finset (Fin m) → ℝ) (hf : is_submodular f) (hg : is_submodular g) : is_submodular (f + g)",
+   "attempts": 0,
+   "deps": [
+    "is_submodular"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_symmetry_gap_integral_lt_eight_seventeenths",
+   "created": 1792527972
+  },
+  {
+   "name": "is_submodular_smul_nonneg",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "submodular",
+   "domain": "optimization",
+   "informal": "Non-negative scaling preserves submodularity of a set function.",
+   "statement": "theorem is_submodular_smul_nonneg {m : ℕ} (c : ℝ) (hc : 0 ≤ c) (f : Finset (Fin m) → ℝ) (hf : is_submodular f) : is_submodular (c • f)",
+   "attempts": 0,
+   "deps": [
+    "is_submodular"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_symmetry_gap_integral_lt_eight_seventeenths",
+   "created": 1792527993
+  },
+  {
    "name": "matroid_symmetry_gap_integral_lt_eight_seventeenths",
    "kind": "theorem",
    "status": "stated",
@@ -681758,7 +682651,12 @@
    "statement": "theorem matroid_symmetry_gap_integral_lt_eight_seventeenths :\n    ∃ (m : ℕ) (M : Matroid (Fin m)) (f : Finset (Fin m) → ℝ) (G : Subgroup (Equiv.Perm (Fin m))),\n      (∀ S, 0 ≤ f S) ∧ is_submodular f ∧ is_strongly_symmetric_instance M f G ∧\n      sSup ((fun x => multilinear_extension f (perm_group_symmetrize G x)) '' matroid_polytope M) <\n        8 / 17 * sSup (f '' {S : Finset (Fin m) | M.Indep ↑S})",
    "attempts": 0,
    "deps": [
-    "symmetry_gap_numerator_eq_sSup_fixed"
+    "symmetry_gap_numerator_eq_sSup_fixed",
+    "is_submodular_add",
+    "is_submodular_smul_nonneg",
+    "multilinear_extension_add",
+    "multilinear_extension_smul",
+    "multilinear_extension_nonneg"
    ],
    "problem": null,
    "provenance": "lemma",
@@ -681796,6 +682694,74 @@
    "created": 1791434771
   },
   {
+   "name": "multilinear_extension_add",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "submodular",
+   "domain": "optimization",
+   "informal": "The multilinear extension of a sum of set functions is the sum of their multilinear extensions.",
+   "statement": "theorem multilinear_extension_add {m : ℕ} (f g : Finset (Fin m) → ℝ) (x : Fin m → ℝ) : multilinear_extension (f + g) x = multilinear_extension f x + multilinear_extension g x",
+   "attempts": 0,
+   "deps": [
+    "multilinear_extension"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_symmetry_gap_integral_lt_eight_seventeenths",
+   "created": 1792528014
+  },
+  {
+   "name": "multilinear_extension_nonneg",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "submodular",
+   "domain": "optimization",
+   "informal": "The multilinear extension of a non-negative set function evaluated on the unit hypercube is non-negative.",
+   "statement": "theorem multilinear_extension_nonneg {m : ℕ} (f : Finset (Fin m) → ℝ) (hf : ∀ S, 0 ≤ f S) (x : Fin m → ℝ) (hx : ∀ u, 0 ≤ x u ∧ x u ≤ 1) : 0 ≤ multilinear_extension f x",
+   "attempts": 0,
+   "deps": [
+    "multilinear_extension"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_symmetry_gap_integral_lt_eight_seventeenths",
+   "created": 1792528057
+  },
+  {
+   "name": "multilinear_extension_smul",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "submodular",
+   "domain": "optimization",
+   "informal": "The multilinear extension commutes with scalar multiplication.",
+   "statement": "theorem multilinear_extension_smul {m : ℕ} (c : ℝ) (f : Finset (Fin m) → ℝ) (x : Fin m → ℝ) : multilinear_extension (c • f) x = c * multilinear_extension f x",
+   "attempts": 0,
+   "deps": [
+    "multilinear_extension"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_symmetry_gap_integral_lt_eight_seventeenths",
+   "created": 1792528036
+  },
+  {
+   "name": "linear_flattening_testable_dim_zero",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algebraic_complexity",
+   "domain": "tcs",
+   "informal": "At dimension n = 0 the secant variety σ_r((ℂ⁰)⊗³) is never testable by the linear flattening method, for any r: the tensor space is a subsingleton, so every linear flattening has rank 0 on every tensor.",
+   "statement": "theorem linear_flattening_testable_dim_zero (r : ℕ) : ¬ linear_flattening_testable 0 r",
+   "attempts": 0,
+   "deps": [
+    "linear_flattening_testable"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards linear_flattening_testable_even_step",
+   "created": 1792527020
+  },
+  {
    "name": "linear_flattening_testable_even_step",
    "kind": "theorem",
    "status": "stated",
@@ -681806,12 +682772,105 @@
    "attempts": 0,
    "deps": [
     "linear_flattening_testable",
-    "linear_flattening_testable_of_rank_le"
+    "linear_flattening_testable_of_rank_le",
+    "linear_flattening_testable_succ_dim",
+    "linear_flattening_testable_mono_dim",
+    "linear_flattening_testable_zero_order",
+    "linear_flattening_testable_one_iff_zero",
+    "linear_flattening_testable_dim_zero",
+    "linear_flattening_testable_order_gap_four"
    ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards op100_linear_flattening_potency_gt_even",
    "created": 1792444352
+  },
+  {
+   "name": "linear_flattening_testable_mono_dim",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algebraic_complexity",
+   "domain": "tcs",
+   "informal": "Testability is monotone in the tensor dimension: if σ_r((ℂⁿ)⊗³) is testable by linear flattenings and n ≤ m, then so is σ_r((ℂᵐ)⊗³).",
+   "statement": "theorem linear_flattening_testable_mono_dim {n m r : ℕ} (hnm : n ≤ m)\n    (h : linear_flattening_testable n r) : linear_flattening_testable m r",
+   "attempts": 0,
+   "deps": [
+    "linear_flattening_testable_succ_dim",
+    "linear_flattening_testable"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards linear_flattening_testable_even_step",
+   "created": 1792526920
+  },
+  {
+   "name": "linear_flattening_testable_one_iff_zero",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algebraic_complexity",
+   "domain": "tcs",
+   "informal": "At dimension n = 1 the secant variety σ_r((ℂ¹)⊗³) is testable by the linear flattening method if and only if r = 0, i.e. the supremum of the potency over all linear flattenings on (ℂ¹)⊗³ is exactly 1.",
+   "statement": "theorem linear_flattening_testable_one_iff_zero (r : ℕ) :\n    linear_flattening_testable 1 r ↔ r = 0",
+   "attempts": 0,
+   "deps": [
+    "linear_flattening_testable_zero_order",
+    "linear_flattening_testable"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards linear_flattening_testable_even_step",
+   "created": 1792526958
+  },
+  {
+   "name": "linear_flattening_testable_order_gap_four",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algebraic_complexity",
+   "domain": "tcs",
+   "informal": "At the fixed dimension n = k+2 (k ≥ 4), testability at order 2k-2 upgrades to testability at order 2k+2 = 2(k+2)-2; i.e. if the optimal potency at dimension k+2 exceeds 2k-2 then it exceeds 2(k+2)-2.",
+   "statement": "theorem linear_flattening_testable_order_gap_four (k : ℕ) (hk : 4 ≤ k)\n    (h : linear_flattening_testable (k + 2) (2 * k - 2)) :\n    linear_flattening_testable (k + 2) (2 * (k + 2) - 2)",
+   "attempts": 0,
+   "deps": [
+    "linear_flattening_testable"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards linear_flattening_testable_even_step",
+   "created": 1792527059
+  },
+  {
+   "name": "linear_flattening_testable_succ_dim",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algebraic_complexity",
+   "domain": "tcs",
+   "informal": "Testability is monotone in the tensor dimension at fixed order: if a linear flattening on (ℂⁿ)⊗³ has potency greater than r, then so does one on (ℂ^{n+1})⊗³, obtained by restricting a tensor to its first n coordinates in each mode.",
+   "statement": "theorem linear_flattening_testable_succ_dim {n r : ℕ}\n    (h : linear_flattening_testable n r) : linear_flattening_testable (n + 1) r",
+   "attempts": 0,
+   "deps": [
+    "linear_flattening_testable"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards linear_flattening_testable_even_step",
+   "created": 1792526904
+  },
+  {
+   "name": "linear_flattening_testable_zero_order",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algebraic_complexity",
+   "domain": "tcs",
+   "informal": "For every n ≥ 1, σ_0((ℂⁿ)⊗³) is testable by the linear flattening method (some linear flattening has potency greater than 0), so the predicate `linear_flattening_testable` is not vacuously false.",
+   "statement": "theorem linear_flattening_testable_zero_order (n : ℕ) (hn : 1 ≤ n) :\n    linear_flattening_testable n 0",
+   "attempts": 0,
+   "deps": [
+    "linear_flattening_testable"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards linear_flattening_testable_even_step",
+   "created": 1792526941
   },
   {
    "name": "matrix3_tensor_rank_int_le_22",
@@ -681913,12 +682972,103 @@
    "attempts": 0,
    "deps": [
     "tarski_box_query_le",
-    "tarski_box_query_le_imp_query_complexity"
+    "tarski_box_query_le_imp_query_complexity",
+    "tarski_box_query_le_mono_budget",
+    "tarski_box_query_le_zero_dim",
+    "tarski_box_query_le_polylog",
+    "tarski_box_query_le_two_five",
+    "tarski_box_query_le_log_sq_of_nat_budget"
    ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards tarski_query_complexity_five_le_log_sq",
    "created": 1792283427
+  },
+  {
+   "name": "tarski_box_query_le_log_sq_of_nat_budget",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algorithms",
+   "domain": "tcs",
+   "informal": "Assembly step: if some natural constant C gives, for every n ≥ 2, a five-dimensional box algorithm with at most C·(log₂ n + 2)² queries, then the real-constant O(log² n) box statement holds (with constant 9C + 1). Hence the target is equivalent in practice to the ℕ-valued budget form, and log-arithmetic can be kept out of the algorithmic argument entirely.",
+   "statement": "theorem tarski_box_query_le_log_sq_of_nat_budget\n    (h : ∃ C : ℕ, ∀ n : ℕ, 2 ≤ n → tarski_box_query_le n 5 (C * (Nat.log 2 n + 2) ^ 2)) :\n    ∃ C : ℝ, ∀ n : ℕ, 2 ≤ n → ∃ q : ℕ,\n      tarski_box_query_le n 5 q ∧ (q : ℝ) ≤ C * Real.logb 2 n ^ 2",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards tarski_box_query_le_five_log_sq",
+   "created": 1792513353
+  },
+  {
+   "name": "tarski_box_query_le_mono_budget",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algorithms",
+   "domain": "tcs",
+   "informal": "The box-local query invariant is monotone in the query budget: a box algorithm using at most q queries also satisfies the invariant for every larger budget q'.",
+   "statement": "theorem tarski_box_query_le_mono_budget (n k q q' : ℕ)\n    (h : tarski_box_query_le n k q) (hle : q ≤ q') : tarski_box_query_le n k q'",
+   "attempts": 0,
+   "deps": [
+    "tarski_box_query_le"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards tarski_box_query_le_five_log_sq",
+   "created": 1792513210
+  },
+  {
+   "name": "tarski_box_query_le_polylog",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algorithms",
+   "domain": "tcs",
+   "informal": "Box-form state of the art: for every dimension k there is a constant C such that every sub-box of [n]^k admits a box algorithm with at most C·(log₂ n + 2)^k queries, for all n ≥ 1. In particular k = 5 gives log⁵ n, whereas the open target asks for log² n at k = 5 — this node fixes the baseline the target must beat, in box-local (uniform-in-box) form rather than the ambient form of tarski_query_complexity_le_polylog.",
+   "statement": "theorem tarski_box_query_le_polylog (k : ℕ) :\n    ∃ C : ℕ, ∀ n : ℕ, 1 ≤ n → tarski_box_query_le n k (C * (Nat.log 2 n + 2) ^ k)",
+   "attempts": 0,
+   "deps": [
+    "tarski_box_query_le_zero_dim",
+    "tarski_box_query_le_mono_budget",
+    "tarski_box_query_le_succ_halving"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards tarski_box_query_le_five_log_sq",
+   "created": 1792513316
+  },
+  {
+   "name": "tarski_box_query_le_two_five",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algorithms",
+   "domain": "tcs",
+   "informal": "Small instance at the exact target parameters: in dimension 5 over the two-element grid, every box is solvable with at most 2^5 = 32 queries. Consequently the box invariant of the open target is inhabited at (n, k) = (2, 5), and any constant in the target must be at least 32.",
+   "statement": "theorem tarski_box_query_le_two_five : tarski_box_query_le 2 5 32",
+   "attempts": 0,
+   "deps": [
+    "tarski_box_query_le_small"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards tarski_box_query_le_five_log_sq",
+   "created": 1792513332
+  },
+  {
+   "name": "tarski_box_query_le_zero_dim",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "algorithms",
+   "domain": "tcs",
+   "informal": "Dimension zero is free: in dimension 0 (the one-point box) one query suffices, for every n and every box.",
+   "statement": "theorem tarski_box_query_le_zero_dim (n : ℕ) : tarski_box_query_le n 0 1",
+   "attempts": 0,
+   "deps": [
+    "tarski_box_query_le",
+    "TarskiQueryTree"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards tarski_box_query_le_five_log_sq",
+   "created": 1792513226
   },
   {
    "name": "tarski_query_complexity_five_le_log_sq",
@@ -682008,17 +683158,53 @@
   {
    "name": "op_98_repairs_free_bound",
    "kind": "theorem",
-   "status": "stated",
+   "status": "stuck",
    "topic": "approximation",
    "domain": "tcs",
    "informal": "There is a rational c < 5/2 such that for every weighted 4-set packing instance and every square locally optimal packing A, every packing O satisfies weight(O) ≤ c·weight(A).",
    "statement": "theorem op_98_repairs_free_bound :\n    ∃ c : ℚ, c < 5 / 2 ∧ ∀ (α : Type) [DecidableEq α] (inst : WeightedSetPackingInstance α 4)\n      (A : Finset (Finset α)), is_square_locally_optimal inst 4 A → ∀ O, is_packing inst O →\n      packing_weight inst O ≤ c * packing_weight inst A",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards op_98_objective_switching_weighted_four_set_packing",
    "created": 1792452784
+  },
+  {
+   "name": "diag_two_counter_boundary_update_reach_nonempty",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "The diagonal symmetric 2-counter machine (a single update (1,1) from false to true) has an update-only run from the boundary configuration (false, (0,0)) to the boundary configuration (true, (1,1)).",
+   "statement": "theorem diag_two_counter_boundary_update_reach_nonempty : two_counter_machine_boundary ((false : Bool), (0, 0)) ∧ Relation.ReflTransGen (two_counter_machine_update_step (⟨{(false, TwoCounterInstr.update 1 1, true)}⟩ : TwoCounterMachine Bool)) (false, ((0, 0) : ℕ × ℕ)) (true, ((1, 1) : ℕ × ℕ))",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_boundary",
+    "two_counter_machine_update_step",
+    "diag_two_counter_machine_is_symmetric"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525230
+  },
+  {
+   "name": "isSemilinearSet_boundary_configurations",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "The set of pairs (u, v) of counter vectors such that at least one coordinate of u is zero and at least one coordinate of v is zero is a semilinear subset of (ℕ × ℕ) × (ℕ × ℕ).",
+   "statement": "theorem isSemilinearSet_boundary_configurations : IsSemilinearSet { p : (ℕ × ℕ) × (ℕ × ℕ) | (p.1.1 = 0 ∨ p.1.2 = 0) ∧ (p.2.1 = 0 ∨ p.2.2 = 0) }",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_boundary"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525191
   },
   {
    "name": "nfa_max_ambiguity_asymptotic_upper_bound",
@@ -682098,29 +683284,6 @@
    "provenance": "literature",
    "citation": "arXiv:2610.23495, Sec. 1",
    "created": 1792430016
-  },
-  {
-   "name": "op_360_single_counter_update_strictly_less_expressive",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "automata",
-   "domain": "tcs",
-   "informal": "There exists a symmetric 2-counter machine M over a finite state type Q and states q, q' in Q whose reachability relation two_counter_machine_reach_rel M q q' cannot be realized as the reachability relation two_counter_machine_reach_rel M' q0 q1 between any states q0, q1 of any finite-state symmetric 2-counter machine M' with single-counter updates.",
-   "statement": "theorem op_360_single_counter_update_strictly_less_expressive :\n    ∃ (Q : Type) (_ : Finite Q) (M : TwoCounterMachine Q) (_ : two_counter_machine_is_symmetric M) (q q' : Q),\n      ∀ (Q' : Type) (_ : Finite Q') (M' : TwoCounterMachine Q') (_ : two_counter_machine_is_symmetric M')\n        (_ : two_counter_machine_is_single_counter_update M') (q0 q1 : Q'),\n        two_counter_machine_reach_rel M' q0 q1 ≠ two_counter_machine_reach_rel M q q'",
-   "attempts": 0,
-   "deps": [
-    "two_counter_machine_is_symmetric",
-    "two_counter_machine_is_single_counter_update",
-    "two_counter_machine_reach_rel",
-    "single_counter_step_preserves_one_coord",
-    "diag_two_counter_machine_is_symmetric",
-    "diag_two_counter_machine_reach_rel_iff",
-    "single_counter_symmetric_cannot_match_diag_reach"
-   ],
-   "problem": null,
-   "provenance": "literature",
-   "citation": "scout/2610-23495-symmetric-two-counter-machines.md:304",
-   "created": 1792463321
   },
   {
    "name": "optimal_asymptotic_base_constant_finitely_ambiguous_nfa",
@@ -682278,25 +683441,6 @@
    "created": 1792386219
   },
   {
-   "name": "single_counter_symmetric_cannot_match_diag_reach",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "automata",
-   "domain": "tcs",
-   "informal": "No finite-state symmetric 2-counter machine with single-counter updates can have reachability relation equal to that of the diagonal machine between false and true.",
-   "statement": "theorem single_counter_symmetric_cannot_match_diag_reach :\n    ∀ (Q' : Type) (_ : Finite Q') (M' : TwoCounterMachine Q') (_ : two_counter_machine_is_symmetric M')\n      (_ : two_counter_machine_is_single_counter_update M') (q0 q1 : Q'),\n      two_counter_machine_reach_rel M' q0 q1 ≠\n        two_counter_machine_reach_rel (⟨{(false, TwoCounterInstr.update 1 1, true)}⟩ : TwoCounterMachine Bool) false true",
-   "attempts": 0,
-   "deps": [
-    "single_counter_step_preserves_one_coord",
-    "diag_two_counter_machine_is_symmetric",
-    "diag_two_counter_machine_reach_rel_iff"
-   ],
-   "problem": null,
-   "provenance": "lemma",
-   "citation": "step towards op_360_single_counter_update_strictly_less_expressive",
-   "created": 1792465304
-  },
-  {
    "name": "symmetric_two_counter_boundary_reachability_semilinear",
    "kind": "theorem",
    "status": "stated",
@@ -682305,11 +683449,186 @@
    "informal": "For every symmetric 2-counter machine M with finite state type Q and states q, q', the reachability relation restricted to source and target boundary configurations (where at least one counter is zero) is semilinear.",
    "statement": "theorem symmetric_two_counter_boundary_reachability_semilinear {Q : Type*} [Finite Q] (M : TwoCounterMachine Q) (hM : two_counter_machine_is_symmetric M) (q q' : Q) : IsSemilinearSet { p : (ℕ × ℕ) × (ℕ × ℕ) | (p.1.1 = 0 ∨ p.1.2 = 0) ∧ (p.2.1 = 0 ∨ p.2.2 = 0) ∧ Relation.ReflTransGen (two_counter_machine_step M) (q, p.1) (q', p.2) }",
    "attempts": 0,
-   "deps": [],
+   "deps": [
+    "two_counter_machine_update_step",
+    "two_counter_machine_zero_test_step",
+    "two_counter_machine_boundary",
+    "two_counter_machine_zero_test_state_reach",
+    "two_counter_machine_step_iff_update_or_zero_test",
+    "two_counter_machine_zero_test_step_boundary",
+    "two_counter_machine_update_step_swap",
+    "two_counter_machine_update_reach_swap",
+    "two_counter_machine_zero_test_state_reach_zero_pattern",
+    "two_counter_machine_zero_test_state_reach_semilinear",
+    "two_counter_machine_reach_split_at_zero_test",
+    "symmetric_two_counter_boundary_update_reach_semilinear",
+    "isSemilinearSet_boundary_configurations",
+    "diag_two_counter_boundary_update_reach_nonempty"
+   ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards op_359_symmetric_two_counter_reachability_semilinear",
    "created": 1792432246
+  },
+  {
+   "name": "symmetric_two_counter_boundary_update_reach_semilinear",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "For a symmetric 2-counter machine M, the update-only reachability relation from a boundary configuration to a boundary configuration is semilinear.",
+   "statement": "theorem symmetric_two_counter_boundary_update_reach_semilinear {Q : Type*} [Finite Q] (M : TwoCounterMachine Q) (hM : two_counter_machine_is_symmetric M) (q q' : Q) : IsSemilinearSet { p : (ℕ × ℕ) × (ℕ × ℕ) | (p.1.1 = 0 ∨ p.1.2 = 0) ∧ (p.2.1 = 0 ∨ p.2.2 = 0) ∧ Relation.ReflTransGen (two_counter_machine_update_step M) (q, p.1) (q', p.2) }",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_update_reach_swap",
+    "two_counter_machine_boundary"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525168
+  },
+  {
+   "name": "two_counter_machine_reach_split_at_zero_test",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "Reachability from c to c' either consists entirely of update steps, or factors as an update-only run from c to some configuration m, followed by a single zero test from m to m', followed by reachability from m' to c'.",
+   "statement": "theorem two_counter_machine_reach_split_at_zero_test {Q : Type*} (M : TwoCounterMachine Q) (c c' : Q × ℕ × ℕ) : Relation.ReflTransGen (two_counter_machine_step M) c c' ↔ Relation.ReflTransGen (two_counter_machine_update_step M) c c' ∨ ∃ m m' : Q × ℕ × ℕ, Relation.ReflTransGen (two_counter_machine_update_step M) c m ∧ two_counter_machine_zero_test_step M m m' ∧ Relation.ReflTransGen (two_counter_machine_step M) m' c'",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_step_iff_update_or_zero_test",
+    "two_counter_machine_update_step",
+    "two_counter_machine_zero_test_step"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525151
+  },
+  {
+   "name": "two_counter_machine_step_iff_update_or_zero_test",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "A one-step transition of a 2-counter machine is either an update step or a zero test.",
+   "statement": "theorem two_counter_machine_step_iff_update_or_zero_test {Q : Type*} (M : TwoCounterMachine Q) (c₁ c₂ : Q × ℕ × ℕ) : two_counter_machine_step M c₁ c₂ ↔ (two_counter_machine_update_step M c₁ c₂ ∨ two_counter_machine_zero_test_step M c₁ c₂)",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_step",
+    "two_counter_machine_update_step",
+    "two_counter_machine_zero_test_step"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525034
+  },
+  {
+   "name": "two_counter_machine_update_reach_swap",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "For a symmetric 2-counter machine M, update-only reachability from c₁ to c₂ implies update-only reachability from the coordinate swap of c₁ to the coordinate swap of c₂.",
+   "statement": "theorem two_counter_machine_update_reach_swap {Q : Type*} (M : TwoCounterMachine Q) (hM : two_counter_machine_is_symmetric M) {c₁ c₂ : Q × ℕ × ℕ} (h : Relation.ReflTransGen (two_counter_machine_update_step M) c₁ c₂) : Relation.ReflTransGen (two_counter_machine_update_step M) (c₁.1, (c₁.2.2, c₁.2.1)) (c₂.1, (c₂.2.2, c₂.2.1))",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_update_step_swap"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525087
+  },
+  {
+   "name": "two_counter_machine_update_step_swap",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "For a symmetric 2-counter machine M, if c₂ is reachable from c₁ by one update step, then the coordinate-swapped c₂ is reachable from the coordinate-swapped c₁ by one update step.",
+   "statement": "theorem two_counter_machine_update_step_swap {Q : Type*} (M : TwoCounterMachine Q) (hM : two_counter_machine_is_symmetric M) {c₁ c₂ : Q × ℕ × ℕ} (h : two_counter_machine_update_step M c₁ c₂) : two_counter_machine_update_step M (c₁.1, (c₁.2.2, c₁.2.1)) (c₂.1, (c₂.2.2, c₂.2.1))",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_update_step",
+    "two_counter_machine_is_symmetric"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525071
+  },
+  {
+   "name": "two_counter_machine_zero_test_state_reach_semilinear",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "For any 2-counter machine M the set of boundary counter vectors p at which q' is reachable from q by zero tests alone is a semilinear subset of ℕ × ℕ.",
+   "statement": "theorem two_counter_machine_zero_test_state_reach_semilinear {Q : Type*} (M : TwoCounterMachine Q) (q q' : Q) : IsSemilinearSet { p : ℕ × ℕ | (p.1 = 0 ∨ p.2 = 0) ∧ two_counter_machine_zero_test_state_reach M p q q' }",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_zero_test_state_reach_zero_pattern",
+    "two_counter_machine_boundary"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525126
+  },
+  {
+   "name": "two_counter_machine_zero_test_state_reach_zero_pattern",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "Whether q' is zero-test reachable from q at counter vector p depends only on which coordinates of p are zero: if p and p' agree on the vanishing of both coordinates then q' is reachable from q at p iff it is at p'.",
+   "statement": "theorem two_counter_machine_zero_test_state_reach_zero_pattern {Q : Type*} (M : TwoCounterMachine Q) (q q' : Q) {p p' : ℕ × ℕ} (h₁ : p.1 = 0 ↔ p'.1 = 0) (h₂ : p.2 = 0 ↔ p'.2 = 0) : (two_counter_machine_zero_test_state_reach M p q q' ↔ two_counter_machine_zero_test_state_reach M p' q q')",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_zero_test_state_reach",
+    "two_counter_machine_zero_test_step"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525109
+  },
+  {
+   "name": "two_counter_machine_zero_test_step_boundary",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "automata",
+   "domain": "tcs",
+   "informal": "If c₂ is reached from c₁ by a zero test then c₂ and c₁ have the same counter vector and c₁ is a boundary configuration.",
+   "statement": "theorem two_counter_machine_zero_test_step_boundary {Q : Type*} (M : TwoCounterMachine Q) {c₁ c₂ : Q × ℕ × ℕ} (h : two_counter_machine_zero_test_step M c₁ c₂) : c₂.2 = c₁.2 ∧ two_counter_machine_boundary c₁",
+   "attempts": 0,
+   "deps": [
+    "two_counter_machine_boundary",
+    "two_counter_machine_zero_test_step"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards symmetric_two_counter_boundary_reachability_semilinear",
+   "created": 1792525051
+  },
+  {
+   "name": "bipartite_regular_fibre_perfect_matching",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "A d-regular bipartite multigraph, in fibre form, has a perfect matching: if d ≥ 1 and every fibre of f and of g is either empty or of size exactly d, then there is a finite set S of edges which is injective on f-fibres and on g-fibres and which meets every occurring fibre of f, and every occurring fibre of g, exactly once.",
+   "statement": "theorem bipartite_regular_fibre_perfect_matching {α : Type*} [Fintype α] (f g : α → ℕ) (d : ℕ)\n    (hd : 1 ≤ d)\n    (hf : ∀ γ : ℕ, {e | f e = γ}.ncard = d ∨ {e | f e = γ}.ncard = 0)\n    (hg : ∀ γ : ℕ, {e | g e = γ}.ncard = d ∨ {e | g e = γ}.ncard = 0) :\n    ∃ S : Finset α,\n      (∀ e₁ ∈ S, ∀ e₂ ∈ S, f e₁ = f e₂ → e₁ = e₂) ∧\n      (∀ e₁ ∈ S, ∀ e₂ ∈ S, g e₁ = g e₂ → e₁ = e₂) ∧\n      (∀ e : α, ∃ e' ∈ S, f e' = f e) ∧\n      (∀ e : α, ∃ e' ∈ S, g e' = g e)",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards galvin_bipartite_multigraph_list_edge_colouring",
+   "created": 1792530134
   },
   {
    "name": "brgc_necklace_order_consecutive_adjacent_of_prime",
@@ -682381,24 +683700,34 @@
    "created": 1792332935
   },
   {
-   "name": "five_diamond_poset_ramsey_number_le",
+   "name": "fibre_k_regular_extension",
    "kind": "theorem",
    "status": "stated",
    "topic": "combinatorics",
    "domain": "tcs",
-   "informal": "For every natural number k with 1 ≤ k, the k-color poset Ramsey number of the 5-diamond DiamondPoset 5 is at most 5 * k.",
-   "statement": "theorem five_diamond_poset_ramsey_number_le (k : ℕ) (hk : 1 ≤ k) : poset_ramsey_number (DiamondPoset 5) k ≤ 5 * k",
+   "informal": "Regularisation of a bipartite multigraph in fibre form: if every fibre of f and of g has at most k elements, then the multigraph embeds into a k-regular bipartite multigraph, i.e. there are a finite type β, an injection ι : α → β and fibre maps f', g' on β with f' ∘ ι = f, g' ∘ ι = g, and every fibre of f' and of g' either empty or of size exactly k.",
+   "statement": "theorem fibre_k_regular_extension {α : Type*} [Fintype α] (f g : α → ℕ) (k : ℕ)\n    (hf : ∀ γ : ℕ, {e | f e = γ}.ncard ≤ k) (hg : ∀ γ : ℕ, {e | g e = γ}.ncard ≤ k) :\n    ∃ (β : Type) (_ : Fintype β) (f' g' : β → ℕ) (ι : α → β),\n      Function.Injective ι ∧ (∀ e, f' (ι e) = f e) ∧ (∀ e, g' (ι e) = g e) ∧\n      (∀ γ : ℕ, {b : β | f' b = γ}.ncard = k ∨ {b : β | f' b = γ}.ncard = 0) ∧\n      (∀ γ : ℕ, {b : β | g' b = γ}.ncard = k ∨ {b : β | g' b = γ}.ncard = 0)",
    "attempts": 0,
-   "deps": [
-    "DiamondPoset",
-    "inst_partial_order_diamond_poset",
-    "poset_ramsey_number",
-    "diamond_poset_ramsey_number_le"
-   ],
+   "deps": [],
    "problem": null,
-   "provenance": "literature",
-   "citation": "arXiv:2610.20545, The k-color poset Ramsey number of the diamond is 2k, Theorem 2",
-   "created": 1792294979
+   "provenance": "lemma",
+   "citation": "step towards galvin_bipartite_multigraph_list_edge_colouring",
+   "created": 1792530166
+  },
+  {
+   "name": "five_diamond_copy_of_monochromatic_level",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If level m is monochromatic of color col and there exist B ⊆ T of color col with |B| + 2 = m = |T| - 2, then there exist 5 middle sets forming an induced monochromatic 5-diamond copy.",
+   "statement": "theorem five_diamond_copy_of_monochromatic_level\n    (d k : ℕ) (c : Finset (Fin d) → Fin k) (col : Fin k) (m : ℕ)\n    (h_level : ∀ A : Finset (Fin d), A.card = m → c A = col)\n    (B T : Finset (Fin d)) (hB : c B = col) (hT : c T = col)\n    (hBT : B ⊆ T) (hB_card : B.card + 2 = m) (hT_card : T.card = m + 2) :\n    ∃ (M : Fin 5 → Finset (Fin d)),\n      c B = col ∧ c T = col ∧\n      (∀ i, c (M i) = col) ∧\n      B ⊂ T ∧\n      (∀ i, B ⊂ M i ∧ M i ⊂ T) ∧\n      (∀ i i', i ≠ i' → ¬ (M i ⊆ M i'))",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards five_diamond_ramsey_property_at_four_mul",
+   "created": 1792523701
   },
   {
    "name": "five_diamond_ramsey_property_at_four_mul",
@@ -682409,11 +683738,47 @@
    "informal": "For k ≥ 2, every k-colouring of the subsets of Fin (4k) contains a monochromatic induced copy of the 5-diamond.",
    "statement": "theorem five_diamond_ramsey_property_at_four_mul (k : ℕ) (hk : 2 ≤ k) :\n    poset_ramsey_property (DiamondPoset 5) k (4 * k)",
    "attempts": 0,
-   "deps": [],
+   "deps": [
+    "five_diamond_ramsey_property_two_eight",
+    "five_diamond_ramsey_property_step",
+    "five_diamond_copy_of_monochromatic_level"
+   ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards op_270_five_diamond_poset_ramsey_number",
    "created": 1792304893
+  },
+  {
+   "name": "five_diamond_ramsey_property_step",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If every k-colouring of the subsets of Fin (4k) contains a monochromatic induced copy of the 5-diamond, then every (k+1)-colouring of the subsets of Fin (4(k+1)) also contains one.",
+   "statement": "theorem five_diamond_ramsey_property_step (k : ℕ) (hk : 2 ≤ k)\n    (ih : poset_ramsey_property (DiamondPoset 5) k (4 * k)) :\n    poset_ramsey_property (DiamondPoset 5) (k + 1) (4 * (k + 1))",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards five_diamond_ramsey_property_at_four_mul",
+   "created": 1792523679
+  },
+  {
+   "name": "five_diamond_ramsey_property_two_eight",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Every 2-colouring of the subsets of Fin 8 contains a monochromatic induced copy of the 5-diamond.",
+   "statement": "theorem five_diamond_ramsey_property_two_eight :\n    poset_ramsey_property (DiamondPoset 5) 2 8",
+   "attempts": 0,
+   "deps": [
+    "five_diamond_copy_of_monochromatic_level"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards five_diamond_ramsey_property_at_four_mul",
+   "created": 1792523657
   },
   {
    "name": "galvin_bipartite_multigraph_list_edge_colouring",
@@ -682424,11 +683789,89 @@
    "informal": "Galvin's theorem in matroid-free form (list edge colouring of bipartite multigraphs): view the finite set α as the edge set of the bipartite multigraph whose left and right endpoints of e are the labels f e and g e. If every fibre of f and every fibre of g has at most k elements (so the maximum degree is at most k), then for every list assignment L with |L e| ≥ k there is a choice c e ∈ L e such that each colour class meets every fibre of f and every fibre of g in at most one element, i.e. is a matching. This is Galvin's theorem χ'_ℓ = Δ for bipartite multigraphs (1995); it is a strictly weaker statement than the target (two unit-capacity partition matroids are strongly base orderable), k = 1 is trivial and k = 2 is proved here.",
    "statement": "theorem galvin_bipartite_multigraph_list_edge_colouring {α : Type*} [Finite α] (f g : α → ℕ) (k : ℕ)\n    (hf : ∀ γ : ℕ, {e | f e = γ}.ncard ≤ k) (hg : ∀ γ : ℕ, {e | g e = γ}.ncard ≤ k)\n    (L : α → Finset ℕ) (hL : ∀ e : α, k ≤ (L e).card) :\n    ∃ c : α → ℕ, (∀ e : α, c e ∈ L e) ∧\n      ∀ γ : ℕ, (∀ e₁ e₂ : α, c e₁ = γ → c e₂ = γ → f e₁ = f e₂ → e₁ = e₂) ∧\n        ∀ e₁ e₂ : α, c e₁ = γ → c e₂ = γ → g e₁ = g e₂ → e₁ = e₂",
    "attempts": 0,
-   "deps": [],
+   "deps": [
+    "galvin_conflict_arc",
+    "bipartite_regular_fibre_perfect_matching",
+    "galvin_kernel_lemma",
+    "fibre_k_regular_extension",
+    "konig_regular_bipartite_multigraph_edge_colouring",
+    "galvin_conflict_arc_outdeg_lt",
+    "galvin_conflict_arc_kernel_perfect",
+    "konig_bipartite_multigraph_edge_colouring",
+    "galvin_bipartite_orientation_kernel_perfect"
+   ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards matroid_sbo_common_list_chromatic_eq",
    "created": 1792273682
+  },
+  {
+   "name": "galvin_bipartite_orientation_kernel_perfect",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Galvin's orientation step (1995): given a proper k-edge-colouring m of the bipartite multigraph with endpoints f, g (all colours < k, injective on fibres of f and of g), there is an orientation arc of the conflict graph (distinct edges sharing a left or a right endpoint) which contains no loops, stays inside the conflict graph, gives every edge fewer than k out-neighbours, and is kernel-perfect: every finite induced subgraph has an independent, arc-absorbing set.",
+   "statement": "theorem galvin_bipartite_orientation_kernel_perfect {α : Type*} [Fintype α] (f g : α → ℕ) (k : ℕ)\n    (m : α → ℕ) (hm : ∀ e : α, m e < k)\n    (hf : ∀ e₁ e₂ : α, m e₁ = m e₂ → f e₁ = f e₂ → e₁ = e₂)\n    (hg : ∀ e₁ e₂ : α, m e₁ = m e₂ → g e₁ = g e₂ → e₁ = e₂) :\n    ∃ (arc : α → α → Prop) (_ : DecidableRel arc),\n      (∀ e₁ e₂ : α, arc e₁ e₂ → e₁ ≠ e₂ ∧ (f e₁ = f e₂ ∨ g e₁ = g e₂)) ∧\n      (∀ e : α, {e' | arc e e'}.ncard < k) ∧\n      ∀ F : Finset α, ∃ K : Finset α,\n        K ⊆ F ∧ (∀ u ∈ K, ∀ v ∈ K, u ≠ v → ¬ (f u = f v ∨ g u = g v)) ∧\n        ∀ u ∈ F, u ∉ K → ∃ v ∈ K, arc u v",
+   "attempts": 0,
+   "deps": [
+    "galvin_conflict_arc",
+    "galvin_conflict_arc_outdeg_lt",
+    "galvin_conflict_arc_kernel_perfect"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards galvin_bipartite_multigraph_list_edge_colouring",
+   "created": 1792530245
+  },
+  {
+   "name": "galvin_conflict_arc_kernel_perfect",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Kernel-perfectness of Galvin's orientation: for a proper edge-colouring m of the bipartite multigraph (injective on f-fibres and on g-fibres), every finite induced subgraph of the conflict graph has a kernel — an independent set of edges K (no two sharing a left or a right endpoint) such that every edge of F outside K has an arc of galvin_conflict_arc into K.",
+   "statement": "theorem galvin_conflict_arc_kernel_perfect {α : Type*} [Fintype α] (f g m : α → ℕ)\n    (hf : ∀ e₁ e₂ : α, m e₁ = m e₂ → f e₁ = f e₂ → e₁ = e₂)\n    (hg : ∀ e₁ e₂ : α, m e₁ = m e₂ → g e₁ = g e₂ → e₁ = e₂) :\n    ∀ F : Finset α, ∃ K : Finset α, K ⊆ F ∧\n      (∀ u ∈ K, ∀ v ∈ K, u ≠ v → ¬ (f u = f v ∨ g u = g v)) ∧\n      ∀ u ∈ F, u ∉ K → ∃ v ∈ K, galvin_conflict_arc f g m u v",
+   "attempts": 0,
+   "deps": [
+    "galvin_conflict_arc"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards galvin_bipartite_multigraph_list_edge_colouring",
+   "created": 1792530218
+  },
+  {
+   "name": "galvin_conflict_arc_outdeg_lt",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "In Galvin's orientation of the conflict graph, every edge has fewer than k out-neighbours, where k bounds the colour values: if m is a proper k-edge-colouring (values < k, injective on f-fibres and on g-fibres) then each edge has at most k − 1 arc-successors.",
+   "statement": "theorem galvin_conflict_arc_outdeg_lt {α : Type*} [Fintype α] (f g m : α → ℕ) (k : ℕ)\n    (hm : ∀ e, m e < k)\n    (hf : ∀ e₁ e₂ : α, m e₁ = m e₂ → f e₁ = f e₂ → e₁ = e₂)\n    (hg : ∀ e₁ e₂ : α, m e₁ = m e₂ → g e₁ = g e₂ → e₁ = e₂) :\n    ∀ e : α, {e' | galvin_conflict_arc f g m e e'}.ncard < k",
+   "attempts": 0,
+   "deps": [
+    "galvin_conflict_arc"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards galvin_bipartite_multigraph_list_edge_colouring",
+   "created": 1792530197
+  },
+  {
+   "name": "galvin_kernel_lemma",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Galvin's kernel lemma (Borodin–Kostochka–Woodall form). Let adj be a loopless symmetric-free adjacency on a finite set V, let arc be an orientation of a subgraph of adj, and suppose the digraph (adj, arc) is kernel-perfect: every finite induced subgraph has a kernel, i.e. an independent set meeting every vertex outside it by an outgoing arc. If every vertex v carries a list L v of at least (number of arc-out-neighbours of v) + 1 colours, then there is a choice c v ∈ L v which is proper for adj: adj u v implies c u ≠ c v.",
+   "statement": "theorem galvin_kernel_lemma {V : Type*} [Fintype V] [DecidableEq V]\n    (adj arc : V → V → Prop) [DecidableRel adj] [DecidableRel arc]\n    (hloop : ∀ v, ¬ adj v v)\n    (hsub : ∀ u v, arc u v → adj u v)\n    (hker : ∀ F : Finset V, ∃ K : Finset V, K ⊆ F ∧\n      (∀ u ∈ K, ∀ v ∈ K, u ≠ v → ¬ adj u v) ∧\n      (∀ u ∈ F, u ∉ K → ∃ v ∈ K, arc u v))\n    (L : V → Finset ℕ) (hL : ∀ v, {u | arc v u}.ncard + 1 ≤ (L v).card) :\n    ∃ c : V → ℕ, (∀ v, c v ∈ L v) ∧ ∀ u v, adj u v → c u ≠ c v",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards galvin_bipartite_multigraph_list_edge_colouring",
+   "created": 1792530150
   },
   {
    "name": "glove_number_complete_graph_choose_two_le_sq",
@@ -682782,6 +684225,41 @@
    "created": 1792325206
   },
   {
+   "name": "konig_bipartite_multigraph_edge_colouring",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "König's line-colouring theorem in fibre form: if every fibre of f and every fibre of g has at most k elements, then the edges admit a proper colouring with k colours, i.e. there is m : α → ℕ with m e < k that is injective on every fibre of f and on every fibre of g.",
+   "statement": "theorem konig_bipartite_multigraph_edge_colouring {α : Type*} [Fintype α] (f g : α → ℕ) (k : ℕ)\n    (hf : ∀ γ : ℕ, {e | f e = γ}.ncard ≤ k) (hg : ∀ γ : ℕ, {e | g e = γ}.ncard ≤ k) :\n    ∃ m : α → ℕ, (∀ e : α, m e < k) ∧\n      (∀ e₁ e₂ : α, m e₁ = m e₂ → f e₁ = f e₂ → e₁ = e₂) ∧\n      ∀ e₁ e₂ : α, m e₁ = m e₂ → g e₁ = g e₂ → e₁ = e₂",
+   "attempts": 0,
+   "deps": [
+    "konig_regular_bipartite_multigraph_edge_colouring",
+    "fibre_k_regular_extension"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards galvin_bipartite_multigraph_list_edge_colouring",
+   "created": 1792530230
+  },
+  {
+   "name": "konig_regular_bipartite_multigraph_edge_colouring",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "König's edge-colouring theorem, regular case: if every fibre of f and of g is either empty or of size exactly d, then the edges can be properly coloured with d colours, i.e. there is m : α → ℕ with m e < d for all e, injective on every fibre of f and on every fibre of g.",
+   "statement": "theorem konig_regular_bipartite_multigraph_edge_colouring {α : Type*} [Fintype α]\n    (f g : α → ℕ) (d : ℕ)\n    (hf : ∀ γ : ℕ, {e | f e = γ}.ncard = d ∨ {e | f e = γ}.ncard = 0)\n    (hg : ∀ γ : ℕ, {e | g e = γ}.ncard = d ∨ {e | g e = γ}.ncard = 0) :\n    ∃ m : α → ℕ, (∀ e : α, m e < d) ∧\n      (∀ e₁ e₂ : α, m e₁ = m e₂ → f e₁ = f e₂ → e₁ = e₂) ∧\n      ∀ e₁ e₂ : α, m e₁ = m e₂ → g e₁ = g e₂ → e₁ = e₂",
+   "attempts": 0,
+   "deps": [
+    "bipartite_regular_fibre_perfect_matching"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards galvin_bipartite_multigraph_list_edge_colouring",
+   "created": 1792530186
+  },
+  {
    "name": "latin_square_exists_principal_isotope_avoiding",
    "kind": "theorem",
    "status": "stated",
@@ -682821,6 +684299,24 @@
    "created": 1791434770
   },
   {
+   "name": "matroid_common_list_colorable_one_of_colorable_zero",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If two matroids have a common coloring with 0 colors, then their ground set is empty, so they are 1-list-colorable.",
+   "statement": "theorem matroid_common_list_colorable_one_of_colorable_zero {α : Type*} (M₁ M₂ : Matroid α)\n    (h : matroid_common_colorable M₁ M₂ 0) :\n    matroid_common_list_colorable M₁ M₂ 1",
+   "attempts": 0,
+   "deps": [
+    "matroid_common_colorable",
+    "matroid_common_list_colorable"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_common_list_colorable_succ_of_common_colorable",
+   "created": 1792515994
+  },
+  {
    "name": "matroid_common_list_colorable_succ_of_common_colorable",
    "kind": "theorem",
    "status": "stated",
@@ -682829,11 +684325,52 @@
    "informal": "One-step list-lifting (the C = 1 case): if two loopless matroids on a common finite ground set have a common coloring with k colors, then they are (k+1)-list-colorable. This is a matroid analogue of Galvin's theorem for the general (non-strongly-base-orderable) pair case, and is exactly the C = 1 form of Question 3.1 (arXiv:2610.07318), strictly stronger than the parent's existence-of-some-C statement.",
    "statement": "theorem matroid_common_list_colorable_succ_of_common_colorable {α : Type*} (M₁ M₂ : Matroid α) [Finite α] (h₁ : M₁.Loopless) (h₂ : M₂.Loopless) (hE : M₁.E = M₂.E) (k : ℕ) (h : matroid_common_colorable M₁ M₂ k) :\n    matroid_common_list_colorable M₁ M₂ (k + 1)",
    "attempts": 0,
-   "deps": [],
+   "deps": [
+    "matroid_common_list_colorable_one_of_colorable_zero",
+    "matroid_common_list_colorable_two_of_colorable_one",
+    "matroid_sbo_common_list_colorable_three_of_common_colorable_two",
+    "matroid_common_list_colorable_three_of_colorable_two"
+   ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards matroid_common_list_chromatic_le_add_const",
    "created": 1792275430
+  },
+  {
+   "name": "matroid_common_list_colorable_three_of_colorable_two",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "The k = 2 case of Question 3.1 (arXiv:2610.07318): any pair of loopless matroids on a common finite ground set with a common 2-coloring is 3-list-colorable. This is the first nontrivial open case beyond k ≤ 1.",
+   "statement": "theorem matroid_common_list_colorable_three_of_colorable_two {α : Type*} (M₁ M₂ : Matroid α) [Finite α]\n    (h₁ : M₁.Loopless) (h₂ : M₂.Loopless) (hE : M₁.E = M₂.E)\n    (h : matroid_common_colorable M₁ M₂ 2) :\n    matroid_common_list_colorable M₁ M₂ 3",
+   "attempts": 0,
+   "deps": [
+    "matroid_common_colorable",
+    "matroid_common_list_colorable"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_common_list_colorable_succ_of_common_colorable",
+   "created": 1792516095
+  },
+  {
+   "name": "matroid_common_list_colorable_two_of_colorable_one",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If two matroids have a common coloring with 1 color, then they are 2-list-colorable (immediate from 1-list-colorability and monotonicity).",
+   "statement": "theorem matroid_common_list_colorable_two_of_colorable_one {α : Type*} (M₁ M₂ : Matroid α)\n    (h : matroid_common_colorable M₁ M₂ 1) :\n    matroid_common_list_colorable M₁ M₂ 2",
+   "attempts": 0,
+   "deps": [
+    "matroid_common_list_colorable_one_of_colorable_one",
+    "matroid_common_list_colorable_mono"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_common_list_colorable_succ_of_common_colorable",
+   "created": 1792516017
   },
   {
    "name": "matroid_sbo_common_list_chromatic_eq",
@@ -682861,6 +684398,24 @@
    "created": 1791434767
   },
   {
+   "name": "matroid_sbo_common_list_colorable_three_of_common_colorable_two",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If two finite strongly base-orderable matroids have a common coloring with two colors, they are 3-list-colorable (immediate from 2-list-colorability and monotonicity).",
+   "statement": "theorem matroid_sbo_common_list_colorable_three_of_common_colorable_two {α : Type*}\n    (M₁ M₂ : Matroid α) [M₁.Finite] (hE : M₁.E = M₂.E)\n    (h₁ : matroid_strongly_base_orderable M₁) (h₂ : matroid_strongly_base_orderable M₂)\n    (h : matroid_common_colorable M₁ M₂ 2) :\n    matroid_common_list_colorable M₁ M₂ 3",
+   "attempts": 0,
+   "deps": [
+    "matroid_sbo_common_list_colorable_two_of_common_colorable_two",
+    "matroid_common_list_colorable_mono"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_common_list_colorable_succ_of_common_colorable",
+   "created": 1792516039
+  },
+  {
    "name": "matroid_sbo_reduction_partition_classes_of_colourable",
    "kind": "theorem",
    "status": "stated",
@@ -682869,11 +684424,82 @@
    "informal": "Generalised partition-matroid reduction for strongly base-orderable matroids (Proposition 2.2 of arXiv:2610.07318 with 2 replaced by k): let M be a finite strongly base-orderable matroid whose ground set is the union of k independent sets (equivalently M is k-colourable). Then M has a reduction to a unit-capacity partition matroid with classes of size at most k: there is a class map f : α → ℕ whose fibres meet E in at most k elements and such that every T ⊆ E containing no two distinct elements with the same f-value is independent in M. The case k = 2 is proved here (matroid_sbo_reduction_pairs_of_two_indep, involution form, used for matroid_sbo_common_list_chromatic_eq_of_le_two); the case k ≥ 3 is a conjecture and is the crux of Question 3.2.",
    "statement": "theorem matroid_sbo_reduction_partition_classes_of_colourable {α : Type*} (M : Matroid α) [M.Finite]\n    (hM : matroid_strongly_base_orderable M) (k : ℕ) (hc : matroid_common_colorable M M k) :\n    ∃ f : α → ℕ, (∀ γ : ℕ, {e | e ∈ M.E ∧ f e = γ}.ncard ≤ k) ∧\n      ∀ T ⊆ M.E, (∀ e₁ ∈ T, ∀ e₂ ∈ T, f e₁ = f e₂ → e₁ = e₂) → M.Indep T",
    "attempts": 0,
-   "deps": [],
+   "deps": [
+    "matroid_sbo_reduction_partition_classes_of_colourable_zero",
+    "matroid_sbo_reduction_partition_classes_of_colourable_one",
+    "matroid_sbo_reduction_partition_classes_of_colourable_two",
+    "matroid_sbo_reduction_partition_classes_of_colourable_le_two"
+   ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards matroid_sbo_common_list_chromatic_eq",
    "created": 1792273674
+  },
+  {
+   "name": "matroid_sbo_reduction_partition_classes_of_colourable_le_two",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Let M be a finite strongly base-orderable matroid that is k-colourable with k ≤ 2. Then M has a reduction to a unit-capacity partition matroid with classes of size at most k.",
+   "statement": "theorem matroid_sbo_reduction_partition_classes_of_colourable_le_two {α : Type*} (M : Matroid α) [M.Finite]\n    (hM : matroid_strongly_base_orderable M) (k : ℕ) (hk : k ≤ 2) (hc : matroid_common_colorable M M k) :\n    ∃ f : α → ℕ, (∀ γ : ℕ, {e | e ∈ M.E ∧ f e = γ}.ncard ≤ k) ∧\n      ∀ T ⊆ M.E, (∀ e₁ ∈ T, ∀ e₂ ∈ T, f e₁ = f e₂ → e₁ = e₂) → M.Indep T",
+   "attempts": 0,
+   "deps": [
+    "matroid_sbo_reduction_partition_classes_of_colourable_zero",
+    "matroid_sbo_reduction_partition_classes_of_colourable_one",
+    "matroid_sbo_reduction_partition_classes_of_colourable_two"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_sbo_reduction_partition_classes_of_colourable",
+   "created": 1792529196
+  },
+  {
+   "name": "matroid_sbo_reduction_partition_classes_of_colourable_one",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For k = 1, any 1-colourable finite matroid has its entire ground set independent. An injection of the finite ground set into ℕ yields fibres of size at most 1 on M.E, and all transversals are independent.",
+   "statement": "theorem matroid_sbo_reduction_partition_classes_of_colourable_one {α : Type*} (M : Matroid α) [M.Finite]\n    (hM : matroid_strongly_base_orderable M) (hc : matroid_common_colorable M M 1) :\n    ∃ f : α → ℕ, (∀ γ : ℕ, {e | e ∈ M.E ∧ f e = γ}.ncard ≤ 1) ∧\n      ∀ T ⊆ M.E, (∀ e₁ ∈ T, ∀ e₂ ∈ T, f e₁ = f e₂ → e₁ = e₂) → M.Indep T",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_sbo_reduction_partition_classes_of_colourable",
+   "created": 1792529146
+  },
+  {
+   "name": "matroid_sbo_reduction_partition_classes_of_colourable_two",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Proposition 2.2 of arXiv:2610.07318: let M be a finite strongly base-orderable matroid whose ground set is the union of two independent sets. Then M has a reduction to a unit-capacity partition matroid with classes of size at most 2.",
+   "statement": "theorem matroid_sbo_reduction_partition_classes_of_colourable_two {α : Type*} (M : Matroid α) [M.Finite]\n    (hM : matroid_strongly_base_orderable M) (hc : matroid_common_colorable M M 2) :\n    ∃ f : α → ℕ, (∀ γ : ℕ, {e | e ∈ M.E ∧ f e = γ}.ncard ≤ 2) ∧\n      ∀ T ⊆ M.E, (∀ e₁ ∈ T, ∀ e₂ ∈ T, f e₁ = f e₂ → e₁ = e₂) → M.Indep T",
+   "attempts": 0,
+   "deps": [
+    "matroid_sbo_reduction_pairs_of_two_indep"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_sbo_reduction_partition_classes_of_colourable",
+   "created": 1792529169
+  },
+  {
+   "name": "matroid_sbo_reduction_partition_classes_of_colourable_zero",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For k = 0, any strongly base-orderable finite matroid whose ground set is 0-colourable has an empty ground set, hence vacuously admits a reduction to partition classes of size 0.",
+   "statement": "theorem matroid_sbo_reduction_partition_classes_of_colourable_zero {α : Type*} (M : Matroid α) [M.Finite]\n    (hM : matroid_strongly_base_orderable M) (hc : matroid_common_colorable M M 0) :\n    ∃ f : α → ℕ, (∀ γ : ℕ, {e | e ∈ M.E ∧ f e = γ}.ncard ≤ 0) ∧\n      ∀ T ⊆ M.E, (∀ e₁ ∈ T, ∀ e₂ ∈ T, f e₁ = f e₂ → e₁ = e₂) → M.Indep T",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards matroid_sbo_reduction_partition_classes_of_colourable",
+   "created": 1792529124
   },
   {
    "name": "mondrian_liminf_min_defect_seven_eq",
@@ -682910,6 +684536,91 @@
    "provenance": "original",
    "citation": "arXiv:2610.19193 (A Bounded-Defect Construction for the Mondrian Art Problem), Sec. 1 (the zero-defect question, conjectured negative since the problem's proposal); list entry OP-280.",
    "created": 1792047114
+  },
+  {
+   "name": "not_matroid_sbo_reduction_partition_classes_of_colourable",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "The statement `matroid_sbo_reduction_partition_classes_of_colourable` is false: The conjecture is false for k = 3.\n\nExplicit counterexample:\nLet M be the matroid on E = {0, 1, 2, 3, 4, 5} of rank 2, obtained by doubling each of the 3 points of U_{2,3} into a parallel pair:\nParallel classes are P₀ = {0, 1}, P₁ = {2, 3}, P₂ = {4, 5}.\nThe bases of M are all 12 pairs {u, v} such that u and v lie in different parallel classes (i.e. u / 2 ≠ v / 2). The independent sets of M are all subsets of size ≤ 2 that do not contain any parallel pair.\n\n1. M is a finite matroid:\nE has 6 elements, rank is 2.\n\n2. M is strongly base-orderable:\nLet B₁, B₂ be bases.\n- If |B₁ ∩ B₂| = 2, the identity is an SBO bijection.\n- If |B₁ ∩ B₂| = 1, fixing the common element and mapping the remaining elements to each other works.\n- If |B₁ ∩ B₂| = 0, B₁ has elements in two parallel classes, say P₀ and P₁. Since B₂ cannot be entirely in P₂ (B₂ is a base), B₂ must contain an element from P₀ or P₁. Pairing elements from the same parallel class gives valid exchanges for all 4 subsets X ⊆ B₁.\nThis SBO property was also formally checked by `decide +kernel` in experiment 2117 (`sbo_c6_decide`).\n\n3. M is common 3-colourable (matroid_common_colorable M M 3):\nE is the union of 3 independent sets of size 2:\nI₀ = {0, 2} (classes 0 and 1)\nI₁ = {3, 4} (classes 1 and 2)\nI₂ = {1, 5} (classes 0 and 2).\nEach I_j has size 2 and contains no parallel pair, so each I_j is independent in M, and I₀ ∪ I₁ ∪ I₂ = E.\n\n4. Non-existence of the partition reduction:\nSuppose there exists f : E → ℕ such that:\n(a) For all γ, |{e ∈ E | f(e) = γ}| ≤ 3.\n(b) Every transversal T ⊆ E (at most one element per fibre of f) is independent in M.\n\nLet F₁, …, F_m be the non-empty fibres of f on E.\n- If m ≥ 3: choosing one element from each of 3 distinct fibres gives a transversal T of size 3. By (b), T must be independent in M. But rank(M) = 2, so M has no independent set of size 3. Contradiction.\n- Hence m ≤ 2. Since |E| = 6 and each |F_i| ≤ 3, we must have m = 2 and |F₁| = |F₂| = 3.\n- Now, for ANY e₁ ∈ F₁ and e₂ ∈ F₂, the pair {e₁, e₂} is a transversal of size 2, so by (b) it must be independent in M.\n- Independence of {e₁, e₂} means e₁ and e₂ are NOT parallel.\n- Since this holds for ALL e₁ ∈ F₁ and ALL e₂ ∈ F₂, no parallel pair can have one element in F₁ and one in F₂.\n- Therefore, each parallel pair P₀ = {0, 1}, P₁ = {2, 3}, P₂ = {4, 5} is either entirely contained in F₁ or entirely contained in F₂.\n- Hence F₁ is a union of parallel pairs, which implies |F₁| must be an even integer (0, 2, 4, or 6).\n- But |F₁| = 3, an odd integer. Contradiction!\n\nTherefore, no such reduction map f exists, and the statement is false.",
+   "statement": "theorem not_matroid_sbo_reduction_partition_classes_of_colourable : ¬ (∀ {α : Type*} (M : Matroid α) [M.Finite]\n    (hM : matroid_strongly_base_orderable M) (k : ℕ) (hc : matroid_common_colorable M M k), ∃ f : α → ℕ, (∀ γ : ℕ, {e | e ∈ M.E ∧ f e = γ}.ncard ≤ k) ∧\n      ∀ T ⊆ M.E, (∀ e₁ ∈ T, ∀ e₂ ∈ T, f e₁ = f e₂ → e₁ = e₂) → M.Indep T)",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "original",
+   "citation": "refutes `matroid_sbo_reduction_partition_classes_of_colourable`",
+   "created": 1792528793
+  },
+  {
+   "name": "nus_clean_rectangle_card_bound",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Let I, J ⊆ Z/pZ be nonempty and disjoint. Suppose every pair (a, b) in I × J has a different representation a + b = c + d with c in I and d in J. Then p ≤ 2^{|I|+|J|-2}.",
+   "statement": "theorem nus_clean_rectangle_card_bound {p : ℕ} [Fact p.Prime] (I J : Finset (ZMod p))\n    (hI : I.Nonempty) (hJ : J.Nonempty) (hd : Disjoint I J)\n    (hrep : ∀ a ∈ I, ∀ b ∈ J, ∃ c ∈ I, ∃ d ∈ J, (c, d) ≠ (a, b) ∧ a + b = c + d) :\n    (p : ℝ) ≤ (2 : ℝ) ^ (I.card + J.card - 2)",
+   "attempts": 0,
+   "deps": [
+    "unit_incidence_matrix_isTotallyUnimodular"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards nus_min_card_ge_near_quadratic",
+   "created": 1792516805
+  },
+  {
+   "name": "nus_collision_subspace_finrank_ge_two",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For a NUS set A ⊆ Z/pZ, the space of F_p-valued collision-preserving functions on A has dimension at least 2: the constant functions and the label map a ↦ a are both collision-preserving, and they are linearly independent because A has at least two distinct elements.",
+   "statement": "theorem nus_collision_subspace_finrank_ge_two {p : ℕ} [Fact p.Prime] {A : Finset (ZMod p)}\n    (hA : finset_has_no_unique_sums A) :\n    2 ≤ Module.finrank (ZMod p) ↥(nus_collision_subspace p A)",
+   "attempts": 0,
+   "deps": [
+    "nus_collision_subspace",
+    "finset_has_no_unique_sums"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards nus_min_card_ge_near_quadratic",
+   "created": 1792516788
+  },
+  {
+   "name": "nus_exists_inclusion_minimal_subset",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Every finite set with no unique sums contains an inclusion-minimal one: there is a subset B of A that has no unique sums and none of whose proper subsets has no unique sums.",
+   "statement": "theorem nus_exists_inclusion_minimal_subset {G : Type*} [AddCommMonoid G] [DecidableEq G]\n    {A : Finset G} (hA : finset_has_no_unique_sums A) :\n    ∃ B : Finset G, B ⊆ A ∧ finset_has_no_unique_sums B ∧\n      ∀ C : Finset G, C ⊂ B → ¬ finset_has_no_unique_sums C",
+   "attempts": 0,
+   "deps": [
+    "finset_has_no_unique_sums"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards nus_min_card_ge_near_quadratic",
+   "created": 1792516045
+  },
+  {
+   "name": "nus_int_collision_preserving_const_of_minimal",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If A is NUS, no proper subset of A is NUS, and x : G → ℤ is constant across additive collisions on A, then x is constant on A.",
+   "statement": "theorem nus_int_collision_preserving_const_of_minimal {G : Type*} [AddCommMonoid G]\n    [DecidableEq G] {A : Finset G} (hA : finset_has_no_unique_sums A)\n    (hmin : ∀ B : Finset G, B ⊂ A → ¬ finset_has_no_unique_sums B)\n    {x : G → ℤ}\n    (hx : ∀ a ∈ A, ∀ b ∈ A, ∀ c ∈ A, ∀ d ∈ A, a + b = c + d → x a + x b = x c + x d) :\n    ∀ a ∈ A, ∀ b ∈ A, x a = x b",
+   "attempts": 0,
+   "deps": [
+    "finset_sum_collision_preserving_const_of_minimal",
+    "finset_has_no_unique_sums"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards nus_min_card_ge_near_quadratic",
+   "created": 1792516845
   },
   {
    "name": "nus_min_card_ge_c_log_sq",
@@ -682949,12 +684660,117 @@
    "statement": "theorem nus_min_card_ge_near_quadratic :\n    ∃ C : ℝ, 0 < C ∧ ∃ p₀ : ℕ, ∀ p : ℕ, p₀ ≤ p → p.Prime →\n      C * (Real.log p / Real.log (Real.log p)) ^ 2 ≤ (nus_min_card p : ℝ)",
    "attempts": 0,
    "deps": [
-    "nus_min_card"
+    "nus_min_card",
+    "nus_exists_inclusion_minimal_subset",
+    "nus_collision_subspace",
+    "unit_incidence_matrix",
+    "unit_incidence_matrix_isTotallyUnimodular",
+    "nus_collision_subspace_finrank_ge_two",
+    "nus_clean_rectangle_card_bound",
+    "nus_min_card_ge_near_quadratic_of_rank_hadamard_bound",
+    "nus_int_collision_preserving_const_of_minimal",
+    "nus_min_card_rank_hadamard_bound"
    ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards nus_min_card_ge_c_log_sq",
    "created": 1792285600
+  },
+  {
+   "name": "nus_min_card_ge_near_quadratic_of_rank_hadamard_bound",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If every NUS set A ⊆ Z/pZ satisfies log p ≤ K(√|A| + |A|/log p)·log|A| with K ≥ 1, then m(p) ≥ (1/(32K²))(log p/log log p)² for every prime p ≥ 64. Consequently the target follows from the existence of such a K.",
+   "statement": "theorem nus_min_card_ge_near_quadratic_of_rank_hadamard_bound (K : ℝ) (hK : 1 ≤ K)\n    (hbound : ∀ (p : ℕ), p.Prime → ∀ A : Finset (ZMod p), finset_has_no_unique_sums A →\n      Real.log p ≤ K * (Real.sqrt (A.card : ℝ) + (A.card : ℝ) / Real.log p) * Real.log (A.card : ℝ)) :\n    ∃ C : ℝ, 0 < C ∧ ∃ p₀ : ℕ, ∀ p : ℕ, p₀ ≤ p → p.Prime →\n      C * (Real.log p / Real.log (Real.log p)) ^ 2 ≤ (nus_min_card p : ℝ)",
+   "attempts": 0,
+   "deps": [
+    "nus_min_card",
+    "nus_exists_inclusion_minimal_subset"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards nus_min_card_ge_near_quadratic",
+   "created": 1792516822
+  },
+  {
+   "name": "nus_min_card_rank_hadamard_bound",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "There is an absolute constant K ≥ 1 such that for every prime p and every A ⊆ Z/pZ with no unique sums, log p ≤ K(√|A| + |A|/log p)·log|A|.",
+   "statement": "theorem nus_min_card_rank_hadamard_bound :\n    ∃ K : ℝ, 1 ≤ K ∧ ∀ (p : ℕ), p.Prime → ∀ A : Finset (ZMod p), finset_has_no_unique_sums A →\n      Real.log p ≤ K * (Real.sqrt (A.card : ℝ) + (A.card : ℝ) / Real.log p) * Real.log (A.card : ℝ)",
+   "attempts": 0,
+   "deps": [
+    "nus_collision_subspace_finrank_ge_two",
+    "nus_clean_rectangle_card_bound",
+    "unit_incidence_matrix_isTotallyUnimodular",
+    "nus_exists_inclusion_minimal_subset"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards nus_min_card_ge_near_quadratic",
+   "created": 1792516861
+  },
+  {
+   "name": "op_258_bounded_extension",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For a positive antitone profile a with Σ a i > 1 there is n₀ such that for every n ≥ n₀, every partially defined a-bounded colouring of the edges of K_n (i.e. the coloured edge set s has fibres of size at most a i * C(n,2)) extends to a full a-bounded colouring of all edges of K_n agreeing with it on s.",
+   "statement": "theorem op_258_bounded_extension (a : ℕ+ → ℝ) (hpos : ∀ i, 0 < a i) (hanti : Antitone a)\n    (hsum : 1 < ∑' i : ℕ+, ENNReal.ofReal (a i)) :\n    ∃ n₀ : ℕ, ∀ n ≥ n₀, ∀ (s : Finset (SimpleGraph.completeGraph (Fin n)).edgeSet)\n      (c₀ : (SimpleGraph.completeGraph (Fin n)).edgeSet → ℕ+),\n      (∀ i : ℕ+, ((s.filter (fun e => c₀ e = i)).card : ℝ) ≤ a i * (n.choose 2 : ℝ)) →\n      ∃ c : (SimpleGraph.completeGraph (Fin n)).edgeSet → ℕ+,\n        op_258_bounded a n c ∧ ∀ e ∈ s, c e = c₀ e",
+   "attempts": 0,
+   "deps": [
+    "op_258_exists_finset_sum_gt_one",
+    "op_258_bounded"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards op_258_forces_step",
+   "created": 1792521066
+  },
+  {
+   "name": "op_258_forces_of_capacity_lt_one",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If k ≥ 2 and Σ_i min(a_i, 1 - 1/(k-1)) < 1, then every a-bounded colouring of K_n for large n already contains a monochromatic K_k; i.e. a forces a monochromatic K_k.",
+   "statement": "theorem op_258_forces_of_capacity_lt_one (a : ℕ+ → ℝ) (k : ℕ) (hk : 2 ≤ k)\n    (hcap : (∑' i : ℕ+, ENNReal.ofReal (min (a i) (1 - 1 / ((k : ℝ) - 1)))) < 1) :\n    op_258_forces a k",
+   "attempts": 0,
+   "deps": [
+    "op_258_mono_clique_of_fiber_gt_turan",
+    "op_258_card_fiber_sum",
+    "op_258_forces_two",
+    "op_258_forces"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards op_258_forces_step",
+   "created": 1792521149
+  },
+  {
+   "name": "op_258_forces_of_forces_smul_blowup",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For γ ≥ 1 and k ≥ 1: if a forces a monochromatic K_{γk}, then the profile γ·a forces a monochromatic K_k.",
+   "statement": "theorem op_258_forces_of_forces_smul_blowup (a : ℕ+ → ℝ) (hpos : ∀ i, 0 < a i) (hanti : Antitone a)\n    (hsum : 1 < ∑' i : ℕ+, ENNReal.ofReal (a i)) (γ k : ℕ) (hγ : 1 ≤ γ)\n    (h : op_258_forces a (γ * k)) : op_258_forces (fun i => (γ : ℝ) * a i) k",
+   "attempts": 0,
+   "deps": [
+    "op_258_bounded_extension",
+    "op_258_forces",
+    "op_258_bounded",
+    "op_258_forces_mono_clique"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards op_258_forces_step",
+   "created": 1792521171
   },
   {
    "name": "op_258_forces_step",
@@ -682968,12 +684784,33 @@
    "deps": [
     "op_258_forces",
     "op_258_card_fiber_sum",
-    "op_258_exists_finset_sum_gt_one"
+    "op_258_exists_finset_sum_gt_one",
+    "op_258_mono_clique_of_fiber_gt_turan",
+    "op_258_bounded_extension",
+    "op_258_forces_of_capacity_lt_one",
+    "op_258_forces_of_forces_smul_blowup"
    ],
    "problem": null,
    "provenance": "lemma",
    "citation": "step towards op_258_triangle_forcing_implies_decay_ramsey",
    "created": 1792308826
+  },
+  {
+   "name": "op_258_mono_clique_of_fiber_gt_turan",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If a single colour class of an edge colouring of K_n has strictly more edges than the Turán bound for K_{r+1}-free graphs (r ≥ 1), then the colouring has a monochromatic K_{r+1} in that colour.",
+   "statement": "theorem op_258_mono_clique_of_fiber_gt_turan (n r : ℕ) (hr : 1 ≤ r)\n    (c : (SimpleGraph.completeGraph (Fin n)).edgeSet → ℕ+) (i : ℕ+)\n    (h : (Finset.univ.filter (fun e => c e = i)).card >\n        (n ^ 2 - (n % r) ^ 2) * (r - 1) / (2 * r) + (n % r).choose 2) :\n    op_258_has_mono_clique n c (r + 1)",
+   "attempts": 0,
+   "deps": [
+    "op_258_has_mono_clique"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards op_258_forces_step",
+   "created": 1792521049
   },
   {
    "name": "op_258_triangle_forcing_implies_decay_ramsey",
@@ -683085,22 +684922,174 @@
    "created": 1792473531
   },
   {
+   "name": "poset_delete_isolated_lt_pair_count_iff",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "In a finite ordered set, the one-element deletion P − x has the same number of comparable pairs as P if and only if x is incomparable with every other element.",
+   "statement": "theorem poset_delete_isolated_lt_pair_count_iff (P : Type) [Fintype P] [PartialOrder P] (x : P) : poset_lt_pair_count {y : P // y ≠ x} = poset_lt_pair_count P ↔ (∀ y : P, ¬ (x < y ∨ y < x))",
+   "attempts": 0,
+   "deps": [
+    "poset_lt_pair_count"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards poset_height_one_reconstructible",
+   "created": 1792510620
+  },
+  {
+   "name": "poset_height_one_lt_minimal_maximal",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If P has height one and x < y in P, then nothing lies below x and nothing lies above y. Consequently the elements below a comparable pair form an antichain, and every comparable pair joins a minimal element to a maximal one: the poset is bipartite between its minimal and maximal elements.",
+   "statement": "theorem poset_height_one_lt_minimal_maximal (P : Type) [PartialOrder P] (hP : poset_height_one P) {x y : P} (hxy : x < y) : (∀ z : P, ¬ (z < x)) ∧ (∀ z : P, ¬ (y < z))",
+   "attempts": 0,
+   "deps": [
+    "poset_height_one"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards poset_height_one_reconstructible",
+   "created": 1792510787
+  },
+  {
    "name": "poset_height_one_reconstructible",
    "kind": "theorem",
-   "status": "proving",
+   "status": "stated",
    "topic": "combinatorics",
    "domain": "tcs",
    "informal": "Open problem (arXiv:2610.12690, Sec. 9, from an open problem in a monograph on ordered sets): every finite ordered set of height one with at least four elements is reconstructible from its deck: if P and Q are finite ordered sets of height one, |P| ≥ 4, and P, Q have the same deck of one-element-deleted suborders, then P ≅ Q.",
    "statement": "theorem poset_height_one_reconstructible :\n    ∀ (P Q : Type) [Fintype P] [Fintype Q] [PartialOrder P] [PartialOrder Q],\n      4 ≤ Fintype.card P → poset_height_one P → poset_height_one Q →\n      poset_hypomorphic P Q → Nonempty (P ≃o Q)",
-   "attempts": 1,
+   "attempts": 0,
    "deps": [
     "poset_hypomorphic",
-    "poset_height_one"
+    "poset_height_one",
+    "poset_lt_pair_count",
+    "poset_hypomorphic_card_reconstructible",
+    "poset_lt_pair_count_eq_of_order_iso",
+    "poset_delete_isolated_lt_pair_count_iff",
+    "poset_hypomorphic_isolated_iff",
+    "poset_iso_of_iso_delete_of_isolated",
+    "poset_height_one_reconstructible_of_has_isolated",
+    "poset_height_one_reconstructible_of_no_isolated",
+    "poset_height_one_lt_minimal_maximal"
    ],
    "problem": null,
    "provenance": "original",
    "citation": "arXiv:2610.12690 (Reconstruction of Finite Posets of Width Three), Sec. 9 (Conclusions): the paper settles width at most three and leaves the height-one case of the open problem open.",
    "created": 1791875087
+  },
+  {
+   "name": "poset_height_one_reconstructible_of_has_isolated",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If finite ordered sets P, Q are hypomorphic, P has height one, |P| ≥ 4, and P has at least one isolated point, then P ≅ Q.",
+   "statement": "theorem poset_height_one_reconstructible_of_has_isolated (P Q : Type) [Fintype P] [Fintype Q] [PartialOrder P] [PartialOrder Q] (hn : 4 ≤ Fintype.card P) (hP : poset_height_one P) (hQ : poset_height_one Q) (h : poset_hypomorphic P Q) (hPiso : ∃ x : P, ∀ y : P, ¬ (x < y ∨ y < x)) : Nonempty (P ≃o Q)",
+   "attempts": 0,
+   "deps": [
+    "poset_hypomorphic",
+    "poset_hypomorphic_isolated_iff",
+    "poset_iso_of_iso_delete_of_isolated"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards poset_height_one_reconstructible",
+   "created": 1792510711
+  },
+  {
+   "name": "poset_height_one_reconstructible_of_no_isolated",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If finite ordered sets P, Q of height one, |P| ≥ 4, with every element of P and of Q comparable to something, have the same deck, then P ≅ Q. Equivalently: a bipartite graph with no isolated vertex is determined by the deck of vertex-deleted induced subgraphs.",
+   "statement": "theorem poset_height_one_reconstructible_of_no_isolated (P Q : Type) [Fintype P] [Fintype Q] [PartialOrder P] [PartialOrder Q] (hn : 4 ≤ Fintype.card P) (hP : poset_height_one P) (hQ : poset_height_one Q) (h : poset_hypomorphic P Q) (hPnil : ∀ x : P, ∃ y : P, x < y ∨ y < x) (hQnil : ∀ x : Q, ∃ y : Q, x < y ∨ y < x) : Nonempty (P ≃o Q)",
+   "attempts": 0,
+   "deps": [
+    "poset_hypomorphic",
+    "poset_height_one",
+    "poset_height_one_lt_minimal_maximal"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards poset_height_one_reconstructible",
+   "created": 1792510733
+  },
+  {
+   "name": "poset_hypomorphic_card_reconstructible",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Hypomorphic finite ordered sets have the same cardinality.",
+   "statement": "theorem poset_hypomorphic_card_reconstructible (P Q : Type) [Fintype P] [Fintype Q] [PartialOrder P] [PartialOrder Q] (h : poset_hypomorphic P Q) : Fintype.card P = Fintype.card Q",
+   "attempts": 0,
+   "deps": [
+    "poset_hypomorphic"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards poset_height_one_reconstructible",
+   "created": 1792510585
+  },
+  {
+   "name": "poset_hypomorphic_isolated_iff",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Let finite ordered sets P, Q have |P| ≥ 3 and the same deck, witnessed by the bijection σ with P − x ≅ Q − σ(x) for all x. Then for every x ∈ P, x is incomparable with everything in P if and only if σ(x) is incomparable with everything in Q. In particular the isolated points of P correspond exactly to those of Q.",
+   "statement": "theorem poset_hypomorphic_isolated_iff (P Q : Type) [Fintype P] [Fintype Q] [PartialOrder P] [PartialOrder Q] (hn : 3 ≤ Fintype.card P) (σ : P ≃ Q) (hσ : ∀ x : P, Nonempty ({y : P // y ≠ x} ≃o {y : Q // y ≠ σ x})) (x : P) : (∀ y : P, ¬ (x < y ∨ y < x)) ↔ (∀ z : Q, ¬ (σ x < z ∨ z < σ x))",
+   "attempts": 0,
+   "deps": [
+    "poset_hypomorphic",
+    "poset_hypomorphic_card_lt_pairs_eq",
+    "poset_delete_isolated_lt_pair_count_iff",
+    "poset_lt_pair_count_eq_of_order_iso"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards poset_height_one_reconstructible",
+   "created": 1792510640
+  },
+  {
+   "name": "poset_iso_of_iso_delete_of_isolated",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "If x ∈ P and y ∈ Q are each incomparable with every other element and the complements P − x and Q − y are order-isomorphic, then P ≅ Q.",
+   "statement": "theorem poset_iso_of_iso_delete_of_isolated (P Q : Type) [Fintype P] [Fintype Q] [PartialOrder P] [PartialOrder Q] (x : P) (y : Q) (hx : ∀ z : P, ¬ (x < z ∨ z < x)) (hy : ∀ z : Q, ¬ (y < z ∨ z < y)) (e : {z : P // z ≠ x} ≃o {z : Q // z ≠ y}) : Nonempty (P ≃o Q)",
+   "attempts": 0,
+   "deps": [
+    "poset_hypomorphic"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards poset_height_one_reconstructible",
+   "created": 1792510692
+  },
+  {
+   "name": "poset_lt_pair_count_eq_of_order_iso",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Order-isomorphic ordered sets have the same number of comparable pairs.",
+   "statement": "theorem poset_lt_pair_count_eq_of_order_iso (P Q : Type) [Fintype P] [Fintype Q] [PartialOrder P] [PartialOrder Q] (e : P ≃o Q) : poset_lt_pair_count P = poset_lt_pair_count Q",
+   "attempts": 0,
+   "deps": [
+    "poset_lt_pair_count"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards poset_height_one_reconstructible",
+   "created": 1792510601
   },
   {
    "name": "poset_nonempty_order_iso_of_card_order_hom_eq_of_connected",
@@ -683347,6 +685336,23 @@
    "created": 1792462639
   },
   {
+   "name": "unit_incidence_matrix_isTotallyUnimodular",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Every square minor of a matrix whose rows are differences of standard basis vectors e_{u i} - e_{v i} is 0, 1 or -1 (Mathlib: the matrix is totally unimodular).",
+   "statement": "theorem unit_incidence_matrix_isTotallyUnimodular {m n : Type*} [DecidableEq n] (u v : m → n) :\n    (unit_incidence_matrix u v).IsTotallyUnimodular",
+   "attempts": 0,
+   "deps": [
+    "unit_incidence_matrix"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards nus_min_card_ge_near_quadratic",
+   "created": 1792516771
+  },
+  {
    "name": "zero_sum_w_eq_question",
    "kind": "theorem",
    "status": "stated",
@@ -683438,22 +685444,23 @@
    "created": 1792306504
   },
   {
-   "name": "diam_le_three_of_forall_power_well_covered",
+   "name": "digraph_dijoin_reverse_eq_inverts",
    "kind": "theorem",
    "status": "stated",
    "topic": "graphs",
    "domain": "tcs",
-   "informal": "If G is a finite simple connected graph such that G^d is well-covered for all d ≥ 1, then diam(G) ≤ 3.",
-   "statement": "theorem diam_le_three_of_forall_power_well_covered :\n    ∀ {V : Type} [Fintype V] (G : SimpleGraph V), G.Connected →\n      (∀ d : ℕ, 1 ≤ d → simple_graph_is_well_covered (simple_graph_power G d)) → G.diam ≤ 3",
+   "informal": "The dijoin D̄₁ → D̄₂ equals D₁ → D₂ after inverting the two vertex sets Set.range Sum.inl and Set.range Sum.inr.",
+   "statement": "theorem digraph_dijoin_reverse_eq_inverts {V W : Type*} (D₁ : Digraph V) (D₂ : Digraph W) :\n    digraph_dijoin (digraph_reverse D₁) (digraph_reverse D₂) =\n      digraph_invert (digraph_invert (digraph_dijoin D₁ D₂) (Set.range Sum.inl))\n        (Set.range Sum.inr)",
    "attempts": 0,
    "deps": [
-    "simple_graph_power",
-    "simple_graph_is_well_covered"
+    "digraph_reverse",
+    "digraph_dijoin",
+    "digraph_invert"
    ],
    "problem": null,
-   "provenance": "original",
-   "citation": "First part of OP-160 (arXiv:2610.09300 (On graphs whose powers are well-covered), Question 3.9). Exhaustive search: no counterexample on at most 7 vertices.",
-   "created": 1791696422
+   "provenance": "lemma",
+   "citation": "step towards tournament_dijoin_inversion_number_symm",
+   "created": 1792509154
   },
   {
    "name": "digraph_exists_bipartition_both_cuts_ge_ceil_div_six",
@@ -683492,6 +685499,23 @@
    "provenance": "original",
    "citation": "arXiv:2610.21381 (Optimally large cuts in both directions), Conjecture 6.1 (proved there for d = 2 for all m, Theorem 1.4, and for every d when m is large, Theorem 1.1, with a stronger additive term).",
    "created": 1792129247
+  },
+  {
+   "name": "digraph_reverse_reverse",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "Reversing a digraph twice yields the original digraph.",
+   "statement": "theorem digraph_reverse_reverse {V : Type*} (D : Digraph V) :\n    digraph_reverse (digraph_reverse D) = D",
+   "attempts": 0,
+   "deps": [
+    "digraph_reverse"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards tournament_dijoin_inversion_number_symm",
+   "created": 1792509100
   },
   {
    "name": "edge_connectivity_ge_half_scale_mul_min_degree_mul_lly_lower_bound",
@@ -683598,28 +685622,6 @@
    "created": 1791720299
   },
   {
-   "name": "forall_power_well_covered_diam_le_three_and_twin_free_bounded",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "graphs",
-   "domain": "tcs",
-   "informal": "Let G be a finite simple connected graph with G^d well-covered for every d ≥ 1. Then diam(G) ≤ 3; moreover, there are only finitely many such graphs (up to isomorphism) of diameter exactly 3 without true twins (adjacent u, v with N[u] = N[v]) — stated as a uniform bound M on their number of vertices.",
-   "statement": "theorem forall_power_well_covered_diam_le_three_and_twin_free_bounded :\n    (∀ {V : Type} [Fintype V] (G : SimpleGraph V), G.Connected →\n      (∀ d : ℕ, 1 ≤ d → simple_graph_is_well_covered (simple_graph_power G d)) → G.diam ≤ 3) ∧\n    ∃ M : ℕ, ∀ {V : Type} [Fintype V] (G : SimpleGraph V), G.Connected →\n      (∀ d : ℕ, 1 ≤ d → simple_graph_is_well_covered (simple_graph_power G d)) → G.diam = 3 →\n      (∀ u v : V, G.Adj u v → insert u (G.neighborSet u) ≠ insert v (G.neighborSet v)) →\n      Fintype.card V ≤ M",
-   "attempts": 0,
-   "deps": [
-    "simple_graph_power",
-    "simple_graph_is_well_covered",
-    "simple_graph_power_eq_top_of_diam_le",
-    "simple_graph_is_well_covered_top",
-    "simple_graph_power_is_well_covered_of_diam_le",
-    "forall_power_well_covered_iff_forall_lt_diam"
-   ],
-   "problem": null,
-   "provenance": "original",
-   "citation": "Open-problem entry OP-160: arXiv:2610.09300 (On graphs whose powers are well-covered), Question 3.9 (the paper knows no example of diameter ≥ 4; every well-covered graph of diameter 2 qualifies). Finitely many isomorphism classes of finite graphs is equivalent to a bound on the order.",
-   "created": 1791696416
-  },
-  {
    "name": "forall_power_well_covered_iff_forall_lt_diam",
    "kind": "theorem",
    "status": "stated",
@@ -683711,6 +685713,24 @@
    "provenance": "lemma",
    "citation": "step towards op223_poset_connectivity",
    "created": 1792337499
+  },
+  {
+   "name": "not_diam_le_three_of_forall_power_well_covered",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "The statement `diam_le_three_of_forall_power_well_covered` is false: The statement is false. Counterexample: the circulant graph G = C_21(1,7) on V = Z/21Z, with x ~ y iff (y − x) mod 21 ∈ {1, 7, 14, 20} (i.e. y−x = ±1 or ±7).\n\nIt satisfies all hypotheses of the theorem but has diameter 4 > 3:\n1. Connected: the ±1 edges alone make C_21 a spanning cycle.\n2. diam(G) = 4: not all vertex pairs are within distance 3, but all are within distance 4; explicitly dist(0,4) = 4.\n3. Every power G^d is well-covered (all maximal independent sets of G^d have the same size):\n   - d = 1: every maximal independent set has size 7 (there are 129 of them),\n   - d = 2: every maximal independent set has size 3 (84 of them),\n   - d = 3: every maximal independent set has size 2 (42 of them),\n   - d ≥ 4: G^d is the complete graph K_21 (since diam = 4), whose maximal independent sets are the 21 singletons, all of size 1.\nSo ∀ d ≥ 1, simple_graph_is_well_covered (simple_graph_power G d) holds, while G.diam = 4, contradicting G.diam ≤ 3.\n\nThis was checked with Lean's own evaluator against the graph's exact combinatorics (experiments 2061 and 2062, recorded in memory): experiment 2061 computed the maximal-independent-set size tallies [(7,129)], [(3,84)], [(2,42)] for d = 1,2,3, and experiment 2062 confirmed all pairs reachable (connected), all pairs within distance 4, and some pair NOT within distance 3. Independent Python/networkx experiments 2019, 2020, 2022, 2023 (also in memory) agree, and experiment 2020 found the whole family C_21(i,7), C_28(i,7,14), etc., as well as the Cartesian products C_7 □ K_m (m ≥ 3, diameter 3+1 = 4) with all powers well-covered.\n\nMy own exhaustive search for n ≤ 7 (experiments 2055–2058) found no smaller counterexample, which is consistent: the smallest witness genuinely needs 21 vertices.",
+   "statement": "theorem not_diam_le_three_of_forall_power_well_covered : ¬ (∀ {V : Type} [Fintype V] (G : SimpleGraph V), G.Connected →\n      (∀ d : ℕ, 1 ≤ d → simple_graph_is_well_covered (simple_graph_power G d)) → G.diam ≤ 3)",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_power",
+    "simple_graph_is_well_covered"
+   ],
+   "problem": null,
+   "provenance": "original",
+   "citation": "refutes `diam_le_three_of_forall_power_well_covered`",
+   "created": 1792511583
   },
   {
    "name": "not_forall_power_well_covered_diam_le_three_and_twin_free_bounded",
@@ -684633,21 +686653,70 @@
   {
    "name": "tournament_dijoin_inversion_number_symm",
    "kind": "theorem",
-   "status": "stuck",
+   "status": "stated",
    "topic": "graphs",
    "domain": "tcs",
    "informal": "Conjecture (arXiv:2610.13798, Conjecture 4.1): for all finite tournaments D₁, D₂, inv(D₁ → D₂) = inv(D₂ → D₁).",
    "statement": "theorem tournament_dijoin_inversion_number_symm :\n    ∀ (V W : Type) [Fintype V] [Fintype W] (D₁ : Digraph V) (D₂ : Digraph W),\n      digraph_is_tournament D₁ → digraph_is_tournament D₂ →\n      digraph_inversion_number (digraph_dijoin D₁ D₂) =\n        digraph_inversion_number (digraph_dijoin D₂ D₁)",
-   "attempts": 1,
+   "attempts": 0,
    "deps": [
     "digraph_is_tournament",
     "digraph_dijoin",
-    "digraph_inversion_number"
+    "digraph_inversion_number",
+    "digraph_reverse_reverse",
+    "tournament_dijoin_inversion_number_symm_of_is_acyclic_right",
+    "digraph_dijoin_reverse_eq_inverts",
+    "tournament_dijoin_reverse_inversion_number_le"
    ],
    "problem": null,
    "provenance": "original",
    "citation": "arXiv:2610.13798 (On the failure of additivity of inversion numbers for dijoins), Conjecture 4.1 (posed earlier by other authors as their Conjecture 1.11). The paper shows inv(D₁ → D₂) can be far below inv(D₁) + inv(D₂), notes |inv(D₁ → D₂) − inv(D₂ → D₁)| ≤ 2, and suspects asymmetry for large tournaments.",
    "created": 1791869228
+  },
+  {
+   "name": "tournament_dijoin_inversion_number_symm_of_is_acyclic_right",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "The symmetry inv(D₁ → D₂) = inv(D₂ → D₁) holds when D₂ is acyclic: both sides equal inv(D₁).",
+   "statement": "theorem tournament_dijoin_inversion_number_symm_of_is_acyclic_right\n    (V W : Type) [Fintype V] [Fintype W] (D₁ : Digraph V) (D₂ : Digraph W)\n    (h₁ : digraph_is_tournament D₁) (h₂ : digraph_is_tournament D₂)\n    (hac : digraph_is_acyclic D₂) :\n    digraph_inversion_number (digraph_dijoin D₁ D₂) =\n      digraph_inversion_number (digraph_dijoin D₂ D₁)",
+   "attempts": 0,
+   "deps": [
+    "digraph_is_acyclic",
+    "digraph_is_tournament",
+    "digraph_dijoin",
+    "digraph_inversion_number",
+    "digraph_inversion_number_eq_zero_of_is_acyclic",
+    "tournament_dijoin_inversion_number_le_add",
+    "tournament_inversion_number_le_dijoin"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards tournament_dijoin_inversion_number_symm",
+   "created": 1792509124
+  },
+  {
+   "name": "tournament_dijoin_reverse_inversion_number_le",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For finite tournaments D₁ and D₂, the inversion number of D₁ → D₂ is at most that of D̄₁ → D̄₂. (Conjecture 4.1 half-reduction).",
+   "statement": "theorem tournament_dijoin_reverse_inversion_number_le\n    (V W : Type) [Fintype V] [Fintype W] (D₁ : Digraph V) (D₂ : Digraph W)\n    (h₁ : digraph_is_tournament D₁) (h₂ : digraph_is_tournament D₂) :\n    digraph_inversion_number (digraph_dijoin D₁ D₂) ≤\n      digraph_inversion_number (digraph_dijoin (digraph_reverse D₁) (digraph_reverse D₂))",
+   "attempts": 0,
+   "deps": [
+    "digraph_reverse",
+    "digraph_dijoin",
+    "digraph_inversion_number",
+    "digraph_is_tournament",
+    "digraph_reverse_is_tournament",
+    "digraph_dijoin_reverse_eq_inverts"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards tournament_dijoin_inversion_number_symm",
+   "created": 1792509177
   },
   {
    "name": "tournament_inversion_number_le_min_rank_add_one",
@@ -684708,12 +686777,12 @@
   {
    "name": "linear_code_supports_rate_unit_edge",
    "kind": "theorem",
-   "status": "stated",
+   "status": "proving",
    "topic": "information",
    "domain": "tcs",
    "informal": "Non-vacuity of LinearCodeSupportsRate: on the two-vertex graph with a single unit-capacity edge, with the single session 0 -> 1, a deterministic causal binary linear network code with one transmission slot and one message symbol (T = 1, L = 1, M = 1) supports rate 1.",
    "statement": "theorem linear_code_supports_rate_unit_edge :\n  ∃ (net : CapacitatedNetwork (Fin 2)) (sess : UnicastSessions (Fin 2) (Fin 1)),\n    net.cap s((0 : Fin 2), (1 : Fin 2)) = 1 ∧\n    sess.src (0 : Fin 1) = (0 : Fin 2) ∧ sess.tgt (0 : Fin 1) = (1 : Fin 2) ∧\n    LinearCodeSupportsRate (ZMod 2) net sess 1",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [
     "CapacitatedNetwork",
     "UnicastSessions",
@@ -687911,14 +689980,6 @@
    "rationale": "",
    "links": [
     {
-     "node": "forall_power_well_covered_diam_le_three_and_twin_free_bounded",
-     "role": "statement"
-    },
-    {
-     "node": "diam_le_three_of_forall_power_well_covered",
-     "role": "partial"
-    },
-    {
      "node": "diam_le_one_of_forall_power_well_covered_of_degree_eq_one",
      "role": "partial"
     }
@@ -690479,7 +692540,7 @@
    "ref": "OP-360",
    "title": "Expressiveness and Complexity of Single-Counter Update Symmetric Counter Machines",
    "statement": "Consider the syntactic fragment of symmetric d-counter machines (for d ≥ 2) in which all update transitions (q, update(w), q') are single-counter, meaning that w has at most one non-zero coordinate, while zero-test transitions remain unrestricted. Is this single-counter fragment strictly less expressive than unrestricted symmetric d-counter machines in terms of reachability relations, and what is the computational complexity of its reachability problem?",
-   "status": "formalized",
+   "status": "settled_in_lean",
    "topic": "automata",
    "domain": "tcs",
    "source": "arXiv:2610.23495",

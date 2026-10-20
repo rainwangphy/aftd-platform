@@ -1,26 +1,26 @@
 {
  "schema": 1,
- "generated": "2026-10-20T05:59:39Z",
+ "generated": "2026-10-20T06:32:04Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 9138,
-  "definitions": 3637,
-  "theorems": 5501,
+  "declarations": 9143,
+  "definitions": 3638,
+  "theorems": 5505,
   "topics": 42,
   "domains": 7,
-  "open": 216,
+  "open": 224,
   "rejected": 64,
-  "spend": 214.11,
+  "spend": 229.81,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 236828872,
-   "output": 54937874,
-   "cache_read": 869338219
+   "input": 237575536,
+   "output": 54988082,
+   "cache_read": 871557307
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792475642
+  "last": 1792477795
  },
  "domains": [
   {
@@ -112,13 +112,13 @@
      "name": "graphs",
      "title": "Graph Theory & Graph Algorithms",
      "target": 30,
-     "proved": 379
+     "proved": 381
     },
     {
      "name": "combinatorics",
      "title": "Combinatorics for TCS",
      "target": 25,
-     "proved": 388
+     "proved": 391
     },
     {
      "name": "information",
@@ -532929,6 +532929,7 @@
     "tournament_inversion_number_reverse",
     "tournament_exists_decycling_matrix",
     "digraph_dijoin_is_tournament",
+    "regular_tournament_five_nearly_doubly_regular",
     "tournament_dijoin_inversion_number_symm_of_is_acyclic_left",
     "tournament_dijoin_inversion_number_le_add",
     "digraph_inversion_number_le_of_adj_iff_reverse",
@@ -667113,11 +667114,13 @@
    "clean": false,
    "deps": [],
    "used_by": [
+    "bitword_is_aperiodic",
     "brgc_necklace_order_consecutive_adjacent_seven",
     "bitword_rotate_three_four",
     "bitword_is_rotation",
     "brgc_necklace_order_consecutive_adjacent_five",
-    "bitword_necklace_adjacent"
+    "bitword_necklace_adjacent",
+    "bitword_is_aperiodic_sanity"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/BitwordRotate.lean",
    "proved_at": 1792474327,
@@ -667332,7 +667335,9 @@
    "axioms": [],
    "clean": false,
    "deps": [],
-   "used_by": [],
+   "used_by": [
+    "regular_tournament_five_nearly_doubly_regular"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/DigraphCommonOutCount.lean",
    "proved_at": 1792474333,
    "provenance": "literature",
@@ -667358,7 +667363,9 @@
    "axioms": [],
    "clean": false,
    "deps": [],
-   "used_by": [],
+   "used_by": [
+    "regular_tournament_five_nearly_doubly_regular"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/DigraphOutCount.lean",
    "proved_at": 1792474334,
    "provenance": "literature",
@@ -667475,6 +667482,7 @@
    "deps": [],
    "used_by": [
     "perm_offset_avoiding_count_eq_of_board_equiv",
+    "perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd",
     "perm_offset_avoiding_count_four"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/PermOffsetAvoidingCount.lean",
@@ -667535,7 +667543,8 @@
    "clean": false,
    "deps": [],
    "used_by": [
-    "simple_graph_multi_radio_number"
+    "simple_graph_multi_radio_number",
+    "multi_label_span_ge_of_radio_labeling_top"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphIsMultiRadioLabeling.lean",
    "proved_at": 1792474339,
@@ -667564,7 +667573,8 @@
    "deps": [],
    "used_by": [
     "simple_graph_multi_radio_number",
-    "multi_label_span_sanity"
+    "multi_label_span_sanity",
+    "multi_label_span_ge_of_radio_labeling_top"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/MultiLabelSpan.lean",
    "proved_at": 1792474340,
@@ -667727,7 +667737,9 @@
    "deps": [
     "perm_offset_avoiding_count"
    ],
-   "used_by": [],
+   "used_by": [
+    "perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/PermOffsetAvoidingCountEqOfBoardEquiv.lean",
    "proved_at": 1792475317,
    "provenance": "lemma",
@@ -667756,7 +667768,9 @@
    ],
    "clean": true,
    "deps": [],
-   "used_by": [],
+   "used_by": [
+    "perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/ZmodMulUnitHalfEqZeroIff.lean",
    "proved_at": 1792475317,
    "provenance": "lemma",
@@ -667796,6 +667810,168 @@
    "proved_at": 1792475642,
    "provenance": "literature",
    "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1; the case n = 7, verified by computation in the paper",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "regular_tournament_five_nearly_doubly_regular",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9139,
+   "informal": "The case k = 1 of the conjecture, in a stronger form: every regular tournament of order 5 is nearly doubly regular (any two distinct vertices have at most one common out-neighbour), so in particular every maximizer is.",
+   "statement": "theorem regular_tournament_five_nearly_doubly_regular (D : Digraph (Fin 5))\n    [DecidableRel D.Adj] (hD : digraph_is_tournament D)\n    (hreg : ∀ v, digraph_out_count D v = 2) :\n    ∀ i j, i ≠ j → digraph_common_out_count D i j = 0 ∨ digraph_common_out_count D i j = 1",
+   "source": "theorem regular_tournament_five_nearly_doubly_regular (D : Digraph (Fin 5))\n    [DecidableRel D.Adj] (hD : digraph_is_tournament D)\n    (hreg : ∀ v, digraph_out_count D v = 2) :\n    ∀ i j, i ≠ j → digraph_common_out_count D i j = 0 ∨ digraph_common_out_count D i j = 1 := by\n  intro i j hij\n  have hsub_i : (Finset.filter (fun v => D.Adj i v ∧ D.Adj j v) Finset.univ) ⊆\n      (Finset.filter (fun w => D.Adj i w) Finset.univ) := by\n    intro w hw; rw [Finset.mem_filter] at hw ⊢; exact ⟨hw.1, hw.2.1⟩\n  have hsub_j : (Finset.filter (fun v => D.Adj i v ∧ D.Adj j v) Finset.univ) ⊆\n      (Finset.filter (fun w => D.Adj j w) Finset.univ) := by\n    intro w hw; rw [Finset.mem_filter] at hw ⊢; exact ⟨hw.1, hw.2.2⟩\n  have hle : digraph_common_out_count D i j ≤ 2 := by\n    have h1 := Finset.card_le_card hsub_i\n    have h2 := hreg i\n    exact h1.trans_eq h2\n  have hcases : digraph_common_out_count D i j = 0 ∨\n                digraph_common_out_count D i j = 1 ∨\n                digraph_common_out_count D i j = 2 := by omega\n  rcases hcases with h0 | h1 | h2\n  · left; exact h0\n  · right; exact h1\n  · exfalso\n    have hcard_comm : (Finset.filter (fun v => D.Adj i v ∧ D.Adj j v) Finset.univ).card = 2 := h2\n    have hcard_i : (Finset.filter (fun w => D.Adj i w) Finset.univ).card = 2 := hreg i\n    have hcard_j : (Finset.filter (fun w => D.Adj j w) Finset.univ).card = 2 := hreg j\n    have heq_i : (Finset.filter (fun v => D.Adj i v ∧ D.Adj j v) Finset.univ) =\n        (Finset.filter (fun w => D.Adj i w) Finset.univ) := by\n      apply Finset.eq_of_subset_of_card_le hsub_i\n      rw [hcard_comm, hcard_i]\n    have heq_j : (Finset.filter (fun v => D.Adj i v ∧ D.Adj j v) Finset.univ) =\n        (Finset.filter (fun w => D.Adj j w) Finset.univ) := by\n      apply Finset.eq_of_subset_of_card_le hsub_j\n      rw [hcard_comm, hcard_j]\n    have hij_eq : (Finset.filter (fun w => D.Adj i w) Finset.univ) =\n        (Finset.filter (fun w => D.Adj j w) Finset.univ) := by\n      rw [← heq_i, ← heq_j]\n    have htourn := hD.2 i j hij\n    by_cases hadj : D.Adj i j\n    · have hj_in_i : j ∈ Finset.filter (fun w => D.Adj i w) Finset.univ := by\n        rw [Finset.mem_filter]; exact ⟨Finset.mem_univ j, hadj⟩\n      rw [hij_eq] at hj_in_i\n      rw [Finset.mem_filter] at hj_in_i\n      exact hD.1 j hj_in_i.2\n    · have h_ji : D.Adj j i := by\n        by_contra h_not_ji\n        apply hadj\n        rwa [htourn]\n      have hi_in_j : i ∈ Finset.filter (fun w => D.Adj j w) Finset.univ := by\n        rw [Finset.mem_filter]; exact ⟨Finset.mem_univ i, h_ji⟩\n      rw [← hij_eq] at hi_in_j\n      rw [Finset.mem_filter] at hi_in_j\n      exact hD.1 i hi_in_j.2",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "digraph_is_tournament",
+    "digraph_out_count",
+    "digraph_common_out_count"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/RegularTournamentFiveNearlyDoublyRegular.lean",
+   "proved_at": 1792476036,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25886 (Extremal arborescences in graph orientations), Conjecture 6.1; the order 5 case, checked by computation in the paper",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9140,
+   "informal": "For odd n >= 3 the number of permutations avoiding the offsets {-1, 1} mod n equals the menage number U(n).",
+   "statement": "theorem perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd (n : ℕ) (hn : 3 ≤ n)\n    (ho : Odd n) :\n    perm_offset_avoiding_count n {-1, 1} = perm_offset_avoiding_count n {-1, 0}",
+   "source": "theorem perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd (n : ℕ) (hn : 3 ≤ n)\n    (ho : Odd n) :\n    perm_offset_avoiding_count n {-1, 1} = perm_offset_avoiding_count n {-1, 0} := by\n  obtain ⟨m, rfl⟩ := ho\n  set N := 2 * m + 1 with hN\n  have hu : (2 : ZMod N) * ((m : ZMod N) + 1) = 1 := by\n    have : ((N : ℕ) : ZMod N) = 0 := ZMod.natCast_self N\n    rw [hN] at this; push_cast at this\n    linear_combination this\n  have h2m : (2 : ZMod N) * (m : ZMod N) = -1 := by linear_combination hu\n  have hcast : ∀ a b : ℕ, (((a : ZMod N) = b) ↔ a % N = b % N) := fun a b =>\n    ZMod.natCast_eq_natCast_iff' a b N\n  have inj : ∀ c : ℕ, (∀ a b : ℕ, a < N → b < N →\n      ((a : ZMod N) + c) * ((m : ZMod N) + 1) = ((b : ZMod N) + c) * ((m : ZMod N) + 1) → a = b) := by\n    intro c a b ha hb hab\n    have h1 : ((a : ZMod N) + c - (b + c)) * ((m : ZMod N) + 1) = 0 := by\n      rw [sub_mul, hab, sub_self]\n    rw [zmod_mul_unit_half_eq_zero_iff hu, sub_eq_zero, add_left_inj] at h1\n    rw [hcast, Nat.mod_eq_of_lt ha, Nat.mod_eq_of_lt hb] at h1\n    exact h1\n  have hNpos : 0 < N := by omega\n  -- σ i = i (m + 1), ρ j = (j + 2m) (m + 1), mod N\n  let fσ : Fin N → Fin N := fun i => ⟨(i.val * (m + 1)) % N, Nat.mod_lt _ hNpos⟩\n  let fρ : Fin N → Fin N := fun j => ⟨((j.val + 2 * m) * (m + 1)) % N, Nat.mod_lt _ hNpos⟩\n  have vσ : ∀ i, (((fσ i : ℕ) : ZMod N)) = ((i : ℕ) : ZMod N) * ((m : ZMod N) + 1) := by\n    intro i; simp [fσ, ZMod.natCast_mod]\n  have vρ : ∀ j, (((fρ j : ℕ) : ZMod N)) =\n      (((j : ℕ) : ZMod N) + 2 * (m : ZMod N)) * ((m : ZMod N) + 1) := by\n    intro j; simp [fρ, ZMod.natCast_mod]\n  have injσ : Function.Injective fσ := by\n    intro a b hab\n    have := congrArg (fun x : Fin N => ((x : ℕ) : ZMod N)) hab\n    simp only [vσ] at this\n    exact Fin.ext (inj 0 a b a.isLt b.isLt (by simpa using this))\n  have injρ : Function.Injective fρ := by\n    intro a b hab\n    have := congrArg (fun x : Fin N => ((x : ℕ) : ZMod N)) hab\n    simp only [vρ] at this\n    exact Fin.ext (inj (2 * m) a b a.isLt b.isLt (by push_cast; exact this))\n  let σ : Equiv.Perm (Fin N) := Equiv.ofBijective fσ (Finite.injective_iff_bijective.mp injσ)\n  let ρ : Equiv.Perm (Fin N) := Equiv.ofBijective fρ (Finite.injective_iff_bijective.mp injρ)\n  apply perm_offset_avoiding_count_eq_of_board_equiv N _ _ σ ρ\n  intro i j\n  have dv : ∀ x : ℤ, (N : ℤ) ∣ x ↔ (x : ZMod N) = 0 := fun x =>\n    (ZMod.intCast_zmod_eq_zero_iff_dvd x N).symm\n  simp only [Finset.mem_insert, Finset.mem_singleton, exists_eq_or_imp, exists_eq_left, dv,\n    Int.cast_sub, Int.cast_neg, Int.cast_one, Int.cast_natCast, Int.cast_zero]\n  simp only [σ, ρ, Equiv.ofBijective_apply]\n  rw [vσ, vρ]\n  have e1 : ∀ J I : ZMod N, (J + 2 * (m : ZMod N)) * ((m : ZMod N) + 1) - I * ((m : ZMod N) + 1) - -1\n      = (J - I + 1) * ((m : ZMod N) + 1) := fun J I => by\n    linear_combination ((m : ZMod N) + 1) * h2m - hu\n  have e2 : ∀ J I : ZMod N, (J + 2 * (m : ZMod N)) * ((m : ZMod N) + 1) - I * ((m : ZMod N) + 1) - 0\n      = (J - I - 1) * ((m : ZMod N) + 1) := fun J I => by\n    linear_combination ((m : ZMod N) + 1) * h2m\n  rw [e1, e2, zmod_mul_unit_half_eq_zero_iff hu, zmod_mul_unit_half_eq_zero_iff hu]\n  constructor\n  · rintro (h | h)\n    · left; linear_combination h\n    · right; linear_combination h\n  · rintro (h | h)\n    · left; linear_combination h\n    · right; linear_combination h",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "perm_offset_avoiding_count",
+    "perm_offset_avoiding_count_eq_of_board_equiv",
+    "zmod_mul_unit_half_eq_zero_iff"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/PermOffsetAvoidingCountNegOneOneEqMenageOfOdd.lean",
+   "proved_at": 1792476231,
+   "provenance": "literature",
+   "citation": "arXiv:2610.23958 (Unranking S-avoiding permutations with two forbidden offsets), Proposition 6.2",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "multi_label_span_ge_of_radio_labeling_top",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9141,
+   "informal": "Lower bound: every (m,k)-radio labeling of the complete graph K_n has span at least k(mn - 1).",
+   "statement": "theorem multi_label_span_ge_of_radio_labeling_top (n m k : ℕ) (f : Fin n → Finset ℕ)\n    (hf : simple_graph_is_multi_radio_labeling (⊤ : SimpleGraph (Fin n)) m k f) :\n    k * (m * n - 1) ≤ multi_label_span f",
+   "source": "lemma multi_label_span_ge_of_radio_labeling_top_le_span {V : Type*} [Fintype V] (f : V → Finset ℕ)\n    (x y : V) (a : ℕ) (ha : a ∈ f x) (b : ℕ) (hb : b ∈ f y) :\n    b - a ≤ multi_label_span f := by\n  have h1 : b - a ≤ (f y).sup (fun b' => b' - a) :=\n    Finset.le_sup (f := fun b' => b' - a) hb\n  have h2 : (f y).sup (fun b' => b' - a) ≤ (f x).sup (fun a' => (f y).sup (fun b' => b' - a')) :=\n    Finset.le_sup (f := fun a' => (f y).sup (fun b' => b' - a')) ha\n  have h3 : (f x).sup (fun a' => (f y).sup (fun b' => b' - a')) ≤\n      Finset.univ.sup (fun y' => (f x).sup (fun a' => (f y').sup (fun b' => b' - a'))) :=\n    Finset.le_sup (f := fun y' => (f x).sup (fun a' => (f y').sup (fun b' => b' - a'))) (Finset.mem_univ y)\n  have h4 : Finset.univ.sup (fun y' => (f x).sup (fun a' => (f y').sup (fun b' => b' - a'))) ≤\n      multi_label_span f :=\n    Finset.le_sup (f := fun x' => Finset.univ.sup (fun y' => (f x').sup (fun a' => (f y').sup (fun b' => b' - a')))) (Finset.mem_univ x)\n  exact h1.trans (h2.trans (h3.trans h4))\n\nlemma multi_label_span_ge_of_radio_labeling_top_dist_le_one (n : ℕ) (x y : Fin n) :\n    (⊤ : SimpleGraph (Fin n)).dist x y ≤ 1 := by\n  by_cases h : x = y\n  · subst h; rw [SimpleGraph.dist_self]; exact zero_le_one\n  · rw [SimpleGraph.dist_top_of_ne h]\n\nlemma multi_label_span_ge_of_radio_labeling_top_injOn (n m k : ℕ) (f : Fin n → Finset ℕ)\n    (hf : simple_graph_is_multi_radio_labeling (⊤ : SimpleGraph (Fin n)) m k f)\n    (hk : 1 ≤ k) :\n    Set.InjOn (fun (p : (Σ _ : Fin n, ℕ)) => p.2) (↑(Finset.univ.sigma f)) := by\n  intro p1 hp1 p2 hp2 h_eq\n  obtain ⟨x, a⟩ := p1\n  obtain ⟨y, b⟩ := p2\n  dsimp at h_eq\n  subst h_eq\n  rw [Finset.mem_coe, Finset.mem_sigma] at hp1 hp2\n  by_contra h_ne\n  have h_ne' : (x, a) ≠ (y, a) := by\n    intro h_c\n    apply h_ne\n    exact Sigma.ext (Prod.ext_iff.mp h_c).1 (heq_of_eq (Prod.ext_iff.mp h_c).2)\n  have h_dist := hf.2 x y a hp1.2 a hp2.2 h_ne'\n  simp only [sub_self, abs_zero] at h_dist\n  have h_dist_le := multi_label_span_ge_of_radio_labeling_top_dist_le_one n x y\n  omega\n\nlemma multi_label_span_ge_of_radio_labeling_top_diff_ge (n m k : ℕ) (f : Fin n → Finset ℕ)\n    (hf : simple_graph_is_multi_radio_labeling (⊤ : SimpleGraph (Fin n)) m k f)\n    {x y : Fin n} {a b : ℕ} (ha : a ∈ f x) (hb : b ∈ f y) (hab : a < b) :\n    a + k ≤ b := by\n  have h_ne : (x, a) ≠ (y, b) := by\n    intro h_c\n    have : a = b := (Prod.ext_iff.mp h_c).2\n    omega\n  have h_dist := hf.2 x y a ha b hb h_ne\n  have h_top := multi_label_span_ge_of_radio_labeling_top_dist_le_one n x y\n  have h_abs : |(a : ℤ) - b| = (b : ℤ) - a := by\n    rw [abs_sub_comm, abs_of_nonneg]\n    omega\n  rw [h_abs] at h_dist\n  omega\n\ntheorem multi_label_span_ge_of_radio_labeling_top (n m k : ℕ) (f : Fin n → Finset ℕ)\n    (hf : simple_graph_is_multi_radio_labeling (⊤ : SimpleGraph (Fin n)) m k f) :\n    k * (m * n - 1) ≤ multi_label_span f := by\n  by_cases hk : k = 0\n  · subst hk; simp\n  by_cases hmn : m * n = 0\n  · simp [hmn]\n  have hk_pos : 0 < k := Nat.pos_of_ne_zero hk\n  have hk_ge : 1 ≤ k := hk_pos\n  set pairs := Finset.univ.sigma f\n  set A := pairs.image (fun p => p.2)\n  have h_card_pairs : pairs.card = m * n := by\n    rw [Finset.card_sigma]\n    simp [hf.1, mul_comm]\n  have h_inj_pairs := multi_label_span_ge_of_radio_labeling_top_injOn n m k f hf hk_ge\n  have h_card_A : A.card = m * n := by\n    rw [Finset.card_image_of_injOn h_inj_pairs, h_card_pairs]\n  have hA_nonempty : A.Nonempty := Finset.card_pos.mp (by omega)\n  set a_min := A.min' hA_nonempty\n  set a_max := A.max' hA_nonempty\n  have ha_min_mem : a_min ∈ A := Finset.min'_mem A hA_nonempty\n  have ha_max_mem : a_max ∈ A := Finset.max'_mem A hA_nonempty\n  obtain ⟨p_min, hp_min, hp_min_eq⟩ := Finset.mem_image.mp ha_min_mem\n  obtain ⟨p_max, hp_max, hp_max_eq⟩ := Finset.mem_image.mp ha_max_mem\n  rw [Finset.mem_sigma] at hp_min hp_max\n  have h_span_ge : a_max - a_min ≤ multi_label_span f := by\n    rw [← hp_min_eq, ← hp_max_eq]\n    exact multi_label_span_ge_of_radio_labeling_top_le_span f p_min.1 p_max.1 p_min.2 hp_min.2 p_max.2 hp_max.2\n  have h_diff : ∀ a ∈ A, ∀ b ∈ A, a < b → a + k ≤ b := by\n    intro a ha b hb hab\n    obtain ⟨pa, hpa, rfl⟩ := Finset.mem_image.mp ha\n    obtain ⟨pb, hpb, rfl⟩ := Finset.mem_image.mp hb\n    rw [Finset.mem_sigma] at hpa hpb\n    exact multi_label_span_ge_of_radio_labeling_top_diff_ge n m k f hf hpa.2 hpb.2 hab\n  have h_min : ∀ a ∈ A, a_min ≤ a := fun a ha => Finset.min'_le A a ha\n  have h_max : ∀ a ∈ A, a ≤ a_max := fun a ha => Finset.le_max' A a ha\n  have h_inj_g : Set.InjOn (fun a => (a - a_min) / k) (↑A) := by\n    intro a ha b hb hab\n    dsimp at hab\n    rcases lt_trichotomy a b with hlt | heq | hgt\n    · have h_step : a + k ≤ b := h_diff a ha b hb hlt\n      have h_le : (a - a_min) + k ≤ b - a_min := by\n        have := h_min a ha; omega\n      have : (a - a_min) / k < (b - a_min) / k := by\n        have : (a - a_min) / k + 1 ≤ (b - a_min) / k := by\n          rw [← Nat.add_div_right (a - a_min) hk_pos]\n          exact Nat.div_le_div_right h_le\n        omega\n      omega\n    · exact heq\n    · have h_step : b + k ≤ a := h_diff b hb a ha hgt\n      have h_le : (b - a_min) + k ≤ a - a_min := by\n        have := h_min b hb; omega\n      have : (b - a_min) / k < (a - a_min) / k := by\n        have : (b - a_min) / k + 1 ≤ (a - a_min) / k := by\n          rw [← Nat.add_div_right (b - a_min) hk_pos]\n          exact Nat.div_le_div_right h_le\n        omega\n      omega\n  generalize hd : (a_max - a_min) / k = d\n  have h_sub : A.image (fun a => (a - a_min) / k) ⊆ Finset.range (d + 1) := by\n    intro y hy\n    rw [Finset.mem_image] at hy\n    obtain ⟨a, ha, rfl⟩ := hy\n    rw [Finset.mem_range]\n    have : (a - a_min) / k ≤ d := by\n      rw [← hd]\n      exact Nat.div_le_div_right (Nat.sub_le_sub_right (h_max a ha) a_min)\n    omega\n  have h_card_le := Finset.card_le_card h_sub\n  rw [Finset.card_image_of_injOn h_inj_g, h_card_A, Finset.card_range] at h_card_le\n  have h_mn : m * n - 1 ≤ d := by omega\n  have h_mul : k * (m * n - 1) ≤ k * d :=\n    Nat.mul_le_mul_left k h_mn\n  have h_div_mul : k * d ≤ a_max - a_min := by\n    rw [← hd, mul_comm]\n    exact Nat.div_mul_le_self (a_max - a_min) k\n  exact (h_mul.trans h_div_mul).trans h_span_ge",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "simple_graph_is_multi_radio_labeling",
+    "multi_label_span"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/MultiLabelSpanGeOfRadioLabelingTop.lean",
+   "proved_at": 1792476921,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Proposition 2.3, lower bound",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "bitword_is_aperiodic",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9142,
+   "informal": "The n-bit word x is aperiodic (primitive): no rotation by 0 < r < n fixes it, i.e. its necklace has n distinct rotations.",
+   "statement": "def bitword_is_aperiodic (n x : ℕ) : Prop",
+   "source": "/-- The `n`-bit word `x` is aperiodic: no rotation by `0 < r < n` fixes it. -/\ndef bitword_is_aperiodic (n x : ℕ) : Prop :=\n  ∀ r, 0 < r → r < n → (bitword_rotate n)^[r] x ≠ x",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "bitword_rotate"
+   ],
+   "used_by": [
+    "bitword_is_aperiodic_sanity"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/BitwordIsAperiodic.lean",
+   "proved_at": 1792477794,
+   "provenance": "literature",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 and the remark after it; periodic necklaces are the exceptions at composite n",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "bitword_is_aperiodic_sanity",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9143,
+   "informal": "Sanity check: the 6-bit word 001011 is aperiodic, while 001001 is fixed by rotation by 3.",
+   "statement": "theorem bitword_is_aperiodic_sanity : bitword_is_aperiodic 6 11 ∧ ¬ bitword_is_aperiodic 6 9",
+   "source": "theorem bitword_is_aperiodic_sanity : bitword_is_aperiodic 6 11 ∧ ¬ bitword_is_aperiodic 6 9 := by\n  refine ⟨?_, fun h => h 3 (by decide) (by decide) (by decide)⟩\n  intro r h0 h6\n  interval_cases r <;> decide",
+   "axioms": [
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "bitword_is_aperiodic",
+    "bitword_rotate"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/BitwordIsAperiodicSanity.lean",
+   "proved_at": 1792477795,
+   "provenance": "lemma",
+   "citation": "sanity check for bitword_is_aperiodic",
    "lean_from": null,
    "reading": "",
    "roundtrip": "",
@@ -669648,6 +669824,23 @@
    "created": 1792432246
   },
   {
+   "name": "bitword_is_aperiodic_of_prime",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For prime n, every n-bit word other than 0^n and 1^n is aperiodic.",
+   "statement": "theorem bitword_is_aperiodic_of_prime (n x : ℕ) (hn : n.Prime) (hx : x < 2 ^ n) (h0 : x ≠ 0)\n    (h1 : x ≠ 2 ^ n - 1) : bitword_is_aperiodic n x",
+   "attempts": 0,
+   "deps": [
+    "bitword_is_aperiodic"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "for brgc_necklace_order_consecutive_aperiodic_adjacent: it gives the prime case of arXiv:2610.24758 Conjecture 1",
+   "created": 1792477318
+  },
+  {
    "name": "brgc_necklace_order_consecutive_adjacent_of_prime",
    "kind": "theorem",
    "status": "stated",
@@ -669665,6 +669858,105 @@
    "provenance": "original",
    "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1. The paper verifies it for all primes n <= 47 by computation and proves it implies optimal single-track Gray codes; it fails for composite n such as 6 and 9.",
    "created": 1792472141
+  },
+  {
+   "name": "brgc_necklace_order_consecutive_aperiodic_adjacent",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For every n, if two consecutive necklaces of D_n (the nonconstant binary necklaces of length n ordered by the BRGC rank of their first occurrence) are both aperiodic, then they are adjacent in the necklace graph Q_n. For prime n every nonconstant necklace is aperiodic, so this contains the prime case conjectured in arXiv:2610.24758.",
+   "statement": "theorem brgc_necklace_order_consecutive_aperiodic_adjacent :\n    ∀ n t t' : ℕ, brgc_necklace_first_rank n t → brgc_necklace_first_rank n t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank n s) →\n      bitword_is_aperiodic n (brgc_word t) → bitword_is_aperiodic n (brgc_word t') →\n      bitword_necklace_adjacent n (brgc_word t) (brgc_word t')",
+   "attempts": 0,
+   "deps": [
+    "brgc_word",
+    "brgc_necklace_first_rank",
+    "bitword_necklace_adjacent",
+    "bitword_is_aperiodic"
+   ],
+   "problem": null,
+   "provenance": "original",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 and the remark after it: the paper states the adjacency conjecture for prime n only, and notes it fails for composite odd n (n = 9, 15, 21) 'as the exceptions in their conjecture allow'; it does not describe the exceptions.",
+   "created": 1792477289
+  },
+  {
+   "name": "brgc_necklace_order_consecutive_aperiodic_adjacent_eight",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "The case n = 8 (composite, with periodic necklaces that break the adjacency) of the aperiodic adjacency conjecture: consecutive aperiodic necklaces of D_8 are adjacent in Q_8.",
+   "statement": "theorem brgc_necklace_order_consecutive_aperiodic_adjacent_eight :\n    ∀ t t' : ℕ, brgc_necklace_first_rank 8 t → brgc_necklace_first_rank 8 t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank 8 s) →\n      bitword_is_aperiodic 8 (brgc_word t) → bitword_is_aperiodic 8 (brgc_word t') →\n      bitword_necklace_adjacent 8 (brgc_word t) (brgc_word t')",
+   "attempts": 0,
+   "deps": [
+    "brgc_word",
+    "brgc_necklace_first_rank",
+    "bitword_necklace_adjacent",
+    "bitword_is_aperiodic"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "case n = 8 of brgc_necklace_order_consecutive_aperiodic_adjacent (exp 1939)",
+   "created": 1792477351
+  },
+  {
+   "name": "brgc_necklace_order_consecutive_aperiodic_adjacent_nine",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "The case n = 9 (composite, with periodic necklaces that break the adjacency) of the aperiodic adjacency conjecture: consecutive aperiodic necklaces of D_9 are adjacent in Q_9.",
+   "statement": "theorem brgc_necklace_order_consecutive_aperiodic_adjacent_nine :\n    ∀ t t' : ℕ, brgc_necklace_first_rank 9 t → brgc_necklace_first_rank 9 t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank 9 s) →\n      bitword_is_aperiodic 9 (brgc_word t) → bitword_is_aperiodic 9 (brgc_word t') →\n      bitword_necklace_adjacent 9 (brgc_word t) (brgc_word t')",
+   "attempts": 0,
+   "deps": [
+    "brgc_word",
+    "brgc_necklace_first_rank",
+    "bitword_necklace_adjacent",
+    "bitword_is_aperiodic"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "case n = 9 of brgc_necklace_order_consecutive_aperiodic_adjacent (exp 1939)",
+   "created": 1792477370
+  },
+  {
+   "name": "brgc_necklace_order_consecutive_aperiodic_adjacent_six",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "The case n = 6 (composite, with periodic necklaces that break the adjacency) of the aperiodic adjacency conjecture: consecutive aperiodic necklaces of D_6 are adjacent in Q_6.",
+   "statement": "theorem brgc_necklace_order_consecutive_aperiodic_adjacent_six :\n    ∀ t t' : ℕ, brgc_necklace_first_rank 6 t → brgc_necklace_first_rank 6 t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank 6 s) →\n      bitword_is_aperiodic 6 (brgc_word t) → bitword_is_aperiodic 6 (brgc_word t') →\n      bitword_necklace_adjacent 6 (brgc_word t) (brgc_word t')",
+   "attempts": 0,
+   "deps": [
+    "brgc_word",
+    "brgc_necklace_first_rank",
+    "bitword_necklace_adjacent",
+    "bitword_is_aperiodic"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "case n = 6 of brgc_necklace_order_consecutive_aperiodic_adjacent (exp 1939)",
+   "created": 1792477332
+  },
+  {
+   "name": "brgc_necklace_order_not_consecutive_adjacent_six",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "Primality cannot be dropped from the adjacency conjecture: at n = 6 the consecutive necklaces 001001 and 011011 of D_6 (both periodic) are not adjacent in Q_6. This is the smallest n where it fails.",
+   "statement": "theorem brgc_necklace_order_not_consecutive_adjacent_six :\n    ¬ ∀ t t' : ℕ, brgc_necklace_first_rank 6 t → brgc_necklace_first_rank 6 t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank 6 s) →\n      bitword_necklace_adjacent 6 (brgc_word t) (brgc_word t')",
+   "attempts": 0,
+   "deps": [
+    "brgc_word",
+    "brgc_necklace_first_rank",
+    "bitword_necklace_adjacent"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 and the remark after it; the paper names n = 9, 15, 21; n = 6 is the smallest failure (exp 1938)",
+   "created": 1792477303
   },
   {
    "name": "card_edgeSet_completeGraph",
@@ -670362,25 +670654,6 @@
    "created": 1792473531
   },
   {
-   "name": "perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd",
-   "kind": "theorem",
-   "status": "proposed",
-   "topic": "combinatorics",
-   "domain": "tcs",
-   "informal": "For odd n >= 3 the number of permutations avoiding the offsets {-1, 1} mod n equals the menage number U(n).",
-   "statement": "theorem perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd (n : ℕ) (hn : 3 ≤ n)\n    (ho : Odd n) :\n    perm_offset_avoiding_count n {-1, 1} = perm_offset_avoiding_count n {-1, 0}",
-   "attempts": 0,
-   "deps": [
-    "perm_offset_avoiding_count",
-    "perm_offset_avoiding_count_eq_of_board_equiv",
-    "zmod_mul_unit_half_eq_zero_iff"
-   ],
-   "problem": null,
-   "provenance": "literature",
-   "citation": "arXiv:2610.23958 (Unranking S-avoiding permutations with two forbidden offsets), Proposition 6.2",
-   "created": 1792473491
-  },
-  {
    "name": "poset_height_one_reconstructible",
    "kind": "theorem",
    "status": "stated",
@@ -670875,15 +671148,18 @@
   {
    "name": "exists_radio_labeling_top_span_eq",
    "kind": "theorem",
-   "status": "stated",
+   "status": "proving",
    "topic": "graphs",
    "domain": "tcs",
    "informal": "Upper bound: the labeling f(v_i) = {ik, (n+i)k, ..., ((m-1)n+i)k} is an (m,k)-radio labeling of K_n of span k(mn - 1).",
    "statement": "theorem exists_radio_labeling_top_span_eq (n m k : ℕ) (hn : 2 ≤ n) (hk : 1 ≤ k) :\n    ∃ f : Fin n → Finset ℕ, simple_graph_is_multi_radio_labeling (⊤ : SimpleGraph (Fin n)) m k f ∧ multi_label_span f = k * (m * n - 1)",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [
     "simple_graph_is_multi_radio_labeling",
-    "multi_label_span"
+    "multi_label_span",
+    "multi_label_span_ge_of_radio_labeling_top",
+    "TotalPreorder",
+    "LinearOrder.toTotalPreorder"
    ],
    "problem": null,
    "provenance": "lemma",
@@ -670968,24 +671244,6 @@
    "provenance": "literature",
    "citation": "arXiv:2610.14110 (New mixed cages, bounds and computational results), Theorem 4.2 (with Definition 4.1).",
    "created": 1792213052
-  },
-  {
-   "name": "multi_label_span_ge_of_radio_labeling_top",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "graphs",
-   "domain": "tcs",
-   "informal": "Lower bound: every (m,k)-radio labeling of the complete graph K_n has span at least k(mn - 1).",
-   "statement": "theorem multi_label_span_ge_of_radio_labeling_top (n m k : ℕ) (f : Fin n → Finset ℕ)\n    (hf : simple_graph_is_multi_radio_labeling (⊤ : SimpleGraph (Fin n)) m k f) :\n    k * (m * n - 1) ≤ multi_label_span f",
-   "attempts": 0,
-   "deps": [
-    "simple_graph_is_multi_radio_labeling",
-    "multi_label_span"
-   ],
-   "problem": null,
-   "provenance": "lemma",
-   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Proposition 2.3, lower bound",
-   "created": 1792473647
   },
   {
    "name": "nonsustainable_tree_has_nonsustainable_successor_closer_to_star",
@@ -671364,25 +671622,6 @@
    "created": 1792473366
   },
   {
-   "name": "regular_tournament_five_nearly_doubly_regular",
-   "kind": "theorem",
-   "status": "proving",
-   "topic": "graphs",
-   "domain": "tcs",
-   "informal": "The case k = 1 of the conjecture, in a stronger form: every regular tournament of order 5 is nearly doubly regular (any two distinct vertices have at most one common out-neighbour), so in particular every maximizer is.",
-   "statement": "theorem regular_tournament_five_nearly_doubly_regular (D : Digraph (Fin 5))\n    [DecidableRel D.Adj] (hD : digraph_is_tournament D)\n    (hreg : ∀ v, digraph_out_count D v = 2) :\n    ∀ i j, i ≠ j → digraph_common_out_count D i j = 0 ∨ digraph_common_out_count D i j = 1",
-   "attempts": 1,
-   "deps": [
-    "digraph_is_tournament",
-    "digraph_out_count",
-    "digraph_common_out_count"
-   ],
-   "problem": null,
-   "provenance": "literature",
-   "citation": "arXiv:2610.25886 (Extremal arborescences in graph orientations), Conjecture 6.1; the order 5 case, checked by computation in the paper",
-   "created": 1792473386
-  },
-  {
    "name": "simple_graph_is_tree_stacking_number_eq_tree_estimate",
    "kind": "theorem",
    "status": "stated",
@@ -671458,6 +671697,97 @@
    "provenance": "original",
    "citation": "arXiv:2610.11446 (On the local average order of dominating sets), Conjecture 6.1. The paper proves the bound when every neighbour of v is a leaf or a stem (Theorem 5.2) and the strict bound for l ≥ 2 (Theorem 5.3); the open case is a 1-stem with a neighbour that is neither.",
    "created": 1791531950
+  },
+  {
+   "name": "simple_graph_multi_radio_number_path_eventually",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For all k, m >= 1 there is n0 such that for every n >= n0 the (m,k)-radio number of the path P_n is ceil((k+1)^2/2) m - 1.",
+   "statement": "theorem simple_graph_multi_radio_number_path_eventually :\n    ∀ k m : ℕ, 1 ≤ k → 1 ≤ m → ∃ n₀ : ℕ, ∀ n, n₀ ≤ n →\n      simple_graph_multi_radio_number (SimpleGraph.pathGraph n) m k =\n        ((k + 1) ^ 2 + 1) / 2 * m - 1",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_multi_radio_number"
+   ],
+   "problem": null,
+   "provenance": "original",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Conjecture 1; proved there for k = 1, 2, with the upper bound for k = 3 (Proposition 4.4)",
+   "created": 1792477390
+  },
+  {
+   "name": "simple_graph_multi_radio_number_path_le_eight_mul",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For n, m >= 1 the (m,3)-radio number of the path P_n is at most 8m - 1.",
+   "statement": "theorem simple_graph_multi_radio_number_path_le_eight_mul (n m : ℕ) (hn : 1 ≤ n) (hm : 1 ≤ m) :\n    simple_graph_multi_radio_number (SimpleGraph.pathGraph n) m 3 ≤ 8 * m - 1",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_multi_radio_number",
+    "simple_graph_is_multi_radio_labeling",
+    "multi_label_span"
+   ],
+   "problem": null,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Proposition 4.4",
+   "created": 1792477409
+  },
+  {
+   "name": "simple_graph_multi_radio_number_path_mono",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "The (m,k)-radio number of the path P_n is nondecreasing in n: a labeling of P_{n+1} restricts to one of P_n.",
+   "statement": "theorem simple_graph_multi_radio_number_path_mono (n m k : ℕ) (hn : 1 ≤ n) :\n    simple_graph_multi_radio_number (SimpleGraph.pathGraph n) m k ≤\n      simple_graph_multi_radio_number (SimpleGraph.pathGraph (n + 1)) m k",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_multi_radio_number",
+    "simple_graph_is_multi_radio_labeling",
+    "multi_label_span"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "for simple_graph_multi_radio_number_path_three_of_le (OP-384)",
+   "created": 1792477429
+  },
+  {
+   "name": "simple_graph_multi_radio_number_path_three_lt",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "The threshold 4m + 4 is sharp: the (m,3)-radio number of P_{4m+3} is less than 8m - 1.",
+   "statement": "theorem simple_graph_multi_radio_number_path_three_lt (m : ℕ) (hm : 1 ≤ m) :\n    simple_graph_multi_radio_number (SimpleGraph.pathGraph (4 * m + 3)) m 3 < 8 * m - 1",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_multi_radio_number"
+   ],
+   "problem": null,
+   "provenance": "original",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Conjecture 1 (case k = 3): the conjecture leaves n0 unspecified",
+   "created": 1792477469
+  },
+  {
+   "name": "simple_graph_multi_radio_number_path_three_of_le",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For every m >= 1 and every n >= 4m + 4, the (m,3)-radio number of the path P_n is exactly 8m - 1. This is the case k = 3 of Conjecture 1 of arXiv:2610.25863 with the explicit threshold n0 = 4m + 4.",
+   "statement": "theorem simple_graph_multi_radio_number_path_three_of_le (n m : ℕ) (hm : 1 ≤ m)\n    (hn : 4 * m + 4 ≤ n) :\n    simple_graph_multi_radio_number (SimpleGraph.pathGraph n) m 3 = 8 * m - 1",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_multi_radio_number",
+    "simple_graph_multi_radio_number_path_le_eight_mul",
+    "simple_graph_multi_radio_number_path_mono"
+   ],
+   "problem": null,
+   "provenance": "original",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Conjecture 1 (case k = 3): the paper proves only the upper bound 8m - 1 (Proposition 4.4)",
+   "created": 1792477449
   },
   {
    "name": "simple_graph_multi_radio_number_top",
@@ -677813,14 +678143,31 @@
    "ref": "OP-384",
    "title": "Asymptotic multi-label radio number of paths",
    "statement": "For any integers $k \\ge 1$ and $m \\ge 1$, does there exist an integer $n_0$ such that for every $n \\ge n_0$, the $(m,k)$-radio number of the path graph $P_n$ of order $n$ satisfies $\\lambda_k^m(P_n) = \\lceil (k+1)^2 / 2 \\rceil m - 1$?",
-   "status": "open",
+   "status": "formalized",
    "topic": "graphs",
    "domain": "tcs",
    "source": "arXiv:2610.25863",
    "source_title": "On Multi-label radio Labelings of Graphs",
    "location": "Conjecture 1",
    "rationale": "Proved for k=1, k=2, and upper bound proved for k=3. Conjectured for all k and m for sufficiently large paths.",
-   "links": [],
+   "links": [
+    {
+     "node": "simple_graph_multi_radio_number_path_eventually",
+     "role": "statement"
+    },
+    {
+     "node": "simple_graph_multi_radio_number_path_le_eight_mul",
+     "role": "partial"
+    },
+    {
+     "node": "simple_graph_multi_radio_number_path_three_of_le",
+     "role": "partial"
+    },
+    {
+     "node": "simple_graph_multi_radio_number_path_three_lt",
+     "role": "partial"
+    }
+   ],
    "added": 1792466532
   },
   {

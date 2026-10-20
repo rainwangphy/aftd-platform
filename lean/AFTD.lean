@@ -5648,6 +5648,8 @@ import AFTD.Kb.Tcs.BipartiteHallStepIsVertexCover
 import AFTD.Kb.Tcs.BipartiteLinkTemplateThreeGraph
 import AFTD.Kb.Tcs.BipartiteLinkTemplateThreeGraphCard
 import AFTD.Kb.Tcs.BipartiteLinkTemplateThreeGraphLinksColorableTwo
+import AFTD.Kb.Tcs.BitwordIsAperiodic
+import AFTD.Kb.Tcs.BitwordIsAperiodicSanity
 import AFTD.Kb.Tcs.BitwordIsRotation
 import AFTD.Kb.Tcs.BitwordNecklaceAdjacent
 import AFTD.Kb.Tcs.BitwordNecklaceAdjacentThreeOneThree
@@ -8272,6 +8274,7 @@ import AFTD.Kb.Tcs.MondrianSevenRectsIsPartition
 import AFTD.Kb.Tcs.MondrianSevenRectsPartitionDefect
 import AFTD.Kb.Tcs.MonochromaticCopyDefSanity
 import AFTD.Kb.Tcs.MultiLabelSpan
+import AFTD.Kb.Tcs.MultiLabelSpanGeOfRadioLabelingTop
 import AFTD.Kb.Tcs.MultiLabelSpanSanity
 import AFTD.Kb.Tcs.MultipartiteGameBobBoundGeMinThreshold
 import AFTD.Kb.Tcs.MultipartiteGameThresholdMinimizerSmallExcess
@@ -8526,6 +8529,7 @@ import AFTD.Kb.Tcs.PermDistinctAbsDiffsAscentCountSubHalfUnbounded
 import AFTD.Kb.Tcs.PermOffsetAvoidingCount
 import AFTD.Kb.Tcs.PermOffsetAvoidingCountEqOfBoardEquiv
 import AFTD.Kb.Tcs.PermOffsetAvoidingCountFour
+import AFTD.Kb.Tcs.PermOffsetAvoidingCountNegOneOneEqMenageOfOdd
 import AFTD.Kb.Tcs.PmAlg
 import AFTD.Kb.Tcs.PmAlgCorrect
 import AFTD.Kb.Tcs.PmAlgCost
@@ -8632,6 +8636,7 @@ import AFTD.Kb.Tcs.RegularExpressionExistsParityNormalForm
 import AFTD.Kb.Tcs.RegularExpressionTypedParity
 import AFTD.Kb.Tcs.RegularExpressionTypedParityLength
 import AFTD.Kb.Tcs.RegularExpressionTypedParityZeroAny
+import AFTD.Kb.Tcs.RegularTournamentFiveNearlyDoublyRegular
 import AFTD.Kb.Tcs.RelationAcyclic
 import AFTD.Kb.Tcs.RelationChurchRosser
 import AFTD.Kb.Tcs.RelationCod

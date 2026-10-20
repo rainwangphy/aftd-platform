@@ -1,26 +1,26 @@
 {
  "schema": 1,
- "generated": "2026-10-20T14:42:23Z",
+ "generated": "2026-10-20T14:53:17Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 9197,
+  "declarations": 9199,
   "definitions": 3657,
-  "theorems": 5540,
+  "theorems": 5542,
   "topics": 42,
   "domains": 7,
-  "open": 230,
+  "open": 229,
   "rejected": 64,
-  "spend": 228.71,
+  "spend": 229.04,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 249710296,
-   "output": 58948833,
-   "cache_read": 915603356
+   "input": 250076467,
+   "output": 59017723,
+   "cache_read": 916583045
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792507331
+  "last": 1792507792
  },
  "domains": [
   {
@@ -302,7 +302,7 @@
      "name": "equilibria",
      "title": "Equilibria in Games",
      "target": 20,
-     "proved": 690
+     "proved": 692
     },
     {
      "name": "social_choice",
@@ -678854,7 +678854,9 @@
    "axioms": [],
    "clean": false,
    "deps": [],
-   "used_by": [],
+   "used_by": [
+    "symmetric_game_regret_le_sup_sub_inf"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SymmetricGameRegret.lean",
    "proved_at": 1792493884,
    "provenance": "literature",
@@ -680355,6 +680357,71 @@
    "trace": null,
    "funder": "",
    "problem": null
+  },
+  {
+   "name": "dotProduct_mulVec_ge_inf'",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "seq": 9198,
+   "informal": "For any strategy x in the standard simplex stdSimplex ℝ (Fin n) and any matrix A, the self-payoff xᵀ A x is at least the minimum over j of (x ᵥ* A) j.",
+   "statement": "lemma dotProduct_mulVec_ge_inf' {n : ℕ} [NeZero n]\n    (A : Matrix (Fin n) (Fin n) ℝ) (x : stdSimplex ℝ (Fin n)) :\n    Finset.univ.inf' Finset.univ_nonempty (fun j => Matrix.vecMul x.val A j) ≤\n      dotProduct x.val (Matrix.mulVec A x.val)",
+   "source": "/-- Self-payoff xᵀ A x is at least the minimum pure column payoff min_j xᵀ A e_j. -/\nlemma dotProduct_mulVec_ge_inf' {n : ℕ} [NeZero n]\n    (A : Matrix (Fin n) (Fin n) ℝ) (x : stdSimplex ℝ (Fin n)) :\n    Finset.univ.inf' Finset.univ_nonempty (fun j => Matrix.vecMul x.val A j) ≤\n      dotProduct x.val (Matrix.mulVec A x.val) := by\n  have hdot : dotProduct x.val (Matrix.mulVec A x.val)\n      = ∑ j, x.val j * (Matrix.vecMul x.val A j) := by\n    simp only [dotProduct, Matrix.mulVec, Matrix.vecMul, Finset.mul_sum]\n    rw [Finset.sum_comm]\n    apply Finset.sum_congr rfl\n    intro i _\n    apply Finset.sum_congr rfl\n    intro j _\n    ring\n  rw [hdot]\n  have hbound : ∀ j ∈ Finset.univ,\n      x.val j * (Finset.univ.inf' Finset.univ_nonempty (fun j => Matrix.vecMul x.val A j))\n        ≤ x.val j * (Matrix.vecMul x.val A j) := by\n    intro j _\n    exact mul_le_mul_of_nonneg_left\n      (Finset.inf'_le (fun j => Matrix.vecMul x.val A j) (Finset.mem_univ j))\n      (x.property.1 j)\n  have hsum := Finset.sum_le_sum hbound\n  rwa [← Finset.sum_mul, x.property.2, one_mul] at hsum",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [],
+   "used_by": [
+    "symmetric_game_regret_le_sup_sub_inf"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/DotProductMulVecGeInf'.lean",
+   "proved_at": 1792507531,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.25524 Lemma 4.1",
+   "lean_from": null,
+   "reading": "For any non-zero natural number $n$, any $n \\times n$ real matrix $A$, and any vector $x$ in the standard simplex over $\\text{Fin } n$ (that is, $x \\in \\mathbb{R}^n$ with $x_i \\ge 0$ for all $i$ and $\\sum_{i} x_i = 1$), the minimum over all indices $j \\in \\text{Fin } n$ of the $j$-th component of the vector-matrix product $x^T A$ is less than or equal to the dot product of $x$ with $A x$ (the quadratic form $x^T A x$).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "symmetric_game_regret_le_sup_sub_inf",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "seq": 9199,
+   "informal": "For any strategy x in stdSimplex ℝ (Fin n), the regret symmetric_game_regret A x is at most the maximum over i of (A *ᵥ x) i minus the minimum over j of (x ᵥ* A) j.",
+   "statement": "lemma symmetric_game_regret_le_sup_sub_inf {n : ℕ} [NeZero n]\n    (A : Matrix (Fin n) (Fin n) ℝ) (x : stdSimplex ℝ (Fin n)) :\n    symmetric_game_regret A x ≤\n      Finset.univ.sup' Finset.univ_nonempty (fun i => Matrix.mulVec A x.val i) -\n      Finset.univ.inf' Finset.univ_nonempty (fun j => Matrix.vecMul x.val A j)",
+   "source": "/-- Symmetric game regret is bounded by max pure row payoff minus min pure column payoff. -/\nlemma symmetric_game_regret_le_sup_sub_inf {n : ℕ} [NeZero n]\n    (A : Matrix (Fin n) (Fin n) ℝ) (x : stdSimplex ℝ (Fin n)) :\n    symmetric_game_regret A x ≤\n      Finset.univ.sup' Finset.univ_nonempty (fun i => Matrix.mulVec A x.val i) -\n      Finset.univ.inf' Finset.univ_nonempty (fun j => Matrix.vecMul x.val A j) := by\n  unfold symmetric_game_regret\n  linarith [dotProduct_mulVec_ge_inf' A x]",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "symmetric_game_regret",
+    "dotProduct_mulVec_ge_inf'"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SymmetricGameRegretLeSupSubInf.lean",
+   "proved_at": 1792507792,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.25524 Lemma 4.1",
+   "lean_from": null,
+   "reading": "For every non-zero natural number $n$, every $n \\times n$ real matrix $A$, and every element $x$ of the standard simplex over $\\mathrm{Fin}(n)$, the symmetric game regret of $A$ and $x$ is less than or equal to the maximum over $i \\in \\mathrm{Fin}(n)$ of $(A x)_i$ minus the minimum over $j \\in \\mathrm{Fin}(n)$ of $(x A)_j$ (the vector-matrix product of $x$ and $A$ evaluated at $j$).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
   }
  ],
  "open": [
@@ -680840,21 +680907,6 @@
    "created": 1792350657
   },
   {
-   "name": "dotProduct_mulVec_ge_inf'",
-   "kind": "theorem",
-   "status": "proving",
-   "topic": "equilibria",
-   "domain": "game_theory_economics",
-   "informal": "For any strategy x in the standard simplex stdSimplex ℝ (Fin n) and any matrix A, the self-payoff xᵀ A x is at least the minimum over j of (x ᵥ* A) j.",
-   "statement": "lemma dotProduct_mulVec_ge_inf' {n : ℕ} [NeZero n]\n    (A : Matrix (Fin n) (Fin n) ℝ) (x : stdSimplex ℝ (Fin n)) :\n    Finset.univ.inf' Finset.univ_nonempty (fun j => Matrix.vecMul x.val A j) ≤\n      dotProduct x.val (Matrix.mulVec A x.val)",
-   "attempts": 1,
-   "deps": [],
-   "problem": null,
-   "provenance": "lemma",
-   "citation": "arXiv:2610.25524 Lemma 4.1",
-   "created": 1792505635
-  },
-  {
    "name": "maxcut_game_optimal_strong_equilibrium_exists",
    "kind": "theorem",
    "status": "stuck",
@@ -680981,22 +681033,19 @@
    "created": 1792502649
   },
   {
-   "name": "symmetric_game_regret_le_sup_sub_inf",
-   "kind": "theorem",
-   "status": "stated",
+   "name": "saddle_gap_second_marginal",
+   "kind": "def",
+   "status": "proposed",
    "topic": "equilibria",
    "domain": "game_theory_economics",
-   "informal": "For any strategy x in stdSimplex ℝ (Fin n), the regret symmetric_game_regret A x is at most the maximum over i of (A *ᵥ x) i minus the minimum over j of (x ᵥ* A) j.",
-   "statement": "lemma symmetric_game_regret_le_sup_sub_inf {n : ℕ} [NeZero n]\n    (A : Matrix (Fin n) (Fin n) ℝ) (x : stdSimplex ℝ (Fin n)) :\n    symmetric_game_regret A x ≤\n      Finset.univ.sup' Finset.univ_nonempty (fun i => Matrix.mulVec A x.val i) -\n      Finset.univ.inf' Finset.univ_nonempty (fun j => Matrix.vecMul x.val A j)",
+   "informal": "For σ in the standard simplex `stdSimplex ℝ (Fin n × Fin n)`, its second marginal `saddle_gap_second_marginal σ` in `stdSimplex ℝ (Fin n)` has j-th coordinate equal to the sum over i of σ(i, j).",
+   "statement": "def saddle_gap_second_marginal {n : ℕ} (σ : stdSimplex ℝ (Fin n × Fin n)) : stdSimplex ℝ (Fin n)",
    "attempts": 0,
-   "deps": [
-    "symmetric_game_regret",
-    "dotProduct_mulVec_ge_inf'"
-   ],
+   "deps": [],
    "problem": null,
-   "provenance": "lemma",
-   "citation": "arXiv:2610.25524 Lemma 4.1",
-   "created": 1792505862
+   "provenance": "literature",
+   "citation": "arXiv:2610.25524 Section 4, p. 11",
+   "created": 1792507761
   },
   {
    "name": "irr_step_changed_agent_strict",
@@ -682997,12 +683046,12 @@
   {
    "name": "poset_height_one_reconstructible",
    "kind": "theorem",
-   "status": "stated",
+   "status": "proving",
    "topic": "combinatorics",
    "domain": "tcs",
    "informal": "Open problem (arXiv:2610.12690, Sec. 9, from an open problem in a monograph on ordered sets): every finite ordered set of height one with at least four elements is reconstructible from its deck: if P and Q are finite ordered sets of height one, |P| ≥ 4, and P, Q have the same deck of one-element-deleted suborders, then P ≅ Q.",
    "statement": "theorem poset_height_one_reconstructible :\n    ∀ (P Q : Type) [Fintype P] [Fintype Q] [PartialOrder P] [PartialOrder Q],\n      4 ≤ Fintype.card P → poset_height_one P → poset_height_one Q →\n      poset_hypomorphic P Q → Nonempty (P ≃o Q)",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [
     "poset_hypomorphic",
     "poset_height_one"

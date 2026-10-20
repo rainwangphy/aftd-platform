@@ -654,6 +654,7 @@ import AFTD.Kb.GameTheoryEconomics.DirectBayesianMechanismTruthfulStrategy
 import AFTD.Kb.GameTheoryEconomics.DirectBayesianMechanismWithTransfers
 import AFTD.Kb.GameTheoryEconomics.DirectBayesianMechanismWithTransfersTruthfulStrategy
 import AFTD.Kb.GameTheoryEconomics.DirectMechanism
+import AFTD.Kb.GameTheoryEconomics.DotProductMulVecGeInf'
 import AFTD.Kb.GameTheoryEconomics.DroopMonroeExchange
 import AFTD.Kb.GameTheoryEconomics.DroopMonroeSatisfiesDroopJr
 import AFTD.Kb.GameTheoryEconomics.DroopMonroeSatisfiesDroopPjrPlus
@@ -2509,6 +2510,7 @@ import AFTD.Kb.GameTheoryEconomics.SwingTable
 import AFTD.Kb.GameTheoryEconomics.SwingTableCastEqSum
 import AFTD.Kb.GameTheoryEconomics.SwingTableEqZeroOfLt
 import AFTD.Kb.GameTheoryEconomics.SymmetricGameRegret
+import AFTD.Kb.GameTheoryEconomics.SymmetricGameRegretLeSupSubInf
 import AFTD.Kb.GameTheoryEconomics.TPush
 import AFTD.Kb.GameTheoryEconomics.TPushContinuous
 import AFTD.Kb.GameTheoryEconomics.TPushMemIcc

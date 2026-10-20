@@ -2044,6 +2044,7 @@ import AFTD.Kb.GameTheoryEconomics.RsinvStability
 import AFTD.Kb.GameTheoryEconomics.RsinvStep
 import AFTD.Kb.GameTheoryEconomics.SaddleGapFirstMarginal
 import AFTD.Kb.GameTheoryEconomics.SaddleGapGame
+import AFTD.Kb.GameTheoryEconomics.SaddleGapSecondMarginal
 import AFTD.Kb.GameTheoryEconomics.SatisfiesQuota
 import AFTD.Kb.GameTheoryEconomics.SimpleGameCardSizeEqOfSwingTableEq
 import AFTD.Kb.GameTheoryEconomics.SimpleGameCardWinningEqOfSwingTableEq

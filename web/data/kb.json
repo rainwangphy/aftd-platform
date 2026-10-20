@@ -1,26 +1,26 @@
 {
  "schema": 1,
- "generated": "2026-10-20T14:53:17Z",
+ "generated": "2026-10-20T15:03:49Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 9199,
-  "definitions": 3657,
+  "declarations": 9200,
+  "definitions": 3658,
   "theorems": 5542,
   "topics": 42,
   "domains": 7,
-  "open": 229,
+  "open": 230,
   "rejected": 64,
-  "spend": 229.04,
+  "spend": 229.4,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 250076467,
-   "output": 59017723,
-   "cache_read": 916583045
+   "input": 250229771,
+   "output": 59148809,
+   "cache_read": 918493232
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792507792
+  "last": 1792508610
  },
  "domains": [
   {
@@ -302,7 +302,7 @@
      "name": "equilibria",
      "title": "Equilibria in Games",
      "target": 20,
-     "proved": 692
+     "proved": 693
     },
     {
      "name": "social_choice",
@@ -676668,7 +676668,7 @@
    ],
    "used_by": [],
    "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphMultiRadioNumberPathThreeLt.lean",
-   "proved_at": 1792507331,
+   "proved_at": 1792508610,
    "provenance": "original",
    "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Conjecture 1 (case k = 3): the conjecture leaves n0 unspecified",
    "lean_from": null,
@@ -680422,6 +680422,32 @@
    "trace": null,
    "funder": "",
    "problem": null
+  },
+  {
+   "name": "saddle_gap_second_marginal",
+   "kind": "def",
+   "is_def": true,
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "seq": 9200,
+   "informal": "For σ in the standard simplex `stdSimplex ℝ (Fin n × Fin n)`, its second marginal `saddle_gap_second_marginal σ` in `stdSimplex ℝ (Fin n)` has j-th coordinate equal to the sum over i of σ(i, j).",
+   "statement": "def saddle_gap_second_marginal {n : ℕ} (σ : stdSimplex ℝ (Fin n × Fin n)) : stdSimplex ℝ (Fin n)",
+   "source": "/-- For σ in `stdSimplex ℝ (Fin n × Fin n)`, its second marginal `saddle_gap_second_marginal σ` in `stdSimplex ℝ (Fin n)` has j-th coordinate equal to the sum over i of σ(i, j). -/\ndef saddle_gap_second_marginal {n : ℕ} (σ : stdSimplex ℝ (Fin n × Fin n)) : stdSimplex ℝ (Fin n) := ⟨fun j => ∑ i : Fin n, σ.val (i, j), by\n    constructor\n    · intro j\n      exact Finset.sum_nonneg fun i _ => σ.property.1 (i, j)\n    · rw [Finset.sum_comm, ← Finset.sum_product']\n      exact σ.property.2⟩",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/SaddleGapSecondMarginal.lean",
+   "proved_at": 1792508004,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25524 Section 4, p. 11",
+   "lean_from": null,
+   "reading": "Given a natural number $n$ and a probability distribution $\\sigma$ on $\\mathrm{Fin}(n) \\times \\mathrm{Fin}(n)$ (represented as an element of the standard simplex `stdSimplex ℝ (Fin n × Fin n)`), `saddle_gap_second_marginal` defines the second marginal distribution as an element of the standard simplex `stdSimplex ℝ (Fin n)`, whose value at each $j \\in \\mathrm{Fin}(n)$ is given by $\\sum_{i : \\mathrm{Fin}(n)} \\sigma(i, j)$.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
   }
  ],
  "open": [
@@ -681033,19 +681059,34 @@
    "created": 1792502649
   },
   {
-   "name": "saddle_gap_second_marginal",
-   "kind": "def",
-   "status": "proposed",
+   "name": "saddle_gap_first_payoff_pure_ge_of_sub_ge",
+   "kind": "theorem",
+   "status": "stated",
    "topic": "equilibria",
    "domain": "game_theory_economics",
-   "informal": "For σ in the standard simplex `stdSimplex ℝ (Fin n × Fin n)`, its second marginal `saddle_gap_second_marginal σ` in `stdSimplex ℝ (Fin n)` has j-th coordinate equal to the sum over i of σ(i, j).",
-   "statement": "def saddle_gap_second_marginal {n : ℕ} (σ : stdSimplex ℝ (Fin n × Fin n)) : stdSimplex ℝ (Fin n)",
+   "informal": "For an n-by-n matrix A with nonnegative entries, probability vectors a and b in `stdSimplex ℝ (Fin n)`, and real number v, if `Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v` for all k in Fin n, then `Matrix.vecMul a.val A k ≥ v` for all k in Fin n.",
+   "statement": "lemma saddle_gap_first_payoff_pure_ge_of_sub_ge {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (a b : stdSimplex ℝ (Fin n)) (v : ℝ) (h : ∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) (k : Fin n) : Matrix.vecMul a.val A k ≥ v",
    "attempts": 0,
    "deps": [],
    "problem": null,
-   "provenance": "literature",
-   "citation": "arXiv:2610.25524 Section 4, p. 11",
-   "created": 1792507761
+   "provenance": "lemma",
+   "citation": "arXiv:2610.25524 Lemma 4.2",
+   "created": 1792508270
+  },
+  {
+   "name": "saddle_gap_self_payoff_ge_two_v_of_sub_ge",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "equilibria",
+   "domain": "game_theory_economics",
+   "informal": "For an n-by-n matrix A with nonnegative entries, probability vectors a and b in `stdSimplex ℝ (Fin n)`, and real number v, if `Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v` for all k in Fin n, then `dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v`.",
+   "statement": "lemma saddle_gap_self_payoff_ge_two_v_of_sub_ge {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (hA_nonneg : ∀ i j, 0 ≤ A i j) (a b : stdSimplex ℝ (Fin n)) (v : ℝ) (h : ∀ k : Fin n, Matrix.vecMul a.val A k - Matrix.mulVec A b.val k ≥ v) : dotProduct a.val (Matrix.mulVec A a.val) ≥ 2 * v",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.25524 Lemma 4.2",
+   "created": 1792508584
   },
   {
    "name": "irr_step_changed_agent_strict",
@@ -684592,7 +684633,7 @@
   {
    "name": "tournament_dijoin_inversion_number_symm",
    "kind": "theorem",
-   "status": "proving",
+   "status": "stuck",
    "topic": "graphs",
    "domain": "tcs",
    "informal": "Conjecture (arXiv:2610.13798, Conjecture 4.1): for all finite tournaments D₁, D₂, inv(D₁ → D₂) = inv(D₂ → D₁).",

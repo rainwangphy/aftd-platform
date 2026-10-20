@@ -1,26 +1,26 @@
 {
  "schema": 1,
- "generated": "2026-10-20T04:05:41Z",
+ "generated": "2026-10-20T05:59:39Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 9109,
-  "definitions": 3621,
-  "theorems": 5488,
+  "declarations": 9138,
+  "definitions": 3637,
+  "theorems": 5501,
   "topics": 42,
   "domains": 7,
-  "open": 193,
-  "rejected": 63,
-  "spend": 209.09,
+  "open": 216,
+  "rejected": 64,
+  "spend": 214.11,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 230850441,
-   "output": 53617609,
-   "cache_read": 842796015
+   "input": 236828872,
+   "output": 54937874,
+   "cache_read": 869338219
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792469046
+  "last": 1792475642
  },
  "domains": [
   {
@@ -112,19 +112,19 @@
      "name": "graphs",
      "title": "Graph Theory & Graph Algorithms",
      "target": 30,
-     "proved": 370
+     "proved": 379
     },
     {
      "name": "combinatorics",
      "title": "Combinatorics for TCS",
      "target": 25,
-     "proved": 374
+     "proved": 388
     },
     {
      "name": "information",
      "title": "Information Theory & Coding",
      "target": 20,
-     "proved": 182
+     "proved": 184
     },
     {
      "name": "cryptography",
@@ -320,7 +320,7 @@
      "name": "fair_division",
      "title": "Fair Division",
      "target": 20,
-     "proved": 405
+     "proved": 409
     },
     {
      "name": "matching_markets",
@@ -66244,6 +66244,7 @@
     "F"
    ],
    "used_by": [
+    "iterated_round_robin_item_preserving_swaps_zero_of_card_le",
     "cleaning_dimension_identity",
     "simple_graph_triangle_degree_compl",
     "round_robin_three_agents_pne_not_alpha_ef1_of_three_quarters_lt",
@@ -656153,9 +656154,12 @@
    "clean": false,
    "deps": [],
    "used_by": [
+    "iterated_round_robin_item_preserving_swaps_zero_of_card_le",
     "picking_sequence_outcome_update_mem",
     "foldl_mem_picking_runs_any",
+    "picking_phi_entry",
     "picking_turn_any",
+    "picking_prefix_state",
     "round_robin_pne_ef1_pair_of_count_le_two",
     "round_robin_pne_ef1_of_card_le_two_mul",
     "picking_runs_any",
@@ -656190,6 +656194,7 @@
     "picking_turn"
    ],
    "used_by": [
+    "iterated_round_robin_item_preserving_swaps_zero_of_card_le",
     "irr_step_ne",
     "irr_step",
     "round_robin_three_agents_pne_not_alpha_ef1_of_three_quarters_lt",
@@ -656230,12 +656235,14 @@
    "clean": false,
    "deps": [],
    "used_by": [
+    "iterated_round_robin_item_preserving_swaps_zero_of_card_le",
     "round_robin_three_agents_pne_not_alpha_ef1_of_three_quarters_lt",
     "is_guaranteed_round_robin_ef1_factor",
     "picking_sequence_outcome_round_robin_two_agents_four_items",
     "round_robin_pne_ef1_pair_of_count_le_two",
     "not_is_guaranteed_round_robin_ef1_factor_three_of_three_quarters_lt",
     "round_robin_pne_ef1_of_card_le_two_mul",
+    "round_robin_phi_vector",
     "round_robin_sequence_three_eight",
     "round_robin_pne_not_ef1_three_agents_eight_goods",
     "round_robin_sequence_count_le_two_of_ne_zero"
@@ -656570,6 +656577,7 @@
    "clean": false,
    "deps": [],
    "used_by": [
+    "iterated_round_robin_item_preserving_swaps_zero_of_card_le",
     "is_item_preserving_swap_bid",
     "ranking_swap_apply_left",
     "is_adjacent_swap_bid"
@@ -656706,7 +656714,9 @@
     "ranking_swap",
     "picking_sequence_outcome"
    ],
-   "used_by": [],
+   "used_by": [
+    "iterated_round_robin_item_preserving_swaps_zero_of_card_le"
+   ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IsItemPreservingSwapBid.lean",
    "proved_at": 1792388612,
    "provenance": "literature",
@@ -656735,6 +656745,7 @@
     "picking_sequence_outcome"
    ],
    "used_by": [
+    "iterated_round_robin_item_preserving_swaps_zero_of_card_le",
     "irr_step_ne"
    ],
    "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IrrStep.lean",
@@ -665341,7 +665352,9 @@
    "used_by": [
     "LinearCodeSupportsRate",
     "linear_code_supports_rate_mono",
+    "causal_code_vals_zero_outside",
     "CausalLinearNetworkCode",
+    "code_transmissions_cross_cut_le",
     "cutCapacity",
     "flow_supports_rate_zero",
     "IsMulticommodityFlow",
@@ -665412,7 +665425,9 @@
    "used_by": [
     "LinearCodeSupportsRate",
     "linear_code_supports_rate_mono",
+    "causal_code_vals_zero_outside",
     "CausalLinearNetworkCode",
+    "code_transmissions_cross_cut_le",
     "cutSeparation",
     "flow_supports_rate_zero",
     "IsMulticommodityFlow",
@@ -665824,7 +665839,9 @@
    ],
    "used_by": [
     "LinearCodeSupportsRate",
-    "linear_code_supports_rate_mono"
+    "linear_code_supports_rate_mono",
+    "causal_code_vals_zero_outside",
+    "code_transmissions_cross_cut_le"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/CausalLinearNetworkCode.lean",
    "proved_at": 1792454826,
@@ -666492,7 +666509,9 @@
    "deps": [
     "CapacitatedNetwork"
    ],
-   "used_by": [],
+   "used_by": [
+    "code_transmissions_cross_cut_le"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/CutCapacity.lean",
    "proved_at": 1792460341,
    "provenance": "lemma",
@@ -666881,6 +666900,905 @@
    "lean_from": null,
    "reading": "The theorem asserts the negation of `is_guaranteed_round_robin_ef1_factor 3 (15 / 16)`.\n\nThat is, it is not the case that for 3 agents, every pure Nash equilibrium ranking profile in a round-robin picking game with non-negative additive valuations guarantees an allocation that is $(15/16)$-EF1 (envy-free up to one good with approximation factor $15/16$).\n\nEquivalently, there exists some number of goods $m \\in \\mathbb{N}$, a profile of non-negative additive valuation weights $w : \\mathrm{Fin}\\ 3 \\to \\mathrm{Fin}\\ m \\to \\mathbb{R}$, and a profile of rankings $\\mathrm{rank} : \\mathrm{Fin}\\ 3 \\to (\\mathrm{Fin}\\ m \\simeq \\mathrm{Fin}\\ m)$ such that:\n1. $\\mathrm{rank}$ is a pure Nash equilibrium of the round-robin picking sequence (no agent $i$ can unilaterally change their reported ranking to obtain a bundle with strictly higher value according to their additive valuation), yet\n2. The resulting allocation is not $(15/16)$-EF1: there exist distinct agents $i, j \\in \\mathrm{Fin}\\ 3$ where agent $j$'s allocated bundle $A(j)$ is nonempty, and for all goods $g \\in A(j)$, $(15/16) \\cdot v_i(A(j) \\setminus \\{g\\}) > v_i(A(i))$.",
    "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "code_transmissions_cross_cut_le",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "information",
+   "domain": "tcs",
+   "seq": 9110,
+   "informal": "In a causal linear network code on net, the number of transmissions whose endpoints are separated by a vertex set S is at most T * cutCapacity net S.",
+   "statement": "theorem code_transmissions_cross_cut_le\n    {V : Type} [Fintype V] [DecidableEq V] {K : Type} [Fintype K] [DecidableEq K]\n    (F : Type) [Field F] (net : CapacitatedNetwork V) (sess : UnicastSessions V K)\n    (code : CausalLinearNetworkCode V K F net sess) (S : Finset V) :\n    ((Finset.univ.filter (fun m : Fin code.M => (code.snd m ∈ S) ≠ (code.rcv m ∈ S))).card : ℝ)\n      ≤ (code.T : ℝ) * cutCapacity net S",
+   "source": "/-- The number of transmissions of a code crossing a cut is at most T times the cut capacity. -/\ntheorem code_transmissions_cross_cut_le\n    {V : Type} [Fintype V] [DecidableEq V] {K : Type} [Fintype K] [DecidableEq K]\n    (F : Type) [Field F] (net : CapacitatedNetwork V) (sess : UnicastSessions V K)\n    (code : CausalLinearNetworkCode V K F net sess) (S : Finset V) :\n    ((Finset.univ.filter (fun m : Fin code.M => (code.snd m ∈ S) ≠ (code.rcv m ∈ S))).card : ℝ)\n      ≤ (code.T : ℝ) * cutCapacity net S := by\n  let A := Finset.univ.filter (fun m : Fin code.M => (code.snd m ∈ S) ≠ (code.rcv m ∈ S))\n  let g : Fin code.M → V × V := fun m =>\n    (if code.snd m ∈ S then code.snd m else code.rcv m,\n     if code.snd m ∈ S then code.rcv m else code.snd m)\n  have hmaps : Set.MapsTo g (↑A) (↑(S ×ˢ (Finset.univ : Finset V))) := by\n    intro m hm\n    rw [Finset.mem_coe] at hm ⊢\n    rw [Finset.mem_product]\n    refine ⟨?_, Finset.mem_univ _⟩\n    dsimp [A] at hm\n    rw [Finset.mem_filter] at hm\n    obtain ⟨_, hdiff⟩ := hm\n    dsimp [g]\n    split_ifs with hs\n    · exact hs\n    · by_contra hc\n      apply hdiff\n      simp [hs, hc]\n  have hsum : (A.card : ℝ) = ∑ p ∈ S ×ˢ (Finset.univ : Finset V), ((A.filter (fun m => g m = p)).card : ℝ) := by\n    have h := Finset.card_eq_sum_card_fiberwise hmaps\n    norm_cast\n  rw [hsum, Finset.sum_product]\n  have h_le : (∑ u ∈ S, ∑ v : V, ((A.filter (fun m => g m = (u, v))).card : ℝ))\n      ≤ ∑ u ∈ S, ∑ v : V, (if v ∈ S then 0 else (code.T : ℝ) * net.cap s(u, v)) := by\n    apply Finset.sum_le_sum\n    intro u _\n    apply Finset.sum_le_sum\n    intro v _\n    split_ifs with hv\n    · have hempty : A.filter (fun m => g m = (u, v)) = ∅ := by\n        rw [Finset.filter_eq_empty_iff]\n        intro m hm hgm\n        dsimp [A] at hm\n        rw [Finset.mem_filter] at hm\n        obtain ⟨_, hdiff⟩ := hm\n        dsimp [g] at hgm\n        split_ifs at hgm with hs\n        · injection hgm with _ h2\n          rw [← h2] at hv\n          apply hdiff\n          simp [hs, hv]\n        · injection hgm with _ h2\n          rw [← h2] at hv\n          exact hs hv\n      rw [hempty, Finset.card_empty, Nat.cast_zero]\n    · have hsub : A.filter (fun m => g m = (u, v)) ⊆\n          Finset.univ.filter (fun m => s(code.snd m, code.rcv m) = s(u, v)) := by\n        intro m hm\n        rw [Finset.mem_filter] at hm ⊢\n        refine ⟨Finset.mem_univ _, ?_⟩\n        obtain ⟨_, hgm⟩ := hm\n        dsimp [g] at hgm\n        split_ifs at hgm with hs\n        · injection hgm with hu hv'\n          rw [← hu, ← hv']\n        · injection hgm with hu hv'\n          rw [← hu, ← hv', Sym2.eq_swap]\n      have hcard : ((A.filter (fun m => g m = (u, v))).card : ℝ) ≤\n          ((Finset.univ.filter (fun m => s(code.snd m, code.rcv m) = s(u, v))).card : ℝ) := by\n        exact_mod_cast Finset.card_le_card hsub\n      exact le_trans hcard (code.cap_le s(u, v))\n  refine le_trans h_le ?_\n  dsimp [cutCapacity]\n  rw [Finset.mul_sum]\n  apply le_of_eq\n  apply Finset.sum_congr rfl\n  intro u _\n  rw [Finset.mul_sum]\n  apply Finset.sum_congr rfl\n  intro v _\n  split_ifs with hv\n  · ring\n  · ring",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "cutCapacity",
+    "CausalLinearNetworkCode",
+    "UnicastSessions",
+    "CapacitatedNetwork"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/CodeTransmissionsCrossCutLe.lean",
+   "proved_at": 1792469855,
+   "provenance": "lemma",
+   "citation": "step towards undirected_binary_linear_unicast_advantage",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "picking_prefix_state",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 9111,
+   "informal": "The state of a picking-sequence run after its first s turns: the bundle map together with the set of already allocated items, obtained by folding picking_turn over the first s entries of the sequence with each agent's bid as her ranking.",
+   "statement": "def picking_prefix_state {N G : Type*} [DecidableEq N] [DecidableEq G] {m : ℕ}\n    (seq : List N) (rank : N → Fin m ≃ G) (s : ℕ) : (N → Finset G) × Finset G",
+   "source": "/-- Prefix state (bundles, allocated set) after s turns of a picking sequence. -/\ndef picking_prefix_state {N G : Type*} [DecidableEq N] [DecidableEq G] {m : ℕ}\n    (seq : List N) (rank : N → Fin m ≃ G) (s : ℕ) : (N → Finset G) × Finset G := (seq.take s).foldl (fun st a => picking_turn (List.ofFn ⇑(rank a)) a st) (fun _ => ∅, ∅)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "picking_turn"
+   ],
+   "used_by": [
+    "picking_phi_entry"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/PickingPrefixState.lean",
+   "proved_at": 1792472231,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_polynomial_convergence",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "picking_phi_entry",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 9112,
+   "informal": "The coordinate phi_s of the potential of arXiv:2610.23040 (proof of Thm 3.13): at turn s the acting agent takes the highest-ranked item not yet allocated; phi_s is the 0-based position of that item in her bid (value 0 if turn s does not exist).",
+   "statement": "def picking_phi_entry {N G : Type*} [DecidableEq N] [DecidableEq G] {m : ℕ}\n    (seq : List N) (rank : N → Fin m ≃ G) (s : ℕ) : ℕ",
+   "source": "/-- Paper's potential coordinate phi_s: the 0-based rank, in the acting agent's bid, of the item she takes at turn s. -/\ndef picking_phi_entry {N G : Type*} [DecidableEq N] [DecidableEq G] {m : ℕ}\n    (seq : List N) (rank : N → Fin m ≃ G) (s : ℕ) : ℕ := match seq[s]? with\n  | none => 0\n  | some a =>\n      match (List.ofFn ⇑(rank a)).find? (fun g => decide (g ∉ (picking_prefix_state seq rank s).2)) with\n      | none => 0\n      | some g => ((rank a).symm g).val",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "picking_prefix_state",
+    "picking_turn"
+   ],
+   "used_by": [
+    "round_robin_phi_vector"
+   ],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/PickingPhiEntry.lean",
+   "proved_at": 1792472527,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_polynomial_convergence",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "round_robin_phi_vector",
+   "kind": "def",
+   "is_def": true,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 9113,
+   "informal": "The potential of arXiv:2610.23040 (Thm 3.13) for Round Robin with n agents and m goods: the vector Phi(r) = (phi_0(r), ..., phi_{m-1}(r)) of the 0-based ranks of the items selected at each of the m turns.",
+   "statement": "def round_robin_phi_vector {n : ℕ} [NeZero n] (m : ℕ) (rank : Fin n → Fin m ≃ Fin m) : List ℕ",
+   "source": "/-- The lexicographic potential Phi for the Round-Robin sequence. -/\ndef round_robin_phi_vector {n : ℕ} [NeZero n] (m : ℕ) (rank : Fin n → Fin m ≃ Fin m) : List ℕ := List.ofFn (fun s : Fin m => picking_phi_entry (round_robin_sequence n m) rank s.val)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "picking_phi_entry",
+    "round_robin_sequence"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/RoundRobinPhiVector.lean",
+   "proved_at": 1792472752,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_polynomial_convergence",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "iterated_round_robin_item_preserving_swaps_zero_of_card_le",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "seq": 9114,
+   "informal": "When the number of goods m is at most the number of agents n, for any initial preference profile pref : Fin n → Fin m ≃ Fin m and non-negative additive valuations v : Fin n → Fin m → ℝ (with v i g ≥ 0 for all i, g) strictly consistent with pref (with v i (pref i l) < v i (pref i k) whenever k < l), any execution f : ℕ → (Fin n → Fin m ≃ Fin m) starting at f 0 = pref of T steps of iterated Round Robin under item-preserving swap bids (irr_step) must have length T = 0.",
+   "statement": "theorem iterated_round_robin_item_preserving_swaps_zero_of_card_le (n m : ℕ) [NeZero n] (hm : m ≤ n)\n    (pref : Fin n → Fin m ≃ Fin m) (v : Fin n → Fin m → ℝ) (hv : ∀ i g, 0 ≤ v i g)\n    (hcons : ∀ (i : Fin n) (k l : Fin m), k < l → v i (pref i l) < v i (pref i k))\n    (f : ℕ → (Fin n → Fin m ≃ Fin m)) (hf0 : f 0 = pref) (T : ℕ)\n    (hf : ∀ t < T, irr_step v (round_robin_sequence n m)\n      (is_item_preserving_swap_bid (round_robin_sequence n m)) (f t) (f (t + 1))) :\n    T = 0",
+   "source": "theorem iterated_round_robin_item_preserving_swaps_zero_of_card_le_seq_count_le_one\n    (n m : ℕ) [NeZero n] (hm : m ≤ n) (a : Fin n) :\n    (round_robin_sequence n m).count a ≤ 1 := by\n  have hinj : Function.Injective (fun (t : Fin m) => (⟨t.val % n, Nat.mod_lt _ (NeZero.pos n)⟩ : Fin n)) := by\n    intro x y hxy\n    simp only [Fin.mk.injEq] at hxy\n    have hx : x.val < n := lt_of_lt_of_le x.isLt hm\n    have hy : y.val < n := lt_of_lt_of_le y.isLt hm\n    rw [Nat.mod_eq_of_lt hx, Nat.mod_eq_of_lt hy] at hxy\n    ext\n    exact hxy\n  have hnodup : (round_robin_sequence n m).Nodup := by\n    unfold round_robin_sequence\n    exact List.nodup_ofFn.mpr hinj\n  exact List.nodup_iff_count_le_one.mp hnodup a\n\ntheorem iterated_round_robin_item_preserving_swaps_zero_of_card_le_card_foldl_le\n    {N G : Type*} [DecidableEq N] [DecidableEq G]\n    (L : N → List G) (l : List N) (a : N) (st : (N → Finset G) × Finset G) :\n    ((List.foldl (fun st a => picking_turn (L a) a st) st l).1 a).card ≤ (st.1 a).card + l.count a := by\n  induction l generalizing st with\n  | nil => simp\n  | cons h t ih =>\n    simp only [List.foldl_cons, List.count_cons]\n    have ih_st := ih (picking_turn (L h) h st)\n    have hstep : ((picking_turn (L h) h st).1 a).card ≤ (st.1 a).card + if (h == a) = true then 1 else 0 := by\n      unfold picking_turn\n      split\n      · next g hfind =>\n        dsimp only\n        by_cases ha : h = a\n        · subst ha\n          rw [Function.update_self]\n          simp only [beq_self_eq_true, ite_true]\n          exact Finset.card_insert_le _ _\n        · rw [Function.update_of_ne (Ne.symm ha)]\n          have : (h == a) = false := beq_false_of_ne ha\n          simp [this]\n      · simp\n    omega\n\n/-- When m ≤ n, iterated Round Robin under item-preserving swaps terminates immediately with 0 manipulations. -/\ntheorem iterated_round_robin_item_preserving_swaps_zero_of_card_le (n m : ℕ) [NeZero n] (hm : m ≤ n)\n    (pref : Fin n → Fin m ≃ Fin m) (v : Fin n → Fin m → ℝ) (hv : ∀ i g, 0 ≤ v i g)\n    (hcons : ∀ (i : Fin n) (k l : Fin m), k < l → v i (pref i l) < v i (pref i k))\n    (f : ℕ → (Fin n → Fin m ≃ Fin m)) (hf0 : f 0 = pref) (T : ℕ)\n    (hf : ∀ t < T, irr_step v (round_robin_sequence n m)\n      (is_item_preserving_swap_bid (round_robin_sequence n m)) (f t) (f (t + 1))) :\n    T = 0 := by\n  by_contra hT\n  have hT0 : 0 < T := Nat.pos_of_ne_zero hT\n  have hstep := hf 0 hT0\n  obtain ⟨i, ⟨r, hadm, hlt⟩, -⟩ := hstep\n  obtain ⟨k, l, hkl, hr, hg1, hg2⟩ := hadm\n  set seq := round_robin_sequence n m\n  have hcount : seq.count i ≤ 1 :=\n    iterated_round_robin_item_preserving_swaps_zero_of_card_le_seq_count_le_one n m hm i\n  have h0 : (((fun _ : Fin n => (∅ : Finset (Fin m))), (∅ : Finset (Fin m))).1 i).card = 0 := by simp\n  have hcard1 : (picking_sequence_outcome seq (f 0) i).card ≤ 1 := by\n    have hcard := iterated_round_robin_item_preserving_swaps_zero_of_card_le_card_foldl_le\n      (fun a => List.ofFn (f 0 a)) seq i (fun _ => ∅, ∅)\n    rw [h0] at hcard\n    exact hcard.trans (by omega)\n  have hcard2 : (picking_sequence_outcome seq (Function.update (f 0) i r) i).card ≤ 1 := by\n    have hcard := iterated_round_robin_item_preserving_swaps_zero_of_card_le_card_foldl_le\n      (fun a => List.ofFn (Function.update (f 0) i r a)) seq i (fun _ => ∅, ∅)\n    rw [h0] at hcard\n    exact hcard.trans (by omega)\n  set g := (f 0 i) k\n  have eA : picking_sequence_outcome seq (f 0) i = {g} := by\n    ext x\n    simp only [Finset.mem_singleton]\n    exact ⟨fun hx => Finset.card_le_one.mp hcard1 x hx g hg1, fun hx => hx ▸ hg1⟩\n  have eB : picking_sequence_outcome seq (Function.update (f 0) i r) i = {g} := by\n    ext x\n    simp only [Finset.mem_singleton]\n    exact ⟨fun hx => Finset.card_le_one.mp hcard2 x hx g hg2, fun hx => hx ▸ hg2⟩\n  rw [eA, eB] at hlt\n  exact lt_irrefl _ hlt",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "round_robin_sequence",
+    "irr_step",
+    "is_item_preserving_swap_bid",
+    "ranking_swap",
+    "picking_sequence_outcome",
+    "picking_turn",
+    "g"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/GameTheoryEconomics/IteratedRoundRobinItemPreservingSwapsZeroOfCardLe.lean",
+   "proved_at": 1792473897,
+   "provenance": "lemma",
+   "citation": "scout/2610-23040-on-the-convergence-of-iterated-round-robin.md:309",
+   "lean_from": null,
+   "reading": "Given:\n- natural numbers $n, m$ with $n \\ne 0$ and $m \\le n$;\n- a preference profile $\\text{pref} : \\text{Fin } n \\to (\\text{Fin } m \\simeq \\text{Fin } m)$ assigning to each agent $i$ a ranking (permutation) of items;\n- a valuation function $v : \\text{Fin } n \\to \\text{Fin } m \\to \\mathbb{R}$;\n- an assumption that all valuations are non-negative ($v(i, g) \\ge 0$ for all $i, g$);\n- an assumption that valuations strictly decrease with rank in $\\text{pref}$ (for every agent $i$ and indices $k < l$ in $\\text{Fin } m$, $v(i, \\text{pref}(i)(l)) < v(i, \\text{pref}(i)(k))$);\n- a sequence of bid profiles $f : \\mathbb{N} \\to (\\text{Fin } n \\to (\\text{Fin } m \\simeq \\text{Fin } m))$ starting at truthful preferences ($f(0) = \\text{pref}$);\n- and a natural number $T$ such that for all $t < T$, the step from $f(t)$ to $f(t+1)$ is an iterated round-robin step (`irr_step`) with valuation $v$, picking sequence `round_robin_sequence n m`, and admissible bids given by item-preserving swaps (`is_item_preserving_swap_bid`);\n\nthe theorem asserts that $T = 0$ (i.e., no such step can take place).",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "brgc_word",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9115,
+   "informal": "The binary reflected Gray code word of rank t, read as a binary number: g(t) = t xor floor(t/2).",
+   "statement": "def brgc_word (t : ℕ) : ℕ",
+   "source": "/-- The binary reflected Gray code word of rank t, read as a binary number: g(t) = t xor floor(t/2). -/\ndef brgc_word (t : ℕ) : ℕ := t ^^^ (t / 2)",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "brgc_necklace_order_consecutive_adjacent_seven",
+    "brgc_necklace_order_consecutive_adjacent_five",
+    "brgc_word_two",
+    "brgc_necklace_first_rank"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/BrgcWord.lean",
+   "proved_at": 1792474326,
+   "provenance": "literature",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1; the BRGC g(t) = t xor floor(t/2) of Sec. 1",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "bitword_rotate",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9116,
+   "informal": "Cyclic rotation of an n-bit word x (a number below 2^n) by one position: the word is shifted up and its top bit moves to the bottom.",
+   "statement": "def bitword_rotate (n x : ℕ) : ℕ",
+   "source": "/-- Cyclic rotation of an n-bit word x (a number below 2^n) by one position: the word is shifted up and its top bit moves to the bottom. -/\ndef bitword_rotate (n x : ℕ) : ℕ := (2 * x) % 2 ^ n + x / 2 ^ (n - 1)",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "brgc_necklace_order_consecutive_adjacent_seven",
+    "bitword_rotate_three_four",
+    "bitword_is_rotation",
+    "brgc_necklace_order_consecutive_adjacent_five",
+    "bitword_necklace_adjacent"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/BitwordRotate.lean",
+   "proved_at": 1792474327,
+   "provenance": "literature",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1; cyclic shift of words",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "bitword_is_rotation",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9117,
+   "informal": "The n-bit word y is a cyclic rotation of the n-bit word x, i.e. x and y lie in the same binary necklace.",
+   "statement": "def bitword_is_rotation (n x y : ℕ) : Prop",
+   "source": "/-- The n-bit word y is a cyclic rotation of the n-bit word x, i.e. x and y lie in the same binary necklace. -/\ndef bitword_is_rotation (n x y : ℕ) : Prop := ∃ r < n, (bitword_rotate n)^[r] x = y",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "bitword_rotate"
+   ],
+   "used_by": [
+    "brgc_necklace_order_consecutive_adjacent_seven",
+    "bitword_necklace_adjacent_three_one_three",
+    "brgc_necklace_order_consecutive_adjacent_five",
+    "brgc_necklace_first_rank"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/BitwordIsRotation.lean",
+   "proved_at": 1792474328,
+   "provenance": "literature",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1; necklaces as classes under cyclic shift",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "brgc_necklace_first_rank",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9118,
+   "informal": "t is the BRGC rank of the first occurrence of a nonconstant binary necklace of length n: t < 2^n, the word g(t) is neither 0^n nor 1^n, and no smaller rank s gives a word g(s) in the same necklace. The list D_n orders the nonconstant necklaces by these ranks.",
+   "statement": "def brgc_necklace_first_rank (n t : ℕ) : Prop",
+   "source": "/-- t is the BRGC rank of the first occurrence of a nonconstant binary necklace of length n: t < 2^n, the word g(t) is neither 0^n nor 1^n, and no smaller rank s gives a word g(s) in the same necklace. The list D_n orders the nonconstant necklaces by these ranks. -/\ndef brgc_necklace_first_rank (n t : ℕ) : Prop :=\n  t < 2 ^ n ∧ brgc_word t ≠ 0 ∧ brgc_word t ≠ 2 ^ n - 1 ∧\n    ∀ s < t, ¬ bitword_is_rotation n (brgc_word s) (brgc_word t)",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "brgc_word",
+    "bitword_is_rotation"
+   ],
+   "used_by": [
+    "brgc_necklace_order_consecutive_adjacent_seven",
+    "brgc_necklace_order_consecutive_adjacent_five"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/BrgcNecklaceFirstRank.lean",
+   "proved_at": 1792474329,
+   "provenance": "literature",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1; first occurrences and the list D_n",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "bitword_necklace_adjacent",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9119,
+   "informal": "The necklaces of the n-bit words x and y are adjacent in the necklace graph Q_n: some rotation of x differs from y in exactly one bit.",
+   "statement": "def bitword_necklace_adjacent (n x y : ℕ) : Prop",
+   "source": "/-- The necklaces of the n-bit words x and y are adjacent in the necklace graph Q_n: some rotation of x differs from y in exactly one bit. -/\ndef bitword_necklace_adjacent (n x y : ℕ) : Prop :=\n  ∃ r < n, ∃ i < n, (bitword_rotate n)^[r] x ^^^ y = 2 ^ i",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "bitword_rotate"
+   ],
+   "used_by": [
+    "brgc_necklace_order_consecutive_adjacent_seven",
+    "bitword_necklace_adjacent_three_one_three",
+    "brgc_necklace_order_consecutive_adjacent_five"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/BitwordNecklaceAdjacent.lean",
+   "proved_at": 1792474330,
+   "provenance": "literature",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1; the necklace graph Q_n",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "brgc_word_two",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9120,
+   "informal": "Sanity check: the BRGC word of rank 2 is 011.",
+   "statement": "theorem brgc_word_two : brgc_word 2 = 3",
+   "source": "theorem brgc_word_two : brgc_word 2 = 3 := by decide",
+   "axioms": [
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "brgc_word"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/BrgcWordTwo.lean",
+   "proved_at": 1792474331,
+   "provenance": "lemma",
+   "citation": "sanity check for brgc_word (OP-392)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "bitword_rotate_three_four",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9121,
+   "informal": "Sanity check: rotating the 3-bit words 100 and 011 gives 001 and 110.",
+   "statement": "theorem bitword_rotate_three_four : bitword_rotate 3 4 = 1 ∧ bitword_rotate 3 3 = 6",
+   "source": "theorem bitword_rotate_three_four : bitword_rotate 3 4 = 1 ∧ bitword_rotate 3 3 = 6 := by decide",
+   "axioms": [
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "bitword_rotate"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/BitwordRotateThreeFour.lean",
+   "proved_at": 1792474331,
+   "provenance": "lemma",
+   "citation": "sanity check for bitword_rotate (OP-392)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "bitword_necklace_adjacent_three_one_three",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9122,
+   "informal": "Sanity check: 100 is a rotation of 001, and the necklaces of 001 and 011 are adjacent in Q_3.",
+   "statement": "theorem bitword_necklace_adjacent_three_one_three :\n    bitword_is_rotation 3 1 4 ∧ bitword_necklace_adjacent 3 1 3",
+   "source": "theorem bitword_necklace_adjacent_three_one_three :\n    bitword_is_rotation 3 1 4 ∧ bitword_necklace_adjacent 3 1 3 := ⟨⟨2, by decide, by decide⟩, ⟨0, by decide, 1, by decide, by decide⟩⟩",
+   "axioms": [
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "bitword_is_rotation",
+    "bitword_necklace_adjacent"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/BitwordNecklaceAdjacentThreeOneThree.lean",
+   "proved_at": 1792474332,
+   "provenance": "lemma",
+   "citation": "sanity check for bitword_is_rotation and bitword_necklace_adjacent (OP-392)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "digraph_common_out_count",
+   "kind": "def",
+   "is_def": true,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9123,
+   "informal": "c_ij: the number of common out-neighbours of the vertices i and j of a digraph on Fin n.",
+   "statement": "def digraph_common_out_count {n : ℕ} (D : Digraph (Fin n)) [DecidableRel D.Adj]\n    (i j : Fin n) : ℕ",
+   "source": "/-- c_ij: the number of common out-neighbours of the vertices i and j of a digraph on Fin n. -/\ndef digraph_common_out_count {n : ℕ} (D : Digraph (Fin n)) [DecidableRel D.Adj]\n    (i j : Fin n) : ℕ :=\n  (Finset.univ.filter (fun v => D.Adj i v ∧ D.Adj j v)).card",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/DigraphCommonOutCount.lean",
+   "proved_at": 1792474333,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25886 (Extremal arborescences in graph orientations), Conjecture 6.1; the counts c_ij of Sec. 6",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "digraph_out_count",
+   "kind": "def",
+   "is_def": true,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9124,
+   "informal": "The out-degree of the vertex v of a digraph on Fin n.",
+   "statement": "def digraph_out_count {n : ℕ} (D : Digraph (Fin n)) [DecidableRel D.Adj] (v : Fin n) : ℕ",
+   "source": "/-- The out-degree of the vertex v of a digraph on Fin n. -/\ndef digraph_out_count {n : ℕ} (D : Digraph (Fin n)) [DecidableRel D.Adj] (v : Fin n) : ℕ := (Finset.univ.filter (fun w => D.Adj v w)).card",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/DigraphOutCount.lean",
+   "proved_at": 1792474334,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25886 (Extremal arborescences in graph orientations), Conjecture 6.1; outdegrees",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "digraph_arborescence_count_at",
+   "kind": "def",
+   "is_def": true,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9125,
+   "informal": "a_r(D): the number of spanning arborescences of D directed towards the root r. Each is recorded by its successor map p: p r = r, every vertex v other than r has the arc v -> p v, and iterating p from any vertex reaches r (so the arcs form a spanning tree oriented towards r).",
+   "statement": "def digraph_arborescence_count_at {n : ℕ} (D : Digraph (Fin n)) [DecidableRel D.Adj]\n    (r : Fin n) : ℕ",
+   "source": "/-- a_r(D): the number of spanning arborescences of D directed towards the root r. Each is recorded by its successor map p: p r = r, every vertex v other than r has the arc v -> p v, and iterating p from any vertex reaches r (so the arcs form a spanning tree oriented towards r). -/\ndef digraph_arborescence_count_at {n : ℕ} (D : Digraph (Fin n)) [DecidableRel D.Adj]\n    (r : Fin n) : ℕ :=\n  (Finset.univ.filter (fun p : Fin n → Fin n =>\n    p r = r ∧ (∀ v, v ≠ r → D.Adj v (p v)) ∧ ∀ v, p^[n] v = r)).card",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "digraph_arborescence_count",
+    "digraph_arborescence_count_at_sanity"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/DigraphArborescenceCountAt.lean",
+   "proved_at": 1792474335,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25886 (Extremal arborescences in graph orientations), Conjecture 6.1; the rooted counts a_r(D) of Sec. 1",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "digraph_arborescence_count",
+   "kind": "def",
+   "is_def": true,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9126,
+   "informal": "tau(D): the total number of arborescences of D, the sum of a_r(D) over all roots r.",
+   "statement": "def digraph_arborescence_count {n : ℕ} (D : Digraph (Fin n)) [DecidableRel D.Adj] : ℕ",
+   "source": "/-- tau(D): the total number of arborescences of D, the sum of a_r(D) over all roots r. -/\ndef digraph_arborescence_count {n : ℕ} (D : Digraph (Fin n)) [DecidableRel D.Adj] : ℕ := ∑ r, digraph_arborescence_count_at D r",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "digraph_arborescence_count_at"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/DigraphArborescenceCount.lean",
+   "proved_at": 1792474336,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25886 (Extremal arborescences in graph orientations), Conjecture 6.1; tau(D) of Sec. 1",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "digraph_arborescence_count_at_sanity",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9127,
+   "informal": "Sanity check: on two vertices, the digraph with no arcs has no arborescence towards 0, and the complete digraph (with loops) has exactly one.",
+   "statement": "theorem digraph_arborescence_count_at_sanity :\n    digraph_arborescence_count_at (⊥ : Digraph (Fin 2)) 0 = 0 ∧\n      @digraph_arborescence_count_at 2 ⊤ (fun _ _ => isTrue trivial) 0 = 1",
+   "source": "theorem digraph_arborescence_count_at_sanity :\n    digraph_arborescence_count_at (⊥ : Digraph (Fin 2)) 0 = 0 ∧\n      @digraph_arborescence_count_at 2 ⊤ (fun _ _ => isTrue trivial) 0 = 1 := ⟨by decide, by decide⟩",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "digraph_arborescence_count_at"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/DigraphArborescenceCountAtSanity.lean",
+   "proved_at": 1792474336,
+   "provenance": "lemma",
+   "citation": "sanity check for digraph_arborescence_count_at (OP-404)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "perm_offset_avoiding_count",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9128,
+   "informal": "a_S(n): the number of S-avoiding permutations of an n-element set, i.e. permutations pi of {0, ..., n-1} with pi(i) - i - s not divisible by n for every i and every s in S. With S = {-1, 0} this is the menage number U(n).",
+   "statement": "def perm_offset_avoiding_count (n : ℕ) (S : Finset ℤ) : ℕ",
+   "source": "/-- a_S(n): the number of S-avoiding permutations of an n-element set, i.e. permutations pi of {0, ..., n-1} with pi(i) - i - s not divisible by n for every i and every s in S. With S = {-1, 0} this is the menage number U(n). -/\ndef perm_offset_avoiding_count (n : ℕ) (S : Finset ℤ) : ℕ :=\n  (Finset.univ.filter (fun π : Equiv.Perm (Fin n) =>\n    ∀ i : Fin n, ∀ s ∈ S, ¬ ((n : ℤ) ∣ ((π i : ℕ) : ℤ) - ((i : ℕ) : ℤ) - s))).card",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "perm_offset_avoiding_count_eq_of_board_equiv",
+    "perm_offset_avoiding_count_four"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/PermOffsetAvoidingCount.lean",
+   "proved_at": 1792474337,
+   "provenance": "literature",
+   "citation": "arXiv:2610.23958 (Unranking S-avoiding permutations with two forbidden offsets), Sec. 1 (S-avoiding permutations; U(n) = a_{-1,0}(n)); indices shifted to {0, ..., n-1}, which does not change the condition mod n",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "perm_offset_avoiding_count_four",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9129,
+   "informal": "Sanity check: U(4) = 2, and there are 4 permutations of 4 elements avoiding the offsets -1 and 1.",
+   "statement": "theorem perm_offset_avoiding_count_four :\n    perm_offset_avoiding_count 4 {-1, 0} = 2 ∧ perm_offset_avoiding_count 4 {-1, 1} = 4",
+   "source": "theorem perm_offset_avoiding_count_four :\n    perm_offset_avoiding_count 4 {-1, 0} = 2 ∧ perm_offset_avoiding_count 4 {-1, 1} = 4 := by decide",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "perm_offset_avoiding_count"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/PermOffsetAvoidingCountFour.lean",
+   "proved_at": 1792474338,
+   "provenance": "lemma",
+   "citation": "sanity check for perm_offset_avoiding_count (PR-300)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "simple_graph_is_multi_radio_labeling",
+   "kind": "def",
+   "is_def": true,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9130,
+   "informal": "An (m,k)-radio labeling of G: each vertex gets a set of m nonnegative integer labels, and for any (possibly equal) vertices x, y and labels a of x, b of y with (x, a) ≠ (y, b), |a - b| >= k + 1 - d(x, y).",
+   "statement": "def simple_graph_is_multi_radio_labeling {V : Type*} (G : SimpleGraph V) (m k : ℕ)\n    (f : V → Finset ℕ) : Prop",
+   "source": "/-- An (m,k)-radio labeling of G: each vertex gets a set of m nonnegative integer labels, and for any (possibly equal) vertices x, y and labels a of x, b of y with (x, a) ≠ (y, b), |a - b| >= k + 1 - d(x, y). -/\ndef simple_graph_is_multi_radio_labeling {V : Type*} (G : SimpleGraph V) (m k : ℕ)\n    (f : V → Finset ℕ) : Prop :=\n  (∀ v, (f v).card = m) ∧ ∀ x y, ∀ a ∈ f x, ∀ b ∈ f y, (x, a) ≠ (y, b) →\n    (k + 1 : ℤ) - G.dist x y ≤ |(a : ℤ) - b|",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "simple_graph_multi_radio_number"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphIsMultiRadioLabeling.lean",
+   "proved_at": 1792474339,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Sec. 1 (definition of (m,k)-radio labelings)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "multi_label_span",
+   "kind": "def",
+   "is_def": true,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9131,
+   "informal": "The span of a multi-labeling: the largest label used minus the smallest (written as the largest difference b - a over all pairs of labels).",
+   "statement": "def multi_label_span {V : Type*} [Fintype V] (f : V → Finset ℕ) : ℕ",
+   "source": "/-- The span of a multi-labeling: the largest label used minus the smallest (written as the largest difference b - a over all pairs of labels). -/\ndef multi_label_span {V : Type*} [Fintype V] (f : V → Finset ℕ) : ℕ :=\n  Finset.univ.sup fun x => Finset.univ.sup fun y => (f x).sup fun a => (f y).sup fun b => b - a",
+   "axioms": [],
+   "clean": false,
+   "deps": [],
+   "used_by": [
+    "simple_graph_multi_radio_number",
+    "multi_label_span_sanity"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/MultiLabelSpan.lean",
+   "proved_at": 1792474340,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Sec. 1 (span)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "simple_graph_multi_radio_number",
+   "kind": "def",
+   "is_def": true,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9132,
+   "informal": "The (m,k)-radio number lambda_k^m(G): the least span of an (m,k)-radio labeling of G.",
+   "statement": "noncomputable def simple_graph_multi_radio_number {V : Type*} [Fintype V] (G : SimpleGraph V)\n    (m k : ℕ) : ℕ",
+   "source": "/-- The (m,k)-radio number lambda_k^m(G): the least span of an (m,k)-radio labeling of G. -/\nnoncomputable def simple_graph_multi_radio_number {V : Type*} [Fintype V] (G : SimpleGraph V)\n    (m k : ℕ) : ℕ :=\n  sInf {s | ∃ f, simple_graph_is_multi_radio_labeling G m k f ∧ multi_label_span f = s}",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "simple_graph_is_multi_radio_labeling",
+    "multi_label_span"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphMultiRadioNumber.lean",
+   "proved_at": 1792474341,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Sec. 1 (radio number)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "multi_label_span_sanity",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9133,
+   "informal": "Sanity check: labels {0, 4} and {2} have span 4.",
+   "statement": "theorem multi_label_span_sanity :\n    multi_label_span (fun i : Fin 2 => if i = 0 then ({0, 4} : Finset ℕ) else {2}) = 4",
+   "source": "theorem multi_label_span_sanity :\n    multi_label_span (fun i : Fin 2 => if i = 0 then ({0, 4} : Finset ℕ) else {2}) = 4 := by decide",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "multi_label_span"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/MultiLabelSpanSanity.lean",
+   "proved_at": 1792474341,
+   "provenance": "lemma",
+   "citation": "sanity check for multi_label_span (PR-281)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "causal_code_vals_zero_outside",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "information",
+   "domain": "tcs",
+   "seq": 9134,
+   "informal": "Let a causal linear code on net have transmission values val satisfying the recurrence for a message msg, where msg vanishes on sessions whose source is outside S and val vanishes on transmissions that leave S. Then val vanishes on every transmission whose receiver is outside S.",
+   "statement": "theorem causal_code_vals_zero_outside\n    {V : Type} [Fintype V] [DecidableEq V] {K : Type} [Fintype K] [DecidableEq K]\n    (F : Type) [Field F] (net : CapacitatedNetwork V) (sess : UnicastSessions V K)\n    (code : CausalLinearNetworkCode V K F net sess) (S : Finset V) (msg : K → Fin code.L → F)\n    (val : Fin code.M → F)\n    (hval : ∀ m, val m = ∑ k, ∑ j, code.α m k j * msg k j + ∑ m', code.β m m' * val m')\n    (hmsg : ∀ (k : K) (j : Fin code.L), sess.src k ∉ S → msg k j = 0)\n    (hleave : ∀ m : Fin code.M, code.snd m ∈ S → code.rcv m ∉ S → val m = 0) :\n    ∀ m : Fin code.M, code.rcv m ∉ S → val m = 0",
+   "source": "/-- Values on a cut that carry no traffic vanish on the far side of the cut. -/\ntheorem causal_code_vals_zero_outside\n    {V : Type} [Fintype V] [DecidableEq V] {K : Type} [Fintype K] [DecidableEq K]\n    (F : Type) [Field F] (net : CapacitatedNetwork V) (sess : UnicastSessions V K)\n    (code : CausalLinearNetworkCode V K F net sess) (S : Finset V) (msg : K → Fin code.L → F)\n    (val : Fin code.M → F)\n    (hval : ∀ m, val m = ∑ k, ∑ j, code.α m k j * msg k j + ∑ m', code.β m m' * val m')\n    (hmsg : ∀ (k : K) (j : Fin code.L), sess.src k ∉ S → msg k j = 0)\n    (hleave : ∀ m : Fin code.M, code.snd m ∈ S → code.rcv m ∉ S → val m = 0) :\n    ∀ m : Fin code.M, code.rcv m ∉ S → val m = 0 := by\n  intro m\n  induction m using WellFoundedLT.induction with\n  | ind m ih =>\n    intro hrcv\n    by_cases hsnd : code.snd m ∈ S\n    · exact hleave m hsnd hrcv\n    · rw [hval m]\n      have h1 : (∑ k, ∑ j, code.α m k j * msg k j) = (0 : F) := by\n        apply Finset.sum_eq_zero\n        intro k _\n        apply Finset.sum_eq_zero\n        intro j _\n        by_cases hα : code.α m k j = 0\n        · rw [hα, zero_mul]\n        · have hsrc := code.snd_local m k j hα\n          have hk : sess.src k ∉ S := by\n            rw [hsrc]\n            exact hsnd\n          rw [hmsg k j hk, mul_zero]\n      have h2 : (∑ m', code.β m m' * val m') = (0 : F) := by\n        apply Finset.sum_eq_zero\n        intro m' _\n        by_cases hβ : code.β m m' = 0\n        · rw [hβ, zero_mul]\n        · have hlt : m' < m := code.causal m m' hβ\n          have hrcv' : code.rcv m' = code.snd m := code.rcv_local m m' hβ\n          have hrcv_not : code.rcv m' ∉ S := by\n            rw [hrcv']\n            exact hsnd\n          have hval' : val m' = 0 := ih m' hlt hrcv_not\n          rw [hval', mul_zero]\n      rw [h1, h2, add_zero]",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "CausalLinearNetworkCode",
+    "UnicastSessions",
+    "CapacitatedNetwork"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/CausalCodeValsZeroOutside.lean",
+   "proved_at": 1792474493,
+   "provenance": "lemma",
+   "citation": "step towards undirected_binary_linear_unicast_advantage",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "brgc_necklace_order_consecutive_adjacent_five",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9135,
+   "informal": "The case n = 5 of the conjecture: consecutive necklaces of D_5 are adjacent in Q_5.",
+   "statement": "theorem brgc_necklace_order_consecutive_adjacent_five :\n    ∀ t t' : ℕ, brgc_necklace_first_rank 5 t →\n      brgc_necklace_first_rank 5 t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank 5 s) →\n      bitword_necklace_adjacent 5 (brgc_word t) (brgc_word t')",
+   "source": "instance brgc_necklace_order_consecutive_adjacent_five_dec_is_rot (n x y : ℕ) :\n    Decidable (bitword_is_rotation n x y) :=\n  inferInstanceAs (Decidable (∃ r < n, (bitword_rotate n)^[r] x = y))\n\ninstance brgc_necklace_order_consecutive_adjacent_five_dec_first_rank (n t : ℕ) :\n    Decidable (brgc_necklace_first_rank n t) :=\n  inferInstanceAs (Decidable (t < 2 ^ n ∧ brgc_word t ≠ 0 ∧ brgc_word t ≠ 2 ^ n - 1 ∧\n    ∀ s < t, ¬ bitword_is_rotation n (brgc_word s) (brgc_word t)))\n\ninstance brgc_necklace_order_consecutive_adjacent_five_dec_adj (n x y : ℕ) :\n    Decidable (bitword_necklace_adjacent n x y) :=\n  inferInstanceAs (Decidable (∃ r < n, ∃ i < n, (bitword_rotate n)^[r] x ^^^ y = 2 ^ i))\n\nlemma brgc_necklace_order_consecutive_adjacent_five_fin :\n    ∀ (t t' : Fin 32), brgc_necklace_first_rank 5 t.1 →\n      brgc_necklace_first_rank 5 t'.1 → t.1 < t'.1 →\n      (∀ s : Fin 32, t.1 < s.1 → s.1 < t'.1 → ¬ brgc_necklace_first_rank 5 s.1) →\n      bitword_necklace_adjacent 5 (brgc_word t.1) (brgc_word t'.1) := by\n  decide\n\ntheorem brgc_necklace_order_consecutive_adjacent_five :\n    ∀ t t' : ℕ, brgc_necklace_first_rank 5 t →\n      brgc_necklace_first_rank 5 t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank 5 s) →\n      bitword_necklace_adjacent 5 (brgc_word t) (brgc_word t') := by\n  intro t t' ht ht' hlt hbetween\n  have ht_lt : t < 32 := ht.1\n  have ht'_lt : t' < 32 := ht'.1\n  exact brgc_necklace_order_consecutive_adjacent_five_fin ⟨t, ht_lt⟩ ⟨t', ht'_lt⟩ ht ht' hlt\n    (fun s hs1 hs2 => hbetween s.1 hs1 hs2)",
+   "axioms": [
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "brgc_word",
+    "brgc_necklace_first_rank",
+    "bitword_necklace_adjacent",
+    "bitword_is_rotation",
+    "bitword_rotate"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/BrgcNecklaceOrderConsecutiveAdjacentFive.lean",
+   "proved_at": 1792475108,
+   "provenance": "literature",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1; the case n = 5, verified by computation in the paper",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "perm_offset_avoiding_count_eq_of_board_equiv",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9136,
+   "informal": "If bijections sigma (of rows) and rho (of columns) of Fin n carry the forbidden squares of the offset set S exactly onto those of S' -- n divides j - i - s for some s in S iff n divides rho(j) - sigma(i) - s' for some s' in S' -- then a_S(n) = a_{S'}(n): pi -> rho o pi o sigma^-1 is a bijection between the avoiding permutations.",
+   "statement": "theorem perm_offset_avoiding_count_eq_of_board_equiv (n : ℕ) (S S' : Finset ℤ)\n    (σ ρ : Equiv.Perm (Fin n))\n    (h : ∀ i j : Fin n, (∃ s ∈ S, (n : ℤ) ∣ ((j : ℕ) : ℤ) - ((i : ℕ) : ℤ) - s) ↔\n      (∃ s ∈ S', (n : ℤ) ∣ ((ρ j : ℕ) : ℤ) - ((σ i : ℕ) : ℤ) - s)) :\n    perm_offset_avoiding_count n S = perm_offset_avoiding_count n S'",
+   "source": "theorem perm_offset_avoiding_count_eq_of_board_equiv (n : ℕ) (S S' : Finset ℤ)\n    (σ ρ : Equiv.Perm (Fin n))\n    (h : ∀ i j : Fin n, (∃ s ∈ S, (n : ℤ) ∣ ((j : ℕ) : ℤ) - ((i : ℕ) : ℤ) - s) ↔\n      (∃ s ∈ S', (n : ℤ) ∣ ((ρ j : ℕ) : ℤ) - ((σ i : ℕ) : ℤ) - s)) :\n    perm_offset_avoiding_count n S = perm_offset_avoiding_count n S' := by\n  unfold perm_offset_avoiding_count\n  refine Finset.card_bij (fun π _ => σ.symm.trans (π.trans ρ)) ?_ ?_ ?_\n  · intro π hπ\n    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hπ ⊢\n    intro i s hs hdvd\n    obtain ⟨s', hs', hd'⟩ := (h (σ.symm i) (π (σ.symm i))).2 ⟨s, hs, by simpa using hdvd⟩\n    exact hπ _ s' hs' hd'\n  · intro a _ b _ hab\n    refine Equiv.ext fun x => ?_\n    have := congrArg (fun e : Equiv.Perm (Fin n) => e (σ x)) hab\n    simpa using this\n  · intro π' hπ'\n    refine ⟨σ.trans (π'.trans ρ.symm), ?_, ?_⟩\n    · simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hπ' ⊢\n      intro i s hs hdvd\n      obtain ⟨s', hs', hd'⟩ := (h i ((σ.trans (π'.trans ρ.symm)) i)).1 ⟨s, hs, hdvd⟩\n      apply hπ' (σ i) s' hs'\n      simpa using hd'\n    · ext x; simp",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "perm_offset_avoiding_count"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/PermOffsetAvoidingCountEqOfBoardEquiv.lean",
+   "proved_at": 1792475317,
+   "provenance": "lemma",
+   "citation": "lemma for arXiv:2610.23958 Proposition 6.2 (PR-301): counts of avoiding permutations are invariant under relabelling rows and columns of the board",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "zmod_mul_unit_half_eq_zero_iff",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9137,
+   "informal": "In ZMod n, if 2u = 1 then x u = 0 iff x = 0.",
+   "statement": "theorem zmod_mul_unit_half_eq_zero_iff {n : ℕ} {u : ZMod n} (hu : 2 * u = 1) (x : ZMod n) :\n    x * u = 0 ↔ x = 0",
+   "source": "theorem zmod_mul_unit_half_eq_zero_iff {n : ℕ} {u : ZMod n} (hu : 2 * u = 1) (x : ZMod n) :\n    x * u = 0 ↔ x = 0 := by\n  constructor\n  · intro hx\n    calc x = x * (2 * u) := by rw [hu, mul_one]\n      _ = 2 * (x * u) := by ring\n      _ = 0 := by rw [hx, mul_zero]\n  · intro hx; rw [hx, zero_mul]",
+   "axioms": [
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/ZmodMulUnitHalfEqZeroIff.lean",
+   "proved_at": 1792475317,
+   "provenance": "lemma",
+   "citation": "lemma for arXiv:2610.23958 Proposition 6.2 (PR-301)",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "brgc_necklace_order_consecutive_adjacent_seven",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9138,
+   "informal": "The case n = 7 of the conjecture: consecutive necklaces of D_7 are adjacent in Q_7.",
+   "statement": "theorem brgc_necklace_order_consecutive_adjacent_seven :\n    ∀ t t' : ℕ, brgc_necklace_first_rank 7 t →\n      brgc_necklace_first_rank 7 t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank 7 s) →\n      bitword_necklace_adjacent 7 (brgc_word t) (brgc_word t')",
+   "source": "instance brgc_necklace_order_consecutive_adjacent_seven_dec_is_rot (n x y : ℕ) :\n    Decidable (bitword_is_rotation n x y) :=\n  inferInstanceAs (Decidable (∃ r < n, (bitword_rotate n)^[r] x = y))\n\ninstance brgc_necklace_order_consecutive_adjacent_seven_dec_first_rank (n t : ℕ) :\n    Decidable (brgc_necklace_first_rank n t) :=\n  inferInstanceAs (Decidable (t < 2 ^ n ∧ brgc_word t ≠ 0 ∧ brgc_word t ≠ 2 ^ n - 1 ∧\n    ∀ s < t, ¬ bitword_is_rotation n (brgc_word s) (brgc_word t)))\n\ninstance brgc_necklace_order_consecutive_adjacent_seven_dec_adj (n x y : ℕ) :\n    Decidable (bitword_necklace_adjacent n x y) :=\n  inferInstanceAs (Decidable (∃ r < n, ∃ i < n, (bitword_rotate n)^[r] x ^^^ y = 2 ^ i))\n\nlemma brgc_necklace_order_consecutive_adjacent_seven_fin :\n    ∀ (t t' : Fin 128), brgc_necklace_first_rank 7 t.1 →\n      brgc_necklace_first_rank 7 t'.1 → t.1 < t'.1 →\n      (∀ s : Fin 128, t.1 < s.1 → s.1 < t'.1 → ¬ brgc_necklace_first_rank 7 s.1) →\n      bitword_necklace_adjacent 7 (brgc_word t.1) (brgc_word t'.1) := by\n  decide +kernel\n\ntheorem brgc_necklace_order_consecutive_adjacent_seven :\n    ∀ t t' : ℕ, brgc_necklace_first_rank 7 t →\n      brgc_necklace_first_rank 7 t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank 7 s) →\n      bitword_necklace_adjacent 7 (brgc_word t) (brgc_word t') := by\n  intro t t' ht ht' hlt hbetween\n  have ht_lt : t < 128 := ht.1\n  have ht'_lt : t' < 128 := ht'.1\n  exact brgc_necklace_order_consecutive_adjacent_seven_fin ⟨t, ht_lt⟩ ⟨t', ht'_lt⟩ ht ht' hlt\n    (fun s hs1 hs2 => hbetween s.1 hs1 hs2)",
+   "axioms": [
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "brgc_word",
+    "brgc_necklace_first_rank",
+    "bitword_necklace_adjacent",
+    "bitword_is_rotation",
+    "bitword_rotate"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/BrgcNecklaceOrderConsecutiveAdjacentSeven.lean",
+   "proved_at": 1792475642,
+   "provenance": "literature",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1; the case n = 7, verified by computation in the paper",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
    "explanation": null,
    "trace": null,
    "funder": "",
@@ -667424,6 +668342,24 @@
    "created": 1791264051
   },
   {
+   "name": "irr_step_changed_agent_strict",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "Every irr_step is carried out by a single agent i: her new bid b' i is an admissible bid for her at b, nothing but her own bid changes (b' = Function.update b i (b' i)), and the additive value of her own picking-sequence bundle strictly increases.",
+   "statement": "theorem irr_step_changed_agent_strict {N G : Type*} [DecidableEq N] [DecidableEq G] {m : ℕ}\n    (v : N → G → ℝ) (seq : List N) (adm : (N → Fin m ≃ G) → N → (Fin m ≃ G) → Prop)\n    (b b' : N → Fin m ≃ G) (h : irr_step v seq adm b b') :\n    ∃ i, adm b i (b' i) ∧ b' = Function.update b i (b' i) ∧\n      ∑ g ∈ picking_sequence_outcome seq b i, v i g\n        < ∑ g ∈ picking_sequence_outcome seq b' i, v i g",
+   "attempts": 0,
+   "deps": [
+    "irr_step",
+    "picking_sequence_outcome"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_polynomial_convergence",
+   "created": 1792472046
+  },
+  {
    "name": "iterated_round_robin_two_agents_adjacent_swaps_converges",
    "kind": "theorem",
    "status": "stated",
@@ -667478,21 +668414,170 @@
    "created": 1791264989
   },
   {
+   "name": "picking_phi_entry_le",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For the Round-Robin sequence of n agents and m goods, the 0-based rank phi_s of the item selected at turn s is at most s (the paper's 1 <= phi_s <= s, one-based).",
+   "statement": "theorem picking_phi_entry_le (n : ℕ) [NeZero n] (m : ℕ) (rank : Fin n → Fin m ≃ Fin m) (s : ℕ) :\n    picking_phi_entry (round_robin_sequence n m) rank s ≤ s",
+   "attempts": 0,
+   "deps": [
+    "picking_phi_entry",
+    "picking_prefix_state_allocated_card_le",
+    "round_robin_sequence"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_polynomial_convergence",
+   "created": 1792472550
+  },
+  {
+   "name": "picking_prefix_state_allocated_card_le",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "After s turns of a picking sequence at most s items have been allocated: every picking_turn inserts at most one item into the allocated set.",
+   "statement": "theorem picking_prefix_state_allocated_card_le {N G : Type*} [DecidableEq N] [DecidableEq G] {m : ℕ}\n    (seq : List N) (rank : N → Fin m ≃ G) (s : ℕ) :\n    (picking_prefix_state seq rank s).2.card ≤ s",
+   "attempts": 0,
+   "deps": [
+    "picking_prefix_state",
+    "picking_turn"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_polynomial_convergence",
+   "created": 1792472250
+  },
+  {
+   "name": "picking_prefix_state_eq_of_agree",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "If two bid profiles assign the same ranking to every agent that appears among the first s entries of the sequence, then the states of the two runs after s turns coincide.",
+   "statement": "theorem picking_prefix_state_eq_of_agree {N G : Type*} [DecidableEq N] [DecidableEq G] {m : ℕ}\n    (seq : List N) (rank rank' : N → Fin m ≃ G) (s : ℕ)\n    (h : ∀ a ∈ seq.take s, rank a = rank' a) :\n    picking_prefix_state seq rank s = picking_prefix_state seq rank' s",
+   "attempts": 0,
+   "deps": [
+    "picking_prefix_state"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_polynomial_convergence",
+   "created": 1792472263
+  },
+  {
+   "name": "round_robin_alpha_three_eq_of_two_directions",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "If 2/3 is a guaranteed EF1 factor for three agents and no factor above 2/3 is guaranteed, then the best guaranteed factor for three agents is 2/3.",
+   "statement": "theorem round_robin_alpha_three_eq_of_two_directions\n    (hlow : is_guaranteed_round_robin_ef1_factor 3 (2 / 3))\n    (hup : ∀ α : ℝ, 2 / 3 < α → ¬ is_guaranteed_round_robin_ef1_factor 3 α) :\n    round_robin_alpha 3 = 2 / 3",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_alpha_three_eq_two_thirds",
+   "created": 1792470861
+  },
+  {
    "name": "round_robin_alpha_three_eq_two_thirds",
    "kind": "theorem",
-   "status": "proving",
+   "status": "stated",
    "topic": "fair_division",
    "domain": "game_theory_economics",
    "informal": "The best guaranteed EF1 factor for Round-Robin pure Nash equilibria with three agents is 2/3.",
    "statement": "theorem round_robin_alpha_three_eq_two_thirds : round_robin_alpha 3 = 2 / 3",
-   "attempts": 1,
+   "attempts": 0,
    "deps": [
-    "round_robin_alpha"
+    "round_robin_alpha",
+    "round_robin_sequence_count_eq",
+    "round_robin_alpha_three_eq_of_two_directions",
+    "round_robin_three_agents_high_count_two_thirds_ef1",
+    "round_robin_three_agents_two_thirds_guaranteed",
+    "round_robin_three_agents_not_guaranteed_above_two_thirds"
    ],
    "problem": null,
    "provenance": "original",
    "citation": "arXiv:2610.23686, Sec. 6",
    "created": 1792465595
+  },
+  {
+   "name": "round_robin_item_preserving_swaps_polynomial_convergence",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For any fixed number of agents n ≥ 3, there exist natural numbers C, k : ℕ such that for any number of goods m : ℕ (modeled by Fin m), any initial preference profile pref : Fin n → Fin m ≃ Fin m, and any non-negative additive valuations v : Fin n → Fin m → ℝ (with v i g ≥ 0 for all i, g) strictly consistent with pref (with v i (pref i l) < v i (pref i k) whenever k < l), every execution f : ℕ → (Fin n → Fin m ≃ Fin m) starting at f 0 = pref of T steps of iterated Round Robin under item-preserving swap bids (irr_step) satisfies T ≤ C * m ^ k.",
+   "statement": "theorem round_robin_item_preserving_swaps_polynomial_convergence (n : ℕ) [NeZero n] (hn : 3 ≤ n) :\n    ∃ (C k : ℕ), ∀ (m : ℕ) (pref : Fin n → Fin m ≃ Fin m) (v : Fin n → Fin m → ℝ)\n      (hv : ∀ i g, 0 ≤ v i g)\n      (hcons : ∀ (i : Fin n) (k l : Fin m), k < l → v i (pref i l) < v i (pref i k))\n      (f : ℕ → (Fin n → Fin m ≃ Fin m)) (hf0 : f 0 = pref) (T : ℕ)\n      (hf : ∀ t < T, irr_step v (round_robin_sequence n m)\n        (is_item_preserving_swap_bid (round_robin_sequence n m)) (f t) (f (t + 1))),\n      T ≤ C * m ^ k",
+   "attempts": 0,
+   "deps": [
+    "round_robin_sequence",
+    "irr_step",
+    "is_item_preserving_swap_bid",
+    "irr_step_changed_agent_strict",
+    "picking_prefix_state",
+    "picking_prefix_state_allocated_card_le",
+    "picking_prefix_state_eq_of_agree",
+    "picking_phi_entry",
+    "picking_phi_entry_le",
+    "round_robin_phi_vector",
+    "round_robin_phi_lex_strict_increase"
+   ],
+   "problem": null,
+   "provenance": "literature",
+   "citation": "scout/2610-23040-on-the-convergence-of-iterated-round-robin.md:555",
+   "created": 1792470941
+  },
+  {
+   "name": "round_robin_item_preserving_swaps_three_agents_four_items_le_one",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For 3 agents and 4 goods (modeled concretely by Fin 4), given an initial preference profile pref : Fin 3 → Fin 4 ≃ Fin 4 and non-negative additive valuations v : Fin 3 → Fin 4 → ℝ (satisfying v i g ≥ 0 for all i, g) strictly consistent with pref (satisfying v i (pref i l) < v i (pref i k) whenever k < l), any execution f : ℕ → (Fin 3 → Fin 4 ≃ Fin 4) starting at f 0 = pref of T steps of iterated Round Robin under item-preserving swap bids (irr_step) satisfies T ≤ 1.",
+   "statement": "theorem round_robin_item_preserving_swaps_three_agents_four_items_le_one\n    (pref : Fin 3 → Fin 4 ≃ Fin 4) (v : Fin 3 → Fin 4 → ℝ) (hv : ∀ i g, 0 ≤ v i g)\n    (hcons : ∀ (i : Fin 3) (k l : Fin 4), k < l → v i (pref i l) < v i (pref i k))\n    (f : ℕ → (Fin 3 → Fin 4 ≃ Fin 4)) (hf0 : f 0 = pref) (T : ℕ)\n    (hf : ∀ t < T, irr_step v (round_robin_sequence 3 4)\n      (is_item_preserving_swap_bid (round_robin_sequence 3 4)) (f t) (f (t + 1))) :\n    T ≤ 1",
+   "attempts": 0,
+   "deps": [
+    "round_robin_sequence",
+    "irr_step",
+    "is_item_preserving_swap_bid",
+    "rr4_round_robin_outcome_structure",
+    "rr4_agent_zero_bundle_of_first_pick",
+    "rr4_side_agent_item_preserving_bundle_eq",
+    "rr4_irr_step_agent_zero",
+    "rr4_no_two_consecutive_steps_from_truthful"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "scout/2610-23040-on-the-convergence-of-iterated-round-robin.md:242",
+   "created": 1792471750
+  },
+  {
+   "name": "round_robin_phi_lex_strict_increase",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For the Round-Robin sequence, every irr_step whose admissible bids are item-preserving swaps strictly increases the potential Phi lexicographically (arXiv:2610.23040, Theorem 3.13).",
+   "statement": "theorem round_robin_phi_lex_strict_increase (n m : ℕ) [NeZero n]\n    (v : Fin n → Fin m → ℝ) (b b' : Fin n → Fin m ≃ Fin m)\n    (h : irr_step v (round_robin_sequence n m)\n      (is_item_preserving_swap_bid (round_robin_sequence n m)) b b') :\n    List.Lex (· < ·) (round_robin_phi_vector m b) (round_robin_phi_vector m b')",
+   "attempts": 0,
+   "deps": [
+    "round_robin_phi_vector",
+    "picking_phi_entry",
+    "picking_prefix_state_eq_of_agree",
+    "picking_phi_entry_le",
+    "irr_step_changed_agent_strict",
+    "is_item_preserving_swap_bid",
+    "irr_step",
+    "round_robin_sequence"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_polynomial_convergence",
+   "created": 1792472795
   },
   {
    "name": "round_robin_pne_ef1_of_card_le_two_mul_add_one",
@@ -667539,6 +668624,53 @@
    "created": 1792401883
   },
   {
+   "name": "round_robin_sequence_count_eq",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "The number of times agent a appears in the Round-Robin sequence of n agents and m goods is (m + (n - 1 - a)) / n.",
+   "statement": "theorem round_robin_sequence_count_eq (n m : ℕ) [NeZero n] (a : Fin n) :\n    (round_robin_sequence n m).count a = (m + (n - 1 - a.val)) / n",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_alpha_three_eq_two_thirds",
+   "created": 1792470827
+  },
+  {
+   "name": "round_robin_three_agents_high_count_two_thirds_ef1",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "In a three-agent Round-Robin pure Nash equilibrium with nonnegative additive valuations, if the envied agent j is picked at least three times in the picking sequence, then every other agent i satisfies 2/3-EF1 towards j: some good g of j's bundle can be removed so that i's value for the rest is at most 3/2 times i's value for her own bundle.",
+   "statement": "theorem round_robin_three_agents_high_count_two_thirds_ef1\n    (m : ℕ) (w : Fin 3 → Fin m → ℝ) (hw : ∀ i g, 0 ≤ w i g)\n    (rank : Fin 3 → Fin m ≃ Fin m)\n    (h : is_picking_sequence_pne\n      (SocialChoice.FairDivision.Indivisible.AdditiveValuation.toValuation ⟨w⟩)\n      (round_robin_sequence 3 m) rank)\n    (i j : Fin 3) (hij : i ≠ j)\n    (hj : 3 ≤ (round_robin_sequence 3 m).count j)\n    (hne : (picking_sequence_outcome (round_robin_sequence 3 m) rank j).Nonempty) :\n    ∃ g ∈ picking_sequence_outcome (round_robin_sequence 3 m) rank j,\n      (2 / 3) *\n          (∑ x ∈ (picking_sequence_outcome (round_robin_sequence 3 m) rank j) \\ {g}, w i x)\n        ≤ ∑ x ∈ picking_sequence_outcome (round_robin_sequence 3 m) rank i, w i x",
+   "attempts": 0,
+   "deps": [
+    "round_robin_sequence_count_eq"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_alpha_three_eq_two_thirds",
+   "created": 1792470903
+  },
+  {
+   "name": "round_robin_three_agents_not_guaranteed_above_two_thirds",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For every α > 2/3 there is a three-agent Round-Robin instance with nonnegative additive valuations that admits a pure Nash equilibrium whose outcome is not α-EF1.",
+   "statement": "theorem round_robin_three_agents_not_guaranteed_above_two_thirds :\n    ∀ α : ℝ, 2 / 3 < α → ¬ is_guaranteed_round_robin_ef1_factor 3 α",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_alpha_three_eq_two_thirds",
+   "created": 1792470942
+  },
+  {
    "name": "round_robin_three_agents_seven_goods_pne_ef1",
    "kind": "theorem",
    "status": "stated",
@@ -667559,6 +668691,124 @@
    "provenance": "original",
    "citation": "Smallest open case of round_robin_pne_ef1_of_card_le_two_mul_add_one; arXiv:2610.23686 Proposition 1 has eight goods.",
    "created": 1792398771
+  },
+  {
+   "name": "round_robin_three_agents_two_thirds_guaranteed",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For three agents, every pure Nash equilibrium of Round-Robin with nonnegative additive valuations induces a (2/3)-EF1 allocation; equivalently 2/3 is a guaranteed EF1 factor.",
+   "statement": "theorem round_robin_three_agents_two_thirds_guaranteed :\n    is_guaranteed_round_robin_ef1_factor 3 (2 / 3)",
+   "attempts": 0,
+   "deps": [
+    "round_robin_three_agents_high_count_two_thirds_ef1",
+    "round_robin_pne_ef1_pair_of_count_le_two",
+    "round_robin_sequence_count_eq"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_alpha_three_eq_two_thirds",
+   "created": 1792470923
+  },
+  {
+   "name": "rr4_agent_zero_bundle_of_first_pick",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For the Round-Robin sequence [0,1,2,0] on 3 agents and 4 goods, changing only agent 0's report to a new report r that has the same first-ranked good as its current report (r 0 = (b 0) 0) leaves agent 0's bundle unchanged, because agent 0's bundle is determined entirely by its first pick and the (unchanged) reports of agents 1 and 2.",
+   "statement": "theorem rr4_agent_zero_bundle_of_first_pick (b : Fin 3 → Fin 4 ≃ Fin 4)\n    (r : Fin 4 ≃ Fin 4) (h : r 0 = (b 0) 0) :\n    picking_sequence_outcome (round_robin_sequence 3 4) (Function.update b 0 r) 0\n      = picking_sequence_outcome (round_robin_sequence 3 4) b 0",
+   "attempts": 0,
+   "deps": [
+    "round_robin_sequence",
+    "picking_sequence_outcome",
+    "picking_turn"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_three_agents_four_items_le_one",
+   "created": 1792475227
+  },
+  {
+   "name": "rr4_irr_step_agent_zero",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For the Round-Robin sequence [0,1,2,0] on 3 agents and 4 goods, any irr_step under item-preserving swap bids is carried out by agent 0: the resulting profile is obtained by replacing only agent 0's report by an item-preserving swap r, and agent 0 strictly increases its additive value.",
+   "statement": "theorem rr4_irr_step_agent_zero (v : Fin 3 → Fin 4 → ℝ)\n    (b b' : Fin 3 → Fin 4 ≃ Fin 4)\n    (h : irr_step v (round_robin_sequence 3 4)\n      (is_item_preserving_swap_bid (round_robin_sequence 3 4)) b b') :\n    ∃ r : Fin 4 ≃ Fin 4, b' = Function.update b 0 r ∧\n      is_item_preserving_swap_bid (round_robin_sequence 3 4) b 0 r ∧\n      ∑ g ∈ picking_sequence_outcome (round_robin_sequence 3 4) b 0, v 0 g\n        < ∑ g ∈ picking_sequence_outcome (round_robin_sequence 3 4) b' 0, v 0 g",
+   "attempts": 0,
+   "deps": [
+    "rr4_side_agent_item_preserving_bundle_eq",
+    "irr_step",
+    "is_item_preserving_swap_bid",
+    "picking_sequence_outcome"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_three_agents_four_items_le_one",
+   "created": 1792475271
+  },
+  {
+   "name": "rr4_no_two_consecutive_steps_from_truthful",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For the Round-Robin sequence [0,1,2,0] on 3 agents and 4 goods, from a profile b whose agent 0 first-picks its true top good ((b 0) 0 = (pref 0) 0) there are no two consecutive irr_step steps under item-preserving swap bids: no b' then b'' can both be reached.",
+   "statement": "theorem rr4_no_two_consecutive_steps_from_truthful\n    (pref : Fin 3 → Fin 4 ≃ Fin 4) (v : Fin 3 → Fin 4 → ℝ)\n    (hcons : ∀ (i : Fin 3) (k l : Fin 4), k < l → v i (pref i l) < v i (pref i k))\n    (b b' b'' : Fin 3 → Fin 4 ≃ Fin 4) (hb : (b 0) 0 = (pref 0) 0)\n    (h1 : irr_step v (round_robin_sequence 3 4)\n      (is_item_preserving_swap_bid (round_robin_sequence 3 4)) b b')\n    (h2 : irr_step v (round_robin_sequence 3 4)\n      (is_item_preserving_swap_bid (round_robin_sequence 3 4)) b' b'') :\n    False",
+   "attempts": 0,
+   "deps": [
+    "rr4_round_robin_outcome_structure",
+    "rr4_agent_zero_bundle_of_first_pick",
+    "rr4_irr_step_agent_zero",
+    "is_item_preserving_swap_bid",
+    "irr_step",
+    "picking_sequence_outcome"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_three_agents_four_items_le_one",
+   "created": 1792475291
+  },
+  {
+   "name": "rr4_round_robin_outcome_structure",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For the Round-Robin sequence [0,1,2,0] on 3 agents and 4 goods, for ANY report profile b, agent 0's bundle has exactly 2 goods, agents 1 and 2 have exactly 1 each, and agent 0's first-ranked good (b 0) 0 lies in agent 0's own bundle.",
+   "statement": "theorem rr4_round_robin_outcome_structure (b : Fin 3 → Fin 4 ≃ Fin 4) :\n    (picking_sequence_outcome (round_robin_sequence 3 4) b 0).card = 2 ∧\n    (picking_sequence_outcome (round_robin_sequence 3 4) b 1).card = 1 ∧\n    (picking_sequence_outcome (round_robin_sequence 3 4) b 2).card = 1 ∧\n    (b 0) 0 ∈ picking_sequence_outcome (round_robin_sequence 3 4) b 0",
+   "attempts": 0,
+   "deps": [
+    "round_robin_sequence",
+    "picking_sequence_outcome",
+    "picking_turn"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_three_agents_four_items_le_one",
+   "created": 1792475208
+  },
+  {
+   "name": "rr4_side_agent_item_preserving_bundle_eq",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "For the Round-Robin sequence [0,1,2,0] on 3 agents and 4 goods, an item-preserving swap bid by a side agent i (i = 1 or 2) leaves that agent's bundle unchanged, because such an agent always ends up with exactly one good and the item-preserving swap must keep the demoted good in the bundle both before and after.",
+   "statement": "theorem rr4_side_agent_item_preserving_bundle_eq (b : Fin 3 → Fin 4 ≃ Fin 4)\n    (i : Fin 3) (hi : i ≠ 0) (r : Fin 4 ≃ Fin 4)\n    (hr : is_item_preserving_swap_bid (round_robin_sequence 3 4) b i r) :\n    picking_sequence_outcome (round_robin_sequence 3 4) (Function.update b i r) i\n      = picking_sequence_outcome (round_robin_sequence 3 4) b i",
+   "attempts": 0,
+   "deps": [
+    "rr4_round_robin_outcome_structure",
+    "is_item_preserving_swap_bid",
+    "picking_sequence_outcome"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards round_robin_item_preserving_swaps_three_agents_four_items_le_one",
+   "created": 1792475251
   },
   {
    "name": "condorcet_dimension_le_three",
@@ -668398,6 +669648,25 @@
    "created": 1792432246
   },
   {
+   "name": "brgc_necklace_order_consecutive_adjacent_of_prime",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For every prime n, consecutive necklaces of D_n (the nonconstant binary necklaces of length n ordered by the binary reflected Gray code rank of their first occurrence) are adjacent in the necklace graph Q_n: some representatives differ in exactly one bit.",
+   "statement": "theorem brgc_necklace_order_consecutive_adjacent_of_prime :\n    ∀ n : ℕ, n.Prime → ∀ t t' : ℕ, brgc_necklace_first_rank n t →\n      brgc_necklace_first_rank n t' → t < t' →\n      (∀ s, t < s → s < t' → ¬ brgc_necklace_first_rank n s) →\n      bitword_necklace_adjacent n (brgc_word t) (brgc_word t')",
+   "attempts": 0,
+   "deps": [
+    "brgc_word",
+    "brgc_necklace_first_rank",
+    "bitword_necklace_adjacent"
+   ],
+   "problem": null,
+   "provenance": "original",
+   "citation": "arXiv:2610.24758 (Optimal single-track Gray codes from Gray-ordered necklaces), Conjecture 1 (prime case of a conjecture from 2007), Sec. 1. The paper verifies it for all primes n <= 47 by computation and proves it implies optimal single-track Gray codes; it fails for composite n such as 6 and 9.",
+   "created": 1792472141
+  },
+  {
    "name": "card_edgeSet_completeGraph",
    "kind": "theorem",
    "status": "stated",
@@ -669076,6 +670345,42 @@
    "created": 1792294700
   },
   {
+   "name": "perm_offset_avoiding_count_neg_one_one_eq_menage_add_two_of_even",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For even n >= 4 the number of permutations avoiding the offsets {-1, 1} mod n equals the menage number U(n) plus 2.",
+   "statement": "theorem perm_offset_avoiding_count_neg_one_one_eq_menage_add_two_of_even (n : ℕ) (hn : 4 ≤ n)\n    (he : Even n) :\n    perm_offset_avoiding_count n {-1, 1} = perm_offset_avoiding_count n {-1, 0} + 2",
+   "attempts": 0,
+   "deps": [
+    "perm_offset_avoiding_count"
+   ],
+   "problem": null,
+   "provenance": "literature",
+   "citation": "arXiv:2610.23958 (Unranking S-avoiding permutations with two forbidden offsets), Theorem 6.3",
+   "created": 1792473531
+  },
+  {
+   "name": "perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd",
+   "kind": "theorem",
+   "status": "proposed",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "informal": "For odd n >= 3 the number of permutations avoiding the offsets {-1, 1} mod n equals the menage number U(n).",
+   "statement": "theorem perm_offset_avoiding_count_neg_one_one_eq_menage_of_odd (n : ℕ) (hn : 3 ≤ n)\n    (ho : Odd n) :\n    perm_offset_avoiding_count n {-1, 1} = perm_offset_avoiding_count n {-1, 0}",
+   "attempts": 0,
+   "deps": [
+    "perm_offset_avoiding_count",
+    "perm_offset_avoiding_count_eq_of_board_equiv",
+    "zmod_mul_unit_half_eq_zero_iff"
+   ],
+   "problem": null,
+   "provenance": "literature",
+   "citation": "arXiv:2610.23958 (Unranking S-avoiding permutations with two forbidden offsets), Proposition 6.2",
+   "created": 1792473491
+  },
+  {
    "name": "poset_height_one_reconstructible",
    "kind": "theorem",
    "status": "stated",
@@ -669568,6 +670873,24 @@
    "created": 1791720299
   },
   {
+   "name": "exists_radio_labeling_top_span_eq",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "Upper bound: the labeling f(v_i) = {ik, (n+i)k, ..., ((m-1)n+i)k} is an (m,k)-radio labeling of K_n of span k(mn - 1).",
+   "statement": "theorem exists_radio_labeling_top_span_eq (n m k : ℕ) (hn : 2 ≤ n) (hk : 1 ≤ k) :\n    ∃ f : Fin n → Finset ℕ, simple_graph_is_multi_radio_labeling (⊤ : SimpleGraph (Fin n)) m k f ∧ multi_label_span f = k * (m * n - 1)",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_is_multi_radio_labeling",
+    "multi_label_span"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Proposition 2.3, construction",
+   "created": 1792473666
+  },
+  {
    "name": "forall_power_well_covered_diam_le_three_and_twin_free_bounded",
    "kind": "theorem",
    "status": "stated",
@@ -669645,6 +670968,24 @@
    "provenance": "literature",
    "citation": "arXiv:2610.14110 (New mixed cages, bounds and computational results), Theorem 4.2 (with Definition 4.1).",
    "created": 1792213052
+  },
+  {
+   "name": "multi_label_span_ge_of_radio_labeling_top",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "Lower bound: every (m,k)-radio labeling of the complete graph K_n has span at least k(mn - 1).",
+   "statement": "theorem multi_label_span_ge_of_radio_labeling_top (n m k : ℕ) (f : Fin n → Finset ℕ)\n    (hf : simple_graph_is_multi_radio_labeling (⊤ : SimpleGraph (Fin n)) m k f) :\n    k * (m * n - 1) ≤ multi_label_span f",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_is_multi_radio_labeling",
+    "multi_label_span"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Proposition 2.3, lower bound",
+   "created": 1792473647
   },
   {
    "name": "nonsustainable_tree_has_nonsustainable_successor_closer_to_star",
@@ -670003,6 +671344,45 @@
    "created": 1792339058
   },
   {
+   "name": "regular_tournament_arborescence_max_nearly_doubly_regular",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For every k >= 1, a regular tournament of order 4k+1 that maximizes the total number of arborescences tau among all regular tournaments of order 4k+1 is nearly doubly regular: every two distinct vertices have k-1 or k common out-neighbours.",
+   "statement": "theorem regular_tournament_arborescence_max_nearly_doubly_regular (k : ℕ) (hk : 1 ≤ k)\n    (D : Digraph (Fin (4 * k + 1))) [DecidableRel D.Adj] (hD : digraph_is_tournament D)\n    (hreg : ∀ v, digraph_out_count D v = 2 * k)\n    (hmax : ∀ (D' : Digraph (Fin (4 * k + 1))) [DecidableRel D'.Adj],\n      digraph_is_tournament D' → (∀ v, digraph_out_count D' v = 2 * k) →\n      digraph_arborescence_count D' ≤ digraph_arborescence_count D) :\n    ∀ i j, i ≠ j → digraph_common_out_count D i j = k - 1 ∨\n      digraph_common_out_count D i j = k",
+   "attempts": 0,
+   "deps": [
+    "digraph_is_tournament",
+    "digraph_out_count",
+    "digraph_arborescence_count",
+    "digraph_common_out_count"
+   ],
+   "problem": null,
+   "provenance": "original",
+   "citation": "arXiv:2610.25886 (Extremal arborescences in graph orientations), Conjecture 6.1. The paper verifies it by computation for orders 5, 9, 13 and 17; at orders 3 mod 4 the maximizers are known to be doubly regular.",
+   "created": 1792473366
+  },
+  {
+   "name": "regular_tournament_five_nearly_doubly_regular",
+   "kind": "theorem",
+   "status": "proving",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "The case k = 1 of the conjecture, in a stronger form: every regular tournament of order 5 is nearly doubly regular (any two distinct vertices have at most one common out-neighbour), so in particular every maximizer is.",
+   "statement": "theorem regular_tournament_five_nearly_doubly_regular (D : Digraph (Fin 5))\n    [DecidableRel D.Adj] (hD : digraph_is_tournament D)\n    (hreg : ∀ v, digraph_out_count D v = 2) :\n    ∀ i j, i ≠ j → digraph_common_out_count D i j = 0 ∨ digraph_common_out_count D i j = 1",
+   "attempts": 1,
+   "deps": [
+    "digraph_is_tournament",
+    "digraph_out_count",
+    "digraph_common_out_count"
+   ],
+   "problem": null,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25886 (Extremal arborescences in graph orientations), Conjecture 6.1; the order 5 case, checked by computation in the paper",
+   "created": 1792473386
+  },
+  {
    "name": "simple_graph_is_tree_stacking_number_eq_tree_estimate",
    "kind": "theorem",
    "status": "stated",
@@ -670078,6 +671458,25 @@
    "provenance": "original",
    "citation": "arXiv:2610.11446 (On the local average order of dominating sets), Conjecture 6.1. The paper proves the bound when every neighbour of v is a leaf or a stem (Theorem 5.2) and the strict bound for l ≥ 2 (Theorem 5.3); the open case is a 1-stem with a neighbour that is neither.",
    "created": 1791531950
+  },
+  {
+   "name": "simple_graph_multi_radio_number_top",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For n >= 2, k >= 1 and m >= 1, the (m,k)-radio number of the complete graph K_n is k(mn - 1).",
+   "statement": "theorem simple_graph_multi_radio_number_top (n m k : ℕ) (hn : 2 ≤ n) (hk : 1 ≤ k) (hm : 1 ≤ m) :\n    simple_graph_multi_radio_number (⊤ : SimpleGraph (Fin n)) m k = k * (m * n - 1)",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_multi_radio_number",
+    "multi_label_span_ge_of_radio_labeling_top",
+    "exists_radio_labeling_top_span_eq"
+   ],
+   "problem": null,
+   "provenance": "literature",
+   "citation": "arXiv:2610.25863 (On Multi-label radio Labelings of Graphs), Proposition 2.3",
+   "created": 1792473702
   },
   {
    "name": "simple_graph_triangle_cover_number_le_two_mul_packing_number",
@@ -670312,41 +671711,6 @@
    "provenance": "lemma",
    "citation": "step towards undirected_binary_linear_unicast_advantage",
    "created": 1792460552
-  },
-  {
-   "name": "causal_code_vals_zero_outside",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "information",
-   "domain": "tcs",
-   "informal": "Let a causal linear code on net have transmission values val satisfying the recurrence for a message msg, where msg vanishes on sessions whose source is outside S and val vanishes on transmissions that leave S. Then val vanishes on every transmission whose receiver is outside S.",
-   "statement": "theorem causal_code_vals_zero_outside\n    {V : Type} [Fintype V] [DecidableEq V] {K : Type} [Fintype K] [DecidableEq K]\n    (F : Type) [Field F] (net : CapacitatedNetwork V) (sess : UnicastSessions V K)\n    (code : CausalLinearNetworkCode V K F net sess) (S : Finset V) (msg : K → Fin code.L → F)\n    (val : Fin code.M → F)\n    (hval : ∀ m, val m = ∑ k, ∑ j, code.α m k j * msg k j + ∑ m', code.β m m' * val m')\n    (hmsg : ∀ (k : K) (j : Fin code.L), sess.src k ∉ S → msg k j = 0)\n    (hleave : ∀ m : Fin code.M, code.snd m ∈ S → code.rcv m ∉ S → val m = 0) :\n    ∀ m : Fin code.M, code.rcv m ∉ S → val m = 0",
-   "attempts": 0,
-   "deps": [
-    "CausalLinearNetworkCode"
-   ],
-   "problem": null,
-   "provenance": "lemma",
-   "citation": "step towards undirected_binary_linear_unicast_advantage",
-   "created": 1792460533
-  },
-  {
-   "name": "code_transmissions_cross_cut_le",
-   "kind": "theorem",
-   "status": "proving",
-   "topic": "information",
-   "domain": "tcs",
-   "informal": "In a causal linear network code on net, the number of transmissions whose endpoints are separated by a vertex set S is at most T * cutCapacity net S.",
-   "statement": "theorem code_transmissions_cross_cut_le\n    {V : Type} [Fintype V] [DecidableEq V] {K : Type} [Fintype K] [DecidableEq K]\n    (F : Type) [Field F] (net : CapacitatedNetwork V) (sess : UnicastSessions V K)\n    (code : CausalLinearNetworkCode V K F net sess) (S : Finset V) :\n    ((Finset.univ.filter (fun m : Fin code.M => (code.snd m ∈ S) ≠ (code.rcv m ∈ S))).card : ℝ)\n      ≤ (code.T : ℝ) * cutCapacity net S",
-   "attempts": 1,
-   "deps": [
-    "cutCapacity",
-    "CausalLinearNetworkCode"
-   ],
-   "problem": null,
-   "provenance": "lemma",
-   "citation": "step towards undirected_binary_linear_unicast_advantage",
-   "created": 1792460523
   },
   {
    "name": "cutSeparation_eq_sum",
@@ -675939,14 +677303,27 @@
    "ref": "OP-340",
    "title": "Polynomial bound on convergence of iterated Round Robin under item-preserving swaps",
    "statement": "Let n >= 3 be a fixed number of agents, and let m items be allocated via the Round Robin sequence pi = (1, 2, ..., n, 1, 2, ...). Agents have additive valuations consistent with strict linear preference rankings over items. In iterated Round Robin starting from truthful preferences, at each step an agent performs a strictly profitable item-preserving swap (exchanging two items in their reported ranking such that an item initially allocated to the agent is demoted yet remains allocated to that agent after the swap). Is the maximum number of manipulations in any such execution bounded by a polynomial in m, or can it be superpolynomial in m?",
-   "status": "open",
+   "status": "formalized",
    "topic": "fair_division",
    "domain": "game_theory_economics",
    "source": "arXiv:2610.23040",
    "source_title": "On the Convergence of Iterated Round Robin",
    "location": "after Theorem 3.13",
    "rationale": "Theorem 3.13 proves that iterated Round Robin under item-preserving swaps converges to a pure Nash equilibrium for any n >= 2 and m items within m! - 1 steps. For n = 2, Theorem 3.12 proves convergence in at most m(m-1)/2 steps via a potential function based on Kendall tau distance. The authors note that the Kendall tau argument does not extend to n >= 3 (the sum of pairwise Kendall tau distances can increase), leaving a large gap between the O(m^2) bound for two agents and the O(m!) bound for three or more agents.",
-   "links": [],
+   "links": [
+    {
+     "node": "round_robin_item_preserving_swaps_polynomial_convergence",
+     "role": "statement"
+    },
+    {
+     "node": "iterated_round_robin_item_preserving_swaps_zero_of_card_le",
+     "role": "partial"
+    },
+    {
+     "node": "round_robin_item_preserving_swaps_three_agents_four_items_le_one",
+     "role": "partial"
+    }
+   ],
    "added": 1792381661
   },
   {
@@ -676541,14 +677918,47 @@
    "ref": "OP-392",
    "title": "Adjacency of consecutive binary necklaces under binary reflected Gray order for primes",
    "statement": "Let $n > 47$ be an odd prime. Let $D_n$ be the list of all $(2^n-2)/n$ non-constant binary necklaces of length $n$ (equivalence classes of words in $\\{0, 1\\}^n$ under cyclic shift), ordered by the rank of their first occurrence in the binary reflected Gray code (BRGC) $g(t) = t \\oplus \\lfloor t/2 \\rfloor$ for $t \\in \\{0, \\dots, 2^n-1\\}$, where the first occurrence of a necklace is its representative with smallest rank. Are any two consecutive necklaces in $D_n$ adjacent in the necklace graph $Q_n$ (that is, do there exist representatives differing in exactly one bit)?",
-   "status": "open",
+   "status": "formalized",
    "topic": "combinatorics",
    "domain": "tcs",
    "source": "arXiv:2610.24758",
    "source_title": "Optimal single-track Gray codes from Gray-ordered necklaces",
    "location": "Conjecture 1",
    "rationale": "",
-   "links": [],
+   "links": [
+    {
+     "node": "brgc_word",
+     "role": "definition"
+    },
+    {
+     "node": "bitword_rotate",
+     "role": "definition"
+    },
+    {
+     "node": "bitword_is_rotation",
+     "role": "definition"
+    },
+    {
+     "node": "brgc_necklace_first_rank",
+     "role": "definition"
+    },
+    {
+     "node": "bitword_necklace_adjacent",
+     "role": "definition"
+    },
+    {
+     "node": "brgc_necklace_order_consecutive_adjacent_of_prime",
+     "role": "statement"
+    },
+    {
+     "node": "brgc_necklace_order_consecutive_adjacent_five",
+     "role": "partial"
+    },
+    {
+     "node": "brgc_necklace_order_consecutive_adjacent_seven",
+     "role": "partial"
+    }
+   ],
    "added": 1792467510
   },
   {
@@ -676676,15 +678086,250 @@
    "ref": "OP-404",
    "title": "Nearly doubly regular property of arborescence-maximizing regular tournaments of order 4k + 1",
    "statement": "Let $k \\ge 1$ be an integer and let $n = 4k + 1$. A tournament $T$ on $n$ vertices is regular if every vertex has outdegree $2k$. For two distinct vertices $i \\neq j$, let $c_{ij} = |N_T^+(i) \\cap N_T^+(j)|$ denote the number of common outneighbors of $i$ and $j$. The tournament $T$ is called nearly doubly regular if $c_{ij} \\in \\{k-1, k\\}$ for all pairs of distinct vertices $i \\neq j$. Is it true that every regular tournament of order $4k+1$ that maximizes the total number of arborescences $\\tau(T)$ among all regular tournaments of order $4k+1$ is nearly doubly regular?",
-   "status": "open",
+   "status": "formalized",
    "topic": "graphs",
    "domain": "tcs",
    "source": "arXiv:2610.25886",
    "source_title": "Extremal arborescences in graph orientations",
    "location": "Conjecture 6.1",
    "rationale": "At order $n \\equiv 3 \\pmod 4$, arborescence maximizers among regular tournaments are known to be doubly regular tournaments. At order $n = 4k+1$, doubly regular tournaments cannot exist due to non-integrality of common outneighbor counts, and nearly doubly regular (NDR) tournaments are the nearest-integer analogue. The conjecture is verified computationally for orders 5, 9, 13, and 17.",
-   "links": [],
+   "links": [
+    {
+     "node": "digraph_common_out_count",
+     "role": "definition"
+    },
+    {
+     "node": "digraph_out_count",
+     "role": "definition"
+    },
+    {
+     "node": "digraph_arborescence_count_at",
+     "role": "definition"
+    },
+    {
+     "node": "digraph_arborescence_count",
+     "role": "definition"
+    },
+    {
+     "node": "regular_tournament_arborescence_max_nearly_doubly_regular",
+     "role": "statement"
+    },
+    {
+     "node": "regular_tournament_five_nearly_doubly_regular",
+     "role": "partial"
+    }
+   ],
    "added": 1792468788
+  },
+  {
+   "id": 406,
+   "ref": "OP-406",
+   "title": "Sufficiency of a single chore disposal for MMS allocations",
+   "statement": "Let $N = \\{1, \\dots, n\\}$ be a set of $n \\ge 4$ agents and let $M$ be a finite set of indivisible chores. Each agent $i \\in N$ has a nonnegative additive cost function $c_i : 2^M \\to \\mathbb{R}_{\\ge 0}$ with maximin share benchmark $\\mu_i = \\min_{X \\in \\Pi_n(M)} \\max_{j \\in [n]} c_i(X_j)$. Does there always exist a partial allocation $(X_1, \\dots, X_n)$ of $M$ (with pairwise disjoint bundles $X_i \\subseteq M$) leaving at most one chore unallocated (that is, $|M \\setminus \\bigcup_{i=1}^n X_i| \\le 1$) such that $c_i(X_i) \\le \\mu_i$ for all $i \\in N$?",
+   "status": "open",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2610.25320",
+   "source_title": "MMS Allocation for Chores with Item Disposals",
+   "location": "Sec. 5",
+   "rationale": "",
+   "links": [],
+   "added": 1792469199
+  },
+  {
+   "id": 407,
+   "ref": "OP-407",
+   "title": "Asymptotic Fraction of Planar Points Avoiding Both Minimum and Maximum Distances",
+   "statement": "Let X ⊂ ℝ² be a finite set of n points with |X| = n ≥ 2, and let a₁ and a_s denote the minimum and maximum pairwise Euclidean distances among distinct points of X, respectively. Let g(X, {a₁, a_s}) denote the maximum size of a subset Y ⊆ X such that no two points in Y are at distance a₁ or a_s, and let g(n, {a₁, a_s}) = min_{|X|=n} g(X, {a₁, a_s}). Theorem 9 establishes that (8n - 20)/47 ≤ g(n, {a₁, a_s}) ≤ 5n/16. What is the value of the asymptotic ratio lim_{n → ∞} g(n, {a₁, a_s}) / n? In particular, does lim_{n → ∞} g(n, {a₁, a_s}) / n = 5/16?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.24803",
+   "source_title": "Avoiding Distances",
+   "location": "Sec. 1.1, item (v) and Conjecture 19",
+   "rationale": "Theorem 9 establishes (8n - 20)/47 ≤ g(n, {a₁, a_s}) ≤ 5n/16. Conjecture 19 conjectures that the upper bound 5n/16 - O(1) is the true value. Closing this gap is the central open problem highlighted in the paper and screening note.",
+   "links": [],
+   "added": 1792469389
+  },
+  {
+   "id": 408,
+   "ref": "OP-408",
+   "title": "Independence Ratio of Planar Unit Distance Graphs with Minimum Degree at Least Three",
+   "statement": "Let X ⊂ ℝ² be a finite set of n points in the plane whose unit distance graph G(X, {1}) (the graph with vertex set X and edges between pairs of points at Euclidean distance 1) has minimum degree at least 3. Does there exist an absolute constant c < 1 (independent of n and X) such that the independence number α(G(X, {1})) ≤ c n for every such point set X?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.24803",
+   "source_title": "Avoiding Distances",
+   "location": "Conjecture 18",
+   "rationale": "When the minimum degree is 2, the authors give an explicit construction achieving independence ratio 1 - Θ(n^{-1/2}), showing min degree 2 is insufficient. They conjecture that minimum degree at least 3 is sufficient to bound the independence ratio strictly below 1.",
+   "links": [],
+   "added": 1792469389
+  },
+  {
+   "id": 409,
+   "ref": "OP-409",
+   "title": "Asymptotic Dependence of Distance Avoidance Fraction on Number of Forbidden Distances",
+   "statement": "For positive integers n and k, let g(n, k) denote the minimum over all n-point sets X ⊂ ℝ² and all k-element distance subsets D ⊆ {dist(u, v) : u, v ∈ X, u ≠ v} of the maximum cardinality of a subset Y ⊆ X avoiding every distance in D. What is the asymptotic behavior of c_k = lim_{n → ∞} g(n, k) / n as k → ∞? Specifically, does there exist a constant C > 0 such that c_k ≥ k^{-C} for all k, or does c_k decrease exponentially in k?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.24803",
+   "source_title": "Avoiding Distances",
+   "location": "Sec. 6, item 2(3)",
+   "rationale": "Theorem 8 proves that (0.2293)^k n ≤ g(n, k) ≤ O(n / (k sqrt(log k))), leaving an exponential gap between the upper and lower bounds as functions of k.",
+   "links": [],
+   "added": 1792469389
+  },
+  {
+   "id": 410,
+   "ref": "OP-410",
+   "title": "Boiling Point of Partizan Arc Kayles with Bounded Degree",
+   "statement": "In the combinatorial game Partizan Arc Kayles (played on an edge-colored graph where Left removes a blue edge and both incident vertices, and Right removes a red edge and both incident vertices), does there exist a universal upper bound on the temperature of positions whose underlying graph has maximum degree at most 4, or where each vertex is incident to at most 2 blue edges and at most 2 red edges?",
+   "status": "open",
+   "topic": "combinatorial_games",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2610.24117",
+   "source_title": "PArcK trees can get as hot as you want",
+   "location": "Sec. 5.1, Degree restrictions",
+   "rationale": "",
+   "links": [],
+   "added": 1792469651
+  },
+  {
+   "id": 411,
+   "ref": "OP-411",
+   "title": "Boiling Point of Grid-Embeddable Partizan Arc Kayles",
+   "statement": "Consider the family of Partizan Arc Kayles positions whose underlying graph is a finite subgraph of the 2-dimensional Cartesian grid ℤ × ℤ, with each edge arbitrarily colored blue or red (relaxing the Domineering restriction that vertical edges are blue and horizontal edges are red). Is the temperature of every such position bounded by a universal constant, or can the temperature be arbitrarily large?",
+   "status": "open",
+   "topic": "combinatorial_games",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2610.24117",
+   "source_title": "PArcK trees can get as hot as you want",
+   "location": "Sec. 5.1, Grid structure",
+   "rationale": "",
+   "links": [],
+   "added": 1792469651
+  },
+  {
+   "id": 412,
+   "ref": "OP-412",
+   "title": "Unbounded Temperature of Partizan Arc Kayles in Graphs of Large Girth",
+   "statement": "For every fixed integer g ≥ 3, does there exist a sequence of finite edge-colored graphs G_k with girth at least g such that the temperatures of G_k in Partizan Arc Kayles satisfy temp(G_k) → ∞ as k → ∞?",
+   "status": "open",
+   "topic": "combinatorial_games",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2610.24117",
+   "source_title": "PArcK trees can get as hot as you want",
+   "location": "Sec. 5.1",
+   "rationale": "",
+   "links": [],
+   "added": 1792469651
+  },
+  {
+   "id": 413,
+   "ref": "OP-413",
+   "title": "Existence of empty monochromatic pentagons in bichromatic planar point sets",
+   "statement": "Does every sufficiently large 2-colored planar point set in general position contain a monochromatic empty simple pentagon (not necessarily convex)? Equivalently, is $\\lambda_5^\\star(2) = 0$, where $\\lambda_r^\\star(c)$ denotes the minimum integer $s \\ge 0$ such that every sufficiently large $c$-colored planar point set in general position contains a monochromatic simple $r$-gon with at most $s$ interior points?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.23920",
+   "source_title": "Almost Empty Monochromatic Polygons in Planar Point Sets",
+   "location": "Question 5.1",
+   "rationale": "The paper shows that every sufficiently large 2-colored point set in general position contains a monochromatic pentagon with at most 1 interior point (lambda_5^*(2) <= 1), while known results establish that monochromatic empty convex pentagons can be avoided in arbitrarily large 2-colored sets. Whether allowing non-convex simple pentagons yields an empty monochromatic pentagon remains open.",
+   "links": [],
+   "added": 1792469865
+  },
+  {
+   "id": 414,
+   "ref": "OP-414",
+   "title": "Existence of empty monochromatic hexagons in bichromatic planar point sets",
+   "statement": "Does every sufficiently large 2-colored planar point set in general position contain a monochromatic empty simple hexagon (not necessarily convex)? That is, is $\\lambda_6^\\star(2) = 0$?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.23920",
+   "source_title": "Almost Empty Monochromatic Polygons in Planar Point Sets",
+   "location": "Sec. 1.1, after Thm 1.3 (line 203)",
+   "rationale": "The paper proves lambda_6^*(2) <= 1, improving the general bound of floor((6-2)/2) = 2. It also proves that sufficiently large 2-colored Horton sets always contain monochromatic empty r-gons for all r >= 3, removing the usual source of counterexamples. However, determining whether lambda_6^*(2) = 0 holds for all point sets remains open.",
+   "links": [],
+   "added": 1792469865
+  },
+  {
+   "id": 415,
+   "ref": "OP-415",
+   "title": "Asymptotic leading coefficient of minimum interior points in multicolored polygons",
+   "statement": "For each fixed integer $r \\ge 3$, what is the asymptotic growth rate of $\\lambda_r^\\star(c)$ as the number of colors $c \\to \\infty$? In particular, does the limit $\\lim_{c \\to \\infty} \\lambda_r^\\star(c) / c$ exist, and does it equal $(r - 2)/2$, $r - 2$, or a value strictly between the two bounds?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.23920",
+   "source_title": "Almost Empty Monochromatic Polygons in Planar Point Sets",
+   "location": "Sec. 5, closing paragraph (line 1084)",
+   "rationale": "For fixed r >= 3 and c colors, the paper proves that (r - 2) * floor((c - 1) / 2) <= lambda_r^*(c) <= (r - 2)(c - 2) + floor((r - 2)*delta_c), where delta_c in (0, 1/2]. The leading coefficients of c are (r - 2)/2 and r - 2 respectively, leaving a factor of 2 gap for all r >= 3 (including r = 3).",
+   "links": [],
+   "added": 1792469865
+  },
+  {
+   "id": 416,
+   "ref": "OP-416",
+   "title": "Tightness of lower bound on metric distortion for rank score veto cores",
+   "statement": "Let C be a set of m ≥ 3 candidates and let s = (s_1, ..., s_m) ∈ ℚ^m be a non-increasing scoring vector with s_1 = 1 and s_j ≥ 0 for all j. For any preference profile of n voters with strict rankings over C, let q^s(c) = (∑_{j=1}^m N_{c,j} s_j) / (n ||s||_1), where N_{c,j} is the number of voters ranking candidate c in position j. Let the (p^unif, q^s)-veto core be the set of candidates admitting a fractional perfect matching in their domination graph with voter weights 1/n and candidate weights q^s(c). Is the worst-case metric distortion of the (p^unif, q^s)-veto core across all preference profiles and all consistent pseudometrics always equal to 1 + 2(||s||_1 - s_m) whenever s_m > 0?",
+   "status": "open",
+   "topic": "social_choice",
+   "domain": "game_theory_economics",
+   "source": "arXiv:2610.26535",
+   "source_title": "Regularizing the Veto Core",
+   "location": "Section 5",
+   "rationale": "The paper proves that the worst-case distortion of the (p^unif, q^s)-veto core lies in [1 + 2(||s||_1 - s_m), 1 + 2||s||_1]. When s_m = 0, the bounds coincide; when s_m > 0, the authors conjecture the lower bound is the exact worst-case distortion.",
+   "links": [],
+   "added": 1792470172
+  },
+  {
+   "id": 418,
+   "ref": "OP-418",
+   "title": "Extension of small minimum degree subgraph bounds to odd target degrees",
+   "statement": "Let $s \\ge 3$ be an odd integer. Is it true that there exists a constant $C = C(s) > 0$ such that every finite simple graph on $n$ vertices with minimum degree $d \\ge s$ contains a subgraph with minimum degree at least $s$ on at most $O_s(\\max\\{ n d^{-s/(s-2)} (\\log n)^C, \\log n \\})$ vertices? Equivalently, does the minimum order $u(n, d, s)$ of a subgraph of minimum degree at least $s$ guaranteed in every $n$ -vertex graph of average degree at least $d$ satisfy $u(n, d, s) \\le O_s(n d^{-s/(s-2)} (\\log n)^C)$ for odd $s$?",
+   "status": "open",
+   "topic": "graphs",
+   "domain": "tcs",
+   "source": "arXiv:2610.26763",
+   "source_title": "Small subgraphs of large minimum degree",
+   "location": "Sec. 5, paragraph 1",
+   "rationale": "Theorem 1.1 resolves the problem of finding small subgraphs of minimum degree s for even s >= 4 up to polylogarithmic factors, leaving the odd case open.",
+   "links": [],
+   "added": 1792470661
+  },
+  {
+   "id": 419,
+   "ref": "OP-419",
+   "title": "Bounded-order regular subgraphs from average degree above the Turán exponent for odd degrees",
+   "statement": "Let $s \\ge 5$ be an odd integer and let $\\varepsilon > 0$. Do there exist constants $t = t(s, \\varepsilon)$ and $n_0 = n_0(s, \\varepsilon)$ such that every finite simple graph on $n \\ge n_0$ vertices with average degree at least $n^{1 - 2/s + \\varepsilon}$ contains an $s$-regular subgraph on at most $t$ vertices?",
+   "status": "open",
+   "topic": "graphs",
+   "domain": "tcs",
+   "source": "arXiv:2610.26763",
+   "source_title": "Small subgraphs of large minimum degree",
+   "location": "Sec. 5, paragraph 2",
+   "rationale": "Theorem 1.2 finds a bounded-order subgraph of minimum degree at least s, but does not guarantee that the subgraph is s-regular. This was previously known for even s and for s = 3.",
+   "links": [],
+   "added": 1792470661
+  },
+  {
+   "id": 420,
+   "ref": "OP-420",
+   "title": "Erdős-Rado Sunflower Conjecture for Bounded Set Sizes",
+   "statement": "Let $k \\ge 3$ be an integer. Does there exist a real constant $c_k > 1$ such that for every positive integer $r$, every family $\\mathcal{F}$ of sets of size at most $r$ that does not contain a $k$-sunflower (that is, $k$ distinct sets whose pairwise intersections are all identical) satisfies $|\\mathcal{F}| \\le c_k^r$?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.26686",
+   "source_title": "Proof of the Erd\\H{o}s-Szemer\\'edi sunflower conjecture",
+   "location": "Sec. 5",
+   "rationale": "The Erdős-Rado sunflower conjecture is the premier open problem in the area; while the paper proves the Erdős-Szemerédi conjecture, it notes that the Erdős-Rado conjecture remains wide open, with the current record at $O(k \\log r)^r$.",
+   "links": [],
+   "added": 1792470813
   }
  ],
  "grants": []

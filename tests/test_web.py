@@ -661,6 +661,20 @@ def main() -> int:
             return str(ex)
         return ""
 
+    zh = {k: f"中文{k}" for k in ("title", "abstract", "introduction", "preliminaries",
+                                 "result", "proof", "discussion")}
+    post2 = {**post, "format": 2, "preliminaries": "BLOG-PRELIM", "zh": zh}
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "_site"
+        build(data, [], cfg, out, [], blog=[post2])
+        zpage = (out / "blog" / "2026-10-02-op-10" / "zh" / "index.html").read_text()
+        epage = (out / "blog" / "2026-10-02-op-10" / "index.html").read_text()
+        check("a post with a Chinese version gets a page in Chinese, each linking the other",
+              "中文introduction" in zpage and "预备知识" in zpage and 'lang="zh-CN"' in zpage
+              and "BLOG-PRELIM" in epage and 'href="../../blog/2026-10-02-op-10/zh/"' in epage)
+    check("a Chinese version may not leave a section out",
+          "Chinese" in brefused(format=2, preliminaries="p", zh={**zh, "proof": ""}))
+    check("a format-2 post needs its preliminaries", "preliminaries" in brefused(format=2))
     check("a draft is not published", "approved" in brefused(status="draft"))
     check("a post may not name an open statement",
           "machine_open" in brefused(declarations=["answer_ten", "machine_open"]))

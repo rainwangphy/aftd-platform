@@ -46,9 +46,10 @@ Pages:
                                 reading chat/kb-index.json and chat/kb-detail.json
     blog/                       the research blog: research-level results, one
                                 post each, newest first
-    blog/<slug>/                one post: abstract, introduction, the main result
-                                with its Lean statement, proof, discussion,
-                                references
+    blog/<slug>/                one post: abstract, introduction, preliminaries,
+                                the main result with its Lean statement, proof,
+                                discussion, references
+    blog/<slug>/zh/             the same post in Chinese, when it has a version
     reports/                    the summary reports, weekly and monthly, newest
                                 first, tagged by period, with search and filters
     weekly/<week>/              one week: what was settled, what is open
@@ -343,8 +344,8 @@ def check_weekly(s: Site, reports: list[dict], period: str = "week") -> list[dic
     return sorted(out, key=lambda r: r["week"], reverse=True)
 
 
-BLOG_FORMATS = (1,)
-BLOG_SECTIONS = ("abstract", "introduction", "result", "proof", "discussion")
+BLOG_FORMATS = (1, 2)
+BLOG_SECTIONS = ("abstract", "introduction", "preliminaries", "result", "proof", "discussion")
 
 
 def check_blog(s: Site, posts: list[dict]) -> list[dict]:
@@ -361,9 +362,13 @@ def check_blog(s: Site, posts: list[dict]) -> list[dict]:
         time.strptime(p.get("date", ""), "%Y-%m-%d")
         if p.get("status") != "approved":
             raise ValueError(f"{where}: only an approved post is published")
-        missing = [k for k in ("title", *BLOG_SECTIONS) if not str(p.get(k) or "").strip()]
+        # Format 1 had no preliminaries.
+        need = [k for k in ("title", *BLOG_SECTIONS) if p["format"] > 1 or k != "preliminaries"]
+        missing = [k for k in need if not str(p.get(k) or "").strip()]
         if missing:
             raise ValueError(f"{where}: empty {', '.join(missing)}")
+        if p.get("zh") and [k for k in need if not str(p["zh"].get(k) or "").strip()]:
+            raise ValueError(f"{where}: its Chinese version leaves a section out")
         # A post names the definitions its theorems are about, too.
         names = p.get("declarations") or []
         bad = [n for n in names if n not in s.by_name
@@ -2336,11 +2341,26 @@ def blog_paras(s: Site, text: str, root: str) -> str:
     return "".join(para(x) for x in re.split(r"\n\s*\n", text or "") if x.strip())
 
 
-def blog_byline(p: dict) -> str:
+BLOG_LABELS = {
+    "en": {"abstract": "Abstract", "introduction": "Introduction",
+           "preliminaries": "Preliminaries", "result": "Main result", "proof": "Proof",
+           "discussion": "Discussion", "why": "Why it is research-level",
+           "decls": "Lean declarations", "refs": "References", "reviewed": "reviewed by",
+           "theorem": "Theorem", "verified": "Lean&nbsp;4, verified", "other": "中文版"},
+    "zh": {"abstract": "摘要", "introduction": "引言", "preliminaries": "预备知识",
+           "result": "主要结果", "proof": "证明", "discussion": "讨论",
+           "why": "为什么是研究级成果", "decls": "Lean 声明", "refs": "参考文献",
+           "reviewed": "审阅：", "theorem": "定理", "verified": "Lean&nbsp;4 已验证",
+           "other": "English"},
+}
+
+
+def blog_byline(p: dict, lang: str = "en") -> str:
+    L = BLOG_LABELS[lang]
     bits = [f"<span>{e(p['date'])}</span>"]
     if p.get("problem"):
         bits.append(f'<span class="small">{e(p["problem"].get("ref", ""))}</span>')
-    bits.append(f'<span class="small">reviewed by {e(p.get("reviewed_by") or "?")}</span>')
+    bits.append(f'<span class="small">{L["reviewed"]} {e(p.get("reviewed_by") or "?")}</span>')
     return "".join(bits)
 
 
@@ -2349,19 +2369,22 @@ def render_blog(s: Site) -> str:
     root = "../"
     items = "".join(
         f'<article class="news-item" id="{e(p["slug"])}">'
-        f'<p class="news-when">{badge("Research", "rp-week")}{blog_byline(p)}</p>'
-        f'<div class="news-main"><h3><a href="{root}blog/{e(p["slug"])}/">{e(p["title"])}</a></h3>'
+        f'<p class="news-when">{badge("Research", "rp-week")}{blog_byline(p)}'
+        + (f'<a class="small" href="{root}blog/{e(p["slug"])}/zh/" lang="zh-CN">中文版</a>'
+           if p.get("zh") else "")
+        + f'</p><div class="news-main"><h3><a href="{root}blog/{e(p["slug"])}/">{e(p["title"])}</a></h3>'
         f'<div class="prose math">{blog_paras(s, p["abstract"], root)}</div></div></article>'
         for p in s.blog)
     body = f"""
 <header class="phead">
   <p class="eyebrow">Research-level results, written up</p>
   <h1>Research Blogs</h1>
-  <p class="lead full">The results Lean accepted that settle, refute or advance an open
-  question, answer a question posed here, or show a published claim false &mdash; each
-  written up the way a short paper is: the question and where it comes from, what was
-  known, the result with its Lean statement, how the proof goes, and what it leaves
-  open. Every theorem a post names links to its Lean proof.</p>
+  <p class="lead full">The results Lean accepted that a researcher in the field would
+  want to read &mdash; a published claim shown false, a conjecture or an open question
+  settled, an exact value where there was a gap &mdash; each written up the way a short
+  paper is: the question and where it comes from, the definitions, the result with its
+  Lean statement, the proof, and what it leaves open. Every theorem a post names links to
+  its Lean proof.</p>
 </header>
 <section id="posts">
   {f'<div class="news-list">{items}</div>' if items else '<p class="prose">No post yet.</p>'}
@@ -2371,56 +2394,70 @@ def render_blog(s: Site) -> str:
                             "and checked in Lean.")
 
 
-def render_post(s: Site, i: int) -> str:
-    """One post, laid out as a paper. The main theorem's Lean statement is the
+def render_post(s: Site, i: int, lang: str = "en") -> str:
+    """One post, laid out as a paper, in English or (`lang="zh"`) in its
+    checked Chinese version. The main theorem's Lean statement is the
     knowledgebase's, never the post's own text."""
     p = s.blog[i]
-    root = "../../"
+    zh = lang == "zh"
+    L = BLOG_LABELS[lang]
+    text = p["zh"] if zh else p
+    root = "../../../" if zh else "../../"
     d = s.by_name[p["main"]]
     sig = d.get("statement") or d.get("signature") or ""
     lean = codebox(highlight_lean(sig), "sig") if sig else ""
-    heads = ["Introduction", "Main result", "Proof", "Discussion"]
     secs = []
-    for k, (key, head) in enumerate(zip(BLOG_SECTIONS[1:], heads), 1):
+    for key in [k for k in BLOG_SECTIONS[1:] if str(text.get(k) or "").strip()]:
         extra = ""
         if key == "result":
-            extra = (f'<figure class="post-thm"><figcaption>Theorem '
-                     f'{decl_link(root, p["main"])} (Lean&nbsp;4, verified)</figcaption>{lean}</figure>')
-        secs.append(f'<section><h2>{k}. {head}</h2><div class="prose math">'
-                    f'{blog_paras(s, p[key], root)}</div>{extra}</section>')
+            extra = (f'<figure class="post-thm"><figcaption>{L["theorem"]} '
+                     f'{decl_link(root, p["main"])} ({L["verified"]})</figcaption>{lean}</figure>')
+        secs.append(f'<section><h2>{len(secs) + 1}. {L[key]}</h2><div class="prose math">'
+                    f'{blog_paras(s, text[key], root)}</div>{extra}</section>')
     refs = "".join(
         f'<li><a href="https://arxiv.org/abs/{e(r["id"].removeprefix("arXiv:"))}">{e(r["id"])}</a>'
         + (f" &mdash; {e(r['title'])}" if r.get("title") else "") + "</li>"
         for r in p.get("references") or [])
     research = "".join(f"<li>{e(x)}</li>" for x in p.get("research") or [])
     nav = []
-    if i + 1 < len(s.blog):
-        q = s.blog[i + 1]
-        nav.append(f'<a href="{root}blog/{e(q["slug"])}/">&larr; {e(q["title"])}</a>')
-    if i > 0:
-        q = s.blog[i - 1]
-        nav.append(f'<a href="{root}blog/{e(q["slug"])}/">{e(q["title"])} &rarr;</a>')
+    sub = "zh/" if zh else ""
+    for j, arrow in ((i + 1, "prev"), (i - 1, "next")):
+        if 0 <= j < len(s.blog):
+            q = s.blog[j]
+            qsub = sub if q.get("zh") else ""
+            title = (q["zh"]["title"] if zh and q.get("zh") else q["title"])
+            nav.append(f'<a href="{root}blog/{e(q["slug"])}/{qsub}">'
+                       + (f"&larr; {e(title)}" if arrow == "prev" else f"{e(title)} &rarr;")
+                       + "</a>")
+    other = (f'<a class="small" href="{root}blog/{e(p["slug"])}/{"" if zh else "zh/"}"'
+             f'{"" if zh else " lang=\"zh-CN\""}>{L["other"]}</a>' if p.get("zh") else "")
+    foot = (f"由 {e(p.get('model') or '模型')} 根据知识库起草，经过检查并由 "
+            f"{e(p.get('reviewed_by') or '?')} 审阅英文版；中文版由模型翻译并对照英文检查。"
+            "只有 Lean 部分经过验证，文字是对它的解读。" if zh else
+            f"Drafted by {e(p.get('model') or 'a model')} from the knowledgebase, checked "
+            f"against it, and reviewed by {e(p.get('reviewed_by') or '?')}. Only the Lean is "
+            "verified; the prose is a reading of it.")
     body = f"""
 <article class="post">
 <header class="phead">
   <p class="eyebrow"><a href="{root}blog/">Research Blogs</a></p>
-  <h1>{e(p["title"])}</h1>
-  <p class="news-when">{blog_byline(p)}</p>
+  <h1>{e(text["title"])}</h1>
+  <p class="news-when">{blog_byline(p, lang)}{other}</p>
 </header>
-<section class="post-abstract"><h2>Abstract</h2><div class="prose math">{blog_paras(s, p["abstract"], root)}</div></section>
+<section class="post-abstract"><h2>{L["abstract"]}</h2><div class="prose math">{blog_paras(s, text["abstract"], root)}</div></section>
 {"".join(secs)}
-<section><h2>Why it is research-level</h2><ul class="prose">{research}</ul></section>
-<section><h2>Lean declarations</h2><div class="news-decls">{related(s, p["declarations"], root)}</div>
+<section><h2>{L["why"]}</h2><ul class="prose">{research}</ul></section>
+<section><h2>{L["decls"]}</h2><div class="news-decls">{related(s, p["declarations"], root)}</div>
 <p class="small">Each one elaborated against Mathlib, and <code>#print axioms</code> returned
 nothing outside <code>{e(" · ".join(s.kb["trusted_axioms"]))}</code>.</p></section>
-{f'<section><h2>References</h2><ol class="prose">{refs}</ol></section>' if refs else ""}
-<p class="small">Drafted by {e(p.get("model") or "a model")} from the knowledgebase,
-checked against it, and reviewed by {e(p.get("reviewed_by") or "?")}. Only the Lean is
-verified; the prose is a reading of it.</p>
+{f'<section><h2>{L["refs"]}</h2><ol class="prose">{refs}</ol></section>' if refs else ""}
+<p class="small">{foot}</p>
 {f'<nav class="post-nav">{"".join(nav)}</nav>' if nav else ""}
 </article>"""
-    return page(s, title=p["title"], root=root, active="blog/", body=body,
-                description=clip(p["abstract"], 200), math=True)
+    alt = f"{root}blog/{p['slug']}/{'' if zh else 'zh/'}" if p.get("zh") else ""
+    return page(s, title=text["title"], root=root, active="blog/", body=body,
+                description=clip(text["abstract"], 200), math=True,
+                lang="zh-CN" if zh else "en", alternate=alt)
 
 
 def render_moved(s: Site, to: str) -> str:
@@ -2680,6 +2717,8 @@ def build(
     write("blog/index.html", render_blog(s))
     for i, p in enumerate(s.blog):
         write(f"blog/{p['slug']}/index.html", render_post(s, i))
+        if p.get("zh"):
+            write(f"blog/{p['slug']}/zh/index.html", render_post(s, i, "zh"))
     write("weekly/index.html", render_moved(s, "reports/"))
     for period, P in PERIODS.items():
         for i, r in enumerate(s.reports(period)):

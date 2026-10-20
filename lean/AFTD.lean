@@ -1320,6 +1320,7 @@ import AFTD.Kb.GameTheoryEconomics.IsWeaklyDominantIsBestResponse
 import AFTD.Kb.GameTheoryEconomics.IsWeaklyParetoOptimal
 import AFTD.Kb.GameTheoryEconomics.IsWeightedGame
 import AFTD.Kb.GameTheoryEconomics.IsWeightedPropxChores
+import AFTD.Kb.GameTheoryEconomics.IteratedRoundRobinItemPreservingSwapsZeroOfCardLe
 import AFTD.Kb.GameTheoryEconomics.JInv
 import AFTD.Kb.GameTheoryEconomics.JinvInit
 import AFTD.Kb.GameTheoryEconomics.JinvRun
@@ -1845,6 +1846,8 @@ import AFTD.Kb.GameTheoryEconomics.PersuasionSliceSenderLe
 import AFTD.Kb.GameTheoryEconomics.PersuasionSliceState
 import AFTD.Kb.GameTheoryEconomics.PersuasionSliceValues
 import AFTD.Kb.GameTheoryEconomics.PiLexFinite
+import AFTD.Kb.GameTheoryEconomics.PickingPhiEntry
+import AFTD.Kb.GameTheoryEconomics.PickingPrefixState
 import AFTD.Kb.GameTheoryEconomics.PickingRunsAny
 import AFTD.Kb.GameTheoryEconomics.PickingSequenceOutcome
 import AFTD.Kb.GameTheoryEconomics.PickingSequenceOutcomeRoundRobinTwoAgentsFourItems
@@ -2022,6 +2025,7 @@ import AFTD.Kb.GameTheoryEconomics.RepresentsPreferenceIndifferentIff
 import AFTD.Kb.GameTheoryEconomics.RepresentsPreferenceLtIff
 import AFTD.Kb.GameTheoryEconomics.RevelationPrincipleDominantStrategy
 import AFTD.Kb.GameTheoryEconomics.RoundRobinAlpha
+import AFTD.Kb.GameTheoryEconomics.RoundRobinPhiVector
 import AFTD.Kb.GameTheoryEconomics.RoundRobinPneEf1OfCardLeTwoMul
 import AFTD.Kb.GameTheoryEconomics.RoundRobinPneEf1PairOfCountLeTwo
 import AFTD.Kb.GameTheoryEconomics.RoundRobinPneNotEf1ThreeAgentsEightGoods
@@ -5644,6 +5648,11 @@ import AFTD.Kb.Tcs.BipartiteHallStepIsVertexCover
 import AFTD.Kb.Tcs.BipartiteLinkTemplateThreeGraph
 import AFTD.Kb.Tcs.BipartiteLinkTemplateThreeGraphCard
 import AFTD.Kb.Tcs.BipartiteLinkTemplateThreeGraphLinksColorableTwo
+import AFTD.Kb.Tcs.BitwordIsRotation
+import AFTD.Kb.Tcs.BitwordNecklaceAdjacent
+import AFTD.Kb.Tcs.BitwordNecklaceAdjacentThreeOneThree
+import AFTD.Kb.Tcs.BitwordRotate
+import AFTD.Kb.Tcs.BitwordRotateThreeFour
 import AFTD.Kb.Tcs.BonamiAvgLast
 import AFTD.Kb.Tcs.BonamiBonamiAlgebra
 import AFTD.Kb.Tcs.BonamiBonamiExpect
@@ -5780,6 +5789,11 @@ import AFTD.Kb.Tcs.BraToKet
 import AFTD.Kb.Tcs.BraketDot
 import AFTD.Kb.Tcs.BraketInstFunLikeBra
 import AFTD.Kb.Tcs.BraketInstFunLikeKet
+import AFTD.Kb.Tcs.BrgcNecklaceFirstRank
+import AFTD.Kb.Tcs.BrgcNecklaceOrderConsecutiveAdjacentFive
+import AFTD.Kb.Tcs.BrgcNecklaceOrderConsecutiveAdjacentSeven
+import AFTD.Kb.Tcs.BrgcWord
+import AFTD.Kb.Tcs.BrgcWordTwo
 import AFTD.Kb.Tcs.CampbellHowardConditions
 import AFTD.Kb.Tcs.CapacitatedNetwork
 import AFTD.Kb.Tcs.CardFilterGtCardFilterOfLt
@@ -5792,6 +5806,7 @@ import AFTD.Kb.Tcs.CardPauliStringsExactSupport
 import AFTD.Kb.Tcs.CardPiFinsetFilterApplyMem
 import AFTD.Kb.Tcs.CardSimpleGraph
 import AFTD.Kb.Tcs.CauchyBinet
+import AFTD.Kb.Tcs.CausalCodeValsZeroOutside
 import AFTD.Kb.Tcs.CausalLinearNetworkCode
 import AFTD.Kb.Tcs.CczLayerParityReprCardGe
 import AFTD.Kb.Tcs.CczLayerParityReprTwo
@@ -5856,6 +5871,7 @@ import AFTD.Kb.Tcs.CodeK
 import AFTD.Kb.Tcs.CodeProj
 import AFTD.Kb.Tcs.CodeProjApply
 import AFTD.Kb.Tcs.CodeProjEqSelfOfMem
+import AFTD.Kb.Tcs.CodeTransmissionsCrossCutLe
 import AFTD.Kb.Tcs.CodingTheoryJohnsonAlpha
 import AFTD.Kb.Tcs.CodingTheoryJohnsonAlphaLtOneOfHd1
 import AFTD.Kb.Tcs.CodingTheoryJohnsonAlphaNonneg
@@ -7141,6 +7157,10 @@ import AFTD.Kb.Tcs.DigraphApexOverBidirectedCompleteEdgeCount
 import AFTD.Kb.Tcs.DigraphApexOverBidirectedCompleteMinCutLe
 import AFTD.Kb.Tcs.DigraphApexOverBidirectedCompleteOutDegree
 import AFTD.Kb.Tcs.DigraphApexOverBidirectedCompleteThreeMaxMinCut
+import AFTD.Kb.Tcs.DigraphArborescenceCount
+import AFTD.Kb.Tcs.DigraphArborescenceCountAt
+import AFTD.Kb.Tcs.DigraphArborescenceCountAtSanity
+import AFTD.Kb.Tcs.DigraphCommonOutCount
 import AFTD.Kb.Tcs.DigraphCutCount
 import AFTD.Kb.Tcs.DigraphDijoin
 import AFTD.Kb.Tcs.DigraphDijoinIsTournament
@@ -7160,6 +7180,7 @@ import AFTD.Kb.Tcs.DigraphIsAcyclicDijoin
 import AFTD.Kb.Tcs.DigraphIsAcyclicOfRank
 import AFTD.Kb.Tcs.DigraphIsTournament
 import AFTD.Kb.Tcs.DigraphMinCutAdditiveBoundFailsForEveryD
+import AFTD.Kb.Tcs.DigraphOutCount
 import AFTD.Kb.Tcs.DigraphReverse
 import AFTD.Kb.Tcs.DigraphReverseIsTournament
 import AFTD.Kb.Tcs.DimMapRE
@@ -8250,6 +8271,8 @@ import AFTD.Kb.Tcs.MondrianSevenRectsDefectGe
 import AFTD.Kb.Tcs.MondrianSevenRectsIsPartition
 import AFTD.Kb.Tcs.MondrianSevenRectsPartitionDefect
 import AFTD.Kb.Tcs.MonochromaticCopyDefSanity
+import AFTD.Kb.Tcs.MultiLabelSpan
+import AFTD.Kb.Tcs.MultiLabelSpanSanity
 import AFTD.Kb.Tcs.MultipartiteGameBobBoundGeMinThreshold
 import AFTD.Kb.Tcs.MultipartiteGameThresholdMinimizerSmallExcess
 import AFTD.Kb.Tcs.MultisetFilterMapOfRealEq
@@ -8500,6 +8523,9 @@ import AFTD.Kb.Tcs.PellWordGet
 import AFTD.Kb.Tcs.PellWordLength
 import AFTD.Kb.Tcs.PellWordPrefix
 import AFTD.Kb.Tcs.PermDistinctAbsDiffsAscentCountSubHalfUnbounded
+import AFTD.Kb.Tcs.PermOffsetAvoidingCount
+import AFTD.Kb.Tcs.PermOffsetAvoidingCountEqOfBoardEquiv
+import AFTD.Kb.Tcs.PermOffsetAvoidingCountFour
 import AFTD.Kb.Tcs.PmAlg
 import AFTD.Kb.Tcs.PmAlgCorrect
 import AFTD.Kb.Tcs.PmAlgCost
@@ -8809,6 +8835,7 @@ import AFTD.Kb.Tcs.SimpleGraphIsKStarFormingIff
 import AFTD.Kb.Tcs.SimpleGraphIsKStarFormingMono
 import AFTD.Kb.Tcs.SimpleGraphIsKStarFormingUniv
 import AFTD.Kb.Tcs.SimpleGraphIsMinimalKStarForming
+import AFTD.Kb.Tcs.SimpleGraphIsMultiRadioLabeling
 import AFTD.Kb.Tcs.SimpleGraphIsReclusive
 import AFTD.Kb.Tcs.SimpleGraphIsRichNeighborColoring
 import AFTD.Kb.Tcs.SimpleGraphIsRichNeighborColoringOfForallRich
@@ -8843,6 +8870,7 @@ import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderLtOfFourLe
 import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderOfDegreeEqCardSubTwo
 import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderStemLeOfCardLeTwoMulDegree
 import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderStemLeOfCardTwo
+import AFTD.Kb.Tcs.SimpleGraphMultiRadioNumber
 import AFTD.Kb.Tcs.SimpleGraphNoLeafOfPowerWellCovered
 import AFTD.Kb.Tcs.SimpleGraphNotHasEquivalenceCoverCyclePowerThreeOfNotDvd
 import AFTD.Kb.Tcs.SimpleGraphPower
@@ -9123,3 +9151,4 @@ import AFTD.Kb.Tcs.ZeroSumWBad
 import AFTD.Kb.Tcs.ZeroSumWBadNil
 import AFTD.Kb.Tcs.ZeroSumWGe
 import AFTD.Kb.Tcs.ZmodIntCastEqIntCastIffOfAbsSubLt
+import AFTD.Kb.Tcs.ZmodMulUnitHalfEqZeroIff

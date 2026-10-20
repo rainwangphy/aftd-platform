@@ -8827,6 +8827,7 @@ import AFTD.Kb.Tcs.SigmaI
 import AFTD.Kb.Tcs.SigmaX
 import AFTD.Kb.Tcs.SigmaY
 import AFTD.Kb.Tcs.SigmaZ
+import AFTD.Kb.Tcs.SimpleGraphAvgDominatingOrder
 import AFTD.Kb.Tcs.SimpleGraphCardLeChooseAddOneOfRegularTriangleDistinct
 import AFTD.Kb.Tcs.SimpleGraphCardLowLeftDegreeGe
 import AFTD.Kb.Tcs.SimpleGraphCliqueBlowup
@@ -8844,6 +8845,7 @@ import AFTD.Kb.Tcs.SimpleGraphCyclePowerThreeCoverThreeTight
 import AFTD.Kb.Tcs.SimpleGraphCyclePowerThreeCoverThreeTightDvd
 import AFTD.Kb.Tcs.SimpleGraphCyclePowerThreeLayerWeightEqImp
 import AFTD.Kb.Tcs.SimpleGraphCyclePowerThreeLayerWeightLe
+import AFTD.Kb.Tcs.SimpleGraphDominatingSets
 import AFTD.Kb.Tcs.SimpleGraphDominatingSetsContaining
 import AFTD.Kb.Tcs.SimpleGraphEccentEqDiamOfPowerWellCovered
 import AFTD.Kb.Tcs.SimpleGraphEdgeIsRich
@@ -8889,6 +8891,7 @@ import AFTD.Kb.Tcs.SimpleGraphIsTreeNonemptyIsoPathGraphOfDegreeLeTwo
 import AFTD.Kb.Tcs.SimpleGraphIsTreeSumChooseDegreeEqIffPath
 import AFTD.Kb.Tcs.SimpleGraphIsTreeSumChooseDegreeEqIffStar
 import AFTD.Kb.Tcs.SimpleGraphIsTriangleDistinct
+import AFTD.Kb.Tcs.SimpleGraphIsTriangleDistinctDecidable
 import AFTD.Kb.Tcs.SimpleGraphIsWellCovered
 import AFTD.Kb.Tcs.SimpleGraphIsWellCoveredBot
 import AFTD.Kb.Tcs.SimpleGraphKIndependenceNumber
@@ -8919,6 +8922,8 @@ import AFTD.Kb.Tcs.SimpleGraphMultiRadioNumberPathThreeLt
 import AFTD.Kb.Tcs.SimpleGraphMultiRadioNumberTop
 import AFTD.Kb.Tcs.SimpleGraphNoLeafOfPowerWellCovered
 import AFTD.Kb.Tcs.SimpleGraphNotHasEquivalenceCoverCyclePowerThreeOfNotDvd
+import AFTD.Kb.Tcs.SimpleGraphOfEdgeList
+import AFTD.Kb.Tcs.SimpleGraphOfEdgeListDecidableRel
 import AFTD.Kb.Tcs.SimpleGraphPathGraphDistGe
 import AFTD.Kb.Tcs.SimpleGraphPathGraphWalkLengthGe
 import AFTD.Kb.Tcs.SimpleGraphPathRadioLabelingFourMulAddThree

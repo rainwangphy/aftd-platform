@@ -1256,6 +1256,7 @@ import AFTD.Kb.GameTheoryEconomics.IsFeasibleAllocation
 import AFTD.Kb.GameTheoryEconomics.IsFixedDictatorOutput
 import AFTD.Kb.GameTheoryEconomics.IsGraphValuation
 import AFTD.Kb.GameTheoryEconomics.IsGuaranteedRoundRobinEf1Factor
+import AFTD.Kb.GameTheoryEconomics.IsGuaranteedSequenceEf1Factor
 import AFTD.Kb.GameTheoryEconomics.IsHareMonroeCommittee
 import AFTD.Kb.GameTheoryEconomics.IsHareValidAssignment
 import AFTD.Kb.GameTheoryEconomics.IsItemPreservingSwapBid

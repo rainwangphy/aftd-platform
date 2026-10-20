@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-20T03:39:19Z",
+ "generated": "2026-10-20T03:49:55Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -14,13 +14,13 @@
   "domains": 7,
   "open": 195,
   "rejected": 62,
-  "spend": 221.95,
+  "spend": 222.65,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 229126727,
-   "output": 53319989,
-   "cache_read": 834982124
+   "input": 229655285,
+   "output": 53446355,
+   "cache_read": 837990904
   },
   "models": [
    "deepseek-flash",
@@ -656195,6 +656195,7 @@
     "is_guaranteed_round_robin_ef1_factor",
     "picking_sequence_outcome_round_robin_two_agents_four_items",
     "is_item_preserving_swap_bid",
+    "is_guaranteed_sequence_ef1_factor",
     "is_picking_sequence_pne",
     "round_robin_pne_ef1_pair_of_count_le_two",
     "not_is_guaranteed_round_robin_ef1_factor_three_of_three_quarters_lt",
@@ -656268,6 +656269,7 @@
    "used_by": [
     "round_robin_three_agents_pne_not_alpha_ef1_of_three_quarters_lt",
     "is_guaranteed_round_robin_ef1_factor",
+    "is_guaranteed_sequence_ef1_factor",
     "round_robin_pne_ef1_pair_of_count_le_two",
     "not_is_guaranteed_round_robin_ef1_factor_three_of_three_quarters_lt",
     "round_robin_pne_ef1_of_card_le_two_mul",
@@ -658018,6 +658020,7 @@
    "used_by": [
     "round_robin_three_agents_pne_not_alpha_ef1_of_three_quarters_lt",
     "is_guaranteed_round_robin_ef1_factor",
+    "is_guaranteed_sequence_ef1_factor",
     "is_alpha_ef1_one_iff",
     "not_is_guaranteed_round_robin_ef1_factor_three_of_three_quarters_lt"
    ],
@@ -676544,6 +676547,66 @@
    "rationale": "",
    "links": [],
    "added": 1792467510
+  },
+  {
+   "id": 395,
+   "ref": "OP-395",
+   "title": "Equivalence of strong sl_2-actions and symmetric chain decompositions for ranked posets",
+   "statement": "Let $P$ be a finite ranked poset with rank function $\\omega : P \\to \\mathbb{Z}$ satisfying $\\omega(a) = \\omega(b) + 2$ whenever $a \\gtrdot b$, with ranks symmetric about 0 (so the minimal rank is $-n$ and the maximal rank is $n$ for some $n \\in \\mathbb{N}$). Is it true that $P$ admits a strong $\\mathfrak{sl}_2$-action (linear operators $E, F, H$ on $\\mathbb{C}P$ satisfying $[E, F] = H$, $[H, E] = 2E$, $[H, F] = -2F$, with $H x = \\omega(x) x$, $E$ supported only on upward cover relations $y \\gtrdot x$, and $F$ supported only on downward cover relations $y \\lessdot x$) if and only if $P$ admits a symmetric chain decomposition (a partition of $P$ into disjoint saturated chains each starting at rank $-k$ and ending at rank $k$ for some $k$)?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.24148",
+   "source_title": "Strong $\\mathfrak{sl}_2$ Actions and Symmetric Chain Decompositions",
+   "location": "Conjecture 1.2",
+   "rationale": "",
+   "links": [],
+   "added": 1792467739
+  },
+  {
+   "id": 396,
+   "ref": "OP-396",
+   "title": "Existence of fractional symmetric chain decompositions for Young lattices and Boolean quotients",
+   "statement": "For all positive integers $m, n \\ge 1$, does the Young lattice $L(m, n)$ (the poset of integer partitions whose Young diagrams fit inside an $m \\times n$ bounding box, ordered by inclusion) admit a fractional symmetric chain decomposition? More generally, for any integer $n \\ge 1$ and any subgroup $G \\subseteq S_n$ acting on the Boolean lattice $\\{0, 1\\}^n$ by coordinate permutation, does the quotient poset $\\{0, 1\\}^n / G$ (with orbits ordered by existence of an order relation between representatives) always admit a fractional symmetric chain decomposition?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.24148",
+   "source_title": "Strong $\\mathfrak{sl}_2$ Actions and Symmetric Chain Decompositions",
+   "location": "Section 2.7.4, first open problem",
+   "rationale": "",
+   "links": [],
+   "added": 1792467739
+  },
+  {
+   "id": 397,
+   "ref": "OP-397",
+   "title": "Bounded denominators of rational fractional symmetric chain decompositions",
+   "statement": "Let $P$ be a finite ranked poset that admits a fractional symmetric chain decomposition. Is there an upper bound on the minimum positive integer $D$ such that $P$ admits a fractional symmetric chain decomposition with all chain weights in $\\frac{1}{D}\\mathbb{Z}_{\\ge 0}$, depending only on the number of ranks of $P$ (or the cardinality of $P$)? In particular, for posets with at most $r$ ranks, does there always exist a rational fractional SCD with denominator bounded by a function of $r$?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.24148",
+   "source_title": "Strong $\\mathfrak{sl}_2$ Actions and Symmetric Chain Decompositions",
+   "location": "Section 2.7.4, third open problem",
+   "rationale": "",
+   "links": [],
+   "added": 1792467740
+  },
+  {
+   "id": 398,
+   "ref": "OP-398",
+   "title": "Spectrality of 16-element translational tiles in F_2^8",
+   "statement": "Let $E$ be a subset of the eight-dimensional binary vector space $\\mathbb{F}_2^8$ with $|E| = 16$. Suppose there exists a subset $T \\subseteq \\mathbb{F}_2^8$ such that $E \\oplus T = \\mathbb{F}_2^8$ (that is, every element of $\\mathbb{F}_2^8$ is uniquely expressible as $e + t$ with $e \\in E$ and $t \\in T$). Is $E$ necessarily spectral, meaning that there exists a spectrum $B \\subseteq \\mathbb{F}_2^8$ of size 16 such that for all distinct $b, b' \\in B$, $\\sum_{e \\in E} (-1)^{(b + b') \\cdot e} = 0$?",
+   "status": "open",
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "source": "arXiv:2610.24022",
+   "source_title": "Fuglede's conjecture holds in $\\mathbb{F}_2^7$",
+   "location": "Remark 7.2",
+   "rationale": "",
+   "links": [],
+   "added": 1792467926
   }
  ],
  "grants": []

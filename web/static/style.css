@@ -876,7 +876,8 @@ button.share{font-size:13px}
 @media (prefers-reduced-motion:reduce){.chat-wait{animation:none}}
 
 /* research blog: a post reads as a short paper */
-.post{display:flex;flex-direction:column;gap:30px;max-width:76ch}
+.post{display:flex;flex-direction:column;gap:30px}
+.post .prose,#posts .prose{max-width:none}
 .post h2{margin:0 0 10px;font-family:var(--prose);font-size:23px;font-weight:600}
 .post .prose p{margin:0 0 .8em}
 .post .prose ul,.post .prose ol{margin:0 0 .8em;padding-left:1.4em}

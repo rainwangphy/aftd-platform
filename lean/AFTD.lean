@@ -7551,7 +7551,9 @@ import AFTD.Kb.Tcs.GreedyCutFinsetBound
 import AFTD.Kb.Tcs.GreedyDistinctDiffHistory
 import AFTD.Kb.Tcs.GreedyDistinctDiffNext
 import AFTD.Kb.Tcs.GreedyDistinctDiffSeq
+import AFTD.Kb.Tcs.GreedyDistinctDiffSeqOneTwoSurjective
 import AFTD.Kb.Tcs.GreedyDistinctDiffSeqOneTwoTwo
+import AFTD.Kb.Tcs.GreedyDistinctDiffSeqSurjective
 import AFTD.Kb.Tcs.GreedyMaxCutHalfEdgesLowerBound
 import AFTD.Kb.Tcs.GroupIsCompleteMapping
 import AFTD.Kb.Tcs.GroupIsCompleteMappingIdZmodThree
@@ -8310,6 +8312,7 @@ import AFTD.Kb.Tcs.MatrixUnitaryGroupRowNorm
 import AFTD.Kb.Tcs.MatrixUnitaryKron
 import AFTD.Kb.Tcs.MatrixUnitaryRowSumNormSq
 import AFTD.Kb.Tcs.MatroidAlpha
+import AFTD.Kb.Tcs.MatroidAlphaStar
 import AFTD.Kb.Tcs.MatroidCommonChromaticLeListChromatic
 import AFTD.Kb.Tcs.MatroidCommonChromaticNumber
 import AFTD.Kb.Tcs.MatroidCommonColorable
@@ -8328,6 +8331,7 @@ import AFTD.Kb.Tcs.MatroidCommonListColorableOneOfColorableOne
 import AFTD.Kb.Tcs.MatroidCommonListColorableOneOfColorableZero
 import AFTD.Kb.Tcs.MatroidCommonListColorableTwoNotOfColorableTwo
 import AFTD.Kb.Tcs.MatroidCommonListColorableTwoOfColorableOne
+import AFTD.Kb.Tcs.MatroidDefect
 import AFTD.Kb.Tcs.MatroidSboCommonListChromaticEqOfLeTwo
 import AFTD.Kb.Tcs.MatroidSboCommonListColorableThreeOfCommonColorableTwo
 import AFTD.Kb.Tcs.MatroidSboCommonListColorableTwoOfCommonColorableTwo
@@ -8335,6 +8339,7 @@ import AFTD.Kb.Tcs.MatroidSboListColorableTwoOfColorableTwo
 import AFTD.Kb.Tcs.MatroidSboReductionPairsOfTwoIndep
 import AFTD.Kb.Tcs.MatroidStronglyBaseOrderable
 import AFTD.Kb.Tcs.MatroidStronglyBaseOrderableFreeOn
+import AFTD.Kb.Tcs.MatroidTau
 import AFTD.Kb.Tcs.MatroidTutteEval
 import AFTD.Kb.Tcs.MdfrbfColourInj
 import AFTD.Kb.Tcs.MdfrbfCompress
@@ -8968,6 +8973,7 @@ import AFTD.Kb.Tcs.SimpleGraphCliqueFourBridgeClique
 import AFTD.Kb.Tcs.SimpleGraphCliqueFourGluedClique
 import AFTD.Kb.Tcs.SimpleGraphColoringIsAchromatic
 import AFTD.Kb.Tcs.SimpleGraphColoringIsFrozen
+import AFTD.Kb.Tcs.SimpleGraphCommonNeighborsCardLeDegreeSubOne
 import AFTD.Kb.Tcs.SimpleGraphComplRegularTriangleDistinct
 import AFTD.Kb.Tcs.SimpleGraphConnectedDegreePos
 import AFTD.Kb.Tcs.SimpleGraphCyclePower
@@ -9054,6 +9060,7 @@ import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderLtOfFourLe
 import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderOfDegreeEqCardSubTwo
 import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderStemLeOfCardLeTwoMulDegree
 import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderStemLeOfCardTwo
+import AFTD.Kb.Tcs.SimpleGraphMaxDegreeDeleteEdgesLe
 import AFTD.Kb.Tcs.SimpleGraphMultiRadioNumber
 import AFTD.Kb.Tcs.SimpleGraphMultiRadioNumberPathLeEightMul
 import AFTD.Kb.Tcs.SimpleGraphMultiRadioNumberPathMono

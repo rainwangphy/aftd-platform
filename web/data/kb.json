@@ -1,26 +1,26 @@
 {
  "schema": 1,
- "generated": "2026-10-21T12:40:01Z",
+ "generated": "2026-10-21T13:39:55Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
   "propext"
  ],
  "totals": {
-  "declarations": 9354,
-  "definitions": 3741,
-  "theorems": 5613,
+  "declarations": 9361,
+  "definitions": 3744,
+  "theorems": 5617,
   "topics": 42,
   "domains": 7,
-  "open": 394,
-  "rejected": 74,
-  "spend": 275.93,
+  "open": 407,
+  "rejected": 76,
+  "spend": 278.74,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 295288105,
-   "output": 71161623,
-   "cache_read": 1158564581
+   "input": 298326017,
+   "output": 71943919,
+   "cache_read": 1178112379
   },
   "models": [
    "deepseek-flash",
@@ -28,7 +28,7 @@
    "gemini-3.8-flash"
   ],
   "first": 1788760462,
-  "last": 1792586370
+  "last": 1792589969
  },
  "domains": [
   {
@@ -112,13 +112,13 @@
      "name": "graphs",
      "title": "Graph Theory & Graph Algorithms",
      "target": 30,
-     "proved": 441
+     "proved": 443
     },
     {
      "name": "combinatorics",
      "title": "Combinatorics for TCS",
      "target": 25,
-     "proved": 440
+     "proved": 445
     },
     {
      "name": "information",
@@ -537728,6 +537728,7 @@
    "deps": [],
    "used_by": [
     "greedy_distinct_diff_seq_one_two_two",
+    "greedy_distinct_diff_seq_surjective",
     "greedy_distinct_diff_history"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GreedyDistinctDiffNext.lean",
@@ -537758,7 +537759,8 @@
     "greedy_distinct_diff_next"
    ],
    "used_by": [
-    "greedy_distinct_diff_seq"
+    "greedy_distinct_diff_seq",
+    "greedy_distinct_diff_seq_surjective"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GreedyDistinctDiffHistory.lean",
    "proved_at": 1791962197,
@@ -537788,7 +537790,9 @@
     "greedy_distinct_diff_history"
    ],
    "used_by": [
-    "greedy_distinct_diff_seq_one_two_two"
+    "greedy_distinct_diff_seq_one_two_two",
+    "greedy_distinct_diff_seq_one_two_surjective",
+    "greedy_distinct_diff_seq_surjective"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/GreedyDistinctDiffSeq.lean",
    "proved_at": 1791962401,
@@ -691923,6 +691927,8 @@
    "clean": false,
    "deps": [],
    "used_by": [
+    "matroid_tau",
+    "matroid_alpha_star",
     "matroid_alpha"
    ],
    "lean_path": "lean/AFTD/Kb/Tcs/MatroidTutteEval.lean",
@@ -691952,7 +691958,9 @@
    "deps": [
     "matroid_tutte_eval"
    ],
-   "used_by": [],
+   "used_by": [
+    "matroid_defect"
+   ],
    "lean_path": "lean/AFTD/Kb/Tcs/MatroidAlpha.lean",
    "proved_at": 1792586192,
    "provenance": "literature",
@@ -691960,6 +691968,225 @@
    "lean_from": null,
    "reading": "Definition of `matroid_alpha`: for a type `α` and a matroid `M : Matroid α` satisfying `[M.Finite]`, `matroid_alpha M` is defined as the real number `matroid_tutte_eval M 2 0`.",
    "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "matroid_alpha_star",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9355,
+   "informal": "The real-valued evaluation `matroid_alpha_star M : ℝ` of the Tutte polynomial of a finite matroid M with instance [M.Finite], defined as `matroid_tutte_eval M 0 2`.",
+   "statement": "noncomputable def matroid_alpha_star {α : Type*} (M : Matroid α) [M.Finite] : ℝ",
+   "source": "/-- The real-valued evaluation of the Tutte polynomial of a matroid at (0, 2). -/\nnoncomputable def matroid_alpha_star {α : Type*} (M : Matroid α) [M.Finite] : ℝ := matroid_tutte_eval M 0 2",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "matroid_tutte_eval"
+   ],
+   "used_by": [
+    "matroid_defect"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/MatroidAlphaStar.lean",
+   "proved_at": 1792586439,
+   "provenance": "literature",
+   "citation": "arXiv:2610.27706, Section 2",
+   "lean_from": null,
+   "reading": "For a type `α` and a finite matroid `M` on `α` (`[M.Finite]`), `matroid_alpha_star M` is defined as the real number `matroid_tutte_eval M 0 2`.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "matroid_tau",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9356,
+   "informal": "The real-valued evaluation `matroid_tau M : ℝ` of the Tutte polynomial of a finite matroid M with instance [M.Finite], defined as `matroid_tutte_eval M 1 1`.",
+   "statement": "noncomputable def matroid_tau {α : Type*} (M : Matroid α) [M.Finite] : ℝ",
+   "source": "/-- The real-valued evaluation of the Tutte polynomial of a matroid at (1, 1). -/\nnoncomputable def matroid_tau {α : Type*} (M : Matroid α) [M.Finite] : ℝ := matroid_tutte_eval M 1 1",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "matroid_tutte_eval"
+   ],
+   "used_by": [
+    "matroid_defect"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/MatroidTau.lean",
+   "proved_at": 1792586693,
+   "provenance": "literature",
+   "citation": "arXiv:2610.27706, Section 2",
+   "lean_from": null,
+   "reading": "Given a type `α` and a matroid `M` on `α` with finite ground set (`[M.Finite]`), `matroid_tau M` is defined as the real number `matroid_tutte_eval M 1 1`.",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "matroid_defect",
+   "kind": "def",
+   "is_def": true,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9357,
+   "informal": "The real-valued multiplicative defect `matroid_defect M : ℝ` of a finite matroid M with instance [M.Finite], defined as `matroid_alpha M * matroid_alpha_star M - (matroid_tau M) ^ 2` in terms of the invariants `matroid_alpha`, `matroid_alpha_star`, and `matroid_tau`.",
+   "statement": "noncomputable def matroid_defect {α : Type*} (M : Matroid α) [M.Finite] : ℝ",
+   "source": "/-- The real-valued multiplicative defect of a matroid: alpha times alpha star minus tau squared. -/\nnoncomputable def matroid_defect {α : Type*} (M : Matroid α) [M.Finite] : ℝ := matroid_alpha M * matroid_alpha_star M - (matroid_tau M) ^ 2",
+   "axioms": [],
+   "clean": false,
+   "deps": [
+    "matroid_tau",
+    "matroid_alpha_star",
+    "matroid_alpha"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/MatroidDefect.lean",
+   "proved_at": 1792586959,
+   "provenance": "literature",
+   "citation": "arXiv:2610.27706, Section 2, Eq. (4)",
+   "lean_from": null,
+   "reading": "Given a type `α` and a matroid `M` on `α` with the assumption `[M.Finite]` that `M` is finite, `matroid_defect M` is defined as the real number:\n  `matroid_alpha M * matroid_alpha_star M - (matroid_tau M) ^ 2`",
+   "roundtrip": "faithful",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "greedy_distinct_diff_seq_surjective",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9358,
+   "informal": "Conjecture: for any distinct positive integers a₁, a₂, the greedy sequence with distinct consecutive differences started at a₁, a₂ takes every positive integer as a value (it is a permutation of the positive integers).",
+   "statement": "theorem greedy_distinct_diff_seq_surjective (a₁ a₂ : ℕ) (h₁ : 0 < a₁) (h₂ : 0 < a₂)\n    (h : a₁ ≠ a₂) : ∀ v, 0 < v → ∃ n, greedy_distinct_diff_seq a₁ a₂ n = v",
+   "source": "noncomputable def greedy_distinct_diff_seq_surjective_gd (a₁ a₂ : ℕ) (i : ℕ) : ℕ :=\n  Int.natAbs (((greedy_distinct_diff_seq a₁ a₂ (i+1) : ℤ)) -\n    ((greedy_distinct_diff_seq a₁ a₂ i : ℤ)))\n\nnoncomputable def greedy_distinct_diff_seq_surjective_difflist (a₁ a₂ : ℕ) (n : ℕ) : List ℕ :=\n  ((greedy_distinct_diff_history a₁ a₂ n).zip\n    (greedy_distinct_diff_history a₁ a₂ n).tail).map\n    (fun p => Int.natAbs ((p.1:ℤ) - (p.2:ℤ)))\n\nlemma greedy_distinct_diff_seq_surjective_hist_eq (a₁ a₂ : ℕ) (n : ℕ) :\n    greedy_distinct_diff_history a₁ a₂ n\n      = (List.range (n+2)).reverse.map (greedy_distinct_diff_seq a₁ a₂) := by\n  induction n with\n  | zero => rfl\n  | succ n ih =>\n    rw [greedy_distinct_diff_history]\n    rw [show (n+1)+2 = (n+2)+1 from by ring]\n    rw [List.range_succ, List.reverse_append, List.reverse_singleton]\n    simp only [List.map_cons, List.singleton_append]\n    have hnext : greedy_distinct_diff_next (greedy_distinct_diff_history a₁ a₂ n)\n        = greedy_distinct_diff_seq a₁ a₂ (n+2) := by\n      simp [greedy_distinct_diff_seq, greedy_distinct_diff_history]\n    rw [hnext, ih]\n\nlemma greedy_distinct_diff_seq_surjective_hist_mem (a₁ a₂ : ℕ) (n c : ℕ) :\n    c ∈ greedy_distinct_diff_history a₁ a₂ n ↔\n      ∃ i, i ≤ n+1 ∧ greedy_distinct_diff_seq a₁ a₂ i = c := by\n  rw [greedy_distinct_diff_seq_surjective_hist_eq, List.mem_map]\n  constructor\n  · rintro ⟨a, ha, rfl⟩\n    rw [List.mem_reverse, List.mem_range] at ha\n    exact ⟨a, by omega, rfl⟩\n  · rintro ⟨i, hi, rfl⟩\n    refine ⟨i, ?_, rfl⟩\n    rw [List.mem_reverse, List.mem_range]\n    omega\n\nlemma greedy_distinct_diff_seq_surjective_hist_head_eq (a₁ a₂ : ℕ) (n : ℕ) :\n    greedy_distinct_diff_history a₁ a₂ n\n      = greedy_distinct_diff_seq a₁ a₂ (n+1) ::\n        (List.range (n+1)).reverse.map (greedy_distinct_diff_seq a₁ a₂) := by\n  rw [greedy_distinct_diff_seq_surjective_hist_eq]\n  rw [show n+2 = (n+1)+1 from rfl, List.range_succ, List.reverse_append,\n      List.reverse_singleton]\n  simp\n\nlemma greedy_distinct_diff_seq_surjective_difflist_cons (a₁ a₂ : ℕ) (n : ℕ) :\n    greedy_distinct_diff_seq_surjective_difflist a₁ a₂ (n+1)\n      = greedy_distinct_diff_seq_surjective_gd a₁ a₂ (n+1) ::\n        greedy_distinct_diff_seq_surjective_difflist a₁ a₂ n := by\n  unfold greedy_distinct_diff_seq_surjective_difflist greedy_distinct_diff_seq_surjective_gd\n  have hnext : greedy_distinct_diff_next (greedy_distinct_diff_history a₁ a₂ n)\n      = greedy_distinct_diff_seq a₁ a₂ (n+2) := by\n    simp [greedy_distinct_diff_seq, greedy_distinct_diff_history]\n  have hh : greedy_distinct_diff_history a₁ a₂ (n+1)\n      = greedy_distinct_diff_seq a₁ a₂ (n+2) ::\n        greedy_distinct_diff_history a₁ a₂ n := by\n    rw [show greedy_distinct_diff_history a₁ a₂ (n+1)\n        = greedy_distinct_diff_next (greedy_distinct_diff_history a₁ a₂ n) ::\n          greedy_distinct_diff_history a₁ a₂ n from rfl, hnext]\n  rw [hh, List.tail_cons]\n  rw [greedy_distinct_diff_seq_surjective_hist_head_eq a₁ a₂ n]\n  rw [List.zip_cons_cons, List.tail_cons]\n  simp only [List.map_cons]\n\nlemma greedy_distinct_diff_seq_surjective_difflist_zero (a₁ a₂ : ℕ) :\n    greedy_distinct_diff_seq_surjective_difflist a₁ a₂ 0\n      = [greedy_distinct_diff_seq_surjective_gd a₁ a₂ 0] := by\n  unfold greedy_distinct_diff_seq_surjective_difflist greedy_distinct_diff_seq_surjective_gd\n  rfl\n\nlemma greedy_distinct_diff_seq_surjective_difflist_mem (a₁ a₂ : ℕ) (n e : ℕ) :\n    e ∈ greedy_distinct_diff_seq_surjective_difflist a₁ a₂ n ↔\n      ∃ i, i < n+1 ∧ e = greedy_distinct_diff_seq_surjective_gd a₁ a₂ i := by\n  induction n with\n  | zero =>\n    rw [greedy_distinct_diff_seq_surjective_difflist_zero, List.mem_singleton]\n    constructor\n    · intro h; exact ⟨0, by omega, h⟩\n    · rintro ⟨i, hi, he⟩\n      rw [show i = 0 by omega] at he\n      exact he\n  | succ n ih =>\n    rw [greedy_distinct_diff_seq_surjective_difflist_cons, List.mem_cons, ih]\n    constructor\n    · rintro (h | ⟨i, hi, he⟩)\n      · exact ⟨n+1, by omega, h⟩\n      · exact ⟨i, by omega, he⟩\n    · rintro ⟨i, hi, he⟩\n      rcases Nat.lt_or_ge i (n+1) with h' | h'\n      · exact Or.inr ⟨i, h', he⟩\n      · have hi' : i = n+1 := by omega\n        rw [hi'] at he\n        exact Or.inl he\n\nlemma greedy_distinct_diff_seq_surjective_greedy_next_nonempty (l : List ℕ) :\n    {c : ℕ | 0 < c ∧ c ∉ l ∧\n      Int.natAbs ((c:ℤ) - ((l.headD 0):ℤ)) ∉\n        (l.zip l.tail).map (fun p => Int.natAbs ((p.1:ℤ) - (p.2:ℤ)))}.Nonempty := by\n  set ds := (l.zip l.tail).map (fun p => Int.natAbs ((p.1:ℤ) - (p.2:ℤ))) with hds\n  refine ⟨l.sum + ds.sum + l.headD 0 + 1, ?_, ?_, ?_⟩\n  · omega\n  · intro hmem; have h := List.le_sum_of_mem hmem; omega\n  · intro hmem\n    have hle : l.headD 0 ≤ l.sum + ds.sum + l.headD 0 + 1 := by omega\n    have hn : Int.natAbs (((l.sum + ds.sum + l.headD 0 + 1:ℕ):ℤ) - ((l.headD 0:ℕ):ℤ))\n        = (l.sum + ds.sum + l.headD 0 + 1) - l.headD 0 := by\n      have hcast : (((l.sum + ds.sum + l.headD 0 + 1):ℕ):ℤ) - ((l.headD 0:ℕ):ℤ)\n          = (((l.sum + ds.sum + l.headD 0 + 1) - l.headD 0 : ℕ):ℤ) := by\n        rw [Nat.cast_sub hle]\n      rw [hcast, Int.natAbs_natCast]\n    rw [hn] at hmem\n    have h := List.le_sum_of_mem hmem; omega\n\nlemma greedy_distinct_diff_seq_surjective_spec (a₁ a₂ : ℕ) (n : ℕ) :\n    greedy_distinct_diff_seq a₁ a₂ (n+2) =\n        greedy_distinct_diff_next (greedy_distinct_diff_history a₁ a₂ n) ∧\n    0 < greedy_distinct_diff_seq a₁ a₂ (n+2) ∧\n    greedy_distinct_diff_seq a₁ a₂ (n+2) ∉\n        (Finset.range (n+2)).image (greedy_distinct_diff_seq a₁ a₂) ∧\n    greedy_distinct_diff_seq_surjective_gd a₁ a₂ (n+1) ∉ (Finset.range (n+1)).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂) ∧\n    (∀ c, 0 < c →\n      c ∉ (Finset.range (n+2)).image (greedy_distinct_diff_seq a₁ a₂) →\n      Int.natAbs (((c:ℤ) - ((greedy_distinct_diff_seq a₁ a₂ (n+1)):ℤ))) ∉\n        (Finset.range (n+1)).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂) →\n      greedy_distinct_diff_seq a₁ a₂ (n+2) ≤ c) := by\n  set x := greedy_distinct_diff_seq a₁ a₂ with hxdef\n  have hx : x (n+2) = greedy_distinct_diff_next (greedy_distinct_diff_history a₁ a₂ n) := by\n    rw [hxdef]; simp [greedy_distinct_diff_seq, greedy_distinct_diff_history]\n  set l := greedy_distinct_diff_history a₁ a₂ n with hl\n  set S := {c : ℕ | 0 < c ∧ c ∉ l ∧\n      Int.natAbs ((c:ℤ) - ((l.headD 0):ℤ)) ∉\n        (l.zip l.tail).map (fun p => Int.natAbs ((p.1:ℤ) - (p.2:ℤ)))} with hS\n  have hheadD : l.headD 0 = x (n+1) := by rw [hxdef]; rfl\n  have hne : S.Nonempty := greedy_distinct_diff_seq_surjective_greedy_next_nonempty l\n  have hmem : sInf S ∈ S := Nat.sInf_mem hne\n  have hxS : x (n+2) = sInf S := by rw [hx]; rfl\n  have hmemV : ∀ c, (c ∈ l ↔ c ∈ (Finset.range (n+2)).image x) := by\n    intro c\n    rw [hl, hxdef, greedy_distinct_diff_seq_surjective_hist_mem]\n    simp only [Finset.mem_image, Finset.mem_range]\n    constructor\n    · rintro ⟨i, hi, h⟩; exact ⟨i, by omega, h⟩\n    · rintro ⟨i, hi, h⟩; exact ⟨i, by omega, h⟩\n  have hmemD : ∀ e, (e ∈ greedy_distinct_diff_seq_surjective_difflist a₁ a₂ n ↔\n      e ∈ (Finset.range (n+1)).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂)) := by\n    intro e\n    rw [greedy_distinct_diff_seq_surjective_difflist_mem]\n    simp only [Finset.mem_image, Finset.mem_range]\n    constructor\n    · rintro ⟨i, hi, h⟩; exact ⟨i, by omega, h.symm⟩\n    · rintro ⟨i, hi, h⟩; exact ⟨i, by omega, h.symm⟩\n  refine ⟨hx, ?_, ?_, ?_, ?_⟩\n  · rw [hxS]; exact hmem.1\n  · rw [← hmemV, hxS]; exact hmem.2.1\n  · rw [← hmemD]\n    have heq : greedy_distinct_diff_seq_surjective_gd a₁ a₂ (n+1)\n        = Int.natAbs ((((sInf S : ℕ)):ℤ) - ((l.headD 0):ℤ)) := by\n      unfold greedy_distinct_diff_seq_surjective_gd\n      rw [← hxdef, hxS, hheadD]\n    rw [heq]\n    exact hmem.2.2\n  · intro c hc0 hcV hcD\n    have hcS : c ∈ S := by\n      refine ⟨hc0, ?_, ?_⟩\n      · rw [hmemV]; exact hcV\n      · show Int.natAbs ((c:ℤ) - ((x (n+1)):ℤ)) ∉ greedy_distinct_diff_seq_surjective_difflist a₁ a₂ n\n        rw [hmemD]; exact hcD\n    have hle := Nat.sInf_le hcS\n    rw [← hxS] at hle\n    exact hle\n\nlemma greedy_distinct_diff_seq_surjective_natAbs_sub_nat {a b : ℕ} (h : a ≤ b) :\n    Int.natAbs ((b:ℤ) - (a:ℤ)) = b - a := by\n  have hcast : ((b:ℤ) - (a:ℤ)) = ((b - a : ℕ):ℤ) := by\n    rw [Nat.cast_sub h]\n  rw [hcast, Int.natAbs_natCast]\n\nlemma greedy_distinct_diff_seq_surjective_natAbs_v_sub {v n : ℕ} (h : v ≤ n) :\n    Int.natAbs ((v:ℤ) - (n:ℤ)) = n - v := by\n  have e : ((v:ℤ) - (n:ℤ)) = -(((n:ℤ) - (v:ℤ))) := by ring\n  rw [e, Int.natAbs_neg, greedy_distinct_diff_seq_surjective_natAbs_sub_nat h]\n\nlemma greedy_distinct_diff_seq_surjective_natAbs_sub_le {a b M : ℕ} (ha : a ≤ M) (hb : b ≤ M) :\n    Int.natAbs ((b:ℤ) - (a:ℤ)) ≤ M := by\n  rcases le_total a b with hab | hab\n  · rw [greedy_distinct_diff_seq_surjective_natAbs_sub_nat hab]; omega\n  · rw [show Int.natAbs ((b:ℤ) - (a:ℤ)) = Int.natAbs ((a:ℤ) - (b:ℤ)) from by\n        rw [← Int.natAbs_neg]; congr 1; ring]\n    rw [greedy_distinct_diff_seq_surjective_natAbs_sub_nat hab]; omega\n\nlemma greedy_distinct_diff_seq_surjective_spec_one (a₁ a₂ : ℕ) (k : ℕ) (hk : 1 ≤ k) :\n    0 < greedy_distinct_diff_seq a₁ a₂ (k+1) ∧\n    greedy_distinct_diff_seq a₁ a₂ (k+1) ∉ (Finset.range (k+1)).image (greedy_distinct_diff_seq a₁ a₂) ∧\n    greedy_distinct_diff_seq_surjective_gd a₁ a₂ k ∉ (Finset.range k).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂) ∧\n    (∀ c, 0 < c → c ∉ (Finset.range (k+1)).image (greedy_distinct_diff_seq a₁ a₂) →\n      Int.natAbs (((c:ℤ) - ((greedy_distinct_diff_seq a₁ a₂ k):ℤ))) ∉ (Finset.range k).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂) →\n      greedy_distinct_diff_seq a₁ a₂ (k+1) ≤ c) := by\n  obtain ⟨-, h2, h3, h4, h5⟩ := greedy_distinct_diff_seq_surjective_spec a₁ a₂ (k-1)\n  have e1 : k - 1 + 2 = k + 1 := by omega\n  have e2 : k - 1 + 1 = k := by omega\n  refine ⟨?_, ?_, ?_, ?_⟩\n  · rw [e1] at h2; exact h2\n  · rw [e1] at h3; exact h3\n  · rw [e2] at h4; exact h4\n  · intro c hc hcv hcd\n    have h := h5 c hc (by rw [e1]; exact hcv) (by rw [e2]; exact hcd)\n    rw [e1] at h; exact h\n\ntheorem greedy_distinct_diff_seq_surjective (a₁ a₂ : ℕ) (h₁ : 0 < a₁) (h₂ : 0 < a₂)\n    (h : a₁ ≠ a₂) : ∀ v, 0 < v → ∃ n, greedy_distinct_diff_seq a₁ a₂ n = v := by\n  intro v hv\n  by_contra hcon\n  push_neg at hcon\n  set x := greedy_distinct_diff_seq a₁ a₂ with hxdef\n  set D : ℕ → Finset ℕ := fun k => (Finset.range k).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂) with hDdef\n  have hx0 : x 0 = a₁ := by rw [hxdef]; rfl\n  have hx1 : x 1 = a₂ := by rw [hxdef]; rfl\n  have hvmiss : ∀ m, v ∉ (Finset.range m).image x := by\n    intro m hm\n    rw [Finset.mem_image] at hm\n    obtain ⟨i, -, hi⟩ := hm\n    exact hcon i hi\n  have hA : ∀ k, 1 ≤ k → x (k+1) > v → Int.natAbs ((v:ℤ) - ((x k:ℤ))) ∈ D k := by\n    intro k hk hgt\n    by_contra hnot\n    have h4 := (greedy_distinct_diff_seq_surjective_spec_one a₁ a₂ k hk).2.2.2\n    have hle : x (k+1) ≤ v := h4 v hv (hvmiss (k+1)) hnot\n    exact absurd hle (not_le.mpr hgt)\n  have hA' : ∀ k, 1 ≤ k → x k > v → x (k+1) > v → x k - v ∈ D k := by\n    intro k hk hxk hgt\n    have hh := hA k hk hgt\n    rw [show Int.natAbs ((v:ℤ) - ((x k:ℤ))) = x k - v from greedy_distinct_diff_seq_surjective_natAbs_v_sub (le_of_lt hxk)] at hh\n    exact hh\n  have hDsucc : ∀ k, D (k+1) = D k ∪ {greedy_distinct_diff_seq_surjective_gd a₁ a₂ k} := by\n    intro k\n    show (Finset.range (k+1)).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂)\n        = (Finset.range k).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂) ∪ {greedy_distinct_diff_seq_surjective_gd a₁ a₂ k}\n    rw [Finset.range_add_one, Finset.image_insert, Finset.insert_eq, Finset.union_comm]\n  have hB : ∀ k, 1 ≤ k → x k > v → x (k+1) > v → x (k+2) > v →\n      greedy_distinct_diff_seq_surjective_gd a₁ a₂ k ≤ (D k).sup id := by\n    intro k hk hx1 hx2 hx3\n    have ha : x k - v ∈ D k := hA' k hk hx1 hx2\n    have hb : x (k+1) - v ∈ D (k+1) := hA' (k+1) (by omega) hx2 hx3\n    have hapos : 0 < x k - v := by omega\n    have hd_eq : greedy_distinct_diff_seq_surjective_gd a₁ a₂ k\n        = Int.natAbs (((x (k+1) - v : ℕ):ℤ) - ((x k - v : ℕ):ℤ)) := by\n      unfold greedy_distinct_diff_seq_surjective_gd\n      congr 1\n      have e1 : ((x (k+1) - v : ℕ):ℤ) = (x (k+1):ℤ) - (v:ℤ) := Nat.cast_sub (le_of_lt hx2)\n      have e2 : ((x k - v : ℕ):ℤ) = (x k:ℤ) - (v:ℤ) := Nat.cast_sub (le_of_lt hx1)\n      rw [e1, e2]; ring\n    have hb' : x (k+1) - v ∈ D k ∪ {greedy_distinct_diff_seq_surjective_gd a₁ a₂ k} := by rw [← hDsucc]; exact hb\n    rw [Finset.mem_union, Finset.mem_singleton] at hb'\n    rcases hb' with hbD | hbgd\n    · rw [hd_eq]\n      exact greedy_distinct_diff_seq_surjective_natAbs_sub_le (Finset.le_sup (f := id) ha) (Finset.le_sup (f := id) hbD)\n    · have hde : greedy_distinct_diff_seq_surjective_gd a₁ a₂ k\n          = Int.natAbs (((greedy_distinct_diff_seq_surjective_gd a₁ a₂ k : ℕ):ℤ) - ((x k - v : ℕ):ℤ)) := by\n        rw [hbgd] at hd_eq; exact hd_eq\n      rw [hde]\n      have haM : x k - v ≤ (D k).sup id := Finset.le_sup (f := id) ha\n      by_contra hgt\n      push_neg at hgt\n      have hle : x k - v ≤ greedy_distinct_diff_seq_surjective_gd a₁ a₂ k := by omega\n      rw [greedy_distinct_diff_seq_surjective_natAbs_sub_nat hle] at hde\n      omega\n  have hx_out : ∀ m, 1 ≤ m → x m ∉ (Finset.range m).image x := by\n    intro m hm\n    rcases eq_or_lt_of_le hm with hm1 | hm2\n    · subst hm1\n      intro hmem\n      rw [Finset.range_one, Finset.image_singleton, Finset.mem_singleton] at hmem\n      rw [hx1, hx0] at hmem\n      exact h hmem.symm\n    · have hs := (greedy_distinct_diff_seq_surjective_spec_one a₁ a₂ (m-1) (by omega)).2.1\n      have e : m - 1 + 1 = m := by omega\n      rw [e] at hs\n      exact hs\n  have hx_ne : ∀ i j, i < j → x i ≠ x j := by\n    intro i j hij heq\n    have hj : 1 ≤ j := by omega\n    have hout := hx_out j hj\n    have hin : x i ∈ (Finset.range j).image x := by\n      rw [Finset.mem_image]; exact ⟨i, Finset.mem_range.mpr hij, rfl⟩\n    exact hout (heq ▸ hin)\n  have hinj : Function.Injective x := by\n    intro i j heq\n    rcases Nat.lt_trichotomy i j with hij | hij | hij\n    · exact absurd heq (hx_ne i j hij)\n    · exact hij\n    · exact absurd heq.symm (hx_ne j i hij)\n  have hgd_ne : ∀ i j, i < j → greedy_distinct_diff_seq_surjective_gd a₁ a₂ i ≠ greedy_distinct_diff_seq_surjective_gd a₁ a₂ j := by\n    intro i j hij heq\n    have hj : 1 ≤ j := by omega\n    have hs : greedy_distinct_diff_seq_surjective_gd a₁ a₂ j ∉ D j := (greedy_distinct_diff_seq_surjective_spec_one a₁ a₂ j hj).2.2.1\n    have hi : greedy_distinct_diff_seq_surjective_gd a₁ a₂ i ∈ D j := by\n      show greedy_distinct_diff_seq_surjective_gd a₁ a₂ i ∈ (Finset.range j).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂)\n      exact Finset.mem_image.mpr ⟨i, Finset.mem_range.mpr hij, rfl⟩\n    rw [← heq] at hs\n    exact hs hi\n  have hDcard : ∀ k, (D k).card = k := by\n    intro k\n    show ((Finset.range k).image (greedy_distinct_diff_seq_surjective_gd a₁ a₂)).card = k\n    rw [Finset.card_image_of_injOn, Finset.card_range]\n    intro i hi j hj heq\n    simp only [Finset.mem_coe, Finset.mem_range] at hi hj\n    rcases Nat.lt_trichotomy i j with hlt | hlt | hlt\n    · exact absurd heq (hgd_ne i j hlt)\n    · exact hlt\n    · exact absurd heq.symm (hgd_ne j i hlt)\n  classical\n  set idx : ℕ → ℕ := fun m => if hh : ∃ k, x k = m then Classical.choose hh else 0 with hidx\n  have hidx_eq : ∀ m k, x k = m → idx m = k := by\n    intro m k hk\n    have hex : ∃ j, x j = m := ⟨k, hk⟩\n    have hchoose : x (Classical.choose hex) = m := Classical.choose_spec hex\n    have hck : Classical.choose hex = k := hinj (by rw [hchoose, hk])\n    simp only [idx, dif_pos hex, hck]\n  have hK : ∃ K, ∀ k, K ≤ k → v < x k := by\n    refine ⟨(Finset.range (v+1)).sup idx + 1, ?_⟩\n    intro k hk\n    by_contra hle\n    push_neg at hle\n    have hmem : x k ∈ Finset.range (v+1) := Finset.mem_range.mpr (by omega)\n    have h1 : idx (x k) ≤ (Finset.range (v+1)).sup idx := Finset.le_sup hmem\n    have h2 : idx (x k) = k := hidx_eq (x k) k rfl\n    rw [h2] at h1\n    omega\n  obtain ⟨K, hK⟩ := hK\n  set K' := max K 2 with hK'\n  have hstab : ∀ k, K' ≤ k → (D (k+1)).sup id = (D k).sup id := by\n    intro k hk\n    have hKk : K ≤ k := le_trans (le_max_left K 2) hk\n    have hBk := hB k (by omega) (hK k hKk) (hK (k+1) (by omega)) (hK (k+2) (by omega))\n    rw [hDsucc, Finset.sup_union, Finset.sup_singleton]\n    exact max_eq_left hBk\n  have hMconst : ∀ k, K' ≤ k → (D k).sup id = (D K').sup id := by\n    intro k hk\n    induction k with\n    | zero => omega\n    | succ k ih =>\n      rcases Nat.lt_or_ge k K' with hlt | hge\n      · have hk1 : k + 1 = K' := by omega\n        rw [hk1]\n      · rw [hstab k hge, ih hge]\n  have hfinal : ∀ k, K' ≤ k → k ≤ (D K').sup id + 1 := by\n    intro k hk\n    have hsub : D k ⊆ Finset.range ((D K').sup id + 1) := by\n      intro m hm\n      rw [Finset.mem_range]\n      have hle : m ≤ (D k).sup id := Finset.le_sup (f := id) hm\n      rw [hMconst k hk] at hle\n      omega\n    have hc := Finset.card_le_card hsub\n    rw [Finset.card_range, hDcard k] at hc\n    exact hc\n  have hcontra := hfinal (max K' ((D K').sup id + 2)) (le_max_left _ _)\n  omega",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "greedy_distinct_diff_seq",
+    "greedy_distinct_diff_next",
+    "greedy_distinct_diff_history"
+   ],
+   "used_by": [
+    "greedy_distinct_diff_seq_one_two_surjective"
+   ],
+   "lean_path": "lean/AFTD/Kb/Tcs/GreedyDistinctDiffSeqSurjective.lean",
+   "proved_at": 1792589969,
+   "provenance": "original",
+   "citation": "arXiv:2610.15860 (A note on the Slater–Vélez permutation): the 1977 paper it cites proves this for a₁ = 1, a₂ = 2; the question for arbitrary starting terms is raised after Theorem 1. A computation of the first 3000 terms for every start with a₁, a₂ ≤ 12 found every integer up to at least 1660 among them.",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "greedy_distinct_diff_seq_one_two_surjective",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "combinatorics",
+   "domain": "tcs",
+   "seq": 9359,
+   "informal": "The greedy sequence with distinct consecutive differences started at 1, 2 takes every positive integer as a value.",
+   "statement": "theorem greedy_distinct_diff_seq_one_two_surjective :\n    ∀ v, 0 < v → ∃ n, greedy_distinct_diff_seq 1 2 n = v",
+   "source": "theorem greedy_distinct_diff_seq_one_two_surjective :\n    ∀ v, 0 < v → ∃ n, greedy_distinct_diff_seq 1 2 n = v := by\n  exact greedy_distinct_diff_seq_surjective 1 2 (by decide) (by decide) (by decide)",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [
+    "greedy_distinct_diff_seq",
+    "greedy_distinct_diff_seq_surjective"
+   ],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/GreedyDistinctDiffSeqOneTwoSurjective.lean",
+   "proved_at": 1792588576,
+   "provenance": "literature",
+   "citation": "'Permutations of the positive integers with restrictions on the sequence of differences' (Pacific J. Math. 71, 1977), main theorem, as cited in arXiv:2610.15860 (A note on the Slater–Vélez permutation); the special case a₁ = 1, a₂ = 2 of OP-203.",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "simple_graph_max_degree_deleteEdges_le",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9360,
+   "informal": "Deleting edges preserves maximum degree bounds: if every vertex has degree at most d, then deleting any set of edges preserves this bound.",
+   "statement": "theorem simple_graph_max_degree_deleteEdges_le {V : Type*} [Fintype V] [DecidableEq V]\n    (G : SimpleGraph V) [DecidableRel G.Adj] (s : Set (Sym2 V)) [DecidablePred (· ∈ s)] (d : ℕ)\n    (h : ∀ v, G.degree v ≤ d) :\n    ∀ v, (G.deleteEdges s).degree v ≤ d",
+   "source": "/-- Deleting edges preserves maximum degree bounds: if every vertex has degree at most d, then deleting any set of edges preserves this bound. -/\ntheorem simple_graph_max_degree_deleteEdges_le {V : Type*} [Fintype V] [DecidableEq V]\n    (G : SimpleGraph V) [DecidableRel G.Adj] (s : Set (Sym2 V)) [DecidablePred (· ∈ s)] (d : ℕ)\n    (h : ∀ v, G.degree v ≤ d) :\n    ∀ v, (G.deleteEdges s).degree v ≤ d := by\n  intro v\n  exact le_trans (SimpleGraph.degree_le_of_le (SimpleGraph.deleteEdges_le s)) (h v)",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphMaxDegreeDeleteEdgesLe.lean",
+   "proved_at": 1792588916,
+   "provenance": "lemma",
+   "citation": "step towards simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_eleven",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
+   "explanation": null,
+   "trace": null,
+   "funder": "",
+   "problem": null
+  },
+  {
+   "name": "simple_graph_common_neighbors_card_le_degree_sub_one",
+   "kind": "theorem",
+   "is_def": false,
+   "topic": "graphs",
+   "domain": "tcs",
+   "seq": 9361,
+   "informal": "The number of common neighbors of two adjacent vertices u and v is at most deg(u) - 1.",
+   "statement": "theorem simple_graph_common_neighbors_card_le_degree_sub_one {V : Type*} [Fintype V] [DecidableEq V]\n    (G : SimpleGraph V) [DecidableRel G.Adj] {u v : V} (h : G.Adj u v) :\n    (G.neighborFinset u ∩ G.neighborFinset v).card ≤ G.degree u - 1",
+   "source": "/-- The number of common neighbors of two adjacent vertices u and v is at most deg(u) - 1. -/\ntheorem simple_graph_common_neighbors_card_le_degree_sub_one {V : Type*} [Fintype V] [DecidableEq V]\n    (G : SimpleGraph V) [DecidableRel G.Adj] {u v : V} (h : G.Adj u v) :\n    (G.neighborFinset u ∩ G.neighborFinset v).card ≤ G.degree u - 1 := by\n  have hsub : G.neighborFinset u ∩ G.neighborFinset v ⊆ (G.neighborFinset u).erase v := by\n    intro w hw\n    rw [Finset.mem_inter, SimpleGraph.mem_neighborFinset, SimpleGraph.mem_neighborFinset] at hw\n    rw [Finset.mem_erase, SimpleGraph.mem_neighborFinset]\n    refine ⟨?_, hw.1⟩\n    rintro rfl\n    exact G.irrefl hw.2\n  calc\n    (G.neighborFinset u ∩ G.neighborFinset v).card ≤ ((G.neighborFinset u).erase v).card :=\n      Finset.card_le_card hsub\n    _ = (G.neighborFinset u).card - 1 := by\n      rw [Finset.card_erase_of_mem (by simpa using h)]\n    _ = G.degree u - 1 := by rw [G.card_neighborFinset_eq_degree]",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "clean": true,
+   "deps": [],
+   "used_by": [],
+   "lean_path": "lean/AFTD/Kb/Tcs/SimpleGraphCommonNeighborsCardLeDegreeSubOne.lean",
+   "proved_at": 1792589195,
+   "provenance": "lemma",
+   "citation": "step towards simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_eleven",
+   "lean_from": null,
+   "reading": "",
+   "roundtrip": "",
    "explanation": null,
    "trace": null,
    "funder": "",
@@ -695602,40 +695829,6 @@
    "created": 1792315341
   },
   {
-   "name": "greedy_distinct_diff_seq_one_two_surjective",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "combinatorics",
-   "domain": "tcs",
-   "informal": "The greedy sequence with distinct consecutive differences started at 1, 2 takes every positive integer as a value.",
-   "statement": "theorem greedy_distinct_diff_seq_one_two_surjective :\n    ∀ v, 0 < v → ∃ n, greedy_distinct_diff_seq 1 2 n = v",
-   "attempts": 0,
-   "deps": [
-    "greedy_distinct_diff_seq"
-   ],
-   "problem": null,
-   "provenance": "literature",
-   "citation": "'Permutations of the positive integers with restrictions on the sequence of differences' (Pacific J. Math. 71, 1977), main theorem, as cited in arXiv:2610.15860 (A note on the Slater–Vélez permutation); the special case a₁ = 1, a₂ = 2 of OP-203.",
-   "created": 1791962648
-  },
-  {
-   "name": "greedy_distinct_diff_seq_surjective",
-   "kind": "theorem",
-   "status": "stated",
-   "topic": "combinatorics",
-   "domain": "tcs",
-   "informal": "Conjecture: for any distinct positive integers a₁, a₂, the greedy sequence with distinct consecutive differences started at a₁, a₂ takes every positive integer as a value (it is a permutation of the positive integers).",
-   "statement": "theorem greedy_distinct_diff_seq_surjective (a₁ a₂ : ℕ) (h₁ : 0 < a₁) (h₂ : 0 < a₂)\n    (h : a₁ ≠ a₂) : ∀ v, 0 < v → ∃ n, greedy_distinct_diff_seq a₁ a₂ n = v",
-   "attempts": 0,
-   "deps": [
-    "greedy_distinct_diff_seq"
-   ],
-   "problem": null,
-   "provenance": "original",
-   "citation": "arXiv:2610.15860 (A note on the Slater–Vélez permutation): the 1977 paper it cites proves this for a₁ = 1, a₂ = 2; the question for arbitrary starting terms is raised after Theorem 1. A computation of the first 3000 terms for every start with a₁, a₂ ≤ 12 found every integer up to at least 1660 among them.",
-   "created": 1791962642
-  },
-  {
    "name": "handshake_seq_double_edges_card_le",
    "kind": "theorem",
    "status": "stated",
@@ -695840,23 +696033,6 @@
    "provenance": "original",
    "citation": "arXiv:2610.20008 (Avoiding a partial Latin square with an isotope of a given Latin square), Conjecture 4: the paper proves it for all sufficiently large n (Theorem 1, applied to the conjugates with symbols and columns exchanged), notes it holds when L' is a principal isotope of L and for n ≤ 3, and checked n ≤ 7 by computer.",
    "created": 1792213530
-  },
-  {
-   "name": "matroid_alpha_star",
-   "kind": "def",
-   "status": "proposed",
-   "topic": "combinatorics",
-   "domain": "tcs",
-   "informal": "The real-valued evaluation `matroid_alpha_star M : ℝ` of the Tutte polynomial of a finite matroid M with instance [M.Finite], defined as `matroid_tutte_eval M 0 2`.",
-   "statement": "noncomputable def matroid_alpha_star {α : Type*} (M : Matroid α) [M.Finite] : ℝ",
-   "attempts": 0,
-   "deps": [
-    "matroid_tutte_eval"
-   ],
-   "problem": null,
-   "provenance": "literature",
-   "citation": "arXiv:2610.27706, Section 2",
-   "created": 1792586240
   },
   {
    "name": "matroid_common_colorable_self_of_common_colorable",
@@ -696268,12 +696444,12 @@
   {
    "name": "op_258_forces_step",
    "kind": "theorem",
-   "status": "stated",
+   "status": "stuck",
    "topic": "combinatorics",
    "domain": "tcs",
    "informal": "Let a : ℕ+ → ℝ be positive, antitone, with Σ a i > 1, and let k ≥ 3. If a forces a monochromatic K_k, then a forces a monochromatic K_{k+1}.",
    "statement": "theorem op_258_forces_step (a : ℕ+ → ℝ) (hpos : ∀ i, 0 < a i) (hanti : Antitone a)\n    (hsum : 1 < ∑' i : ℕ+, ENNReal.ofReal (a i)) :\n    ∀ k : ℕ, 3 ≤ k → op_258_forces a k → op_258_forces a (k + 1)",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [
     "op_258_forces",
     "op_258_card_fiber_sum",
@@ -697176,23 +697352,146 @@
    "created": 1792544133
   },
   {
+   "name": "chain_graph_balanced_minimal_k_star_forming_card_le_k_independence_number",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For a finite chain graph G with bipartition (A, V \\ A), k ≥ 3, and a minimal k-star-forming set S with |S| larger than both |A| and |V \\ A|, we have |S| ≤ β_k(G).",
+   "statement": "theorem chain_graph_balanced_minimal_k_star_forming_card_le_k_independence_number {V : Type*}\n    [Fintype V] (G : SimpleGraph V) (A : Set V) (hG : simple_graph_is_chain_graph G A) (k : ℕ)\n    (hk : 3 ≤ k) (S : Finset V) (hS : simple_graph_is_minimal_k_star_forming G k S)\n    (hbig : max A.ncard Aᶜ.ncard < S.card) :\n    S.card ≤ simple_graph_k_independence_number G k",
+   "attempts": 0,
+   "deps": [
+    "chain_graph_card_le_k_independence_number_of_card_le_max_part",
+    "simple_graph_minimal_k_star_forming_exists_private_witness",
+    "chain_graph_is_k_independent_union_of_parts",
+    "chain_graph_k_independence_number_ge_two_mul_k_sub_two"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586675
+  },
+  {
+   "name": "chain_graph_card_le_k_independence_number_of_card_le_max_part",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For a finite chain graph G with bipartition (A, V \\ A), k ≥ 1, and any vertex set S with |S| ≤ max(|A|, |V \\ A|), we have |S| ≤ β_k(G).",
+   "statement": "theorem chain_graph_card_le_k_independence_number_of_card_le_max_part {V : Type*} [Fintype V]\n    (G : SimpleGraph V) (A : Set V) (hG : simple_graph_is_chain_graph G A)\n    (k : ℕ) (hk : 1 ≤ k) (S : Finset V) (h : S.card ≤ max A.ncard Aᶜ.ncard) :\n    S.card ≤ simple_graph_k_independence_number G k",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586601
+  },
+  {
+   "name": "chain_graph_is_k_independent_union_of_parts",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "In a chain graph with bipartition (A, V \\ A), if A' ⊆ A and B' ⊆ V \\ A are such that every vertex of A' has fewer than k neighbours in B' and every vertex of B' has fewer than k neighbours in A', then A' ∪ B' is k-independent.",
+   "statement": "theorem chain_graph_is_k_independent_union_of_parts {V : Type*} [DecidableEq V] (G : SimpleGraph V)\n    (A : Set V) (hG : simple_graph_is_chain_graph G A) (k : ℕ) (A' B' : Finset V)\n    (hA' : ∀ x ∈ A', x ∈ A) (hB' : ∀ x ∈ B', x ∉ A)\n    (h1 : ∀ a ∈ A', ({b | b ∈ B' ∧ G.Adj a b} : Set V).ncard < k)\n    (h2 : ∀ b ∈ B', ({a | a ∈ A' ∧ G.Adj b a} : Set V).ncard < k) :\n    simple_graph_is_k_independent G k (A' ∪ B')",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586550
+  },
+  {
    "name": "chain_graph_k_independence_number_eq_upper_k_star_forming_number",
    "kind": "theorem",
-   "status": "stuck",
+   "status": "stated",
    "topic": "graphs",
    "domain": "tcs",
    "informal": "Conjecture: for every finite chain graph G and every k ≥ 3, β_k(G) = SF_k(G).",
    "statement": "theorem chain_graph_k_independence_number_eq_upper_k_star_forming_number {V : Type*} [Fintype V]\n    (G : SimpleGraph V) (A : Set V) (hG : simple_graph_is_chain_graph G A) (k : ℕ) (hk : 3 ≤ k) :\n    simple_graph_k_independence_number G k = simple_graph_upper_k_star_forming_number G k",
-   "attempts": 1,
+   "attempts": 0,
    "deps": [
     "simple_graph_is_chain_graph",
     "simple_graph_k_independence_number",
-    "simple_graph_upper_k_star_forming_number"
+    "simple_graph_upper_k_star_forming_number",
+    "chain_graph_parts_edge_free",
+    "chain_graph_is_k_independent_union_of_parts",
+    "chain_graph_k_independence_number_ge_ncard_part",
+    "chain_graph_k_independence_number_ge_two_mul_k_sub_two",
+    "chain_graph_card_le_k_independence_number_of_card_le_max_part",
+    "simple_graph_is_minimal_k_star_forming_iff_erase",
+    "simple_graph_minimal_k_star_forming_exists_private_witness",
+    "simple_graph_upper_k_star_forming_le_k_independence_number_of_minimal_bound",
+    "chain_graph_balanced_minimal_k_star_forming_card_le_k_independence_number",
+    "chain_graph_minimal_k_star_forming_card_le_k_independence_number"
    ],
    "problem": null,
    "provenance": "original",
    "citation": "arXiv:2610.03785 (Upper k-star-forming sets, k-independence, and upper domination), Conjecture 6.4 (the paper proves the case k = 2, Theorem 6.2, and the complete bipartite case, Theorem 3.2). An exhaustive search over all chain graphs with at most 12 vertices and k = 3, 4, 5 found no counterexample.",
    "created": 1791961744
+  },
+  {
+   "name": "chain_graph_k_independence_number_ge_ncard_part",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For a finite chain graph G with bipartition (A, V \\ A) and k ≥ 1, both |A| and |V \\ A| are at most β_k(G).",
+   "statement": "theorem chain_graph_k_independence_number_ge_ncard_part {V : Type*} [Fintype V]\n    (G : SimpleGraph V) (A : Set V) (hG : simple_graph_is_chain_graph G A) (k : ℕ) (hk : 1 ≤ k) :\n    A.ncard ≤ simple_graph_k_independence_number G k ∧\n      Aᶜ.ncard ≤ simple_graph_k_independence_number G k",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586567
+  },
+  {
+   "name": "chain_graph_k_independence_number_ge_two_mul_k_sub_two",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For a finite chain graph G with bipartition (A, V \\ A) and k ≥ 1, if both sides have at least k - 1 vertices then 2k - 2 ≤ β_k(G).",
+   "statement": "theorem chain_graph_k_independence_number_ge_two_mul_k_sub_two {V : Type*} [Fintype V] [DecidableEq V]\n    (G : SimpleGraph V) (A : Set V) (hG : simple_graph_is_chain_graph G A) (k : ℕ)\n    (hk : 1 ≤ k) (hA : k - 1 ≤ A.ncard) (hB : k - 1 ≤ Aᶜ.ncard) :\n    2 * k - 2 ≤ simple_graph_k_independence_number G k",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586584
+  },
+  {
+   "name": "chain_graph_minimal_k_star_forming_card_le_k_independence_number",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For a finite chain graph G with bipartition (A, V \\ A), k ≥ 3, and every minimal k-star-forming set S, we have |S| ≤ β_k(G).",
+   "statement": "theorem chain_graph_minimal_k_star_forming_card_le_k_independence_number {V : Type*} [Fintype V]\n    (G : SimpleGraph V) (A : Set V) (hG : simple_graph_is_chain_graph G A) (k : ℕ) (hk : 3 ≤ k)\n    (S : Finset V) (hS : simple_graph_is_minimal_k_star_forming G k S) :\n    S.card ≤ simple_graph_k_independence_number G k",
+   "attempts": 0,
+   "deps": [
+    "chain_graph_card_le_k_independence_number_of_card_le_max_part",
+    "chain_graph_balanced_minimal_k_star_forming_card_le_k_independence_number"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586692
+  },
+  {
+   "name": "chain_graph_parts_edge_free",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "In a chain graph with bipartition (A, V \\ A) no edge joins two vertices of A, and no edge joins two vertices outside A.",
+   "statement": "theorem chain_graph_parts_edge_free {V : Type*} (G : SimpleGraph V) (A : Set V)\n    (hG : simple_graph_is_chain_graph G A) :\n    (∀ u ∈ A, ∀ v ∈ A, ¬ G.Adj u v) ∧ (∀ u, u ∉ A → ∀ v, v ∉ A → ¬ G.Adj u v)",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586533
   },
   {
    "name": "cubic_paley_graph_achromatic_number_eventually_eq",
@@ -697247,6 +697546,21 @@
    "provenance": "original",
    "citation": "arXiv:2610.14241 (Restricting odd antiholes in critical graphs via list coloring), Conjecture 9 (open for ℓ ≥ 5; the paper notes that ℓ = 5 is the first case with new consequences: with its Theorem 10 it gives Conjecture 3 whenever k = Δ - 1, in particular for (k, Δ) = (7, 8), the first open case). Theorem 8 proves the case where all lists lie in a common ℓ-set",
    "created": 1792306504
+  },
+  {
+   "name": "cycle_of_reachable_neighbors",
+   "kind": "lemma",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "If two distinct neighbors u and w of a vertex v in a simple graph G are reachable from each other in the induced subgraph G - v obtained by deleting v, then there exists a cycle in G from v to v.",
+   "statement": "lemma cycle_of_reachable_neighbors {V : Type*} (G : SimpleGraph V) (v u w : V)\n    (huv : G.Adj v u) (hvw : G.Adj v w) (hne : u ≠ w)\n    (hreach : (G.induce ({v}ᶜ : Set V)).Reachable ⟨u, (G.ne_of_adj huv).symm⟩ ⟨w, (G.ne_of_adj hvw).symm⟩) :\n    ∃ (p : G.Walk v v), p.IsCycle",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.26912: Theorem 2.22 -- Vertex Removal and Vertex-Edge Domination",
+   "created": 1792589251
   },
   {
    "name": "digraph_exists_bipartition_both_cuts_ge_ceil_div_six",
@@ -698385,12 +698699,12 @@
   {
    "name": "simple_graph_clique_four_glued_clique_connected_card_and_sum",
    "kind": "theorem",
-   "status": "stated",
+   "status": "proving",
    "topic": "graphs",
    "domain": "tcs",
    "informal": "For n ≥ 7, the number of subsets of Fin n that induce a connected subgraph in simple_graph_clique_four_glued_clique n is 2^(n-4) + 2^(n-1) + 6, and the sum of their cardinalities is 12 + (n-4)*2^(n-5) + 2^(n-1) + (n-1)*2^(n-2).",
    "statement": "theorem simple_graph_clique_four_glued_clique_connected_card_and_sum (n : ℕ) (hn : 7 ≤ n) :\n    let G := simple_graph_clique_four_glued_clique n\n    haveI : DecidableRel G.Adj := Classical.decRel _\n    haveI : ∀ S : Finset (Fin n), Decidable (G.induce (S : Set (Fin n))).Connected := fun _ => Classical.dec _\n    (Finset.univ.filter (fun S : Finset (Fin n) => (G.induce (S : Set (Fin n))).Connected)).card =\n      2 ^ (n - 4) + 2 ^ (n - 1) + 6 ∧\n    (Finset.univ.filter (fun S : Finset (Fin n) => (G.induce (S : Set (Fin n))).Connected)).sum Finset.card =\n      12 + (n - 4) * 2 ^ (n - 5) + 2 ^ (n - 1) + (n - 1) * 2 ^ (n - 2)",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [],
    "problem": null,
    "provenance": "lemma",
@@ -698433,6 +698747,21 @@
    "provenance": "lemma",
    "citation": "step towards regular_eight_triangle_distinct_witness",
    "created": 1792544110
+  },
+  {
+   "name": "simple_graph_is_minimal_k_star_forming_iff_erase",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "A k-star-forming set S is minimal if and only if S is k-star-forming and, for every u in S, S with u deleted is not k-star-forming.",
+   "statement": "theorem simple_graph_is_minimal_k_star_forming_iff_erase {V : Type*} [DecidableEq V]\n    (G : SimpleGraph V) (k : ℕ) (S : Finset V) :\n    simple_graph_is_minimal_k_star_forming G k S ↔\n      simple_graph_is_k_star_forming G k S ∧\n        ∀ u ∈ S, ¬ simple_graph_is_k_star_forming G k (S.erase u)",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586617
   },
   {
    "name": "simple_graph_is_tree_all_stackable_of_tree_estimate",
@@ -698632,6 +698961,21 @@
    "created": 1791531950
   },
   {
+   "name": "simple_graph_minimal_k_star_forming_exists_private_witness",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "Let S be a minimal k-star-forming set, k ≥ 1, and u ∈ S a vertex with at least k neighbours in S (so u cannot itself witness the failure of S \\ {u} being k-star-forming). Then some vertex z outside S has fewer than k neighbours in S \\ {u} and is adjacent to no vertex w of S \\ {u} that has at least k - 1 neighbours in S \\ {u}.",
+   "statement": "theorem simple_graph_minimal_k_star_forming_exists_private_witness {V : Type*} [DecidableEq V]\n    (G : SimpleGraph V) [DecidableRel G.Adj] (k : ℕ) (hk : 1 ≤ k) (S : Finset V)\n    (hS : simple_graph_is_minimal_k_star_forming G k S) (u : V) (hu : u ∈ S)\n    (hdeg : k ≤ (S.filter (G.Adj u)).card) :\n    ∃ z, z ∉ S ∧ ((S.erase u).filter (G.Adj z)).card < k ∧\n      ∀ w ∈ S.erase u, G.Adj z w → ((S.erase u).filter (G.Adj w)).card < k - 1",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586634
+  },
+  {
    "name": "simple_graph_multi_radio_number_path_eventually",
    "kind": "theorem",
    "status": "stated",
@@ -698703,17 +699047,60 @@
    "created": 1792504185
   },
   {
+   "name": "simple_graph_triangle_cover_number_delete_edge_le",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "Deleting an edge e from G decreases the triangle cover number by at most 1: τ(G) ≤ τ(G \\ {e}) + 1.",
+   "statement": "theorem simple_graph_triangle_cover_number_delete_edge_le {V : Type*} [Fintype V]\n    (G : SimpleGraph V) (e : Sym2 V) (he : e ∈ G.edgeSet) :\n    simple_graph_triangle_cover_number G ≤ simple_graph_triangle_cover_number (G.deleteEdges {e}) + 1",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_triangle_cover_number",
+    "simple_graph_triangle_cover_number_eq_zero_of_clique_free"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards simple_graph_triangle_cover_number_le_two_mul_packing_number",
+   "created": 1792586776
+  },
+  {
+   "name": "simple_graph_triangle_cover_number_eq_zero_of_packing_number_eq_zero",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "If a finite graph has packing number 0, then its triangle cover number is 0.",
+   "statement": "theorem simple_graph_triangle_cover_number_eq_zero_of_packing_number_eq_zero\n    {V : Type*} [Fintype V] [DecidableEq V] (G : SimpleGraph V)\n    (h : simple_graph_triangle_packing_number G = 0) :\n    simple_graph_triangle_cover_number G = 0",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_triangle_cover_number",
+    "simple_graph_triangle_packing_number",
+    "simple_graph_triangle_cover_number_le_three_mul_packing_number"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards simple_graph_triangle_cover_number_le_two_mul_packing_number",
+   "created": 1792586718
+  },
+  {
    "name": "simple_graph_triangle_cover_number_le_two_mul_packing_number",
    "kind": "theorem",
-   "status": "stuck",
+   "status": "stated",
    "topic": "graphs",
    "domain": "tcs",
    "informal": "Tuza's conjecture: every finite simple graph G satisfies τ(G) ≤ 2ν(G).",
    "statement": "theorem simple_graph_triangle_cover_number_le_two_mul_packing_number :\n    ∀ (n : ℕ) (G : SimpleGraph (Fin n)),\n      simple_graph_triangle_cover_number G ≤ 2 * simple_graph_triangle_packing_number G",
-   "attempts": 1,
+   "attempts": 0,
    "deps": [
     "simple_graph_triangle_cover_number",
-    "simple_graph_triangle_packing_number"
+    "simple_graph_triangle_packing_number",
+    "simple_graph_triangle_cover_number_eq_zero_of_packing_number_eq_zero",
+    "simple_graph_triangle_packing_number_mono",
+    "simple_graph_triangle_cover_number_mono",
+    "simple_graph_triangle_cover_number_delete_edge_le",
+    "simple_graph_triangle_packing_number_le_delete_edge_add_one",
+    "simple_graph_triangle_cover_number_le_two_of_packing_number_le_one"
    ],
    "problem": null,
    "provenance": "original",
@@ -698721,40 +699108,90 @@
    "created": 1791978953
   },
   {
-   "name": "simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_eleven",
+   "name": "simple_graph_triangle_cover_number_le_two_of_packing_number_le_one",
    "kind": "theorem",
    "status": "stated",
    "topic": "graphs",
    "domain": "tcs",
-   "informal": "Tuza's conjecture for graphs of maximum degree at most 11: every finite simple graph G with Δ(G) ≤ 11 satisfies τ(G) ≤ 2ν(G).",
-   "statement": "theorem simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_eleven :\n    ∀ (n : ℕ) (G : SimpleGraph (Fin n)) [DecidableRel G.Adj], (∀ v, G.degree v ≤ 11) →\n      simple_graph_triangle_cover_number G ≤ 2 * simple_graph_triangle_packing_number G",
+   "informal": "Tuza's conjecture holds for graphs with packing number at most 1: if ν(G) ≤ 1, then τ(G) ≤ 2.",
+   "statement": "theorem simple_graph_triangle_cover_number_le_two_of_packing_number_le_one {V : Type*} [Fintype V] [DecidableEq V]\n    (G : SimpleGraph V) (h : simple_graph_triangle_packing_number G ≤ 1) :\n    simple_graph_triangle_cover_number G ≤ 2",
    "attempts": 0,
    "deps": [
-    "simple_graph_triangle_cover_number",
-    "simple_graph_triangle_packing_number"
+    "simple_graph_triangle_cover_number_eq_zero_of_packing_number_eq_zero"
    ],
    "problem": null,
-   "provenance": "original",
-   "citation": "arXiv:2610.15269 (Tuza's Conjecture for Graphs of Maximum Degree at Most 10), Sec. 6: the next case after the paper's Theorem 1.1 (Δ ≤ 10).",
-   "created": 1791979217
+   "provenance": "lemma",
+   "citation": "step towards simple_graph_triangle_cover_number_le_two_mul_packing_number",
+   "created": 1792586814
   },
   {
-   "name": "simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_ten",
+   "name": "simple_graph_triangle_cover_number_mono",
    "kind": "theorem",
    "status": "stated",
    "topic": "graphs",
    "domain": "tcs",
-   "informal": "Every finite simple graph G with maximum degree at most 10 satisfies τ(G) ≤ 2ν(G).",
-   "statement": "theorem simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_ten :\n    ∀ (n : ℕ) (G : SimpleGraph (Fin n)) [DecidableRel G.Adj], (∀ v, G.degree v ≤ 10) →\n      simple_graph_triangle_cover_number G ≤ 2 * simple_graph_triangle_packing_number G",
+   "informal": "Triangle cover number is monotone under subgraph inclusion: if H ≤ G, then τ(H) ≤ τ(G).",
+   "statement": "theorem simple_graph_triangle_cover_number_mono {V : Type*} [Fintype V]\n    (G H : SimpleGraph V) (hle : H ≤ G) :\n    simple_graph_triangle_cover_number H ≤ simple_graph_triangle_cover_number G",
    "attempts": 0,
    "deps": [
     "simple_graph_triangle_cover_number",
-    "simple_graph_triangle_packing_number"
+    "simple_graph_triangle_cover_number_eq_zero_of_clique_free"
    ],
    "problem": null,
-   "provenance": "literature",
-   "citation": "arXiv:2610.15269 (Tuza's Conjecture for Graphs of Maximum Degree at Most 10), Theorem 1.1; a special case of OP-207 and the base for OP-209.",
-   "created": 1791979223
+   "provenance": "lemma",
+   "citation": "step towards simple_graph_triangle_cover_number_le_two_mul_packing_number",
+   "created": 1792586759
+  },
+  {
+   "name": "simple_graph_triangle_packing_number_le_delete_edge_add_one",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "Deleting an edge e from G decreases the triangle packing number by at most 1: ν(G) ≤ ν(G \\ {e}) + 1.",
+   "statement": "theorem simple_graph_triangle_packing_number_le_delete_edge_add_one {V : Type*} [Fintype V] [DecidableEq V]\n    (G : SimpleGraph V) (e : Sym2 V) (he : e ∈ G.edgeSet) :\n    simple_graph_triangle_packing_number G ≤ simple_graph_triangle_packing_number (G.deleteEdges {e}) + 1",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_triangle_packing_number",
+    "simple_graph_triangle_packing_number_eq_zero_of_clique_free"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards simple_graph_triangle_cover_number_le_two_mul_packing_number",
+   "created": 1792586794
+  },
+  {
+   "name": "simple_graph_triangle_packing_number_mono",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "Triangle packing number is monotone under subgraph inclusion: if H ≤ G, then ν(H) ≤ ν(G).",
+   "statement": "theorem simple_graph_triangle_packing_number_mono {V : Type*} [Fintype V] [DecidableEq V]\n    (G H : SimpleGraph V) (hle : H ≤ G) :\n    simple_graph_triangle_packing_number H ≤ simple_graph_triangle_packing_number G",
+   "attempts": 0,
+   "deps": [
+    "simple_graph_triangle_packing_number",
+    "simple_graph_triangle_packing_number_eq_zero_of_clique_free"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards simple_graph_triangle_cover_number_le_two_mul_packing_number",
+   "created": 1792586742
+  },
+  {
+   "name": "simple_graph_upper_k_star_forming_le_k_independence_number_of_minimal_bound",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "If every minimal k-star-forming vertex set of G has cardinality at most β_k(G), then SF_k(G) ≤ β_k(G).",
+   "statement": "theorem simple_graph_upper_k_star_forming_le_k_independence_number_of_minimal_bound {V : Type*}\n    (G : SimpleGraph V) (k : ℕ)\n    (h : ∀ S : Finset V, simple_graph_is_minimal_k_star_forming G k S →\n      S.card ≤ simple_graph_k_independence_number G k) :\n    simple_graph_upper_k_star_forming_number G k ≤ simple_graph_k_independence_number G k",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards chain_graph_k_independence_number_eq_upper_k_star_forming_number",
+   "created": 1792586651
   },
   {
    "name": "subcubic_connected_ne_complete_four_exists_rich_neighbor_five_coloring",
@@ -699091,6 +699528,23 @@
    "provenance": "literature",
    "citation": "arXiv:2610.15539 (Tuza's conjecture under an edge-count condition), Proposition 1.2.",
    "created": 1791979253
+  },
+  {
+   "name": "unreachable_neighbors_of_no_cycle",
+   "kind": "lemma",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "If a vertex v in a simple graph G does not lie on any cycle from v to v, then any two distinct neighbors u and w of v are not reachable from each other in the induced subgraph G - v obtained by deleting v.",
+   "statement": "lemma unreachable_neighbors_of_no_cycle {V : Type*} (G : SimpleGraph V) (v : V)\n    (hno : ¬ ∃ (p : G.Walk v v), p.IsCycle) (u w : V) (hu : G.Adj v u) (hw : G.Adj v w) (hne : u ≠ w) :\n    ¬ (G.induce ({v}ᶜ : Set V)).Reachable ⟨u, (G.ne_of_adj hu).symm⟩ ⟨w, (G.ne_of_adj hw).symm⟩",
+   "attempts": 0,
+   "deps": [
+    "cycle_of_reachable_neighbors"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "arXiv:2610.26912: Theorem 2.22 -- Vertex Removal and Vertex-Edge Domination",
+   "created": 1792589579
   },
   {
    "name": "wild_number_complete_graph_min_proper_coloring_eq",
@@ -703113,7 +703567,7 @@
    "ref": "OP-203",
    "title": "Permutation property of greedy difference sequences with arbitrary initial terms",
    "statement": "Let $a_1, a_2$ be distinct positive integers. Define a sequence $(a_n)_{n \\ge 1}$ of positive integers recursively: for each $n \\ge 2$, let $a_{n+1}$ be the least positive integer not in $\\{a_1, \\dots, a_n\\}$ such that $|a_{n+1} - a_n| \\notin \\{|a_k - a_{k-1}| : 2 \\le k \\le n\\}$. Is $(a_n)_{n \\ge 1}$ a permutation of the positive integers for every choice of distinct initial terms $a_1, a_2$?",
-   "status": "formalized",
+   "status": "settled_in_lean",
    "topic": "combinatorics",
    "domain": "tcs",
    "source": "arXiv:2610.15860",
@@ -703184,10 +703638,6 @@
     {
      "node": "simple_graph_triangle_cover_number_le_three_mul_packing_number",
      "role": "partial"
-    },
-    {
-     "node": "simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_ten",
-     "role": "partial"
     }
    ],
    "added": 1791951789
@@ -703197,19 +703647,14 @@
    "ref": "OP-209",
    "title": "Tuza's conjecture for graphs of maximum degree at most 11",
    "statement": "Let $G = (V, E)$ be a finite simple graph with maximum degree $\\Delta(G) \\le 11$. Let $\\nu(G)$ denote the maximum number of pairwise edge-disjoint triangles in $G$, and let $\\tau(G)$ denote the minimum size of an edge set $T \\subseteq E$ such that every triangle in $G$ contains at least one edge in $T$ (i.e., $G - T$ is triangle-free). Does every such graph satisfy $\\tau(G) \\le 2\\nu(G)$?",
-   "status": "formalized",
+   "status": "open",
    "topic": "graphs",
    "domain": "tcs",
    "source": "arXiv:2610.15269",
    "source_title": "Tuza's Conjecture for Graphs of Maximum Degree at Most 10",
    "location": "Sec. 6",
    "rationale": "The paper settles Tuza's conjecture for graphs of maximum degree at most 10, leaving the case Delta = 11 as the immediate open degree threshold.",
-   "links": [
-    {
-     "node": "simple_graph_triangle_cover_number_le_two_mul_packing_number_of_max_degree_le_eleven",
-     "role": "statement"
-    }
-   ],
+   "links": [],
    "added": 1791951968
   },
   {

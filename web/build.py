@@ -477,6 +477,7 @@ NAV = [
     ("blog/", "Research Blogs"),
     ("reports/", "Summary Reports"),
     ("problems/", "Open Problems"),
+    ("status/", "Status"),
 ]
 
 
@@ -568,6 +569,7 @@ def page(
       <a href="{root}index.html#news">News</a>
       <a href="{root}reports/">Summary Reports</a>
       <a href="{root}chat/">Chat with Knowledgebase</a>
+      <a href="{root}status/">Status: what AFTD is doing now</a>
       <a href="{root}problems/#submit">Submit a problem</a>
     </div>
     <div class="foot-col">
@@ -2598,6 +2600,63 @@ def chat_data(s: Site) -> tuple[dict, dict]:
     return index, detail
 
 
+def render_status(s: Site) -> str:
+    """What the agent is doing now. The page is static; the reader's browser
+    reads the status file the scheduler lane pushes every few minutes to the
+    repository's `status` branch (aftd/status.py), and draws a light for each
+    lane. The file names no declaration and no cost."""
+    root = "../"
+    url = f"https://raw.githubusercontent.com/{s.cfg['repo']}/status/status.json"
+    body = f"""
+<header class="phead">
+  <p class="eyebrow">Live</p>
+  <h1>What AFTD is doing now</h1>
+  <p class="lead full">AFTD is not a program that runs once and stops. Several lanes
+  work side by side, all day: one states the problems of new papers in Lean, others
+  prove, a frontier agent takes what is too hard for them, and a clock with no model
+  starts the readings and the daily release. Each light below is one of them. The page
+  refreshes itself every few minutes; nothing here is a result until Lean has checked
+  it and the day is released at 20:00 Beijing time.</p>
+</header>
+<section class="st" id="st" data-src="{e(url)}" aria-live="polite">
+  <p class="st-upd small" id="st-upd">Loading the latest status&hellip;</p>
+  <div class="st-legend small">
+    <span><i class="dot working"></i> working</span>
+    <span><i class="dot waiting"></i> waiting: alive, nothing it may do now</span>
+    <span><i class="dot stopped"></i> stopped</span>
+    <span><i class="dot off"></i> off: outside its hours</span>
+  </div>
+  <div class="lanes" id="st-lanes"></div>
+  <p class="st-today small" id="st-today"></p>
+</section>
+<section class="st-how">
+  <h2 class="st-h">How a day goes</h2>
+  <ol class="st-steps">
+    <li><strong>All day.</strong> The proving lanes take the statement that brings the most
+    valuable open goal closest to done; what fails is split into lemmas. The formalizing
+    lane states the open problems and results of new papers in Lean; a statement enters
+    only if Lean accepts it and two independent readings agree it says what the paper says.</li>
+    <li><strong>10:30 and 12:30.</strong> The day&rsquo;s new papers are read: the problems
+    they leave open and the results they prove join the <a href="{root}problems/">open-problem
+    list</a>, each quoting its paper.</li>
+    <li><strong>In daytime sessions.</strong> What is too hard for the lanes is handed up to
+    the frontier agent, with what was tried. It works that inbox most valuable item first,
+    reviews every <a href="{root}blog/">research blog</a> post, and poses questions of its
+    own. What it cannot do either it returns with its reasons, and the lanes try again two
+    weeks later.</li>
+    <li><strong>20:00.</strong> The day is released by code, waiting for no lane: news, the
+    updated <a href="{root}knowledgebase/">knowledgebase</a>, explanations. Only what Lean
+    has checked is published, and anyone can rebuild it.</li>
+  </ol>
+</section>
+<noscript><p class="note">The lights need JavaScript; the status file is
+<a href="{e(url)}">here</a>.</p></noscript>
+"""
+    return (page(s, title="Status", root=root, active="status/", body=body,
+                 description="What AFTD's lanes are doing now, live.")
+            .replace("</body>", f'<script src="{root}static/status.js"></script>\n</body>'))
+
+
 def render_chat(s: Site) -> str:
     root = "../"
     t = s.kb["totals"]
@@ -2726,6 +2785,7 @@ def build(
             if r.get("zh"):
                 write(f"{P['dir']}/{r['week']}/zh/index.html", render_weekly_zh(s, i, period))
     write("chat/index.html", render_chat(s))
+    write("status/index.html", render_status(s))
     index, detail = chat_data(s)
     write(CHAT_INDEX, json.dumps(index, ensure_ascii=False, separators=(",", ":")))
     write(CHAT_DETAIL, json.dumps(detail, ensure_ascii=False, separators=(",", ":")))

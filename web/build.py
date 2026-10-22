@@ -2620,6 +2620,7 @@ def render_status(s: Site) -> str:
 </header>
 <section class="st" id="st" data-src="{e(url)}" aria-live="polite">
   <p class="st-upd small" id="st-upd">Loading the latest status&hellip;</p>
+  <div class="st-today" id="st-today"></div>
   <div class="st-legend small">
     <span><i class="dot working"></i> working</span>
     <span><i class="dot waiting"></i> waiting: alive, nothing it may do now</span>
@@ -2627,7 +2628,6 @@ def render_status(s: Site) -> str:
     <span><i class="dot off"></i> off: outside its hours</span>
   </div>
   <div class="lanes" id="st-lanes"></div>
-  <p class="st-today small" id="st-today"></p>
 </section>
 <section class="st-how">
   <h2 class="st-h">How a day goes</h2>

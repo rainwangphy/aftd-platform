@@ -76,11 +76,17 @@
       new Date(d.day + "T12:00:00+08:00").toLocaleDateString("en-GB",
         {weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Shanghai"});
     const t = d.today || {};
+    // Since the release, as cards: one number each, read at a glance.
+    const card = (n, k, cls, sub) => `<div class="st-card ${cls}"><span class="v">${n ?? 0}</span>
+      <span class="k">${k}</span>${sub ? `<span class="s">${sub}</span>` : ""}</div>`;
     document.getElementById("st-today").innerHTML =
-      `Since the last release: <b>${t.proved ?? 0}</b> statements proved, <b>${t.stated ?? 0}</b> new statements in Lean,
-       <b>${t.problems ?? 0}</b> open problems and <b>${t.results ?? 0}</b> results read from new papers;
-       <b>${t.handed_up ?? 0}</b> tasks handed up to the frontier agent, <b>${t.closed ?? 0}</b> closed by it,
-       <b>${t.inbox_waiting ?? 0}</b> waiting in its inbox.`;
+      `<p class="st-cap">Since the last release</p><div class="st-cards">
+       ${card(t.proved, "statements proved", "proved")}
+       ${card(t.stated, "new statements in Lean", "stated")}
+       ${card(t.problems, "open problems read", "read")}
+       ${card(t.results, "results read", "read")}
+       ${card(t.handed_up, "handed to the frontier agent", "up", `<b>${t.closed ?? 0}</b> closed by it`)}
+       ${card(t.inbox_waiting, "waiting in its inbox", t.inbox_waiting ? "wait" : "")}</div>`;
   }
 
   function load() {

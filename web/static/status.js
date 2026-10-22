@@ -51,10 +51,8 @@
         extra = `<span class="ln-plan" style="left:${pct(a)};width:${pct(d.cc_hours[1] - a)}" title="its hours"></span>`;
       }
       return `<div class="ln-row st-${st}">
-        <div class="ln-head"><p class="ln-name"><i class="dot ${st}"></i>${esc(l.name)}
-          <span class="st-word">${WORD[st] || st}</span></p>
-          <p class="ln-doing">${esc(l.doing)}</p>
-          <p class="ln-role small">${esc(l.role)}</p></div>
+        <div class="ln-head" title="${esc(l.role)}"><p class="ln-name"><i class="dot ${st}"></i>${esc(l.name)}
+          <span class="ln-doing">${esc(l.doing)}</span></p></div>
         ${track(l.track, now, extra)}</div>`;
     });
     // Under each mark its time; a mark close to the one before drops its time
@@ -67,10 +65,8 @@
       return `<span class="ln-mark ${e.kind === "next" ? "next" : "done"} ${kind}${low ? " low" : ""}${e.min >= DAY ? " last" : ""}${e.min < 30 ? " first" : ""}"
         style="left:${pct(e.min)}" title="${esc(e.label)} at ${clock(d.start, e.min)}"><b>${clock(d.start, e.min)}</b></span>`;
     }).join("");
-    const sched = `<div class="ln-row ln-sched"><div class="ln-head"><p class="ln-name">Readings and release</p>
-      <p class="ln-role small"><i class="ln-key read"></i> reading, <i class="ln-key rel"></i> release;
-      filled when done. The day's new papers are read at ${(d.schedule || []).filter((x) => x.what.startsWith("Reading")).map((x) => x.at).join(" and ")};
-      the day is released at ${esc(d.release_at)}, waiting for no lane.</p></div>
+    const sched = `<div class="ln-row ln-sched"><div class="ln-head"><p class="ln-name">Schedule
+      <span class="ln-doing"><i class="ln-key read"></i>reading <i class="ln-key rel"></i>release</span></p></div>
       <div class="ln-track ln-marks">${marks}<span class="ln-now" style="left:${pct(now)}"></span></div></div>`;
     document.getElementById("st-lanes").innerHTML = axis(d) + rows.join("") + sched;
     document.getElementById("st-day").textContent = "· " +

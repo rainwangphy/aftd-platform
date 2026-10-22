@@ -361,6 +361,13 @@ def main() -> int:
               "OP-7" in lit and "LIT-WHY" in lit and 'id="literature"' not in probs)
         check("a listed problem links its arXiv source",
               'href="https://arxiv.org/abs/2208.08782"' in lit)
+        import literature
+        mine = literature.card(dict(data["literature"][0], origin="proposed", location="after Thm 2"),
+                               "", lambda _: None)
+        check("a question proposed here does not say the paper poses it",
+              "Posed in" in lit and "Posed in" not in mine and "Proposed here, building on" in mine
+              and "Thm 2" in mine and "after Thm 2" not in mine
+              and "proposed here" in literature.cite(dict(data["literature"][0], origin="proposed")))
         check("a listed problem links a verified declaration, and names an unproved one unlinked",
               'href="../d/answer_ten/"' in lit and "<code>machine_open</code>" in lit)
         check("the counts returned match",

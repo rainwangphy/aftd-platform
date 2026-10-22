@@ -8,7 +8,7 @@ import AFTD.Kb.Tcs.PowerDivergenceQuarterRootBounds
 
 Topic: information   Node: 6d090fcba3da
 
-Provenance: original. Related work: arXiv:2610.21231 (On the subadditivity of mutual f-information), question after Theorem 1 (does subadditivity hold for the power divergences with β ∈ (0, 1)?), answered in the negative at β = 1/4.
+Provenance: original. Related work: List entry OP-332, a question proposed here from arXiv:2610.21231 (On the subadditivity of mutual f-information), Theorem 1; the paper does not discuss the power divergences with β ∈ (0, 1). Answered in the negative at β = 1/4.
 
 Subadditivity fails for the power divergence with β = 1/4: there are random variables X, Y, Z on three-element alphabets with Y ← X → Z (p_{XYZ} = p_X p_{Y|X} p_{Z|X}) and Ĩ_{f_{1/4}}(X; YZ) > Ĩ_{f_{1/4}}(X; Y) + Ĩ_{f_{1/4}}(X; Z). Instance: X uniform on Z/3, P(Y = x + 1 | x) = 4/5 and P(Z = −x | x) = 4/5, the other values 1/10.
 -/

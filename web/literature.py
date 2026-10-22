@@ -43,9 +43,27 @@ def source_html(src: str) -> str:
     return "".join(out)
 
 
+def _base(p: dict) -> str:
+    """The paper and the place in it. For an entry proposed here the place is
+    the result it builds on: "after Theorem 1" becomes "Theorem 1"."""
+    at = (p.get("location") or "").strip()
+    if p.get("origin") == "proposed":
+        at = re.sub(r"^(after|following)\s+", "", at, flags=re.I)
+    return ", ".join(x for x in (p.get("source"), at) if x)
+
+
+def cite(p: dict) -> str:
+    """Where an entry comes from (OpenProblem.cite): one proposed here names
+    the result it builds on, and says the paper does not ask it."""
+    if p.get("origin") != "proposed":
+        return _base(p)
+    return f"proposed here, building on {_base(p)}; the paper does not ask it" if _base(p) \
+        else "proposed here"
+
+
 def card(p: dict, badges: str, decl_href: Callable[[str], str | None]) -> str:
     """One entry; `badges` is the status and topic, rendered by the caller."""
-    src = ", ".join(x for x in (p.get("source"), p.get("location")) if x)
+    proposed, src = p.get("origin") == "proposed", _base(p)
     parts = [
         f'<article class="card problem lit" id="{e(p["ref"])}">'
         f'<div class="card-top"><span class="ptitle"><span class="num">{e(p["ref"])}</span> '
@@ -54,7 +72,9 @@ def card(p: dict, badges: str, decl_href: Callable[[str], str | None]) -> str:
     ]
     if src:
         title = f' — <em>{e(p["source_title"])}</em>' if p.get("source_title") else ""
-        parts.append(f'<p class="small">Posed in {source_html(src)}{title}</p>')
+        parts.append(f'<p class="small">Proposed here, building on {source_html(src)}{title}; '
+                     'the paper does not ask it</p>' if proposed else
+                     f'<p class="small">Posed in {source_html(src)}{title}</p>')
     if p.get("status") == "reported_solved":
         parts.append('<p class="small">Reported solved in the literature; not yet checked in Lean.</p>')
     if p.get("rationale"):

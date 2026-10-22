@@ -2550,7 +2550,7 @@ def chat_data(s: Site) -> tuple[dict, dict]:
             "domain": s.domain_title(p.get("domain") or ""),
             "topic": s.topic_title(p.get("topic") or ""),
             "statement": p.get("statement") or "",
-            "source": ", ".join(x for x in (p.get("source"), p.get("location")) if x),
+            "source": literature.cite(p),
             "source_title": p.get("source_title") or "",
             "known": p.get("rationale") or "",
             "lean": [{"name": l["node"], "role": l["role"]} for l in p.get("links") or []],

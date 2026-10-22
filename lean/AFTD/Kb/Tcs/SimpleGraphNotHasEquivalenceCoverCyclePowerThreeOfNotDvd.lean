@@ -9,7 +9,7 @@ import AFTD.Kb.Tcs.SimpleGraphCyclePowerThreeCoverThreeTightDvd
 
 Topic: combinatorics   Node: 3266acfef1d9
 
-Provenance: original. Related work: arXiv:2610.15635 (Covering powers of cycles with equivalence subgraphs): Theorem 3.4 gives eq(C_n^k) ≥ 2 + ⌈log₂(k+1)⌉ only for odd n when k + 1 is a power of two; the case n ≡ 2 (mod 4), k = 3 is the smallest instance the paper leaves open. Transfer-matrix computation: experiment 712.
+Provenance: original. Related work: arXiv:2610.15635 (Covering powers of cycles with equivalence subgraphs): Theorem 3.4 gives eq(C_n^k) ≥ 2 + ⌈log₂(k+1)⌉ only for odd n when k + 1 is a power of two; the case n ≡ 2 (mod 4), k = 3 is the smallest instance the paper's theorems do not cover. Transfer-matrix computation: experiment 712.
 
 For every n ≥ 10 not divisible by 4, the cube C_n^3 of the n-cycle cannot be covered by 3 equivalence subgraphs; with the lower bound eq ≥ 3 this gives eq(C_n^3) ≥ 4 = 2 + ⌈log₂ 4⌉, the k = 3 case of the lower bound in the open problem (and of Theorem 3.4 for odd n), for all even n ≡ 2 (mod 4) as well.
 -/

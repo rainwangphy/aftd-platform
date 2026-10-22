@@ -8,7 +8,7 @@ import AFTD.Kb.Tcs.GreedyDistinctDiffHistory
 
 Topic: combinatorics   Node: c9f7cf09d0a0
 
-Provenance: original. Related work: arXiv:2610.15860 (A note on the Slater–Vélez permutation): the 1977 paper it cites proves this for a₁ = 1, a₂ = 2; the question for arbitrary starting terms is raised after Theorem 1. A computation of the first 3000 terms for every start with a₁, a₂ ≤ 12 found every integer up to at least 1660 among them.
+Provenance: original. Related work: List entry OP-203, a question proposed here from arXiv:2610.15860 (A note on the Slater–Vélez permutation), which works with the start a₁ = 1, a₂ = 2, for which Slater and Vélez (1977) proved the sequence is a permutation; the paper does not ask about other starts.
 
 Conjecture: for any distinct positive integers a₁, a₂, the greedy sequence with distinct consecutive differences started at a₁, a₂ takes every positive integer as a value (it is a permutation of the positive integers).
 -/

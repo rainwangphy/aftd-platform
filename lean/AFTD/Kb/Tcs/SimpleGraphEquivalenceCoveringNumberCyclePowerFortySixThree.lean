@@ -10,7 +10,7 @@ import AFTD.Kb.Tcs.SimpleGraphNotHasEquivalenceCoverCyclePowerThreeOfNotDvd
 
 Topic: combinatorics   Node: 6b0f762d85fe
 
-Provenance: original. Related work: arXiv:2610.15635 (Covering powers of cycles with equivalence subgraphs): the smallest instance (k = 3, n = 46) of the case Theorems 1.3 and 1.4 leave open; Theorem 1.4 does not apply below n = 164, so only 3 ≤ eq ≤ 5 is known. SAT search: experiment 708.
+Provenance: original. Related work: arXiv:2610.15635 (Covering powers of cycles with equivalence subgraphs): the smallest instance (k = 3, n = 46) of the case Theorems 1.3 and 1.4 do not cover; Theorem 1.4 does not apply below n = 164, so only 3 ≤ eq ≤ 5 is known. SAT search: experiment 708.
 
 eq(C_46^3) = 4: the smallest case of the open problem (k = 3, n = 46 even, 4 ∤ 46, 46 ≥ 45), where the paper only knows eq ∈ {3, 4, 5}.
 -/

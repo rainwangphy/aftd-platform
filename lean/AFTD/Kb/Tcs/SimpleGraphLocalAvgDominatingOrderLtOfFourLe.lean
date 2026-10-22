@@ -7,7 +7,7 @@ import AFTD.Kb.Tcs.SimpleGraphDominatingSetsContaining
 
 Topic: graphs   Node: 35ee92aeefc5
 
-Provenance: original. Related work: arXiv:2610.11446 (On the local average order of dominating sets), list entry OP-135 (sharpness of the bound (5n−1)/6 of Theorem 3.8 for n ≥ 4); the negation of sharpness. It follows from the conjectured bound (2n+1)/3 (simple_graph_local_avg_dominating_order_le_two_mul_add_one_div_three), which is below (5n−1)/6 for n ≥ 4.
+Provenance: original. Related work: arXiv:2610.11446 (On the local average order of dominating sets), list entry OP-135 (sharpness of the bound (5n−1)/6 of Theorem 3.8 for n ≥ 4); the negation of sharpness. It follows from the bound (2n+1)/3 conjectured here (simple_graph_local_avg_dominating_order_le_two_mul_add_one_div_three), which is below (5n−1)/6 for n ≥ 4.
 
 For n ≥ 4 the upper bound (5n−1)/6 is never attained: if G has order n ≥ 4 and no isolated vertices, then avd_v(G) < (5n−1)/6 for every vertex v.
 -/

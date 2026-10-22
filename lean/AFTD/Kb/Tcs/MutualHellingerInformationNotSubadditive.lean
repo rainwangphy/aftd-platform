@@ -8,7 +8,7 @@ import AFTD.Kb.Tcs.PowerDivergenceHalfRootBounds
 
 Topic: information   Node: c2bbaa1b6710
 
-Provenance: original. Related work: arXiv:2610.21231 (On the subadditivity of mutual f-information), question after Theorem 1: "in particular, does subadditivity hold for the Hellinger case β = 1/2?" Answered in the negative.
+Provenance: original. Related work: List entry OP-332, a question proposed here from arXiv:2610.21231 (On the subadditivity of mutual f-information), Theorem 1 (a sufficient condition for subadditivity, toward the open question of Polyanskiy and Wu on further subadditive examples); the paper does not discuss the Hellinger case. Answered in the negative at β = 1/2.
 
 Subadditivity fails in the Hellinger case β = 1/2: there are binary random variables X, Y, Z with Y ← X → Z and Ĩ_{f_{1/2}}(X; YZ) > Ĩ_{f_{1/2}}(X; Y) + Ĩ_{f_{1/2}}(X; Z). Instance: P(X = 0) = 1/300; P(Y = 0 | X = 0) = 1/3, P(Y = 0 | X = 1) = 1/300; Z is Y's channel mirrored, P(Z = z | x) = P(Y = 1 − z | x).
 -/

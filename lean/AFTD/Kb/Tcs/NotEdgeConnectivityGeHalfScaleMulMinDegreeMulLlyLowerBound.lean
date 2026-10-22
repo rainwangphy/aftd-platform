@@ -20,7 +20,7 @@ import AFTD.Kb.GameTheoryEconomics.ArenaReachableTrans
 
 Topic: graphs   Node: 14cb567cef9a
 
-Provenance: original. Related work: Answers OP-164 (asked after arXiv:2610.10559, Theorem 1.2, which is the case d = 3) in the negative. Found by exact computation (curvatures by min-cost flow at idleness 0.9, 0.99, 0.999, all giving 3/8); no connected graph on at most 6 vertices is a counterexample. Theorem 1.2 itself holds on this graph: κ_LLY^(3) = 1/6.
+Provenance: original. Related work: Answers OP-164 (a question proposed here from arXiv:2610.10559, Theorem 1.2, which is the case d = 3; the paper does not ask it) in the negative. Found by exact computation (curvatures by min-cost flow at idleness 0.9, 0.99, 0.999, all giving 3/8); no connected graph on at most 6 vertices is a counterexample. Theorem 1.2 itself holds on this graph: κ_LLY^(3) = 1/6.
 
 The inequality κ'(G) ≥ (d/2) δ(G) κ_LLY^(d)(G) asked in OP-164 fails for d = 4: take a 4-cycle 0–1–2–3–0 and a triangle 4–5–6 joined by the bridge 2–4 (7 vertices). It is connected with diameter 4, δ = 2 and κ' = 1, and the only pairs at distance 4, {0, 5} and {0, 6}, have κ_LLY = 3/8, so (4/2)·2·(3/8) = 3/2 > 1.
 -/

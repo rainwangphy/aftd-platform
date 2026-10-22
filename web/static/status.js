@@ -82,11 +82,11 @@
     document.getElementById("st-today").innerHTML =
       `<p class="st-cap">Since the last release</p><div class="st-cards">
        ${card(t.proved, "statements proved", "proved")}
-       ${card(t.stated, "new statements in Lean", "stated")}
+       ${card(t.stated, "stated in Lean", "stated")}
        ${card(t.problems, "open problems read", "read")}
        ${card(t.results, "results read", "read")}
-       ${card(t.handed_up, "handed to the frontier agent", "up", `<b>${t.closed ?? 0}</b> closed by it`)}
-       ${card(t.inbox_waiting, "waiting in its inbox", t.inbox_waiting ? "wait" : "")}</div>`;
+       ${card(t.handed_up, "sent to frontier", "up", `<b>${t.closed ?? 0}</b> closed`)}
+       ${card(t.inbox_waiting, "in frontier inbox", t.inbox_waiting ? "wait" : "")}</div>`;
   }
 
   function load() {

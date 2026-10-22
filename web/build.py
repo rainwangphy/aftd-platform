@@ -2609,7 +2609,7 @@ def render_status(s: Site) -> str:
     url = f"https://raw.githubusercontent.com/{s.cfg['repo']}/status/status.json"
     body = f"""
 <header class="phead">
-  <p class="eyebrow">Live</p>
+  <p class="eyebrow">Live <span id="st-day"></span></p>
   <h1>What AFTD is doing now</h1>
   <p class="lead full">AFTD is not a program that runs once and stops. Several lanes
   work side by side, all day: one states the problems of new papers in Lean, others

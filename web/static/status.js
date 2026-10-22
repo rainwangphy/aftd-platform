@@ -11,6 +11,8 @@
   const ago = (s) => s < 90 ? "just now" : s < 5400 ? Math.round(s / 60) + " min ago" : Math.round(s / 3600) + " h ago";
   const pct = (m) => (Math.max(0, Math.min(DAY, m)) / DAY * 100).toFixed(3) + "%";
   const WORD = {working: "working", waiting: "waiting", stopped: "stopped", off: "off", unknown: "no news"};
+  const date = (start, m, opts) => new Date((start + m * 60) * 1000)
+    .toLocaleDateString("en-GB", Object.assign({timeZone: "Asia/Shanghai"}, opts));
   const clock = (start, m) => {
     const d = new Date((start + m * 60) * 1000);
     return d.toLocaleTimeString("en-GB", {hour: "2-digit", minute: "2-digit", timeZone: "Asia/Shanghai"});
@@ -19,7 +21,9 @@
   function axis(d) {
     let ticks = "";
     for (let h = 0; h <= 24; h += 2) {
-      ticks += `<span class="ln-tick${h % 4 ? " odd" : ""}" style="left:${pct(h * 60)}">${clock(d.start, h * 60)}</span>`;
+      const m = h * 60, ends = h === 0 || h === 24;
+      const label = (ends ? date(d.start, m, {day: "numeric", month: "short"}) + " " : "") + clock(d.start, m);
+      ticks += `<span class="ln-tick${h % 4 ? " odd" : ""}${ends ? " end" : ""}" style="left:${pct(m)}">${label}</span>`;
     }
     return `<div class="ln-row ln-axis" aria-hidden="true"><div class="ln-head"></div>
       <div class="ln-track ln-ticks">${ticks}</div></div>`;
@@ -53,14 +57,25 @@
           <p class="ln-role small">${esc(l.role)}</p></div>
         ${track(l.track, now, extra)}</div>`;
     });
-    const marks = (d.events || []).map((e) =>
-      `<span class="ln-mark ${e.kind === "next" ? "next" : "done"} ${esc(e.label)}" style="left:${pct(e.min)}"
-        title="${esc(e.label)} ${clock(d.start, e.min)}"><b>${esc(e.label)}</b></span>`).join("");
+    // Under each mark its time; a mark close to the one before drops its time
+    // to a second line, so labels never overlap.
+    let prev = -1e9, low = false;
+    const marks = (d.events || []).slice().sort((a, b) => a.min - b.min).map((e) => {
+      low = e.min - prev < 150 ? !low : false;
+      prev = e.min;
+      const kind = e.label === "release" ? "rel" : "read";
+      return `<span class="ln-mark ${e.kind === "next" ? "next" : "done"} ${kind}${low ? " low" : ""}${e.min >= DAY ? " last" : ""}${e.min < 30 ? " first" : ""}"
+        style="left:${pct(e.min)}" title="${esc(e.label)} at ${clock(d.start, e.min)}"><b>${clock(d.start, e.min)}</b></span>`;
+    }).join("");
     const sched = `<div class="ln-row ln-sched"><div class="ln-head"><p class="ln-name">Readings and release</p>
-      <p class="ln-role small">The day's new papers are read at ${(d.schedule || []).filter((x) => x.what.startsWith("Reading")).map((x) => x.at).join(" and ")};
+      <p class="ln-role small"><i class="ln-key read"></i> reading, <i class="ln-key rel"></i> release;
+      filled when done. The day's new papers are read at ${(d.schedule || []).filter((x) => x.what.startsWith("Reading")).map((x) => x.at).join(" and ")};
       the day is released at ${esc(d.release_at)}, waiting for no lane.</p></div>
       <div class="ln-track ln-marks">${marks}<span class="ln-now" style="left:${pct(now)}"></span></div></div>`;
     document.getElementById("st-lanes").innerHTML = axis(d) + rows.join("") + sched;
+    document.getElementById("st-day").textContent = "· " +
+      new Date(d.day + "T12:00:00+08:00").toLocaleDateString("en-GB",
+        {weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Shanghai"});
     const t = d.today || {};
     document.getElementById("st-today").innerHTML =
       `Since the last release: <b>${t.proved ?? 0}</b> statements proved, <b>${t.stated ?? 0}</b> new statements in Lean,

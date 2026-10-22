@@ -19,14 +19,17 @@
   };
 
   function axis(d) {
+    // Dates on a line of their own, each where its day begins; times below.
+    const mid = (24 - new Date((d.start) * 1000).getUTCHours() - 8 + 48) % 24 * 60; // minutes to midnight, UTC+8
+    const dates = [[0, d.start], [mid, d.start + mid * 60]].filter(([m]) => m < DAY - 60).map(([m]) =>
+      `<span class="ln-date${m ? "" : " first"}" style="left:${pct(m)}">${date(d.start, m, {weekday: "short", day: "numeric", month: "short"})}</span>`).join("");
     let ticks = "";
     for (let h = 0; h <= 24; h += 2) {
-      const m = h * 60, ends = h === 0 || h === 24;
-      const label = (ends ? date(d.start, m, {day: "numeric", month: "short"}) + " " : "") + clock(d.start, m);
-      ticks += `<span class="ln-tick${h % 4 ? " odd" : ""}${ends ? " end" : ""}" style="left:${pct(m)}">${label}</span>`;
+      ticks += `<span class="ln-tick${h % 4 ? " odd" : ""}" style="left:${pct(h * 60)}">${clock(d.start, h * 60)}</span>`;
     }
     return `<div class="ln-row ln-axis" aria-hidden="true"><div class="ln-head"></div>
-      <div class="ln-track ln-ticks">${ticks}</div></div>`;
+      <div class="ln-axis-in"><div class="ln-track ln-dates">${dates}</div>
+      <div class="ln-track ln-ticks">${ticks}</div></div></div>`;
   }
 
   function track(segs, now, extra) {

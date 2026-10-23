@@ -60,13 +60,23 @@
     });
     // Under each mark its time; a mark close to the one before drops its time
     // to a second line, so labels never overlap.
+    // A run begun shows its state, and a bar from its start to its end (or to
+    // now while it runs); a reading whose time passed unbegun says so.
     let prev = -1e9, low = false;
     const marks = (d.events || []).slice().sort((a, b) => a.min - b.min).map((e) => {
       low = e.min - prev < 150 ? !low : false;
       prev = e.min;
       const kind = e.label === "release" ? "rel" : "read";
-      return `<span class="ln-mark ${e.kind === "next" ? "next" : "done"} ${kind}${low ? " low" : ""}${e.min >= DAY ? " last" : ""}${e.min < 30 ? " first" : ""}"
-        style="left:${pct(e.min)}" title="${esc(e.label)} at ${clock(d.start, e.min)}"><b>${clock(d.start, e.min)}</b></span>`;
+      const st = e.kind === "next" ? "next" : (e.state || "done");
+      const at = clock(d.start, e.min);
+      const until = e.end != null ? e.end : st === "running" ? now : null;
+      const text = st === "next" ? at : st === "late" ? `${at} not begun`
+        : st === "running" ? `${at} running` : e.end != null ? `${at}–${clock(d.start, e.end)}`
+        : st === "done" ? at : `${at} ${st}`;
+      const bar = until != null && until > e.min
+        ? `<span class="ln-run ${kind} ${st}" style="left:${pct(e.min)};width:calc(${pct(until)} - ${pct(e.min)})"></span>` : "";
+      return `${bar}<span class="ln-mark ${st === "next" ? "next" : "done"} st-${st} ${kind}${low ? " low" : ""}${e.min >= DAY ? " last" : ""}${e.min < 30 ? " first" : ""}"
+        style="left:${pct(e.min)}" title="${esc(e.label)}: ${esc(text)}"><b>${esc(text)}</b></span>`;
     }).join("");
     const sched = `<div class="ln-row ln-sched"><div class="ln-head"><p class="ln-name">Schedule
       <span class="ln-doing"><i class="ln-key read"></i>reading <i class="ln-key rel"></i>release</span></p></div>

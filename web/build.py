@@ -2611,12 +2611,9 @@ def render_status(s: Site) -> str:
 <header class="phead">
   <p class="eyebrow">Live <span id="st-day"></span></p>
   <h1>What AFTD is doing now</h1>
-  <p class="lead full">AFTD is not a program that runs once and stops. Several lanes
-  work side by side, all day: one states the problems of new papers in Lean, others
-  prove, a frontier agent takes what is too hard for them, and a clock with no model
-  starts the readings and the daily release. Each light below is one of them. The page
-  refreshes itself every few minutes; nothing here is a result until Lean has checked
-  it and the day is released at 20:00 Beijing time.</p>
+  <p class="lead full">One light per lane, all working at once; refreshed every few
+  minutes. Nothing is a result until Lean checks it and the day is released at 20:00
+  Beijing time.</p>
 </header>
 <section class="st" id="st" data-src="{e(url)}" aria-live="polite">
   <p class="st-upd small" id="st-upd">Loading the latest status&hellip;</p>
@@ -2632,21 +2629,14 @@ def render_status(s: Site) -> str:
 <section class="st-how">
   <h2 class="st-h">How a day goes</h2>
   <ol class="st-steps">
-    <li><strong>All day.</strong> The proving lanes take the statement that brings the most
-    valuable open goal closest to done; what fails is split into lemmas. The formalizing
-    lane states the open problems and results of new papers in Lean; a statement enters
-    only if Lean accepts it and two independent readings agree it says what the paper says.</li>
-    <li><strong>10:30 and 12:30.</strong> The day&rsquo;s new papers are read: the problems
-    they leave open and the results they prove join the <a href="{root}problems/">open-problem
-    list</a>, each quoting its paper.</li>
-    <li><strong>In daytime sessions.</strong> What is too hard for the lanes is handed up to
-    the frontier agent, with what was tried. It works that inbox most valuable item first,
-    reviews every <a href="{root}blog/">research blog</a> post, and poses questions of its
-    own. What it cannot do either it returns with its reasons, and the lanes try again two
-    weeks later.</li>
-    <li><strong>20:00.</strong> The day is released by code, waiting for no lane: news, the
-    updated <a href="{root}knowledgebase/">knowledgebase</a>, explanations. Only what Lean
-    has checked is published, and anyone can rebuild it.</li>
+    <li><strong>All day.</strong> Lanes prove the most valuable goals and state new
+    papers&rsquo; problems in Lean.</li>
+    <li><strong>10:30, 12:30.</strong> New papers are read into the
+    <a href="{root}problems/">open-problem list</a>.</li>
+    <li><strong>11:30&ndash;19:30.</strong> The frontier agent takes what the lanes could
+    not do and reviews the <a href="{root}blog/">blog</a>.</li>
+    <li><strong>20:00.</strong> Release: news, <a href="{root}knowledgebase/">knowledgebase</a>,
+    explanations; only what Lean checked.</li>
   </ol>
 </section>
 <noscript><p class="note">The lights need JavaScript; the status file is

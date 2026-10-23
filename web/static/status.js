@@ -79,13 +79,15 @@
       if (until != null && until > e.min) bars.push(
         `<span class="ln-run ${kind}${st === "running" ? " running" : ""}" style="left:${pct(e.min)};width:calc(${pct(until)} - ${pct(e.min)})"></span>`);
     }
-    let prev = -1e9, low = false;
+    // Times under the marks on two lines; a mark too close to both labels
+    // before it keeps its time in the tooltip only.
+    const last = [-1e9, -1e9];  // the last label on the top line, on the low one
     const marks = bars.join("") + pts.sort((a, b) => a.min - b.min).map((p) => {
-      low = p.min - prev < 150 ? !low : false;
-      prev = p.min;
       const at = clock(d.start, p.min);
-      return `<span class="ln-mark ${p.cls} ${p.kind}${low ? " low" : ""}${p.min >= DAY ? " last" : ""}${p.min < 30 ? " first" : ""}"
-        style="left:${pct(p.min)}" title="${p.kind === "rel" ? "release" : "reading"} ${p.what} at ${at}"><b>${at}</b></span>`;
+      const line = p.min - last[0] >= 75 ? 0 : p.min - last[1] >= 75 ? 1 : -1;
+      if (line >= 0) last[line] = p.min;
+      return `<span class="ln-mark ${p.cls} ${p.kind}${line === 1 ? " low" : ""}${p.min >= DAY ? " last" : ""}${p.min < 30 ? " first" : ""}"
+        style="left:${pct(p.min)}" title="${p.kind === "rel" ? "release" : "reading"} ${p.what} at ${at}">${line >= 0 ? `<b>${at}</b>` : ""}</span>`;
     }).join("");
     const sched = `<div class="ln-row ln-sched"><div class="ln-head"><p class="ln-name">Schedule
       <span class="ln-doing"><i class="ln-key read"></i>reading <i class="ln-key rel"></i>release</span></p></div>

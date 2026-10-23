@@ -569,35 +569,18 @@ def page(
       <p class="foot-name"><img src="{root}static/icon.svg" alt="" width="22" height="22">
       <strong>{NAME}</strong> &middot; {FULL_NAME}</p>
       <p class="foot-motto">Open proof to the community. Open verdict by the community.</p>
-      <p>A declaration is listed only when Lean&nbsp;4 elaborated it against Mathlib
-      and <code>#print axioms</code> returned nothing outside
-      <code>{e(" · ".join(s.kb["trusted_axioms"]))}</code>. Every one of them
-      rebuilds offline from <a href="{e(s.blob("lean/AFTD"))}">the Lean sources</a>
-      with <code>lake build</code>.</p>
+      <p>Every declaration is checked by Lean&nbsp;4; <code>lake build</code> rebuilds
+      <a href="{e(s.blob("lean/AFTD"))}">all of them</a>.</p>
     </div>
-    <div class="foot-col">
-      <h2>Explore</h2>
-      <a href="{root}knowledgebase/">Knowledgebase</a>
-      <a href="{root}knowledgebase/#graph">Dependency graph</a>
-      <a href="{root}blog/">Research Blogs</a>
-      <a href="{root}problems/">Open Problems</a>
-      <a href="{root}index.html#news">News</a>
-      <a href="{root}reports/">Summary Reports</a>
-      <a href="{root}chat/">Chat with Knowledgebase</a>
-      <a href="{root}status/">Status: what AFTD is doing now</a>
+    <nav class="foot-links" aria-label="Take part">
       <a href="{root}problems/#submit">Submit a problem</a>
-    </div>
-    <div class="foot-col">
-      <h2>Take part</h2>
-      <a href="{e(s.discussions())}">Discussions</a>
       <a href="{e(s.new_verdict())}">Challenge a result</a>
-      <a href="{e(s.blob("assets/README_AFTD.MD"))}">The programme</a>
-      <a href="{e(s.gh)}">Source on GitHub</a>
-    </div>
+      <a href="{e(s.discussions())}">Discussions</a>
+      <a href="{e(s.gh)}">GitHub</a>
+    </nav>
   </div>
-  <div class="wrap foot-base">Snapshot of {t["declarations"]} declarations, taken
-  {e(s.kb["generated"][:10])}. Take the Lean, use it, build on it &mdash; you do not
-  owe us a citation.</div>
+  <div class="wrap foot-base">{t["declarations"]} declarations, snapshot of
+  {e(s.kb["generated"][:10])}. Free to use; no citation needed.</div>
 </footer>
 {tail}
 </body>

@@ -64,16 +64,15 @@ header.site nav a.ext::after{content:" \2197";font-size:11px}
 
 /* ------------------------------------------------------------ footer */
 footer.site{border-top:1px solid var(--rule);background:var(--panel);color:var(--ink-2);font-size:13.5px}
-.foot-grid{display:grid;grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));gap:32px;
-           padding-block:34px 22px}
+.foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;
+           gap:16px 40px;padding-block:26px 16px}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 22px;padding-top:2px}
+.foot-links a{color:var(--ink-2);text-decoration:none}
+.foot-links a:hover{color:var(--accent)}
 .foot-id p{margin:0 0 10px;max-width:60ch}
 .foot-name{display:flex;align-items:center;gap:9px;color:var(--ink);font-size:15px}
 .foot-name img{border-radius:6px}
 .foot-motto{font-family:var(--prose);font-style:italic;font-size:16px;color:var(--ink)}
-.foot-col{display:flex;flex-direction:column;gap:7px}
-.foot-col h2{margin:0 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3)}
-.foot-col a{color:var(--ink-2);text-decoration:none}
-.foot-col a:hover{color:var(--accent)}
 .foot-base{position:relative;padding-block:14px 22px;color:var(--ink-3);font-size:12.5px}
 .foot-base::before{content:"";position:absolute;top:0;left:24px;right:24px;border-top:1px solid var(--rule-2)}
 
@@ -668,8 +667,6 @@ main.wrap>*,.pgroup>*,.split>div>*,.topic>*,.domain>*,.hero-grid>*{min-width:0}
   .stat:nth-child(3){border-left:0;padding-left:0}
   .stat{border-top:1px solid var(--rule-2)}
   .stat:nth-child(-n+2){border-top:0}
-  .foot-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .foot-id{grid-column:1/-1}
   .band{padding-top:52px}
 }
 @media (max-width:560px){

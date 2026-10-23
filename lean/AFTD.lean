@@ -7487,6 +7487,7 @@ import AFTD.Kb.Tcs.ExistsFamilyCardSixNoThreePetalSunflower
 import AFTD.Kb.Tcs.ExistsHittingSetOfNoLargeAntichain
 import AFTD.Kb.Tcs.ExistsIdleMeasureWassersteinDistLtOneOfEdiamLeTwoAndMinDegreeGe
 import AFTD.Kb.Tcs.ExistsIsMatchingIsVertexCover
+import AFTD.Kb.Tcs.ExistsLeDivOfSumLe
 import AFTD.Kb.Tcs.ExistsMinCutPartition
 import AFTD.Kb.Tcs.ExistsMinFactorCoverageSubset
 import AFTD.Kb.Tcs.ExistsMultiRadioLabelingPath
@@ -8653,6 +8654,7 @@ import AFTD.Kb.Tcs.MondrianSevenRectsPartitionDefect
 import AFTD.Kb.Tcs.MonoColorSubgraph
 import AFTD.Kb.Tcs.MonoColorSubgraphLe
 import AFTD.Kb.Tcs.MonochromaticCopyDefSanity
+import AFTD.Kb.Tcs.MonochromaticEdges
 import AFTD.Kb.Tcs.MulBackIdentityMatrixApply
 import AFTD.Kb.Tcs.MultiLabelSpan
 import AFTD.Kb.Tcs.MultiLabelSpanGeOfRadioLabelingTop
@@ -8913,6 +8915,8 @@ import AFTD.Kb.Tcs.PagingWithDelayExecution
 import AFTD.Kb.Tcs.PagingWithDelayOptCost
 import AFTD.Kb.Tcs.PairEncode
 import AFTD.Kb.Tcs.PairEncodeInjective
+import AFTD.Kb.Tcs.PaletteActiveVertices
+import AFTD.Kb.Tcs.PaletteDegree
 import AFTD.Kb.Tcs.PandoraDeadlineInstance
 import AFTD.Kb.Tcs.ParityCharacter
 import AFTD.Kb.Tcs.PathGraphDegreeLeTwo

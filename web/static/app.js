@@ -531,7 +531,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   // The knowledgebase lists every declaration: typeset each as it comes into
   // view, not thousands of formulas before the page can scroll.
-  // What is on screen (or near it) at load is typeset at once.
   const els = document.querySelectorAll('.math');
   if (!('IntersectionObserver' in window)) { els.forEach(render); return; }
   const io = new IntersectionObserver((seen) => {
@@ -539,8 +538,5 @@ window.addEventListener('DOMContentLoaded', () => {
       if (x.isIntersecting) { io.unobserve(x.target); render(x.target); }
     }
   }, {rootMargin: '600px 0px'});
-  const near = window.innerHeight + 600;
-  els.forEach((el) => {
-    if (el.getBoundingClientRect().top < near) render(el); else io.observe(el);
-  });
+  els.forEach((el) => io.observe(el));
 });

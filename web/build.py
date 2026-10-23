@@ -394,21 +394,6 @@ def day(ts: float | str) -> str:
     return time.strftime("%d %b %Y", time.gmtime(ts)) if ts else ""
 
 
-_PLAIN_TEX = {r"\ge": "≥", r"\le": "≤", r"\geq": "≥", r"\leq": "≤", r"\ne": "≠",
-              r"\nmid": "∤", r"\mid": "|", r"\in": "∈", r"\cdot": "·", r"\times": "×",
-              r"\infty": "∞", r"\to": "→"}
-
-
-def plain_math(text: str) -> str:
-    """Text with its $...$ math as plain characters, for a tab title or a
-    description: no KaTeX runs there."""
-    def one(m: re.Match) -> str:
-        t = re.sub(r"\\(?:mathrm|operatorname|text|mathbf|mathcal)\{([^{}]*)\}", r"\1", m.group(1))
-        t = re.sub(r"\\[a-zA-Z]+", lambda c: _PLAIN_TEX.get(c.group(0), c.group(0)[1:]), t)
-        return re.sub(r"\s+", " ", t.replace("{", "").replace("}", "")).strip()
-    return re.sub(r"\$([^$]+)\$", one, text)
-
-
 def clip(text: str, n: int) -> str:
     text = " ".join((text or "").split())
     return text if len(text) <= n else text[: n - 1].rsplit(" ", 1)[0] + "…"
@@ -2389,7 +2374,7 @@ def render_blog(s: Site) -> str:
         f'<p class="news-when">{badge("Research", "rp-week")}{blog_byline(p)}'
         + (f'<a class="small" href="{root}blog/{e(p["slug"])}/zh/" lang="zh-CN">中文版</a>'
            if p.get("zh") else "")
-        + f'</p><div class="news-main"><h3 class="math"><a href="{root}blog/{e(p["slug"])}/">{e(p["title"])}</a></h3>'
+        + f'</p><div class="news-main"><h3><a href="{root}blog/{e(p["slug"])}/">{e(p["title"])}</a></h3>'
         f'<div class="prose math">{blog_paras(s, p["abstract"], root)}</div></div></article>'
         for p in s.blog)
     body = f"""
@@ -2458,7 +2443,7 @@ def render_post(s: Site, i: int, lang: str = "en") -> str:
 <article class="post">
 <header class="phead">
   <p class="eyebrow"><a href="{root}blog/">Research Blogs</a></p>
-  <h1 class="math">{e(text["title"])}</h1>
+  <h1>{e(text["title"])}</h1>
   <p class="news-when">{blog_byline(p, lang)}{other}</p>
 </header>
 <section class="post-abstract"><h2>{L["abstract"]}</h2><div class="prose math">{blog_paras(s, text["abstract"], root)}</div></section>
@@ -2469,11 +2454,11 @@ def render_post(s: Site, i: int, lang: str = "en") -> str:
 nothing outside <code>{e(" · ".join(s.kb["trusted_axioms"]))}</code>.</p></section>
 {f'<section><h2>{L["refs"]}</h2><ol class="prose">{refs}</ol></section>' if refs else ""}
 <p class="small">{foot}</p>
-{f'<nav class="post-nav math">{"".join(nav)}</nav>' if nav else ""}
+{f'<nav class="post-nav">{"".join(nav)}</nav>' if nav else ""}
 </article>"""
     alt = f"{root}blog/{p['slug']}/{'' if zh else 'zh/'}" if p.get("zh") else ""
-    return page(s, title=plain_math(text["title"]), root=root, active="blog/", body=body,
-                description=clip(plain_math(text["abstract"]), 200), math=True,
+    return page(s, title=text["title"], root=root, active="blog/", body=body,
+                description=clip(text["abstract"], 200), math=True,
                 lang="zh-CN" if zh else "en", alternate=alt)
 
 

@@ -104,6 +104,7 @@
       `<p class="st-cap">Since the last release</p><div class="st-cards">
        ${card(t.proved, "statements proved", "proved")}
        ${card(t.stated, "stated in Lean", "stated")}
+       ${card(t.research, "research-level results", "research")}
        ${card(t.problems, "open problems read", "read")}
        ${card(t.results, "results read", "read")}
        ${card(t.handed_up, "sent to frontier", "up", `<b>${t.closed ?? 0}</b> closed`)}

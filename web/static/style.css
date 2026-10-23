@@ -951,7 +951,7 @@ button.share{font-size:13px}
 .ln-mark.next.bad::before{box-shadow:inset 0 0 0 1.5px var(--down)}
 .st-today{display:flex;flex-direction:column;gap:8px}
 .st-cap{margin:0;font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:600;color:var(--ink-3)}
-.st-cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.st-cards{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
 .st-card{background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--rule);border-radius:10px;
          padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
 .st-card .v{font-size:30px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
@@ -963,7 +963,8 @@ button.share{font-size:13px}
 .st-card.read{border-top-color:var(--accent)}
 .st-card.up{border-top-color:var(--accent-2)}
 .st-card.wait{border-top-color:var(--warn)}
-@media (max-width:1000px){.st-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.st-card.research{border-top-color:var(--grant)} .st-card.research .v{color:var(--grant)}
+@media (max-width:1000px){.st-cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:520px){.st-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.st-card .v{font-size:26px}}
 .st-h{margin:14px 0 0;font-family:var(--prose);font-size:21px;font-weight:600}
 .st-how{display:flex;flex-direction:column;gap:12px}

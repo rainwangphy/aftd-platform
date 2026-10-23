@@ -947,9 +947,8 @@ button.share{font-size:13px}
 .ln-run{position:absolute;top:-1px;height:4px;border-radius:2px;background:color-mix(in srgb,var(--accent) 45%,transparent)}
 .ln-run.rel{background:color-mix(in srgb,var(--ok) 45%,transparent)}
 .ln-run.running{animation:chat-pulse 1.6s ease-in-out infinite}
-.ln-mark.st-failed::before,.ln-mark.st-stopped::before{background:var(--bad)}
-.ln-mark.st-late::before{background:var(--panel);box-shadow:inset 0 0 0 1.5px var(--warn)}
-.ln-mark.st-late b,.ln-mark.st-failed b,.ln-mark.st-stopped b{color:var(--bad)}
+.ln-mark.done.bad::before{background:var(--bad)}
+.ln-mark.next.bad::before{box-shadow:inset 0 0 0 1.5px var(--bad)}
 .st-today{display:flex;flex-direction:column;gap:8px}
 .st-cap{margin:0;font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:600;color:var(--ink-3)}
 .st-cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}

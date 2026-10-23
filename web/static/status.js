@@ -60,23 +60,32 @@
     });
     // Under each mark its time; a mark close to the one before drops its time
     // to a second line, so labels never overlap.
-    // A run begun shows its state, and a bar from its start to its end (or to
-    // now while it runs); a reading whose time passed unbegun says so.
-    let prev = -1e9, low = false;
-    const marks = (d.events || []).slice().sort((a, b) => a.min - b.min).map((e) => {
-      low = e.min - prev < 150 ? !low : false;
-      prev = e.min;
+    // Marks, no words: hollow before a run, solid where it began, and where it
+    // ended solid (succeeded) or red (failed); a bar joins the two, or runs to
+    // now while it goes. A run killed, or a reading whose time passed unbegun,
+    // is red where it should have been.
+    const pts = [], bars = [];
+    for (const e of d.events || []) {
       const kind = e.label === "release" ? "rel" : "read";
       const st = e.kind === "next" ? "next" : (e.state || "done");
-      const at = clock(d.start, e.min);
+      if (st === "next") { pts.push({min: e.min, kind, cls: "next", what: "due"}); continue; }
+      if (st === "late") { pts.push({min: e.min, kind, cls: "next bad", what: "not begun"}); continue; }
+      // An end not logged (older logs): a failure is marked where it began.
+      const badStart = st === "stopped" || (st === "failed" && e.end == null);
+      pts.push({min: e.min, kind, cls: badStart ? "done bad" : "done", what: badStart ? "failed" : "began"});
+      if (e.end != null) pts.push({min: e.end, kind, cls: st === "failed" ? "done bad" : "done",
+                                   what: st === "failed" ? "ended with an error" : "finished"});
       const until = e.end != null ? e.end : st === "running" ? now : null;
-      const text = st === "next" ? at : st === "late" ? `${at} not begun`
-        : st === "running" ? `${at} running` : e.end != null ? `${at}–${clock(d.start, e.end)}`
-        : st === "done" ? at : `${at} ${st}`;
-      const bar = until != null && until > e.min
-        ? `<span class="ln-run ${kind} ${st}" style="left:${pct(e.min)};width:calc(${pct(until)} - ${pct(e.min)})"></span>` : "";
-      return `${bar}<span class="ln-mark ${st === "next" ? "next" : "done"} st-${st} ${kind}${low ? " low" : ""}${e.min >= DAY ? " last" : ""}${e.min < 30 ? " first" : ""}"
-        style="left:${pct(e.min)}" title="${esc(e.label)}: ${esc(text)}"><b>${esc(text)}</b></span>`;
+      if (until != null && until > e.min) bars.push(
+        `<span class="ln-run ${kind}${st === "running" ? " running" : ""}" style="left:${pct(e.min)};width:calc(${pct(until)} - ${pct(e.min)})"></span>`);
+    }
+    let prev = -1e9, low = false;
+    const marks = bars.join("") + pts.sort((a, b) => a.min - b.min).map((p) => {
+      low = p.min - prev < 150 ? !low : false;
+      prev = p.min;
+      const at = clock(d.start, p.min);
+      return `<span class="ln-mark ${p.cls} ${p.kind}${low ? " low" : ""}${p.min >= DAY ? " last" : ""}${p.min < 30 ? " first" : ""}"
+        style="left:${pct(p.min)}" title="${p.kind === "rel" ? "release" : "reading"} ${p.what} at ${at}"><b>${at}</b></span>`;
     }).join("");
     const sched = `<div class="ln-row ln-sched"><div class="ln-head"><p class="ln-name">Schedule
       <span class="ln-doing"><i class="ln-key read"></i>reading <i class="ln-key rel"></i>release</span></p></div>

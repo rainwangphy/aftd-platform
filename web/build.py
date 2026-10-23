@@ -572,7 +572,8 @@ def page(
       <p>Every declaration is checked by Lean&nbsp;4; <code>lake build</code> rebuilds
       <a href="{e(s.blob("lean/AFTD"))}">all of them</a>.</p>
     </div>
-    <nav class="foot-links" aria-label="Take part">
+    <nav class="foot-links" aria-label="More">
+      <a href="{root}index.html#news">News</a>
       <a href="{root}problems/#submit">Submit a problem</a>
       <a href="{e(s.new_verdict())}">Challenge a result</a>
       <a href="{e(s.discussions())}">Discussions</a>

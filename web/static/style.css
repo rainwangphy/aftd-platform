@@ -970,7 +970,7 @@ button.share{font-size:13px}
 .st-how .st-h{margin:0}
 .st-steps{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
           gap:12px 22px;font-family:var(--prose);font-size:15px;line-height:1.55}
-.st-steps li{min-width:0;border-top:2px solid var(--accent);padding-top:10px;color:var(--ink-2)}
+.st-steps li{min-width:0;text-wrap:pretty;border-top:2px solid var(--accent);padding-top:10px;color:var(--ink-2)}
 .st-steps li strong{display:block;font-family:var(--ui);font-size:13px;letter-spacing:.02em;color:var(--ink);margin-bottom:4px}
 @media (max-width:760px){
   .ln-row{grid-template-columns:minmax(0,1fr);gap:8px}

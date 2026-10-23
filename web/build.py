@@ -2611,9 +2611,8 @@ def render_status(s: Site) -> str:
 <header class="phead">
   <p class="eyebrow">Live <span id="st-day"></span></p>
   <h1>What AFTD is doing now</h1>
-  <p class="lead full">One light per lane, all working at once; refreshed every few
-  minutes. Nothing is a result until Lean checks it and the day is released at 20:00
-  Beijing time.</p>
+  <p class="lead full">One light per lane, refreshed every few minutes. Nothing counts
+  until Lean checks it and the 20:00 Beijing release.</p>
 </header>
 <section class="st" id="st" data-src="{e(url)}" aria-live="polite">
   <p class="st-upd small" id="st-upd">Loading the latest status&hellip;</p>
@@ -2629,14 +2628,13 @@ def render_status(s: Site) -> str:
 <section class="st-how">
   <h2 class="st-h">How a day goes</h2>
   <ol class="st-steps">
-    <li><strong>All day.</strong> Lanes prove the most valuable goals and state new
-    papers&rsquo; problems in Lean.</li>
-    <li><strong>10:30, 12:30.</strong> New papers are read into the
-    <a href="{root}problems/">open-problem list</a>.</li>
-    <li><strong>11:30&ndash;19:30.</strong> The frontier agent takes what the lanes could
-    not do and reviews the <a href="{root}blog/">blog</a>.</li>
-    <li><strong>20:00.</strong> Release: news, <a href="{root}knowledgebase/">knowledgebase</a>,
-    explanations; only what Lean checked.</li>
+    <li><strong>All day.</strong> Lanes prove the top goals and state new papers in Lean.</li>
+    <li><strong>10:30, 12:30.</strong> New papers go to the
+    <a href="{root}problems/">open&#8209;problem list</a>.</li>
+    <li><strong>11:30&ndash;19:30.</strong> The frontier agent takes the hard cases and
+    reviews the <a href="{root}blog/">blog</a>.</li>
+    <li><strong>20:00.</strong> Release of news, <a href="{root}knowledgebase/">knowledgebase</a>
+    and explanations, all Lean&#8209;checked.</li>
   </ol>
 </section>
 <noscript><p class="note">The lights need JavaScript; the status file is

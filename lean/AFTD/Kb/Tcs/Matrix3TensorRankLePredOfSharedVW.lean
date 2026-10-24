@@ -1,0 +1,25 @@
+import AFTD.Prelude
+import AFTD.Kb.Tcs.Matrix3ShorterValidOfSharedVW
+import AFTD.Kb.Tcs.Matrix3TensorRankLe
+import AFTD.Kb.Tcs.Matrix3Triad
+import AFTD.Kb.Tcs.IsValidMatrix3Decomposition
+
+/-!
+# matrix3_tensor_rank_le_pred_of_shared_v_w
+
+Topic: algebraic_complexity   Node: 88dc04d94b12
+
+Provenance: helper lemma. step towards matrix3_tensor_rank_int_le_22
+
+If a valid decomposition has length at most r and contains two triads sharing v and w, then the tensor rank of 3x3 matrix multiplication over R is at most r - 1.
+-/
+
+/-- If a valid decomposition has length at most r and contains two triads sharing v and w, then the tensor rank of 3x3 matrix multiplication over R is at most r - 1. -/
+theorem matrix3_tensor_rank_le_pred_of_shared_v_w {R : Type*} [CommSemiring R]
+    (r : ℕ) (L₁ L₂ L₃ : List (Matrix3Triad R)) (t₁ t₂ : Matrix3Triad R)
+    (hv : t₁.v = t₂.v) (hw : t₁.w = t₂.w)
+    (hlen : (L₁ ++ t₁ :: L₂ ++ t₂ :: L₃).length ≤ r)
+    (hval : is_valid_matrix3_decomposition (L₁ ++ t₁ :: L₂ ++ t₂ :: L₃)) :
+    matrix3_tensor_rank_le R (r - 1) := by
+  obtain ⟨L', hLt, hval'⟩ := matrix3_shorter_valid_of_shared_v_w L₁ L₂ L₃ t₁ t₂ hv hw hval
+  exact ⟨L', Nat.le_sub_one_of_lt (lt_of_lt_of_le hLt hlen), hval'⟩

@@ -1,0 +1,135 @@
+{
+ "generated": 1792847401,
+ "timezone": "Asia/Shanghai (UTC+8)",
+ "day": "2026-10-25",
+ "start": 1792843200,
+ "now_min": 70.0,
+ "release_at": "20:00",
+ "cc_hours": [],
+ "lanes": [
+  {
+   "id": "scheduler",
+   "name": "Scheduler",
+   "role": "Keeps the clock, no model: readings, sessions, release.",
+   "state": "working",
+   "doing": "Keeping the clock",
+   "last": 1792931400,
+   "track": [
+    [
+     0.0,
+     70.0,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "gemini",
+   "name": "Proving",
+   "role": "Proves the most valuable ready statement; splits failures.",
+   "state": "working",
+   "doing": "Splitting a hard statement",
+   "last": 1792933785,
+   "track": [
+    [
+     0.0,
+     70.0,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "deepseek",
+   "name": "Off-peak proving",
+   "role": "Proves in the provider's cheaper hours.",
+   "state": "working",
+   "doing": "Proving: fair division",
+   "last": 1792933678,
+   "track": [
+    [
+     0.0,
+     70.0,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "formalize",
+   "name": "Formalizing",
+   "role": "States new papers' problems and results in Lean.",
+   "state": "working",
+   "doing": "Stating a paper's open problem",
+   "last": 1792932868,
+   "track": [
+    [
+     0.0,
+     70.0,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "frontier",
+   "name": "Frontier agent",
+   "role": "Claude / Codex: what the lanes hand up, reviews, new questions.",
+   "state": "working",
+   "doing": "1 Codex, 0 Claude Code",
+   "last": null,
+   "track": [
+    [
+     0.0,
+     70.0,
+     "working"
+    ]
+   ]
+  }
+ ],
+ "today": {
+  "proved": 3,
+  "stated": 10,
+  "research": 0,
+  "posed": 0,
+  "problems": 0,
+  "results": 0,
+  "handed_up": 9,
+  "closed": 0,
+  "inbox_waiting": 19
+ },
+ "schedule": [
+  {
+   "at": "All day",
+   "what": "The frontier agent's sessions",
+   "state": "running"
+  },
+  {
+   "at": "10:30",
+   "what": "Reading the day's new papers",
+   "state": "late",
+   "began": null,
+   "ended": null
+  },
+  {
+   "at": "20:00",
+   "what": "The daily release: news, site, explanations",
+   "state": "next"
+  }
+ ],
+ "events": [
+  {
+   "min": 0.0,
+   "kind": "publish",
+   "state": "done",
+   "end": 3.7,
+   "label": "release"
+  },
+  {
+   "min": 870.0,
+   "kind": "next",
+   "label": "reading"
+  },
+  {
+   "min": 1440,
+   "kind": "next",
+   "label": "release"
+  }
+ ]
+}

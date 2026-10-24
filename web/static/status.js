@@ -105,7 +105,8 @@
        ${card(t.proved, "statements proved", "proved")}
        ${card(t.stated, "stated in Lean", "stated")}
        ${card(t.research, "research-level results", "research")}
-       ${card(t.problems, "open problems read", "read")}
+       ${card(t.posed, "questions posed", "stated")}
+       ${card(t.problems, "open problems listed", "read")}
        ${card(t.results, "results read", "read")}
        ${card(t.handed_up, "sent to frontier", "up", `<b>${t.closed ?? 0}</b> closed`)}
        ${card(t.inbox_waiting, "in frontier inbox", t.inbox_waiting ? "wait" : "")}</div>`;

@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-24T12:41:59Z",
+ "generated": "2026-10-24T12:46:08Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -12,15 +12,15 @@
   "theorems": 6113,
   "topics": 44,
   "domains": 7,
-  "open": 655,
+  "open": 656,
   "rejected": 151,
-  "spend": 470.67,
+  "spend": 470.83,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 476366632,
-   "output": 119782696,
-   "cache_read": 2120039165
+   "input": 476670803,
+   "output": 119818314,
+   "cache_read": 2121085746
   },
   "models": [
    "deepseek-flash",
@@ -759129,21 +759129,37 @@
   {
    "name": "mms_threshold_monotone_asymptotic",
    "kind": "theorem",
-   "status": "stuck",
+   "status": "stated",
    "topic": "fair_division",
    "domain": "game_theory_economics",
    "informal": "Open problem (arXiv:2610.06125, Sec. 3): for monotone valuations over goods, μ(n) = n + log₂ n + o(log₂ n) as n → ∞; i.e. (μ(n) − n − log₂ n) / log₂ n → 0.",
    "statement": "theorem mms_threshold_monotone_asymptotic :\n    (fun n : ℕ => (mms_threshold_monotone n : ℝ) - n - Real.logb 2 n) =o[Filter.atTop]\n      (fun n : ℕ => Real.logb 2 n)",
-   "attempts": 1,
+   "attempts": 0,
    "deps": [
     "mms_threshold_monotone",
     "asymptotics_isLittleO_of_pos_neg",
-    "mms_threshold_monotone_upper_asymptotic"
+    "mms_threshold_monotone_upper_asymptotic",
+    "mms_threshold_monotone_lower_asymptotic"
    ],
    "problem": null,
    "provenance": "original",
    "citation": "open question of arXiv:2610.06125 (On MMS allocations with few items), Sec. 3; the paper proves n + 0.93 log₂ n ≤ μ(n) ≤ n + log₂ n + O(log log n) for large n (Theorem 1, Theorem 6, Lemmas 8 and 9)",
    "created": 1791264989
+  },
+  {
+   "name": "mms_threshold_monotone_lower_asymptotic",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "fair_division",
+   "domain": "game_theory_economics",
+   "informal": "Conjectured asymptotic lower bound on μ(n) (OP-87, arXiv:2610.06125, Section 3): the threshold μ(n) is at least n + log₂ n - o(log₂ n) as n → ∞.",
+   "statement": "theorem mms_threshold_monotone_lower_asymptotic :\n    (fun n : ℕ => max 0 ((n : ℝ) + Real.logb 2 (n : ℝ) - (mms_threshold_monotone n : ℝ))) =o[Filter.atTop]\n      (fun n : ℕ => Real.logb 2 (n : ℝ))",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "step towards mms_threshold_monotone_asymptotic",
+   "created": 1792845724
   },
   {
    "name": "mms_threshold_monotone_upper_asymptotic",
@@ -759922,12 +759938,12 @@
   {
    "name": "rank_score_veto_core_distortion_upper_bound",
    "kind": "theorem",
-   "status": "stated",
+   "status": "proving",
    "topic": "social_choice",
    "domain": "game_theory_economics",
    "informal": "For any candidate type C with at least 2 candidates and decidable equality, any positional scoring vector s on Fin (Fintype.card C), any nonempty finite voter type V, any election profile prof : V → LinearOrder C, and any pseudometric space on V ⊕ C consistent with prof, every candidate a in the rank score veto core for s and prof satisfies candidate_metric_social_cost V a ≤ (1 + 2 * ((scoring_norm_one s : ℚ) : ℝ)) * candidate_metric_social_cost V c_star for every candidate c_star in C.",
    "statement": "theorem rank_score_veto_core_distortion_upper_bound :\n    ∀ (C : Type*) [Fintype C] [DecidableEq C] (hm : 2 ≤ Fintype.card C)\n      (s : Fin (Fintype.card C) → ℚ) (hs : is_positional_scoring_vector (Fintype.card C) s)\n      (V : Type*) [Fintype V] [Nonempty V]\n      (prof : V → LinearOrder C)\n      [PseudoMetricSpace (V ⊕ C)] (h_metric : is_consistent_pseudometric V C prof)\n      (a : C) (ha : is_rank_score_veto_core s prof a)\n      (c_star : C),\n      candidate_metric_social_cost V a ≤\n        (1 + 2 * ((scoring_norm_one s : ℚ) : ℝ)) *\n          candidate_metric_social_cost V c_star",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [
     "is_positional_scoring_vector",
     "scoring_norm_one",

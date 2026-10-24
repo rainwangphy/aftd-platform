@@ -2347,12 +2347,13 @@ BLOG_LABELS = {
            "preliminaries": "Preliminaries", "result": "Main result", "proof": "Proof",
            "discussion": "Discussion", "why": "Why it is research-level",
            "decls": "Lean declarations", "refs": "References", "reviewed": "reviewed by",
-           "theorem": "Theorem", "verified": "Lean&nbsp;4, verified", "other": "中文版"},
+           "theorem": "Theorem", "verified": "Lean&nbsp;4, verified", "other": "中文版",
+           "results": "{n} research-level results in one post"},
     "zh": {"abstract": "摘要", "introduction": "引言", "preliminaries": "预备知识",
            "result": "主要结果", "proof": "证明", "discussion": "讨论",
            "why": "为什么是研究级成果", "decls": "Lean 声明", "refs": "参考文献",
            "reviewed": "审阅：", "theorem": "定理", "verified": "Lean&nbsp;4 已验证",
-           "other": "English"},
+           "other": "English", "results": "本文含 {n} 个研究级成果"},
 }
 
 
@@ -2361,6 +2362,10 @@ def blog_byline(p: dict, lang: str = "en") -> str:
     bits = [f"<span>{e(p['date'])}</span>"]
     if p.get("problem"):
         bits.append(f'<span class="small">{e(p["problem"].get("ref", ""))}</span>')
+    if len(p.get("theorems") or []) > 1:
+        # one post per entry or paper, so a day's count of research-level
+        # results can exceed its count of posts
+        bits.append(f'<span class="small">{L["results"].format(n=len(p["theorems"]))}</span>')
     bits.append(f'<span class="small">{L["reviewed"]} {e(p.get("reviewed_by") or "?")}</span>')
     return "".join(bits)
 
@@ -2384,8 +2389,9 @@ def render_blog(s: Site) -> str:
   want to read &mdash; a published claim shown false, a conjecture or an open question
   settled, an exact value where there was a gap &mdash; each written up the way a short
   paper is: the question and where it comes from, the definitions, the result with its
-  Lean statement, the proof, and what it leaves open. Every theorem a post names links to
-  its Lean proof.</p>
+  Lean statement, the proof, and what it leaves open. Results that bear on the same open
+  problem or the same paper share one post, so a post can hold several research-level
+  results. Every theorem a post names links to its Lean proof.</p>
 </header>
 <section id="posts">
   {f'<div class="news-list">{items}</div>' if items else '<p class="prose">No post yet.</p>'}

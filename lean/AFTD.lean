@@ -1285,6 +1285,7 @@ import AFTD.Kb.GameTheoryEconomics.IsCondorcetWinningSetNonempty
 import AFTD.Kb.GameTheoryEconomics.IsConnectedAllocation
 import AFTD.Kb.GameTheoryEconomics.IsConnectedPoChores
 import AFTD.Kb.GameTheoryEconomics.IsConnectedVertexSet
+import AFTD.Kb.GameTheoryEconomics.IsConsistentPseudometric
 import AFTD.Kb.GameTheoryEconomics.IsDominantStrategyEquilibrium
 import AFTD.Kb.GameTheoryEconomics.IsDominantStrategyIncentiveCompatible
 import AFTD.Kb.GameTheoryEconomics.IsDroopEjrPlus
@@ -1360,6 +1361,7 @@ import AFTD.Kb.GameTheoryEconomics.IsPropLbProportional
 import AFTD.Kb.GameTheoryEconomics.IsPropmOrientation
 import AFTD.Kb.GameTheoryEconomics.IsPureNashEquilibrium
 import AFTD.Kb.GameTheoryEconomics.IsQaPool
+import AFTD.Kb.GameTheoryEconomics.IsRankScoreVetoCore
 import AFTD.Kb.GameTheoryEconomics.IsRecursivelyBalanced
 import AFTD.Kb.GameTheoryEconomics.IsRiskNeutral
 import AFTD.Kb.GameTheoryEconomics.IsRiskNeutralIsAffine
@@ -8308,6 +8310,7 @@ import AFTD.Kb.Tcs.IsTemporalWalk
 import AFTD.Kb.Tcs.IsThreeUniform
 import AFTD.Kb.Tcs.IsTile
 import AFTD.Kb.Tcs.IsTraceMdsSubgroup
+import AFTD.Kb.Tcs.IsTraceMdsSubgroupNotLt
 import AFTD.Kb.Tcs.IsTreeIffIsAcyclicAndCard
 import AFTD.Kb.Tcs.IsTwoFourCode
 import AFTD.Kb.Tcs.IsTwoFourCodeSingleton

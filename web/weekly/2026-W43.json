@@ -1,0 +1,313 @@
+{
+ "week": "2026-W43",
+ "start": "2026-10-19",
+ "end": "2026-10-25",
+ "format": 3,
+ "period": "week",
+ "partial": false,
+ "language": "English",
+ "model": "gemini-3.8-flash",
+ "generated": "2026-10-26",
+ "title": "Minimal turn-taking failures, cycle power covering bounds, and negative stamp bases",
+ "summary": "Key questions were settled across game theory, number theory, and graph algorithms. Strategic turn-taking among three participants was proved fair up to one item for seven items, showing that eight items is the minimal failure point. A problem on covering cycle powers by equivalence graphs was bounded for power seven. New gap and classification results settled the behavior of three-stamp bases with negative denominations, and line cubic syndrome representations were constructed uniformly for all dimensions.",
+ "lead": {
+  "main": "round_robin_three_agents_seven_goods_pne_ef1",
+  "title": "Strategic turn taking with three people remains fair up to seven items",
+  "story": "When three people take turns selecting items from a shared pool, they often look ahead rather than simply grabbing the best available item. Economists study whether the resulting stable outcomes remain fair, in the sense that no person envies another once any single item is removed from the other person bundle.\n\nRecent work showed that with eight items, strategic picking can indeed break this fairness guarantee, leaving an agent genuinely envious even after discounting the rival best item. That left open whether unfairness could appear with fewer items, or whether the eight-item failure was the earliest possible glitch.\n\nA complete analysis now establishes that every stable outcome with three agents and seven items is fair up to one item. Because instances with six or fewer items were already known to be fair, eight items is the exact threshold where strategic turn-taking can produce an unfair allocation."
+ },
+ "fields": [
+  {
+   "name": "Fair Division",
+   "context": "A sharp threshold was established for strategic round-robin picking, proving that eight items is the minimal size for fairness failures with three players. The eight-item counterexample was also formally verified.",
+   "results": [
+    {
+     "headline": "Round-Robin pure Nash equilibria are EF1 for three agents and seven goods",
+     "plain": "When three people take turns picking at most seven items, every stable strategic outcome leaves no one envious after removing one item.",
+     "before": "Strategic turn-taking with three agents was known to fail EF1 at eight goods, but whether smaller counterexamples existed remained open.",
+     "answer": "For three agents with non-negative additive valuations and seven goods, every pure Nash equilibrium of Round-Robin is EF1, proving eight goods strictly minimal.",
+     "why": "Closes the gap between the trivial six-good guarantee and the eight-good counterexample, establishing the exact boundary for fairness.",
+     "idea": "Every agent other than agent 0 picks at most twice, and deviation certificates prove that no agent envies agent 0.",
+     "outcome": "proved",
+     "source": "arXiv:2610.23686",
+     "main": "round_robin_three_agents_seven_goods_pne_ef1",
+     "declarations": [
+      "round_robin_three_agents_seven_goods_pne_ef1",
+      "round_robin_pne_ef1_pair_of_count_le_two",
+      "round_robin_pne_ef1_of_card_le_two_mul"
+     ],
+     "highlight": true,
+     "research": "With three agents and seven goods every pure Nash equilibrium of Round-Robin is EF1 for nonnegative additive valuations (six or fewer goods being covered by the m <= 2n case), so the paper's three-agent, eight-good counterexample to EF1 at equilibrium uses the fewest goods possible for three agents; the paper only describes it as using 'very few goods'"
+    },
+    {
+     "headline": "Round-Robin pure Nash equilibrium can fail EF1 with three agents and eight goods",
+     "plain": "When three people take turns selecting from eight items, their strategic choices can lead to an outcome where someone remains envious even after removing one item.",
+     "before": "Whether strategic turn-taking with three agents always guarantees allocations that are fair up to one item was open.",
+     "answer": "arXiv:2610.23686 shows that an eight-good instance with three agents admits a pure Nash equilibrium that is not EF1; Lean now checks the proof.",
+     "why": "Establishes that the eight-good counterexample to EF1 in Round-Robin is verified.",
+     "idea": "",
+     "outcome": "formalized",
+     "source": "arXiv:2610.23686",
+     "main": "round_robin_pne_not_ef1_three_agents_eight_goods",
+     "declarations": [
+      "round_robin_pne_not_ef1_three_agents_eight_goods",
+      "round_robin_sequence_three_eight"
+     ],
+     "highlight": false,
+     "research": ""
+    }
+   ]
+  },
+  {
+   "name": "Quantum Computation",
+   "context": "A uniform recursive construction resolved the general parity representation problem for the line cubic syndrome across all dimensions.",
+   "results": [
+    {
+     "headline": "Line cubic syndrome has a parity representation of 2n plus 1 supports",
+     "plain": "A specific quantum gate simplification problem can always be solved using an exact number of components proportional to the input size.",
+     "before": "Explicit parity representations of size 2n + 1 for the line cubic syndrome were known only for dimensions up to n = 12.",
+     "answer": "For every integer n ≥ 5, the line cubic syndrome admits a parity representation of exactly 2n + 1 supports.",
+     "why": "Resolves the open problem from Appendix K.2 of arXiv:2610.01024 for all dimensions n ≥ 5.",
+     "idea": "Constructs an inductive extension that modifies boundary supports and adjoins the new coordinate to preserve all cubic moment invariants.",
+     "outcome": "proved",
+     "source": "arXiv:2610.01024",
+     "main": "open_problem_line_cubic_t_count",
+     "declarations": [
+      "open_problem_line_cubic_t_count",
+      "line_cubic_boundary_extension",
+      "line_cubic_nat_family_exists"
+     ],
+     "highlight": true,
+     "research": "A uniform recursive construction proves that the line cubic has a parity representation of exactly 2n+1 supports for every n≥5, resolving the general case left open beyond the witnesses through n=12 in arXiv:2610.01024"
+    }
+   ]
+  },
+  {
+   "name": "Elementary Number Theory",
+   "context": "The negative-allowed postage stamp problem for three stamps was completely classified for near-extremal gaps, settling the unit gap and refuting a conjectured gap of four at h = 419.",
+   "results": [
+    {
+     "headline": "Unit gap for negative-allowed three-stamp bases occurs exactly when h is 9 modulo 12",
+     "plain": "Allowing negative numbers in three-stamp collections produces a range just one below the classical maximum exactly when the stamp budget leaves remainder nine modulo twelve.",
+     "before": "Odd stamp counts were known to satisfy a strict inequality between negative-allowed and non-negative ranges, but the exact deficit remained open.",
+     "answer": "For odd h ≥ 5, the negative-allowed three-stamp number misses the classical value by exactly one if and only if h ≡ 9 modulo 12.",
+     "why": "Characterizes precisely when permitting negative denominations costs only a single integer in achievable range.",
+     "idea": "Proves matching upper bounds for all residue classes and constructs an explicit three-stamp basis achieving the bound for residue nine.",
+     "outcome": "new",
+     "source": "arXiv:2610.19470",
+     "main": "postage_stamp_number_neg_two_add_one_eq_iff",
+     "declarations": [
+      "postage_stamp_number_neg_two_add_one_eq_iff",
+      "postage_stamp_number_neg_two_of_odd_of_mod_sixty_ne",
+      "postage_stamp_basis_range_neg_ge_of_mod_twelve_eq_nine",
+      "postage_stamp_basis_range_add_two_le_of_neg_of_odd"
+     ],
+     "highlight": true,
+     "research": "a new question answered: decides when the strict inequality n♭_h(2) < n_h(2) loses only one: exactly when h ≡ 9 (mod 12) (h ≥ 5)"
+    },
+    {
+     "headline": "At h = 419 the negative-allowed three-stamp number misses the maximum by at least six",
+     "plain": "At a budget of 419 stamps, allowing negative values causes a drop of at least six integers, refuting a conjectured gap of four.",
+     "before": "For odd h ≡ 59 modulo 60, the negative-allowed three-stamp number was conjectured to drop by exactly four below the classical maximum.",
+     "answer": "At h = 419, the negative-allowed three-stamp number is at most 44513, which is 6 below the classical maximum 44519, refuting the conjecture.",
+     "why": "Refutes the conjectured drop of four, demonstrating that arithmetic constraints force larger gaps at specific moduli.",
+     "idea": "Analyzes the six candidate basis sets surviving range bounds and proves every candidate has non-coprime steps.",
+     "outcome": "new",
+     "source": "arXiv:2610.19470",
+     "main": "postage_stamp_number_neg_four_one_nine_two_add_six_le",
+     "declarations": [
+      "postage_stamp_number_neg_four_one_nine_two_add_six_le",
+      "not_postage_stamp_number_neg_two_of_odd",
+      "postage_stamp_number_neg_two_of_odd_bounds"
+     ],
+     "highlight": false,
+     "research": "a new question answered: At h = 419 the gap is at least 6: the Theorem 4.1 inequalities at range N - 5 leave only six sets a + {0,x,y}, and each has gcd(x,y) > 1 (y = 210 = 2·3·5·7 with x ∈ {3,5,7,9}, or y = 212 with x ∈ {138,140})."
+    },
+    {
+     "headline": "Cubic lower bounds established for Davenport constants of three-dimensional boxes",
+     "plain": "The maximum length of a minimal zero-sum sequence in a three-dimensional box grows cubically with the box radius.",
+     "before": "Lower bounds for minimal zero-sum sequences of support four in low-dimensional integer boxes were established in the literature.",
+     "answer": "arXiv:2610.16562 proves that for odd m ≥ 2, the Davenport constant of [[-m,m]]³ with support four is at least 16m³ - 16m² + 10m - 2; Lean checks it.",
+     "why": "Verifies the explicit algebraic construction for minimal zero-sum sequences in integer lattices.",
+     "idea": "Constructs an explicit sequence of four vectors with tailored multiplicities and checks zero-sum minimality.",
+     "outcome": "formalized",
+     "source": "arXiv:2610.16562",
+     "main": "davenport_constant_support_four_int_box_three_ge_odd",
+     "declarations": [
+      "davenport_constant_support_four_int_box_three_ge_odd",
+      "davenport_box_three_odd_sequence_sum",
+      "davenport_box_three_odd_sequence_minimal"
+     ],
+     "highlight": false,
+     "research": ""
+    }
+   ]
+  },
+  {
+   "name": "Graph Theory & Graph Algorithms",
+   "context": "Cycle power covering was bounded for power seven. The wild number conjecture was verified for the complete graph on 279 vertices, and degree bounds for additive colorings were checked.",
+   "results": [
+    {
+     "headline": "Seventh cycle power requires at least five equivalence subgraphs when eight does not divide n",
+     "plain": "Covering all connections in a circular network of reach seven requires at least five simple cluster graphs unless the network size divides by eight.",
+     "before": "The equivalence covering number of cycle powers was known when k+1 divides n, but the lower bound for power k = 7 in general remained open.",
+     "answer": "For n ≥ 22 not divisible by 8, the cycle power C_n^7 cannot be covered by 4 equivalence subgraphs, proving that the equivalence covering number of C_n^7 is at least 5.",
+     "why": "Settles the lower bound half of the open question for the first previously unsolved case k = 7.",
+     "idea": "Analyzes chord tightness of distances 7, 6, and 4 to prove the covering layers must alternate with strict eight-fold periodicity.",
+     "outcome": "partial",
+     "source": "arXiv:2610.15635",
+     "main": "simple_graph_not_has_equivalence_cover_cycle_power_seven_of_not_dvd",
+     "declarations": [
+      "simple_graph_not_has_equivalence_cover_cycle_power_seven_of_not_dvd",
+      "simple_graph_cycle_power_seven_cover_four_tight_dvd",
+      "cycle_power_seven_tight_layer_colouring_dvd"
+     ],
+     "highlight": true,
+     "research": "Settles the lower bound in the open case k = 7 (k+1 = 8) of OP-205. For n >= 22 with 8 not dividing n, the edges of C_n^7 cannot be covered by 4 equivalence subgraphs, so eq(C_n^7) >= 5 = 2 + log2(8). With the paper's restriction of eq to {4, 5} for large n, this means the larger value holds for every even n >= 441 not divisible by 8. Only k = 3 was settled before"
+    },
+    {
+     "headline": "Wild number of K_279 equals 186 for every minimum proper edge colouring",
+     "plain": "Every most efficient edge coloring of the complete network on 279 nodes can connect all colors using exactly 186 edges.",
+     "before": "The wild number formula for complete graphs had been proved only for orders between 3 and 12, remaining conjectural for all larger n.",
+     "answer": "For every minimum proper edge colouring of K_279, the wild number is exactly 186 = ⌊4⌈279/2⌉/3⌋, confirming the conjecture for n = 279.",
+     "why": "Extends the verified range of the wild number conjecture far beyond the small cases checked in arXiv:2610.22142.",
+     "idea": "Constructs a seal-free partition into 93 triples certified by a local-lemma rational mass bound.",
+     "outcome": "partial",
+     "source": "arXiv:2610.22142",
+     "main": "wild_number_complete_graph_279_min_proper_coloring_eq",
+     "declarations": [
+      "wild_number_complete_graph_279_min_proper_coloring_eq",
+      "wild_partition_event_mass_279_certificate",
+      "simple_graph_wild_number_le_of_block_cut_condition"
+     ],
+     "highlight": false,
+     "research": "Proves the conjectured value of the wild number, floor(4*ceil(n/2)/3) = 186, for every minimum proper edge colouring of K_279, a case far beyond the range 3 <= n <= 12 where the paper verified it; the upper bound comes from a seal-free triple partition obtained with a local lemma for random permutations and an exact rational certificate"
+    },
+    {
+     "headline": "Additive colorings exist within vertex degree plus initial positive weight bounds",
+     "plain": "Every graph can be assigned positive numbers so that adjacent vertices have different neighbor sums, without exceeding each vertex degree plus an initial weight.",
+     "before": "Bounds on additive chromatic numbers and neighbor-sum distinguishing colorings were established using the Combinatorial Nullstellensatz.",
+     "answer": "arXiv:2610.30174 proves that every finite graph admits an additive coloring f satisfying a(v) ≤ f(v) ≤ a(v) + degree(v) for any positive weight function a; Lean checks the proof.",
+     "why": "Formalizes an elementary and tight degree bound for additive chromatic numbers.",
+     "idea": "Applies an edge-tail orientation matching combined with polynomial non-vanishing over integer lists.",
+     "outcome": "formalized",
+     "source": "arXiv:2610.30174",
+     "main": "additive_coloring_bound_by_degree",
+     "declarations": [
+      "additive_coloring_bound_by_degree",
+      "simple_graph_exists_edge_tail_capacity",
+      "additive_coloring_bipartite_maxDegree_add_one"
+     ],
+     "highlight": false,
+     "research": ""
+    }
+   ]
+  }
+ ],
+ "outlook": [
+  "Convergence of iterated Round Robin under adjacent swaps for two agents remains open.",
+  "Determining the best guaranteed EF1 factor for Round-Robin pure Nash equilibria with three agents remains open.",
+  "The Lonely Runner Conjecture for seven speeds remains open.",
+  "The Large Quasi-kernel Conjecture remains open.",
+  "Deciding the recursive-line equality for second-order Zarankiewicz numbers at the four unsettled orders remains open."
+ ],
+ "glossary": [
+  {
+   "term": "EF1",
+   "meaning": "Envy-free up to one item: any envy disappears once some single item is removed (a good from the envied bundle, or a chore from the envious agent's own)."
+  }
+ ],
+ "stats": {
+  "original": 33,
+  "erratum": 0,
+  "literature": 154,
+  "lemma": 887,
+  "theorems": 1074,
+  "research": 6,
+  "sources": 90,
+  "topics": 23,
+  "announcements": 0,
+  "open": 768,
+  "papers_read": 86
+ },
+ "issues": [],
+ "rounds": 4,
+ "zh": {
+  "title": "轮流选择的极小失效情形、圈幂覆盖界与负数邮票基",
+  "summary": "博弈论、数论与图算法领域的若干关键问题得到解决。三人策略性轮流选择在七件物品时被证明满足至多差一件无嫉妒，表明八件物品是出现不公的极小失效点。关于等价图覆盖圈幂的问题，七次幂情形给出了界。新的差值与分类结果确定了允许负面额的三邮票基的性质，并且在线立方伴随式表示方面给出了适用于所有维度的统一构造。",
+  "lead": {
+   "title": "三人策略性轮流选择在至多七件物品时仍保持公平",
+   "story": "当三个人从共享池中轮流挑选物品时，他们往往会向前权衡推演，而不是简单地抓取眼前最好的可用物品。经济学家研究由此产生的稳定结果是否仍然保持公平——即从对方分得的物品中移除任意一件后，没有任何人会嫉妒他人。\n\n近年来的研究表明，在有八件物品时，策略性选择确实会打破这种公平性保证；即使扣除竞争对手最好的一件物品，仍有参与者真正产生嫉妒。这留下了一个未决问题：不公是否会在物品更少时出现，还是说八件物品的失效是最早可能出现的故障。\n\n如今的一项完整分析证实，在有三名参与者和七件物品时，每一个稳定结果都满足至多差一件无嫉妒。由于此前已知六件或更少物品的实例均保持公平，因此八件物品恰好是策略性轮流选择可能产生不公分配的确切阈值。"
+  },
+  "results": [
+   {
+    "headline": "三名参与者与七件物品下轮换选择的纯纳什均衡满足EF1",
+    "plain": "当三人轮流挑选至多七件物品时，每个稳定的策略性结果在移去一件物品后都不会让任何人产生嫉妒。"
+   },
+   {
+    "headline": "三名参与者与八件物品下轮换选择的纯纳什均衡可不满足EF1",
+    "plain": "当三人从八件物品中轮流挑选时，其策略性选择可能导致移去一件物品后仍有人感到嫉妒的结果。"
+   },
+   {
+    "headline": "线立方伴随式具有2n加1个支承的奇偶表示",
+    "plain": "一个特定的量子门化简问题总能使用与输入规模成正比的确定数量的组件来求解。"
+   },
+   {
+    "headline": "允许负数的三邮票基产生单位差值当且仅当h模12余9",
+    "plain": "在允许负数的三邮票组合中，恰在邮票预算模十二余九时，所达到的范围比经典最大值恰好少一。"
+   },
+   {
+    "headline": "在h = 419时允许负数的三邮票数比最大值至少小六",
+    "plain": "在419张邮票的预算下，允许负值会导致数值减少至少六个整数，推翻了此前猜想的差值四。"
+   },
+   {
+    "headline": "三维盒体达文波特常数的三次下界确立",
+    "plain": "三维盒体中极小零和序列的最大长度随盒体半径呈三次增长。"
+   },
+   {
+    "headline": "当八不整除n时七次圈幂至少需要五个等价子图",
+    "plain": "除非网络规模能被八整除，否则覆盖跨度为七的环形网络中的所有连接至少需要五个简单聚类图。"
+   },
+   {
+    "headline": "K_279的每个极小正常边着色的荒野数均为186",
+    "plain": "279个节点的完全网络的每个最高效边着色都可以恰好使用186条边连接所有颜色。"
+   },
+   {
+    "headline": "顶点度数加初始正权重界内存在加法着色",
+    "plain": "每个图都可以赋予正数，使得相邻顶点具有不同的邻点和，且不超过每个顶点的度数加初始权重。"
+   }
+  ],
+  "outlook": [
+   "两名参与者在相邻交换下的迭代轮换选择收敛性仍未解决。",
+   "确定三名参与者下轮换选择纯纳什均衡的最佳保证EF1因子仍未解决。",
+   "关于七种速度的孤独跑者猜想仍未解决。",
+   "大拟核猜想仍未解决。",
+   "在四个未决阶数下判定二阶扎兰凯维奇数的递归线等式仍未解决。"
+  ],
+  "glossary": [
+   {
+    "term": "EF1",
+    "meaning": "至多差一件无嫉妒：一旦移去某单件物品（从被嫉妒者分得的物品中移去一件好物品，或从嫉妒者自身分得的物品中移去一件苦差），任何嫉妒便会消除。"
+   }
+  ]
+ },
+ "zh_issues": [],
+ "numbers": "Lean accepted 1074 new theorems this week, drawn from 90 papers and 23 topics. Of these, 33 are new here, 0 correct a published claim, 154 formalize a published result and 887 are helper lemmas. 6 are research-level results -- they lead the report. 768 statements posed this week are not yet proved. The reading covered 86 new papers. This report covers 9 results in 4 fields.",
+ "disclaimer": "Written by a model (gemini-3.8-flash) from the week's Lean-verified results. Every declaration named here was checked by Lean; this summary is a reading aid and is not itself machine-checked.",
+ "minutes": 8,
+ "short_minutes": 2,
+ "outcomes": {
+  "proved": "Proved",
+  "disproved": "Disproved",
+  "partial": "Partial",
+  "new": "New result",
+  "formalized": "Formalized"
+ },
+ "zh_disclaimer": "本文由模型（gemini-3.8-flash）根据本期经 Lean 验证的结果撰写，并从英文版翻译而来。文中提到的每个定理都经过 Lean 检查；本摘要只是阅读辅助，本身未经机器检查。",
+ "zh_outcomes": {
+  "proved": "证明",
+  "disproved": "否定",
+  "partial": "部分结果",
+  "new": "新结果",
+  "formalized": "形式化验证"
+ }
+}

@@ -1689,6 +1689,7 @@ import AFTD.Kb.GameTheoryEconomics.MaxcutOptimalStrongOfDegreeLe
 import AFTD.Kb.GameTheoryEconomics.MaxcutOptimalStrongUpToDegree
 import AFTD.Kb.GameTheoryEconomics.MaxcutOptimalTopThreeRainbow
 import AFTD.Kb.GameTheoryEconomics.MaxcutPairSumComm
+import AFTD.Kb.GameTheoryEconomics.MaxcutPinnedTwinsDisplayedDeviation
 import AFTD.Kb.GameTheoryEconomics.MaxcutPinnedTwinsGraph
 import AFTD.Kb.GameTheoryEconomics.MaxcutStrongDeviationCarrier
 import AFTD.Kb.GameTheoryEconomics.MaxcutStrongDeviationTopThreeConstant
@@ -1976,6 +1977,7 @@ import AFTD.Kb.GameTheoryEconomics.PickingPrefixStateUpdateOfNotMemTake
 import AFTD.Kb.GameTheoryEconomics.PickingPrefixTwoNamedFirstDevBundle
 import AFTD.Kb.GameTheoryEconomics.PickingRunsAny
 import AFTD.Kb.GameTheoryEconomics.PickingSequenceAlpha
+import AFTD.Kb.GameTheoryEconomics.PickingSequenceAlphaNilEqZero
 import AFTD.Kb.GameTheoryEconomics.PickingSequenceOutcome
 import AFTD.Kb.GameTheoryEconomics.PickingSequenceOutcomeRoundRobinTwoAgentsFourItems
 import AFTD.Kb.GameTheoryEconomics.PickingSequenceOutcomeUpdateMem
@@ -7977,6 +7979,7 @@ import AFTD.Kb.Tcs.GeneralizedPerspectiveFunctionSpectrumConvexComboIoi
 import AFTD.Kb.Tcs.GeneralizedPerspectiveFunctionTheorem25ForwardJointlyConvexOnPsdPdOfCondV
 import AFTD.Kb.Tcs.Gf8MultCoeff
 import AFTD.Kb.Tcs.Gf8OracleMinTCount
+import AFTD.Kb.Tcs.Gf8OracleMinTCountGe20
 import AFTD.Kb.Tcs.Gf8OracleParityReprNonempty
 import AFTD.Kb.Tcs.Gf8OracleSyndrome
 import AFTD.Kb.Tcs.Gf8OracleSyndromeEqZeroOfCardNeThree

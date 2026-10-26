@@ -44,6 +44,8 @@
   "shows a published claim false (Generalized Principal-Agency: Contracts, Information, Games and Beyond, WINE 2024 (arXiv:2209.01146v2), Section 5.3, Eq. (5.4) in the proof of Theorem 5 (max over the simplex of u* - h equals (1/k) max over the cube of u*): false; on the 3-vertex path the two sides are 5/6 and 2/3)",
   "shows a published claim false (Generalized Principal-Agency: Contracts, Information, Games and Beyond, WINE 2024 (arXiv:2209.01146v2), Section 5.3 / Appendix 13.2: the auxiliary claim max over [0,1]^k of u* <= 1 used to derive Eq. (5.4) is false (value 2 on the 3-vertex path))"
  ],
+ "tier": "low",
+ "tier_why": "Shows a step inside a published proof wrong; the paper's theorem is not settled either way.",
  "topic": "mechanism_design",
  "status": "approved",
  "reviewed_by": "Claude Code",

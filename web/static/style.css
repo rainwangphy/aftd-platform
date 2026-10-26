@@ -117,6 +117,9 @@ main h3{margin:0;font-size:15px;font-weight:600}
 .badge.comm,.badge.st-formalized,.badge.st-open{color:var(--comm);border-color:var(--comm)}
 .badge.st-stuck,.badge.chal{color:var(--stuck);border-color:var(--stuck)}
 .badge.expl,.badge.st-accepted{color:var(--accent);border-color:var(--accent)}
+.badge.tier-low{color:var(--ink-2)}
+.badge.tier-medium{color:var(--proved);border-color:var(--proved)}
+.badge.tier-top{color:var(--accent);border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
 .badge.dom{text-transform:none;letter-spacing:0;font-weight:500;padding:2px 8px;border-radius:999px;background:none;display:inline}
 .badge.kind.thm{color:var(--ink-2)}
 .badge.kind.def{color:var(--comm);border-color:color-mix(in srgb,var(--comm) 45%,var(--rule))}

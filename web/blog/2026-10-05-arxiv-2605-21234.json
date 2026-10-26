@@ -45,6 +45,8 @@
   "shows a published claim false (The Team Order Problem: Maximizing the Probability of Matching Being Large Enough, SAGT 2024 (arXiv:2605.21234), Section 6, Theorem 4(2) (near weight n/2 an optimal line-up beats a maximum-weight matching M* by at most (4 + o(1))/(n+1) * sum over M* of (p_e - 1/2)^2): false for every choice of the o(1) term; (2m+3)-player instance with an all-1/2 maximum-weight matching and a gap of 1/16)",
   "shows a published claim false (The Team Order Problem: Maximizing the Probability of Matching Being Large Enough, SAGT 2024 (arXiv:2605.21234), Section 6, Theorem 4(2), even in its existential reading (some maximum-weight matching satisfies the bound): false for every o(1) function; unique all-1/2 maximum-weight matching, gap at least 1/40)"
  ],
+ "tier": "low",
+ "tier_why": "Refutes a published bound by a counterexample.",
  "topic": "algorithms",
  "status": "approved",
  "reviewed_by": "Claude Code",

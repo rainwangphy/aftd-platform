@@ -37,6 +37,8 @@
  "research": [
   "A uniform recursive construction proves that the line cubic has a parity representation of exactly 2n+1 supports for every n≥5, resolving the general case left open beyond the witnesses through n=12 in arXiv:2610.01024"
  ],
+ "tier": "medium",
+ "tier_why": "Resolves the general case (every n >= 5) a paper left open beyond its witnesses.",
  "topic": "quantum",
  "status": "approved",
  "reviewed_by": "Claude Code",

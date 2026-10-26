@@ -37,6 +37,8 @@
  "research": [
   "settles OP-67 (Price of MNW for two agents)"
  ],
+ "tier": "medium",
+ "tier_why": "Exact price and strong price of MNW for two agents, a question a paper leaves open.",
  "topic": "fair_division",
  "status": "approved",
  "reviewed_by": "Claude Code",

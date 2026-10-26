@@ -31,6 +31,8 @@
  "research": [
   "shows a published claim false (The Publication Choice Problem, AAAI 2026 (arXiv:2511.13678v2), Theorem 4.1 (a binary-type problem satisfying the standing assumptions and Assumptions 1-2 has a unique pure-strategy equilibrium): false; counterexample alpha = 1/2, beta = 2, two venues, types (1, 8), three equilibria)"
  ],
+ "tier": "low",
+ "tier_why": "Refutes a published uniqueness theorem by one counterexample.",
  "topic": "equilibria",
  "status": "approved",
  "reviewed_by": "Claude Code",

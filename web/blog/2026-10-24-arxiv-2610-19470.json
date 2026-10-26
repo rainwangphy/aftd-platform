@@ -35,6 +35,8 @@
   "a new question answered: decides when the strict inequality n♭_h(2) < n_h(2) loses only one: exactly when h ≡ 9 (mod 12) (h ≥ 5)",
   "a new question answered: At h = 419 the gap is at least 6: the Theorem 4.1 inequalities at range N - 5 leave only six sets a + {0,x,y}, and each has gcd(x,y) > 1 (y = 210 = 2·3·5·7 with x ∈ {3,5,7,9}, or y = 212 with x ∈ {138,140})."
  ],
+ "tier": "low",
+ "tier_why": "Answers a question posed here, niche: one residue class of h and one instance (h = 419).",
  "topic": "elementary_number_theory",
  "status": "approved",
  "reviewed_by": "Codex",

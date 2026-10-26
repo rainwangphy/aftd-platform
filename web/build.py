@@ -595,6 +595,18 @@ def badge(text: str, cls: str = "", title: str = "") -> str:
     return f'<span class="badge {cls}"{t}>{e(text)}</span>'
 
 
+TIER_TITLE = {"low": "Beyond the literature on one instance or one case",
+              "medium": "A general result on a question a recent paper leaves open",
+              "top": "Settles a well-known problem or a paper's central question"}
+
+
+def tier_badge(tier: str, why: str = "") -> str:
+    """A research-level result's weight (aftd/kb/research.py TIERS)."""
+    if tier not in TIER_TITLE:
+        return ""
+    return badge(f"{tier} tier", f"tier tier-{tier}", why or TIER_TITLE[tier])
+
+
 def status_badge(st: str) -> str:
     return badge(STATUSES.get(st, st), f"st-{st}")
 
@@ -2092,7 +2104,8 @@ def render_weekly(s: Site, i: int, period: str = "week") -> str:
     research_sec = "" if research is None else (
         '<h2>Research-level results</h2>' + (
             '<ul class="wk-hls">' + "".join(
-                f'<li>{outcome_badge(r, x)} <a href="#{aid[id(x)]}">{e(x["headline"])}</a>'
+                f'<li>{outcome_badge(r, x)}{tier_badge(x.get("tier", ""))} '
+                f'<a href="#{aid[id(x)]}">{e(x["headline"])}</a>'
                 f'<p class="wk-plain">{e(x["research"])}</p></li>' for x in research)
             + "</ul>" if research else
             f'<p class="prose">None this {P["noun"]}: every result below is a step, a small '
@@ -2375,7 +2388,8 @@ def render_blog(s: Site) -> str:
     root = "../"
     items = "".join(
         f'<article class="news-item" id="{e(p["slug"])}">'
-        f'<p class="news-when">{badge("Research", "rp-week")}{blog_byline(p)}'
+        f'<p class="news-when">{badge("Research", "rp-week")}'
+        f'{tier_badge(p.get("tier", ""), p.get("tier_why", ""))}{blog_byline(p)}'
         + (f'<a class="small" href="{root}blog/{e(p["slug"])}/zh/" lang="zh-CN">中文版</a>'
            if p.get("zh") else "")
         + f'</p><div class="news-main"><h3 class="math"><a href="{root}blog/{e(p["slug"])}/">{e(p["title"])}</a></h3>'
@@ -2449,7 +2463,7 @@ def render_post(s: Site, i: int, lang: str = "en") -> str:
 <header class="phead">
   <p class="eyebrow"><a href="{root}blog/">Research Blogs</a></p>
   <h1 class="math">{e(text["title"])}</h1>
-  <p class="news-when">{blog_byline(p, lang)}{other}</p>
+  <p class="news-when">{tier_badge(p.get("tier", ""), p.get("tier_why", ""))}{blog_byline(p, lang)}{other}</p>
 </header>
 <section class="post-abstract"><h2>{L["abstract"]}</h2><div class="prose math">{blog_paras(s, text["abstract"], root)}</div></section>
 {"".join(secs)}

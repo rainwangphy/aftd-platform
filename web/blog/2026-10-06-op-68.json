@@ -41,6 +41,8 @@
  "research": [
   "refutes OP-68 (Linkedness and the two-agent price of connectivity)"
  ],
+ "tier": "low",
+ "tier_why": "Refutes a conjecture by one eight-vertex graph.",
  "topic": "fair_division",
  "status": "approved",
  "reviewed_by": "Claude Code",

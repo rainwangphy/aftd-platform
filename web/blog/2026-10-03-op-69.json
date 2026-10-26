@@ -41,6 +41,8 @@
  "research": [
   "refutes OP-69 (Quota and population monotonicity for four states at a common house size)"
  ],
+ "tier": "low",
+ "tier_why": "A counterexample instance (four states, one house size).",
  "topic": "social_choice",
  "status": "approved",
  "reviewed_by": "Claude Code",

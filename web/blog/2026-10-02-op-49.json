@@ -36,6 +36,8 @@
  "research": [
   "settles OP-49 (Swing rigidity of weighted voting games)"
  ],
+ "tier": "medium",
+ "tier_why": "Settles a paper's conjecture (Conj. 10.2) for every weighted voting game; a side conjecture, not a well-known problem.",
  "topic": "general_equilibrium",
  "status": "approved",
  "reviewed_by": "Claude Code",

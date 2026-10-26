@@ -32,6 +32,8 @@
  "research": [
   "refutes OP-63 (Is the deterministic lower bound for finding minimal elements of a poset tight?)"
  ],
+ "tier": "low",
+ "tier_why": "Refutes a tightness conjecture in the width-two case only.",
  "topic": "algorithms",
  "status": "approved",
  "reviewed_by": "Claude Code",

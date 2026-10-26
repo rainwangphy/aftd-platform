@@ -26,6 +26,8 @@
  "research": [
   "Shows the published claim corrected by arXiv:2610.23686 survives in part: at every Round-Robin pure Nash equilibrium, envy towards any agent with at most two goods is already EF1, for any number of agents (so every equilibrium with at most 2n goods is EF1, while the paper's counterexample has 2n + 2)"
  ],
+ "tier": "medium",
+ "tier_why": "A general statement for every number of agents: equilibria with at most 2n goods are EF1.",
  "topic": "fair_division",
  "status": "approved",
  "reviewed_by": "Claude Code",

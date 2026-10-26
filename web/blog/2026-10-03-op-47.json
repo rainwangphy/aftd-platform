@@ -38,6 +38,8 @@
  "research": [
   "settles OP-47 (Does MXS imply PROP1 for submodular goods?)"
  ],
+ "tier": "medium",
+ "tier_why": "Answers a paper's open problem for all monotone submodular valuations, by a short argument.",
  "topic": "fair_division",
  "status": "approved",
  "reviewed_by": "Claude Code",

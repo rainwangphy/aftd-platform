@@ -27,6 +27,8 @@
  "research": [
   "settles OP-70 (Linear entropy of geometric Plackett–Luce models)"
  ],
+ "tier": "medium",
+ "tier_why": "Extends the linear entropy bound to every decay ratio, settling the posed conjecture in general.",
  "topic": "social_choice",
  "status": "approved",
  "reviewed_by": "Claude Code",

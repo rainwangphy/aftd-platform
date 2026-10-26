@@ -36,6 +36,8 @@
  "research": [
   "settles OP-56 (Optimal receiver-utility constant in bit-string persuasion)"
  ],
+ "tier": "medium",
+ "tier_why": "Determines the exact constant in the open direction a paper poses, in general.",
  "topic": "mechanism_design",
  "status": "approved",
  "reviewed_by": "Claude Code",

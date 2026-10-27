@@ -2354,6 +2354,7 @@ import AFTD.Kb.GameTheoryEconomics.SingleParameterMechanismZeroNormalized
 import AFTD.Kb.GameTheoryEconomics.SinglePeakedMedianDefeatsGreater
 import AFTD.Kb.GameTheoryEconomics.SinglePeakedMedianDefeatsLess
 import AFTD.Kb.GameTheoryEconomics.SinglePeakedMedianIsCondorcetWinner
+import AFTD.Kb.GameTheoryEconomics.SixCircleTwoSymbolsLabeledImpossible
 import AFTD.Kb.GameTheoryEconomics.SixCircleView
 import AFTD.Kb.GameTheoryEconomics.SkewSymmetricMat
 import AFTD.Kb.GameTheoryEconomics.SkewSymmetricOptimal
@@ -6875,6 +6876,7 @@ import AFTD.Kb.Tcs.CostMRetSeqLeft
 import AFTD.Kb.Tcs.CostMRetSeqRight
 import AFTD.Kb.Tcs.CostMRetTick
 import AFTD.Kb.Tcs.CostMTick
+import AFTD.Kb.Tcs.CounterexamplePartitionDiameterRatioThree101
 import AFTD.Kb.Tcs.CrossCutCardGeMinDegreeOfDiamTwo
 import AFTD.Kb.Tcs.CrossingPairsCardEqCrossingEdgesCard
 import AFTD.Kb.Tcs.CrucialWeight
@@ -8014,6 +8016,8 @@ import AFTD.Kb.Tcs.DigraphApexOverBidirectedCompleteTwoHasBipartition
 import AFTD.Kb.Tcs.DigraphArborescenceCount
 import AFTD.Kb.Tcs.DigraphArborescenceCountAt
 import AFTD.Kb.Tcs.DigraphArborescenceCountAtSanity
+import AFTD.Kb.Tcs.DigraphArborescenceCountAtThrough
+import AFTD.Kb.Tcs.DigraphArborescenceCountThrough
 import AFTD.Kb.Tcs.DigraphBothCutsGeCeilDivSixOfCases
 import AFTD.Kb.Tcs.DigraphBothCutsGeCeilDivSixOfHighIndegree
 import AFTD.Kb.Tcs.DigraphBothCutsGeCeilDivSixOfTwoPartitions
@@ -8062,6 +8066,7 @@ import AFTD.Kb.Tcs.DigraphReachWithinMono
 import AFTD.Kb.Tcs.DigraphReachWithinOneOfAdj
 import AFTD.Kb.Tcs.DigraphReachWithinZeroIff
 import AFTD.Kb.Tcs.DigraphReverse
+import AFTD.Kb.Tcs.DigraphReverseArc
 import AFTD.Kb.Tcs.DigraphReverseIsTournament
 import AFTD.Kb.Tcs.DigraphReverseReverse
 import AFTD.Kb.Tcs.DigraphSemisaturationBoundedOfIsolatedEdge
@@ -11010,6 +11015,7 @@ import AFTD.Kb.Tcs.TournamentMinRankEqZeroOfIsAcyclic
 import AFTD.Kb.Tcs.TournamentMinRankLeDijoin
 import AFTD.Kb.Tcs.TournamentMinRankLeInversionNumber
 import AFTD.Kb.Tcs.TournamentNearRegularOfCardDegrees
+import AFTD.Kb.Tcs.TournamentNotNearRegularExistsExtremeDegree
 import AFTD.Kb.Tcs.TournamentOfSymmMatrix
 import AFTD.Kb.Tcs.TournamentOfSymmMatrixIsTournament
 import AFTD.Kb.Tcs.TreeDeleteEdgeReconnectIsTree

@@ -98,15 +98,19 @@
         {weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Shanghai"});
     const t = d.today || {};
     // Since the release, as cards: one number each, read at a glance.
+    // As the day's News entry counts them (aftd/kb/day.py); what else Lean
+    // accepted -- definitions, other sessions' lemmas -- beside them.
+    const more = (n) => n ? `+<b>${n}</b> definitions &amp; other lemmas` : "";
+    const adopted = t.adopted ?? t.posed ?? 0;  // "posed" until 27 October
     const card = (n, k, cls, sub) => `<div class="st-card ${cls}"><span class="v">${n ?? 0}</span>
       <span class="k">${k}</span>${sub ? `<span class="s">${sub}</span>` : ""}</div>`;
     document.getElementById("st-today").innerHTML =
-      `<p class="st-cap">Since the last release</p><div class="st-cards">
-       ${card(t.proved, "statements proved", "proved")}
-       ${card(t.stated, "stated in Lean", "stated")}
+      `<p class="st-cap">Since the last release, counted as its News entry will count them</p><div class="st-cards">
+       ${card(t.proved, "theorems proved", "proved", more(t.proved_other))}
+       ${card(t.stated, "theorems stated", "stated", more(t.stated_other))}
        ${card(t.research, "research-level results", "research")}
-       ${card((t.posed ?? 0) + (t.problems ?? 0) + (t.results ?? 0), "questions & results", "read",
-              `<b>${t.posed ?? 0}</b> posed · <b>${t.problems ?? 0}</b> listed<br><b>${t.results ?? 0}</b> results read`)}
+       ${card(adopted + (t.problems ?? 0) + (t.results ?? 0), "questions & results", "read",
+              `<b>${adopted}</b> adopted · <b>${t.problems ?? 0}</b> listed<br><b>${t.results ?? 0}</b> results read`)}
        ${card(t.handed_up, "sent to frontier", "up", `<b>${t.closed ?? 0}</b> closed`)}
        ${card(t.inbox_waiting, "in frontier inbox", t.inbox_waiting ? "wait" : "")}</div>`;
   }

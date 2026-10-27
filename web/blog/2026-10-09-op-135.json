@@ -32,8 +32,8 @@
  "research": [
   "refutes OP-135 (Sharpness of the (5n-1)/6 local average dominating set bound for n at least 4)"
  ],
- "tier": "medium",
- "tier_why": "Shows a published bound is not sharp for every n >= 4, in general.",
+ "tier": "low",
+ "tier_why": "Shows only that the published bound (5n-1)/6 is never attained for n >= 4, without a better bound; the conjectured (2n+1)/3 is not proved.",
  "topic": "graphs",
  "status": "approved",
  "reviewed_by": "Claude Code",

@@ -29,7 +29,6 @@ import AFTD.Kb.Physics.WickContractionUncontractedEmpty
 import AFTD.Kb.Physics.WickContractionInstDecidableEq
 import AFTD.Kb.GameTheoryEconomics.PermCardLeftGtLe
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueTripleWinOfSumLt
-import AFTD.Kb.GameTheoryEconomics.MxsFairImpProp1FairOfSubmodular
 
 /-!
 # WickContraction.mem_erase_uncontracted_iff

@@ -22,7 +22,6 @@ import AFTD.Kb.Physics.WickContractionInstDecidableEq
 import AFTD.Kb.GameTheoryEconomics.PermCardLeftGtLe
 import AFTD.Kb.GameTheoryEconomics.CatchUpBestMapNeLossIff
 import AFTD.Kb.GameTheoryEconomics.CatchUpValueTripleWinOfSumLt
-import AFTD.Kb.GameTheoryEconomics.MxsFairImpProp1FairOfSubmodular
 
 /-!
 # WickContraction.fromInvolution

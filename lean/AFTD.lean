@@ -7852,6 +7852,15 @@ import AFTD.Kb.Tcs.CyclePowerFifteenClassWeightCertificate
 import AFTD.Kb.Tcs.CyclePowerFifteenEndpointLayerPeriodSixteen
 import AFTD.Kb.Tcs.CyclePowerFifteenTightClassAncestors
 import AFTD.Kb.Tcs.CyclePowerFifteenTightClassSpanning
+import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceFourIffFiveCoreA0000
+import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceFourIffFiveCoreA00011
+import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceFourIffFiveCoreA001
+import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceFourIffFiveCoreA110000
+import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceFourIffFiveCoreA11000100
+import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceFourIffFiveCoreA111
+import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceFourIffFiveCoreB00
+import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceFourIffFiveCoreB01
+import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceFourIffFiveCoreB100
 import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceOneIffFourteen
 import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceOneIffFourteenCore
 import AFTD.Kb.Tcs.CyclePowerFifteenTightTypeSequenceOneIffFourteenCoreA000000
@@ -7930,6 +7939,7 @@ import AFTD.Kb.Tcs.CycleRookPoly
 import AFTD.Kb.Tcs.CycleRookPolyOne
 import AFTD.Kb.Tcs.CycleSevenDiamEqThree
 import AFTD.Kb.Tcs.CycleSevenIsPlanar
+import AFTD.Kb.Tcs.CycleThreeProportionallyThreeChoosable
 import AFTD.Kb.Tcs.CycleWithTwoChords
 import AFTD.Kb.Tcs.CycleWrapSetComplEqIccAndSum
 import AFTD.Kb.Tcs.CyclicDistanceSeven
@@ -8949,6 +8959,8 @@ import AFTD.Kb.Tcs.IsSingleTrackGrayCode
 import AFTD.Kb.Tcs.IsSpanningPathGraph
 import AFTD.Kb.Tcs.IsSpanningPathGraphPathGraphThree
 import AFTD.Kb.Tcs.IsSpectral
+import AFTD.Kb.Tcs.IsSpectrallySustainable
+import AFTD.Kb.Tcs.IsSpectrallySustainableEdge
 import AFTD.Kb.Tcs.IsSquareLocallyOptimal
 import AFTD.Kb.Tcs.IsStandardExampleFree
 import AFTD.Kb.Tcs.IsStandardizedLaplacian
@@ -8972,6 +8984,7 @@ import AFTD.Kb.Tcs.IsTraceMdsSubgroupNotLt
 import AFTD.Kb.Tcs.IsTreeIffIsAcyclicAndCard
 import AFTD.Kb.Tcs.IsTwoFourCode
 import AFTD.Kb.Tcs.IsTwoFourCodeSingleton
+import AFTD.Kb.Tcs.IsUnicyclic
 import AFTD.Kb.Tcs.IsV0
 import AFTD.Kb.Tcs.IsValidMatrix3Decomposition
 import AFTD.Kb.Tcs.IsValidPolicy
@@ -10586,6 +10599,7 @@ import AFTD.Kb.Tcs.SimpleGraphLeafNeighborCountCompleteTwo
 import AFTD.Kb.Tcs.SimpleGraphLeapGroup
 import AFTD.Kb.Tcs.SimpleGraphLeapGroupBipartiteNeTop
 import AFTD.Kb.Tcs.SimpleGraphLeapGroupNormalizedCosets
+import AFTD.Kb.Tcs.SimpleGraphLeapWordBoundOfNormalized
 import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrder
 import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderBotThree
 import AFTD.Kb.Tcs.SimpleGraphLocalAvgDominatingOrderCompleteFour
@@ -11014,10 +11028,12 @@ import AFTD.Kb.Tcs.TournamentMinRankDijoinLeOfSymmInv
 import AFTD.Kb.Tcs.TournamentMinRankEqZeroOfIsAcyclic
 import AFTD.Kb.Tcs.TournamentMinRankLeDijoin
 import AFTD.Kb.Tcs.TournamentMinRankLeInversionNumber
+import AFTD.Kb.Tcs.TournamentNearRegularCardDegrees
 import AFTD.Kb.Tcs.TournamentNearRegularOfCardDegrees
 import AFTD.Kb.Tcs.TournamentNotNearRegularExistsExtremeDegree
 import AFTD.Kb.Tcs.TournamentOfSymmMatrix
 import AFTD.Kb.Tcs.TournamentOfSymmMatrixIsTournament
+import AFTD.Kb.Tcs.TournamentSumOutCount
 import AFTD.Kb.Tcs.TreeDeleteEdgeReconnectIsTree
 import AFTD.Kb.Tcs.TreeIsDistanceHereditary
 import AFTD.Kb.Tcs.TriangleFreeBlockingGeVertexCoverOfLeOne

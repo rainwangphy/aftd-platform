@@ -100,7 +100,7 @@
     // Since the release, as cards: one number each, read at a glance.
     // As the day's News entry counts them (aftd/kb/day.py); what else Lean
     // accepted -- definitions, other sessions' lemmas -- beside them.
-    const more = (n) => n ? `+<b>${n}</b> definitions &amp; other lemmas` : "";
+    const more = (n) => n ? `+<b>${n}</b> definitions &amp; lemmas` : "";
     const adopted = t.adopted ?? t.posed ?? 0;  // "posed" until 27 October
     const card = (n, k, cls, sub) => `<div class="st-card ${cls}"><span class="v">${n ?? 0}</span>
       <span class="k">${k}</span>${sub ? `<span class="s">${sub}</span>` : ""}</div>`;

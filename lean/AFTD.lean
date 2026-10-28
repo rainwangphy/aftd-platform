@@ -6888,6 +6888,7 @@ import AFTD.Kb.Tcs.CompleteBipartiteTwoTwoAllPowersWellCovered
 import AFTD.Kb.Tcs.CompleteFourNotInduceV3MaxDegreeLeTwo
 import AFTD.Kb.Tcs.CompleteGraphLineGraphColorable
 import AFTD.Kb.Tcs.CompleteGraphOddLineGraphChromaticNumberEq
+import AFTD.Kb.Tcs.CompleteGraphOddLineGraphIndepSetCardLe
 import AFTD.Kb.Tcs.CompleteGraphOddLineGraphLeChromaticNumber
 import AFTD.Kb.Tcs.CompleteThreeRotationFaceCount
 import AFTD.Kb.Tcs.CompleteTwelveNoModuloSevenOrientation
@@ -6915,6 +6916,7 @@ import AFTD.Kb.Tcs.ContinuousLinearMapSupportEqSupEigenspaceNonzero
 import AFTD.Kb.Tcs.ContinuousOnComplexLaplaceTransformInteriorConvergenceDomain
 import AFTD.Kb.Tcs.CopWinTwoOfDominatingPair
 import AFTD.Kb.Tcs.CopsCanWinFrom
+import AFTD.Kb.Tcs.CoronaK1
 import AFTD.Kb.Tcs.Correctable
 import AFTD.Kb.Tcs.CorrectableImpliesGZero
 import AFTD.Kb.Tcs.CostM
@@ -9096,10 +9098,12 @@ import AFTD.Kb.Tcs.IsCyclicCode
 import AFTD.Kb.Tcs.IsCyclicCodeBot
 import AFTD.Kb.Tcs.IsDiamondFree
 import AFTD.Kb.Tcs.IsDistanceHereditary
+import AFTD.Kb.Tcs.IsEdgeGeodesicTransversal
 import AFTD.Kb.Tcs.IsFeasibleSchedule
 import AFTD.Kb.Tcs.IsFixV0
 import AFTD.Kb.Tcs.IsGaleCounterexampleThree
 import AFTD.Kb.Tcs.IsGeneralizedTreeShift
+import AFTD.Kb.Tcs.IsGeodesic
 import AFTD.Kb.Tcs.IsGhzGraph
 import AFTD.Kb.Tcs.IsGloballyBestOutside
 import AFTD.Kb.Tcs.IsGraphOrientation
@@ -9128,6 +9132,7 @@ import AFTD.Kb.Tcs.IsLinearHypergraph
 import AFTD.Kb.Tcs.IsLocallyDense
 import AFTD.Kb.Tcs.IsMatchingSupDisjointEncard
 import AFTD.Kb.Tcs.IsMatchingVertsEncardLeTwoMul
+import AFTD.Kb.Tcs.IsMaximalGeodesic
 import AFTD.Kb.Tcs.IsMaximalSelfAdjoint
 import AFTD.Kb.Tcs.IsMaximalSelfAdjointRCLikeSelfadjMap
 import AFTD.Kb.Tcs.IsMaximalSelfAdjointTrivialSelfadjMap
@@ -10076,6 +10081,7 @@ import AFTD.Kb.Tcs.OddAntiholeChromaticNumber
 import AFTD.Kb.Tcs.OddAntiholeColorableOfCommonPalette
 import AFTD.Kb.Tcs.OddAntiholeNotColorableOfIdenticalLists
 import AFTD.Kb.Tcs.OddCompleteMinEdgeColoringMissingVertexEquiv
+import AFTD.Kb.Tcs.OddDivTwoCancelLe
 import AFTD.Kb.Tcs.OneFifoPaymentAccounting
 import AFTD.Kb.Tcs.OneFifoStrictlyCompetitivePagingWithDelay
 import AFTD.Kb.Tcs.OneLeGraphEdgeConnectivityOfConnected

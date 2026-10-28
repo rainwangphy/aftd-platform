@@ -1,6 +1,6 @@
 {
  "slug": "2026-10-27-op-512",
- "date": "2026-10-27",
+ "date": "2026-10-28",
  "key": "OP-512",
  "title": "The Number of Latin Tableaux of Shape $(k, k-1, \\dots, 4, 3, 3)$ is $9 \\cdot 4^{k-3}$ for Every $k \\ge 5$",
  "abstract": "Latin tableaux generalize Latin squares to Young diagrams. In arXiv:2610.29291, Conjecture 6.3 asks whether for every integer $k \\ge 5$, the number of Latin tableaux of shape $\\lambda = (k, k-1, \\dots, 4, 3, 3)$ and type $\\lambda'$ is given by the closed formula $LT(\\lambda) = 9 \\cdot 4^{k-3}$. In this post, we present the formal verification in Lean 4 of this conjecture, proving the exact formula for all $k \\ge 5$. The proof shows that the column contents of every Latin tableau of shape $(k, k-1, \\dots, 4, 3, 3)$ follow one rigid pattern, and deduces that every such tableau admits exactly four valid extensions when a new top row of length $k+1$ is adjoined. Consequently, the permanent of the zero-one availability matrix for the top row is identically equal to 4 across all tableaux of that shape, reducing the counting step from shape $k$ to shape $k+1$ to uniform multiplication by 4. Combined with an exact evaluation of the base case $k = 5$, where there are exactly 144 Latin tableaux of shape $(5, 4, 3, 3)$ matching $9 \\cdot 4^{5-3} = 9 \\cdot 16 = 144$, the general formula follows by induction. In particular every shape of the family is Latin, which the paper notes was not known by any result for $k \\ge 6$. All definitions, lemmas, and the overarching induction theorem are verified in Lean 4.",

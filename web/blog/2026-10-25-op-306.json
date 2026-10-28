@@ -1,6 +1,6 @@
 {
  "slug": "2026-10-25-op-306",
- "date": "2026-10-25",
+ "date": "2026-10-26",
  "key": "OP-306",
  "title": "Every Minimum Proper Edge Colouring of $K_{279}$ Has Wild Number Exactly $186$",
  "abstract": "For an edge colouring $\\rho$ of a graph $G$, a set $W$ of edges of $G$ is colour-connecting if, for every colour $i$ used by $\\rho$, the spanning subgraph formed by the edges of colour $i$ together with $W$ is connected; the wild number $\\operatorname{wld}_\\rho(G)$ is the least size of a colour-connecting set. arXiv:2610.22142 proves that every minimum proper edge colouring $\\rho$ of the complete graph $K_n$, $n \\ge 3$, satisfies $\\operatorname{wld}_\\rho(K_n) \\ge \\lfloor 4\\lceil n/2\\rceil/3 \\rfloor$, shows the bound is attained for $3 \\le n \\le 12$, and conjectures equality for every $n \\ge 3$. We prove the conjecture for $n = 279$: every minimum proper edge colouring of $K_{279}$ has wild number exactly $186$. The upper bound holds for every such colouring, not just for one. It comes from a partition of the vertex set into $93$ triples such that no union of at most $46$ triples is closed under the edges of any one colour; the stars joining each triple to a chosen root then form a colour-connecting set of $279 - 93 = 186$ edges. Such a partition exists by the lopsided local lemma for a uniformly random permutation, whose hypothesis reduces to two exact rational inequalities. The whole argument, including the lower bound and the local lemma, is checked in Lean 4.",

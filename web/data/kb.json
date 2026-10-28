@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-28T14:14:41Z",
+ "generated": "2026-10-28T14:26:44Z",
  "trusted_axioms": [
   "Classical.choice",
   "Quot.sound",
@@ -12,15 +12,15 @@
   "theorems": 7196,
   "topics": 44,
   "domains": 7,
-  "open": 1283,
+  "open": 1290,
   "rejected": 213,
-  "spend": 740.08,
+  "spend": 740.79,
   "funded": 0,
   "currency": "USD",
   "tokens": {
-   "input": 717060085,
-   "output": 185653187,
-   "cache_read": 3407871676
+   "input": 717563461,
+   "output": 185888586,
+   "cache_read": 3413321410
   },
   "models": [
    "deepseek-flash",
@@ -899422,7 +899422,7 @@
   {
    "name": "cycle_power_dyadic_middle_full_prune_of_optimal_count_and_outer_monotone",
    "kind": "theorem",
-   "status": "proving",
+   "status": "stated",
    "topic": "combinatorics",
    "domain": "tcs",
    "informal": "Conjectured extension step: a tight dyadic integer rooted-class model with exact dyadic owners, full ordinary coverage and exactly k+3 active original classes at every vertex has the middle-full-prune property, provided each original first quarter is an initial interval and each original last quarter is a terminal interval. This is stated only. Counts are imposed on the original model, and pruned count preservation is not assumed.",
@@ -899476,12 +899476,12 @@
   {
    "name": "cycle_power_dyadic_outer_quarter_monotone",
    "kind": "theorem",
-   "status": "stated",
+   "status": "proving",
    "topic": "combinatorics",
    "domain": "tcs",
    "informal": "Conjectured count-free one-level shape statement: in every tight integer dyadic model of radius2^(k+2) with exact dyadic pair ownership and coverage of every ordinary distance, each original first quarter is an initial interval and each original last quarter is a terminal interval. No periodicity, scalar active counts or full-class coverage are assumed. This is stated only and does not assert no-island shape of the original whole class.",
    "statement": "theorem cycle_power_dyadic_outer_quarter_monotone\n    (k : ℕ) (x : ℤ → ℕ → Bool)\n    (htight : ∀ p, cycle_power_dyadic_class_weight (k+2) (x p) =\n      (Finset.range (2^(k+2))).sum (fun a => (x p a).toNat))\n    (hexact : ∀ j < k+2, ∀ v : ℤ, (Finset.range (2^j)).sum (fun a =>\n      (x (v-(a : ℤ)) a && x (v-(a : ℤ)) (a+2^(k+2)-2^j)).toNat) = 1)\n    (hcover : ∀ d : ℕ, 1 ≤ d → d < 2^(k+2) → ∀ v : ℤ,\n      ∃ a : ℕ, a < 2^(k+2)-d ∧ x (v-(a : ℤ)) a = true ∧\n        x (v-(a : ℤ)) (a+d) = true) :\n    ∀ p : ℤ,\n      (∀ a b : ℕ, a ≤ b → b < 2^k → x p b = true → x p a = true) ∧\n      (∀ a b : ℕ, 3*2^k ≤ a → a ≤ b → b < 2^(k+2) →\n        x p a = true → x p b = true)",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [
     "cycle_power_dyadic_class_weight",
     "cycle_power_dyadic_class_weight_le"
@@ -899512,7 +899512,7 @@
   {
    "name": "cycle_power_dyadic_prune_full_class_cover",
    "kind": "theorem",
-   "status": "proving",
+   "status": "stated",
    "topic": "combinatorics",
    "domain": "tcs",
    "informal": "Conjectured count-free pruning target: in every tight dyadic integer rooted-class model with exact dyadic pair ownership and all ordinary distance coverage, each vertex in the compressed outer-quarter model is covered by a class containing every compressed offset. No periodicity, active-count bound, or original full-class coverage is assumed. This is stated only.",
@@ -899530,12 +899530,12 @@
   {
    "name": "cycle_power_dyadic_pruned_full_root_gap_dichotomy",
    "kind": "theorem",
-   "status": "stated",
+   "status": "proving",
    "topic": "combinatorics",
    "domain": "tcs",
    "informal": "Conjectured gap dichotomy: in a tight exact fully ordinarily covered integer dyadic model of radius2^(k+2), with exactly k+3 active original classes everywhere and monotone outer quarters, suppose the compressed outer-quarter classes at roots0 andg are full, no interior integer root has a full compressed class, andg lies between2^k and2^(k+1). Then g equals one of those two endpoints. This is stated only; all hypotheses, including the original pointwise counts and explicit bracketing full prunes, are retained.",
    "statement": "theorem cycle_power_dyadic_pruned_full_root_gap_dichotomy\n    (k : ℕ) (x : ℤ → ℕ → Bool)\n    (htight : ∀ p, cycle_power_dyadic_class_weight (k+2) (x p) =\n      (Finset.range (2^(k+2))).sum (fun a => (x p a).toNat))\n    (hexact : ∀ j < k+2, ∀ v : ℤ, (Finset.range (2^j)).sum (fun a =>\n      (x (v-(a : ℤ)) a && x (v-(a : ℤ)) (a+2^(k+2)-2^j)).toNat) = 1)\n    (hcover : ∀ d : ℕ, 1 ≤ d → d < 2^(k+2) → ∀ v : ℤ,\n      ∃ a : ℕ, a < 2^(k+2)-d ∧ x (v-(a : ℤ)) a = true ∧\n        x (v-(a : ℤ)) (a+d) = true)\n    (hcount : ∀ v : ℤ, (Finset.range (2^(k+2))).sum\n      (fun a => (x (v-(a : ℤ)) a).toNat) = k+3)\n    (houter : ∀ p : ℤ,\n      (∀ a b : ℕ, a ≤ b → b < 2^k → x p b = true → x p a = true) ∧\n      (∀ a b : ℕ, 3*2^k ≤ a → a ≤ b → b < 2^(k+2) →\n        x p a = true → x p b = true))\n    (g : ℕ) (hg₀ : 2^k ≤ g) (hg₁ : g ≤ 2^(k+1))\n    (hfull₀ : ∀ i < 2^(k+1), cycle_power_dyadic_b_lift k (x 0) i = true)\n    (hfullg : ∀ i < 2^(k+1), cycle_power_dyadic_b_lift k (x (g : ℤ)) i = true)\n    (hgap : ∀ r : ℕ, 0 < r → r < g →\n      ¬ (∀ i < 2^(k+1), cycle_power_dyadic_b_lift k (x (r : ℤ)) i = true)) :\n    g = 2^k ∨ g = 2^(k+1)",
-   "attempts": 0,
+   "attempts": 1,
    "deps": [
     "cycle_power_dyadic_class_weight",
     "cycle_power_dyadic_class_weight_le"
@@ -910529,6 +910529,21 @@
    "created": 1792843020
   },
   {
+   "name": "simple_graph_card_vertices_le_edges_add_components",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "In any finite simple graph, the number of vertices is at most the number of edges plus the number of connected components.",
+   "statement": "theorem simple_graph_card_vertices_le_edges_add_components {V : Type*} [Fintype V]\n    (G : SimpleGraph V) :\n    Fintype.card V ≤ G.edgeFinset.card + Fintype.card G.ConnectedComponent",
+   "attempts": 0,
+   "deps": [],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "Structural necessity and certificate-soundness helpers for the OP-306 campaign; arXiv:2610.22142, Sections 3.3.1 and 3.3.2. These make the optimal block-partition route an equivalence at every odd order; no new exact wild-number case or bound is asserted.",
+   "created": 1793197587
+  },
+  {
    "name": "simple_graph_connected_two_regular_iso_cycle_graph",
    "kind": "theorem",
    "status": "stated",
@@ -913879,6 +913894,117 @@
    "provenance": "literature",
    "citation": "arXiv:2208.10475v2; OP-542",
    "created": 1793071969
+  },
+  {
+   "name": "wild_closed_cut_defect_partition",
+   "kind": "theorem",
+   "status": "proposed",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For a normalized minimum proper coloring on n vertices, an arbitrary finite family of vertex cuts D_j, and a nonnegative integer r, if n times the sum of d_j! times binomial(floor(n/2),floor(d_j/2)) times (n-d_j)! is strictly less than (r+1)n!, there is a permutation for which at most r cut-color pairs are closed.",
+   "statement": "theorem wild_closed_cut_defect_partition {n : ℕ} {J : Type*} [Fintype J]\n    (c : (⊤ : SimpleGraph (Fin n)).lineGraph.Coloring (Fin n))\n    (m : Fin n ≃ Fin n)\n    (hm : ∀ (i v : Fin n), (∀ w (hvw : v ≠ w), c ⟨s(v,w),wild_kn_mem hvw⟩ ≠ i) ↔ v = m i)\n    (D : J → Finset (Fin n)) (r : ℕ)\n    (hmass : n * (∑ j : J, (D j).card.factorial *\n      Nat.choose (n/2) ((D j).card/2) * (n-(D j).card).factorial) < (r+1) * n.factorial) :\n    ∃ σ : Equiv.Perm (Fin n),\n      ((Finset.univ : Finset (J × Fin n)).filter (fun ji =>\n        w279_closed c ji.2 ((D ji.1).image σ))).card ≤ r",
+   "attempts": 0,
+   "deps": [
+    "wild_number_complete_graph_upper_sub_four_add_parity",
+    "wild_number_complete_graph_279_min_proper_coloring_eq",
+    "wild_number_complete_graph_min_proper_coloring_ge"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "Order-independent first-moment helper for the constant-defect structural route in OP-306. Generalizes the accepted n=13 one-defect averaging lemma without asserting that the numerical hypothesis holds at all orders.",
+   "created": 1793197406
+  },
+  {
+   "name": "wild_closed_cut_swap_color_invariant",
+   "kind": "theorem",
+   "status": "proposed",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "Swapping the endpoints of a color-i edge in a proper complete-graph edge coloring preserves whether each vertex cut is closed for color i.",
+   "statement": "theorem wild_closed_cut_swap_color_invariant {n k : ℕ}\n    (c : (⊤ : SimpleGraph (Fin n)).lineGraph.Coloring (Fin k))\n    (i : Fin k) (U : Finset (Fin n)) (a b : Fin n) (hab : a ≠ b)\n    (hc : c ⟨s(a,b),wild_kn_mem hab⟩ = i) :\n    w279_closed c i (U.image (Equiv.swap a b)) ↔ w279_closed c i U",
+   "attempts": 0,
+   "deps": [
+    "wild_closed_cut_swap_iff",
+    "wild_number_complete_graph_279_min_proper_coloring_eq",
+    "wild_number_complete_graph_min_proper_coloring_ge"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "Helper for the structural exchange route in the OP-306 campaign on arXiv:2610.22142. This records a cut obstruction or a sufficient test for exchanges, not a new wild-number bound.",
+   "created": 1793197332
+  },
+  {
+   "name": "wild_closed_cut_swap_crossing_card_le_two",
+   "kind": "theorem",
+   "status": "proposed",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For any proper edge coloring of a complete graph, if the image of a vertex cut U under a transposition is closed for color i, at most two ordered color-i edges cross the original cut from U to its complement.",
+   "statement": "theorem wild_closed_cut_swap_crossing_card_le_two {n k : ℕ}\n    (c : (⊤ : SimpleGraph (Fin n)).lineGraph.Coloring (Fin k))\n    (i : Fin k) (U : Finset (Fin n)) (a b : Fin n)\n    (hclosed : w279_closed c i (U.image (Equiv.swap a b))) :\n    ((Finset.univ : Finset (Fin n × Fin n)).filter (fun uv =>\n      ∃ h : uv.1 ≠ uv.2, uv.1 ∈ U ∧ uv.2 ∉ U ∧\n        c ⟨s(uv.1,uv.2),wild_kn_mem h⟩ = i)).card ≤ 2",
+   "attempts": 0,
+   "deps": [
+    "wild_closed_cut_swap_crossing_incident",
+    "wild_number_complete_graph_279_min_proper_coloring_eq",
+    "wild_number_complete_graph_min_proper_coloring_ge"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "Helper for the structural exchange route in the OP-306 campaign on arXiv:2610.22142. This records a cut obstruction or a sufficient test for exchanges, not a new wild-number bound.",
+   "created": 1793197193
+  },
+  {
+   "name": "wild_closed_cut_swap_crossing_incident",
+   "kind": "theorem",
+   "status": "proposed",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "For any proper edge coloring of a complete graph, if swapping vertices a and b in a vertex cut U makes U closed for color i, every old color-i edge crossing U has an endpoint among a and b.",
+   "statement": "theorem wild_closed_cut_swap_crossing_incident {n k : ℕ}\n    (c : (⊤ : SimpleGraph (Fin n)).lineGraph.Coloring (Fin k))\n    (i : Fin k) (U : Finset (Fin n)) (a b : Fin n)\n    (hclosed : w279_closed c i (U.image (Equiv.swap a b)))\n    (u v : Fin n) (huv : u ≠ v) (hu : u ∈ U) (hv : v ∉ U)\n    (hc : c ⟨s(u,v),wild_kn_mem huv⟩ = i) :\n    u = a ∨ u = b ∨ v = a ∨ v = b",
+   "attempts": 0,
+   "deps": [
+    "wild_number_complete_graph_279_min_proper_coloring_eq",
+    "wild_number_complete_graph_min_proper_coloring_ge"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "Helper for the structural exchange route in the OP-306 campaign on arXiv:2610.22142. This records a cut obstruction or a sufficient test for exchanges, not a new wild-number bound.",
+   "created": 1793197126
+  },
+  {
+   "name": "wild_closed_cut_swap_iff",
+   "kind": "theorem",
+   "status": "proposed",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "Let a belong to U and b lie outside U. In any proper complete-graph edge coloring, the swapped cut is closed for i exactly when a has no i-neighbor in U, b has no i-neighbor outside U, ab is not colored i, and every old crossing i-edge has its U-end a or its other end b.",
+   "statement": "theorem wild_closed_cut_swap_iff {n k : ℕ}\n    (c : (⊤ : SimpleGraph (Fin n)).lineGraph.Coloring (Fin k))\n    (i : Fin k) (U : Finset (Fin n)) (a b : Fin n)\n    (ha : a ∈ U) (hb : b ∉ U) :\n    w279_closed c i (U.image (Equiv.swap a b)) ↔\n      (∀ w ∈ U, ∀ h : a ≠ w, c ⟨s(a,w),wild_kn_mem h⟩ ≠ i) ∧\n      (∀ w ∉ U, ∀ h : b ≠ w, c ⟨s(b,w),wild_kn_mem h⟩ ≠ i) ∧\n      (∀ h : a ≠ b, c ⟨s(a,b),wild_kn_mem h⟩ ≠ i) ∧\n      (∀ u ∈ U, ∀ v ∉ U, ∀ h : u ≠ v,\n        c ⟨s(u,v),wild_kn_mem h⟩ = i → u = a ∨ v = b)",
+   "attempts": 0,
+   "deps": [
+    "wild_closed_cut_swap_crossing_incident",
+    "wild_number_complete_graph_279_min_proper_coloring_eq",
+    "wild_number_complete_graph_min_proper_coloring_ge"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "Helper for the structural exchange route in the OP-306 campaign on arXiv:2610.22142. This records a cut obstruction or a sufficient test for exchanges, not a new wild-number bound.",
+   "created": 1793197258
+  },
+  {
+   "name": "wild_complete_thirteen_fixed_color_flip_obstruction",
+   "kind": "theorem",
+   "status": "stated",
+   "topic": "graphs",
+   "domain": "tcs",
+   "informal": "There is a normalized minimum proper 13-coloring of K_13 for which the partition {0,1,2},{3,4,5},{6,7,8},{9,10,11,12} has exactly one closed cut-color pair, the first triple for color 0. After swapping 1 and 3 it has exactly one defect, the second triple for color 1. Every finite sequence of flips of endpoints within the six color-0 matching edges keeps all color-0 cuts open but leaves some color cut closed. An unrestricted swap of 0 and 1 after the first swap makes all seven cuts open. The color-0 matching is {1,2},{3,6},{4,9},{5,10},{7,11},{8,12}.",
+   "statement": "theorem wild_complete_thirteen_fixed_color_flip_obstruction :\n    (⊤ : SimpleGraph (Fin 13)).lineGraph.chromaticNumber = 13 ∧\n    ∃ c : (⊤ : SimpleGraph (Fin 13)).lineGraph.Coloring (Fin 13),\n      (∀ i v : Fin 13, (∀ w (hvw : v ≠ w), c ⟨s(v,w),wild_kn_mem hvw⟩ ≠ i) ↔ v = i) ∧\n      (∀ (u v : Fin 13) (huv : u ≠ v), c ⟨s(u,v),wild_kn_mem huv⟩ = 0 ↔ v = wfo_mate u) ∧\n      (∀ (j : Fin 7) (i : Fin 13), w279_closed c i (wsc_repair_cuts wsc_repair_blocks j) ↔ j = 0 ∧ i = 0) ∧\n      (∀ (j : Fin 7) (i : Fin 13), w279_closed c i (wsc_repair_cuts wfo_start j) ↔ j = 1 ∧ i = 1) ∧\n      (∀ L : List (Fin 6),\n        (∀ j : Fin 7, ¬w279_closed c 0 (wsc_repair_cuts (fun t => (wfo_start t).image (wfo_word L)) j)) ∧\n        ∃ (j : Fin 7) (i : Fin 13), w279_closed c i (wsc_repair_cuts (fun t => (wfo_start t).image (wfo_word L)) j)) ∧\n      (∀ (j : Fin 7) (i : Fin 13), ¬w279_closed c i (wsc_repair_cuts (wsc_repair_swap wfo_start 0 1) j))",
+   "attempts": 0,
+   "deps": [
+    "wild_complete_thirteen_one_swap_repair_obstruction"
+   ],
+   "problem": null,
+   "provenance": "lemma",
+   "citation": "Failed structural exchange-route certificate for the OP-306 campaign, related to arXiv:2610.22142, Section 3.3.2. Experiment 8169 found the table; kernel finite checks certify the matrix, all 64 flip masks, and the unrestricted repair. A permutation-completeness proof reduces arbitrarily long flip words to those masks. This refutes the fixed-color endpoint-flip completion strategy, not the wild-number conjecture.",
+   "created": 1793197507
   },
   {
    "name": "wild_number_complete_graph_min_proper_coloring_eq",

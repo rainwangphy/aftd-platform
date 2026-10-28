@@ -70,6 +70,13 @@
       const st = e.kind === "next" ? "next" : (e.state || "done");
       if (st === "next") { pts.push({min: e.min, kind, cls: "next", what: "due"}); continue; }
       if (st === "late") { pts.push({min: e.min, kind, cls: "next bad", what: "not begun"}); continue; }
+      // A publish to the site outside the release (by hand, or a repair): one
+      // mark at the time it was made, solid if the site went out, else red.
+      if (e.point) {
+        pts.push({min: e.min, kind, cls: st === "failed" ? "done bad" : "done",
+                  what: st === "failed" ? "site publish failed" : "site published"});
+        continue;
+      }
       // An end not logged (older logs): a failure is marked where it began.
       const badStart = st === "stopped" || (st === "failed" && e.end == null);
       pts.push({min: e.min, kind, cls: badStart ? "done bad" : "done", what: badStart ? "failed" : "began"});
@@ -87,7 +94,7 @@
       const line = p.min - last[0] >= 75 ? 0 : p.min - last[1] >= 75 ? 1 : -1;
       if (line >= 0) last[line] = p.min;
       return `<span class="ln-mark ${p.cls} ${p.kind}${line === 1 ? " low" : ""}${p.min >= DAY ? " last" : ""}${p.min < 30 ? " first" : ""}"
-        style="left:${pct(p.min)}" title="${p.kind === "rel" ? "release" : "reading"} ${p.what} at ${at}">${line >= 0 ? `<b>${at}</b>` : ""}</span>`;
+        style="left:${pct(p.min)}" title="${p.what.startsWith("site") ? "" : p.kind === "rel" ? "release " : "reading "}${p.what} at ${at}">${line >= 0 ? `<b>${at}</b>` : ""}</span>`;
     }).join("");
     const sched = `<div class="ln-row ln-sched"><div class="ln-head"><p class="ln-name">Schedule
       <span class="ln-doing"><i class="ln-key read"></i>reading <i class="ln-key rel"></i>release</span></p></div>

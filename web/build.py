@@ -5,7 +5,7 @@
 
 Inputs, all under `web/`:
 
-* `data/kb.json` -- written by `scripts/snapshot.py` on the machine that runs
+* `data/kb.json.gz` -- written by `scripts/snapshot.py` on the machine that runs
   the loop, and committed. Every declaration the site shows comes from here.
 * `data/traces/<name>.json` -- written with it: for each proved theorem with
   tactics, Lean's goals before and after every tactic. Optional: a page
@@ -67,6 +67,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import gzip
 import json
 import re
 import shutil
@@ -1607,6 +1608,12 @@ def render_decl(s: Site, d: dict, trace: dict | None = None) -> str:
     )
 
 
+def read_snapshot(path: Path) -> dict:
+    """`data/kb.json.gz`, or an uncompressed `kb.json` as before 29 October."""
+    data = path.read_bytes()
+    return json.loads(gzip.decompress(data) if data[:2] == b"\x1f\x8b" else data)
+
+
 def step_code(st: dict, source: str) -> str:
     """An explanation step's Lean lines: its `code`, or, when the snapshot
     left it out as a copy, those `lines` of the declaration's `source`."""
@@ -2836,7 +2843,7 @@ def build(
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", default="_site")
-    ap.add_argument("--kb", default=str(HERE / "data" / "kb.json"))
+    ap.add_argument("--kb", default=str(HERE / "data" / "kb.json.gz"))
     ap.add_argument("--problems", default=str(HERE / "data" / "problems.json"))
     ap.add_argument("--config", default=str(HERE / "site.json"))
     ap.add_argument("--news", default=str(HERE / "news.json"))
@@ -2846,7 +2853,7 @@ def main() -> int:
     ap.add_argument("--traces", default=str(HERE / "data" / "traces"),
                     help="the proof traces, one file per declaration")
     args = ap.parse_args()
-    kb = json.loads(Path(args.kb).read_text(encoding="utf-8"))
+    kb = read_snapshot(Path(args.kb))
     cfg = json.loads(Path(args.config).read_text(encoding="utf-8"))
     pp = Path(args.problems)
     issues = json.loads(pp.read_text(encoding="utf-8"))["issues"] if pp.is_file() else []

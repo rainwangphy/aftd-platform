@@ -18,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "web"))
 
-from build import build, clip_prose, lean_from_html, tex_prose  # noqa: E402
+from build import build, clip_prose, lean_from_html, read_snapshot, tex_prose  # noqa: E402
 from problems import (  # noqa: E402
     PROBLEM_FIELDS,
     VERDICT_FIELDS,
@@ -767,10 +767,10 @@ def main() -> int:
     check("the stepper sets every string from the trace as text, never as markup",
           "innerHTML" not in js[js.find("(function stepper()"):js.find("window.addEventListener('DOMContentLoaded'")])
 
-    snap = ROOT / "web" / "data" / "kb.json"
+    snap = ROOT / "web" / "data" / "kb.json.gz"
     if snap.is_file():
         print("committed snapshot")
-        real = json.loads(snap.read_text(encoding="utf-8"))
+        real = read_snapshot(snap)
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "_site"
             news_file = ROOT / "web" / "news.json"

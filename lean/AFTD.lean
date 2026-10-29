@@ -684,7 +684,9 @@ import AFTD.Kb.GameTheoryEconomics.CondorcetQr23SelectorPotential
 import AFTD.Kb.GameTheoryEconomics.CondorcetQr23SelectorTransHi
 import AFTD.Kb.GameTheoryEconomics.CondorcetQr23SelectorTransLo
 import AFTD.Kb.GameTheoryEconomics.CondorcetQuadraticSubsetPotentialHalfBarrier
+import AFTD.Kb.GameTheoryEconomics.CondorcetReciprocalConnectedAcyclicWeightSeparation
 import AFTD.Kb.GameTheoryEconomics.CondorcetReversalTensorAcyclicHalfCoverIff
+import AFTD.Kb.GameTheoryEconomics.CondorcetSelectorClosedCandidatesGlobalCore
 import AFTD.Kb.GameTheoryEconomics.CondorcetSixBalancedHasWinningThreeSet
 import AFTD.Kb.GameTheoryEconomics.CondorcetSixBalancedTopStructure
 import AFTD.Kb.GameTheoryEconomics.CondorcetStationaryCertificateExists
@@ -10129,6 +10131,7 @@ import AFTD.Kb.Tcs.NPHard
 import AFTD.Kb.Tcs.NatBaseZeroShift
 import AFTD.Kb.Tcs.NatBaseZeroStrictMono
 import AFTD.Kb.Tcs.NatCountNotMemRangePos
+import AFTD.Kb.Tcs.NatDivisorsCard1248191226
 import AFTD.Kb.Tcs.NatEvenNotIsPowerOfTwoEqTwoPowMulOdd
 import AFTD.Kb.Tcs.NatInfiniteStrictMono
 import AFTD.Kb.Tcs.NatNthOfStrictMono

@@ -70,8 +70,8 @@
       const st = e.kind === "next" ? "next" : (e.state || "done");
       if (st === "next") { pts.push({min: e.min, kind, cls: "next", what: "due"}); continue; }
       if (st === "late") { pts.push({min: e.min, kind, cls: "next bad", what: "not begun"}); continue; }
-      // A publish to the site outside the release (by hand, or a repair): one
-      // mark at the time it was made, solid if the site went out, else red.
+      // After a release that failed, where the day's results first reached the
+      // site after all (the explanations' publish, or one by hand): one mark.
       if (e.point) {
         pts.push({min: e.min, kind, cls: st === "failed" ? "done bad" : "done",
                   what: st === "failed" ? "site publish failed" : "site published"});

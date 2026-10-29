@@ -1551,7 +1551,7 @@ def render_decl(s: Site, d: dict, trace: dict | None = None) -> str:
                 if st["lemmas"]
                 else ""
             )
-            + f'<pre class="lean">{highlight_lean(st["code"])}</pre></li>'
+            + f'<pre class="lean">{highlight_lean(step_code(st, d["source"]))}</pre></li>'
             for st in x["steps"]
         )
         gloss = (
@@ -1605,6 +1605,15 @@ def render_decl(s: Site, d: dict, trace: dict | None = None) -> str:
         script=True,
         description=clip(d["informal"] or d["statement"], 180),
     )
+
+
+def step_code(st: dict, source: str) -> str:
+    """An explanation step's Lean lines: its `code`, or, when the snapshot
+    left it out as a copy, those `lines` of the declaration's `source`."""
+    if "code" in st:
+        return st["code"]
+    a, b = st.get("lines") or (1, 0)
+    return "\n".join(source.split("\n")[max(0, a - 1) : b])
 
 
 def lines_link(lines, source: str) -> str:

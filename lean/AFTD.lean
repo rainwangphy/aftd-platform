@@ -6452,6 +6452,7 @@ import AFTD.Kb.Tcs.BonamiUniformMeasureApply
 import AFTD.Kb.Tcs.BonamiUniformWeightSucc
 import AFTD.Kb.Tcs.BookGraph
 import AFTD.Kb.Tcs.BookRamseyB1B2GraphExists
+import AFTD.Kb.Tcs.BoolAnfCoefficient
 import AFTD.Kb.Tcs.BoolBLRBLRAcceptProb
 import AFTD.Kb.Tcs.BoolBLRBLRAcceptProbPm1
 import AFTD.Kb.Tcs.BoolBLRBLRAcceptProbPm1AuxHEq
@@ -6501,6 +6502,7 @@ import AFTD.Kb.Tcs.BoolFourierL2NormSq
 import AFTD.Kb.Tcs.BoolFourierParsevalIdentity
 import AFTD.Kb.Tcs.BoolFourierParsevalIdentityAuxHL2
 import AFTD.Kb.Tcs.BoolFourierXorVec
+import AFTD.Kb.Tcs.BoolNextToTopAnfCount
 import AFTD.Kb.Tcs.BoolParentPairMoments
 import AFTD.Kb.Tcs.BoolSumEqCardFilter
 import AFTD.Kb.Tcs.BoolThresholdMarginalSum
@@ -9085,6 +9087,7 @@ import AFTD.Kb.Tcs.HasMonochromaticFanCopyColourInjective
 import AFTD.Kb.Tcs.HasMonochromaticFanCopyColourInjectiveNonempty
 import AFTD.Kb.Tcs.HasNondegenerateGp3
 import AFTD.Kb.Tcs.HasNonzeroPeriod
+import AFTD.Kb.Tcs.HasRationalTorusApproximation
 import AFTD.Kb.Tcs.HasRealApproximation
 import AFTD.Kb.Tcs.HasStrongOrientationOfDiameterLe
 import AFTD.Kb.Tcs.HasStronglyCactusNfa
@@ -10837,6 +10840,7 @@ import AFTD.Kb.Tcs.PowerDivergenceGenerator
 import AFTD.Kb.Tcs.PowerDivergenceGeneratorOne
 import AFTD.Kb.Tcs.PowerDivergenceHalfRootBounds
 import AFTD.Kb.Tcs.PowerDivergenceQuarterRootBounds
+import AFTD.Kb.Tcs.PredictedTorusError
 import AFTD.Kb.Tcs.PrefixReversal
 import AFTD.Kb.Tcs.PrefixReversalGcdDiffNecessary
 import AFTD.Kb.Tcs.PrefixReversalGroup
@@ -11084,6 +11088,7 @@ import AFTD.Kb.Tcs.SegmentsBlockPoints
 import AFTD.Kb.Tcs.SegmentsBlockPointsOfCardLeOne
 import AFTD.Kb.Tcs.SegmentsBlockPointsProp
 import AFTD.Kb.Tcs.SegmentsBlockPointsSubset
+import AFTD.Kb.Tcs.SeidelCodegreeBounds254
 import AFTD.Kb.Tcs.SeidelMatrix
 import AFTD.Kb.Tcs.SeidelMatrixCodegreeEq
 import AFTD.Kb.Tcs.SeidelMatrixComplCodegreeEq
@@ -11838,6 +11843,7 @@ import AFTD.Kb.Tcs.UniformKserverDetCompetitive
 import AFTD.Kb.Tcs.UniformKserverDetCost
 import AFTD.Kb.Tcs.UniformKserverDetKOneCompetitive
 import AFTD.Kb.Tcs.UniformKserverDetSchedule
+import AFTD.Kb.Tcs.UniformKserverDetScheduleIsSchedule
 import AFTD.Kb.Tcs.UniformKserverExpectedCost
 import AFTD.Kb.Tcs.UniformKserverIsSchedule
 import AFTD.Kb.Tcs.UniformKserverOfflineCost

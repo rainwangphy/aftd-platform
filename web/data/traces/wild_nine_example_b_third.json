@@ -1,0 +1,1 @@
+{"name":"wild_nine_example_b_third","v":1,"source_hash":"08b826591d14f334","lines":["⊢ wild_nine_third_sum wild_nine_example_b = 324"],"goals":[[0]],"steps":[{"line":7,"col":2,"end_line":7,"end_col":16,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

@@ -1,0 +1,1 @@
+{"name":"wild_nine_example_b_pair_profile","v":1,"source_hash":"72b0f2f5da4eab30","lines":["⊢ wild_nine_pair_profile wild_nine_example_b = Multiset.replicate 32 4 + Multiset.replicate 4 13"],"goals":[[0]],"steps":[{"line":8,"col":2,"end_line":8,"end_col":16,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

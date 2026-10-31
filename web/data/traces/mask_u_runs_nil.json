@@ -1,0 +1,1 @@
+{"name":"mask_u_runs_nil","v":1,"source_hash":"8a9775953d7c2ec5","lines":["⊢ mask_u_runs [] = 0"],"goals":[[0]],"steps":[{"line":2,"col":51,"end_line":2,"end_col":54,"tactic":"rfl","before":[0],"after":[],"used":["mask_u_runs","Nat","Bool","Eq.refl","List.nil"]}],"steps_total":1,"truncated":false}

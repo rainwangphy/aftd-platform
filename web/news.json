@@ -2,6 +2,131 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-10-31",
+   "kind": "daily",
+   "title": "Daily reading: 2 research-level, 79 proved, 26 open",
+   "research": {
+    "results": 2,
+    "theorems": 2
+   },
+   "body": "Research-level results today: 2. (medium tier) Proves the failure half of the golden-ratio conjecture OP-726 for every exponent, not just at sample points: for every beta in (0, (sqrt 5 - 1)/2) there is a strictly positive binary Markov chain Y <- X -> Z on which mutual power-divergence information is strictly superadditive. The construction is a rare input symbol of probability p and a channel entry of order p, and the slack has derivative -(1-beta)a^2 - (1-(1-a)^beta)^2 + 2 kappa^beta((a+kappa)^(1-beta) - (kappa+a-a^2)^(1-beta)) at p = 0, positive for suitable a, kappa exactly when beta^2 + beta < 1. The source paper (arXiv:2610.21231) gives only sufficient conditions for subadditivity, and the knowledgebase had refutations only at beta = 1/4 and 1/2 plus numerical evidence for the threshold; (low tier) settles OP-744 (Existence of a non-transitive cycle of length at least 12 for 11-sided dice). Each research-level result is one Research Blog post; theorems that bear on the same open problem or paper share it.\n\nThe Proposer read 0 new paper(s) and listed 0 open problem(s); 0 new question(s) of AFTD's own were adopted onto the list; 10 list entries were stated in Lean, as were 8 results the papers prove; the Proposer posed 36 more from what the knowledgebase already holds (83 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 79 theorem(s), 30 of them helper lemmas, which are not listed below; 26 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nResearch-level. `power_divergence_exists_binary_counterexample_of_lt_golden_ratio` (knowledgebase): For every exponent beta in (0, (sqrt 5 - 1)/2), there exist strictly positive binary probability mass functions pX, PY, PZ forming a Markov chain Y <- X -> Z such that mutual power-divergence information subadditivity strictly fails. — (medium tier) Proves the failure half of the golden-ratio conjecture OP-726 for every exponent, not just at sample points: for every beta in (0, (sqrt 5 - 1)/2) there is a strictly positive binary Markov chain Y <- X -> Z on which mutual power-divergence information is strictly superadditive. The construction is a rare input symbol of probability p and a channel entry of order p, and the slack has derivative -(1-beta)a^2 - (1-(1-a)^beta)^2 + 2 kappa^beta((a+kappa)^(1-beta) - (kappa+a-a^2)^(1-beta)) at p = 0, positive for suitable a, kappa exactly when beta^2 + beta < 1. The source paper (arXiv:2610.21231) gives only sufficient conditions for subadditivity, and the knowledgebase had refutations only at beta = 1/4 and 1/2 plus numerical evidence for the threshold\n\nResearch-level. `op744_dice11_has_directed_cycle_ge_twelve` (arXiv:2610.40321): There exists an integer k ≥ 12 such that has_directed_cycle (dice_graph 11).Adj k holds. — (low tier) settles OP-744 (Existence of a non-transitive cycle of length at least 12 for 11-sided dice)\n\nPartial result on OP-161. `cycle_seven_all_powers_well_covered` (arXiv:2610.09300): For every positive integer d, the d-th power of the 7-cycle graph C_7 is well-covered.\n\nPartial result on OP-537. `exists_planar_all_powers_well_covered_diam_eq_three` (knowledgebase): There exists a finite connected simple planar graph G with at least two vertices whose diameter is exactly 3 and such that every positive integer power G^d (for d ≥ 1) is well-covered.\n\nPartial result on OP-538. `bipartite_all_powers_well_covered_diameter_le_two` (knowledgebase): Every finite connected bipartite simple graph G with at least two vertices whose positive integer powers G^d (for d ≥ 1) are all well-covered has diameter at most 2.\n\nPartial result on OP-593. `cycle_not_proportionally_two_choosable` (knowledgebase): For every integer n ≥ 3, the simple n-cycle C_n is not proportionally 2-choosable: it is not the case that for every finite color palette α and every assignment L of 2 colors to each vertex, there exists a proper coloring f of C_n with f(v) ∈ L(v) for all v…\n\nPartial result on OP-726. `mutual_power_divergence_not_subadditive_of_lt_golden_ratio` (knowledgebase): For every exponent beta in (0, (sqrt 5 - 1)/2), the mutual power-divergence information with generator f_beta fails to be subadditive under Markov chains Y <- X -> Z.\n\nPartial result on OP-729. `op_729_case_n_two` (knowledgebase): For every Boolean function f : (Fin 2 → Bool) → Bool on 2 variables, optimalTorusError f 0 = predictedTorusError 2 f and HasRationalTorusApproximation f 0 (predictedTorusError 2 f).\n\nPartial result on OP-719. `yang_mills_residual_root_m3` (knowledgebase): The rational residual polynomial yang_mills_residual_polynomial 3 evaluated at the rational number 1/21 equals 0.\n\nPartial result on OP-786. `min_avg_pairwise_hamming_dist_density_one_sixteenth_n_eq_four` (arXiv:2610.40486): For $n = 4$, every subset $F \\subseteq (\\mathrm{Fin}\\ 4 \\to \\mathrm{Bool})$ of cardinality $2^{4-4} = 1$ attains average pairwise Hamming distance $(4-4)/2 = 0$ and is a $0$-dimensional subcube `is_subcube (4 - 4) F`.\n\nThread RT-1. `cycle_power_dyadic_class_weight_congr`: The dyadic class weight cycle_power_dyadic_class_weight m b depends only on the values b i for i < 2^m: if b i = b' i for every i < 2^m, the two weights are equal.\n\nThread RT-1. `cycle_power_dyadic_no_island_of_alternating_paired`: Uniform induction step for the no-island class shape. Let m ≥ 1 and suppose every tight, exactly dyadically covered, fully ordinarily covered integer Boolean class model at exponent m with exactly m+1 active classes at each vertex has no island (a < b < c <…\n\nThread RT-1. `simple_graph_equivalence_covering_number_cycle_power_two_pow_even_not_dvd_of_alternating_paired`: Conditional resolution of OP-205: if, for every m ≥ 5, every tight, exactly dyadically covered, fully ordinarily covered integer Boolean class model at exponent m with exactly m+1 active classes per vertex has the alternating-paired structure (x (p+1) 1 =…\n\nThread RT-1. `cycle_power_dyadic_tight_class_inner_imp_one`: For m ≥ 2 and a tight dyadic class b : ℕ → Bool at exponent m (class weight equal to class size) with b 1 = b (2^m - 2) and b (2i) = b (2i+1) whenever 1 ≤ i and i + 1 < 2^(m-1): every inner bit forces bit 1, i.e. if 0 < j < 2^m - 1 and b j = true then b 1 =…\n\nThread RT-1. `cycle_power_dyadic_alternating_paired_of_pairing`: For m ≥ 2, a tight, exactly dyadically covered integer Boolean class model x : ℤ → ℕ → Bool at exponent m with x p 1 = x p (2^m - 2) for every p and the pairings x p (2i) = x p (2i+1) for 1 ≤ i, i + 1 < 2^(m-1), has the alternating-paired structure: x (p+1)…\n\nFormalized. `subdivided_k33_line_graph_isk4_diamond_free_four_chromatic` (arXiv:2610.32404 Proposition 11.2, with H as constructed in Section 11.): Let H be the graph obtained from K3,3 by subdividing one edge exactly once, and let G be its line graph. Then G has no induced subdivision of K4, has no induced diamond, and has chromatic number exactly four.\n\nFormalized. `cylinder_construction_distance_set` (arXiv:2610.34758 Lemma 2.3 -- Geometric progressions in distance sets in odd dimensions over prime fields): Let $p$ be an odd prime (with $p$ prime and $p$ odd) and let $m \\ge 0$ be a natural number. There exist an $m$-dimensional submodule $W \\le (\\mathbb{Z}/p\\mathbb{Z})^{2m+1}$ that is totally isotropic with respect to $Q_{2m+1}$ and a vector $e \\in…\n\nFormalized. `finite_bi_algebra_is_semigroup_with_left_units` (arXiv:2610.37108 Proposition 3.1): Every finite BI-algebra is a semigroup with B and I as left units: let (A, ·) be a finite magma equipped with elements B, I in A such that B is a B-element (((Bx)y)z = x(yz) for all x, y, z in A) and I is an I-element (Ix = x for all x in A). Then the binary…\n\nFormalized. `tournament_not_king_of_covered` (arXiv:2610.40521 Observation 4): If a vertex w covers another vertex v in a tournament T (that is, w -> v and w -> x for every out-neighbor x of v), then v is not a king in T.\n\nFormalized. `tournament_is_king_of_max_outdegree` (arXiv:2610.40521 Equation 2): In every tournament on n vertices, every vertex of maximum outdegree is a king: every other vertex is reachable from it by a directed path of length at most two.\n\nFormalized. `tournament_exists_covering_realization` (arXiv:2610.40521 Lemma 6): Let d be a realizable degree vector of an n-vertex tournament, and let v, w be vertices satisfying d v < d w. Then there exists a tournament T realizing d in which w covers v (that is, w -> v and w -> x for every out-neighbor x of v).\n\nFormalized. `tournament_universal_kings_iff_max_outdegree` (arXiv:2610.40521 Corollary 7): For every realizable degree vector d of an n-vertex tournament and every vertex v, v is a king in every tournament realizing d if and only if v has maximum outdegree according to d (that is, d u ≤ d v for all vertices u).\n\nFormalized. `tournament_directed_cut_eq_of_outdegrees_eq` (arXiv:2610.40521 Lemma 2: Directed Cut-Query Complexity of Finding a King): Let T₁ and T₂ be tournaments on vertex set Fin n such that every vertex v has the same outdegree in T₁ and T₂. Then for every subset S ⊆ Fin n, the number of edges directed from S to its complement in T₁ equals that in T₂.\n\nOpen. `yang_mills_additional_root_distinct_explicit` (knowledgebase): For every natural number m ≥ 12, with d = 2m + 5, b_coeff = -2*(d^3 - 16*d^2 + 89*d - 146)/((d - 2)*(d - 1)^2), and c_coeff = ((d - 10)*(d - 5)/((d - 2)*(d - 1)))^2, let Q be the monic quadratic polynomial X^2 + b_coeff * X + c_coeff; if a real number z…\n\nOpen. `min_avg_pairwise_hamming_dist_density_one_sixteenth` (arXiv:2610.40486): Let $n \\ge 4$ be a natural number. For any subset $F \\subseteq (\\mathrm{Fin}\\ n \\to \\mathrm{Bool})$ of cardinality $2^{n-4}$, the average pairwise Hamming distance `avg_pairwise_hamming_dist F` is at least $(n-4)/2$, and equality holds if and only if $F$ is…\n\nOpen. `subcube_avg_pairwise_hamming_dist` (arXiv:2610.40486): For any $n \\ge 4$, every $(n-4)$-dimensional subcube $F \\subseteq (\\mathrm{Fin}\\ n \\to \\mathrm{Bool})$ of cardinality $2^{n-4}$ has average pairwise Hamming distance equal to $(n-4)/2$.\n\nOpen. `op_776_explicit_polynomial_hitting_small_char` (arXiv:2610.37677): There exist constants C, k : ℕ such that for all natural numbers m ≥ 1, S ≥ 1, and every prime p ≤ ((m+2)S choose 2), for every field F of characteristic p, there exist a matrix order R ≤ C * (m + S)^k and a tuple of matrices T : Fin m → Matrix (Fin R) (Fin…\n\nOpen. `op_776_char_two_hitting_point` (arXiv:2610.37677): There exist constants C, k : ℕ such that for all natural numbers m ≥ 1, S ≥ 1, and every field F of characteristic 2, there exist a matrix order R ≤ C * (m + S)^k and a tuple of matrices T : Fin m → Matrix (Fin R) (Fin R) F such that T is an ncABP hitting…\n\nOpen. `graph_interval_index_path_graph` (arXiv:2610.39966 Theorem 5): For every n ≥ 1, the interval index of the path graph P_n equals (n^3 - n) / 6.",
+   "declarations": [
+    "cycle_seven_all_powers_well_covered",
+    "exists_planar_all_powers_well_covered_diam_eq_three",
+    "bipartite_all_powers_well_covered_diameter_le_two",
+    "bipartite_ravindra_matching_power_two_well_covered_diam_le_two",
+    "subdivided_k33_line_graph_no_k4_claw_diamond",
+    "subdivided_k33_line_graph_chromatic_number_eq_four",
+    "subdivided_k33_line_graph_isk4_diamond_free_four_chromatic",
+    "cycle_not_proportionally_two_choosable",
+    "cylinder_construction_distance_set",
+    "bi_left_translation_surj_step",
+    "bi_left_translation_iter2_eq",
+    "finite_bi_algebra_is_semigroup_with_left_units",
+    "sages_row_upper_bound_binomial",
+    "uniform_kserver_det_schedule_is_schedule",
+    "condorcet_small_complement_fractional_cover",
+    "mutual_power_divergence_not_subadditive_of_lt_golden_ratio",
+    "power_divergence_exists_binary_counterexample_of_lt_golden_ratio",
+    "boolAnfCoefficient_univ",
+    "kst_code_max_density_antitone",
+    "k22_code_max_density_ge_inv_pow_two",
+    "op_729_case_n_two",
+    "hasTorusApproximation_of_hasRationalTorusApproximation",
+    "yang_mills_residual_root_m3",
+    "is_subcube_univ",
+    "is_subcube_singleton",
+    "avg_pairwise_hamming_dist_singleton",
+    "min_avg_pairwise_hamming_dist_density_one_sixteenth_n_eq_four",
+    "min_avg_pairwise_hamming_dist_density_one_sixteenth_n_eq_five",
+    "ghz_graph_vertex_connectivity_le_card_sub_two",
+    "simple_graph_vertex_connectivity_two_card_three_eq_top",
+    "simple_graph_vertex_connectivity_two_card_three_hamiltonian",
+    "simple_graph_indepNum_le_one_imp_eq_top",
+    "tournament_not_king_of_covered",
+    "tournament_is_king_of_max_outdegree",
+    "tournament_exists_covering_realization",
+    "tournament_universal_kings_iff_max_outdegree",
+    "latin_hypercube_is_affine",
+    "zmod3_perm_is_affine",
+    "nowhere_zero_affine_is_constant",
+    "tournament_directed_cut_eq_of_outdegrees_eq",
+    "ncabp_eval_poly_zero_direction",
+    "graph_collinear_middle_unique",
+    "graph_interval_index_eq_choose_two_add_col",
+    "graph_mutual_visibility_chromatic_number_le_chromatic_number_of_diam_two",
+    "exists_diameter_two_graph_mutual_visibility_chromatic_number_three",
+    "graph_11_diam",
+    "graph_11_chromatic_number",
+    "graph_11_not_is_mutual_visibility_colorable_two",
+    "graph_11_mutual_visibility_chromatic_number_eq_three",
+    "tournament_two_path_diff_eq_out_degree_diff",
+    "tournament_strong_king_iff_in_neighbor_out_degree_le",
+    "tournament_max_out_degree_is_strong_king",
+    "two_sided_shadow_optimal_score_three",
+    "clifford_circuit_score_one_nil",
+    "op_757_all_to_all_cnot_three_exists",
+    "op_757_1d_chain_cnot_three_le_five",
+    "op_757_cnot_two_exists",
+    "mask_u_runs_nil",
+    "word_block_exchange_transport_back_is_mask_iff",
+    "reflexive_rel_swap_is_cycle_cover",
+    "cycle_power_dyadic_class_weight_congr",
+    "cycle_power_dyadic_no_island_of_alternating_paired",
+    "simple_graph_equivalence_covering_number_cycle_power_two_pow_even_not_dvd_of_alternating_paired",
+    "cycle_power_dyadic_tight_class_inner_imp_one",
+    "cycle_power_dyadic_alternating_paired_of_pairing",
+    "restricted_cycle_global_gcd_dvd_one_param_gcd",
+    "restricted_cycle_global_gcd_eq_one_param_gcd_3_5",
+    "mutual_power_divergence_binary_subadditive_imp_golden_ratio_le",
+    "mutual_power_divergence_subadditive_imp_golden_ratio_le",
+    "mutual_power_divergence_subadditive_imp_quadratic_nonneg",
+    "op_729_and3_has_rational_torus_approximation",
+    "minimal_advantage_eleven",
+    "op744_dice11_has_directed_cycle_ge_twelve",
+    "op744_dice6_has_cycle_six",
+    "op744_dice3_no_cycle_three",
+    "op744_dice7_has_cycle_fourteen",
+    "efx_of_bundle_card_le_one",
+    "thermally_reachable_subset_base_polytope",
+    "op_737_two_level_submodular"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.35433",
+     "href": "https://arxiv.org/abs/2610.35433"
+    },
+    {
+     "label": "arXiv:2610.40321",
+     "href": "https://arxiv.org/abs/2610.40321"
+    },
+    {
+     "label": "arXiv:2610.40342",
+     "href": "https://arxiv.org/abs/2610.40342"
+    },
+    {
+     "label": "arXiv:2610.04621",
+     "href": "https://arxiv.org/abs/2610.04621"
+    },
+    {
+     "label": "arXiv:2610.39430",
+     "href": "https://arxiv.org/abs/2610.39430"
+    },
+    {
+     "label": "arXiv:2610.37677",
+     "href": "https://arxiv.org/abs/2610.37677"
+    },
+    {
+     "label": "arXiv:2610.40486",
+     "href": "https://arxiv.org/abs/2610.40486"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-10-30",
    "kind": "daily",
    "title": "Daily reading: 2 research-level, 189 proved, 43 open",

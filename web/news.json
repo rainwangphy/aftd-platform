@@ -3,6 +3,20 @@
  "entries": [
   {
    "date": "2026-10-31",
+   "kind": "monthly",
+   "month": "2026-10",
+   "title": "October 2026: Optimal Graph Partitions, Quantum Parity Bounds, and Tableau Enumeration Settled",
+   "body": "This month settled open questions across discrete mathematics. Optimal graph cuts were shown to fail coalitional stability. Exact parity bounds for line cubic circuits were proved. A Latin tableau enumeration formula was established, and squares resist two-prime tile partitions.\n\nDisproved. Unweighted Max-3-Cut games can fail to admit any optimal strong equilibrium\n\nProved. Line cubic quantum syndrome has exact size 2n + 1 parity representation\n\nProved. Latin tableaux with double-three tail numbered by closed formula\n\nPartial. Squares have no perfect partitions with two-prime tile areas\n\nLean accepted 3307 new theorems this month so far, drawn from 205 papers and 34 topics. Of these, 198 are new here, 8 correct a published claim, 484 formalize a published result and 2617 are helper lemmas. They make 17 research-level results, in 20 theorems -- they lead the report. 1808 statements posed this month are not yet proved. The reading covered 330 new papers. This report covers 8 results in 6 fields.",
+   "declarations": [],
+   "links": [
+    {
+     "label": "Read the monthly report (5 min)",
+     "href": "monthly/2026-10/"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-31",
    "kind": "daily",
    "title": "Daily reading: 2 research-level, 79 proved, 26 open",
    "research": {

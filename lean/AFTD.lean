@@ -3477,6 +3477,8 @@ import AFTD.Kb.Optimization.FiberSumVec
 import AFTD.Kb.Optimization.FinsetIndicatorVec
 import AFTD.Kb.Optimization.GeIffSimplexGe
 import AFTD.Kb.Optimization.GreedyVectorChainSaturation
+import AFTD.Kb.Optimization.GreedyVectorObservableValue
+import AFTD.Kb.Optimization.GreedyVectorSumUniv
 import AFTD.Kb.Optimization.HasOrthantDiminishingReturns
 import AFTD.Kb.Optimization.HexagonSlackNotPsdFactorizationLeThree
 import AFTD.Kb.Optimization.IsC1KSubmodKernel
@@ -3530,6 +3532,7 @@ import AFTD.Kb.Optimization.MultilinearExtensionPermInvariant
 import AFTD.Kb.Optimization.MultilinearExtensionSmul
 import AFTD.Kb.Optimization.NotKSubmodHiddenFnOrthantDiminishingReturns
 import AFTD.Kb.Optimization.NotKSubmodHiddenFnProperties
+import AFTD.Kb.Optimization.ObservableUpperBoundBasePolytope
 import AFTD.Kb.Optimization.OctagonH2SlackMatrix
 import AFTD.Kb.Optimization.OctagonSectionPlaneFacetsVal
 import AFTD.Kb.Optimization.OctagonSectionPlaneVertices
@@ -3557,6 +3560,7 @@ import AFTD.Kb.Optimization.PolygonV2FourEqEightIffNoLarger
 import AFTD.Kb.Optimization.PolygonV2FourGeEight
 import AFTD.Kb.Optimization.PopulationCapacity
 import AFTD.Kb.Optimization.RelativeLorenzCurve
+import AFTD.Kb.Optimization.RelativeLorenzCurveZero
 import AFTD.Kb.Optimization.SSupIndepLeSSupMultilinearExtension
 import AFTD.Kb.Optimization.StdSimplexAffineCombination
 import AFTD.Kb.Optimization.StdSimplexAffineCombinationEqLinearCombination
@@ -6388,6 +6392,7 @@ import AFTD.Kb.Tcs.BalancedFiveColoringExistsColorClassBoundsAndProperties
 import AFTD.Kb.Tcs.BalancedMultipartiteNearestSpectralDistance
 import AFTD.Kb.Tcs.BalancedMultipartiteNearestSpectralDistanceNonneg
 import AFTD.Kb.Tcs.BeatScore
+import AFTD.Kb.Tcs.BellNetworkLambda
 import AFTD.Kb.Tcs.BentSumCounterexampleFunc
 import AFTD.Kb.Tcs.BentSumCounterexampleHasDegreeLe
 import AFTD.Kb.Tcs.BentSumCounterexampleNotHasDegreeLt
@@ -6769,6 +6774,7 @@ import AFTD.Kb.Tcs.CliffordTGate
 import AFTD.Kb.Tcs.CliffordTGateMatrix
 import AFTD.Kb.Tcs.CliffordTGateMatrixTSq
 import AFTD.Kb.Tcs.CliqueToVertexCoverEquivalence
+import AFTD.Kb.Tcs.ClosedNetworkBound
 import AFTD.Kb.Tcs.CnfEmptySatisfiable
 import AFTD.Kb.Tcs.CnfIncidenceGraph
 import AFTD.Kb.Tcs.CnfIncidenceTreewidth
@@ -9007,6 +9013,7 @@ import AFTD.Kb.Tcs.Gf8OracleSyndromeSingleton
 import AFTD.Kb.Tcs.Gf8OracleSyndromeZeroZeroZero
 import AFTD.Kb.Tcs.Gf8OracleTCountGe20
 import AFTD.Kb.Tcs.Gf8OracleTCountLe29
+import AFTD.Kb.Tcs.GhzCorrelationVector
 import AFTD.Kb.Tcs.GhzCutParityEqOfPerfectMatching
 import AFTD.Kb.Tcs.GhzCycleList
 import AFTD.Kb.Tcs.GhzEvenCardOfPerfectMatching
@@ -9019,6 +9026,9 @@ import AFTD.Kb.Tcs.GhzMatchingCrossCutGeTwoOfEven
 import AFTD.Kb.Tcs.GhzMatchingIndex
 import AFTD.Kb.Tcs.GhzMatchingIndexLeMinDegree
 import AFTD.Kb.Tcs.GhzMatchingWeight
+import AFTD.Kb.Tcs.GhzNetworkLambdaStandardFrame
+import AFTD.Kb.Tcs.GhzPauliCoeff
+import AFTD.Kb.Tcs.GhzTwoCopyClosedLowerBound
 import AFTD.Kb.Tcs.GhzVertexColouringWeight
 import AFTD.Kb.Tcs.GhzVertexConnectivityLeCardOfCut
 import AFTD.Kb.Tcs.GloveNumber
@@ -10698,6 +10708,7 @@ import AFTD.Kb.Tcs.Op98OneClusterPackingBound
 import AFTD.Kb.Tcs.Op98SmallPackingBound
 import AFTD.Kb.Tcs.Op98SqExchangeBound
 import AFTD.Kb.Tcs.Op98SumConflictNeighborhoodWeight
+import AFTD.Kb.Tcs.OpenNetworkBound
 import AFTD.Kb.Tcs.OpenProblemLineCubicTCount
 import AFTD.Kb.Tcs.OperatorGeometricMeanOperatorConcaveOnIoiOfIci
 import AFTD.Kb.Tcs.OperatorGeometricMeanOperatorPowerMean
@@ -11044,6 +11055,7 @@ import AFTD.Kb.Tcs.QuadraticBentFormThreeIsBent
 import AFTD.Kb.Tcs.QuadraticBentFormThreeWeight
 import AFTD.Kb.Tcs.QuadraticFormLeSingularValuesSortedSq
 import AFTD.Kb.Tcs.QuadripartiteMaxWildNumber
+import AFTD.Kb.Tcs.QuadripartiteMaxWildNumberEqOfBounds
 import AFTD.Kb.Tcs.QuantumHammingBound
 import AFTD.Kb.Tcs.QuantumHammingBoundRaw
 import AFTD.Kb.Tcs.QuantumSingletonBound

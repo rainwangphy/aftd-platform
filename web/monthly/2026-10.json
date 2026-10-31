@@ -1,0 +1,316 @@
+{
+ "week": "2026-10",
+ "start": "2026-10-01",
+ "end": "2026-10-31",
+ "format": 3,
+ "period": "month",
+ "partial": true,
+ "language": "English",
+ "model": "gemini-3.8-flash",
+ "generated": "2026-10-31",
+ "title": "Optimal Graph Partitions, Quantum Parity Bounds, and Tableau Enumeration Settled",
+ "summary": "This month settled open questions across discrete mathematics. Optimal graph cuts were shown to fail coalitional stability. Exact parity bounds for line cubic circuits were proved. A Latin tableau enumeration formula was established, and squares resist two-prime tile partitions.",
+ "lead": {
+  "main": "maxcut_op89_optimal_strong_equilibrium_negation",
+  "title": "Optimal Graph Cuts Can Collapse Under Group Collusion",
+  "story": "Imagine players coloring vertices in a network to disagree with neighbors. When edges between differently colored vertices earn rewards, colorings maximizing cut achieve greatest welfare. While some optimal colorings were known unstable, researchers asked whether every network admits an optimal coloring resisting colluding teams.\n\nThe answer is no. A 182-vertex network shows an unweighted cut game can fail to admit any optimal strong equilibrium.\n\nIn this network, every coloring achieving maximum social welfare allows a coalition to switch colors together, strictly improving each member's payoff."
+ },
+ "fields": [
+  {
+   "name": "Equilibria in Games",
+   "context": "Optimal graph colorings can fail to prevent group deviations.",
+   "results": [
+    {
+     "headline": "Unweighted Max-3-Cut games can fail to admit any optimal strong equilibrium",
+     "plain": "Even when seeking to maximize severed connections, some networks have no optimal coloring immune to colluding teams.",
+     "before": "It was open whether every unweighted Max-k-Cut game has an optimal coloring that is a strong equilibrium.",
+     "answer": "Question 2 of arXiv:2610.04948 fails for k = 3: an explicit 182-vertex graph has no optimal three-cut coloring that is a strong equilibrium.",
+     "why": "Shows that socially optimal colorings can never achieve coalitional stability in some unweighted networks.",
+     "idea": "",
+     "outcome": "disproved",
+     "source": "arXiv:2610.04948",
+     "main": "maxcut_op89_optimal_strong_equilibrium_negation",
+     "declarations": [
+      "maxcut_op89_optimal_strong_equilibrium_negation",
+      "maxcut_pinned_twins_optimum_rigidity",
+      "maxcut_pinned_twins_displayed_deviation",
+      "maxcut_pinned_twins_not_colorable_three"
+     ],
+     "highlight": true,
+     "research": "Answers the paper's Question 2 negatively for k = 3: a 182-vertex graph (the paper's 91-vertex G_3 with every vertex doubled into independent twins, plus pin edges from each core twin to two anchors) has an optimal Max-3-Cut coloring that is unique up to color permutation and not a strong equilibrium, so no optimal coloring is a strong equilibrium. The paper only shows that some optimal coloring can fail",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Quantum Computation",
+   "context": "Parity representations determine line cubic circuit costs.",
+   "results": [
+    {
+     "headline": "Line cubic quantum syndrome has exact size 2n + 1 parity representation",
+     "plain": "A family of quantum circuits can always be implemented using an exact, minimal number of parity operations.",
+     "before": "Parity representations of size 2n + 1 for line cubic syndromes were known only through n = 12.",
+     "answer": "For every n ≥ 5, the line cubic syndrome admits a parity representation of cardinality exactly 2n + 1.",
+     "why": "Resolves the general case left open in arXiv:2610.01024.",
+     "idea": "",
+     "outcome": "proved",
+     "source": "arXiv:2610.01024",
+     "main": "open_problem_line_cubic_t_count",
+     "declarations": [
+      "open_problem_line_cubic_t_count",
+      "line_cubic_boundary_extension",
+      "line_cubic_nat_family_exists",
+      "line_cubic_t_count_lower_bound"
+     ],
+     "highlight": true,
+     "research": "A uniform recursive construction proves that the line cubic has a parity representation of exactly 2n+1 supports for every n≥5, resolving the general case left open beyond the witnesses through n=12 in arXiv:2610.01024",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Combinatorics for TCS",
+   "context": "Tableaux counts and square dissections are resolved.",
+   "results": [
+    {
+     "headline": "Latin tableaux with double-three tail numbered by closed formula",
+     "plain": "The number of filled grid shapes with a specific staircase tail follows an exact exponential formula.",
+     "before": "Conjecture 6.3 of arXiv:2610.29291 conjectured the total count was 9 · 4^(k−3) for k ≥ 5.",
+     "answer": "The number of Latin tableaux of shape (k, k−1, ..., 4, 3, 3) equals 9 · 4^(k−3) for every k ≥ 5.",
+     "why": "Settles OP-512 on exact tableau enumeration.",
+     "idea": "",
+     "outcome": "proved",
+     "source": "arXiv:2610.29291",
+     "main": "latin_double_three_tail_count_formula",
+     "declarations": [
+      "latin_double_three_tail_count_formula",
+      "latin_double_three_tail_four_extensions",
+      "latin_double_three_tail_permanent_of_profile",
+      "latin_double_three_tail_count_step",
+      "latin_double_three_tail_count_base"
+     ],
+     "highlight": true,
+     "research": "settles OP-512 (Exact enumeration of Latin tableaux with a double-three staircase tail)",
+     "tier": "medium"
+    },
+    {
+     "headline": "Squares have no perfect partitions with two-prime tile areas",
+     "plain": "No integer square can be sliced into unequal rectangles that all share an identical two-prime area.",
+     "before": "Equal-area non-congruent rectangle partitions were excluded for prime powers and small products, leaving two-prime areas open.",
+     "answer": "No perfect partition of an integer square has common tile area q^s · p^t for distinct primes p, q.",
+     "why": "Excludes perfect zero-defect Mondrian partitions for square sides supported on two primes.",
+     "idea": "",
+     "outcome": "partial",
+     "source": "arXiv:2610.19193",
+     "main": "mondrian_no_perfect_two_prime_area",
+     "declarations": [
+      "mondrian_no_perfect_two_prime_area",
+      "mondrian_no_perfect_prime_mul_prime_pow",
+      "mondrian_no_perfect_of_shape_bound"
+     ],
+     "highlight": true,
+     "research": "Excludes perfect partitions of every integer square when the common tile area is q^s*p^t for distinct primes p,q and arbitrary exponents, and hence excludes all square sides supported on two primes. The prime-power and small prime-product exclusions of arXiv:2007.09639 Theorem 4.1 and the density theorem in HAL:hal-05729522v2 do not give this uniform common-area restriction",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Graph Theory & Graph Algorithms",
+   "context": "Equivalence covering and wild numbers are determined.",
+   "results": [
+    {
+     "headline": "Wild number of complete graphs equals lower bound for large orders",
+     "plain": "Connecting single-color components in large edge-colored complete networks requires the minimum possible number of edges.",
+     "before": "Sharpness of the lower bound ⌊4⌈n/2⌉/3⌋ was verified only for n ≤ 12 and n = 279.",
+     "answer": "For every n ≥ 30000001, the wild number under every minimum proper edge coloring of K_n equals ⌊4⌈n/2⌉/3⌋.",
+     "why": "Settles the complete-graph wild number conjecture for all sufficiently large orders.",
+     "idea": "",
+     "outcome": "partial",
+     "source": "arXiv:2610.22142",
+     "main": "wild_number_complete_graph_large_eq",
+     "declarations": [
+      "wild_number_complete_graph_large_eq",
+      "wild_number_complete_graph_large_odd_multiple_three_eq",
+      "wild_number_complete_graph_min_proper_coloring_ge"
+     ],
+     "highlight": false,
+     "research": "Proves the conjectured equality for every n>=30000001 and every minimum proper edge coloring, establishing sharpness at all sufficiently large orders rather than only the paper's n<=12 range, the isolated n=279 case, or one congruence class",
+     "tier": "medium"
+    },
+    {
+     "headline": "Equivalence covering number of fifteenth cycle power is six",
+     "plain": "Covering the fifteenth power of large even cycles whose lengths avoid multiples of sixteen requires six equivalence layers.",
+     "before": "Theorems 1.3 and 1.4 of arXiv:2610.15635 established only values 5 or 6 for even n not divisible by 16.",
+     "answer": "For every even n ≥ 3825 not divisible by 16, the equivalence covering number of C_n^15 is exactly 6.",
+     "why": "Settles the k = 15 case of cycle power covering.",
+     "idea": "",
+     "outcome": "proved",
+     "source": "arXiv:2610.15635",
+     "main": "simple_graph_equivalence_covering_number_cycle_power_fifteen_of_not_dvd",
+     "declarations": [
+      "simple_graph_equivalence_covering_number_cycle_power_fifteen_of_not_dvd",
+      "cycle_power_fifteen_class_weight_certificate",
+      "cycle_power_fifteen_type_layer_periods_dvd"
+     ],
+     "highlight": false,
+     "research": "Settles the k = 15 case of the residual even case of arXiv:2610.15635: eq(C_n^15) = 6 for every even n ≥ 3825 with 16 ∤ n, where the paper only has eq(C_n^15) ∈ {5, 6}; the first case beyond k = 3 where the exact value is now known",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Elementary Number Theory",
+   "context": "The negative three-stamp basis gap is classified.",
+   "results": [
+    {
+     "headline": "Negative three-stamp number determined for odd orders outside residue 59 modulo 60",
+     "plain": "Allowing negative denominations reduces the range of three-stamp bases by an exact gap for almost all odd thresholds.",
+     "before": "Theorem 4.1 of arXiv:2610.19470 showed n♭_h(2) < n_h(2) for odd h, leaving the exact difference open.",
+     "answer": "For odd h ≥ 5 with h ≢ 59 (mod 60), the gap n_h(2) − n♭_h(2) is 1 for h ≡ 9, 3 for h ≡ 11, and 2 otherwise (mod 12).",
+     "why": "Provides an exact formula for the negative three-stamp number across almost all odd thresholds.",
+     "idea": "",
+     "outcome": "partial",
+     "source": "arXiv:2610.19470",
+     "main": "postage_stamp_number_neg_two_of_odd_of_mod_sixty_ne",
+     "declarations": [
+      "postage_stamp_number_neg_two_of_odd_of_mod_sixty_ne",
+      "postage_stamp_number_neg_two_of_odd_cases_two",
+      "postage_stamp_number_neg_two_of_odd_cases_three",
+      "postage_stamp_number_neg_two_of_odd_sandwich"
+     ],
+     "highlight": false,
+     "research": "Determines n♭_h(2) exactly for all odd h ≥ 5 except h ≡ 59 (mod 60), where arXiv:2610.19470 only shows n♭_h(2) < n_h(2): the gap n_h(2) - n♭_h(2) is 1 iff h ≡ 9 (mod 12), 2 for h ≡ 1, 3, 5, 7 (mod 12) and 3 for h ≡ 11 (mod 12); for h ≡ 59 (mod 60) it is at least 4, and it is at least 6 at h = 419",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Information Theory & Coding",
+   "context": "Mutual information subadditivity fails below the golden ratio.",
+   "results": [
+    {
+     "headline": "Subadditivity of mutual power divergence fails below golden ratio conjugate",
+     "plain": "Information shared across a simple three-variable Markov chain fails subadditivity whenever the power parameter lies below the golden ratio conjugate.",
+     "before": "OP-726 conjectured that mutual power-divergence information is subadditive along Markov chains iff beta exceeds the golden ratio conjugate.",
+     "answer": "arXiv:2610.21231 shows that for every beta in (0, (sqrt 5 - 1)/2), a strictly positive binary Markov chain violates subadditivity; Lean now checks the proof.",
+     "why": "Settles the failure half of OP-726 uniformly across all subcritical exponents.",
+     "idea": "",
+     "outcome": "formalized",
+     "source": "arXiv:2610.21231",
+     "main": "power_divergence_exists_binary_counterexample_of_lt_golden_ratio",
+     "declarations": [
+      "power_divergence_exists_binary_counterexample_of_lt_golden_ratio",
+      "golden_ratio_exponent_pos_and_lt_one",
+      "golden_ratio_quadratic_nonneg_iff"
+     ],
+     "highlight": false,
+     "research": "Proves the failure half of the golden-ratio conjecture OP-726 for every exponent, not just at sample points: for every beta in (0, (sqrt 5 - 1)/2) there is a strictly positive binary Markov chain Y <- X -> Z on which mutual power-divergence information is strictly superadditive. The construction is a rare input symbol of probability p and a channel entry of order p, and the slack has derivative -(1-beta)a^2 - (1-(1-a)^beta)^2 + 2 kappa^beta((a+kappa)^(1-beta) - (kappa+a-a^2)^(1-beta)) at p = 0, positive for suitable a, kappa exactly when beta^2 + beta < 1. The source paper (arXiv:2610.21231) gives only sufficient conditions for subadditivity, and the knowledgebase had refutations only at beta = 1/4 and 1/2 plus numerical evidence for the threshold",
+     "tier": "medium"
+    }
+   ]
+  }
+ ],
+ "outlook": [
+  "Does every unweighted Max-k-Cut game admit some strong equilibrium?",
+  "Can parallel three-qubit phase gates use fewer than 6m + 1 T gates?",
+  "Can 3x3 integer matrix multiplication be done with 22 products?",
+  "Does wild number equality hold for complete graphs between 13 and 30000001?",
+  "Can the three-stamp gap be classified for h ≡ 59 (mod 60)?"
+ ],
+ "glossary": [
+  {
+   "term": "OP",
+   "meaning": "OP: open problem designations tracked in the knowledgebase"
+  },
+  {
+   "term": "TCS",
+   "meaning": "TCS: theoretical computer science and related discrete mathematics"
+  }
+ ],
+ "stats": {
+  "original": 198,
+  "erratum": 8,
+  "literature": 484,
+  "lemma": 2617,
+  "theorems": 3307,
+  "research": 17,
+  "research_theorems": 20,
+  "sources": 205,
+  "topics": 34,
+  "announcements": 16,
+  "open": 1808,
+  "papers_read": 330
+ },
+ "issues": [],
+ "rounds": 8,
+ "zh": {
+  "title": "最优图划分、量子奇偶界与数表计数问题获解",
+  "summary": "本月解决了离散数学中的多个公开问题。研究表明最优图割无法保证联盟稳定性；证明了线立方电路的精确奇偶界；确立了拉丁数表的计数公式；并证明了正方形不存在块面积均为两素数之积的完美分割。",
+  "lead": {
+   "title": "最优图割在群体合谋下可能失去稳定性",
+   "story": "想象博弈参与者为网络中的顶点着色，希望与邻居顶点的颜色不同。当两端颜色不同的边带来收益时，使割边数量最大化的着色方案能够实现最大的社会福利。虽然已知某些最优着色方案并不稳定，但人们一直想知道，是否每个网络都必然存在某种能够抵御团队合谋的最优着色方案。\n\n答案是否定的。一个包含182个顶点的网络表明，无权图割博弈可能完全不存在任何最优强均衡。\n\n在该网络中，每一种达到最大社会福利的着色方案，都允许某个联盟联合改变颜色，从而严格提高其中每一位成员的收益。"
+  },
+  "results": [
+   {
+    "headline": "无权最大3-割博弈可能不存在任何最优强均衡",
+    "plain": "即便追求最大化切断连接，某些网络也不存在能免受团队合谋影响的最优着色。"
+   },
+   {
+    "headline": "线立方量子校验子具有大小恰为2n + 1的奇偶表示",
+    "plain": "一族量子电路总能使用确定且极小数量的奇偶操作来实现。"
+   },
+   {
+    "headline": "具有双三尾的拉丁数表数量由闭式公式给出",
+    "plain": "具有特定阶梯尾部的填数网格形状数量满足精确的指数公式。"
+   },
+   {
+    "headline": "正方形不存在块面积为两素数乘积的完美分割",
+    "plain": "任何整数正方形都无法被分割为互不相同但面积均为相同两素数之积的矩形。"
+   },
+   {
+    "headline": "大阶数完全图的野数等于下界",
+    "plain": "在大型边着色完全网络中连接单色分支仅需可能的最少边数。"
+   },
+   {
+    "headline": "圈图十五次幂的等价覆盖数为六",
+    "plain": "覆盖长度不为十六的倍数的大偶圈的十五次幂需要六个等价层。"
+   },
+   {
+    "headline": "模60余数非59的奇数阶负三邮票数已确定",
+    "plain": "允许负面额会使几乎所有奇数阈值下的三邮票基范围缩减一个精确差值。"
+   },
+   {
+    "headline": "互功率散度的次可加性在低于黄金分割共轭值时失效",
+    "plain": "只要功率参数低于黄金分割共轭值，简单三变量马尔可夫链间共享的信息便不再满足次可加性。"
+   }
+  ],
+  "outlook": [
+   "是否每个无权最大k-割博弈都存在某种强均衡？",
+   "并行三量子比特相位门能否使用少于6m + 1个T门？",
+   "3x3整数矩阵乘法能否仅用22次乘积完成？",
+   "阶数在13到30000001之间的完全图是否也满足野数等式？",
+   "能否对h ≡ 59（模60）的情形分类三邮票差值？"
+  ],
+  "glossary": []
+ },
+ "zh_issues": [],
+ "numbers": "Lean accepted 3307 new theorems this month so far, drawn from 205 papers and 34 topics. Of these, 198 are new here, 8 correct a published claim, 484 formalize a published result and 2617 are helper lemmas. They make 17 research-level results, in 20 theorems -- they lead the report. 1808 statements posed this month are not yet proved. The reading covered 330 new papers. This report covers 8 results in 6 fields.",
+ "disclaimer": "Written by a model (gemini-3.8-flash) from the month's Lean-verified results. Every declaration named here was checked by Lean; this summary is a reading aid and is not itself machine-checked.",
+ "minutes": 5,
+ "short_minutes": 2,
+ "outcomes": {
+  "proved": "Proved",
+  "disproved": "Disproved",
+  "partial": "Partial",
+  "new": "New result",
+  "formalized": "Formalized"
+ },
+ "zh_disclaimer": "本文由模型（gemini-3.8-flash）根据本期经 Lean 验证的结果撰写，并从英文版翻译而来。文中提到的每个定理都经过 Lean 检查；本摘要只是阅读辅助，本身未经机器检查。",
+ "zh_outcomes": {
+  "proved": "证明",
+  "disproved": "否定",
+  "partial": "部分结果",
+  "new": "新结果",
+  "formalized": "形式化验证"
+ }
+}

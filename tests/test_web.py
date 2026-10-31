@@ -775,11 +775,14 @@ def main() -> int:
             out = Path(tmp) / "_site"
             news_file = ROOT / "web" / "news.json"
             news = json.loads(news_file.read_text())["entries"] if news_file.is_file() else []
-            weekly = [json.loads(f.read_text(encoding="utf-8"))
-                      for f in sorted((ROOT / "web" / "weekly").glob("*.json"))]
+            weekly, monthly = ([json.loads(f.read_text(encoding="utf-8"))
+                                for f in sorted((ROOT / "web" / d).glob("*.json"))]
+                               for d in ("weekly", "monthly"))
             try:
+                # The monthly reports too: the first one, 2026-10, failed the
+                # publish here, its News item "no monthly report in monthly/".
                 n = build(real, [], json.loads((ROOT / "web" / "site.json").read_text()), out,
-                          news, weekly, traces_dir=ROOT / "web" / "data" / "traces")
+                          news, weekly, monthly, traces_dir=ROOT / "web" / "data" / "traces")
                 err = ""
             except ValueError as ex:
                 n, err = {"declarations": -1}, str(ex)

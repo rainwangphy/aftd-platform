@@ -964,6 +964,7 @@ import AFTD.Kb.GameTheoryEconomics.EfxAllsourcePairValues
 import AFTD.Kb.GameTheoryEconomics.EfxAllsourceThreePairCode
 import AFTD.Kb.GameTheoryEconomics.EfxAllsourceThreePairFeasibleNat
 import AFTD.Kb.GameTheoryEconomics.EfxAllsourceThreePairNoSelf
+import AFTD.Kb.GameTheoryEconomics.EfxAllsourceThreePairPerturbedStrictSanity
 import AFTD.Kb.GameTheoryEconomics.EfxAllsourceThreePairPerturbedValues
 import AFTD.Kb.GameTheoryEconomics.EfxAllsourceThreePairSanity
 import AFTD.Kb.GameTheoryEconomics.EfxAllsourceThreePairValues
@@ -1090,6 +1091,9 @@ import AFTD.Kb.GameTheoryEconomics.EfxThreeBonusDistinctNoNat
 import AFTD.Kb.GameTheoryEconomics.EfxThreeBonusDistinctNoReal
 import AFTD.Kb.GameTheoryEconomics.EfxThreeBonusDistinctSanity
 import AFTD.Kb.GameTheoryEconomics.EfxThreeBonusDistinctValues
+import AFTD.Kb.GameTheoryEconomics.EfxThreePairAnchorStart
+import AFTD.Kb.GameTheoryEconomics.EfxThreePairAnchorValues
+import AFTD.Kb.GameTheoryEconomics.EfxThreePairAnchorWitness
 import AFTD.Kb.GameTheoryEconomics.EfxThreeSmallGoodsCompletionLossOrSplit
 import AFTD.Kb.GameTheoryEconomics.EfxThreeSmallGoodsObstructionCoarse
 import AFTD.Kb.GameTheoryEconomics.EfxThreeSmallGoodsObstructionFeasibleNat
@@ -9161,6 +9165,7 @@ import AFTD.Kb.Tcs.FiveVertexTStarWassersteinLe
 import AFTD.Kb.Tcs.FiveWheelFour
 import AFTD.Kb.Tcs.FixedLengthCode
 import AFTD.Kb.Tcs.FixedOffsetHashTableProbBoundOfCountBound
+import AFTD.Kb.Tcs.FixedOffsetHashWorstMeanMixedRadixPrime
 import AFTD.Kb.Tcs.FlagRepresentatives
 import AFTD.Kb.Tcs.FlowCutDivergenceEq
 import AFTD.Kb.Tcs.FlowRateLtOfStrictMetricBound
@@ -9478,6 +9483,7 @@ import AFTD.Kb.Tcs.HashFullyOccupiedSeqs
 import AFTD.Kb.Tcs.HashInsertStep
 import AFTD.Kb.Tcs.HashMaxOccupiedProb
 import AFTD.Kb.Tcs.HashOccupiedSlots
+import AFTD.Kb.Tcs.HashOccupiedSlotsCard
 import AFTD.Kb.Tcs.HashOccupiedSlotsNil
 import AFTD.Kb.Tcs.HashOccupyCount
 import AFTD.Kb.Tcs.HashOccupyCountNil
@@ -9488,6 +9494,7 @@ import AFTD.Kb.Tcs.HashProbeExpectedCost
 import AFTD.Kb.Tcs.HashProbeExpectedCostZero
 import AFTD.Kb.Tcs.HashProbeTailCount
 import AFTD.Kb.Tcs.HashProbeTailProb
+import AFTD.Kb.Tcs.HashProbeTailProbZero
 import AFTD.Kb.Tcs.HedgeCumLoss
 import AFTD.Kb.Tcs.HedgeDist
 import AFTD.Kb.Tcs.HedgeDistNonneg
@@ -10556,6 +10563,7 @@ import AFTD.Kb.Tcs.MixedGraphIsValid
 import AFTD.Kb.Tcs.MixedGraphIsValidDirectedTriangle
 import AFTD.Kb.Tcs.MixedRadixOffset
 import AFTD.Kb.Tcs.MixedRadixOffsetMeanProbeZero
+import AFTD.Kb.Tcs.MixedRadixOffsetPrime
 import AFTD.Kb.Tcs.MixedRamseyProperty
 import AFTD.Kb.Tcs.MixtureRepresentationMonotoneDistribution
 import AFTD.Kb.Tcs.MkWithSupport
@@ -12396,6 +12404,7 @@ import AFTD.Kb.Tcs.UniformKserverWeightUpdate
 import AFTD.Kb.Tcs.UniformSuperposition
 import AFTD.Kb.Tcs.UnitFirstFixedOffsetMeanProbeEqZero
 import AFTD.Kb.Tcs.UnitFirstFixedOffsetMeanProbeMaximumThree
+import AFTD.Kb.Tcs.UnitFirstOffsetTwoNotZero
 import AFTD.Kb.Tcs.UnitHammingMaxTriangleFree
 import AFTD.Kb.Tcs.UnitHammingMaxTriangleFreeEq
 import AFTD.Kb.Tcs.UnitHammingTriangleFree

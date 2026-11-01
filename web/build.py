@@ -2664,10 +2664,11 @@ def render_status(s: Site) -> str:
   <h2 class="st-h">How a day goes</h2>
   <ol class="st-steps">
     <li><strong>All day.</strong> Lanes prove the top goals and state new papers in Lean.</li>
-    <li><strong>10:30, 12:30.</strong> New papers go to the
+    <li><strong>10:30, 13:30.</strong> New papers go to the
     <a href="{root}problems/">open&#8209;problem list</a>.</li>
-    <li><strong>11:30&ndash;19:30.</strong> The frontier agent takes the hard cases and
-    reviews the <a href="{root}blog/">blog</a>.</li>
+    <li><strong>Around the clock.</strong> The frontier agents take the hard cases and
+    review the <a href="{root}blog/">blog</a>: Codex all day, Claude Code 11:30&ndash;19:30.
+    A proof the lanes are stuck on is given up, not pushed further.</li>
     <li><strong>20:00.</strong> Release of news, <a href="{root}knowledgebase/">knowledgebase</a>
     and explanations, all Lean&#8209;checked.</li>
   </ol>

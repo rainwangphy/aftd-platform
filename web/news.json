@@ -2,6 +2,187 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-02",
+   "kind": "daily",
+   "title": "Daily reading: 1 research-level, 115 proved, 66 open",
+   "research": {
+    "results": 1,
+    "theorems": 1
+   },
+   "body": "Research-level results today: 1. (low tier) Exhibits a cycle of profitable coalitional deviations in an unweighted three-color game, ruling out a strong potential for all such deviations; the cited cycle used weighted edges. This does not assert that the large coalition is minimal or resolve strong-equilibrium existence. Each research-level result is one Research Blog post; theorems that bear on the same open problem or paper share it.\n\nThe Proposer read 27 new paper(s) and listed 28 open problem(s); 48 new question(s) of AFTD's own were adopted onto the list; 18 list entries were stated in Lean, as were 3 results the papers prove; the Proposer posed 12 more from what the knowledgebase already holds (150 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 115 theorem(s), 82 of them helper lemmas, which are not listed below; 66 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nResearch-level. `maxcut_unweighted_strong_deviation_cycle_exists`: There is an unweighted simple graph on 46 vertices and an infinite sequence of three-color profiles that returns to its starting profile after five steps, such that every consecutive pair is a profitable deviation by exactly the players who change colors. — (low tier) Exhibits a cycle of profitable coalitional deviations in an unweighted three-color game, ruling out a strong potential for all such deviations; the cited cycle used weighted edges. This does not assert that the large coalition is minimal or resolve strong-equilibrium existence\n\nPartial result on OP-670. `parallel_uniform_merino_welsh_strict_balancing_three_two` (knowledgebase): For any function q : Fin 3 → ℕ with 0 < q i for all i : Fin 3, and any indices i, j : Fin 3 with q i + 2 ≤ q j, parallel_mw_ratio 2 (parallel_mw_transfer q i j) < parallel_mw_ratio 2 q.\n\nPartial result on OP-809. `fixed_offset_hash_worst_mean_mixed_radix_prime` (knowledgebase): For any prime p, any bijective offset sequence r : Fin p → ZMod p, and any load t < p, if linear probing achieves expected probe cost at least that of r, then there exists an ordering P of the prime factors of p such that the expected probe cost under r is…\n\nPartial result on OP-736. `ghz_standard_frame_lambda_le` (arXiv:2610.35838): For the generalized GHZ state with parameter alpha and standard identity frames e = 1 and f = 1, the two-copy closed-network quantity Lambda(tau_{mu nu}, tau_{mu' nu'}) is at most 1 + sin^2(2*alpha) for all setting indices mu, nu, mu', nu' in {0, 1, 2, 3}.\n\nPartial result on OP-736. `ghz_closed_network_lambda_le_two` (arXiv:2610.35838): For every parameter alpha in R, all orthonormal frames e, f in O(3), and all setting indices mu, nu, mu', nu' in {0, 1, 2, 3}, the two-copy closed-network Bell measurement quantity Lambda(tau_{mu nu}, tau_{mu' nu'}) for the generalized GHZ state is at most 2.\n\nPartial result on OP-736. `ghz_network_lambda_at_pi_div_four_le` (arXiv:2610.35838): For the maximally entangled state parameter alpha = pi/4, all orthonormal frames e, f in O(3), and all setting indices mu, nu, mu', nu' in {0, 1, 2, 3}, the two-copy closed-network quantity Lambda(tau_{mu nu}, tau_{mu' nu'}) is at most 1 + sin^2(2 * (pi / 4)).\n\nPartial result on OP-794. `tree_graph_state_tripartite_info_trivial_zero` (knowledgebase): For any finite graph G on type V with decidable equality and decidable adjacency, tree_graph_state_tripartite_info G Finset.univ ∅ ∅ ∅ equals 0.\n\nPartial result on OP-801. `prime_fixed_offset_linear_probe_stochastic_maximum_three` (knowledgebase): For a 3-slot hash table (p = 3), every bijective probe sequence r : Fin 3 → ZMod 3 with r 0 = 0, every load t < 3, and every integer k ≥ 0, the probability hash_probe_tail_prob 3 r t k of requiring strictly more than k probes is at most that under linear…\n\nPartial result on OP-801. `prime_fixed_offset_mean_le_of_tail_le` (knowledgebase): For any prime table size p, offset sequence r : Fin p → ZMod p, and load t, if every probe-cost tail probability under r is bounded by the corresponding tail probability under linear probing, then the expected probe cost under r is at most the expected probe…\n\nThread RT-1. `cycle_power_dyadic_boundary_pairing_alternates`: In an exact dyadic Boolean class model with exponent at least two, equality of the two boundary bits in every class forces the first inner bit to alternate between successive classes.\n\nThread RT-1. `cycle_power_dyadic_outer_pair_forward`: In a fully covered exact dyadic Boolean class model with exponent at least three and matching boundary bits in every class, if a class selects offsets 1 and 3 it also selects offset 2.\n\nFormalized. `arrangement3_e4_zero_iff_is_magic` (arXiv:2610.38386, Proposition 5.1): An arrangement of order 3 satisfies the four-term line-sum energy zero condition $E_4(S) = 0$ if and only if it is a magic square.\n\nFormalized. `tournament_exists_covering_realization_of_realizes` (arXiv:2610.40521 Lemma 6 -- Directed Cut-Query Complexity of Finding a King): Let d be a degree vector on Fin n realized by a tournament T, and let v, w be vertices in Fin n satisfying d v < d w. Then there exists a tournament T' on Fin n realizing d in which w covers v.\n\nFormalized. `graph_at_most_one_between` (arXiv:2610.39966 Lemma 3): In a connected graph G, if y lies between x and z and x lies between y and z, then x = y; hence among three distinct vertices, at most one lies between the other two.\n\nCorrected. `not_hash_probe_tail_prob_zero_of_lt`: The statement `hash_probe_tail_prob_zero_of_lt` is false: Take n = 1, r = (fun _ => 0 : Fin 1 → ZMod 1), t = 1, k = 2. Hypotheses hold: htn : 1 ≤ 1 and hkt : 1 < 2. But hash_probe_tail_count 1 r 1 2 = 1 (kernel-checked by unfolding the definition), so…\n\nOpen. `tree_graph_state_max_tripartite_info_eq_claw_packing` (knowledgebase): For every finite tree T with decidable equality and decidable adjacency, the tripartite information tree_graph_state_tripartite_info T A B C D of every four-partition A, B, C, D : Finset V (satisfying is_four_partition A B C D) is at most max_claw_packing T,…\n\nOpen. `claw_free_tree_graph_state_mmi` (knowledgebase): For every finite tree T with decidable equality, decidable adjacency, and max_claw_packing T = 0, every four-partition A, B, C, D : Finset V satisfying is_four_partition A B C D has tree_graph_state_tripartite_info T A B C D ≤ 0.\n\nOpen. `tree_with_claw_tripartite_info_pos` (knowledgebase): For every finite tree T with decidable equality, decidable adjacency, and max_claw_packing T ≥ 1, there exists a four-partition A, B, C, D : Finset V satisfying is_four_partition A B C D such that 1 ≤ tree_graph_state_tripartite_info T A B C D.\n\nOpen. `plurality_veto_core_exact_regularization_threshold` (knowledgebase): For all integers m ≥ 3 and n ≥ max(8, m), the exact regularization threshold for plurality veto core containment is plurality_regularization_threshold n m = 1 / ((m - 2)n - 2m): for all 0 < ε < plurality_regularization_threshold n m, the regularized…\n\nOpen. `prime_fixed_offset_linear_probe_stochastic_maximum` (knowledgebase): For every prime p, every bijective offset sequence r : Fin p → ZMod p with r 0 = 0, every load t < p, and every integer k ≥ 0, the probability hash_probe_tail_prob p r t k that an additional uniform insertion requires strictly more than k probes under r is…\n\nOpen. `energy_filter_rational_resonance_theta_crossover` (knowledgebase): For any real number tau > 0, coprime positive integers p, q, and real detuning c, let L be the 3x3 real matrix with diagonal 2 and adjacent off-diagonal entries -1, let D = p^2 + q^2, let u = pi^2 * q^2 / (2 * tau^2) + pi^2 * c^2 * q^4 / (4 * D), let S_2 =…",
+   "declarations": [
+    "wild_triple_partition_mass_le_of_odd_ge_179",
+    "wild_triple_partition_mass_179_baseline",
+    "parallel_uniform_merino_welsh_strict_balancing_three_two",
+    "parallel_mw_ratio_decreasing_triple",
+    "efx_nondeg_cycle_full_efx",
+    "efx_nondeg_cycle_minimum_cardinality",
+    "efx_source_two_full_efx",
+    "efx_source_two_envy_graph",
+    "hash_probe_tail_two_eq_adjacent_mean",
+    "hash_probe_expected_cost_two",
+    "efx_allsource_pair_sanity",
+    "efx_allsource_pair_no_self",
+    "efx_allsource_three_pair_perturbed_strict_sanity",
+    "efx_allsource_three_pair_perturbed_nondegenerate",
+    "mixed_radix_offset_prime",
+    "fixed_offset_hash_worst_mean_mixed_radix_prime",
+    "efx_three_pair_anchor_sanity",
+    "efx_three_pair_anchor_no_self",
+    "ghz_standard_frame_lambda_le",
+    "ghz_closed_network_lambda_le_two",
+    "ghz_network_lambda_at_pi_div_four_le",
+    "linear_probe_offset_zero",
+    "linear_probe_offset_bijective",
+    "hash_probe_tail_prob_one",
+    "cycle_power_dyadic_boundary_pairing_alternates",
+    "cycle_power_dyadic_outer_pair_forward",
+    "mixed_radix_offset_bijective",
+    "hash_probe_expected_cost_sub_const",
+    "tree_graph_state_tripartite_info_trivial_zero",
+    "ising_inverse_square_ring_kernel_diagonal",
+    "ising_inverse_square_order_two_formula_limit",
+    "ising_inverse_square_bulk_two_of_finite_formula",
+    "prime_fixed_offset_linear_probe_stochastic_maximum_three",
+    "prime_fixed_offset_mean_le_of_tail_le",
+    "three_token_k2n_left_count_le_two",
+    "three_token_k2n_assemble_layer_cover",
+    "three_token_k2n_assemble_three_layers",
+    "energy_filter_crossover_quad_form_nonneg",
+    "energy_filter_crossover_u_pos",
+    "not_hash_probe_tail_prob_zero_of_lt",
+    "parallel_mw_balancing_base_polynomial",
+    "parallel_mw_balancing_transfer_bound",
+    "parallel_mw_balancing_numerator_bound",
+    "parallel_mw_balancing_strict_core",
+    "parallel_mw_two_pow_quadratic_bound",
+    "hash_probe_tail_count_zero_of_lt_strict",
+    "hash_probe_tail_prob_zero_of_lt_strict",
+    "flag_hash_offset_zero",
+    "group_hash_probe_tail_count_zero_tail",
+    "group_hash_probe_tail_count_t_zero_succ",
+    "bivariate_poisson_pmf_zero_zero",
+    "dual_melas_pattern_count_sum",
+    "xz_matrix_a_is_hermitian",
+    "xz_rho_is_hermitian",
+    "ising_two_layer_quartic_density_pos",
+    "xz_rho_trace_one",
+    "efx_pair_blocked_witness",
+    "efx_equal_pairs_few_blockers_ir_completion",
+    "ising_two_layer_weight_zero_coupling",
+    "is_fractionally_pareto_optimal_zero_goods",
+    "arrangement3_e4_zero_iff_is_magic",
+    "card_pairs_with_gap",
+    "helical_dist_sq",
+    "tournament_exists_covering_realization_of_realizes",
+    "graph_at_most_one_between",
+    "prime_fixed_offset_linear_probe_tail_prob_interior_t_pred",
+    "op819_has_online_single_high_alpha_mono",
+    "op819_single_high_efx_one_good",
+    "tbt_opt_eq_sn_opt_of_is_subcubic",
+    "magic_square_even_sign_strings_card",
+    "is_povm_one_outcome",
+    "maxcut_cycle46_deviations",
+    "maxcut_five_cycle_repeats",
+    "maxcut_single_vertex_gluing_abstract",
+    "maxcut_unweighted_strong_deviation_cycle_exists",
+    "maxcut_cycle71_force_closed_core",
+    "maxcut_cycle71_first_deviation_minimal",
+    "maxcut_single_vertex_sum_strong_equilibrium",
+    "maxcut_strong_deviation_cast_colors",
+    "magic_square_guess_fn_ge_linear",
+    "magic_square_guess_fn_concaveOn",
+    "digraph_four_cycles_from_digon_and_three_cycle_theorem",
+    "connected_graph_129_independence_three_edge_bound",
+    "digraph_four_cycles_two_triangles_few_bad",
+    "digraph_four_cycles_from_small_cut",
+    "digraph_dominated_arcs_in_neighborhood_cycle",
+    "digraph_common_predecessor_graph_edge_count_le",
+    "digraph_common_predecessor_graph_129_contradiction",
+    "digraph_common_predecessor_graph_connected",
+    "digraph_common_predecessor_graph_indep_free_four",
+    "connected_graph_128_independence_three_large_degree",
+    "digraph_common_predecessor_edges_seven_clique",
+    "connected_graph_indep_three_degree_42_seven_cliques_card_le_121",
+    "connected_independence_local_clique_card_bound",
+    "digraph_four_cycles_from_undominated_triangle",
+    "chain_trees_claw_packing_gap_rate",
+    "trianglefree24_graph_regular_oriented",
+    "trianglefree24_graph_two_vertex_deletions_strong",
+    "trianglefree24_graph_no_directed_triangles",
+    "trianglefree24_graph_every_arc_dominated",
+    "trianglefree24_graph_four_cycles",
+    "digraph_cross_boundary_predecessor",
+    "digraph_common_predecessor_degree_le_indegree_mul",
+    "digraph_common_predecessor_seven_bounded_indegree_degree_bound",
+    "digraph_common_predecessor_balanced_seven_card_le_121",
+    "digraph_balanced_seven_large_forces_four_cycles_conditional",
+    "swf_upper_restricted_dominance_not_constant",
+    "cross_pair_orientation_sum_capacity",
+    "common_predecessor_exceptional_vertex_budget_arithmetic",
+    "sorted_seven_robust_peeling_capacity",
+    "connected_graph_indep_three_degree_42_six_cliques_card_le_122",
+    "digraph_four_cycles_from_two_cycles_few_bad",
+    "digraph_two_cycles_boundary_obstruction",
+    "pure_state_invariant_scaling",
+    "pure_state_invariant_addition"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.36076",
+     "href": "https://arxiv.org/abs/2610.36076"
+    },
+    {
+     "label": "arXiv:2610.38824",
+     "href": "https://arxiv.org/abs/2610.38824"
+    },
+    {
+     "label": "arXiv:2610.12001",
+     "href": "https://arxiv.org/abs/2610.12001"
+    },
+    {
+     "label": "arXiv:2610.41820",
+     "href": "https://arxiv.org/abs/2610.41820"
+    },
+    {
+     "label": "arXiv:2610.42105",
+     "href": "https://arxiv.org/abs/2610.42105"
+    },
+    {
+     "label": "arXiv:2610.41694",
+     "href": "https://arxiv.org/abs/2610.41694"
+    },
+    {
+     "label": "arXiv:2610.41666",
+     "href": "https://arxiv.org/abs/2610.41666"
+    },
+    {
+     "label": "arXiv:2610.41984",
+     "href": "https://arxiv.org/abs/2610.41984"
+    },
+    {
+     "label": "arXiv:2610.41950",
+     "href": "https://arxiv.org/abs/2610.41950"
+    },
+    {
+     "label": "arXiv:2610.42067",
+     "href": "https://arxiv.org/abs/2610.42067"
+    },
+    {
+     "label": "arXiv:2610.41516",
+     "href": "https://arxiv.org/abs/2610.41516"
+    },
+    {
+     "label": "arXiv:2610.41771",
+     "href": "https://arxiv.org/abs/2610.41771"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-01",
    "kind": "weekly",
    "week": "2026-W44",

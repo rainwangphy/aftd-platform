@@ -3,6 +3,20 @@
  "entries": [
   {
    "date": "2026-11-01",
+   "kind": "weekly",
+   "week": "2026-W44",
+   "title": "Week of 26 Oct – 1 Nov 2026: Social Optima Vulnerable to Coalitions, Latin Tableaux Formula, and Spectral Bounds Refuted",
+   "body": "A question in game theory was settled when researchers disproved the conjecture that socially optimal network colorings are always immune to group defections, exhibiting a 182-vertex counterexample. In combinatorics, an exact counting formula for staircase Latin tableaux was proved, and perfect Mondrian partitions were ruled out for all two-prime tile areas. In quantum theory, a proposed universal spectral bound was refuted in all dimensions three and above. Further results proved wild-number formulas and new fairness guarantees.\n\nDisproved. Socially optimal cut colorings can fail to be strong equilibria\n\nPartial. Conjectured wild number formula proved for all large complete graphs\n\nProved. Exact counting formula proved for Latin tableaux with double-three tails\n\nProved. No integer square admits a perfect rectangle tiling of two-prime area\n\nDisproved. Universal spectral bound fails for positive trace-preserving maps in dimension three\n\nLean accepted 1510 new theorems this week, drawn from 97 papers and 23 topics. Of these, 53 are new here, 0 correct a published claim, 150 formalize a published result and 1307 are helper lemmas. They make 14 research-level results, in 16 theorems -- they lead the report. 1276 statements posed this week are not yet proved. The reading covered 109 new papers. This report covers 16 results in 6 fields.",
+   "declarations": [],
+   "links": [
+    {
+     "label": "Read the weekly report (13 min)",
+     "href": "weekly/2026-W44/"
+    }
+   ]
+  },
+  {
+   "date": "2026-11-01",
    "kind": "daily",
    "title": "Daily reading: 2 research-level, 167 proved, 118 open",
    "research": {

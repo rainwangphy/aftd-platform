@@ -1,0 +1,530 @@
+{
+ "week": "2026-W44",
+ "start": "2026-10-26",
+ "end": "2026-11-01",
+ "format": 3,
+ "period": "week",
+ "partial": false,
+ "language": "English",
+ "model": "gemini-3.8-flash",
+ "generated": "2026-11-02",
+ "title": "Social Optima Vulnerable to Coalitions, Latin Tableaux Formula, and Spectral Bounds Refuted",
+ "summary": "A question in game theory was settled when researchers disproved the conjecture that socially optimal network colorings are always immune to group defections, exhibiting a 182-vertex counterexample. In combinatorics, an exact counting formula for staircase Latin tableaux was proved, and perfect Mondrian partitions were ruled out for all two-prime tile areas. In quantum theory, a proposed universal spectral bound was refuted in all dimensions three and above. Further results proved wild-number formulas and new fairness guarantees.",
+ "lead": {
+  "main": "maxcut_op89_optimal_strong_equilibrium_negation",
+  "title": "Socially best network choices can still be vulnerable to conspiracies",
+  "story": "Imagine participants in a social network choosing between three teams. Each person gains satisfaction from having friends on opposing teams, which naturally encourages diversity across the network. A division into teams is socially optimal when it maximizes the total number of cross-team friendships across all members.\n\nIf a society achieves an arrangement that maximizes total welfare, could it still be destabilized from within? Specifically, could a coordinated group of participants agree to switch teams together so that every member of the conspiracy ends up strictly better off? For unweighted network games of this kind, game theorists conjectured that every network admits at least one socially optimal assignment that is completely immune to such group defections.\n\nThat conjecture has now been disproved. Researchers constructed a network of 182 participants where every single welfare-maximizing division leaves an opening for a successful conspiracy. In this network, no matter which socially optimal team assignment is chosen, some group can always coordinate to change teams such that each conspirator gains more opposing friends.\n\nThe counterexample begins with a rigid 91-vertex core, duplicates every participant into independent twins, and attaches anchor pins. This structure forces every optimal partition into a configuration where profitable group defections cannot be eliminated."
+ },
+ "fields": [
+  {
+   "name": "Equilibria in Games",
+   "context": "A question on whether social optimality prevents coalitional defections in maximum cut games was resolved in the negative using an explicit 182-vertex construction.",
+   "results": [
+    {
+     "headline": "Socially optimal cut colorings can fail to be strong equilibria",
+     "plain": "In network games where players seek opposing colors, an arrangement that maximizes total cut edges can still be vulnerable to group defections.",
+     "before": "It was conjectured that every unweighted maximum cut game admits at least one socially optimal coloring that is immune to coordinated group deviations.",
+     "answer": "The conjecture fails for three colors on an explicit 182-vertex graph formed by doubling a 91-vertex core with anchor pins: every welfare-maximizing partition admits a profitable group deviation.",
+     "why": "Refutes Question 2 of arXiv:2610.04948, showing that global efficiency does not imply coalitional stability in unweighted cut games.",
+     "idea": "The 182-vertex pinned twins graph has rigid welfare-maximizing colorings whose monochromatic edge structure permits a strict joint deviation.",
+     "outcome": "disproved",
+     "source": "arXiv:2610.04948",
+     "main": "maxcut_op89_optimal_strong_equilibrium_negation",
+     "declarations": [
+      "maxcut_op89_optimal_strong_equilibrium_negation",
+      "maxcut_pinned_twins_optimum_rigidity",
+      "maxcut_pinned_twins_not_colorable_three",
+      "maxcut_op89_residual_exists_negation",
+      "maxcut_optimal_not_strong_degree_66"
+     ],
+     "highlight": true,
+     "research": "Answers the paper's Question 2 negatively for k = 3: a 182-vertex graph (the paper's 91-vertex G_3 with every vertex doubled into independent twins, plus pin edges from each core twin to two anchors) has an optimal Max-3-Cut coloring that is unique up to color permutation and not a strong equilibrium, so no optimal coloring is a strong equilibrium. The paper only shows that some optimal coloring can fail",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Graph Theory & Graph Algorithms",
+   "context": "The wild number conjecture was proved for all large complete graphs, while hop-closed and leap-closed edge sets were shown not to form matroid flats.",
+   "results": [
+    {
+     "headline": "Conjectured wild number formula proved for all large complete graphs",
+     "plain": "The minimum number of wild edges needed to connect every color class in an optimal edge coloring of a complete graph meets its lower bound for large networks.",
+     "before": "The exact wild number formula floor(4·ceil(n/2)/3) was conjectured in arXiv:2610.22142, but proved only for orders up to twelve and the isolated order 279.",
+     "answer": "For every order n ≥ 30000001 and every minimum proper edge coloring of the complete graph K_n, the wild number equals floor(4·ceil(n/2)/3).",
+     "why": "Settles the Section 6 conjecture of arXiv:2610.22142 for all sufficiently large orders, proving sharpness without congruence restrictions.",
+     "idea": "Reduces the question to odd orders via vertex restriction and constructs optimal block partitions satisfying cut-crossing criteria through probabilistic avoidance.",
+     "outcome": "partial",
+     "source": "arXiv:2610.22142",
+     "main": "wild_number_complete_graph_large_eq",
+     "declarations": [
+      "wild_number_complete_graph_large_eq",
+      "wild_number_complete_graph_large_odd_multiple_three_eq",
+      "wild_number_complete_graph_upper_sub_four_add_parity",
+      "wild_number_complete_odd_eq_iff_optimal_partition",
+      "wild_number_complete_graph_formula_iff_odd_orders"
+     ],
+     "highlight": true,
+     "research": "Proves the conjectured equality for every n>=30000001 and every minimum proper edge coloring, establishing sharpness at all sufficiently large orders rather than only the paper's n<=12 range, the isolated n=279 case, or one congruence class",
+     "tier": "medium"
+    },
+    {
+     "headline": "Hop-closed and leap-closed edge sets fail to form matroid flats",
+     "plain": "In graph permutation theory, edge subsets that cannot be expanded without adding new permutations do not form the closed sets of any matroid.",
+     "before": "Question 5.9 of arXiv:2610.18463 asked whether the maximal edge subsets inducing the same hop or leap group form the flats of a matroid.",
+     "answer": "Neither collection forms matroid flats: on the 3-vertex complete graph, the intersection of two hop-closed edge sets is not hop-closed, and similarly for leap-closed sets.",
+     "why": "Refutes Question 5.9 of arXiv:2610.18463, showing that matroid theory cannot govern the closure operators of graph derangement groups.",
+     "idea": "Exhibits two two-edge paths in the triangle whose intersection is a single edge admitting no hops, violating closure under intersection.",
+     "outcome": "disproved",
+     "source": "arXiv:2610.18463",
+     "main": "simple_graph_hop_or_leap_maximal_not_matroid_flats",
+     "declarations": [
+      "simple_graph_hop_or_leap_maximal_not_matroid_flats",
+      "simple_graph_completeGraph_three_hop_closed_not_intersection_closed",
+      "simple_graph_completeGraph_three_leap_closed_not_intersection_closed",
+      "matroid_isFlat_inter"
+     ],
+     "highlight": false,
+     "research": "refutes OP-302 (Matroid flats from hop-maximal and leap-maximal subgraphs)",
+     "tier": "low"
+    }
+   ]
+  },
+  {
+   "name": "Combinatorics for TCS",
+   "context": "New results settled counting conjectures for staircase Latin tableaux, established obstructions to zero-defect Mondrian partitions for two-prime areas, and determined exact equivalence covering numbers for cycle powers.",
+   "results": [
+    {
+     "headline": "Exact counting formula proved for Latin tableaux with double-three tails",
+     "plain": "Grid arrangements with decreasing row lengths and no repeated numbers in rows or columns have an exact count of nine times four to a power.",
+     "before": "Conjecture 6.3 of arXiv:2610.29291 proposed that the number of Latin tableaux of shape (k, k-1, ..., 4, 3, 3) is exactly 9·4^(k-3) for all k ≥ 5.",
+     "answer": "The formula is true for all k ≥ 5: the base case k = 5 has 144 tableaux, and each step multiplies the count by 4.",
+     "why": "Settles Open Problem OP-512, completing the enumeration of this infinite family of staircase tableaux.",
+     "idea": "Induction on k using a classification of column symbol profiles that forces every top-row availability matrix to have permanent equal to 4.",
+     "outcome": "proved",
+     "source": "arXiv:2610.29291",
+     "main": "latin_double_three_tail_count_formula",
+     "declarations": [
+      "latin_double_three_tail_count_formula",
+      "latin_double_three_tail_count_base",
+      "latin_double_three_tail_count_step",
+      "latin_double_three_tail_profile_all"
+     ],
+     "highlight": true,
+     "research": "settles OP-512 (Exact enumeration of Latin tableaux with a double-three staircase tail)",
+     "tier": "medium"
+    },
+    {
+     "headline": "Every Latin tableau in the double-three staircase family extends in four ways",
+     "plain": "Adding a new row of the next size to any valid grid in this staircase family always yields exactly four valid completions.",
+     "before": "arXiv:2610.29291 left open whether individual tableaux extend uniformly, establishing only that total counts relate to sums of unknown availability permanents.",
+     "answer": "For every k ≥ 5, every individual Latin tableau of shape (k, k-1, ..., 4, 3, 3) extends in exactly 4 ways to shape k + 1.",
+     "why": "Explains the factor of 4 in the global counting formula at the level of individual combinatorial objects.",
+     "idea": "Classifies all column contents into canonical profiles and computes the permanent of the resulting (k+1)-by-(k+1) availability matrices directly.",
+     "outcome": "new",
+     "source": "arXiv:2610.29291",
+     "main": "latin_double_three_tail_four_extensions",
+     "declarations": [
+      "latin_double_three_tail_four_extensions",
+      "latin_double_three_tail_permanent_of_profile",
+      "latin_double_three_tail_profile_succ",
+      "latin_double_three_tail_profile_base"
+     ],
+     "highlight": false,
+     "research": "a new question answered: Evaluate every individual availability permanent as 4 on the double-3-tail staircase family, rather than merely expressing the total count as a sum of unknown permanents or proving top-row monotonicity.",
+     "tier": "medium"
+    },
+    {
+     "headline": "No integer square admits a perfect rectangle tiling of two-prime area",
+     "plain": "It is impossible to divide a square into non-congruent rectangles of equal area when that common area has only two prime factors.",
+     "before": "Mondrian partitions with defect zero were known to be impossible for prime-power tile areas and products of at most three primes under size constraints.",
+     "answer": "For any distinct primes p and q and exponents s and t, no integer square has an admissible partition into non-congruent rectangles of common area q^s·p^t.",
+     "why": "Rules out all two-prime tile areas for the Mondrian art problem unconditionally on exponents.",
+     "idea": "Strong induction on the exponents, using horizontal moment identities to force every tile dimension to share prime factors with the square side.",
+     "outcome": "proved",
+     "source": "arXiv:2610.19193",
+     "main": "mondrian_no_perfect_two_prime_area",
+     "declarations": [
+      "mondrian_no_perfect_two_prime_area",
+      "mondrian_two_prime_area_sides_dvd",
+      "mondrian_two_prime_area_width_dvd",
+      "mondrian_no_perfect_prime_power_area",
+      "mondrian_perfect_partition_div_common_area"
+     ],
+     "highlight": true,
+     "research": "Excludes perfect partitions of every integer square when the common tile area is q^s*p^t for distinct primes p,q and arbitrary exponents, and hence excludes all square sides supported on two primes. The prime-power and small prime-product exclusions of arXiv:2007.09639 Theorem 4.1 and the density theorem in HAL:hal-05729522v2 do not give this uniform common-area restriction",
+     "tier": "medium"
+    },
+    {
+     "headline": "Perfect Mondrian partitions impossible for sides of form q times p^e",
+     "plain": "No square whose side is a prime multiplied by any prime power can be split into non-identical rectangles of the same area.",
+     "before": "Known nonexistence results covered prime powers and small prime products, but left open sides q·p^e for arbitrary exponents e.",
+     "answer": "For distinct primes p and q and any natural exponent e, the square of side q·p^e admits no admissible equal-area integer partition with zero defect.",
+     "why": "Extends the geometric obstruction from specific prime factors to an infinite family of square dimensions.",
+     "idea": "Combines the two-prime area obstruction with shape counting bounds that compare available factor pairs to tile counts.",
+     "outcome": "proved",
+     "source": "arXiv:2610.19193",
+     "main": "mondrian_no_perfect_prime_mul_prime_pow",
+     "declarations": [
+      "mondrian_no_perfect_prime_mul_prime_pow",
+      "mondrian_no_perfect_two_prime_powers",
+      "mondrian_prime_free_area_shape_bound",
+      "mondrian_prime_area_shape_bound",
+      "mondrian_prime_square_area_shape_bound"
+     ],
+     "highlight": false,
+     "research": "Excludes every square side q*p^e for distinct primes p,q with no bound on e and no ordering restriction on the primes; arXiv:2007.09639 Theorem 4.1 excludes prime powers and products of at most three primes but does not give this exponent-uniform two-prime family",
+     "tier": "medium"
+    },
+    {
+     "headline": "Three-prime common areas with one linear factor admit no perfect partition",
+     "plain": "Dividing a square into non-congruent rectangles of identical area remains impossible when the tile area involves three primes with one appearing to power one.",
+     "before": "The two-prime area obstruction left open whether three distinct prime factors could enable a zero-defect Mondrian partition.",
+     "answer": "For distinct primes p, q, r with p > r + 1, no integer square has a zero-defect partition into rectangles of area q^s·r·p^a for any natural a, s.",
+     "why": "Takes the first step toward settling the three-prime common area case of the Mondrian problem.",
+     "idea": "Uses strong induction on the exponent of q and a height chain argument to propagate divisibility constraints.",
+     "outcome": "proved",
+     "source": "arXiv:2610.19193",
+     "main": "mondrian_no_perfect_three_prime_area_one_factor",
+     "declarations": [
+      "mondrian_no_perfect_three_prime_area_one_factor",
+      "mondrian_no_perfect_two_prime_area",
+      "mondrian_partition_width_dvd_of_height_prime_chain"
+     ],
+     "highlight": false,
+     "research": "Excludes perfect partitions of every integer square with common tile area q^s*r*p^a for distinct primes p,q,r with p>r+1, uniformly in a and s. This extends the two-prime common-area obstruction by using the superincreasing signed-height argument",
+     "tier": "low"
+    },
+    {
+     "headline": "Exact equivalence covering number determined for fifteenth cycle powers",
+     "plain": "Covering all short-distance edges of a large cycle when steps up to fifteen are connected requires exactly six cluster graphs.",
+     "before": "arXiv:2610.15635 established that the equivalence covering number of C_n^15 lies in {5, 6} for even n not divisible by 16, leaving the exact value open.",
+     "answer": "For every even n ≥ 3825 not divisible by 16, the equivalence covering number of the fifteenth power of the n-cycle is exactly 6.",
+     "why": "Settles the k = 15 case of Open Problem OP-205, providing the first exact value beyond k = 3.",
+     "idea": "Specializes a dyadic classification theorem, refuting five-layer covers through automated case splits on class-type sequences.",
+     "outcome": "partial",
+     "source": "arXiv:2610.15635",
+     "main": "simple_graph_equivalence_covering_number_cycle_power_fifteen_of_not_dvd",
+     "declarations": [
+      "simple_graph_equivalence_covering_number_cycle_power_fifteen_of_not_dvd",
+      "simple_graph_equivalence_covering_number_cycle_power_large_upper",
+      "simple_graph_cycle_power_dyadic_cover_card_bound"
+     ],
+     "highlight": false,
+     "research": "Settles the k = 15 case of the residual even case of arXiv:2610.15635: eq(C_n^15) = 6 for every even n ≥ 3825 with 16 ∤ n, where the paper only has eq(C_n^15) ∈ {5, 6}; the first case beyond k = 3 where the exact value is now known",
+     "tier": "medium"
+    },
+    {
+     "headline": "Exact equivalence covering number determined for seventh cycle powers",
+     "plain": "Covering all edges between vertices at distance at most seven on a ring requires exactly five equivalence subgraphs.",
+     "before": "Theorems 1.3 and 1.4 of arXiv:2610.15635 left the covering number of C_n^7 pinned only within {4, 5} for even n ≥ 441 with 8 ∤ n.",
+     "answer": "For every n ≥ 98 not divisible by 8, the equivalence covering number of the seventh power of the n-cycle is exactly 5.",
+     "why": "Settles the k = 7 case of Open Problem OP-205 for all orders down to 98.",
+     "idea": "Matches a general dyadic upper bound of 5 with an exact lower bound derived from dyadic weight conservation.",
+     "outcome": "partial",
+     "source": "arXiv:2610.15635",
+     "main": "simple_graph_equivalence_covering_number_cycle_power_seven_of_not_dvd",
+     "declarations": [
+      "simple_graph_equivalence_covering_number_cycle_power_seven_of_not_dvd",
+      "simple_graph_equivalence_covering_number_cycle_power_large_upper",
+      "simple_graph_cycle_power_dyadic_cover_card_bound"
+     ],
+     "highlight": false,
+     "research": "Settles the k = 7 case of the residual even case of arXiv:2610.15635: eq(C_n^7) = 5 for every n ≥ 98 with 8 ∤ n, where the paper only has eq(C_n^7) ∈ {4, 5} for even n ≥ 441",
+     "tier": "medium"
+    },
+    {
+     "headline": "Long non-transitive dominance cycles exist for eleven-sided dice",
+     "plain": "A set of eleven-sided dice can form a loop of at least twelve dice where each die is more likely to beat the next.",
+     "before": "Section 3 of arXiv:2610.40321 constructed non-transitive cycles for various dice sizes, including a directed cycle of length at least 12 for 11-sided dice.",
+     "answer": "arXiv:2610.40321 shows that the 11-sided dice graph contains a directed simple cycle of length at least 12; Lean now checks the proof.",
+     "why": "Formally verifies Open Problem OP-744 on the existence of long dominance cycles in non-transitive dice systems.",
+     "idea": "Verifies that twelve explicit non-decreasing eleven-tuples form a simple cycle under the minimal winning advantage margin of 61 matchups.",
+     "outcome": "formalized",
+     "source": "arXiv:2610.40321",
+     "main": "op744_dice11_has_directed_cycle_ge_twelve",
+     "declarations": [
+      "op744_dice11_has_directed_cycle_ge_twelve",
+      "op744_dice7_has_cycle_fourteen",
+      "op744_dice6_has_cycle_six",
+      "op744_dice3_no_cycle_three",
+      "minimal_advantage_eleven"
+     ],
+     "highlight": false,
+     "research": "settles OP-744 (Existence of a non-transitive cycle of length at least 12 for 11-sided dice)",
+     "tier": "low"
+    }
+   ]
+  },
+  {
+   "name": "Quantum Computation",
+   "context": "A conjectured universal spectral bound for positive trace-preserving maps was disproved in dimension three and shown to fail in all dimensions three and higher.",
+   "results": [
+    {
+     "headline": "Universal spectral bound fails for positive trace-preserving maps in dimension three",
+     "plain": "A proposed mathematical limit on how quantum-like transformations can stretch matrix traces fails for three-by-three matrices.",
+     "before": "A universal spectral bound holding for all two-positive maps was conjectured to extend to all positive trace-preserving maps in dimension three or higher.",
+     "answer": "The bound trace(Φ) ≤ d·m(Φ) + d² - d fails: for d = 3, an explicit map Φ(X) = K X K + (3/4) P Xᵀ P violates the inequality.",
+     "why": "Answers the open question from Section 9 of arXiv:2610.37187 and arXiv:2506.02145 in the negative.",
+     "idea": "Constructs a decomposable map summing a completely positive congruence and a partial transpose whose peripheral spectrum exceeds the bound.",
+     "outcome": "disproved",
+     "source": "arXiv:2610.37187",
+     "main": "not_universal_spectral_bound_positive_trace_preserving",
+     "declarations": [
+      "not_universal_spectral_bound_positive_trace_preserving",
+      "not_universal_spectral_bound_positive_tp_dim_three"
+     ],
+     "highlight": true,
+     "research": "Answers the question left open in arXiv:2610.37187 (Sec. 9) and raised in arXiv:2506.02145: positive trace-preserving maps in dimension three can violate the universal spectral bound Tr Φ ≤ d m(Φ) + d² − d that holds for all 2-positive ones; an explicit decomposable map with trace 11/2 and eigenvalue −1/2 exceeds the bound 9/2",
+     "tier": "medium"
+    },
+    {
+     "headline": "Universal spectral bound fails in every dimension from three up",
+     "plain": "In every matrix dimension three or greater, there are positive transformations preserving traces that exceed the proposed universal spectral limit.",
+     "before": "arXiv:2610.37187 proved the bound for two-positive maps and raised whether positivity alone suffices in each dimension d ≥ 3.",
+     "answer": "For every d ≥ 3, there exists an explicit positive trace-preserving linear map on d-by-d complex matrices strictly violating trace(Φ) ≤ d·m(Φ) + d² - d.",
+     "why": "Settles Open Problem OP-733 in full generality across all dimensions d ≥ 3.",
+     "idea": "Generalizes the three-dimensional counterexample by adjusting diagonal weights to preserve trace while violating the spectral inequality.",
+     "outcome": "disproved",
+     "source": "arXiv:2610.37187",
+     "main": "exists_positive_tp_violating_universal_spectral_bound",
+     "declarations": [
+      "exists_positive_tp_violating_universal_spectral_bound",
+      "not_universal_spectral_bound_positive_trace_preserving"
+     ],
+     "highlight": false,
+     "research": "Answers the question of arXiv:2610.37187 (Sec. 9, raised in arXiv:2506.02145) in every dimension: for each d ≥ 3 an explicit decomposable positive trace-preserving map violates the bound Tr Φ ≤ d m(Φ) + d² − d, which holds for all 2-positive trace-preserving maps, by 2/(d − 1); so 2-positivity cannot be weakened to positivity in that theorem",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Information Theory & Coding",
+   "context": "The necessity half of the golden ratio conjecture for mutual power-divergence information was settled, confirming that subadditivity fails whenever the exponent is strictly below the golden ratio conjugate.",
+   "results": [
+    {
+     "headline": "Mutual information subadditivity fails below the golden ratio conjugate",
+     "plain": "In information theory, a standard subadditivity inequality for power divergences breaks down whenever the exponent is strictly below the golden ratio conjugate.",
+     "before": "Open Problem OP-726 conjectured that mutual power-divergence information is subadditive on Markov chains if and only if the parameter β is at least (√5 - 1)/2.",
+     "answer": "arXiv:2610.21231 shows that for every β in (0, (√5 - 1)/2), an explicit binary Markov chain strictly violates subadditivity; Lean now checks the proof.",
+     "why": "Settles the necessity half of Open Problem OP-726, showing that the golden ratio conjugate is a sharp lower threshold.",
+     "idea": "Constructs binary distributions where joint power-divergence mutual information strictly exceeds the sum of marginal divergences.",
+     "outcome": "formalized",
+     "source": "arXiv:2610.21231",
+     "main": "power_divergence_exists_binary_counterexample_of_lt_golden_ratio",
+     "declarations": [
+      "power_divergence_exists_binary_counterexample_of_lt_golden_ratio",
+      "mutual_power_divergence_binary_subadditive_imp_golden_ratio_le",
+      "mutual_power_divergence_subadditive_imp_golden_ratio_le",
+      "mutual_power_divergence_subadditive_imp_quadratic_nonneg",
+      "golden_ratio_exponent_pos_and_lt_one",
+      "golden_ratio_quadratic_nonneg_iff"
+     ],
+     "highlight": false,
+     "research": "Proves the failure half of the golden-ratio conjecture OP-726 for every exponent, not just at sample points: for every beta in (0, (sqrt 5 - 1)/2) there is a strictly positive binary Markov chain Y <- X -> Z on which mutual power-divergence information is strictly superadditive. The construction is a rare input symbol of probability p and a channel entry of order p, and the slack has derivative -(1-beta)a^2 - (1-(1-a)^beta)^2 + 2 kappa^beta((a+kappa)^(1-beta) - (kappa+a-a^2)^(1-beta)) at p = 0, positive for suitable a, kappa exactly when beta^2 + beta < 1. The source paper (arXiv:2610.21231) gives only sufficient conditions for subadditivity, and the knowledgebase had refutations only at beta = 1/4 and 1/2 plus numerical evidence for the threshold",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Fair Division",
+   "context": "Equilibria in round-robin item drafting were proved fair up to one good for up to 2n+1 items, and an extension theorem incorporated two universally small goods while preserving fairness.",
+   "results": [
+    {
+     "headline": "Round-robin drafting equilibria are fair up to one good for at most 2n+1 items",
+     "plain": "When players take turns picking items, every stable game outcome is fair up to one item whenever the item count is at most twice the player count plus one.",
+     "before": "arXiv:2610.23686 showed that pure Nash equilibria of round-robin can fail EF1 for 3 agents with 8 goods, leaving the exact frontier open.",
+     "answer": "For any number of agents n and at most 2n + 1 goods with nonnegative additive valuations, every pure Nash equilibrium of Round-Robin is EF1.",
+     "why": "Establishes a positive fairness guarantee beyond known bounds, proving sharpness at 2n + 1 for three players.",
+     "idea": "Identifies the unique agent receiving three goods and constructs deviation certificates from alternative picking strategies.",
+     "outcome": "proved",
+     "source": "arXiv:2610.23686",
+     "main": "round_robin_pne_ef1_of_card_le_two_mul_add_one",
+     "declarations": [
+      "round_robin_pne_ef1_of_card_le_two_mul_add_one",
+      "round_robin_two_mul_add_one_deviation_certificate",
+      "round_robin_two_mul_add_one_outcome_structure",
+      "round_robin_two_mul_add_one_cover_pairs",
+      "round_robin_pne_envy_zero_ef1_of_two_mul_add_one"
+     ],
+     "highlight": false,
+     "research": "Proves exact EF1 for every number of agents when m <= 2n+1, a positive guarantee beyond the general 1/2-EF1 bound and the three-agent/eight-good counterexample in arXiv:2610.23686",
+     "tier": "low"
+    },
+    {
+     "headline": "Two universally small goods can be added while preserving EFX",
+     "plain": "Two new items that every person values less than existing items can always be assigned without breaking fairness up to any single item.",
+     "before": "Techniques based on inserting universally least-valued goods could handle at most one small good at a time without breaking EFX guarantees.",
+     "answer": "Adding two goods, each valued weakly less than all old goods by every agent, preserves EFX via bundle permutation and bonus assignment without requiring within-pair agreement.",
+     "why": "Advances progress on the open problem of EFX existence for four agents by enabling two-item inductive steps.",
+     "idea": "Applies an extremal potential argument on candidate bundle permutations and bonus orderings to weakly improve all initial utilities.",
+     "outcome": "partial",
+     "source": "arXiv:1707.04769",
+     "main": "efx_exists_of_two_universal_small_goods_ir",
+     "declarations": [
+      "efx_exists_of_two_universal_small_goods_ir",
+      "efx_exists_of_two_universal_small_goods",
+      "finite_two_bonus_ordered_assignment",
+      "finite_two_bonus_assignment",
+      "is_efx_goods_permute_of_utility_le"
+     ],
+     "highlight": false,
+     "research": "Extends common least-good insertion to two universally small goods with arbitrary within-pair rankings, preserving every old bundle and weakly improving all own utilities; iteration gives complete EFX for any number of agents and goods ordered in common pairs",
+     "tier": "low"
+    }
+   ]
+  }
+ ],
+ "outlook": [
+  "Can the chromatic number of graphs with no induced subdivision of the complete graph on four vertices be bounded by a constant?",
+  "Does an unweighted maximum cut game always admit an optimal strong equilibrium when the maximum degree is strictly below the number of colors?",
+  "Can three distinct bent functions sum to the eight-variable quartic counterexample to Tokareva's conjecture?",
+  "Is the zero-excess decision problem for wiring diagrams in the higher Bruhat order solvable in polynomial time?",
+  "Does every integer square partition with three distinct prime area factors require non-congruent rectangles?"
+ ],
+ "glossary": [
+  {
+   "term": "EF1",
+   "meaning": "Envy-free up to one item: any envy disappears once some single item is removed (a good from the envied bundle, or a chore from the envious agent's own)."
+  },
+  {
+   "term": "EFX",
+   "meaning": "Envy-free up to any item: envy disappears whichever single item is removed (any good from the envied bundle, or any chore from the envious agent's own)."
+  },
+  {
+   "term": "OP",
+   "meaning": "Open Problem: a designated open question in the knowledgebase"
+  },
+  {
+   "term": "TCS",
+   "meaning": "TCS: theoretical computer science, spanning discrete mathematics and computational complexity"
+  }
+ ],
+ "stats": {
+  "original": 53,
+  "erratum": 0,
+  "literature": 150,
+  "lemma": 1307,
+  "theorems": 1510,
+  "research": 14,
+  "research_theorems": 16,
+  "sources": 97,
+  "topics": 23,
+  "announcements": 0,
+  "open": 1276,
+  "papers_read": 109
+ },
+ "issues": [],
+ "rounds": 4,
+ "zh": {
+  "title": "社会最优易受联盟破坏、拉丁杨表公式获证与通用谱界被推翻",
+  "summary": "博弈论中的一个问题得以解决：研究人员构造出一个182个顶点的反例，推翻了社会最优网络着色总能免于群体背叛的猜想。组合学方面，阶梯形拉丁杨表的精确计数公式获证，且在图块面积仅含两个素因数的情形下排除了完美蒙德里安分割。量子理论方面，一条提出的通用谱界在所有三维及以上维度均被推翻。其他结果还证明了野数公式并给出了新的公平性保证。",
+  "lead": {
+   "title": "社会最优的网络选择仍可能被串谋破坏",
+   "story": "设想一个社交网络中的参与者要在三支队伍中做出选择。每个人都能从对方队伍中的朋友那里获得满足感，这自然会促进整个网络的多样性。当一种队伍划分方案使所有成员之间的跨队友谊总数达到最大时，该方案便达到了社会最优。\n\n如果一个社会实现了一种使总福利最大化的安排，它是否仍可能从内部被瓦解？具体而言，协同一致的一群参与者是否可能商定共同更换队伍，使得串谋中的每个成员最终处境都严格变好？对于这类无权网络博弈，博弈论学者曾猜想，每个网络都至少存在一种能完全免受此类群体背叛的社会最优分配方案。\n\n如今该猜想已被推翻。研究人员构造了一个包含182名参与者的网络，其中任何一种福利最大化的划分方案都会给成功的串谋留下可乘之机。在这个网络中，无论选择哪种社会最优的队伍分配方案，总有一组人可以通过协同更换队伍，让每位串谋者都获得更多身处对方队伍的朋友。\n\n该反例始于一个刚性的91顶点核心，将每位参与者复制为独立的孪生顶点，并附加锚定引脚。这种结构迫使每种最优划分都落入无法消除有利群体背叛的构型。"
+  },
+  "results": [
+   {
+    "headline": "社会最优割着色未必是强均衡",
+    "plain": "在博弈方追求相反颜色的网络博弈中，使割边总数最大化的安排仍可能易受群体背叛的破坏。"
+   },
+   {
+    "headline": "猜想的野数公式对所有大型完全图获证",
+    "plain": "在完全图的最优边着色中，连接每个颜色类所需的最小野边数对大型网络达到了其下界。"
+   },
+   {
+    "headline": "跳跃闭合与跃步闭合边集未能构成拟阵平坦集",
+    "plain": "在图置换理论中，若不添加新置换便无法扩充的边子集并不构成任何拟阵的闭集。"
+   },
+   {
+    "headline": "具双三尾部的拉丁杨表精确计数公式获证",
+    "plain": "行长递减且各行各列均无重复数字的网格排列，其精确计数等于9乘以4的幂次方。"
+   },
+   {
+    "headline": "双三尾阶梯族中每个拉丁杨表均有四种延拓方式",
+    "plain": "在该阶梯族的任一有效网格中添加下一尺寸的新行，总能得到恰好四种有效补全方案。"
+   },
+   {
+    "headline": "任何整数正方形都不存在双素因数面积的完美矩形密铺",
+    "plain": "当公共面积仅有两个素因数时，不可能将正方形分割为面积相等且互不全等的矩形。"
+   },
+   {
+    "headline": "边长为素数乘素数幂的正方形不存在完美蒙德里安分割",
+    "plain": "边长为一个素数乘以任意素数幂的正方形，无法被分割为面积相同且互不相同的矩形。"
+   },
+   {
+    "headline": "含一个一次因数的三素数公共面积不存在完美分割",
+    "plain": "当图块面积涉及三个素数且其中一个为一次方时，将正方形分割为面积相同且互不全等的矩形仍不可能。"
+   },
+   {
+    "headline": "圈图的15次方图的精确等价覆盖数得以确定",
+    "plain": "在跨度至多为15的步数均相连的大型圈图中，覆盖所有短距离边恰好需要6个聚类图。"
+   },
+   {
+    "headline": "圈图的7次方图的精确等价覆盖数得以确定",
+    "plain": "覆盖环上距离至多为7的顶点间所有边，恰好需要5个等价子图。"
+   },
+   {
+    "headline": "11面骰子存在长非传递优势循环",
+    "plain": "一组11面骰子可以构成至少包含12枚骰子的环路，其中每枚骰子击败下一枚的概率都更高。"
+   },
+   {
+    "headline": "通用谱界对三维保迹正映射不成立",
+    "plain": "关于类量子变换能如何拉伸矩阵迹的一条拟议数学极限，对3乘3矩阵不成立。"
+   },
+   {
+    "headline": "通用谱界在三维及以上所有维度均不成立",
+    "plain": "在大于等于3的每个矩阵维度中，均存在超出拟议通用谱极限的保迹正变换。"
+   },
+   {
+    "headline": "互信息次可加性在低于黄金比例共轭值时失效",
+    "plain": "在信息论中，只要指数严格低于黄金比例共轭值，幂散度的标准次可加性不等式便不再成立。"
+   },
+   {
+    "headline": "物品数至多为玩家数两倍加1时循环选秀均衡满足EF1",
+    "plain": "当各方轮流挑选物品时，只要物品总数不超过玩家人数的两倍加1，每种稳定的博弈结果都满足至多相差一件物品的公平性。"
+   },
+   {
+    "headline": "新增两件全局较小物品仍可保持EFX",
+    "plain": "新增两件对所有人而言价值均低于既有物品的新物品，总能在不破坏至多相差任一物品公平性的前提下完成分配。"
+   }
+  ],
+  "outlook": [
+   "不含4个顶点的完全图的导出细分的图，其色数能否被某个常数界定？",
+   "当最大度严格小于颜色数时，无权最大割博弈是否总存在最优强均衡？",
+   "3个互不相同的弯曲函数相加，能否得到托卡列娃猜想的8变元4次反例？",
+   "高阶布鲁阿序中连线图的零超额判定问题是否在多项式时间内可解？",
+   "面积含有3个不同素因数的每个整数正方形分割，是否都必须包含互不全等的矩形？"
+  ],
+  "glossary": [
+   {
+    "term": "EF1",
+    "meaning": "至多相差一件物品的无嫉妒：一旦移去某一件物品（被嫉妒者分得的一件好物，或嫉妒者自身分得的一件苦差），嫉妒便消除。"
+   },
+   {
+    "term": "EFX",
+    "meaning": "至多相差任一物品的无嫉妒：无论移去哪一件物品（被嫉妒者分得的任一好物，或嫉妒者自身分得的任一苦差），嫉妒均消除。"
+   }
+  ]
+ },
+ "zh_issues": [],
+ "numbers": "Lean accepted 1510 new theorems this week, drawn from 97 papers and 23 topics. Of these, 53 are new here, 0 correct a published claim, 150 formalize a published result and 1307 are helper lemmas. They make 14 research-level results, in 16 theorems -- they lead the report. 1276 statements posed this week are not yet proved. The reading covered 109 new papers. This report covers 16 results in 6 fields.",
+ "disclaimer": "Written by a model (gemini-3.8-flash) from the week's Lean-verified results. Every declaration named here was checked by Lean; this summary is a reading aid and is not itself machine-checked.",
+ "minutes": 13,
+ "short_minutes": 3,
+ "outcomes": {
+  "proved": "Proved",
+  "disproved": "Disproved",
+  "partial": "Partial",
+  "new": "New result",
+  "formalized": "Formalized"
+ },
+ "zh_disclaimer": "本文由模型（gemini-3.8-flash）根据本期经 Lean 验证的结果撰写，并从英文版翻译而来。文中提到的每个定理都经过 Lean 检查；本摘要只是阅读辅助，本身未经机器检查。",
+ "zh_outcomes": {
+  "proved": "证明",
+  "disproved": "否定",
+  "partial": "部分结果",
+  "new": "新结果",
+  "formalized": "形式化验证"
+ }
+}

@@ -3188,6 +3188,7 @@ import AFTD.Kb.GameTheoryEconomics.SwfIsFinitelyAnonymous
 import AFTD.Kb.GameTheoryEconomics.SwfIsMonotone
 import AFTD.Kb.GameTheoryEconomics.SwfIsStationary
 import AFTD.Kb.GameTheoryEconomics.SwfLowerRestrictedDominance
+import AFTD.Kb.GameTheoryEconomics.SwfStreamComplement
 import AFTD.Kb.GameTheoryEconomics.SwfUpperRestrictedDominance
 import AFTD.Kb.GameTheoryEconomics.SwfUpperRestrictedDominanceNotConstant
 import AFTD.Kb.GameTheoryEconomics.SwingTable

@@ -2,6 +2,164 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-04",
+   "kind": "daily",
+   "title": "Daily reading: 0 research-level, 92 proved, 48 open",
+   "research": {
+    "results": 0,
+    "theorems": 0
+   },
+   "body": "No research-level result today. Partial results advanced several graph-theoretic open problems: for OP-864, the Shannon OR-capacity of categorical products was bounded by the minimum factor capacity and evaluated when that minimum is 1 or 2; OP-337 gained private-leaf reductions and a seven-vertex tournament obstruction; and neighborhood matchings for triangle-free graphs were established toward OP-926. Published theorems formalized in full include `quantitative_combinatorial_nullstellensatz`, `two_color_generalized_schur_number_prop31`, gadget cut values in `max3cut_gadget_cut_values`, and a plank system sign vector theorem in `plank_system_sign_vector_exists`. New papers addressed fair allocation, graph coloring, additive energy, and coding theory, while 116 open-problem entries were added, including a question proposed here in OP-989. Forty-eight statements remain open, including Rényi entropy extremal bounds in OP-989 and subadditivity of regularized Jensen-Shannon mutual information in OP-998.\n\nThe Proposer read 44 new paper(s) and listed 62 open problem(s); 54 new question(s) of AFTD's own were adopted onto the list; 13 list entries were stated in Lean, as were 15 results the papers prove; the Proposer posed 62 more from what the knowledgebase already holds (116 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 92 theorem(s), 40 of them helper lemmas, which are not listed below; 48 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nPartial result on OP-864. `shannon_or_capacity_categorical_prod_le_min` (arXiv:2610.41977): For any finite nonempty simple graphs G and H, the Shannon OR-capacity of their categorical product G × H is at most the minimum of the Shannon OR-capacities of G and H.\n\nPartial result on OP-864. `shannon_or_capacity_categorical_prod_of_min_eq_one` (arXiv:2610.41977): For any finite nonempty simple graphs G and H, if the minimum of their Shannon OR-capacities is 1, then the Shannon OR-capacity of their categorical product G × H is 1.\n\nPartial result on OP-864. `shannon_or_capacity_categorical_prod_of_min_eq_two` (arXiv:2610.41977): For any finite nonempty simple graphs G and H, if the minimum of their Shannon OR-capacities is 2, then the Shannon OR-capacity of their categorical product G × H is 2.\n\nPartial result on OP-337. `digraph_two_private_leaves_avoidance_reduces_large` (arXiv:2610.23487): Attach two distinct private outgoing leaves to each vertex of a finite digraph. Source-freeness is preserved and the leaves form the unique maximum independent set. Any quasi-kernel meeting at most half of the second leaves projects to a quasi-kernel of the…\n\nPartial result on OP-337. `digraph_quasikernel_independent_cover_avoids_outneighbors` (arXiv:2610.23487): In a finite loopless digraph, every independent set is contained in the closed out-neighborhood of a quasi-kernel that contains none of its open out-neighbors.\n\nPartial result on OP-337. `digraph_seven_tournament_two_neighborhood_cover_counterexample` (arXiv:2610.23487): The displayed source-free seven-vertex tournament has all singleton quasi-kernels, every quasi-kernel is a singleton, no pair of their closed out-neighborhoods covers all vertices, and each vertex belongs to four of those neighborhoods.\n\nPartial result on OP-337. `finite_three_weighted_sets_half_cover_implies_pair_cover` (arXiv:2610.23487): If a positive total of three nonnegative integer weights gives every point at least half the weight of the sets containing it, two of those sets cover every point.\n\nPartial result on OP-337. `digraph_seven_cover_counterexample_rigidity` (arXiv:2610.23487): Every independent four-vertex set in the displayed seven-vertex graph equals {1,2,3,6}, and every independent set whose closed out-neighborhood covers {1,2,3,6} also equals it.\n\nFormalized. `quantitative_combinatorial_nullstellensatz` (arXiv:2610.41820 Lemma 2.1): For a multivariate polynomial f of total degree at most ∑ t_i over a field F, the coefficient of the monomial ∏ x_i^{t_i} equals the sum over points a in the grid ∏ S_i of f(a) divided by ∏_i ∏_{b ∈ S_i \\ {a_i}} (a_i - b), where each S_i has cardinality t_i…\n\nFormalized. `two_color_generalized_schur_number_prop31` (arXiv:2611.01714 Proposition 3.1): For every integer k ≥ 3, every 2-coloring of Fin (k^2 + k - 1) admits a monochromatic solution to (x.val + 1) + (k - 1) * (y.val + 1) = z.val + 1, and the 2-coloring of Fin (k^2 + k - 2) defined by color 0 on [1, k-1] ∪ [k^2, k^2+k-2] and color 1 on [k,…\n\nFormalized. `max3cut_gadget_cut_values` (arXiv:2611.01402 Lemma 3.1 -- Improved NP-Hardness of Approximation for Max-3-Cut and for Max-k-Cut with Small k): For every primary coloring x : Fin 3 → ZMod 3, the maximum cut value of the E-gadget is max3cut_v_e x = if max3cut_s x = 0 then 18 else 16, and the maximum cut weight of the N-gadget is max3cut_v_n x = if max3cut_s x ≠ 0 then 11 else 9.\n\nFormalized. `plank_system_sign_vector_exists` (arXiv:2611.00379, Lemma 3 (A sharp plank theorem for cube annuli)): Let $V$ be a real inner product space, let $\\iota$ be a finite type, let $n : \\iota \\to V$ be unit vectors, let $w : \\iota \\to \\mathbb{R}$ be positive widths ($w_i > 0$ for all $i$), and let $s : \\iota \\to \\mathbb{R}$ be shifts. Then there exists…\n\nFormalized. `hyperbinary_eval_cube_root_of_unity` (scout/2611-01243-halving-partitions-and-hyperbinary-expansions.md:1200): For every non-negative integer m, evaluating the hyperbinary length polynomial H_m(z) at the primitive cube root of unity ω = (-1 + √(-3))/2 gives an element of {0, ±1, ±ω, ±ω²}.\n\nFormalized. `fano_free_local_forbidden` (arXiv:2610.01084 Lemma 3.1 inequality (3.1)): In any 3-uniform Fano-free hypergraph H : Finset (Finset V), if {x, y, z} is an edge of H, then for all vertices a, b, c, d in V, the six triples {x, a, b}, {x, c, d}, {y, a, c}, {y, b, d}, {z, a, d}, and {z, b, c} cannot all belong to H.\n\nFormalized. `direct_sum_cover_maximal_independent_truncated_cayley` (arXiv:2611.05321 Lemma 2.2): Let G be an additive abelian group, and let A ⊆ D ⊆ G and Z ⊆ G be subsets with 0 ∈ Z. Suppose that the sum A + Z is direct and D ⊆ A + Z. Then the preimage of A in D is a maximal independent set in the truncated Cayley graph on D with connection set Z - Z.\n\nCorrected. `not_strong_elimination_iff_compatible_and_union_min`: The statement `strong_elimination_iff_compatible_and_union_min` is false: The statement is false as stated because of the empty set: If ∅ ∈ C, then `is_compatible_collection C` is trivially satisfied by picking C3 = ∅ for any distinct C1, C2 ∈ C and x ∈ C1 ∩…\n\nOpen. `two_deletion_posterior_renyi_sub_one_alternating_max` (knowledgebase): For every real order α with 0 < α < 1, every length n ≥ 2, and every word w : Fin n → Bool, the Rényi entropy renyi_entropy α of two_deletion_posterior n w is at most that of alternating_word n false, with equality if and only if is_alternating_word w holds.\n\nOpen. `two_deletion_posterior_renyi_order_crossings_exist` (knowledgebase): For every real order α > 1, there exist a natural number n ≥ 2 and a word w : Fin n → Bool such that the Rényi entropy renyi_entropy α of two_deletion_posterior n (alternating_word n false) is strictly less than that of two_deletion_posterior n w.\n\nOpen. `op_989_two_deletion_posterior_renyi_alternating_sharp_order_transition` (knowledgebase): For every real order α with 0 < α < 1, every n ≥ 2, and every word w : Fin n → Bool, the Rényi entropy renyi_entropy α of two_deletion_posterior n w is at most that of alternating_word n false, with equality if and only if is_alternating_word w; whereas for…\n\nOpen. `jensen_shannon_regularized_subadditive_full_support_half` (knowledgebase): For regularization parameter c = 1/2, the regularized Jensen-Shannon mutual f-information is subadditive on all full-support Markov chains Y <- X -> Z on finite alphabets.\n\nOpen. `op_998_jensen_shannon_sharp_kl_regularization` (knowledgebase): There exists a sharp regularization threshold c* in (0, 1/2] such that for every non-negative c, the regularized Jensen-Shannon mutual information is subadditive under all finite Markov forks if and only if c* <= c.\n\nOpen. `simple_graph_circulant_thirty_five_three_link_obstruction` (arXiv:2401.00392): In the 35-vertex circulant graph with step set ±1, ±7, ±11, ±16, no three pairwise-disjoint independent sets A, B, C can have every independent eight-set meet both A union B and A union C.",
+   "declarations": [
+    "digraph_girth_arc_map_weighted_budget",
+    "digraph_trianglefree_arc_map_weighted_budget",
+    "digraph_girth_weighted_good_center",
+    "digraph_trianglefree_weighted_good_center",
+    "digraph_girth_weighted_overlap_cycle_packing_step",
+    "digraph_trianglefree_weighted_overlap_cycle_packing_step",
+    "simple_graph_triangle_subset_of_separator",
+    "simple_graph_triangle_edge_family_induce_map",
+    "shannon_or_capacity_categorical_prod_le_min",
+    "shannon_or_capacity_categorical_prod_of_min_eq_one",
+    "shannon_or_capacity_categorical_prod_of_min_eq_two",
+    "cube_roots_of_unity_sub_sq",
+    "cube_roots_of_unity_cyclic_prod",
+    "cube_roots_of_unity_diff_prod",
+    "quantitative_combinatorial_nullstellensatz",
+    "digraph_two_private_leaves_avoidance_reduces_large",
+    "digraph_quasikernel_independent_cover_avoids_outneighbors",
+    "digraph_seven_tournament_two_neighborhood_cover_counterexample",
+    "finite_three_weighted_sets_half_cover_implies_pair_cover",
+    "digraph_seven_cover_counterexample_rigidity",
+    "simple_graph_ramsey_three_ten_forty_outer_indep_lift",
+    "simple_graph_ramsey_three_ten_forty_nine_regular_or_low_degree",
+    "simple_graph_ramsey_three_ten_forty_nine_regular_outer_edges",
+    "two_deletion_posterior_sum_two",
+    "simple_graph_triangle_free_independent_neighborhood_matching",
+    "simple_graph_triangle_free_private_neighborhood_neighbor_unique",
+    "simple_graph_triangle_free_unique_neighborhood_neighbors_card_le",
+    "simple_graph_ramsey_three_ten_nine_regular_outer_degree_eight_card_le",
+    "jensen_shannon_regularized_generator_one",
+    "jensen_shannon_binary_cid_not_subadditive",
+    "simple_graph_triangle_free_independent_cover_capacity",
+    "schur_two_upper_bound",
+    "max3cut_v_n_eq",
+    "schur_two_lower_bound",
+    "two_color_generalized_schur_number_prop31",
+    "max3cut_gadget_cut_values",
+    "max3cut_v_e_zero",
+    "max3cut_v_e_rainbow",
+    "max3cut_v_e_two_equal",
+    "max3cut_v_e_eq",
+    "norm_sub_smul_sq",
+    "plank_signed_sum_flip",
+    "op_979_csym_max_nullity_empty_graph",
+    "plank_energy_diff_single_flip",
+    "plank_system_sign_vector_exists",
+    "op_979_csym_max_nullity_le_fort_transversal_number",
+    "op_979_fort_transversal_number_empty_graph",
+    "op_979_csym_max_nullity_eq_fort_transversal_number_of_edgeless",
+    "ef1_implies_two_sub_one_div_n_mms_chores",
+    "chore_insertion_upgrade_recourse",
+    "not_strong_elimination_iff_compatible_and_union_min",
+    "hyperbinary_eval_cube_root_of_unity",
+    "min_two_insertion_collision_four",
+    "min_two_insertion_collision_five",
+    "min_two_insertion_collision_five_lt_alternating",
+    "gaussian_majority_error_nonneg",
+    "two_insertion_collision_defect_envelope_five",
+    "two_insertion_collision_defect_envelope_six",
+    "op_1003_two_insertion_collision_defect_envelope_five",
+    "gaussian_majority_error_le_half",
+    "cycle_greedy_costs_measurable",
+    "depth_three_amc_of_bounded_bias",
+    "depth_three_amc_soundness",
+    "halving_partition_count_two_mul",
+    "halving_partition_count_two_pow",
+    "halving_partition_kernel_even_reduction",
+    "halving_partition_length_le",
+    "fano_free_local_forbidden",
+    "moving_target_strategy_stop_successful",
+    "sweep_query_card",
+    "sweep_candidate_bound_last",
+    "op_940_dim2_property_p_of_ratio_condition",
+    "op_940_dim2_property_p_constant_ratio",
+    "op_940_decreasing_ratios_not_all_property_p",
+    "wiener_index_bot",
+    "wiener_index_dist_diff_twin_independent_set",
+    "wiener_index_add_edges_twin_independent_set",
+    "three_deletion_num_embeddings_one_zero",
+    "digraph_kernel_perfect_subset_quasikernel_cover",
+    "digraph_any_two_vertices_quasikernel_cover",
+    "digraph_quasikernel_weighted_half_cover_support_six",
+    "digraph_two_kernel_perfect_sets_weighted_half_cover",
+    "digraph_weighted_in_degree_below_half",
+    "digraph_seven_pair_four_cover_counterexample",
+    "digraph_cyclic_seven_prescribed_neighborhood_counterexample",
+    "digraph_nonneighborhood_kernel_condition_witness",
+    "digraph_source_tournament_quasikernel_singleton",
+    "digraph_digon_minimum_inweight_half_cover_counterexample",
+    "boolean_cube_dist_two_pairs_empty",
+    "truncated_add_cayley_indep_of_is_direct_sum_set",
+    "truncated_add_cayley_exists_adj_of_not_mem",
+    "direct_sum_cover_maximal_independent_truncated_cayley"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.23487",
+     "href": "https://arxiv.org/abs/2610.23487"
+    },
+    {
+     "label": "arXiv:2401.00392",
+     "href": "https://arxiv.org/abs/2401.00392"
+    },
+    {
+     "label": "arXiv:2611.01561",
+     "href": "https://arxiv.org/abs/2611.01561"
+    },
+    {
+     "label": "arXiv:2611.01243",
+     "href": "https://arxiv.org/abs/2611.01243"
+    },
+    {
+     "label": "arXiv:2407.03492v1",
+     "href": "https://arxiv.org/abs/2407.03492v1"
+    },
+    {
+     "label": "arXiv:2611.01055",
+     "href": "https://arxiv.org/abs/2611.01055"
+    },
+    {
+     "label": "arXiv:2611.04884",
+     "href": "https://arxiv.org/abs/2611.04884"
+    },
+    {
+     "label": "arXiv:2611.04947",
+     "href": "https://arxiv.org/abs/2611.04947"
+    },
+    {
+     "label": "arXiv:2611.05134",
+     "href": "https://arxiv.org/abs/2611.05134"
+    },
+    {
+     "label": "arXiv:2611.05321",
+     "href": "https://arxiv.org/abs/2611.05321"
+    },
+    {
+     "label": "arXiv:2611.04644",
+     "href": "https://arxiv.org/abs/2611.04644"
+    },
+    {
+     "label": "arXiv:2611.04753",
+     "href": "https://arxiv.org/abs/2611.04753"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-03",
    "kind": "daily",
    "title": "Daily reading: 2 research-level, 220 proved, 41 open",

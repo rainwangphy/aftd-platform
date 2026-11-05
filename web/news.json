@@ -2,6 +2,163 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-05",
+   "kind": "daily",
+   "title": "Daily reading: 2 research-level, 91 proved, 80 open",
+   "research": {
+    "results": 2,
+    "theorems": 2
+   },
+   "body": "Research-level results today: 2. (medium tier) Establishes weighted half-neighborhood coverage for oriented graphs whose every induced non-neighborhood has an out-kernel, including graphs outside the tournament–acyclic class treated in arXiv:2610.23487; (low tier) refutes OP-1087 (Partition of Odd-Girth 5 Subcubic Graphs with Component Order at Most Three). Each research-level result is one Research Blog post; theorems that bear on the same open problem or paper share it.\n\nThe Proposer read 34 new paper(s) and listed 39 open problem(s); 53 new question(s) of AFTD's own were adopted onto the list; 19 list entries were stated in Lean, as were 21 results the papers prove; the Proposer posed 86 more from what the knowledgebase already holds (173 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 91 theorem(s), 43 of them helper lemmas, which are not listed below; 80 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nResearch-level. `digraph_nonneighborhood_kernels_weighted_half_cover` (arXiv:2610.23487): In a finite loopless oriented graph in which the induced non-neighborhood of every vertex has an out-kernel, every nonnegative integer weighting has a quasi-kernel whose closed out-neighborhood contains at least half the total weight. — (medium tier) Establishes weighted half-neighborhood coverage for oriented graphs whose every induced non-neighborhood has an out-kernel, including graphs outside the tournament–acyclic class treated in arXiv:2610.23487\n\nResearch-level. `subcubic_odd_girth_five_partition_component_le_three_negation` (arXiv:2611.05178): It is not the case that every finite simple graph with maximum degree at most 3, clique-free of order 3, and not bipartite admits a partition of its vertex set into an independent set L and a complement R = Lᶜ such that every connected component of the… — (low tier) refutes OP-1087 (Partition of Odd-Girth 5 Subcubic Graphs with Component Order at Most Three)\n\nPartial result on OP-1095. `ex_post_one_mms_chore_lottery_single_agent` (arXiv:2611.04884): For a single agent (n = 1) and any m indivisible chores with nonnegative additive costs c, there exists an allocation lottery that is simultaneously ex-ante proportional and ex-post 1-MMS.\n\nPartial result on OP-1088. `subcubic_odd_girth_seven_partition_of_card_le_five` (arXiv:2611.05178): Every finite simple graph G on at most 5 vertices admits a partition into an independent set L and a subset R = Lᶜ such that every connected component of the induced subgraph G[R] has at most 5 vertices.\n\nPartial result on OP-926. `simple_graph_forty_nine_regular_five_cycle_one_undominated` (arXiv:2401.00392): There is a triangle-free 9-regular simple graph on 40 vertices and a five-vertex set whose induced graph has degree two at every vertex, such that exactly one vertex has no neighbor in that set.\n\nPartial result on OP-926. `simple_graph_circulant_thirty_five_five_coloring_no_bichromatic_eight` (arXiv:2401.00392): The 35-vertex circulant graph with steps ±1, ±7, ±11, ±16 has a proper five-coloring in which every independent set of eight vertices uses at least three colors.\n\nPartial result on OP-926. `simple_graph_regular_forty_induced_thirty_five_total_dominating` (arXiv:2401.00392): In a triangle-free 9-regular graph on 40 vertices, the complement of an induced 8-regular 35-vertex subgraph is a total dominating five-set.\n\nPartial result on OP-1087. `subcubic_partition_component_le_three_of_isBipartite` (arXiv:2611.05178): Every bipartite finite simple graph admits a partition of its vertex set into an independent set L and a complement R = Lᶜ such that every connected component of the induced subgraph G[R] has order at most 3.\n\nPartial result on OP-1087. `subcubic_partition_component_le_three_of_card_le_three` (arXiv:2611.05178): Every finite simple graph on at most 3 vertices admits a partition of its vertex set into an independent set L and a complement R = Lᶜ such that every connected component of the induced subgraph G[R] has order at most 3.\n\nPartial result on OP-926. `simple_graph_twenty_one_three_independent_seven_parts_alpha_seven` (arXiv:2401.00392): There is a triangle-free simple graph on 21 vertices, of maximum degree at most eight, in which each of the three consecutive seven-vertex classes is independent and there is no independent set of eight vertices.\n\nFormalized. `boxProd_completeGraph_all_powers_well_covered` (arXiv:2611.03956 Theorem 2.11 (1)): Let G be a finite connected nontrivial graph, and let t be an integer with t > |V(G)|. If every positive power G^d (d ≥ 1) is well-covered, then every positive power of the Cartesian product G □ K_t is well-covered.\n\nFormalized. `exists_connected_all_powers_well_covered_diam_ge` (arXiv:2611.03956 Corollary 2.13): For every positive integer D, there exists a finite connected simple graph G with diameter at least D such that every positive power G^d (d ≥ 1) is well-covered.\n\nFormalized. `binary_code_odd_forbidden_dist_max_size` (arXiv:2611.04523, Proposition 3.1): Let n ≥ 1 and 1 ≤ d ≤ n be integers such that d is odd. Then every subset F : Finset (Fin n → Fin 2) such that no two elements of F have Hamming distance d satisfies F.card ≤ 2 ^ (n - 1), and there exists a subset F : Finset (Fin n → Fin 2) with no two…\n\nFormalized. `mordell_ten_integer_norm_sum` (arXiv:2611.03088 Section 5.1): The sum of squared norms of the ten integer points in the witness configuration W is 9999608174.\n\nFormalized. `mordell_ten_integer_witness_ineq` (arXiv:2611.03088 eq. (8)): For the ten integer points W = ![(11183, 0), (-11183, 0), (32765, 14669), (32765, -14669), (-32765, 14669), (-32765, -14669), (12323, 31572), (12323, -31572), (-12323, 31572), (-12323, -31572)] in Fin 10 → ℤ × ℤ and q = 9999608174, 9^36 times the product…\n\nFormalized. `mordell_ten_suboptimal` (arXiv:2611.03088 Proposition 5.1): In Mordell's problem for ten points in the complex plane, the supremum sSup of { d : ℝ | ∃ z : Fin 10 → ℂ, (∑ i : Fin 10, ‖z i‖^2 = 10) ∧ d = ∏ i : Fin 10, ∏ j : Fin 10 with i < j, ‖z i - z j‖^2 } strictly exceeds (10 : ℝ)^45 / (9 : ℝ)^36.\n\nFormalized. `graph_edit_cost_permutation_decomposition_le_two_mul` (arXiv:2611.05048 Theorem 6): Let $Q$ be an $n \\times n$ doubly stochastic matrix with a convex decomposition $Q = \\sum_{i \\in \\iota} w_i P_{\\pi_i}$, where $w_i \\ge 0$, $\\sum_{i} w_i = 1$, and each $\\pi_i$ is a permutation of $\\{0, \\dots, n-1\\}$. Then for any binary matrices $A, B \\in…\n\nFormalized. `anti_ramsey_k5_lower_bound_nineteen` (arXiv:2611.03878 Theorem 3.2): There exists a symmetric 3-edge-coloring of the complete graph K_19 on vertices ZMod 19 such that every 5-element vertex subset contains at least one edge of each of the three colors, implying that the three-colored anti-Ramsey number satisfies xi(K_5) >= 19.\n\nCorrected. `not_boolean_subspace_degree_reduction_criterion`: The statement `boolean_subspace_degree_reduction_criterion` is false: The statement is false for d = 0. When d = 0: Let n = 1, p : (Fin 1 → ZMod 2) → ZMod 2 be the constant 1 function, and U = ⊥. 1. booleanDegree p = 0, because the ANF coefficient for S = ∅…\n\nOpen. `subcubic_odd_girth_seven_partition` (arXiv:2611.05178): Every finite simple graph G with maximum degree at most 3 and odd girth at least 7 admits a partition of its vertex set into an independent set L and a subset R = Lᶜ such that every connected component of the induced subgraph G[R] has at most 5 vertices.\n\nOpen. `balanced_tsallis_seven_eighths_sharp_dictator_stability_transition` (knowledgebase): For every correlation 0 < rho < 1, natural number n >= 1, and balanced Boolean indicator f : {0,1}^n -> {0,1}, the order-7/8 noise stability excess E[(T_rho f)^(7/8)] - h(rho) is at least min(C_3(rho), C_G(rho)) times the dictator distance delta(f).\n\nOpen. `subcubic_triangle_free_partition_component_le_six` (arXiv:2611.05178): Every finite simple graph with maximum degree at most 3 that is clique-free of order 3 admits a partition of its vertex set into an independent set L and a complement R = Lᶜ such that every connected component of the induced subgraph G[R] has order at most 6.\n\nOpen. `triangle_free_subcubic_card_le_four_partition` (arXiv:2611.05178): Every finite simple graph on at most 4 vertices with maximum degree at most 3 that is triangle-free admits a partition into an independent set L and complement R = Lᶜ such that G[R] is bipartite and for every connected component C of G[R] and every vertex v…\n\nOpen. `op_1058_cartesian_product_factor_has_wcp` (arXiv:2611.03956): For any finite connected simple graphs G and H, if their Cartesian product G □ H has the well-covered powers property, then at least one of G and H has the well-covered powers property.\n\nOpen. `op_1058_cartesian_square_factor_has_wcp` (arXiv:2611.03956): For any finite connected simple graph G, if its Cartesian square G □ G has the well-covered powers property, then G has the well-covered powers property.",
+   "declarations": [
+    "ex_post_one_mms_chore_lottery_single_agent",
+    "simple_graph_odd_girth_ge_bot",
+    "subcubic_odd_girth_seven_partition_of_card_le_five",
+    "coordinate_indicator_is_balanced",
+    "signed_coordinate_dist_self",
+    "simple_graph_forty_nine_regular_five_cycle_one_undominated",
+    "complete_graph_two_all_powers_well_covered",
+    "diam_boxProd_completeGraph",
+    "simple_graph_circulant_thirty_five_five_coloring_no_bichromatic_eight",
+    "simple_graph_regular_forty_induced_thirty_five_total_dominating",
+    "subcubic_odd_girth_five_partition_component_le_three_negation",
+    "boxProd_completeGraph_all_powers_well_covered",
+    "exists_connected_all_powers_well_covered_diam_ge",
+    "subcubic_partition_component_le_three_of_isBipartite",
+    "subcubic_partition_component_le_three_of_card_le_three",
+    "simple_graph_twenty_one_three_independent_seven_parts_alpha_seven",
+    "binary_code_parity_class_avoids_odd_dist",
+    "binary_code_parity_class_card",
+    "triangle_free_subcubic_independent_bipartite_partition_negation",
+    "cycle_power_eight_local_count_defect_impossible",
+    "binary_code_avoids_odd_dist_card_le",
+    "bipartite_exists_independent_bipartite_component_partition",
+    "binary_code_odd_forbidden_dist_max_size",
+    "subcubic_isAcyclic_exists_independent_bipartite_component_partition",
+    "mordell_ten_integer_norm_sum",
+    "mordell_ten_integer_witness_ineq",
+    "digraph_nonneighborhood_kernel_no_second_layer_kernel_counterexample",
+    "cycle_five_has_well_covered_powers",
+    "mordell_ten_exists_feasible_gt_chalk",
+    "mordell_ten_suboptimal",
+    "op_1058_of_diam_le_two",
+    "cyclic_orbit_denom_ne_zero",
+    "cyclic_orbit_poly_subspace_pow_mem",
+    "cyclic_orbit_poly_subspace_one_mem",
+    "cyclic_orbit_poly_subspace_fractional_linear_scale",
+    "good_slopes_refl_three",
+    "good_slopes_mem_iff",
+    "graph_edit_cost_nonneg",
+    "perm_edit_cost_eq_graph_edit_cost",
+    "graph_edit_cost_permutation_decomposition_le_two_mul",
+    "simple_graph_edit_cost_permutation_decomposition_le_two_mul",
+    "anti_ramsey_k5_lower_bound_nineteen",
+    "sum_range_sq_add_ge",
+    "isotropic_chain_cubic_ineq",
+    "isotropic_intersection_size_bound",
+    "omsr_patience_single_arrival_optimal",
+    "not_has_three_colored_anti_ramsey_two_two",
+    "is_identically_ordered_zero",
+    "chore_remaining_set_two_mul_eq_empty",
+    "ido_remaining_chores_cost_le_one_third",
+    "chore_opposite_pair_card",
+    "ido_opposite_pair_cost_le_four_thirds",
+    "ido_chore_opposite_pairs_cost_bounds",
+    "simple_graph_laplacian_matrix_isHermitian",
+    "simple_graph_is_degenerate_bot",
+    "simple_graph_is_degenerate_of_le",
+    "tree_edge_disjoint_embedding_two_degenerate_union_two",
+    "energy_filter_renyi_moment_two_eq_purity",
+    "energy_filter_delta_renyi_constant",
+    "energy_filter_fourier_entropy_constant_delta",
+    "good_slopes_gap_tight_mod_15",
+    "good_slopes_gap_tight_mod_45",
+    "is_ap_tile_step_Icc_self",
+    "randic_index_nonneg",
+    "op1012_randic_index_le_half_card",
+    "op1012_complete_bipartite_randic_index",
+    "laplacian_mu2_le_mu1",
+    "exists_disjoint_colors_finset",
+    "generalized_kneser_graph_adj",
+    "not_boolean_subspace_degree_reduction_criterion",
+    "generalized_kneser_chromatic_le_fourteen",
+    "integer_interval_subset_of_nonempty_inter_of_no_endpoints",
+    "card_generalized_kneser_graph_verts",
+    "exists_pair_same_fst_of_card_gt",
+    "exists_pair_same_snd_of_card_gt",
+    "exists_pair_diff_coords_of_card_gt",
+    "is_ex_ante_proportional_of_equal_marginal",
+    "supertoken_graph_bipartite",
+    "probabilistic_serial_fractional_assignment_two_same",
+    "probabilistic_serial_line_cost_two_same",
+    "line_min_matching_cost_le",
+    "line_min_matching_cost_nonneg",
+    "is_k_geodetic_bot",
+    "is_line_distance_preference_profile_of_const_items",
+    "bicirculant_card",
+    "probabilistic_serial_fractional_assignment_two_same_one",
+    "probabilistic_serial_fractional_assignment_two_split",
+    "probabilistic_serial_fractional_assignment_two_split_swap",
+    "probabilistic_serial_line_distortion_le_two_agents",
+    "finite_three_set_stable_maximum_packings_cover_support",
+    "op_1151_bicirculant_prism_is_hamiltonian"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2611.04486",
+     "href": "https://arxiv.org/abs/2611.04486"
+    },
+    {
+     "label": "arXiv:2611.03879",
+     "href": "https://arxiv.org/abs/2611.03879"
+    },
+    {
+     "label": "arXiv:2611.04551",
+     "href": "https://arxiv.org/abs/2611.04551"
+    },
+    {
+     "label": "arXiv:2611.03878",
+     "href": "https://arxiv.org/abs/2611.03878"
+    },
+    {
+     "label": "arXiv:2611.03598",
+     "href": "https://arxiv.org/abs/2611.03598"
+    },
+    {
+     "label": "arXiv:2611.03956",
+     "href": "https://arxiv.org/abs/2611.03956"
+    },
+    {
+     "label": "arXiv:2611.05178",
+     "href": "https://arxiv.org/abs/2611.05178"
+    },
+    {
+     "label": "arXiv:2611.05531",
+     "href": "https://arxiv.org/abs/2611.05531"
+    },
+    {
+     "label": "arXiv:2611.06275",
+     "href": "https://arxiv.org/abs/2611.06275"
+    },
+    {
+     "label": "arXiv:2611.05397",
+     "href": "https://arxiv.org/abs/2611.05397"
+    },
+    {
+     "label": "arXiv:2611.06107",
+     "href": "https://arxiv.org/abs/2611.06107"
+    },
+    {
+     "label": "arXiv:2611.06451",
+     "href": "https://arxiv.org/abs/2611.06451"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-04",
    "kind": "daily",
    "title": "Daily reading: 0 research-level, 92 proved, 48 open",

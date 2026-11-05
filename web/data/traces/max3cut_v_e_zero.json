@@ -1,0 +1,1 @@
+{"name":"max3cut_v_e_zero","v":1,"source_hash":"195e8dd167d4799d","lines":["⊢ (max3cut_v_e fun x => 0) = 18"],"goals":[[0]],"steps":[{"line":2,"col":63,"end_line":2,"end_col":77,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

@@ -1,0 +1,1 @@
+{"name":"min_two_insertion_collision_four","v":1,"source_hash":"e5f49937f91332cb","lines":["⊢ min_two_insertion_collision 4 = 10"],"goals":[[0]],"steps":[{"line":3,"col":2,"end_line":3,"end_col":5,"tactic":"rfl","before":[0],"after":[],"used":["instOfNatNat","Nat","min_two_insertion_collision","Eq.refl","OfNat.ofNat"]}],"steps_total":1,"truncated":false}

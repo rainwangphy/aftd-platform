@@ -2,6 +2,164 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-06",
+   "kind": "daily",
+   "title": "Daily reading: 1 research-level, 92 proved, 105 open",
+   "research": {
+    "results": 1,
+    "theorems": 1
+   },
+   "body": "Research-level results today: 1. (low tier) For two agents with bivalued costs of common ratio 1 ≤ r < 2, establishes an equal-marginal lottery with ex-post (r+1)/2 maximin-share guarantee, improving the general 3/2 equal-marginal guarantee in https://arxiv.org/abs/2609.35280. Each research-level result is one Research Blog post; theorems that bear on the same open problem or paper share it.\n\nThe Proposer read 33 new paper(s) and listed 41 open problem(s); 50 new question(s) of AFTD's own were adopted onto the list; 14 list entries were stated in Lean, as were 20 results the papers prove; the Proposer posed 88 more from what the knowledgebase already holds (189 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 92 theorem(s), 56 of them helper lemmas, which are not listed below; 105 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nResearch-level. `two_agent_bivalued_equal_marginal_sharp_mms` (knowledgebase): For two agents (n = 2), ratio r with 1 ≤ r and r ≤ 2, and m chores with a cost profile c : Fin 2 → Fin m → ℝ satisfying is_scaled_bivalued_chores r c, there exists a lottery p ∈ stdSimplex ℝ (Fin m → Fin 2) such that is_equal_marginal_lottery p and… — (low tier) For two agents with bivalued costs of common ratio 1 ≤ r < 2, establishes an equal-marginal lottery with ex-post (r+1)/2 maximin-share guarantee, improving the general 3/2 equal-marginal guarantee in https://arxiv.org/abs/2609.35280\n\nPartial result on OP-1158. `probabilistic_serial_line_distortion_ge_sharp` (knowledgebase): Sharpness half of OP-1158: for every n >= 2 and every real c < n there are n agents and n items at real positions with positive minimum perfect-matching cost OPT such that, for every ranking profile by distance (any tie-breaking), the probabilistic serial…\n\nPartial result on OP-1158. `probabilistic_serial_line_three_agents_le_of_first_choices_01` (knowledgebase): Lemma for the case n = 3 of OP-1158, for the 36 ranking profiles in which agent 0 ranks item 0 first and item 1 second. For three agents at real positions a_i and three items at real positions b_j, with each agent ranking the items by distance (ties broken…\n\nPartial result on OP-1158. `probabilistic_serial_line_three_agents_le_of_first_choices_02` (knowledgebase): Lemma for the case n = 3 of OP-1158, for the 36 ranking profiles in which agent 0 ranks item 0 first and item 2 second. For three agents at real positions a_i and three items at real positions b_j, with each agent ranking the items by distance (ties broken…\n\nPartial result on OP-1158. `probabilistic_serial_line_three_agents_le_of_first_choices_10` (knowledgebase): Lemma for the case n = 3 of OP-1158, for the 36 ranking profiles in which agent 0 ranks item 1 first and item 0 second. For three agents at real positions a_i and three items at real positions b_j, with each agent ranking the items by distance (ties broken…\n\nPartial result on OP-1158. `probabilistic_serial_line_three_agents_le_of_first_choices_12` (knowledgebase): Lemma for the case n = 3 of OP-1158, for the 36 ranking profiles in which agent 0 ranks item 1 first and item 2 second. For three agents at real positions a_i and three items at real positions b_j, with each agent ranking the items by distance (ties broken…\n\nPartial result on OP-1158. `probabilistic_serial_line_three_agents_le_of_first_choices_20` (knowledgebase): Lemma for the case n = 3 of OP-1158, for the 36 ranking profiles in which agent 0 ranks item 2 first and item 0 second. For three agents at real positions a_i and three items at real positions b_j, with each agent ranking the items by distance (ties broken…\n\nPartial result on OP-1158. `probabilistic_serial_line_three_agents_le_of_first_choices_21` (knowledgebase): Lemma for the case n = 3 of OP-1158, for the 36 ranking profiles in which agent 0 ranks item 2 first and item 1 second. For three agents at real positions a_i and three items at real positions b_j, with each agent ranking the items by distance (ties broken…\n\nPartial result on OP-1158. `probabilistic_serial_line_distortion_le_three_agents` (knowledgebase): Case n = 3 of OP-1158: for three agents at real positions a_0, a_1, a_2 and three items at real positions b_0, b_1, b_2, with each agent ranking the items by distance (ties broken arbitrarily), the cost of the probabilistic serial assignment, sum_ij X_ij…\n\nFormalized. `is_stein_number_five` (arXiv:2611.05898, Example 1.4): The integer 5 is an E. P. Stein number.\n\nFormalized. `fourier_l2_sum_eq_norm_sq` (arXiv:2611.06451 Section 2 (Fact 2.1)): For any complex-valued function f on the Boolean hypercube {0,1}^n, the sum over all subsets S of Fin n of the squared absolute value of the Fourier coefficient of f at S equals the squared L2 norm l2_norm_sq_c f.\n\nFormalized. `rank_one_conversion_mortality_reachability` (arXiv:2611.06562 Lemma 3.1): Let 𝒢 be a finite set of invertible 2 × 2 rational matrices, and let s, t be one-dimensional linear subspaces of ℚ². Let u be a nonzero integer column vector spanning s, and let λ be a nonzero integer row vector with kernel t. Set R = u λ. Then 𝒢 ∪ {R} is…\n\nFormalized. `one_player_extension_approx_nash` (arXiv:2611.06076 Lemma 2.1 -- Breaking the One-Player Extension Barrier: History-Aware Repair for Multiplayer Approximate Nash Equilibria): In an (r+1)-player normal-form game with payoff functions u : Fin (r + 1) → ((j : Fin (r + 1)) → A j) → ℝ taking values in [0, 1] (satisfying ∀ i a, 0 ≤ u i a ∧ u i a ≤ 1), let α be a real number satisfying 0 ≤ α and α ≤ 1. If x is an α-approximate Nash…\n\nFormalized. `symmetric_counterexample_eight_not_bent` (arXiv:2611.06744 Corollary 1): The eight-variable symmetric Boolean function F_8 is not bent.\n\nFormalized. `symmetric_counterexample_eight_ne_zero` (arXiv:2611.06744 Corollary 1): The eight-variable symmetric Boolean function F_8 is not identically zero.\n\nFormalized. `is_reduced_latin_square_add` (folklore): For every non-zero natural number $n$, the addition table on $\\text{Fin } n$ is a reduced Latin square of order $n$.\n\nFormalized. `is_perfect_set_two` (folklore): The singleton set containing the transposition swap 0 1 on Fin 2 is a perfect set of order 2.\n\nOpen. `stein_number_pell_log_periodic_second_order` (knowledgebase): There exists a nonconstant continuous 1-periodic function F : ℝ → ℝ such that the normalized residual stein_residual Y satisfies Filter.Tendsto (fun Y => stein_residual Y - F (Real.log Y / Real.log pell_unit_squared)) Filter.atTop (nhds 0) as real Y tends to…\n\nOpen. `fourier_entropy_bound_from_orthogonal_decomp` (arXiv:2611.06451 Theorem 4.2): Let f : {-1,1}^n → ℂ decompose as a sum of pairwise orthogonal non-zero functions g_1, ..., g_m. Then the Fourier entropy ℍ(f_hat^2) is at most 2 * ∑_{i=1}^m p_i * log_2(L_i / p_i), where p_i = ||g_i||_2^2 and L_i = ||g_i_hat||_1.\n\nOpen. `stein_param_surj_on`: The map sending (d, u, v) to d^2 * (u^4 + 4 * v^4) maps stein_param_set surjectively onto the set of natural numbers satisfying is_stein_number.\n\nOpen. `stein_number_parameterization_bijective` (arXiv:2611.05898 Theorem 2.2 -- An Asymptotic for E. P. Stein Numbers): The map sending (d, u, v) to d^2 * (u^4 + 4 * v^4) is a bijection (Set.BijOn) from stein_param_set to the set of natural numbers satisfying is_stein_number.\n\nOpen. `bipartite_sum_degrees_right_eq_card_edges`: Let G be a bipartite simple graph on L ⊕ R with edges only between L and R. Then the sum over all w in R of the degree of w in G equals the number of edges in G.\n\nOpen. `epstein_remoteness_four_infinite_and_zero_density` (arXiv:2611.05898): In Epstein's put-or-take-a-square game, the set of natural numbers n with remoteness epstein_remoteness n = 4 is infinite, and its natural asymptotic density is zero, meaning that the ratio of the number of n ≤ X with epstein_remoteness n = 4 to X tends to 0…",
+   "declarations": [
+    "is_two_regular_of_submodule_stable",
+    "two_agent_bivalued_equal_marginal_sharp_mms",
+    "probabilistic_serial_line_distortion_ge_sharp",
+    "probabilistic_serial_line_three_agents_le_of_first_choices_01",
+    "probabilistic_serial_line_three_agents_le_of_first_choices_02",
+    "probabilistic_serial_line_three_agents_le_of_first_choices_10",
+    "probabilistic_serial_line_three_agents_le_of_first_choices_12",
+    "probabilistic_serial_line_three_agents_le_of_first_choices_20",
+    "probabilistic_serial_line_three_agents_le_of_first_choices_21",
+    "probabilistic_serial_line_distortion_le_three_agents",
+    "triangle_hypergraph_stable_minimum_cover_incompatible_pair",
+    "geodetic_c_condition_iff_product_condition_two",
+    "geodetic_c_condition_iff_product_condition_three",
+    "finite_family_lexicographic_cover_critical_expansion",
+    "designated_odd_partition_character_odd",
+    "designated_odd_partition_character_even",
+    "finite_binary_maximal_packing_conflict_triangle_free",
+    "is_stein_number_five",
+    "maxcut_defect_one_strong_deviation_mono_decreases",
+    "maxcut_strong_equilibrium_of_defect_one",
+    "maxcut_defect_two_deviation_welfare_nondecreasing",
+    "maxcut_defect_two_equal_welfare_deviation_structure",
+    "pell_log_shift_periodic",
+    "fourier_l2_sum_eq_norm_sq",
+    "fourier_tail_l2_bound",
+    "fourier_entropy_block_bound",
+    "not_is_monochromatic_path_empty",
+    "dyadic_spectral_series_bound",
+    "is_monochromatic_path_singleton",
+    "mu_star_one",
+    "not_mu_star_nine",
+    "inner_product_c_zero_left",
+    "mem_stein_param_set_one_one_one",
+    "stein_param_maps_to",
+    "stein_param_inj_on",
+    "epstein_remoteness_twenty_nine",
+    "epstein_remoteness_four_nonempty",
+    "epstein_remoteness_of_is_stein_number",
+    "component_transversal_exchange_iff",
+    "matrix_not_is_mortal_empty",
+    "matrix_is_mortal_of_zero_mem",
+    "matrix_rank_one_sandwich_identity",
+    "rank_one_conversion_mortality_reachability",
+    "threshold_loopless_digraph_ge_one",
+    "threshold_loopless_digraph_two",
+    "simple_graph_even_bipartition_half_independent_avoiding",
+    "simple_graph_triangle_cover_of_unique_triangle_edge",
+    "simple_graph_stable_min_two_triangles_conflict_five_cycle",
+    "simple_graph_triangle_packing_support_unmarked_edge_internal",
+    "simple_graph_connected_component_swap_iff",
+    "op_932_constant_fn_submodular",
+    "op_932_submodular_not_far",
+    "vertex_disjoint_routing_exists_zero",
+    "one_player_extension_theta_identity",
+    "supertoken_graph_regular_of_degree_le_s",
+    "one_player_extension_approx_nash",
+    "two_extra_fork_subgraph_counterexample",
+    "op_928_digit_exchange_differential_uniformity_le_thirty_six",
+    "op_928_digit_exchange_differential_uniformity_ge_two",
+    "op_928_digit_exchange_differential_uniformity_one",
+    "simple_graph_stable_packing_twelve_seed_supergraph_rigidity",
+    "randomized_mms_barrier_breaker_mono",
+    "symmetric_counterexample_eight_not_bent",
+    "symmetric_counterexample_eight_ne_zero",
+    "is_feasible_flow_zero",
+    "electrical_flow_energy_zero",
+    "electrical_flow_energy_expansion",
+    "electrical_flow_cross_term",
+    "finite_cubic_ten_connector_count_and_forced_edge",
+    "simple_graph_line_graph_triangle_star_or_root_triangle",
+    "simple_graph_line_graph_edge_unique_common_root_vertex",
+    "is_reduced_latin_square_add",
+    "all_cube_func_one_is_submodular",
+    "is_perfect_set_two",
+    "not_submodular_cube_three_two",
+    "digraph_exceptional_verts_card_le",
+    "zero_mem_full_reed_solomon_code",
+    "bivalued_rounding_even_mms_arithmetic",
+    "bivalued_rounding_odd_mms_arithmetic",
+    "four_type_simultaneous_balance_counts",
+    "two_finite_subsets_simultaneously_balanced",
+    "two_agent_balanced_symmetric_swap_lottery",
+    "cone_necklace_apex_adj",
+    "cone_necklace_radial_adj",
+    "cone_necklace_cycle_adj",
+    "cone_necklace_next_radial_adj",
+    "rademacher_filter_expected_purity_constant_tendsto",
+    "opposed_latin_blocking_sum_eq",
+    "simple_graph_disjoint_neighbors_of_dist_three",
+    "simple_graph_adj_row_add_is_binary_of_dist_three",
+    "simple_graph_adj_row_add_mem_range",
+    "simple_graph_nut_graph_diameter_three_has_binary_vector"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.15539",
+     "href": "https://arxiv.org/abs/2610.15539"
+    },
+    {
+     "label": "arXiv:2610.06891",
+     "href": "https://arxiv.org/abs/2610.06891"
+    },
+    {
+     "label": "arXiv:2611.00720",
+     "href": "https://arxiv.org/abs/2611.00720"
+    },
+    {
+     "label": "arXiv:2611.00432",
+     "href": "https://arxiv.org/abs/2611.00432"
+    },
+    {
+     "label": "arXiv:2611.02572",
+     "href": "https://arxiv.org/abs/2611.02572"
+    },
+    {
+     "label": "arXiv:2611.02374",
+     "href": "https://arxiv.org/abs/2611.02374"
+    },
+    {
+     "label": "arXiv:2611.02191",
+     "href": "https://arxiv.org/abs/2611.02191"
+    },
+    {
+     "label": "arXiv:2611.01871",
+     "href": "https://arxiv.org/abs/2611.01871"
+    },
+    {
+     "label": "arXiv:2611.05898",
+     "href": "https://arxiv.org/abs/2611.05898"
+    },
+    {
+     "label": "arXiv:2611.05623",
+     "href": "https://arxiv.org/abs/2611.05623"
+    },
+    {
+     "label": "arXiv:2611.07715",
+     "href": "https://arxiv.org/abs/2611.07715"
+    },
+    {
+     "label": "arXiv:2611.07856",
+     "href": "https://arxiv.org/abs/2611.07856"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-05",
    "kind": "daily",
    "title": "Daily reading: 2 research-level, 91 proved, 80 open",

@@ -19,10 +19,10 @@ theorem restricted_cycle_global_eq_iff_family_dvd (r n : ℕ) :
     restricted_cycle_global_gcd r n = restricted_cycle_one_param_gcd r n ↔
     ∀ S ∈ restricted_cycle_excluded_family r n,
       restricted_cycle_one_param_gcd r n ∣ restricted_cycle_perms_count n S := by
-  have h_dvd := restricted_cycle_global_gcd_dvd_one_param_gcd r n
-  rw [← Finset.dvd_gcd_iff]
   constructor
+  · intro h S hS
+    rw [← h]
+    exact Finset.gcd_dvd hS
   · intro h
-    exact h ▸ dvd_rfl
-  · intro h
-    exact Nat.dvd_antisymm h_dvd h
+    apply Nat.dvd_antisymm (restricted_cycle_global_gcd_dvd_one_param_gcd r n)
+    exact Finset.dvd_gcd_iff.mpr h

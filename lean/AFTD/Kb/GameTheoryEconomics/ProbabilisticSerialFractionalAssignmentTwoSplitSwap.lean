@@ -26,17 +26,17 @@ theorem probabilistic_serial_fractional_assignment_two_split_swap (pref : Fin 2 
     have : (pref 1).symm 1 ≠ 0 := fun h => by
       have := (pref 1).symm.injective (h.trans e1.symm); simp at this
     omega
-  have he : ∀ i j : Fin 2, (0 < (fun _ => (1:ℝ)) j ∧ ∀ j', 0 < (fun _ : Fin 2 => (1:ℝ)) j' → (pref i).symm j ≤ (pref i).symm j') ↔ ((i = 0 ∧ j = 1) ∨ (i = 1 ∧ j = 0)) := by
-    intro i j; fin_cases i <;> fin_cases j <;> simp [e0, e1, f0, f1]
-  have hcard : ∀ x : Fin 2, ({x_1 : Fin 2 | x_1 = 0 ∧ x = 1 ∨ x_1 = 1 ∧ x = 0} : Finset (Fin 2)).card = 1 := by
-    intro x; fin_cases x <;> decide
+  have hr : ∀ i x : Fin 2, ((pref i).symm x ≤ (pref i).symm 0 ∧ (pref i).symm x ≤ (pref i).symm 1) ↔ x ≠ i := by
+    intro i x; fin_cases i <;> fin_cases x <;> simp [e0, e1, f0, f1]
+  have hr0 : ∀ i : Fin 2, (pref i).symm 0 ≤ (pref i).symm 1 ↔ i = 1 := by
+    intro i; fin_cases i <;> simp [e0, e1, f0, f1]
+  have hr1 : ∀ i : Fin 2, (pref i).symm 1 ≤ (pref i).symm 0 ↔ i = 0 := by
+    intro i; fin_cases i <;> simp [e0, e1, f0, f1]
   have p1 : probabilistic_serial_phase 2 pref (fun _ => 1, fun _ _ => 0) =
       (fun _ => 0, fun i j => if j = i then 0 else 1) := by
     unfold probabilistic_serial_phase
-    simp only [he, hcard]
-    apply Prod.ext
-    · funext j; fin_cases j <;> simp
-    · funext i j; fin_cases i <;> fin_cases j <;> simp
+    ext a <;> fin_cases a <;> simp [Fin.forall_fin_two, hr, hr0, hr1, Finset.filter_ne', Finset.filter_ne, Finset.filter_eq', Finset.filter_eq] <;>
+      (try (rename_i y; fin_cases y)) <;> try simp [e0, e1, f0, f1]
   have p2 : probabilistic_serial_phase 2 pref (fun _ => 0, fun i j => if j = i then 0 else 1) =
       (fun _ => 0, fun i j => if j = i then 0 else 1) := by
     unfold probabilistic_serial_phase

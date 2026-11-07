@@ -2,6 +2,166 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-07",
+   "kind": "daily",
+   "title": "Daily reading: 1 research-level, 94 proved, 95 open",
+   "research": {
+    "results": 1,
+    "theorems": 1
+   },
+   "body": "Research-level results today: 1. (low tier) Settles the case r = n = 3 of the paper's Question 3.1 (does w_r(n) = 2r(n-1)+1?): w_3(3) = 13, the first exact value with r >= 3 and n >= 3, where the paper has only w_r(2) = 2r+1 and w_2(n) = 4n-3 for some n; the proof classifies every w-bad sequence modulo 9 up to GL_3(F_3) by a kernel-checked orbit certificate. Each research-level result is one Research Blog post; theorems that bear on the same open problem or paper share it.\n\nThe Proposer read 0 new paper(s) and listed 0 open problem(s); 0 new question(s) of AFTD's own were adopted onto the list; 17 list entries were stated in Lean, as were 27 results the papers prove; the Proposer posed 106 more from what the knowledgebase already holds (190 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 94 theorem(s), 54 of them helper lemmas, which are not listed below; 95 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nResearch-level. `zero_sum_w_three_three` (arXiv:2610.19965): w_3(3) = 13: every admissible sequence (no term ≡ 0 mod 3) of 13 vectors in ℤ^3 has a nonempty subsequence whose sum is ≡ 0 (mod 3) but ≢ 0 (mod 9), and 13 is the least length with this property. This is the case r = 3, n = 3 of the equality w_r(n) =… — (low tier) Settles the case r = n = 3 of the paper's Question 3.1 (does w_r(n) = 2r(n-1)+1?): w_3(3) = 13, the first exact value with r >= 3 and n >= 3, where the paper has only w_r(2) = 2r+1 and w_2(n) = 4n-3 for some n; the proof classifies every w-bad sequence modulo 9 up to GL_3(F_3) by a kernel-checked orbit certificate\n\nPartial result on OP-1285. `open_problem_1285_partial_no_crossings` (arXiv:2611.07715): For every finite diagram $D \\subseteq \\mathbb{N} \\times \\mathbb{N}$ having no crossings (`∀ u ∈ D, ∀ v ∈ D, ¬ diagram_crossing u v`), the leaf sliding tree `DiagramSlidingTree.leaf D h` satisfies agreement with descents…\n\nPartial result on OP-1285. `open_problem_1285_exists_tree_of_no_crossings` (arXiv:2611.07715): For every finite diagram $D \\subseteq \\mathbb{N} \\times \\mathbb{N}$ having no crossings (`∀ u ∈ D, ∀ v ∈ D, ¬ diagram_crossing u v`), there exists a sliding tree `t : DiagramSlidingTree D` such that `diagram_slide_expansion_agrees_with_descents D t` holds.\n\nPartial result on OP-1267. `simple_graph_ones_mem_range_imp_has_binary_vector` (arXiv:2611.08244): For any nonempty finite simple graph G on vertex set V, if the all-ones vector fun _ => 1 is in the range of Matrix.toLin' (G.adjMatrix ℝ), then there exists a non-zero (0,1)-vector in the row space of G.adjMatrix ℝ over ℝ that does not equal any row of…\n\nPartial result on OP-1267. `simple_graph_regular_has_binary_vector` (arXiv:2611.08244): For any nonempty finite simple graph G that is regular of degree d with 0 < d, there exists a non-zero (0,1)-vector in the row space of G.adjMatrix ℝ over ℝ that does not equal any row of G.adjMatrix ℝ.\n\nPartial result on OP-1267. `simple_graph_nut_graph_subset_neighbors_has_binary_vector` (arXiv:2611.08244): Let G be a finite simple nut graph on a vertex set V of cardinality at least 4. If there exist vertices u and v such that the neighbor set of v is a strict subset of the neighbor set of u, then there exists a non-zero (0,1)-vector in the row space of…\n\nPartial result on OP-1258. `op_1258_cyclic_ramsey_k_one` (arXiv:2611.08375): For every integer l ≥ 3, the cyclic Ramsey number R_cyc(NM_2, MP_l) of the 1-edge nested matching and the monotone path MP_l equals l.\n\nPartial result on OP-1258. `op_1258_cyclic_ramsey_k2_l3` (arXiv:2611.08375): The cyclic Ramsey number R_cyc(NM_4, MP_3) of the 2-edge nested matching NM_4 and the monotone path MP_3 is equal to 4.\n\nPartial result on OP-1257. `ordered_ramsey_monotone_cycle_alternating_path_two` (arXiv:2611.08375): For all integers k ≥ 3, the ordered Ramsey number of the monotone cycle MC_k and the alternating path AP_2 is equal to k.\n\nThread RT-1. `cycle_power_dyadic_alternating_half_model`: Half models. In a tight, exactly dyadically covered, fully covered integer Boolean class model at exponent m+1 (m ≥ 2) with m+2 active classes per vertex, where bit 1 alternates (x (p+1) 1 = !x p 1) and every class without bit 1 consists of its two endpoints…\n\nThread RT-1. `cycle_power_dyadic_class_weight_parity_split`: For any Boolean class b and m >= 1, with D = 2^(m+1): the dyadic class weight of b at exponent m+1, plus [b_0 and b_(D-2)] plus [b_1 and b_(D-1)], equals 2[b_0 and b_(D-1)] plus the weights at exponent m of its even half i -> b_(2i) and of its odd half i ->…\n\nThread RT-1. `cycle_power_dyadic_boundary_pair_of_alternating`: In an exactly dyadically covered model at exponent M >= 2 whose bit 1 alternates along the roots, every class has boundary pairing: offset 2^M - 2 is selected iff offset 1 is (exactness at distance 2^M - 2 at vertex p counts the pair (p, p + 2^M - 2) of the…\n\nThread RT-1. `cycle_power_dyadic_alternating_half_tight`: In a tight, exactly dyadically covered model at exponent m+1 (m >= 1) with alternating bit 1, for every class with bit 1 both its even half and its odd half are tight at exponent m (class weight equal to cardinality).\n\nFormalized. `sumset_rep_support_and_symmetry` (arXiv:2611.07303 Proposition 5.7): Let k ≥ 3, h ≥ 2, and q ≥ k be integers. Then sumset_dot_product_set h k q = Finset.Icc ((h : ℤ) + 1) (((h : ℤ) + 1) * (q : ℤ)), its cardinality is (h + 1) * q - h, and for every integer s, sumset_rep_count h k q s = sumset_rep_count h k q (((h : ℤ) + 1) *…\n\nFormalized. `one_layered_binomial_bound_le_power` (arXiv:2611.08071 Theorem 2.1): For integers r ≥ 1 and m ≥ r, the binomial bound (m - r + 1) * choose(⌊log_2(m - r + 1)⌋ + r - 1, r - 1) is at most (m - r + 1)^(1 + log_2 r) over the real numbers.\n\nFormalized. `one_layered_binomial_bound` (arXiv:2611.08071 Theorem 2.1): For all integers r ≥ 1 and m ≥ r, the maximum number of layers F(m, r) in a 1-layered family of r-subsets on at most m vertices satisfies F(m, r) ≤ (m - r + 1) * Nat.choose (Nat.log 2 (m - r + 1) + r - 1) (r - 1).\n\nFormalized. `one_layered_recurrence` (arXiv:2611.08071 Section 2, Equation (1)): For integers r ≥ 2 and m ≥ r, the maximum number of layers F(m, r) satisfies F(m, r) ≤ F(⌊(m - 1) / 2⌋, r) + F(⌈(m - 1) / 2⌉, r) + F(m - 1, r - 1), where ⌈(m - 1) / 2⌉ is represented by m / 2.\n\nFormalized. `drf_prop1_ratio_tendsto` (arXiv:2611.07905 Proposition 1): For every natural number D with 1 ≤ D, the sequence `fun m : ℕ => drf_prop1_ratio D m` converges to `1 + Real.sqrt (D : ℝ)` along `Filter.atTop`.\n\nFormalized. `drf_competitive_ratio_lower_bound` (arXiv:2611.07905 Proposition 1): For every natural number D with 1 ≤ D and every real number ρ, if for all natural numbers m with 1 ≤ m we have drf_prop1_alg D m ≤ ρ * drf_prop1_opt_bound D m, then 1 + Real.sqrt (D : ℝ) ≤ ρ.\n\nFormalized. `p_star_transpose_handicap_invariance` (arXiv:2611.07815 Theorem 2.6): For every natural number n and every real n-by-n matrix M indexed by Fin n in the class P*, its transpose M.transpose belongs to the class P*, and their handicap numbers coincide: handicap_number n M.transpose = handicap_number n M.\n\nFormalized. `boolean_top_form_eq_zero_of_not_injective` (arXiv:2611.03452 Lemma 2.7 (iii) -- Parity Decision Trees of Depth O(4^d log ||f_hat||_1) for Boolean Functions f of F_2-Degree d): For any natural number d, module V over ZMod 2, function p : V → ZMod 2, and tuple h : Fin d → V that is not injective (¬ Function.Injective h), booleanTopForm d p h = 0.\n\nOpen. `op_1254_cubic_hypergraph_magic_mean` (knowledgebase): For every natural number n ≥ 3, the expectation of 2^n * pauliLiouvilleMomentTwo n (hypergraphState n (H.image Subtype.val)) under cubicHypergraphMeasure n equals 7 - 14 / 2^n + 8 / (2^n)^2.\n\nOpen. `op_1254_cubic_hypergraph_fluctuation_mean_zero` (knowledgebase): For every natural number n ≥ 3, the integral of cubicHypergraphFluctuation n H with respect to cubicHypergraphMeasure n is equal to 0.\n\nOpen. `open_problem_1285_sliding_expansion_conjecture` (arXiv:2611.07715): For every finite diagram $D \\subseteq \\mathbb{N} \\times \\mathbb{N}$, if $D$ is corner-crossed (`is_corner_crossed D`, meaning for any two cells $u, v \\in D$ having no cell of $D$ above them in the same column and no cell of $D$ to their left in the same row,…\n\nOpen. `op_1267_diameter_two_nut_graph_has_binary_vector` (arXiv:2611.08244): Let G be a finite simple nut graph of diameter 2 on a finite vertex set V. Then there exists a non-zero (0,1)-vector in the row space of the adjacency matrix of G over ℝ that does not occur as a row of the adjacency matrix.\n\nOpen. `one_layered_linear_bound` (arXiv:2611.08071 Theorem 2.1): For all integers r ≥ 1 and m ≥ r, the maximum number of layers F(m, r) in a 1-layered family of r-subsets on at most m vertices satisfies F(m, r) ≤ 2^(r - 1) * (m - r) + 1.\n\nOpen. `exact_hirsch_diameter_of_disjoint_minimal_nonfaces` (arXiv:2611.08071 Corollary 5.2 -- Diameter bounds for complexes that are close to flag or close to normal): Let Δ be an abstract simplicial complex on an n-element vertex set V, pure of facet size d, with connected dual graph. If the minimal nonfaces of Δ are pairwise disjoint and there are s such minimal nonfaces, then d = n - s, Δ is normal, and the diameter of…",
+   "declarations": [
+    "cycle_power_dyadic_alternating_half_model",
+    "sumset_rep_support_and_symmetry",
+    "clifford_t_circuit_t_count_nil",
+    "clifford_t_circuit_t_count_append",
+    "prm_ghw_dimension_reduction_zero",
+    "open_problem_1285_partial_no_crossings",
+    "anti_ribbon_map_preserves_weight",
+    "open_problem_1285_exists_tree_of_no_crossings",
+    "simple_graph_ones_mem_range_imp_has_binary_vector",
+    "f2CubicEdgeCondition_witness_zero",
+    "one_layered_binomial_bound_le_power",
+    "simple_graph_regular_has_binary_vector",
+    "simple_graph_nut_graph_subset_neighbors_has_binary_vector",
+    "one_layered_binomial_bound",
+    "one_layered_recurrence",
+    "one_layered_max_layers_of_lt",
+    "identity_is_p_star_zero",
+    "disjoint_minimal_nonfaces_dimension",
+    "fourier_cross_level_eq_zero_of_card_lt",
+    "drf_prop1_ratio_tendsto",
+    "drf_competitive_ratio_lower_bound",
+    "triangle_free_edges_share_endpoint",
+    "op_1258_cyclic_ramsey_k_one",
+    "op_1258_cyclic_ramsey_k2_l3",
+    "restricted_base_ell_partition_zero",
+    "has_ordered_copy_self",
+    "monotone_cycle_three_adj_zero_one",
+    "alternating_path_two_adj_zero_one",
+    "ordered_ramsey_monotone_cycle_alternating_path_two",
+    "ordered_ramsey_monotone_cycle_three_alternating_path_three",
+    "petrial_coeff_sum",
+    "op_1239_path_graph_petrial_log_concave",
+    "op_1239_at_most_two_nonzero_coeffs_log_concave",
+    "one_layered_max_layers_one_le",
+    "one_layered_linear_bound_sum_le",
+    "identity_is_p_star",
+    "transpose_one_add_diagonal_mul_mul",
+    "p_star_transpose_handicap_invariance",
+    "op_902_single_edge_max_discrepancy",
+    "infinite_primes_five_mod_six",
+    "mst_certificate_monotone",
+    "tree_submodular_goal_value_zero",
+    "isTree_induce_compl_singleton_of_degree_eq_one",
+    "energy_filter_critical_window_length_scale",
+    "tree_edge_disjoint_embedding_of_star_T",
+    "energy_filter_critical_gaussian_kernel_pos",
+    "energy_filter_critical_overlap_integral_pos",
+    "boolean_top_form_eq_zero_of_not_injective",
+    "nonadaptive_mst_stopping_time_of_isTree",
+    "is_almost_quantum_of_is_commuting_quantum",
+    "wheel5_scaled_list_uncolorable",
+    "probabilistic_serial_line_item_wait_exists_eq_zero",
+    "probabilistic_serial_line_cost_le_add_item_wait",
+    "probabilistic_serial_line_distortion_le_of_item_wait_le",
+    "cycle_power_dyadic_class_weight_parity_split",
+    "extremal_tree_vertex_bound_sharp",
+    "cycle_power_dyadic_boundary_pair_of_alternating",
+    "cycle_power_dyadic_alternating_half_tight",
+    "zero_sum_w_three_three",
+    "is_graceful_tree_star_two",
+    "spectral_moore_max_order_mono",
+    "spectral_moore_degree_threshold_spec",
+    "spectral_moore_degree_threshold_le",
+    "satisfies_recurrence_2_1_exists",
+    "recurrence_potential_weights_pos",
+    "nat_self_delimiting_code_zero",
+    "nat_self_delimiting_code_five",
+    "nat_self_delimiting_code_length",
+    "stochastic_mst_instance_code_bot_zero",
+    "stochastic_mst_instance_code_top_two",
+    "edge_order_code_top_two",
+    "exact_steiner_hopset_layered_dag_steiner_shortcut",
+    "interval_family_member_depth_pos",
+    "interval_family_member_depth_le_card",
+    "contiguous_interval_family_depth_lower_bound",
+    "moving_target_grid_accuracy_le_min",
+    "spectral_moore_adj_quadform_le_of_sum_eq_zero",
+    "spectral_moore_adj_quadform_le_add_sum_sq",
+    "zmod_two_add_val_int",
+    "binary_form_compression_bound_zero",
+    "spectral_moore_seidel_switch_adj_quadform_le",
+    "spectral_moore_seidel_switch_degree_sum_ge",
+    "spectral_moore_max_order_le_of_large_degree_of_switch_degree_bounds",
+    "op_686_single_element_admissible",
+    "op_686_two_three_three_four_admissible",
+    "orientation_perfect_matching_sign_two",
+    "pm_one_rows_differ_in_half_exists_solution",
+    "orientation_perfect_matching_sign_eq_one_or_neg_one",
+    "orientation_tuple_is_pfaffian_of_rows_differ_in_half",
+    "perm_second_derivative_trans_revPerm",
+    "perm_inflection_set_trans_revPerm",
+    "carpool_threshold_A_diff",
+    "carpool_slack_empty",
+    "carpool_delta_sum"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.19965",
+     "href": "https://arxiv.org/abs/2610.19965"
+    },
+    {
+     "label": "arXiv:2610.38237",
+     "href": "https://arxiv.org/abs/2610.38237"
+    },
+    {
+     "label": "arXiv:2610.41448",
+     "href": "https://arxiv.org/abs/2610.41448"
+    },
+    {
+     "label": "arXiv:2610.40844",
+     "href": "https://arxiv.org/abs/2610.40844"
+    },
+    {
+     "label": "arXiv:2611.00591",
+     "href": "https://arxiv.org/abs/2611.00591"
+    },
+    {
+     "label": "arXiv:2611.00388",
+     "href": "https://arxiv.org/abs/2611.00388"
+    },
+    {
+     "label": "arXiv:2611.05623",
+     "href": "https://arxiv.org/abs/2611.05623"
+    },
+    {
+     "label": "arXiv:2611.07503",
+     "href": "https://arxiv.org/abs/2611.07503"
+    },
+    {
+     "label": "arXiv:2611.08375",
+     "href": "https://arxiv.org/abs/2611.08375"
+    },
+    {
+     "label": "arXiv:2611.08289",
+     "href": "https://arxiv.org/abs/2611.08289"
+    },
+    {
+     "label": "arXiv:2611.08244",
+     "href": "https://arxiv.org/abs/2611.08244"
+    },
+    {
+     "label": "arXiv:2611.07715",
+     "href": "https://arxiv.org/abs/2611.07715"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-06",
    "kind": "daily",
    "title": "Daily reading: 1 research-level, 92 proved, 105 open",

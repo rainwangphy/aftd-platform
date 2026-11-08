@@ -637,6 +637,8 @@ import AFTD.Kb.GameTheoryEconomics.ChoreOppositePair
 import AFTD.Kb.GameTheoryEconomics.ChoreOppositePairCard
 import AFTD.Kb.GameTheoryEconomics.ChoreRemainingSet
 import AFTD.Kb.GameTheoryEconomics.ChoreRemainingSetTwoMulEqEmpty
+import AFTD.Kb.GameTheoryEconomics.ChoreResidualCost
+import AFTD.Kb.GameTheoryEconomics.ChoreResidualCostOfCardLe
 import AFTD.Kb.GameTheoryEconomics.CircleLocalView
 import AFTD.Kb.GameTheoryEconomics.CircleMultiset
 import AFTD.Kb.GameTheoryEconomics.CircleProblemSolvable
@@ -4230,6 +4232,8 @@ import AFTD.Kb.Physics.ACCSystemSolsMulAction
 import AFTD.Kb.Physics.AffineIsometryEquivToAffineEquivHom
 import AFTD.Kb.Physics.AlgebraicEnergyFilterPurity
 import AFTD.Kb.Physics.AlgebraicEnergyFilterPurityEqSequencePurity
+import AFTD.Kb.Physics.BalancedMultipartiteMaxTripartiteInfo
+import AFTD.Kb.Physics.BalancedMultipartiteMaxTripartiteInfoNonneg
 import AFTD.Kb.Physics.BasisConj
 import AFTD.Kb.Physics.BasisConjApply
 import AFTD.Kb.Physics.BasisConjReprApply
@@ -5648,6 +5652,10 @@ import AFTD.Kb.Physics.MatrixTsumEqZero
 import AFTD.Kb.Physics.MatrixUpperTriangular
 import AFTD.Kb.Physics.MaxClawPacking
 import AFTD.Kb.Physics.MinkowskiMatrix
+import AFTD.Kb.Physics.MultipartiteUpperBoundColorClass
+import AFTD.Kb.Physics.MultipartiteUpperBoundColorCut
+import AFTD.Kb.Physics.MultipartiteUpperBoundPartColorSet
+import AFTD.Kb.Physics.MultipartiteUpperBoundSplitParts
 import AFTD.Kb.Physics.NeutrinoPhaseShift
 import AFTD.Kb.Physics.Norm2
 import AFTD.Kb.Physics.NormedSpaceExpMapAlgebraMap
@@ -7077,6 +7085,7 @@ import AFTD.Kb.Tcs.ApplyRepairs
 import AFTD.Kb.Tcs.ApplyRepairsEmpty
 import AFTD.Kb.Tcs.ApplyRepairsIsPacking
 import AFTD.Kb.Tcs.ArchimedeanRatioGtOne
+import AFTD.Kb.Tcs.Arr
 import AFTD.Kb.Tcs.Arrangement3DiophantineSystem
 import AFTD.Kb.Tcs.Arrangement3E4Zero
 import AFTD.Kb.Tcs.Arrangement3E4ZeroIffIsMagic
@@ -8977,6 +8986,8 @@ import AFTD.Kb.Tcs.CutLayerPotentialDiffEqThree
 import AFTD.Kb.Tcs.CutLayerPotentialLipschitz
 import AFTD.Kb.Tcs.CutSeparation
 import AFTD.Kb.Tcs.CutSeparationEqSum
+import AFTD.Kb.Tcs.CycleAlternatingPathSelectionIndependent
+import AFTD.Kb.Tcs.CycleAlternatingPathSelectionIsIndepSet
 import AFTD.Kb.Tcs.CycleCoverDifferenceCycleFactorTwoWord
 import AFTD.Kb.Tcs.CycleCoverGroupPreservesReachability
 import AFTD.Kb.Tcs.CycleCoverMutualReachSetoid
@@ -10771,6 +10782,7 @@ import AFTD.Kb.Tcs.HypergraphState
 import AFTD.Kb.Tcs.IcosahedronCartesianPowerDiameterBoundExceeded
 import AFTD.Kb.Tcs.IcosahedronGraph
 import AFTD.Kb.Tcs.IcosahedronIsAmplyRegular
+import AFTD.Kb.Tcs.IdentityArray
 import AFTD.Kb.Tcs.ImplementsCczLayer
 import AFTD.Kb.Tcs.ImplementsCczLayerZero
 import AFTD.Kb.Tcs.InGeneralPosition
@@ -12800,6 +12812,8 @@ import AFTD.Kb.Tcs.RealNegMulLogLeRexpNegOne
 import AFTD.Kb.Tcs.RealNegMulLogStrictAntiOn
 import AFTD.Kb.Tcs.RealNegMulLogStrictMonoOn
 import AFTD.Kb.Tcs.RealizationProb
+import AFTD.Kb.Tcs.RearrangementOperator
+import AFTD.Kb.Tcs.RearrangementOperatorAntiHomomorphism
 import AFTD.Kb.Tcs.RectilinearCrossingNumber
 import AFTD.Kb.Tcs.RectilinearCrossingNumberAddTotalSimplicialDepthEqChooseOfFour
 import AFTD.Kb.Tcs.RectilinearCrossingNumberEmpty
@@ -13198,6 +13212,7 @@ import AFTD.Kb.Tcs.SimpleGraphIsHopClosed
 import AFTD.Kb.Tcs.SimpleGraphIsHopInv
 import AFTD.Kb.Tcs.SimpleGraphIsHopMemLeapGroup
 import AFTD.Kb.Tcs.SimpleGraphIsHopTopIff
+import AFTD.Kb.Tcs.SimpleGraphIsKConnected
 import AFTD.Kb.Tcs.SimpleGraphIsKIndependent
 import AFTD.Kb.Tcs.SimpleGraphIsKIndependentEmpty
 import AFTD.Kb.Tcs.SimpleGraphIsKIndependentIff

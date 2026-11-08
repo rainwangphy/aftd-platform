@@ -1,0 +1,510 @@
+{
+ "week": "2026-W45",
+ "start": "2026-11-02",
+ "end": "2026-11-08",
+ "format": 3,
+ "period": "week",
+ "partial": false,
+ "language": "English",
+ "model": "gemini-3.8-flash",
+ "generated": "2026-11-09",
+ "title": "Unweighted network games cycle indefinitely, oriented half-covers hold, and ternary zero-sums settled",
+ "summary": "This week resolved several open questions in network games, directed graphs, fair resource allocation, and additive combinatorics. An explicit network game proved that players can cycle forever through profitable moves even without edge weights and with minimal teams. In graph theory, researchers established half-neighborhood coverage for oriented graphs with kernels in non-neighborhoods and disproved a conjectured cluster partition bound on subcubic networks. Other settled problems include a sharp threshold for three-dimensional zero-sum vector sequences and improved guarantees for dividing indivisible chores between two people.",
+ "lead": {
+  "main": "maxcut_unweighted_minimal_deviation_cycle_exists",
+  "title": "Coloring games cycle forever even when deviating teams are minimal",
+  "story": "Imagine participants on a network who each choose one of 3 colors, trying to differ from their neighbors. A group of participants can coordinate a simultaneous color change if every member strictly increases their score of different-colored neighbors.\n\nWhen single individuals switch, the total score across the network rises, guaranteeing that the game eventually halts. But can coordinated groups cycle forever? Previous cycles required weighted connections. It remained open whether unweighted networks can cycle when deviations are restricted to minimal coalitions that contain no smaller profitable subgroup.\n\nA new construction proves that unweighted networks can cycle indefinitely under minimal group deviations. On an explicit 71-vertex network, 33 successive colorings form an infinite loop. The cycle begins with 32 core players changing colors in a single coordinated move that no subgroup can achieve alone. Then 32 individual adjustments restore the original coloring one player at a time, ruling out any potential function."
+ },
+ "fields": [
+  {
+   "name": "Equilibria in Games",
+   "context": "Unweighted network cut games were shown to admit cycles of profitable coalitional deviations even when coalitions are inclusion-minimal, ruling out strong potential functions. A separate fairness obstruction proved that high social welfare cannot generally be reconciled with coalitional stability.",
+   "results": [
+    {
+     "headline": "Unweighted network cut games admit endless cycles of minimal coalitional deviations",
+     "plain": "In network games where players choose colors to differ from neighbors, teams can cycle through color changes forever even when no subgroup could profitably act on its own.",
+     "before": "Whether unweighted network cut games admit a strong potential function when coalitional deviations are restricted to inclusion-minimal profitable subcoalitions remained open after cycles were found for weighted games.",
+     "answer": "An explicit unweighted 71-vertex graph with 3 colors possesses an infinite 33-step cycle of profitable deviations where every deviating coalition is inclusion-minimal.",
+     "why": "Precludes the existence of a strong potential function in unweighted cut games even under the minimal-deviation restriction.",
+     "idea": "Chains a verified 32-player minimal deviation with 32 single-player restoration moves on a 71-vertex graph into a periodic 33-step deviation cycle.",
+     "outcome": "proved",
+     "source": "arXiv:1810.09278",
+     "main": "maxcut_unweighted_minimal_deviation_cycle_exists",
+     "declarations": [
+      "maxcut_unweighted_minimal_deviation_cycle_exists",
+      "maxcut_cycle71_minimal_cycle_steps",
+      "maxcut_cycle71_return_steps",
+      "maxcut_cycle71_first_deviation_minimal",
+      "maxcut_cycle71_force_closed_core"
+     ],
+     "highlight": true,
+     "research": "Exhibits an unweighted three-color Max-k-Cut game with a cycle of inclusion-minimal profitable deviations, ruling out a strong potential even when deviations are restricted to minimal coalitions",
+     "tier": "medium"
+    },
+    {
+     "headline": "Unweighted three-color network cut games admit cyclic coalitional deviations",
+     "plain": "Even without edge weights, players in a network coloring game can cycle through group color changes indefinitely.",
+     "before": "Earlier work proved that edge-weighted network cut games can cycle under group deviations, leaving open whether unweighted cut games could also cycle.",
+     "answer": "An explicit unweighted 46-vertex graph with 3 colors exhibits an infinite sequence of profitable coalitional deviations that returns to its starting coloring every 5 steps.",
+     "why": "Extends the non-existence of strong potential functions from edge-weighted to unweighted network cut games.",
+     "idea": "Constructs 5 explicit colorings of a 46-vertex graph where each successive transition is a profitable coalitional deviation by the changing vertices.",
+     "outcome": "proved",
+     "source": "arXiv:1810.09278",
+     "main": "maxcut_unweighted_strong_deviation_cycle_exists",
+     "declarations": [
+      "maxcut_unweighted_strong_deviation_cycle_exists",
+      "maxcut_cycle46_deviations",
+      "maxcut_five_cycle_repeats"
+     ],
+     "highlight": false,
+     "research": "Exhibits a cycle of profitable coalitional deviations in an unweighted three-color game, ruling out a strong potential for all such deviations; the cited cycle used weighted edges. This does not assert that the large coalition is minimal or resolve strong-equilibrium existence",
+     "tier": "low"
+    },
+    {
+     "headline": "Fairness and coalitional stability are mutually exclusive in a nine-vertex cut game",
+     "plain": "In a 9-player coloring game, individual stability can guarantee 4 points to every player, but group stability forces at least one player below 4 points.",
+     "before": "Whether unweighted network cut games always admit equilibria that simultaneously protect individual fairness benchmarks and resist coalitional deviations was unknown.",
+     "answer": "On a 9-vertex 3-color graph, an equilibrium against individual deviations gives every vertex payoff at least 4, but no coalitional equilibrium achieves payoff at least 4 everywhere.",
+     "why": "Demonstrates that selecting coalitionally stable profiles can strictly degrade individual fairness guarantees in network games.",
+     "idea": "Exhaustive verification that every 3-color profile with minimum payoff at least 4 admits a profitable coalitional deviation.",
+     "outcome": "proved",
+     "source": "arXiv:2610.04948",
+     "main": "maxcut_fair9_nash_fairness_obstruction",
+     "declarations": [
+      "maxcut_fair9_nash_fairness_obstruction",
+      "maxcut_fair9_witness",
+      "maxcut_fair9_no_strong_with_min_four",
+      "maxcut_fair9_stable_example",
+      "maxcut_fair9_no_maxmin_strong_nash"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    },
+    {
+     "headline": "History-aware repair breaks the one-player extension barrier for approximate equilibria",
+     "plain": "In games with many players, an approximate equilibrium can be extended to an additional player with an explicit mixing bound.",
+     "before": "Extending approximate equilibria to additional players in multiplayer normal-form games typically degraded approximation guarantees or required restrictive potential assumptions.",
+     "answer": "In an (r+1)-player game with payoffs in [0, 1], mixing the fixed action with a best response at weight 1/(2-α) extends an α-approximate equilibrium to a 1/(2-α)-approximate equilibrium.",
+     "why": "Formalizes the foundational lemma enabling polynomial-time history-aware repair for multiplayer approximate equilibria.",
+     "idea": "Balances deviation regret for the added player and existing players by tuning a single scalar mixture weight.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.06076",
+     "main": "one_player_extension_approx_nash",
+     "declarations": [
+      "one_player_extension_approx_nash",
+      "one_player_extension_theta_identity"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Graph Theory & Graph Algorithms",
+   "context": "This week resolved several structural questions in directed and undirected graphs: weighted half-neighborhood coverage was extended to all oriented graphs with non-neighborhood kernels, a subcubic component-order conjecture was refuted by the Wagner graph, and new local expansion bounds were proved.",
+   "results": [
+    {
+     "headline": "Non-neighborhood kernels guarantee weighted half-neighborhood coverage in oriented graphs",
+     "plain": "In any network where every non-adjacent set of points has a kernel, one can always find a small hub covering at least half of any given positive weights.",
+     "before": "Weighted half-neighborhood coverage was established only for tournament-acyclic oriented graphs, leaving general oriented graphs with non-neighborhood kernels open.",
+     "answer": "Every finite loopless oriented graph whose induced non-neighborhoods all possess out-kernels has a quasi-kernel whose closed out-neighborhood contains at least half the total weight for any nonnegative integer weighting.",
+     "why": "Extends weighted half-neighborhood coverage far beyond tournament-acyclic graphs to the full class with non-neighborhood out-kernels.",
+     "idea": "Uses a neighborhood-preserving completion lemma to iteratively lift kernels from induced non-neighborhoods to a global quasi-kernel covering half the total weight.",
+     "outcome": "proved",
+     "source": "arXiv:2610.23487",
+     "main": "digraph_nonneighborhood_kernels_weighted_half_cover",
+     "declarations": [
+      "digraph_nonneighborhood_kernels_weighted_half_cover",
+      "digraph_quasikernel_neighborhood_preserving_completion"
+     ],
+     "highlight": true,
+     "research": "Establishes weighted half-neighborhood coverage for oriented graphs whose every induced non-neighborhood has an out-kernel, including graphs outside the tournament–acyclic class treated in arXiv:2610.23487",
+     "tier": "medium"
+    },
+    {
+     "headline": "Möbius ladder refutes component-order partition conjecture for subcubic graphs",
+     "plain": "It is not always possible to split a network where every node has at most 3 connections into one scattered group and small clusters of at most 3 nodes.",
+     "before": "Question 5.4 in arXiv:2611.05178 asked whether every finite simple graph with maximum degree at most 3, no triangles, and not bipartite admits an independent set whose complement has components of order at most 3.",
+     "answer": "The 8-vertex Wagner graph, a triangle-free 3-regular graph formed by an 8-cycle with 4 diameter chords, admits no partition into an independent set and components of size at most 3.",
+     "why": "Refutes Question 5.4 in arXiv:2611.05178 and shows that maximum degree 3 does not bound the component order of the complement of an independent set.",
+     "idea": "Finite exhaustion verifies that every independent set in the 8-vertex Möbius ladder leaves an induced component of size at least 4 in its complement.",
+     "outcome": "disproved",
+     "source": "arXiv:2611.05178",
+     "main": "subcubic_odd_girth_five_partition_component_le_three_negation",
+     "declarations": [
+      "subcubic_odd_girth_five_partition_component_le_three_negation",
+      "not_not_subcubic_odd_girth_five_partition_component_le_three_negation"
+     ],
+     "highlight": true,
+     "research": "refutes OP-1087 (Partition of Odd-Girth 5 Subcubic Graphs with Component Order at Most Three)",
+     "tier": "low"
+    },
+    {
+     "headline": "Explicit directed graph shows local expansion ratio for outdegree 4 is at least five-fourths",
+     "plain": "An oriented network on 24 vertices shows that deleting closed neighborhoods can expand the number of sources beyond the outdegree bound.",
+     "before": "Problem 5.2 in arXiv:2601.11847 investigated whether the ratio f(Δ) between source expansion and closed out-neighborhoods in source-free oriented graphs of maximum outdegree Δ can be bounded near 1.",
+     "answer": "An explicit 24-vertex oriented graph of maximum outdegree 4 establishes f(4) ≥ 5/4, with 8 vertices of outdegree 4 and 16 sinks of outdegree 0.",
+     "why": "Establishes a concrete lower bound for the source-neighborhood expansion ratio at degree 4, ruling out smaller uniform constants.",
+     "idea": "Constructs an oriented 24-vertex graph where all sources created by deleting any closed out-neighborhood are original sinks, producing an expansion ratio of exactly 5/4.",
+     "outcome": "partial",
+     "source": "arXiv:2601.11847",
+     "main": "digraph_four_outdegree_five_four_counterexample",
+     "declarations": [
+      "digraph_four_outdegree_five_four_counterexample",
+      "digraph_local_four_witness_sources_sinks",
+      "digraph_local_four_witness_combined_properties"
+     ],
+     "highlight": false,
+     "research": "An explicit source-free oriented graph of maximum outdegree four gives f(4) at least 5/4 for the uniform source-neighborhood inequality in arXiv:2601.11847, Problem 5.2, while itself having a small quasi-kernel",
+     "tier": "low"
+    },
+    {
+     "headline": "Diameter-three nut graphs possess non-row binary vectors in their adjacency row space",
+     "plain": "In certain graphs where every node participates in the null space, the sum of rows from points at distance 3 forms a new zero-or-one vector.",
+     "before": "Characterizing which graphs have non-trivial binary vectors in their adjacency row space that do not appear as matrix rows was open for various graph classes.",
+     "answer": "Every finite simple nut graph of diameter 3 has a non-zero (0,1)-vector in its adjacency row space that does not equal any row of the adjacency matrix.",
+     "why": "Lean checks Theorem 4.1 of arXiv:2611.08244, confirming the presence of novel binary vectors from distance-3 vertex pairs.",
+     "idea": "Sums the adjacency rows of two vertices at distance 3; because they share no neighbors, their sum is a (0,1)-vector not matching any single row.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.08244",
+     "main": "simple_graph_nut_graph_diameter_three_has_binary_vector",
+     "declarations": [
+      "simple_graph_nut_graph_diameter_three_has_binary_vector",
+      "simple_graph_disjoint_neighbors_of_dist_three",
+      "simple_graph_adj_row_add_is_binary_of_dist_three",
+      "simple_graph_adj_row_add_mem_range"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Combinatorics for TCS",
+   "context": "A zero-sum sequence question was settled for the first 3-dimensional ternary case. Other developments included upper bounds on layers in simplicial complexes close to flag complexes and extremal configurations for Mordell distance products.",
+   "results": [
+    {
+     "headline": "Minimal zero-sum sequence length in three-dimensional ternary space equals 13",
+     "plain": "Any list of 13 non-zero vectors in 3 dimensions using numbers modulo 3 must contain a sublist summing to zero modulo 3 but not zero modulo 9.",
+     "before": "Question 3.1 in arXiv:2610.19965 asked whether w_r(n) = 2r(n-1)+1; earlier work verified only w_r(2) = 2r+1 and w_2(n) = 4n-3, with no higher cases settled.",
+     "answer": "w_3(3) = 13: every sequence of 13 non-zero vectors in ℤ^3 contains a non-empty subsequence summing to 0 mod 3 but not 0 mod 9, and 13 is minimal.",
+     "why": "Settles the first case with both r ≥ 3 and n ≥ 3, confirming the formula 2·3·(3-1)+1 = 13.",
+     "idea": "Classifies all admissible 13-vector sequences over the ternary cube, showing that avoiding 0 mod 9 zero-sums is impossible at length 13.",
+     "outcome": "partial",
+     "source": "arXiv:2610.19965",
+     "main": "zero_sum_w_three_three",
+     "declarations": [
+      "zero_sum_w_three_three"
+     ],
+     "highlight": true,
+     "research": "Settles the case r = n = 3 of the paper's Question 3.1 (does w_r(n) = 2r(n-1)+1?): w_3(3) = 13, the first exact value with r >= 3 and n >= 3, where the paper has only w_r(2) = 2r+1 and w_2(n) = 4n-3 for some n; the proof classifies every w-bad sequence modulo 9 up to GL_3(F_3) by a kernel-checked orbit certificate",
+     "tier": "low"
+    },
+    {
+     "headline": "Binomial and linear bounds established for layers in one-layered set families",
+     "plain": "Collections of sets where each layer is disjoint can be bounded in size by both a linear formula and a logarithmic binomial coefficient.",
+     "before": "Bounding the diameter of complexes close to flag or normal complexes required sharp layer bounds on 1-layered families of r-subsets.",
+     "answer": "arXiv:2611.08071 Theorem 2.1 proves that any 1-layered family of r-subsets on at most m vertices has at most (m-r+1)·choose(⌊log₂(m-r+1)⌋+r-1, r-1) layers; Lean now checks the proof.",
+     "why": "Supplies verified bounds on layer counts that directly govern diameter bounds for simplicial complexes.",
+     "idea": "Partitions the layers into prefix, suffix, and middle blocks to set up a three-term divide-and-conquer recurrence.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.08071",
+     "main": "one_layered_binomial_bound",
+     "declarations": [
+      "one_layered_binomial_bound",
+      "one_layered_recurrence",
+      "one_layered_linear_bound",
+      "one_layered_family_upper_bounds",
+      "one_layered_binomial_bound_le_power"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    },
+    {
+     "headline": "Ten-point configuration beats the regular centered nine-gon for Mordell distance product",
+     "plain": "Ten points in the plane can be arranged so that their multiplied pairwise distances strictly exceed the longstanding benchmark from a regular polygon.",
+     "before": "The centered regular 9-gon configuration achieving distance product 10⁴⁵ / 9³⁶ was suspected to be optimal for Mordell's 10-point problem in the complex plane.",
+     "answer": "arXiv:2611.03088 proves that the supremum of squared distance products for 10 points strictly exceeds 10⁴⁵ / 9³⁶, witnessed by an explicit scaled integer configuration; Lean now checks the proof.",
+     "why": "Refutes the optimality of the regular polygon benchmark in Mordell's 10-point problem.",
+     "idea": "Evaluates the squared distance product of an explicit 10-point integer configuration with reflection symmetry and verifies the inequality via exact integer arithmetic.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.03088",
+     "main": "mordell_ten_suboptimal",
+     "declarations": [
+      "mordell_ten_suboptimal",
+      "mordell_ten_integer_norm_sum",
+      "mordell_ten_integer_witness_ineq",
+      "mordell_ten_exists_feasible_gt_chalk"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Fair Division",
+   "context": "New results in fair chore division established a sharp (r+1)/2 maximin-share guarantee for 2 agents with bivalued costs, improving on the general 3/2 bound. Properties of identically ordered chore allocations were also verified.",
+   "results": [
+    {
+     "headline": "Two-agent chore division achieves sharp (r+1)/2 maximin share under equal marginals",
+     "plain": "Two people sharing chores whose costs take 2 values in ratio r can flip a coin between 2 assignments to guarantee at most (r+1)/2 times their fair share.",
+     "before": "arXiv:2609.35280 established a general 3/2 equal-marginal maximin-share guarantee for chores, but the sharp bound for 2 agents with bivalued costs remained open.",
+     "answer": "For 2 agents with bivalued chore costs of ratio 1 ≤ r < 2, an equal-marginal lottery guarantees an ex-post cost of at most (r + 1)/2 times each agent's maximin share.",
+     "why": "Improves the equal-marginal maximin-share approximation ratio from 3/2 down to (r + 1)/2 for two-agent bivalued chore instances.",
+     "idea": "Partitions chores into 4 regions via Venn diagram parity analysis, balancing counts within each region and taking an equal-weight swap lottery.",
+     "outcome": "partial",
+     "source": "arXiv:2609.35280",
+     "main": "two_agent_bivalued_equal_marginal_sharp_mms",
+     "declarations": [
+      "two_agent_bivalued_equal_marginal_sharp_mms",
+      "two_agent_balanced_symmetric_swap_lottery",
+      "four_type_simultaneous_balance_counts",
+      "two_finite_subsets_simultaneously_balanced",
+      "is_ex_ante_proportional_of_equal_marginal"
+     ],
+     "highlight": false,
+     "research": "For two agents with bivalued costs of common ratio 1 ≤ r < 2, establishes an equal-marginal lottery with ex-post (r+1)/2 maximin-share guarantee, improving the general 3/2 equal-marginal guarantee in https://arxiv.org/abs/2609.35280",
+     "tier": "low"
+    },
+    {
+     "headline": "Identically ordered chore instances satisfy one-third and four-thirds cost bounds",
+     "plain": "When all people agree on how difficult chores rank, chores left over after pairing cost at most one-third of the fair share.",
+     "before": "Establishing best-of-many-worlds guarantees with sublinear disposals required bounds on remaining chores and opposite-pair bundles in identically ordered instances.",
+     "answer": "arXiv:2611.04884 Lemma 4.1 proves that when maximin shares equal 1, every chore beyond 2n costs at most 1/3 and every opposite pair costs at most 4/3; Lean now checks the proof.",
+     "why": "Verifies the core structural bounds used for best-of-many-worlds chore allocations.",
+     "idea": "Pigeonhole arguments on chore partitions bound the cost of large-index chores and combined opposite pairs.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.04884",
+     "main": "ido_chore_opposite_pairs_cost_bounds",
+     "declarations": [
+      "ido_chore_opposite_pairs_cost_bounds",
+      "ido_remaining_chores_cost_le_one_third",
+      "ido_opposite_pair_cost_le_four_thirds",
+      "chore_opposite_pair_card"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Computability & Recursion Theory",
+   "context": "Formalization resolved the reachability equivalence underlying the undecidability of matrix mortality for 2×2 rational and integer matrices.",
+   "results": [
+    {
+     "headline": "Matrix mortality for two-by-two matrices reduces to line reachability",
+     "plain": "Determining whether a set of 2×2 matrices can multiply to zero is equivalent to asking whether some sequence of matrices maps one line to another.",
+     "before": "Whether mortality for 2×2 integer matrices is decidable was a longstanding open problem in algorithmic algebra.",
+     "answer": "arXiv:2611.06562 Lemma 3.1 proves that a finite set of invertible 2×2 rational matrices with 1 rank-one matrix is mortal if and only if some word maps the linear span of u to the kernel of λ; Lean now checks the proof.",
+     "why": "Checks the core reduction connecting matrix mortality to projective line reachability, which underpins the undecidability proof for 2×2 integer matrix mortality.",
+     "idea": "Minimal zero products must have rank-one outer factors whose sandwich product collapses to zero exactly when the inner product vanishes.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.06562",
+     "main": "rank_one_conversion_mortality_reachability",
+     "declarations": [
+      "rank_one_conversion_mortality_reachability",
+      "matrix_rank_one_sandwich_identity"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Online Algorithms",
+   "context": "Tight competitive bounds were established for dominant resource fairness in multi-resource scheduling.",
+   "results": [
+    {
+     "headline": "Dominant resource fairness has competitive ratio at least one plus square root of resources",
+     "plain": "In systems sharing multiple resources among tasks, any scheduling policy based on dominant shares has a worst-case delay factor growing with the square root of the number of resources.",
+     "before": "Dominant resource fairness was widely deployed in cloud scheduling, but tight worst-case completion-time competitive ratios remained uncharacterized.",
+     "answer": "arXiv:2611.07905 Proposition 1 proves that for D resources, the competitive ratio of dominant resource fairness (DRF) is at least 1 + √D; Lean now checks the proof.",
+     "why": "Formalizes the lower bound confirming that DRF suffers an unavoidable square-root penalty in completion time as resource count increases.",
+     "idea": "Constructs an explicit sequence of scheduling instances where the ratio of algorithm cost to optimal bound converges to 1 + √D.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.07905",
+     "main": "drf_competitive_ratio_lower_bound",
+     "declarations": [
+      "drf_competitive_ratio_lower_bound",
+      "drf_prop1_ratio_tendsto"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Quantum Computation",
+   "context": "Investigations of quantum measurement incompatibility established that d² binary measurements suffice to witness incompatibility on the full space while being jointly measurable on every proper subspace.",
+   "results": [
+    {
+     "headline": "Families of d² measurements are incompatible globally but jointly measurable on every subspace",
+     "plain": "In d dimensions, a set of d² simple measurements can be impossible to measure simultaneously overall, yet perfectly compatible when restricted to any smaller subspace.",
+     "before": "Whether quantum measurement incompatibility can be hidden in proper subspaces while remaining globally incompatible was investigated for noiseless quantum code certification.",
+     "answer": "arXiv:2610.37347 Corollary 1 proves that for every d ≥ 2, there exists a family of d² binary measurements on ℂ^d incompatible on ℂ^d but jointly measurable on every proper subspace; Lean now checks the proof.",
+     "why": "Confirms that measurement incompatibility can be fully concealed within proper subspaces, establishing the boundary dimension d².",
+     "idea": "Constructs the measurement family from a minimal informationally complete rank-one measurement and dual functionals.",
+     "outcome": "formalized",
+     "source": "arXiv:2610.37347",
+     "main": "subspace_incompatible_family_dimension_squared",
+     "declarations": [
+      "subspace_incompatible_family_dimension_squared",
+      "not_can_certify_noiseless_codes_one",
+      "not_has_subspace_compatible_incompatible_family_one"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  }
+ ],
+ "outlook": [
+  "Does there exist a polynomial-time online paging algorithm achieving competitive ratio strictly less than 2 for Markov sources?",
+  "Can the tight instances for the Lonely Runner Conjecture be completely classified across all dimensions?",
+  "What is the optimal competitive ratio for online budgeted allocation under arbitrary bidding distributions?",
+  "Does Seymour's conjecture on openly disjoint directed cycles hold for oriented graphs of maximum outdegrees four and five?",
+  "What is the exact asymptotic ratio of the clique packing number in graphs with quadratic excess edges?"
+ ],
+ "glossary": [
+  {
+   "term": "DRF",
+   "meaning": "dominant resource fairness: a multi-resource allocation policy that equalizes the dominant resource shares assigned to competing users"
+  },
+  {
+   "term": "TCS",
+   "meaning": "TCS: combinatorics and discrete structures arising in the study of computation"
+  }
+ ],
+ "stats": {
+  "original": 39,
+  "erratum": 0,
+  "literature": 145,
+  "lemma": 695,
+  "theorems": 879,
+  "research": 7,
+  "research_theorems": 7,
+  "sources": 134,
+  "topics": 25,
+  "announcements": 0,
+  "open": 1509,
+  "papers_read": 183
+ },
+ "issues": [],
+ "rounds": 4,
+ "zh": {
+  "title": "无权网络博弈可无限循环、有向半覆盖成立与三值零和问题获解",
+  "summary": "本周解决了网络博弈、有向图、公平资源分配与加性组合学中的若干未决问题。一个显式网络博弈证明，即使没有边权且偏离联盟极小，参与者也能通过有利移动无限循环。在图论中，确立了非邻域含核的有向图的半邻域覆盖，并否定了次三次网络聚类划分界的一个猜想。其他获解问题包括三维零和向量序列的精确阈值，以及两人间分配不可分家务的更优保证。",
+  "lead": {
+   "title": "偏离联盟极小时着色博弈仍可无限循环",
+   "story": "想象网络中的参与者各自选择3种颜色之一，试图与邻居颜色不同。若一组参与者的每位成员都能严格增加其异色邻居得分，该组便可协调同时改变颜色。\n\n当单个个体切换颜色时，网络总得分会上升，从而保证博弈最终一定会停止。但协同群体是否可能无限循环？以往的循环构造都需要带权连接。当偏离被限制在不包含更小获利子群体的极小联盟时，无权网络是否能循环此前悬而未决。\n\n一项新构造证明，在极小群体偏离下，无权网络也能无限循环。在一个具体的71顶点网络上，33个连续着色构成了一个无限循环。循环始于32名核心参与者在单次协同移动中同时变色，且没有任何子群体能单独做到这一点。随后32次单人调整每次一人逐步恢复原始着色，从而排除了存在任何势函数的可能。"
+  },
+  "results": [
+   {
+    "headline": "无权网络割博弈允许极小联盟偏离的无休止循环",
+    "plain": "在博弈者选色以求与邻居不同的网络博弈中，即便没有任何子群体能单独获利，团队仍可通过变色无限循环。"
+   },
+   {
+    "headline": "无权三色网络割博弈存在循环联盟偏离",
+    "plain": "即使没有边权，网络着色博弈中的参与者也可以通过群体变色无限循环。"
+   },
+   {
+    "headline": "九顶点割博弈中公平性与联盟稳定性不可兼得",
+    "plain": "在9人着色博弈中，个体稳定性可保证每人至少得4分，但群体稳定性会迫使至少一人得分低于4分。"
+   },
+   {
+    "headline": "历史感知修复打破近似均衡的单参与者扩展壁垒",
+    "plain": "在多人博弈中，近似均衡可以通过显式的混合界扩展至新加入的一名参与者。"
+   },
+   {
+    "headline": "非邻域核保证有向图中的加权半邻域覆盖",
+    "plain": "在每个非邻接点集都含有核的网络中，总能找到一个覆盖任意给定正权重至少一半的小枢纽。"
+   },
+   {
+    "headline": "莫比乌斯阶梯否定次三次图的分支阶划分猜想",
+    "plain": "并非总能将每个节点至多3条连边的网络划分为一个分散群体和若干至多3个节点的小聚类。"
+   },
+   {
+    "headline": "显式有向图表明出度为4时的局部扩张比至少为5/4",
+    "plain": "一个24顶点的定向网络表明，删除闭邻域可使源点数量的扩张超出出度界的限制。"
+   },
+   {
+    "headline": "直径为3的坚果图邻接行空间存在非行二元向量",
+    "plain": "在每个节点都参与零空间的特定图中，距离为3的各点行向量之和构成了一个新的0-1向量。"
+   },
+   {
+    "headline": "三维三值空间中极小零和序列长度等于13",
+    "plain": "任意由13个模3数构成的3维非零向量列表中，必包含模3和为零但模9和不为零的子列表。"
+   },
+   {
+    "headline": "单层集族的层数确立二项式与线性上界",
+    "plain": "每层互不相交的集合族，其规模界限可同时由线性公式与对数二项式系数给出。"
+   },
+   {
+    "headline": "10点构型在莫德尔距离乘积上超越带中心正九边形",
+    "plain": "平面上的10个点可经排列使其两两距离之积严格超过正多边形保持已久的基准。"
+   },
+   {
+    "headline": "等边际下两人家务分配达到精确的(r+1)/2最大最小份额",
+    "plain": "两人分担成本比为r的2值家务时，可在2种分配方案间抛硬币，以保证至多为公平份额(r+1)/2倍的成本。"
+   },
+   {
+    "headline": "同序家务实例满足1/3与4/3成本界",
+    "plain": "当所有人对家务难度的排序达成一致时，配对后剩余的家务成本至多为公平份额的1/3。"
+   },
+   {
+    "headline": "2×2矩阵的有死性归约为直线可达性",
+    "plain": "判定一组2×2矩阵相乘能否得到零矩阵，等价于询问是否存在某个矩阵序列将一条直线映射到另一条直线。"
+   },
+   {
+    "headline": "主导资源公平性（DRF）的竞争比至少为1加上资源数的平方根",
+    "plain": "在多任务共享多种资源的系统中，任何基于主导份额的调度策略其最坏情况延迟因子都随资源数的平方根增长。"
+   },
+   {
+    "headline": "d²个测量组成的族全局不相容但在每个子空间上可联合测量",
+    "plain": "在d维空间中，一组d²个简单测量可能整体上无法同时测量，但在限制到任何更小子空间时完全兼容。"
+   }
+  ],
+  "outlook": [
+   "对于马尔可夫源，是否存在竞争比严格小于2的多项式时间在线分页算法？",
+   "在所有维度上，孤独跑者猜想的紧致实例能否被完全分类？",
+   "在任意出价分布下，在线预算分配的最优竞争比是多少？",
+   "关于开不相交有向环的塞穆尔猜想是否对最大出度为4和5的定向图成立？",
+   "具有二次多余边的图中，团打包数的精确渐近比是多少？"
+  ],
+  "glossary": [
+   {
+    "term": "DRF",
+    "meaning": "DRF：主导资源公平性，一种多资源分配策略，旨在使分配给各竞争用户的主导资源份额相等"
+   }
+  ]
+ },
+ "zh_issues": [],
+ "numbers": "Lean accepted 879 new theorems this week, drawn from 134 papers and 25 topics. Of these, 39 are new here, 0 correct a published claim, 145 formalize a published result and 695 are helper lemmas. They make 7 research-level results -- they lead the report. 1509 statements posed this week are not yet proved. The reading covered 183 new papers. This report covers 16 results in 7 fields.",
+ "disclaimer": "Written by a model (gemini-3.8-flash) from the week's Lean-verified results. Every declaration named here was checked by Lean; this summary is a reading aid and is not itself machine-checked.",
+ "minutes": 13,
+ "short_minutes": 2,
+ "outcomes": {
+  "proved": "Proved",
+  "disproved": "Disproved",
+  "partial": "Partial",
+  "new": "New result",
+  "formalized": "Formalized"
+ },
+ "zh_disclaimer": "本文由模型（gemini-3.8-flash）根据本期经 Lean 验证的结果撰写，并从英文版翻译而来。文中提到的每个定理都经过 Lean 检查；本摘要只是阅读辅助，本身未经机器检查。",
+ "zh_outcomes": {
+  "proved": "证明",
+  "disproved": "否定",
+  "partial": "部分结果",
+  "new": "新结果",
+  "formalized": "形式化验证"
+ }
+}

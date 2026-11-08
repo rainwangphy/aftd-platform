@@ -3,6 +3,20 @@
  "entries": [
   {
    "date": "2026-11-08",
+   "kind": "weekly",
+   "week": "2026-W45",
+   "title": "Week of 2–8 Nov 2026: Unweighted network games cycle indefinitely, oriented half-covers hold, and ternary zero-sums settled",
+   "body": "This week resolved several open questions in network games, directed graphs, fair resource allocation, and additive combinatorics. An explicit network game proved that players can cycle forever through profitable moves even without edge weights and with minimal teams. In graph theory, researchers established half-neighborhood coverage for oriented graphs with kernels in non-neighborhoods and disproved a conjectured cluster partition bound on subcubic networks. Other settled problems include a sharp threshold for three-dimensional zero-sum vector sequences and improved guarantees for dividing indivisible chores between two people.\n\nProved. Unweighted network cut games admit endless cycles of minimal coalitional deviations\n\nProved. Non-neighborhood kernels guarantee weighted half-neighborhood coverage in oriented graphs\n\nDisproved. Möbius ladder refutes component-order partition conjecture for subcubic graphs\n\nPartial. Minimal zero-sum sequence length in three-dimensional ternary space equals 13\n\nLean accepted 879 new theorems this week, drawn from 134 papers and 25 topics. Of these, 39 are new here, 0 correct a published claim, 145 formalize a published result and 695 are helper lemmas. They make 7 research-level results -- they lead the report. 1509 statements posed this week are not yet proved. The reading covered 183 new papers. This report covers 16 results in 7 fields.",
+   "declarations": [],
+   "links": [
+    {
+     "label": "Read the weekly report (13 min)",
+     "href": "weekly/2026-W45/"
+    }
+   ]
+  },
+  {
+   "date": "2026-11-08",
    "kind": "daily",
    "title": "Daily reading: 0 research-level, 142 proved, 51 open",
    "research": {

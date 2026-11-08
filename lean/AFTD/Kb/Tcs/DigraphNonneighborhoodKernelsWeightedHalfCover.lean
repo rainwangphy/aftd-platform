@@ -8,7 +8,7 @@ import AFTD.Kb.GameTheoryEconomics.TotalPreorder
 
 Topic: graphs   Node: e80ba37b96f7
 
-Provenance: helper lemma. A proposed consequence of the deletion argument in the proof of Theorem 3.4(1) in https://www.combinatorics.org/ojs/index.php/eljc/article/download/v33i1p32/pdf/; related weighted transfer is https://arxiv.org/abs/2610.23487. No novelty is claimed until literature is checked more fully.
+Provenance: original. Related work: A proposed consequence of the deletion argument in the proof of Theorem 3.4(1) in https://www.combinatorics.org/ojs/index.php/eljc/article/download/v33i1p32/pdf/; related weighted transfer is https://arxiv.org/abs/2610.23487. No novelty is claimed until literature is checked more fully.
 
 In a finite loopless oriented graph in which the induced non-neighborhood of every vertex has an out-kernel, every nonnegative integer weighting has a quasi-kernel whose closed out-neighborhood contains at least half the total weight.
 -/

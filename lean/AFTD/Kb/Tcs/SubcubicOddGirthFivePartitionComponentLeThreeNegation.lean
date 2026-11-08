@@ -5,7 +5,7 @@ import AFTD.Prelude
 
 Topic: graphs   Node: 6986a7333c68
 
-Provenance: formalization of a published result. Source: arXiv:2611.05178 Question 5.4 -- Weighted Max Cut in Subcubic Graphs
+Provenance: original. Related work: arXiv:2611.05178 Question 5.4 -- Weighted Max Cut in Subcubic Graphs
 
 It is not the case that every finite simple graph with maximum degree at most 3, clique-free of order 3, and not bipartite admits a partition of its vertex set into an independent set L and a complement R = Lᶜ such that every connected component of the induced subgraph G[R] has order at most 3.
 -/

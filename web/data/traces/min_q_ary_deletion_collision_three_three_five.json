@@ -1,0 +1,1 @@
+{"name":"min_q_ary_deletion_collision_three_three_five","v":1,"source_hash":"0e279420fc9cceee","lines":["⊢ min_q_ary_deletion_collision 3 3 5 = 14"],"goals":[[0]],"steps":[{"line":1,"col":102,"end_line":1,"end_col":116,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

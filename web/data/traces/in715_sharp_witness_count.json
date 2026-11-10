@@ -1,0 +1,1 @@
+{"name":"in715_sharp_witness_count","v":1,"source_hash":"c250acddaa526eaa","lines":["⊢ sharp_W.length = 54"],"goals":[[0]],"steps":[{"line":72,"col":62,"end_line":72,"end_col":76,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

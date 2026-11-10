@@ -1,0 +1,1 @@
+{"name":"in715_deficit_outside","v":1,"source_hash":"2f0762d08e5aef42","lines":["⊢ 10 ∉ P.biUnion id"],"goals":[[0]],"steps":[{"line":6,"col":67,"end_line":6,"end_col":81,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

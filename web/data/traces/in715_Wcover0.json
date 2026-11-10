@@ -1,0 +1,1 @@
+{"name":"in715_Wcover0","v":1,"source_hash":"fbd1d353d138ed8f","lines":["⊢ ∀ e ∈ List.take 5 (List.drop 0 sharp_EL), ∀ f ∈ sharp_EL, ∃ q ∈ sharp_W, e ∈ q.1 ∧ f ∈ q.1"],"goals":[[0]],"steps":[{"line":5,"col":111,"end_line":5,"end_col":125,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

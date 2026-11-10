@@ -1,0 +1,1 @@
+{"name":"in715_deficit_xlink","v":1,"source_hash":"bd99e349b2844517","lines":["⊢ ∀ (v : Fin 14), G.Adj 10 v ↔ v ∈ {0, 1, 2, 3, 4}"],"goals":[[0]],"steps":[{"line":6,"col":99,"end_line":6,"end_col":113,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

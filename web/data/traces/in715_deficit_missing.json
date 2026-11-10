@@ -1,0 +1,1 @@
+{"name":"in715_deficit_missing","v":1,"source_hash":"6c3e5d82f4d8cb97","lines":["⊢ ¬G.Adj 9 3"],"goals":[[0]],"steps":[{"line":6,"col":50,"end_line":6,"end_col":64,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

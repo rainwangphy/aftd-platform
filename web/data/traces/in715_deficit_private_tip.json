@@ -1,0 +1,1 @@
+{"name":"in715_deficit_private_tip","v":1,"source_hash":"9be0dd858e9e0d94","lines":["⊢ {0, 4, 9} ∈ P ∧ ∀ t ∈ P, 9 ∈ t → t = {0, 4, 9}"],"goals":[[0]],"steps":[{"line":7,"col":70,"end_line":7,"end_col":84,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

@@ -1,0 +1,1 @@
+{"name":"in715_deficit_z_ok","v":1,"source_hash":"c104df76741f2a07","lines":["⊢ Z.card = 5 ∧ ∀ t ∈ Z, G.IsNClique 3 t ∧ 9 ∈ t"],"goals":[[0]],"steps":[{"line":6,"col":92,"end_line":6,"end_col":106,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

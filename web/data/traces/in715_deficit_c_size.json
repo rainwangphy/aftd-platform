@@ -1,0 +1,1 @@
+{"name":"in715_deficit_c_size","v":1,"source_hash":"c3ac736f4dfd3e03","lines":["⊢ C.card = 7"],"goals":[[0]],"steps":[{"line":6,"col":48,"end_line":6,"end_col":62,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

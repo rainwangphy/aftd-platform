@@ -2,6 +2,187 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-11",
+   "kind": "daily",
+   "title": "Daily reading: 2 research-level, 115 proved, 102 open",
+   "research": {
+    "results": 2,
+    "theorems": 2
+   },
+   "body": "Research-level results today: 2. (low tier) Settles the order-at-most-80 question of OP-1400: an explicit graph on 20 vertices has a non-unimodal zero forcing polynomial (z(15) >= 932 > z(16) <= 909 < z(17) >= 939; exactly 420x^14+932x^15+909x^16+939x^17+180x^18+20x^19+x^20), far below the order-81 example of the source paper; (low tier) Gives the uniform lower bound of three on the least uncolorable intersection threshold for every k at least five. Each research-level result is one Research Blog post; theorems that bear on the same open problem or paper share it.\n\nThe Proposer read 38 new paper(s) and listed 42 open problem(s); 58 new question(s) of AFTD's own were adopted onto the list; 22 list entries were stated in Lean, as were 23 results the papers prove; the Proposer posed 87 more from what the knowledgebase already holds (215 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 115 theorem(s), 69 of them helper lemmas, which are not listed below; 102 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nResearch-level. `op_1400_counterexample_order_le_eighty` (arXiv:2611.11352): Open Problem OP-1400: there exists a natural number n ≤ 80 and a simple graph G on Fin n with decidable adjacency whose zero forcing polynomial is not unimodal. — (low tier) Settles the order-at-most-80 question of OP-1400: an explicit graph on 20 vertices has a non-unimodal zero forcing polynomial (z(15) >= 932 > z(16) <= 909 < z(17) >= 939; exactly 420x^14+932x^15+909x^16+939x^17+180x^18+20x^19+x^20), far below the order-81 example of the source paper\n\nResearch-level. `bipartite_subset_colorable_two_from_five` (arXiv:2610.42094): For every k at least 5, the bipartite subset graph with intersection threshold 2 is colorable from its standard lists. — (low tier) Gives the uniform lower bound of three on the least uncolorable intersection threshold for every k at least five\n\nPartial result on OP-1370. `op_1370_uncomplemented_strongly_incomparable_upper_bound` (arXiv:2611.12199): Theorem 1.7 of arXiv:2611.12199: for all natural numbers `n` and `t`, if `𝒜 : Fin t → Finset (Finset (Fin n))` is a family such that each `𝒜 i` is uncomplemented and `𝒜` is strongly incomparable, then `∑ i : Fin t, (𝒜 i).card ≤ 2 ^ (n - 1)`.\n\nAnswers OP-1371. `op_1371_min_forcing_num_upper_bound_achievable` (arXiv:2611.11813): There exists a natural number n, a bipartite simple graph G on Fin n, a field F with ringChar F ≠ 2, such that G admits an involutory weighted adjacency matrix over F, and there exists a natural number k such that either 4 ≤ k, Even k, and…\n\nPartial result on OP-1370. `hilton_strong_incomparability_matrix` (arXiv:2611.12199): For every natural number n there are a field K, a matrix L over K with rows indexed by the subsets of Fin n and 2^(n-1) columns, and a matrix R over K with 2^(n-1) rows and columns indexed by the subsets of Fin n, such that the product M = L*R satisfies:…\n\nPartial result on OP-1371. `op_1371_even_upper_bound_achievable` (arXiv:2611.11813): There exists a natural number n, a bipartite simple graph G on Fin n, a field F with ringChar F ≠ 2, and a natural number k such that G admits an involutory weighted adjacency matrix over F, 4 ≤ k, Even k, and graph_min_forcing_num (G □ SimpleGraph.pathGraph…\n\nPartial result on OP-1371. `op_1371_odd_improved_upper_bound_achievable` (arXiv:2611.11813): There exists a natural number n, a bipartite simple graph G on Fin n, a field F with ringChar F ≠ 2, and a natural number k such that G admits an involutory weighted adjacency matrix over F, 3 ≤ k, Odd k, and graph_min_forcing_num (G □ SimpleGraph.pathGraph…\n\nPartial result on OP-1429. `op_1429_mirror_symmetric_m_leafy_trees_involution` (arXiv:2611.10154): The mirror reflection involution τ preserves the class LT_n^m of m-leafy trees with n internal vertices and mn + 1 leaves.\n\nAnswers OP-1429. `op_1429_mirror_symmetric_m_leafy_trees_nonempty` (arXiv:2611.10154): For all natural numbers m ≥ 1 and n ≥ 1, the set mirror_symmetric_m_leafy_trees m n is nonempty.\n\nPartial result on OP-1429. `op_1429_mirror_symmetric_m_leafy_trees_n_one_unique` (arXiv:2611.10154): For every natural number m ≥ 1, there exists a unique tree t such that t ∈ mirror_symmetric_m_leafy_trees m 1.\n\nThread RT-1. `cycle_power_dyadic_reflect_defective_half_model`: Reflecting a defective half model reverses its defect function and changes its top-owner phase from shift to half-span minus shift.\n\nThread RT-1. `cycle_power_dyadic_defective_half_no_defects`: If zero-phase defective half models have no defects, the same holds in either zero or half-span phase.\n\nThread RT-1. `cycle_power_dyadic_fold_periodicity_distance_one_counterexample`: There is an exponent-three tight zero-phase dyadic profile with exact lower-rank owners, the defective top-owner and active-count equations, periodic corrected lower count, and coverage at distance one, but with a defect at zero. The profile does not cover…\n\nFormalized. `doubled_triangle_two_sided_coloring_fold_count` (arXiv:2611.12065, Proposition 3.3): For every natural number $n$, the fold count of the two-sided coloring of the doubled triangle triangulation of size $n$ is equal to $3n$.\n\nFormalized. `doubled_triangle_two_sided_coloring_isoperimetric_ratio` (arXiv:2611.12065, Proposition 3.3): For any positive integer n > 0, the Eisenstein isoperimetric ratio of the two-sided coloring B_n of T(n) is equal to 9 / 2 in Q.\n\nFormalized. `spread_line_contained_in_non_bent` (arXiv:2611.10269 Proposition 11): Let E be a finite field equipped with an algebra structure over ZMod 2 such that the cardinality of E is 2^(2m), where m is an odd natural number. For any element a in nonzero_cubes E, the subspace spread_subspace E m a is contained in non_bent_components E…\n\nFormalized. `simple_graph_edge_reduction_inequality` (arXiv:2611.11128 Lemma 2.2 -- Triangle-overlap cores and density bounds for Tuza's conjecture): Let G be a finite simple graph. Suppose there exist a nonempty edge set F ⊆ E(G), a set S of pairwise edge-disjoint triangles of G, and an edge set X ⊆ E(G) such that X meets every triangle of G containing an edge of F, E(S) \\ F ⊆ X, and |X| ≤ 2|S|. Let G' =…\n\nCorrected. `not_numerical_semigroup_frobenius_le_two_mul_genus`: The statement `numerical_semigroup_frobenius_le_two_mul_genus` is false: The structure NumericalSemigroup only requires the complement of the underlying AddSubmonoid to be finite, so S = ℕ (i.e. ⊤ as an AddSubmonoid of ℕ) is a valid numerical semigroup. Its…\n\nCorrected. `not_leading_unit_monotonicity_conjecture`: The statement `leading_unit_monotonicity_conjecture` is false: The statement is FALSE. Counterexample: c = [1,0,3,0,3,1]. * c.length = 6 ≥ 2, c.getD 0 0 = 1, c.getD 5 0 = 1 ≥ 1 — all three hypotheses on c hold. * plrs_seq c =…\n\nCorrected. `not_numerical_semigroup_count_fibonacci_recurrence`: The statement `numerical_semigroup_count_fibonacci_recurrence` is false: The identity is false. Take F = 3, m = 2, g = 2: indeed F + 2 = 5 ≤ 6 = 3*m and m = 2 ≤ 2 = F - 1. LHS: n_{3,2,2} = 1. The complement of such a semigroup is contained in {0,1,2,3} (3 is…\n\nCorrected. `not_op_1406_weakened_cycle_ramsey_number_ge_self`: The statement `op_1406_weakened_cycle_ramsey_number_ge_self` is false: The case t = 1 makes it false. weakened_cycle_ramsey_property t ℓ n demands that for every colouring c : (K_n).edgeSet → Fin t there is a colour j such that C_ℓ embeds in the subgraph of…\n\nOpen. `full_affine_line_forces_cylinder` (arXiv:2611.12153 Lemma 2.1): Let p be a prime and S an admissible plane set in (ZMod p)^3. If S contains an affine line through P in direction v ≠ 0, then S is a cylinder in direction v.\n\nOpen. `doubled_triangle_two_sided_coloring_is_good` (arXiv:2611.12065, Proposition 3.3): For any integer n >= 1, the two-sided coloring B_n of T(n) is a good coloring.\n\nOpen. `numerical_semigroup_exists_iff_frobenius_multiplicity_genus` (arXiv:2611.11559, Theorem 2.5): Let F, m, g be positive integers. There exists a numerical semigroup S with Frobenius number F, multiplicity m, and genus g if and only if either: (1) g = F and m = F + 1; or (2) F + 1 ≤ 2 * g, g ≤ F - 1, 2 ≤ m ≤ F - 1, m ≤ g ≤ F - F / m, and m does not…\n\nOpen. `doubled_triangle_fold_count_lower_bound_and_minimum_isoperimetric_ratio` (arXiv:2611.12065 Theorem 1.1 -- Good colorings of doubled triangles and a conjecture of Schwartz): Let n >= 1 be an integer. Every good coloring C of the doubled equilateral triangle triangulation T(n) satisfies f(C) >= 3 * n and eta(C) >= 9 / 2 in Q. Moreover, the two-sided coloring B_n is a good coloring with f(B_n) = 3 * n and eta(B_n) = 9 / 2 in Q.\n\nOpen. `affine_line_p_minus_one_light_planes_exist`: Let p ≥ 3 be a prime, and let S ⊆ (ℤ/pℤ)³ be an admissible plane set. If S meets the affine line through P in nonzero direction v in p - 1 points, then there exist two nonzero linear functionals f₁, f₂ defining distinct affine planes containing the line,…\n\nOpen. `affine_line_p_minus_one_exists_full_line`: Let p ≥ 3 be a prime, and let S ⊆ (ℤ/pℤ)³ be an admissible plane set. If S meets the affine line through P in nonzero direction v in p - 1 points, then S contains a full affine line: there exist a point Q and a nonzero direction w such that the affine line…",
+   "declarations": [
+    "cycle_power_dyadic_reflect_defective_half_model",
+    "cycle_power_dyadic_defective_half_no_defects",
+    "op_1370_uncomplemented_strongly_incomparable_upper_bound",
+    "matrix_block_det_card_sum_le_width",
+    "op_1370_upper_bound_of_matrix",
+    "op_1371_min_forcing_num_upper_bound_achievable",
+    "hilton_strong_incomparability_matrix",
+    "op_1371_even_upper_bound_achievable",
+    "op_1371_odd_improved_upper_bound_achievable",
+    "card_affine_line",
+    "op_1429_mirror_symmetric_m_leafy_trees_involution",
+    "admissible_plane_transverse_card",
+    "op_1429_mirror_symmetric_m_leafy_trees_nonempty",
+    "op_1429_mirror_symmetric_m_leafy_trees_n_one_unique",
+    "numerical_semigroup_exists_at_m_eq_succ_frobenius",
+    "numerical_semigroup_not_dvd_frobenius",
+    "not_numerical_semigroup_frobenius_le_two_mul_genus",
+    "doubled_triangle_two_sided_coloring_fold_count",
+    "doubled_triangle_two_sided_coloring_isoperimetric_ratio",
+    "light_plane_unique_point_outside_line",
+    "simple_graph_triangle_edge_family_mem",
+    "is_complete_sequence_const_one",
+    "not_is_complete_sequence_zero",
+    "nonzero_cubes_mul",
+    "subfield_element_trace_zero",
+    "apn_family_fa_component_eq_cubic",
+    "cubic_power_component_cube_non_bent",
+    "plrs_seq_zero",
+    "subfield_nonzero_mem_cubes",
+    "plrs_seq_eq_leading_unit_h",
+    "spread_line_contained_in_non_bent",
+    "leading_unit_monotonicity_length_two",
+    "simple_graph_triangle_packing_number_ge_of_edge_reduction",
+    "not_leading_unit_monotonicity_conjecture",
+    "cycle_power_dyadic_fold_periodicity_distance_one_counterexample",
+    "simple_graph_triangle_cover_number_le_of_edge_reduction",
+    "univ_is_zero_forcing_set",
+    "simple_graph_edge_reduction_inequality",
+    "op_1423_three_band_closure_iff",
+    "online_four_machine_offline_packings_verified",
+    "three_token_star_domination_number_three_le",
+    "three_token_star_domination_number_three",
+    "gt_connected_forcing_poly_eq",
+    "finite_packing_good_of_family_subset",
+    "three_token_star_domination_number_four",
+    "gt_total_forcing_poly_eq",
+    "ten_vertex_exchange_finite_witness_facts",
+    "ten_vertex_exchange_family_eq",
+    "ten_vertex_exchange_edge_set",
+    "ten_vertex_exchange_six_connected",
+    "ten_vertex_exchange_codegree",
+    "ten_vertex_exchange_triangle_connected",
+    "ten_vertex_exchange_packing_upper",
+    "ten_vertex_exchange_edge_avoidable",
+    "doubled_triangle_ring_faces_nonempty",
+    "doubled_triangle_corner_ring_not_monochromatic",
+    "finite_edge_packing_odd_incidence_bound",
+    "probabilistic_serial_equispaced_distortion_le_two_agents",
+    "probabilistic_serial_equispaced_distortion_le_three_agents",
+    "probabilistic_serial_equispaced_distortion_two_agents_attained",
+    "tree_zero_forcing_poly_lower_half_monotone",
+    "star_graph_zero_forcing_poly_unimodal",
+    "op_1430_involution_group_n_one",
+    "numerical_semigroup_count_of_dvd_frobenius",
+    "three_uniform_link_four_flower_free",
+    "round_robin_borda_gain_two_goods",
+    "round_robin_borda_manipulation_gain_nonneg",
+    "round_robin_expected_manipulation_gain_two_eq_zero",
+    "not_numerical_semigroup_count_fibonacci_recurrence",
+    "not_op_1406_weakened_cycle_ramsey_number_ge_self",
+    "op_1400_counterexample_order_le_eighty",
+    "op869_three_colorable_bound_implies_deterministic_lower_bound",
+    "good_slopes_f3_two_directions_line",
+    "op869_orient_pairs_half",
+    "good_slopes_fiber15_anchored_rigidity",
+    "good_slopes_fiber15_neighbors_force",
+    "op869_predecessor_causality",
+    "op869_predecessor_colorable_iff",
+    "good_slopes_fiber35_unit_gap",
+    "simple_graph_is_perfect_dominating_fin1",
+    "good_slopes_fiber21_bad_row_triple",
+    "op869_adversary_forces_sound",
+    "op869_adversary_one_vertex",
+    "good_slopes_prime5_anchored_line",
+    "good_slopes_prime7_anchored_line",
+    "op869_bounded_adversary_forces_unbounded",
+    "op869_bounded_adversary_one_vertex",
+    "good_slopes_prime7_five_on_line",
+    "good_slopes_injective_product_fiber_card",
+    "overcomplete_ica_moment_estimator_exact",
+    "overcomplete_ica_radial_fourth_moment_identifiability",
+    "overcomplete_ica_sample_size_hellinger_comparison",
+    "good_slopes_fiber35_width3_rect4",
+    "bipartite_subset_colorable_at_one",
+    "good_slopes_fiber21_anchored_classification",
+    "ndeg_le_n",
+    "op861_no_right_equivariant_k6_r3",
+    "good_slopes_fiber35_bad_neighbors",
+    "good_slopes_fiber35_anchored_width_gap",
+    "bipartite_subset_colorable_iff_below_threshold",
+    "chebyshev_semicircle_slow_mode_limit_zero",
+    "chebyshev_semicircle_slow_mode_limit_two",
+    "slow_mode_dephasing_zero",
+    "op869_union_side_choice",
+    "op869_double_count",
+    "op869_many_shared_colors",
+    "good_slopes_fiber35_sat_fmla_sound",
+    "good_slopes_fiber35_width_gap_case_d7",
+    "good_slopes_fiber35_width_gap_case_d5",
+    "good_slopes_fiber35_width_gap_case_d1mm",
+    "good_slopes_fiber35_width_gap_case_d1mp",
+    "good_slopes_fiber35_width_gap_case_d1pp",
+    "good_slopes_fiber35_width_gap_case_d1pmm",
+    "good_slopes_fiber35_width_gap_case_d1pmpp",
+    "good_slopes_fiber35_width_gap_case_d1pmpm"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.42094",
+     "href": "https://arxiv.org/abs/2610.42094"
+    },
+    {
+     "label": "arXiv:2611.04551",
+     "href": "https://arxiv.org/abs/2611.04551"
+    },
+    {
+     "label": "arXiv:2611.11966",
+     "href": "https://arxiv.org/abs/2611.11966"
+    },
+    {
+     "label": "arXiv:2611.11852",
+     "href": "https://arxiv.org/abs/2611.11852"
+    },
+    {
+     "label": "arXiv:2611.11352",
+     "href": "https://arxiv.org/abs/2611.11352"
+    },
+    {
+     "label": "arXiv:2611.11191",
+     "href": "https://arxiv.org/abs/2611.11191"
+    },
+    {
+     "label": "arXiv:2611.11187",
+     "href": "https://arxiv.org/abs/2611.11187"
+    },
+    {
+     "label": "arXiv:2611.10200",
+     "href": "https://arxiv.org/abs/2611.10200"
+    },
+    {
+     "label": "arXiv:2611.11747",
+     "href": "https://arxiv.org/abs/2611.11747"
+    },
+    {
+     "label": "arXiv:2611.11559",
+     "href": "https://arxiv.org/abs/2611.11559"
+    },
+    {
+     "label": "arXiv:2611.10154",
+     "href": "https://arxiv.org/abs/2611.10154"
+    },
+    {
+     "label": "arXiv:2611.13495",
+     "href": "https://arxiv.org/abs/2611.13495"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-10",
    "kind": "daily",
    "title": "Daily reading: 1 research-level, 147 proved, 139 open",

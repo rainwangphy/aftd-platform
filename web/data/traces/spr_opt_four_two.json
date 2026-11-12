@@ -1,0 +1,1 @@
+{"name":"spr_opt_four_two","v":1,"source_hash":"231e4fde0f080d85","lines":["⊢ spr_opt 4 2 = 2"],"goals":[[0]],"steps":[{"line":2,"col":49,"end_line":2,"end_col":52,"tactic":"rfl","before":[0],"after":[],"used":["spr_opt","instOfNatNat","Nat","Eq.refl","OfNat.ofNat"]}],"steps_total":1,"truncated":false}

@@ -1,0 +1,1 @@
+{"name":"bpe_zero_step_run_unique","v":1,"source_hash":"b9c45dc98d2c4b3e","lines":["s t : List ℕ","⊢ bpe_greedy_run 0 s t ↔ s = t"],"goals":[[0,1]],"steps":[{"line":4,"col":2,"end_line":4,"end_col":23,"tactic":"simp [bpe_greedy_run]","before":[0],"after":[],"used":["iff_self","List","Iff","Nat","of_eq_true","Eq"]}],"steps_total":1,"truncated":false}

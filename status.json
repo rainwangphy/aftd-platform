@@ -1,0 +1,174 @@
+{
+ "generated": 1794678611,
+ "timezone": "Asia/Shanghai (UTC+8)",
+ "day": "2026-11-15",
+ "start": 1794657600,
+ "now_min": 350.2,
+ "release_at": "20:00",
+ "cc_hours": [],
+ "lanes": [
+  {
+   "id": "scheduler",
+   "name": "Scheduler",
+   "role": "Keeps the clock, no model: readings, sessions, release.",
+   "state": "working",
+   "doing": "Keeping the clock",
+   "last": 1794678600,
+   "track": [
+    [
+     0.0,
+     350.2,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "gemini",
+   "name": "Proving",
+   "role": "Proves the most valuable ready statement; splits failures.",
+   "state": "working",
+   "doing": "Splitting a hard statement",
+   "last": 1794677738,
+   "track": [
+    [
+     0.0,
+     350.2,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "deepseek",
+   "name": "Off-peak proving",
+   "role": "Proves in the provider's cheaper hours.",
+   "state": "working",
+   "doing": "Splitting a hard statement",
+   "last": 1794676803,
+   "track": [
+    [
+     0.0,
+     350.2,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "formalize",
+   "name": "Formalizing",
+   "role": "States new papers' problems and results in Lean.",
+   "state": "working",
+   "doing": "Working",
+   "last": 1794678567,
+   "track": [
+    [
+     0.0,
+     350.2,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "proposing",
+   "name": "Proposing",
+   "role": "Starts the sessions that raise AFTD's own questions.",
+   "state": "waiting",
+   "doing": "Waiting for the next session",
+   "last": 1794748861,
+   "track": [
+    [
+     0.0,
+     81.0,
+     "working"
+    ],
+    [
+     81.0,
+     350.2,
+     "waiting"
+    ]
+   ]
+  },
+  {
+   "id": "frontier",
+   "name": "Frontier agent",
+   "role": "Claude / Codex / Codex: what the lanes hand up, reviews, new questions.",
+   "state": "waiting",
+   "doing": "In its hours; waiting for work",
+   "last": null,
+   "track": [
+    [
+     0.0,
+     80.0,
+     "working"
+    ],
+    [
+     80.0,
+     350.2,
+     "waiting"
+    ]
+   ]
+  }
+ ],
+ "today": {
+  "proved": 25,
+  "proved_other": 27,
+  "stated": 24,
+  "stated_other": 91,
+  "research": 0,
+  "adopted": 6,
+  "problems": 0,
+  "results": 0,
+  "handed_up": 6,
+  "closed": 10,
+  "inbox_waiting": 2
+ },
+ "schedule": [
+  {
+   "at": "All day",
+   "what": "The frontier agent's sessions",
+   "state": "next"
+  },
+  {
+   "at": "10:30",
+   "what": "Reading the day's new papers",
+   "state": "next",
+   "began": null,
+   "ended": null
+  },
+  {
+   "at": "13:30",
+   "what": "Reading the day's new papers",
+   "state": "next",
+   "began": null,
+   "ended": null
+  },
+  {
+   "at": "20:00",
+   "what": "The daily release: news, site, explanations",
+   "state": "running"
+  }
+ ],
+ "events": [
+  {
+   "min": 0.0,
+   "kind": "publish",
+   "state": "done",
+   "end": 13.9,
+   "label": "release"
+  },
+  {
+   "min": 870.0,
+   "kind": "next",
+   "label": "reading"
+  },
+  {
+   "min": 1050.0,
+   "kind": "next",
+   "label": "reading"
+  },
+  {
+   "min": 1440,
+   "kind": "next",
+   "label": "release"
+  }
+ ]
+}

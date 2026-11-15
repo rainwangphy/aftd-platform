@@ -1,0 +1,1 @@
+{"name":"op_1600_slow_exact_nim_k3_ones","v":1,"source_hash":"afc0389b1c317b69","lines":["⊢ (slow_exact_nim_grundy 3 5 fun x => 1) = 1"],"goals":[[0]],"steps":[{"line":4,"col":2,"end_line":4,"end_col":5,"tactic":"rfl","before":[0],"after":[],"used":["slow_exact_nim_grundy","instOfNatNat","Nat","Eq.refl","OfNat.ofNat","Fin"]}],"steps_total":1,"truncated":false}

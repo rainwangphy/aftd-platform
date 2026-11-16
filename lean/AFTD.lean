@@ -47,6 +47,7 @@ import AFTD.Kb.GameTheoryEconomics.AllocationIsEf1
 import AFTD.Kb.GameTheoryEconomics.AllocationIsEf1OfEnvyFree
 import AFTD.Kb.GameTheoryEconomics.AllocationIsEnvyFreeable
 import AFTD.Kb.GameTheoryEconomics.AllocationIsEnvyFreeableOfEnvyFree
+import AFTD.Kb.GameTheoryEconomics.Anonymity
 import AFTD.Kb.GameTheoryEconomics.AnyPriceShare
 import AFTD.Kb.GameTheoryEconomics.ApproxMinimax
 import AFTD.Kb.GameTheoryEconomics.ApsFairNotImpProp1Fair
@@ -1288,6 +1289,7 @@ import AFTD.Kb.GameTheoryEconomics.ExistsMinimallyEnviedSourceExtension
 import AFTD.Kb.GameTheoryEconomics.ExistsMinimallyEnviedSubset
 import AFTD.Kb.GameTheoryEconomics.ExistsNotWeightedSimpleGamesNeOfSwingTableEq
 import AFTD.Kb.GameTheoryEconomics.ExistsPermWithPrefixEqTake
+import AFTD.Kb.GameTheoryEconomics.ExistsPreferenceWithUniqueTop
 import AFTD.Kb.GameTheoryEconomics.ExistsSimpleGamesNeOfSwingTableEq
 import AFTD.Kb.GameTheoryEconomics.ExistsStrictlyOrderedIntervals
 import AFTD.Kb.GameTheoryEconomics.ExistsSubmodularInstanceNoEf1EnvyFreeableAllocationWithBobwLottery
@@ -2158,6 +2160,7 @@ import AFTD.Kb.GameTheoryEconomics.LxvProfile
 import AFTD.Kb.GameTheoryEconomics.LxvSumBundle
 import AFTD.Kb.GameTheoryEconomics.LxvVal
 import AFTD.Kb.GameTheoryEconomics.LxvValues
+import AFTD.Kb.GameTheoryEconomics.MajorityCriterion
 import AFTD.Kb.GameTheoryEconomics.ManCutoffTanking
 import AFTD.Kb.GameTheoryEconomics.MapSumOfMemRankingsOf
 import AFTD.Kb.GameTheoryEconomics.MarginalVector
@@ -2831,6 +2834,7 @@ import AFTD.Kb.GameTheoryEconomics.PrefLt
 import AFTD.Kb.GameTheoryEconomics.PrefOfLinearOrder
 import AFTD.Kb.GameTheoryEconomics.PrefOfTotalPreorder
 import AFTD.Kb.GameTheoryEconomics.PrefProfile
+import AFTD.Kb.GameTheoryEconomics.PreferenceWithUniqueTop
 import AFTD.Kb.GameTheoryEconomics.PrefixGameLoss
 import AFTD.Kb.GameTheoryEconomics.PrefixGameLossEqCumLoss
 import AFTD.Kb.GameTheoryEconomics.PrefixHedgeMixedStrategy
@@ -7286,8 +7290,11 @@ import AFTD.Kb.Physics.ThermomajorizationMinimaxError
 import AFTD.Kb.Physics.ThermomajorizationMinimaxErrorAntitone
 import AFTD.Kb.Physics.ThermomajorizationMissedError
 import AFTD.Kb.Physics.ThermomajorizationPointwiseMissedError
+import AFTD.Kb.Physics.ThermomajorizationPointwiseMissedErrorGeGapError
+import AFTD.Kb.Physics.ThermomajorizationPointwiseMissedErrorLeGapError
 import AFTD.Kb.Physics.ThermomajorizationProbeError
 import AFTD.Kb.Physics.ThermomajorizationProbeGapError
+import AFTD.Kb.Physics.ThermomajorizationSparseProbeErrorTwoLevel
 import AFTD.Kb.Physics.Time
 import AFTD.Kb.Physics.TimeAddVal
 import AFTD.Kb.Physics.TimeDefaultEqZero
@@ -7757,6 +7764,7 @@ import AFTD.Kb.Tcs.BalancedFiveColoringExistsClassCardEdgeFinsetLe65
 import AFTD.Kb.Tcs.BalancedFiveColoringExistsColorClassBoundsAndProperties
 import AFTD.Kb.Tcs.BalancedMultipartiteNearestSpectralDistance
 import AFTD.Kb.Tcs.BalancedMultipartiteNearestSpectralDistanceNonneg
+import AFTD.Kb.Tcs.BalancedWeighingMatrixTwoByTwoExists
 import AFTD.Kb.Tcs.BallotWeight
 import AFTD.Kb.Tcs.BallotWeightZero
 import AFTD.Kb.Tcs.BeatScore
@@ -11990,6 +11998,7 @@ import AFTD.Kb.Tcs.IsApTileStepIccSelf
 import AFTD.Kb.Tcs.IsBalanced
 import AFTD.Kb.Tcs.IsBalancedFiveColoring
 import AFTD.Kb.Tcs.IsBalancedIndicator
+import AFTD.Kb.Tcs.IsBalancedWeighingMatrix
 import AFTD.Kb.Tcs.IsBent
 import AFTD.Kb.Tcs.IsBh
 import AFTD.Kb.Tcs.IsBhIUnionOfMonotone
@@ -13620,12 +13629,16 @@ import AFTD.Kb.Tcs.Op1370BalancedCrossIncomparableHub
 import AFTD.Kb.Tcs.Op1370BalancedThreeFamiliesExclusion
 import AFTD.Kb.Tcs.Op1370BlockForcesCoordinatePattern
 import AFTD.Kb.Tcs.Op1370BlockedWitnessMinorCounterexample
+import AFTD.Kb.Tcs.Op1370BooleanIntervalCancellation
 import AFTD.Kb.Tcs.Op1370CaseN3T3
+import AFTD.Kb.Tcs.Op1370ChooseSafePerturbation
 import AFTD.Kb.Tcs.Op1370ConnectedNonleafCore
 import AFTD.Kb.Tcs.Op1370ConnectedNonleafCoreCard
 import AFTD.Kb.Tcs.Op1370CoordinateBlockDensityBound
 import AFTD.Kb.Tcs.Op1370CoordinateFiberDefectIdentity
 import AFTD.Kb.Tcs.Op1370CoordinatePatternsBound
+import AFTD.Kb.Tcs.Op1370CyclicTwoSetBlockerBound
+import AFTD.Kb.Tcs.Op1370FinsetNeCompl
 import AFTD.Kb.Tcs.Op1370FourElementsBound
 import AFTD.Kb.Tcs.Op1370GlobalTwoProjectionHolesCounterexample
 import AFTD.Kb.Tcs.Op1370IncomparableStrictShattering
@@ -13635,6 +13648,7 @@ import AFTD.Kb.Tcs.Op1370LiftingConfig
 import AFTD.Kb.Tcs.Op1370LocalTwoProjectionHolesCounterexample
 import AFTD.Kb.Tcs.Op1370LowVcdimOthersBound
 import AFTD.Kb.Tcs.Op1370LowerIndependentFibers
+import AFTD.Kb.Tcs.Op1370LowerRankSensitivity
 import AFTD.Kb.Tcs.Op1370MaximalFreeRegionSaturation
 import AFTD.Kb.Tcs.Op1370MaximalFreeRegionsIncomparable
 import AFTD.Kb.Tcs.Op1370Middle
@@ -13647,6 +13661,7 @@ import AFTD.Kb.Tcs.Op1370NoPrivateStabilitySharpSix
 import AFTD.Kb.Tcs.Op1370OrbitEqualNonstrictCounterexample
 import AFTD.Kb.Tcs.Op1370PairShatterSurplusCounterexample
 import AFTD.Kb.Tcs.Op1370ParameterRankOneSensitivity
+import AFTD.Kb.Tcs.Op1370ParameterSafeResponseExists
 import AFTD.Kb.Tcs.Op1370PrivateAbsenceBound
 import AFTD.Kb.Tcs.Op1370PrivateElementBound
 import AFTD.Kb.Tcs.Op1370PrivateWithoutUncomplementedCounterexample
@@ -13654,7 +13669,10 @@ import AFTD.Kb.Tcs.Op1370RankOneAdjugateSensitivity
 import AFTD.Kb.Tcs.Op1370RankOneInjective
 import AFTD.Kb.Tcs.Op1370RankOneNonsingularSolution
 import AFTD.Kb.Tcs.Op1370RankOnePerturbedSolution
+import AFTD.Kb.Tcs.Op1370RankOneSafeSolution
 import AFTD.Kb.Tcs.Op1370RankOneSensitivity
+import AFTD.Kb.Tcs.Op1370ReciprocalPairUpdate
+import AFTD.Kb.Tcs.Op1370ReciprocalUpdateAdditive
 import AFTD.Kb.Tcs.Op1370RepairedCoordinateWitnessCounterexample
 import AFTD.Kb.Tcs.Op1370ShatteredCapacity
 import AFTD.Kb.Tcs.Op1370ShatteredOrbitWithoutUncomplementedCounterexample
@@ -13665,9 +13683,11 @@ import AFTD.Kb.Tcs.Op1370SingletonSchurFormula
 import AFTD.Kb.Tcs.Op1370SmallFamilyShattererUncomplemented
 import AFTD.Kb.Tcs.Op1370SmallPairBound
 import AFTD.Kb.Tcs.Op1370SmallShattererThresholdCounterexample
+import AFTD.Kb.Tcs.Op1370SolutionSchurDifference
 import AFTD.Kb.Tcs.Op1370SparseDoubleFiberBound
 import AFTD.Kb.Tcs.Op1370SparseFiberCount
 import AFTD.Kb.Tcs.Op1370SparseOthersBound
+import AFTD.Kb.Tcs.Op1370SpecializationDistinguishesFractions
 import AFTD.Kb.Tcs.Op1370SpecializedBlockObstruction
 import AFTD.Kb.Tcs.Op1370SplitBiintersectingShattererShadowCounterexample
 import AFTD.Kb.Tcs.Op1370ThreePointPairedSingletonEquality
@@ -13689,10 +13709,15 @@ import AFTD.Kb.Tcs.Op1370TwoblockNonprivateEqualityCounterexample
 import AFTD.Kb.Tcs.Op1370UncomplementedShattererOthersBound
 import AFTD.Kb.Tcs.Op1370UncomplementedStronglyIncomparableLowerBound
 import AFTD.Kb.Tcs.Op1370UncomplementedStronglyIncomparableUpperBound
+import AFTD.Kb.Tcs.Op1370UniformHullWeightedEntry
+import AFTD.Kb.Tcs.Op1370UniformReciprocalWeightsExist
 import AFTD.Kb.Tcs.Op1370UnrestrictedShatteredOrbitsCounterexample
 import AFTD.Kb.Tcs.Op1370UpperBoundOfMatrix
+import AFTD.Kb.Tcs.Op1370UpperRankSensitivity
 import AFTD.Kb.Tcs.Op1370WeightMatrixUniform
 import AFTD.Kb.Tcs.Op1370WeightMatrixUpdate
+import AFTD.Kb.Tcs.Op1370WeightedEntrySingleUpdate
+import AFTD.Kb.Tcs.Op1370WeightedMatrix
 import AFTD.Kb.Tcs.Op1370ZeroFiberCount
 import AFTD.Kb.Tcs.Op1371EvenUpperBoundAchievable
 import AFTD.Kb.Tcs.Op1371MinForcingNumUpperBoundAchievable
@@ -14409,6 +14434,7 @@ import AFTD.Kb.Tcs.PetrialRLogConcavityGrowthIneq
 import AFTD.Kb.Tcs.PetrialRankSchurInvertible
 import AFTD.Kb.Tcs.PgroupCoordinateInvariantOrderhomCardMod
 import AFTD.Kb.Tcs.PgroupCoordinateOrbitOrderhomCardMod
+import AFTD.Kb.Tcs.PhiCubedEqSelfOfZeroSum
 import AFTD.Kb.Tcs.PhiIter
 import AFTD.Kb.Tcs.PhiMorphism
 import AFTD.Kb.Tcs.PlanarAdmissibleHeight
@@ -14823,6 +14849,7 @@ import AFTD.Kb.Tcs.RearrangementOperatorAntiHomomorphism
 import AFTD.Kb.Tcs.RearrangementOperatorApply
 import AFTD.Kb.Tcs.RearrangementOperatorCompApply
 import AFTD.Kb.Tcs.RecSeqR
+import AFTD.Kb.Tcs.RecSeqU
 import AFTD.Kb.Tcs.RectangleSizeBound
 import AFTD.Kb.Tcs.RectilinearCrossingNumber
 import AFTD.Kb.Tcs.RectilinearCrossingNumberAddTotalSimplicialDepthEqChooseOfFour
@@ -15113,6 +15140,8 @@ import AFTD.Kb.Tcs.SigmaI
 import AFTD.Kb.Tcs.SigmaX
 import AFTD.Kb.Tcs.SigmaY
 import AFTD.Kb.Tcs.SigmaZ
+import AFTD.Kb.Tcs.SignChamber
+import AFTD.Kb.Tcs.SignChamberVector
 import AFTD.Kb.Tcs.SignedCoordinateDist
 import AFTD.Kb.Tcs.SignedCoordinateDistSelf
 import AFTD.Kb.Tcs.SignedGraph
@@ -15132,6 +15161,7 @@ import AFTD.Kb.Tcs.SignedGraphReconstructibleBalancedMonoPairFixed
 import AFTD.Kb.Tcs.SignedGraphReconstructibleBalancedThreeFixed
 import AFTD.Kb.Tcs.SignedGraphSameDeck
 import AFTD.Kb.Tcs.SignedGraphSwitch
+import AFTD.Kb.Tcs.SignedRelation
 import AFTD.Kb.Tcs.SimpleGraphAchromaticNumber
 import AFTD.Kb.Tcs.SimpleGraphAchromaticNumberLeMaxDegreeOrHalf
 import AFTD.Kb.Tcs.SimpleGraphAddApex

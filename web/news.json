@@ -3,6 +3,20 @@
  "entries": [
   {
    "date": "2026-11-16",
+   "kind": "weekly",
+   "week": "2026-W46",
+   "title": "Week of 9–15 Nov 2026: Compensatory Fairness, Positional Strategies in Infinite Games, and Neural Network Hardness",
+   "body": "This week resolved several questions across game theory, automata, optimization, and combinatorics. Strategic picking games with odd item counts achieve compensatory fairness under block-alternating turns, eliminating envy between players. Prioritized infinite tree games admit memoryless winning strategies whenever hidden opponent choices are finite. Verifying whether a neural network with three neurons per layer has a zero on the unit interval was proved computationally intractable. Permutations of integers modulo 105 satisfy the good slopes gap bound, and zero forcing polynomials can fail unimodality on graphs with 20 vertices.\n\nProved. Subgame-perfect equilibria in two-agent block-snake picking games guarantee compensatory fairness\n\nProved. Memoryless winning strategies exist in prioritized tree games with finite hidden opponent choices\n\nProved. Zero-existence in width-three neural networks on the unit interval is hard to decide\n\nProved. Good slopes gap conjecture settled for modulus 105\n\nLean accepted 1254 new theorems this week, drawn from 128 papers and 31 topics. Of these, 82 are new here, 1 corrects a published claim, 151 formalize a published result and 1020 are helper lemmas. They make 11 research-level results, in 14 theorems -- they lead the report. 1709 statements posed this week are not yet proved. The reading covered 142 new papers. This report covers 14 results in 8 fields.",
+   "declarations": [],
+   "links": [
+    {
+     "label": "Read the weekly report (13 min)",
+     "href": "weekly/2026-W46/"
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
    "kind": "daily",
    "title": "Daily reading: 1 research-level, 129 proved, 59 open",
    "research": {

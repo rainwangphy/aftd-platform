@@ -1,0 +1,498 @@
+{
+ "week": "2026-W46",
+ "start": "2026-11-09",
+ "end": "2026-11-15",
+ "format": 3,
+ "period": "week",
+ "partial": false,
+ "language": "English",
+ "model": "gemini-3.8-flash",
+ "generated": "2026-11-17",
+ "title": "Compensatory Fairness, Positional Strategies in Infinite Games, and Neural Network Hardness",
+ "summary": "This week resolved several questions across game theory, automata, optimization, and combinatorics. Strategic picking games with odd item counts achieve compensatory fairness under block-alternating turns, eliminating envy between players. Prioritized infinite tree games admit memoryless winning strategies whenever hidden opponent choices are finite. Verifying whether a neural network with three neurons per layer has a zero on the unit interval was proved computationally intractable. Permutations of integers modulo 105 satisfy the good slopes gap bound, and zero forcing polynomials can fail unimodality on graphs with 20 vertices.",
+ "lead": {
+  "main": "block_snake_two_agent_spe_nel_ef1",
+  "title": "Taking Turns Fairly When Sharing An Odd Number Of Items",
+  "story": "When two people divide a set of indivisible items by taking turns picking one item at a time, someone must receive more items whenever the total number of goods is odd. Under the standard alternating order where players simply trade turns back and forth, the player who picks first often secures an unfair advantage, leaving the second player resentful of the larger share even if both play rationally.\n\nTo compensate the second player, economists proposed the block-snake sequence, in which players take turns in alternating pairs after the opening pick: the first player takes one item, the second takes two, the first takes two, and so on. But whether this sequence actually guarantees fairness under strategic play remained unresolved.\n\nIt is now proved that rational play in the block-snake sequence always eliminates envy. In every game with an odd number of distinct items, the outcome of backward induction gives both players compensatory fairness: neither envies the other once a single item is set aside, and the player with fewer items never envies the player with more."
+ },
+ "fields": [
+  {
+   "name": "Fair Division",
+   "context": "The week settled compensatory fairness for strategic picking games with odd item counts, showing that backward induction under the block-snake sequence guarantees both envy-freeness up to one item and absence of envy toward the larger bundle.",
+   "results": [
+    {
+     "headline": "Subgame-perfect equilibria in two-agent block-snake picking games guarantee compensatory fairness",
+     "plain": "When two people take turns choosing items in a block-alternating sequence, rational play always divides the goods fairly even when the total number is odd.",
+     "before": "Whether subgame-perfect equilibria in two-agent picking games satisfy compensatory fairness for odd item counts was open in OP-1323, as round-robin picking fails to prevent envy of the larger bundle.",
+     "answer": "Every subgame-perfect equilibrium of the block-snake picking game on 2k + 1 items with distinct positive valuations yields an allocation satisfying both EF1 and absence of envy toward the larger bundle.",
+     "why": "Settles OP-1323 by establishing that the block-snake drafting order guarantees fairness under backward induction, whereas alternating round-robin drafts fail.",
+     "idea": "Subgame-perfect equilibrium outcomes reduce to reverse crossout sequences, which induce explicit injections between agent bundles guaranteeing both fairness criteria.",
+     "outcome": "proved",
+     "source": "arXiv:2611.09685",
+     "main": "block_snake_two_agent_spe_nel_ef1",
+     "declarations": [
+      "block_snake_two_agent_spe_nel_ef1",
+      "block_snake_reverse_crossout_nel_ef1",
+      "picking_two_agent_spe_eq_reverse_crossout",
+      "picking_reverse_crossout_exists",
+      "pick_game_root_allocation_partition"
+     ],
+     "highlight": true,
+     "research": "settles OP-1323 (Compensatory fairness of subgame-perfect equilibria in two-agent picking games)",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Automata & Formal Languages",
+   "context": "Positional determinacy was extended to prioritized infinite tree games where opponents have finitely many hidden choices along every play, establishing memoryless winning strategies without uniform branching bounds or state-space finiteness assumptions.",
+   "results": [
+    {
+     "headline": "Memoryless winning strategies exist in prioritized tree games with finite hidden opponent choices",
+     "plain": "In infinite tree games where an opponent has only finitely many secret options along any play, the winning player needs no memory.",
+     "before": "Positional determinacy in infinite tree games typically required uniform bounds on opponent branching or specific topological restrictions on the game arena.",
+     "answer": "Any winning strategy in a prioritized tree game can be compressed to a memoryless strategy whenever every legal play has only finitely many opponent choices hidden behind public branch directions, without state-space restrictions.",
+     "why": "Resolves a conjecture related to arXiv:2611.10136 by removing uniform bounds on opponent branching and enabling memoryless strategy synthesis in broader game arenas.",
+     "idea": "An abstract deterministic replay framework reconstructs full interaction histories from visible branch directions and the finite sequence of hidden opponent moves.",
+     "outcome": "proved",
+     "source": "arXiv:2611.10136",
+     "main": "prioritized_borel_finite_hidden_opponent_choices_positional",
+     "declarations": [
+      "prioritized_borel_finite_hidden_opponent_choices_positional",
+      "prioritized_borel_eventually_visible_determined_positional",
+      "prioritized_borel_bounded_opponent_branching_compression",
+      "prioritized_borel_reverse_edge_deterministic_positional",
+      "prioritized_borel_reverse_deterministic_finite_hidden_priorities_positional",
+      "has_winning_strategy_in_mem_mono"
+     ],
+     "highlight": true,
+     "research": "Shows that a winner has a positional strategy whenever every legal play has finitely many opponent choices hidden behind the public direction, without a uniform bound on those choices or any restriction on the state space",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "NP-Completeness & Reductions",
+   "context": "The complexity of neural network verification in the narrow regime was settled on the full unit interval, showing that deciding the existence of a zero in width-three networks with rectified linear activations is computationally intractable.",
+   "results": [
+    {
+     "headline": "Zero-existence in width-three neural networks on the unit interval is hard to decide",
+     "plain": "Deciding whether a neural network with three neurons per layer has an input producing zero is as hard as the subset sum problem.",
+     "before": "arXiv:2610.06092 established hardness of verifying neural networks in the narrow regime, but left open in OP-75 whether zero testing in width-three networks on the unit interval is intractable.",
+     "answer": "Constructs an explicit width-three network with rectified linear activations on the unit interval whose evaluation has a zero if and only if a given nonnegative integer subset-sum instance is solvable.",
+     "why": "Settles OP-75 by establishing that width three suffices for computational hardness of zero testing across the entire unit interval, closing the gap left in arXiv:2610.06092.",
+     "idea": "Simulates subset-sum selection by encoding bits into dynamical orbits via a piecewise linear map and digit selector implemented in seven-layer blocks of width three.",
+     "outcome": "proved",
+     "source": "arXiv:2610.06092",
+     "main": "op75_compact_network_subset_sum",
+     "declarations": [
+      "op75_compact_network_subset_sum",
+      "op75_compact_subset_equivalence",
+      "op75_compact_digit_relu",
+      "op75_compact_map_relu",
+      "op75_compact_block_effect",
+      "op75_run_invariants",
+      "op75_fold_blocks",
+      "op75_network_eval",
+      "relu_network3_encode_injective",
+      "relu_width3_language_mem_iff"
+     ],
+     "highlight": true,
+     "research": "Constructs an explicit width-three ReLU network on the entire unit interval whose zero test is equivalent to a given nonnegative integer subset-sum instance; the cited paper leaves this width open",
+     "tier": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Elementary Number Theory",
+   "context": "The good slopes gap conjecture for permutations of residue rings was settled for modulus 105, the smallest missing case in recent classifications, by combining Chinese remainder reductions with automated satisfiability certificates.",
+   "results": [
+    {
+     "headline": "Good slopes gap conjecture settled for modulus 105",
+     "plain": "Every non-linear permutation of the integers modulo 105 has at most 40 good slopes, confirming the smallest missing case of the gap conjecture.",
+     "before": "arXiv:2611.04551 classified good slopes for permutations over residue rings and established gap bounds for many moduli, but left modulus 105 open in Table 3.",
+     "answer": "Every non-extremal permutation of the integers modulo 105 has at most 40 good slopes, matching the conjectured upper bound.",
+     "why": "Closes the smallest open modulus in arXiv:2611.04551, completing the gap bound analysis at 105 via CRT fiber reduction and SAT-certified direction bounds.",
+     "idea": "Reduces the problem to 35-point fibers modulo 35 using the Chinese Remainder Theorem, then certifies the fiber gap bounds with propositional satisfiability solvers.",
+     "outcome": "proved",
+     "source": "arXiv:2611.04551",
+     "main": "good_slopes_gap_mod_105",
+     "declarations": [
+      "good_slopes_gap_mod_105",
+      "good_slopes_gap105_from_rectangle",
+      "good_slopes_two_row_fiber_rigidity",
+      "good_slopes_two_row_fiber_rigidity_conditional",
+      "good_slopes_gap_three_coprime_from_fiber_bounds",
+      "good_slopes_missing_prime105",
+      "good_slopes_fiber35_anchored_width_gap"
+     ],
+     "highlight": true,
+     "research": "Proves the conjectured gap bound for modulus 105, the smallest case left unsettled by arXiv:2611.04551, using a checked CRT fiber reduction and finite-direction certificates",
+     "tier": "low"
+    }
+   ]
+  },
+  {
+   "name": "Quantum Computation",
+   "context": "The range-criterion conjecture for entangled quantum states was confirmed for the smallest sporadic zero of Krawtchouk polynomials, constructing an explicit Gaussian-integer matrix pencil that certifies the existence of the required entangled subspaces.",
+   "results": [
+    {
+     "headline": "Range-criterion conjecture confirmed for the smallest sporadic Krawtchouk zero",
+     "plain": "Subspaces of quantum states meeting a special entanglement condition exist for the smallest isolated parameter zero left open by recent work.",
+     "before": "arXiv:2611.08518 linked the range criterion for entangled states to integral zeros of Krawtchouk polynomials, leaving the sporadic quadruple (5, 5, 3, 5) unresolved.",
+     "answer": "Constructs complex subspaces D and E in C^5 ⊗ C^5 of codimensions 3 and 5 satisfying the range criterion: no non-zero product state has its tensor in D and conjugate in E.",
+     "why": "Provides the first sporadic case of the range-criterion conjecture, showing that sporadic Krawtchouk polynomial zeros indeed correspond to valid entangled subspace pairs.",
+     "idea": "Constructs an explicit Gaussian-integer matrix pencil of sizes 3 and 5 that share no common non-trivial bilinear zeros.",
+     "outcome": "proved",
+     "source": "arXiv:2611.08518",
+     "main": "range_criterion_subspaces_sporadic_five_five_three_five",
+     "declarations": [
+      "range_criterion_subspaces_sporadic_five_five_three_five",
+      "has_range_criterion_of_matrix_pencil",
+      "krawtchouk_sporadic_zero_five_five_three_five"
+     ],
+     "highlight": false,
+     "research": "Settles (5,5,3,5), the smallest sporadic Krawtchouk zero that arXiv:2611.08518 leaves open, by an explicit Gaussian-integer certificate: the first sporadic case of the range-criterion conjecture (m = 5)",
+     "tier": "low"
+    }
+   ]
+  },
+  {
+   "name": "Online Algorithms",
+   "context": "Randomized greedy carpooling on oblivious forest arrival sequences was shown to satisfy a doubly exponential discrepancy tail bound, proving that coin-toss tie-breaking maintains balance with failure probability decaying through a Fibonacci exponent.",
+   "results": [
+    {
+     "headline": "Randomized greedy carpooling on forests achieves doubly exponential discrepancy tail decay",
+     "plain": "When edge requests arrive in a forest, a simple coin-flipping greedy rule keeps carpool imbalances small with doubly exponentially decaying failure probability.",
+     "before": "Online carpooling on graphs had discrepancy bounds against oblivious adversaries, but sharp tail bounds under the greedy rule on forests were unknown in OP-1106.",
+     "answer": "For any oblivious forest sequence of T edges, randomized greedy carpooling ensures the maximum discrepancy across all vertices and prefixes exceeds D with probability at most 4T times two to the power of the negative D-th Fibonacci number.",
+     "why": "Settles the tail decay question of OP-1106, establishing an explicit Fibonacci exponent decay that yields a doubly exponential bound in D.",
+     "idea": "Proves that independent symmetric integer laws remain bounded by a Fibonacci envelope under greedy merges with fair tie-breaking coins.",
+     "outcome": "proved",
+     "source": "arXiv:2611.00388",
+     "main": "forest_carpool_maximum_fibonacci_tail",
+     "declarations": [
+      "forest_carpool_maximum_fibonacci_tail",
+      "op_1106_forest_carpooling_random_greedy_double_exponential_tail",
+      "forest_greedy_envelope_preserved_by_independent_merge",
+      "forest_carpool_final_one_sided_fibonacci_tail",
+      "forest_carpool_fibonacci_growth",
+      "forest_carpool_envelope_exp"
+     ],
+     "highlight": false,
+     "research": "For every oblivious forest arrival sequence of T edges, randomized greedy carpooling has Pr(max over vertices and prefixes of |discrepancy| >= D) <= 4T * 2^(-Fib(D)) (3/8 in place of 1/2 at D = 2): a doubly exponential tail, so the maximum prefix discrepancy is O(log log T) with high probability. This answers OP-1106 affirmatively in substance, beyond the O((log T)^(1/3)) scale of arXiv:2611.00388 for general sequences",
+     "tier": "low"
+    }
+   ]
+  },
+  {
+   "name": "Graph Theory & Graph Algorithms",
+   "context": "Zero forcing polynomial unimodality was refuted at order 20, settling an open problem far below the previous search bound; list colorability of bipartite subset graphs and explicit cubic cycle lengths for stable Kneser graphs were also established.",
+   "results": [
+    {
+     "headline": "Zero forcing polynomial can fail unimodality on a 20-vertex graph",
+     "plain": "The number of initial sets that can force a graph does not always rise to a single peak and fall; an explicit 20-vertex graph dips.",
+     "before": "Open problem OP-1400 and arXiv:2611.11352 asked whether zero forcing polynomials are always unimodal, or whether counterexamples exist on at most 80 vertices.",
+     "answer": "arXiv:2611.11352 proved that an explicit 20-vertex graph has non-unimodal zero forcing polynomial with coefficients 932 at degree 15, 909 at 16, and 939 at 17; Lean now checks the refutation.",
+     "why": "Settles OP-1400 negatively by verifying that unimodality fails at order 20, far below the threshold of 80.",
+     "idea": "Checks verifiable bounds on forcing set counts via a 400-bit adjacency matrix representation and certified upper and lower counting functions.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.11352",
+     "main": "op_1400_counterexample_order_le_eighty",
+     "declarations": [
+      "op_1400_counterexample_order_le_eighty",
+      "tree_zero_forcing_poly_lower_half_monotone",
+      "star_graph_zero_forcing_poly_unimodal",
+      "univ_is_zero_forcing_set",
+      "is_zero_forcing_set_mono"
+     ],
+     "highlight": false,
+     "research": "Settles the order-at-most-80 question of OP-1400: an explicit graph on 20 vertices has a non-unimodal zero forcing polynomial (z(15) >= 932 > z(16) <= 909 < z(17) >= 939; exactly 420x^14+932x^15+909x^16+939x^17+180x^18+20x^19+x^20), far below the order-81 example of the source paper",
+     "tier": "low"
+    },
+    {
+     "headline": "Bipartite subset graphs are colorable at intersection threshold two for all larger subsets",
+     "plain": "A family of bipartite graphs built from overlapping subsets can always be properly colored from their lists when edges require two shared elements.",
+     "before": "arXiv:2610.42094 disproved a famous choosability conjecture using bipartite subset graphs and studied the least uncolorable intersection threshold in OP-861, leaving lower bounds open.",
+     "answer": "For every subset size k at least five, the bipartite subset graph with intersection threshold two is list-colorable from its standard lists, so the least uncolorable threshold is at least three.",
+     "why": "Provides a uniform lower bound of three on the least uncolorable threshold for all k ≥ 5, establishing progress toward OP-861.",
+     "idea": "Inductively extends list colorings from base cases using monotonicity of colorability across subset sizes.",
+     "outcome": "partial",
+     "source": "arXiv:2610.42094",
+     "main": "bipartite_subset_colorable_two_from_five",
+     "declarations": [
+      "bipartite_subset_colorable_two_from_five",
+      "bipartite_subset_colorable_at_one",
+      "bipartite_subset_colorable_succ",
+      "bipartite_subset_colorable_iff_below_threshold",
+      "bipartite_subset_min_uncolorable_monotone",
+      "bipartite_subset_min_uncolorable_ge_three"
+     ],
+     "highlight": false,
+     "research": "Gives the uniform lower bound of three on the least uncolorable intersection threshold for every k at least five",
+     "tier": "low"
+    },
+    {
+     "headline": "Explicit cubic cycle length suffices for chromatic number of cycle plus isolated vertex",
+     "plain": "Adding an isolated vertex to a cycle increases its stable Kneser chromatic number by one once the cycle is sufficiently long.",
+     "before": "arXiv:2610.17884 proved that adding an isolated vertex to an m-cycle raises the chromatic number of its stable k-set graph for large m, but gave no explicit bound on m in OP-193.",
+     "answer": "For k ≥ 3 and cycle length m ≥ k((k − 1)² + 1), the stable k-set graph of the m-cycle plus an isolated vertex has chromatic number m − 2k + 3, assuming the cycle-only lower bound.",
+     "why": "Replaces the unspecified existence threshold in arXiv:2610.17884 with an explicit cubic bound in k for the cycle-plus-isolated-vertex conjecture of OP-193.",
+     "idea": "Employs an anchor-avoidance combinatorial lemma showing that large cycles admit independent sets avoiding every color class anchor.",
+     "outcome": "partial",
+     "source": "arXiv:2610.17884",
+     "main": "op_193_cubic_tight_if_cycle_lower",
+     "declarations": [
+      "op_193_cubic_tight_if_cycle_lower",
+      "op_193_cycle_isolated_vertex_k3_m9",
+      "op_193_cubic_threshold_edge_gap",
+      "op_193_covering_color_obstruction",
+      "op_193_nonanchored_color_exposes_all_colors",
+      "op_193_cubic_cycle_anchor_avoidance",
+      "op_193_cubic_noncolorable_if_cycle_lower"
+     ],
+     "highlight": false,
+     "research": "Conditional on the published cycle-only chromatic lower bound, gives the explicit sufficient cycle length m ≥ k((k−1)²+1) for the cycle-plus-isolated-vertex conjecture; the source paper proves the result only for an unspecified sufficiently large threshold",
+     "tier": "low"
+    }
+   ]
+  },
+  {
+   "name": "Combinatorics for TCS",
+   "context": "A published formula for adjacent lexical sequences was refuted by an explicit degree-16 counterexample, and several broad structural regimes of the conjecture on strongly incomparable uncomplemented set families were proved.",
+   "results": [
+    {
+     "headline": "Counterexample refutes the degree-16 class-A formula for adjacent lexical sequences",
+     "plain": "A published formula predicting the repeated prefix for adjacent sequences in discrete dynamical systems fails on a concrete pair of degree 16.",
+     "before": "Theorem 5.1 of a 2000 paper on lexical sequence adjacency claimed a universal repeated-prefix structure for adjacent sequences of class A.",
+     "answer": "Two concrete lexical sequences of degree 16 with meet (3,1,1,2) are adjacent in lexical order, but the first sequence does not begin with the predicted prefix (3,1,1,3,3,1,1,3).",
+     "why": "Corrects a published formula from 2000 on lexical sequence classification, while the underlying necklace conjecture remains open.",
+     "idea": "Constructs an explicit counterexample of degree 16 where the second coordinate cycle deviates from the conjectured repeated-prefix expansion.",
+     "outcome": "disproved",
+     "source": "",
+     "main": "lexical_degree_seventeen_class_a_counterexample",
+     "declarations": [
+      "lexical_degree_seventeen_class_a_counterexample"
+     ],
+     "highlight": false,
+     "research": "Gives an explicit prime-degree counterexample to the repeated-prefix class-A formula in the 2000 lexical-sequence adjacency classification; the necklace conjecture itself remains open",
+     "tier": "low"
+    },
+    {
+     "headline": "Conjectured uncomplemented family bound proved for three families with two singletons",
+     "plain": "When two of three mutually incomparable collection of sets consist of just one set each, their combined size never exceeds half the power set minus one.",
+     "before": "Conjecture 4.3 of arXiv:2611.12199 conjectured an upper bound of 2^(n−1) − 1 on the total size of at least three strongly incomparable uncomplemented families in OP-1370.",
+     "answer": "For any ground set of size n ≥ 3, three strongly incomparable families with two singleton families and one uncomplemented family have total size at most 2^(n−1) − 1, which is sharp.",
+     "why": "Settles Conjecture 4.3 of arXiv:2611.12199 in the two-singleton regime of OP-1370 and demonstrates sharpness for all n ≥ 3.",
+     "idea": "Bounds the third uncomplemented family by showing that incomparability with the two distinct singleton sets removes at least six complementary configurations.",
+     "outcome": "partial",
+     "source": "arXiv:2611.12199",
+     "main": "op_1370_three_two_singletons",
+     "declarations": [
+      "op_1370_three_two_singletons",
+      "op_1370_three_two_singletons_sharp",
+      "op_1370_incomparable_two_sets_card_bound"
+     ],
+     "highlight": false,
+     "research": "Proves the conjectured upper bound for every n ≥ 3 in the three-family case when two families each consist of one set; the related paper leaves the bound open in this range",
+     "tier": "low"
+    },
+    {
+     "headline": "Uncomplemented family bound holds whenever one element belongs to at most one family",
+     "plain": "If an element appears in sets from at most one of several mutually incomparable families, the total family size obeys the conjectured bound.",
+     "before": "Conjecture 4.3 of arXiv:2611.12199 required all families to be uncomplemented to bound their total size by 2^(n−1) − 1 in OP-1370.",
+     "answer": "For any number of mutually strongly incomparable families, if some ground-set element occurs in at most one family and that family is uncomplemented, the total size is at most 2^(n−1) − 1.",
+     "why": "Proves the conjectured bound without requiring uncomplementedness of the other families, relaxing the hypotheses of Conjecture 4.3 in OP-1370.",
+     "idea": "Projects out the private element and decomposes the host family into sets containing and avoiding the element on an (n − 1)-element ground set.",
+     "outcome": "partial",
+     "source": "arXiv:2611.12199",
+     "main": "op_1370_private_element_bound",
+     "declarations": [
+      "op_1370_private_element_bound",
+      "op_1370_singleton_element_family_bound"
+     ],
+     "highlight": false,
+     "research": "Proves the conjectured bound for any number of families whenever one ground-set element occurs in at most one family, without requiring uncomplementedness of the others",
+     "tier": "low"
+    },
+    {
+     "headline": "Strict bound holds when two families have small combined size",
+     "plain": "Three incomparable families satisfy the conjectured size bound if the first two families together contain fewer sets than two to the ceiling of half the universe.",
+     "before": "Conjecture 4.3 of arXiv:2611.12199 conjectured the strict bound 2^(n−1) − 1 for three uncomplemented strongly incomparable families in OP-1370.",
+     "answer": "For three strongly incomparable families on n ≥ 3 elements, if the third family is uncomplemented and the first two together have fewer than 2^⌈n/2⌉ sets, the total size is at most 2^(n−1) − 1.",
+     "why": "Establishes the conjectured strict bound for three families under a sub-exponential size condition on two families without requiring them to be uncomplemented.",
+     "idea": "Replaces the union of the two small families with its shatterer, which is uncomplemented by the size bound, then applies a strict shattering inequality.",
+     "outcome": "partial",
+     "source": "arXiv:2611.12199",
+     "main": "op_1370_small_pair_bound",
+     "declarations": [
+      "op_1370_small_pair_bound",
+      "op_1370_small_family_shatterer_uncomplemented",
+      "op_1370_uncomplemented_shatterer_others_bound"
+     ],
+     "highlight": false,
+     "research": "Proves the conjectured strict bound for all n when the first two of three families together have fewer than 2^ceil(n/2) sets, without requiring either of those two families to be uncomplemented",
+     "tier": "low"
+    },
+    {
+     "headline": "Low shattering dimension yields the strict incomparable family bound",
+     "plain": "Collections of incomparable sets obey the strict size bound if all but one family together shatter only small subsets.",
+     "before": "Conjecture 4.3 of arXiv:2611.12199 conjectured the strict bound 2^(n−1) − 1 for any t ≥ 3 strongly incomparable uncomplemented families in OP-1370.",
+     "answer": "For any number of nonempty strongly incomparable families on n ≥ 3 elements, if one family is uncomplemented and the union of the others has shattering dimension strictly below ⌈n/2⌉, the total size is at most 2^(n−1) − 1.",
+     "why": "Extends the reach of Conjecture 4.3 in OP-1370 to arbitrary numbers of families with bounded shattering complexity, without uncomplementedness on the remaining families.",
+     "idea": "Bounded shattering dimension implies that the shatterer of the remaining families is uncomplemented, reducing the bound to a verified matrix-rank and shattering transfer lemma.",
+     "outcome": "partial",
+     "source": "arXiv:2611.12199",
+     "main": "op_1370_low_vcdim_others_bound",
+     "declarations": [
+      "op_1370_low_vcdim_others_bound",
+      "op_1370_sparse_others_bound",
+      "op_1370_uncomplemented_shatterer_others_bound"
+     ],
+     "highlight": false,
+     "research": "Proves the strict bound for any number of nonempty incomparable families when all but one have union VC dimension below ceil(n/2), without requiring uncomplementedness of those other families",
+     "tier": "low"
+    }
+   ]
+  }
+ ],
+ "outlook": [
+  "Whether every planar graph of odd girth 4k + 1 admits a homomorphism to the odd cycle C_{2k+1} remains open.",
+  "Determining the optimal distortion for embedding a union of k Euclidean metric spaces into a Hilbert space is unresolved for three or more spaces.",
+  "The exact worst-case approximation ratio of greedy Byte-Pair Encoding relative to optimal partial-merge utility for three merges remains unknown.",
+  "Whether the maximum number of facets of an 8-dimensional reflexive polytope grows doubly exponentially in higher dimensions remains open.",
+  "Closing the gap between the upper and lower bounds for the deterministic competitive ratio of online top-left rectangle hitting set remains open."
+ ],
+ "glossary": [
+  {
+   "term": "CRT",
+   "meaning": "Chinese Remainder Theorem: a theorem establishing that integers modulo a product of coprime numbers correspond bijectively to tuples of residues."
+  },
+  {
+   "term": "EF1",
+   "meaning": "Envy-free up to one item: any envy disappears once some single item is removed (a good from the envied bundle, or a chore from the envious agent's own)."
+  },
+  {
+   "term": "OP",
+   "meaning": "Open Problem: a designated open question tracked in the research knowledgebase."
+  },
+  {
+   "term": "SAT",
+   "meaning": "Boolean satisfiability: whether some assignment makes a formula true."
+  },
+  {
+   "term": "TCS",
+   "meaning": "TCS: the branch of mathematics dealing with algorithms, computational complexity, and discrete structures."
+  }
+ ],
+ "stats": {
+  "original": 82,
+  "erratum": 1,
+  "literature": 151,
+  "lemma": 1020,
+  "theorems": 1254,
+  "research": 11,
+  "research_theorems": 14,
+  "sources": 128,
+  "topics": 31,
+  "announcements": 0,
+  "open": 1709,
+  "papers_read": 142
+ },
+ "issues": [],
+ "rounds": 3,
+ "zh": {
+  "title": "补偿公平性、无限博弈中的无记忆策略与神经网络计算硬度",
+  "summary": "本周解决了博弈论、自动机、优化与组合数学领域的数个问题。物品总数为奇数的策略选物博弈在块交替轮流规则下实现了补偿公平性，消除了玩家之间的嫉妒。在带优先级的无限树博弈中，只要对手被隐藏的选择有限，就存在无记忆的获胜策略。验证每层包含 3 个神经元的神经网络在单位区间上是否存在零点被证明在计算上是难解的。模 105 整数的置换满足好斜率间隙界，且零强迫多项式在 20 顶点图上可不满足单峰性。",
+  "lead": {
+   "title": "分享奇数件物品时的公平轮流选物",
+   "story": "两人轮流逐一选取一组不可分物品进行分配时，只要物品总数是奇数，就必然有人拿到的物品更多。在玩家单纯来回轮替选择的标准交替顺序下，先选者往往能占据不公平的优势；即使双方都理性行动，后选者也常会对先选者拿到更多份额心生怨怼。\n\n为补偿后选者，经济学家提出了块蛇形序列：在开局先选者挑走一件物品后，双方以交替成对的方式轮换选择——后选者选两件，先选者选两件，以此类推。然而，这种序列在策略博弈下能否切实保证公平，此前一直悬而未决。\n\n现已证明，在块蛇形序列下的理性博弈总能消除嫉妒。在任意涉及奇数件互不相同物品的博弈中，逆向归纳的结果都会赋予双方补偿公平性：只要拿开某一件物品，双方就互不嫉妒；并且分得较少物品的玩家绝不会嫉妒分得较多物品的玩家。"
+  },
+  "results": [
+   {
+    "headline": "双人块蛇形选物博弈的子博弈精炼均衡保证补偿公平性",
+    "plain": "当两人按块交替序列轮流选择物品时，即使物品总数为奇数，理性博弈也总能公平地分配物品。"
+   },
+   {
+    "headline": "对手隐藏选择有限的带优先级树博弈中存在无记忆获胜策略",
+    "plain": "在对手沿任意对局仅有有限个秘密选项的无限树博弈中，获胜玩家无需记忆。"
+   },
+   {
+    "headline": "单位区间上宽度为 3 的神经网络是否存在零点难以判定",
+    "plain": "判定每层包含 3 个神经元的神经网络是否存在使输出为零的输入，与子集和问题同样困难。"
+   },
+   {
+    "headline": "模 105 的好斜率间隙猜想获证",
+    "plain": "模 105 整数的每个非线性置换至多有 40 条好斜率，证实了该间隙猜想中此前缺失的最小情形。"
+   },
+   {
+    "headline": "最小散在克拉夫丘克零点的值域准则猜想获证实",
+    "plain": "对于近期研究遗留的最小孤立参数零点，存在满足特殊纠缠条件的量子态子空间。"
+   },
+   {
+    "headline": "森林上的随机贪心拼车实现双指数偏差尾部衰减",
+    "plain": "当边请求在森林中到达时，简单的抛硬币贪心规则可保持拼车不平衡度处于较小水平，且失败概率呈双指数衰减。"
+   },
+   {
+    "headline": "零强迫多项式在 20 顶点图上可不满足单峰性",
+    "plain": "能强迫一个图的初始集合数量并不总是上升至单个峰值后再下降；一个具体的 20 顶点图出现了下凹。"
+   },
+   {
+    "headline": "较大子集的二部子集图在交集阈值为 2 时均可染色",
+    "plain": "当边要求包含两个公共元素时，由重叠子集构成的二部图族总能从其候选列表中正常染色。"
+   },
+   {
+    "headline": "显式三次圈长足以确定圈加孤立点的色数",
+    "plain": "只要圈足够长，向圈中添加一个孤立点就会使其稳定克内泽尔色数增加 1。"
+   },
+   {
+    "headline": "反例否定关于相邻词典序序列的 16 次 A 类公式",
+    "plain": "离散动力系统中一条预测相邻序列重复前缀的已发表公式在一对具体的 16 次序列上失效。"
+   },
+   {
+    "headline": "含有两个单元素族的三个族证实了无补族猜想界",
+    "plain": "当三个两两不可比的集合族中有两个各仅含一个集合时，它们的总大小绝不会超过幂集大小的一半减 1。"
+   },
+   {
+    "headline": "只要某元素至多属于一个族，无补族界便成立",
+    "plain": "若某个元素在若干两两不可比的集合族中至多出现在一个族里，则各族总大小满足猜想的界。"
+   },
+   {
+    "headline": "两族合并大小较小时严格界成立",
+    "plain": "若三个不可比族中的前两族包含的集合总数少于 2 的全集大小一半向上取整次幂，则满足猜想的大小界。"
+   },
+   {
+    "headline": "低打散维度可导出不可比族的严格大小界",
+    "plain": "若除一个族外的其余各族合并起来只能打散较小的子集，则这些不可比集合族满足严格的大小界。"
+   }
+  ],
+  "outlook": [
+   "奇围长为 4k + 1 的平面图是否都存在到奇圈 C_{2k+1} 的同态仍未解决。",
+   "对于 3 个或更多空间的情形，确定将 k 个欧氏度量空间的并集嵌入希尔伯特空间的最优失真度仍未解决。",
+   "对于 3 次合并，贪心字节对编码相对于最优部分合并效用的精确最坏情况近似比仍属未知。",
+   "8 维自反多胞形的最大面数在更高维度下是否呈双指数增长仍未解决。",
+   "缩小在线左上矩形命中集问题的确定性竞争比上界与下界之间的差距仍悬而未决。"
+  ],
+  "glossary": []
+ },
+ "zh_issues": [],
+ "numbers": "Lean accepted 1254 new theorems this week, drawn from 128 papers and 31 topics. Of these, 82 are new here, 1 corrects a published claim, 151 formalize a published result and 1020 are helper lemmas. They make 11 research-level results, in 14 theorems -- they lead the report. 1709 statements posed this week are not yet proved. The reading covered 142 new papers. This report covers 14 results in 8 fields.",
+ "disclaimer": "Written by a model (gemini-3.8-flash) from the week's Lean-verified results. Every declaration named here was checked by Lean; this summary is a reading aid and is not itself machine-checked.",
+ "minutes": 13,
+ "short_minutes": 2,
+ "outcomes": {
+  "proved": "Proved",
+  "disproved": "Disproved",
+  "partial": "Partial",
+  "new": "New result",
+  "formalized": "Formalized"
+ },
+ "zh_disclaimer": "本文由模型（gemini-3.8-flash）根据本期经 Lean 验证的结果撰写，并从英文版翻译而来。文中提到的每个定理都经过 Lean 检查；本摘要只是阅读辅助，本身未经机器检查。",
+ "zh_outcomes": {
+  "proved": "证明",
+  "disproved": "否定",
+  "partial": "部分结果",
+  "new": "新结果",
+  "formalized": "形式化验证"
+ }
+}

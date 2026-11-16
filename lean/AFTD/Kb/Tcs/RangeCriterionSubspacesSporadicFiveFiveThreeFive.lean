@@ -8,7 +8,7 @@ import AFTD.Kb.Tcs.HasRangeCriterionOfMatrixPencil
 
 Topic: quantum   Node: 3e9c97e329ce
 
-Provenance: formalization of a published result. Source: arXiv:2611.08518 Sec. 1
+Provenance: original. Related work: arXiv:2611.08518 Sec. 1
 
 There exist complex subspaces D and E in C^5 ⊗ C^5 of codimensions 3 and 5, respectively, satisfying the range criterion (no nonzero product vector has its tensor in D and its partial conjugate in E).
 -/

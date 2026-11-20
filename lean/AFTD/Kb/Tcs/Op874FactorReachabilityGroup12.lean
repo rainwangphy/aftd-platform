@@ -1,0 +1,32 @@
+import AFTD.Prelude
+import AFTD.Kb.Tcs.Op874FactorWordAutomatonCertificate
+
+/-!
+# op874_factor_reachability_group_12
+
+Topic: graphs   Node: a9abca437f98
+
+Provenance: helper lemma. Kernel-checked finite-state certificate for the OP-874 factor-word reduction, experiment 35121.
+
+The certificate checks its reachable states and all transitions in group 12 of 13.
+-/
+
+set_option maxRecDepth 8192
+set_option maxHeartbeats 0
+namespace In1051Cert
+def chunk96 : List Nat := [945785734748386790903962640639,945785736739482123739746271232,945785736739482123739746271235,945785736739482349122450096383,945786189866456577467614232576,945786189866456577467614232579,945786189866456577467630747900,945786189866456577467630747903,945786190086664584778803052544,945786190086664584778803052547,945786190086664862938065010940,945786190086664862938065010943,945787452065319601242788019203,945789435459242855094521904131,945790115480016493876548942848,945790115480016493876548942851]
+theorem check_chunk96 : chunk96.all checkCode = true := by decide
+def chunk97 : List Nat := [946953414976418178802153785347,946953983874005412006738919427,946958876393255617566171072512,946959445290842850770756206592,946961265763121997025428635648,946961265763121997025428635651]
+theorem check_chunk97 : chunk97.all checkCode = true := by decide
+end In1051Cert
+set_option maxRecDepth 8192
+set_option maxHeartbeats 0
+namespace In1051Cert
+def group12 : List Nat := chunk96 ++ chunk97
+
+end In1051Cert
+open In1051Cert
+
+theorem op874_factor_reachability_group_12 : group12.all checkCode = true := by
+  simp only [group12, List.all_append, Bool.and_eq_true]
+  exact ⟨check_chunk96, check_chunk97⟩

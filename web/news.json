@@ -2,6 +2,185 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-20",
+   "kind": "daily",
+   "title": "Daily reading: 0 research-level, 113 proved, 75 open",
+   "research": {
+    "results": 0,
+    "theorems": 0
+   },
+   "body": "No research-level result today. The unconnected formulation of Theorem 1.2 from arXiv:2611.22690 was refuted by three disjoint edges in `op1957_literal_theorem_1_2_false`, while the list entry OP-1957 gained degree bounds and complement bipartite obstructions for minimally k-extendable graphs. The list entry OP-1984 gained characterizations of universal families for submodular maximization from arXiv:2611.23637, the list entry OP-815 acquired an expected component bound for retained lines, and research thread RT-1 proved the bandwidth-15 case in `cycle_power_fifteen_middle_bits_of_alternating`. Theorems formalized in full include the soundness of Threshold Resolution from arXiv:2611.24548, factorization Möbius sums from arXiv:2611.18194, and coloring extensions via UM-selectors from arXiv:2611.23478. Today's new papers addressed Ehrhart coefficients, multi-path TSP, and photonic states, while seventy-five statements remain open, including C_4 counts in C_6-free graphs and threshold resolution invariants.\n\nThe Proposer read 31 new paper(s) and listed 42 open problem(s); 45 new question(s) of AFTD's own were adopted onto the list; 8 list entries were stated in Lean, as were 8 results the papers prove; the Proposer posed 27 more from what the knowledgebase already holds (136 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 113 theorem(s), 83 of them helper lemmas, which are not listed below; 75 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nPartial result on OP-1984. `submodular_random_sample_guarantee_iff_universal_family` (arXiv:2611.23637): A sample of t subsets achieves the gamma-approximation guarantee for submodular maximization if and only if the image of the sample is a gamma-universal family.\n\nPartial result on OP-1984. `submodular_universal_family_univ` (arXiv:2611.23637): The family of all subsets of {0, ..., n-1} is a 1-universal family for non-negative submodular maximization.\n\nPartial result on OP-815. `retained_line_expected_component_count_bound` (knowledgebase): For n line vertices with each possible edge independently retained with probability q in [0,1], the expected number of connected components after deleting edges of length greater than k is at most the sum over vertices v of (1-q) to the power min(k,v).\n\nPartial result on OP-1984. `submodular_universal_family_mono` (arXiv:2611.23637): If a family of subsets is a gamma-universal family for non-negative submodular maximization, then any superset family is also a gamma-universal family.\n\nPartial result on OP-1984. `submodular_universal_family_anti_gamma` (arXiv:2611.23637): If a family of subsets is a gamma-universal family for non-negative submodular maximization and gamma' <= gamma, then it is also a gamma'-universal family.\n\nPartial result on OP-1957. `minimally_k_extendable_high_degree_zero_codegree_complement_four_cycle` (arXiv:2611.22690): In a minimally k-extendable graph of minimum degree at least 2k+2, the complement neighborhoods of the endpoints of every zero-codegree graph edge contain a complete bipartite four-cycle.\n\nPartial result on OP-1957. `minimally_k_extendable_even_j_surplus_three_degree_bound` (arXiv:2611.22690): For even j at least eight and j≤k, every minimally k-extendable graph on 2k+2j vertices has minimum degree at most 2k+j−4.\n\nPartial result on OP-1957. `minimally_k_extendable_odd_j_surplus_three_degree_bound` (arXiv:2611.22690): For odd j at least nine and j≤k, every minimally k-extendable graph on 2k+2j vertices has minimum degree at most 2k+j−4.\n\nThread RT-1. `cycle_power_dyadic_alternating_defective_halves`: Parity reindexing of an alternating model with only its two possible middle defects yields the two defective half models, with phases zero and half the half-span.\n\nThread RT-1. `cycle_power_dyadic_middle_bits_from_defective_halves`: If both phase variants of the defective half model are defect-free, the middle bits in the alternating model vanish.\n\nThread RT-1. `cycle_power_fifteen_middle_bits_of_alternating`: In a tight, exactly dyadically covered, fully covered integer Boolean class model at exponent 4 (offsets 0..15) with 5 active classes per vertex, where bit 1 alternates and every class without bit 1 has no inner bits other than possibly 7 and 8, those two…\n\nFormalized. `total_abs_factorization_mobius_simple_prime` (arXiv:2611.18194 (The Möbius function of factorizations with a simple prime factor), Corollary 7): Corollary 7 of arXiv:2611.18194. Let n = mq where q is a prime not dividing m and m > 1. Let a(n) = totalAbsFactorizationMobius n = Σ_x |μ(x, n)|, the sum over all factorizations x of n (multisets of integers greater than 1 with product n) of the absolute…\n\nFormalized. `extension_of_colourings_via_um_selectors` (arXiv:2611.23478 Lemma 5): Let G be a graph on vertex type V. Let S be a subset of V and let φ : S → Fin p be such that (S, φ) is a UM-selector in G of width p. Let ψ : Sᶜ → Fin q be a colouring of the induced subgraph G - S. Then the extension colouring σ =…\n\nErratum. `op1957_literal_theorem_1_2_false` (arXiv:2611.22690, Section 2 and Theorem 1.2, specialized to six vertices; the counterexample applies to the definition as written, without…): Under the definition in Section 2 of arXiv:2611.22690, which does not require connectedness, the assertion that every minimally 2-extendable graph on six vertices has minimum degree 3, 4, or 5 is false. Three disjoint edges give a counterexample of minimum…\n\nFormalized. `thr_res_soundness` (arXiv:2611.24548 Theorem 2.18): Soundness of Threshold Resolution: for any CNF formula F : List (List (CnfLit V)), multiset of literals f : Multiset (CnfLit V), and integer s : ℤ, if ThrResDerivable F f s holds, then for every Boolean assignment α : V → Bool satisfying F (meaning that for…\n\nFormalized. `thr_res_unsat_of_refutation` (arXiv:2611.24548 Theorem 2.18): If a Threshold Resolution refutation of a CNF formula F : List (List (CnfLit V)) exists (namely ThrResDerivable F 0 1), then F is unsatisfiable (¬ CnfSatisfiable F).\n\nOpen. `op_2037_order_threshold_three_two_ne_eight` (arXiv:2611.24238): The order threshold $n_0(3, 2)$ for $H_{n,3}$ to be the unique $n$-vertex $C_6$-free graph maximizing the number of $C_4$ copies is not equal to 8.\n\nOpen. `op_2037_eight_not_extremal` (arXiv:2611.24238): The graph $H_{8,3}$ is not the unique $8$-vertex $C_6$-free graph maximizing the number of copies of $C_4$.\n\nOpen. `thr_simplify_introduce_invariant`: For any natural number n, any two threshold conditions T, T' : ThrCond n, and any literal l₀ : CnfLit (Fin n), if T'.coeffs is obtained from T.coeffs by adding 1 to the coefficient of l₀ and to the coefficient of cnf_lit_compl l₀, and T'.threshold =…\n\nOpen. `extendable_saturated_triple_odd_shore_obstruction`: Let m ≥ 1 and k ≥ m+3. No k-extendible graph G on 2k+2m+6 vertices has complement maximum degree at most 2m+3 together with a three-vertex set T all of whose complement neighborhoods equal W ∪ {z₁,z₂}, where W has 2m+1 vertices and z₁,z₂ are distinct…\n\nOpen. `overlapping_matchable_sets_supply_union_matching`: If the induced graphs on finite vertex sets P and Q each have a perfect matching, their union has a matching leaving at most the size of P ∩ Q vertices uncovered.\n\nOpen. `overlapping_matchable_sets_with_degree_cover_all_but_three`: Suppose a graph on 2m+1 vertices is covered by sets P,Q whose induced graphs have perfect matchings, the overlap has at most five vertices, and every vertex in P (respectively Q) has degree at least 2m+2−|P| (respectively 2m+2−|Q|). Then the graph has a…",
+   "declarations": [
+    "cycle_power_dyadic_alternating_defective_halves",
+    "cycle_power_dyadic_middle_bits_from_defective_halves",
+    "op_1239_candidate31_petrial_coefficients",
+    "total_abs_factorization_mobius_simple_prime",
+    "op309_triangle_expansion_mixed_ports_coloring",
+    "op309_cubic_triangles_sharing_vertex_share_edge",
+    "op309_cubic_overlapping_triangles_form_diamond",
+    "op309_cubic_diamond_contains_incident_triangles",
+    "op309_triangle_template_rich_pair",
+    "op309_diamond_template_rich_star",
+    "op309_edge_endpoints_rich_witnesses_imply_rich_neighbor",
+    "op309_clawfree_cubic_every_vertex_in_triangle",
+    "bpe_partial_old_pair_count_le",
+    "bpe_partial_new_right_count_le",
+    "bpe_partial_new_left_count_le",
+    "bpe_partial_new_self_count_le",
+    "bpe_partial_step_utility_le_max",
+    "bpe_optimal_utility_le_iff",
+    "op309_small_cyclic_twoport_matching_coloring",
+    "op309_small_cyclic_twoport_alternate_two_cut_coloring",
+    "submodular_random_sample_guarantee_iff_universal_family",
+    "submodular_universal_family_univ",
+    "retained_line_expected_component_count_bound",
+    "submodular_universal_family_mono",
+    "submodular_universal_family_anti_gamma",
+    "extension_of_colourings_via_um_selectors",
+    "bpe_partial_residual_can_exceed_greedy",
+    "bpe_refund_pair_slot_obstruction",
+    "bpe_retyping_of_greedy_opt_stability",
+    "bpe_arbitrary_full_merge_counterexample_lower_witness",
+    "op1957_literal_theorem_1_2_false",
+    "explicit_witness_vector_32_dot_self",
+    "op309_k5_chord_cycle_graph_valid",
+    "op309_k5_chord_cycle_spacing_obstruction",
+    "op309_k5_chord_cycle_graph_no_split_coloring",
+    "op309_odd_ring_chord_spacing_obstruction",
+    "perfect_matching_replace_finite_paired_vertices",
+    "matching_short_switch_complement_distance_four",
+    "forced_matching_edge_common_nonneighbors_below_min_degree_is_bridge",
+    "op309_cycle_palette_forces_matching_palette",
+    "matching_zero_codegree_blocked_switches_forces_complement_four_cycle",
+    "minimally_k_extendable_high_degree_zero_codegree_complement_four_cycle",
+    "op309_fourteen_automorphism_cert",
+    "graph_two_balanced_bridge_complements_degree_obstruction",
+    "op309_fourteen_quad_cert",
+    "graph_two_unbalanced_bridge_complements_degree_obstruction",
+    "op309_fourteen_base_two_color_obstruction",
+    "minimally_k_extendable_even_j_surplus_three_degree_bound",
+    "graph_two_mixed_bridge_complements_degree_obstruction",
+    "minimally_k_extendable_odd_j_surplus_three_degree_bound",
+    "minimally_k_extendable_degree_surplus_zero_codegree_complete_bipartite",
+    "three_token_odd_cycle_deficit_five",
+    "k_extendable_order_two_mul_add_eight_twin_low_codegree_one_removable",
+    "parity_bound_counterexample_qutrit_observable_dichotomic",
+    "three_token_odd_cycle_deficit_seven",
+    "matching_zero_codegree_blocked_four_switches_neighborhoods_partition",
+    "matching_zero_codegree_blocked_switches_neighborhoods_complete",
+    "matching_large_part_two_nonneighbors_forces_four_switch",
+    "op2046_majorizes_self",
+    "k_extendable_essential_edge_unextendible_matching",
+    "op2046_wishart_probability_bounds",
+    "op2046_wishart_majorization_event_measurable",
+    "op2046_majorization_forces_top_edge",
+    "thr_res_soundness",
+    "thr_res_unsat_of_refutation",
+    "thr_res_refutation_pos_neg_example",
+    "thr_resolution_cp_rounding",
+    "complement_saturated_twins_force_four_vertex_bridge_shores",
+    "four_vertex_shores_force_many_complement_walks",
+    "op2046_extreme_pair_counterexample",
+    "two_bridge_shore_overlap_with_saturated_twins",
+    "op2046_majorization_threshold_equiv",
+    "five_extendable_twenty_vertex_odd_shores_no_complement_matching",
+    "op2046_truncation_limit_from_uniform_tail",
+    "treelike_cp_unsat_of_refutation",
+    "op2046_pointwise_rigidity_gives_eventual_prefix",
+    "op1957_two_bridge_degree_only_shore_matching_obstruction",
+    "truncation_selected_ports_force_opposite_bits",
+    "saturated_twin_bridge_shores_give_two_k_vertex_cut",
+    "odd_defect_triangle_alternating_demands_impossible",
+    "odd_cycle_single_defect_off_palette_demand_completion",
+    "op1957_short_extendibility_hypothesis_is_necessary",
+    "extendible_graph_matchable_deletion_inherits_extendibility",
+    "two_common_neighbor_twins_matching_restricts_to_remainder",
+    "connected_deletion_matches_if_all_other_deletions_match",
+    "crossing_bridge_shores_force_cut_equality",
+    "extendible_matchable_two_k_vertices_complement_matchable",
+    "extendible_two_odd_anticomplete_shores_complement_unmatchable",
+    "shared_shore_global_endpoint_degree_budget",
+    "graph_adjacent_twins_external_codegree_one_count",
+    "two_k_cut_anticomplete_extra_vertices_at_most_two",
+    "two_k_connected_anticomplete_sets_cardinality_bound",
+    "four_point_intersections_with_low_overlap_bound_family",
+    "degree_nine_four_bridge_groups_bound",
+    "crossing_shores_force_two_common_opposite_vertices",
+    "eight_vertex_nested_shore_endpoint_weight_bound",
+    "degree_budget_four_bridge_groups_bound",
+    "crossing_shore_overlap_at_least_three_from_degree",
+    "low_codegree_excludes_cross_complete_shore",
+    "odd_anticomplete_union_has_no_perfect_matching",
+    "cross_complete_shore_intersections_disjoint",
+    "factor_critical_anticomplete_cut_side_even",
+    "op_1950_min_order_bipartite_hypotraceable_ge_three",
+    "cycle_power_fifteen_middle_bits_of_alternating",
+    "craig_shell_size_three_one",
+    "op309_clawfree_cubic_at_most_one_triangle_free_edge",
+    "craig_shell_size_k_one",
+    "op874_fixed_words_proper_and_pair_rich",
+    "op_2051_slow_exact_nim_joint_seven_witness",
+    "op_2051_slow_exact_nim_k3_misere_seven",
+    "op874_hamiltonian_uniform_low_port_obstruction_kernel",
+    "token_king_sharp_family_indep",
+    "token_king_sharp_family_eight_unliftable"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2611.22441",
+     "href": "https://arxiv.org/abs/2611.22441"
+    },
+    {
+     "label": "arXiv:2611.23018",
+     "href": "https://arxiv.org/abs/2611.23018"
+    },
+    {
+     "label": "arXiv:2611.22690",
+     "href": "https://arxiv.org/abs/2611.22690"
+    },
+    {
+     "label": "arXiv:2611.24548",
+     "href": "https://arxiv.org/abs/2611.24548"
+    },
+    {
+     "label": "arXiv:2611.24238",
+     "href": "https://arxiv.org/abs/2611.24238"
+    },
+    {
+     "label": "arXiv:2611.25973",
+     "href": "https://arxiv.org/abs/2611.25973"
+    },
+    {
+     "label": "arXiv:2611.26188",
+     "href": "https://arxiv.org/abs/2611.26188"
+    },
+    {
+     "label": "arXiv:2611.26224",
+     "href": "https://arxiv.org/abs/2611.26224"
+    },
+    {
+     "label": "arXiv:2611.26300",
+     "href": "https://arxiv.org/abs/2611.26300"
+    },
+    {
+     "label": "arXiv:2611.26622",
+     "href": "https://arxiv.org/abs/2611.26622"
+    },
+    {
+     "label": "arXiv:2611.25850",
+     "href": "https://arxiv.org/abs/2611.25850"
+    },
+    {
+     "label": "arXiv:2611.25842",
+     "href": "https://arxiv.org/abs/2611.25842"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-19",
    "kind": "daily",
    "title": "Daily reading: 3 research-level, 127 proved, 179 open",

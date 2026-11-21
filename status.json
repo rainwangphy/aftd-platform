@@ -1,0 +1,258 @@
+{
+ "generated": 1795255262,
+ "timezone": "Asia/Shanghai (UTC+8)",
+ "day": "2026-11-21",
+ "start": 1795176000,
+ "now_min": 1321.0,
+ "release_at": "20:00",
+ "cc_hours": [],
+ "lanes": [
+  {
+   "id": "scheduler",
+   "name": "Scheduler",
+   "role": "Keeps the clock, no model: readings, sessions, release.",
+   "state": "working",
+   "doing": "Keeping the clock",
+   "last": 1795255229,
+   "track": [
+    [
+     0.0,
+     1321.0,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "gemini",
+   "name": "Proving",
+   "role": "Proves the most valuable ready statement; splits failures.",
+   "state": "working",
+   "doing": "Proving: combinatorics",
+   "last": 1795251706,
+   "track": [
+    [
+     0.0,
+     1321.0,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "deepseek",
+   "name": "Off-peak proving",
+   "role": "Proves in the provider's cheaper hours.",
+   "state": "working",
+   "doing": "Proving: graphs",
+   "last": 1795250269,
+   "track": [
+    [
+     0.0,
+     1321.0,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "formalize",
+   "name": "Formalizing",
+   "role": "States new papers' problems and results in Lean.",
+   "state": "working",
+   "doing": "Starting Lean",
+   "last": 1795254387,
+   "track": [
+    [
+     0.0,
+     1321.0,
+     "working"
+    ]
+   ]
+  },
+  {
+   "id": "proposing",
+   "name": "Proposing",
+   "role": "Starts the sessions that raise AFTD's own questions.",
+   "state": "waiting",
+   "doing": "The agent is at its usage limit",
+   "last": 1795251975,
+   "track": [
+    [
+     0.0,
+     81.0,
+     "working"
+    ],
+    [
+     81.0,
+     480.0,
+     "waiting"
+    ],
+    [
+     480.0,
+     561.0,
+     "working"
+    ],
+    [
+     561.0,
+     960.0,
+     "waiting"
+    ],
+    [
+     960.0,
+     961.0,
+     "working"
+    ],
+    [
+     961.0,
+     1021.1,
+     "waiting"
+    ],
+    [
+     1021.1,
+     1022.1,
+     "working"
+    ],
+    [
+     1022.1,
+     1082.1,
+     "waiting"
+    ],
+    [
+     1082.1,
+     1083.1,
+     "working"
+    ],
+    [
+     1083.1,
+     1143.2,
+     "waiting"
+    ],
+    [
+     1143.2,
+     1144.2,
+     "working"
+    ],
+    [
+     1144.2,
+     1204.2,
+     "waiting"
+    ],
+    [
+     1204.2,
+     1205.2,
+     "working"
+    ],
+    [
+     1205.2,
+     1265.2,
+     "waiting"
+    ],
+    [
+     1265.2,
+     1266.2,
+     "working"
+    ],
+    [
+     1266.2,
+     1321.0,
+     "waiting"
+    ]
+   ]
+  },
+  {
+   "id": "frontier",
+   "name": "Frontier agent",
+   "role": "Claude / Codex / Codex: what the lanes hand up, reviews, new questions.",
+   "state": "working",
+   "doing": "0 Codex, 1 Claude Code",
+   "last": null,
+   "track": [
+    [
+     0.0,
+     560.0,
+     "waiting"
+    ],
+    [
+     560.0,
+     895.0,
+     "working"
+    ],
+    [
+     895.0,
+     930.0,
+     "waiting"
+    ],
+    [
+     930.0,
+     1321.0,
+     "working"
+    ]
+   ]
+  }
+ ],
+ "today": {
+  "proved": 111,
+  "proved_other": 113,
+  "stated": 152,
+  "stated_other": 243,
+  "research": 0,
+  "adopted": 17,
+  "problems": 0,
+  "results": 0,
+  "handed_up": 22,
+  "closed": 18,
+  "inbox_waiting": 12
+ },
+ "schedule": [
+  {
+   "at": "All day",
+   "what": "The frontier agent's sessions",
+   "state": "running"
+  },
+  {
+   "at": "10:30",
+   "what": "Reading the day's new papers",
+   "state": "done",
+   "began": "10:30",
+   "ended": "10:34"
+  },
+  {
+   "at": "13:30",
+   "what": "Reading the day's new papers",
+   "state": "done",
+   "began": "13:30",
+   "ended": "13:36"
+  },
+  {
+   "at": "20:00",
+   "what": "The daily release: news, site, explanations",
+   "state": "next"
+  }
+ ],
+ "events": [
+  {
+   "min": 0.0,
+   "kind": "publish",
+   "state": "done",
+   "end": 12.8,
+   "label": "release"
+  },
+  {
+   "min": 870.2,
+   "kind": "read",
+   "state": "done",
+   "end": 874.6,
+   "label": "reading"
+  },
+  {
+   "min": 1050.5,
+   "kind": "read",
+   "state": "done",
+   "end": 1056.8,
+   "label": "reading"
+  },
+  {
+   "min": 1440,
+   "kind": "next",
+   "label": "release"
+  }
+ ]
+}

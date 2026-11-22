@@ -3,6 +3,20 @@
  "entries": [
   {
    "date": "2026-11-22",
+   "kind": "weekly",
+   "week": "2026-W47",
+   "title": "Week of 16–22 Nov 2026: Parity game algorithm refuted, graph extendability bounded, and log-concavity disproved for subcubic trees",
+   "body": "A claimed polynomial-time algorithm for parity games was disproved by an explicit 4-vertex game where the proposed winning dominion fails completely. In graph theory, the minimum degree of minimally extendable graphs was bounded for all matching sizes on graphs of order 2k+6, going beyond previously known special cases. An open question on partial Petrial polynomials was settled in the negative by constructing a 36-vertex tree that violates log-concavity, while slope bounds for residue permutations were resolved for modulus 165.\n\nPartial. Minimum degree of minimally k-extendable graphs on 2k+6 vertices is at most 2k+1\n\nDisproved. Four-vertex counterexample refutes claimed polynomial-time algorithm for parity games\n\nDisproved. Explicit subcubic tree disproves log-concavity of partial Petrial polynomials\n\nProved. Non-extremal permutations modulo 165 have at most 72 good slopes\n\nPartial. Conjectured slope gap modulo 3pq holds conditionally for separated prime pairs\n\nLean accepted 1079 new theorems this week, drawn from 81 papers and 20 topics. Of these, 32 are new here, 2 correct a published claim, 66 formalize a published result and 979 are helper lemmas. They make 4 research-level results, in 5 theorems -- they lead the report. 1291 statements posed this week are not yet proved. The reading covered 143 new papers. This report covers 18 results in 15 fields.",
+   "declarations": [],
+   "links": [
+    {
+     "label": "Read the weekly report (14 min)",
+     "href": "weekly/2026-W47/"
+    }
+   ]
+  },
+  {
+   "date": "2026-11-22",
    "kind": "daily",
    "title": "Daily reading: 0 research-level, 35 proved, 12 open",
    "research": {

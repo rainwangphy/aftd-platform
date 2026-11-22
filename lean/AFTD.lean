@@ -7937,6 +7937,10 @@ import AFTD.Kb.Tcs.BallotWeightZero
 import AFTD.Kb.Tcs.BapatSunderCoeffTable
 import AFTD.Kb.Tcs.BapatSunderFibreCount
 import AFTD.Kb.Tcs.BapatSunderMatrix
+import AFTD.Kb.Tcs.BapatSunderTriCoeff
+import AFTD.Kb.Tcs.BapatSunderWitnessFactor
+import AFTD.Kb.Tcs.BapatSunderWitnessNormsq
+import AFTD.Kb.Tcs.BapatSunderWitnessVector
 import AFTD.Kb.Tcs.BeatScore
 import AFTD.Kb.Tcs.BellFlatProductCoordinateObstruction
 import AFTD.Kb.Tcs.BellNetworkLambda

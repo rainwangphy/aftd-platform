@@ -1,0 +1,687 @@
+{
+ "week": "2026-W47",
+ "start": "2026-11-16",
+ "end": "2026-11-22",
+ "format": 3,
+ "period": "week",
+ "partial": false,
+ "language": "English",
+ "model": "gemini-3.8-flash",
+ "generated": "2026-11-22",
+ "title": "Parity game algorithm refuted, graph extendability bounded, and log-concavity disproved for subcubic trees",
+ "summary": "A claimed polynomial-time algorithm for parity games was disproved by an explicit 4-vertex game where the proposed winning dominion fails completely. In graph theory, the minimum degree of minimally extendable graphs was bounded for all matching sizes on graphs of order 2k+6, going beyond previously known special cases. An open question on partial Petrial polynomials was settled in the negative by constructing a 36-vertex tree that violates log-concavity, while slope bounds for residue permutations were resolved for modulus 165.",
+ "lead": {
+  "main": "parity_game_peel_claimed_dominion_counterexample",
+  "title": "A four-vertex game refutes a claimed shortcut for finding winning strategies",
+  "story": "Imagine two players taking turns moving a token along one-way tracks between four numbered locations. Each location displays a fixed score. Player Even wants the smallest score seen infinitely often to be an even number, while player Odd wants it to be odd. Because the board is finite and decisions repeat forever, one player always has a guaranteed winning plan from any starting spot.\n\nFor decades, researchers have asked whether a computer can always find who wins such games in polynomial time, meaning efficiently as the board grows. A recent preprint claimed to achieve this milestone by using an attractor peeling method, which repeatedly strips away moves to isolate a dominion, a subset of locations where one player can trap the game and win.\n\nThat claim has now been disproved by an explicit four-location game. When the peeling procedure is applied to this instance, it claims that Odd possesses a winning dominion encompassing the entire board. Yet a direct inspection reveals that Even actually wins from every starting location. Any repeating sequence of moves either cycles between locations with score four, or repeatedly visits the location with score zero. Because both four and zero are even numbers, Even wins every possible play.",
+  "example": {
+   "caption": "The four-vertex parity game on which the claimed attractor peeling algorithm fails.",
+   "header": [
+    "Vertex",
+    "Owner",
+    "Priority",
+    "Outgoing edges"
+   ],
+   "rows": [
+    [
+     "0",
+     "Even",
+     "4",
+     "3"
+    ],
+    [
+     "1",
+     "Even",
+     "0",
+     "2"
+    ],
+    [
+     "2",
+     "Odd",
+     "3",
+     "0, 1"
+    ],
+    [
+     "3",
+     "Odd",
+     "4",
+     "0, 1"
+    ]
+   ]
+  }
+ },
+ "fields": [
+  {
+   "name": "Graph Theory & Graph Algorithms",
+   "context": "The order 2k+6 case of the minimum degree conjecture for minimally extendable graphs was settled for all matching sizes, while an erratum refuted a published six-vertex degree classification.",
+   "results": [
+    {
+     "headline": "Minimum degree of minimally k-extendable graphs on 2k+6 vertices is at most 2k+1",
+     "plain": "In minimally extendable networks with six extra nodes, at least one node has its number of connections bounded by twice the matching size plus one.",
+     "before": "A conjecture posed that every minimally k-extendable graph on 2k+2m vertices has bounded minimum degree; the source paper proved the bound 2k+1 only for order twelve when k equals three.",
+     "answer": "Every minimally k-extendable graph of order 2k+6 has minimum degree at most 2k+1 for all k ≥ 3, extending the paper's twelve-vertex bound to all matching sizes.",
+     "why": "Proves the order 2k+6 case of Conjecture 1.1 in arXiv:2611.22690 for every matching size k ≥ 3, going beyond the paper's k=3 case.",
+     "idea": "If minimum degree were at least 2k+2, every vertex would miss at most three neighbors; deleting an edge then leaves an extendable matching, contradicting minimality.",
+     "outcome": "partial",
+     "source": "arXiv:2611.22690",
+     "main": "minimally_k_extendable_order_two_mul_add_six_min_degree_le",
+     "declarations": [
+      "is_k_extendable_two_mul_add_two_le",
+      "minimally_k_extendable_order_two_mul_add_six_min_degree_le"
+     ],
+     "highlight": true,
+     "research": "Every minimally k-extendable graph of order 2k+6 has minimum degree at most 2k+1 for every k >= 3; the cited paper establishes the corresponding bound for k=3",
+     "tier": "medium"
+    },
+    {
+     "headline": "Disconnected matching counterexample refutes literal minimum degree theorem on six vertices",
+     "plain": "A graph of three disconnected edges shows that the published minimum degree classification fails without an explicit connectedness assumption.",
+     "before": "Theorem 1.2 of arXiv:2611.22690 claimed that every minimally 2-extendable graph on six vertices has minimum degree three, four, or five under the paper's literal definitions.",
+     "answer": "The claim is false as stated: three disjoint edges on six vertices form a minimally 2-extendable graph with minimum degree one, because connectedness was omitted from Section 2.",
+     "why": "Corrects Theorem 1.2 of arXiv:2611.22690 by demonstrating that connectedness is an essential hypothesis.",
+     "idea": "Three disjoint edges form a perfect matching; every two edges extend uniquely, and removing any edge leaves no perfect matching, yet every vertex has degree one.",
+     "outcome": "disproved",
+     "source": "arXiv:2611.22690",
+     "main": "op1957_literal_theorem_1_2_false",
+     "declarations": [
+      "op1957_literal_theorem_1_2_false"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Automata & Formal Languages",
+   "context": "An erratum refuted a published claim of a polynomial-time algorithm for parity games by exhibiting an explicit four-vertex game where the core attractor peeling dominion theorem fails.",
+   "results": [
+    {
+     "headline": "Four-vertex counterexample refutes claimed polynomial-time algorithm for parity games",
+     "plain": "A game on four locations disproves a recent method that claimed to find winning regions in polynomial time.",
+     "before": "arXiv:2511.03752 claimed that an attractor peeling procedure identifies a winning dominion, yielding a polynomial-time algorithm for parity games in Theorems 2, 5, and 8.",
+     "answer": "The peeling set is not a dominion: on an explicit four-vertex game with priorities 4, 0, 3, 4, the peeling sequence stabilizes to the whole arena, but the opposing player wins everywhere.",
+     "why": "Refutes the central dominion theorem and polynomial-time claim of arXiv:2511.03752.",
+     "idea": "Under Even's strategy, every cycle either alternates between vertices 0 and 3 with priority 4, or visits vertex 1 with priority 0; both minimum recurring priorities are even.",
+     "outcome": "disproved",
+     "source": "arXiv:2511.03752",
+     "main": "parity_game_peel_claimed_dominion_counterexample",
+     "declarations": [
+      "parity_game_attractor_superset",
+      "parity_game_even_wins_play_of_frequently_zero",
+      "parity_game_not_even_wins_play_of_odd_min",
+      "parity_game_even_wins_from_counterexample_game",
+      "parity_game_peel_claimed_dominion_counterexample"
+     ],
+     "highlight": true,
+     "research": "shows a published claim false (arXiv:2511.03752 (Attractors Is All You Need: Parity Games In Polynomial Time), Theorem 2 (A(G, d) is a dominion of the player of d), and with it Theorems 5 and 8 (Algorithm 1 solves parity games): false on a 4-vertex game without self-loops. Definitions taken from the paper's LaTeX source (v1, the only version); the result holds under both readings of U_{k-1} at k = 0.)",
+     "tier": "low"
+    }
+   ]
+  },
+  {
+   "name": "Combinatorics for TCS",
+   "context": "Problem 16 of arXiv:2611.07503 on log-concavity of partial Petrial polynomials was answered in the negative by an explicit tree counterexample, and factorization Mobius formulas were verified.",
+   "results": [
+    {
+     "headline": "Explicit subcubic tree disproves log-concavity of partial Petrial polynomials",
+     "plain": "A tree with 36 vertices and at most three branches per junction has rank coefficients that fail the log-concavity property.",
+     "before": "arXiv:2611.07503 proved strict unimodality for partial Petrial polynomials of trees and asked in Problem 16 whether these polynomials are always log-concave for trees of maximum degree at most three.",
+     "answer": "Log-concavity fails: an explicit 36-vertex tree of maximum degree 3 has rank 27, 28, and 29 coefficients 256, 32640, and 4666944, where 32640² < 256 × 4666944.",
+     "why": "Settles Problem 16 of arXiv:2611.07503 in the negative.",
+     "idea": "The coefficients are computed via the leaf-deletion recurrence on the explicit 36-vertex tree; the squared rank-28 coefficient strictly falls below the product of its neighbors.",
+     "outcome": "disproved",
+     "source": "arXiv:2611.07503",
+     "main": "op_1239_subcubic_tree_counterexample",
+     "declarations": [
+      "op_1239_candidate36_max_degree",
+      "op_1239_candidate36_tree",
+      "op_1239_candidate36_petrial_coefficients",
+      "op_1239_candidate36_not_log_concave",
+      "op_1239_coefficients_force_not_log_concave",
+      "op_1239_subcubic_tree_counterexample"
+     ],
+     "highlight": true,
+     "research": "Answers the paper's question (arXiv:2611.07503, Problem 16) in the negative: an explicit 36-vertex tree of maximum degree 3 has a partial Petrial polynomial that is not log-concave (rank 27, 28, 29 coefficients 256, 32640, 4666944, and 32640^2 < 256 * 4666944), whereas the paper's non-log-concave trees R_m need a vertex of degree m >= 4 and it leaves maximum degree 3 open",
+     "tier": "low"
+    },
+    {
+     "headline": "Factorization poset Mobius function formalized for integers with a simple prime factor",
+     "plain": "A formula for counting ways to merge number factors when one prime appears only once is now verified.",
+     "before": "The Mobius function of the poset of integer factorizations was understood through partition lattices, with explicit formulas known for numbers with a prime factor of multiplicity one.",
+     "answer": "arXiv:2611.18194 established explicit formulas for the Mobius function and total absolute Mobius sum of factorizations of mq with prime q not dividing m; Lean now checks the proof.",
+     "why": "Verifies Theorem 1 and Corollary 7 of arXiv:2611.18194.",
+     "idea": "Strong induction on the number of factors uses a signed sum identity over coarsenings of pointed factorizations.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.18194",
+     "main": "factorization_mobius_simple_prime",
+     "declarations": [
+      "factorizationMobiusToTop_singleton",
+      "factorization_coarsening_signed_orderings_sum_zero",
+      "orderedFactorizationCount_eq_sum_properDivisors",
+      "total_abs_factorization_mobius_simple_prime",
+      "factorization_mobius_simple_prime"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Elementary Number Theory",
+   "context": "Good slope bounds for non-extremal permutations were proved for modulus 165, and the slope gap conjecture was established conditionally for an infinite family of three-prime moduli.",
+   "results": [
+    {
+     "headline": "Non-extremal permutations modulo 165 have at most 72 good slopes",
+     "plain": "Reordering the numbers modulo 165 without matching a line leaves at most 72 directions that keep all points separated.",
+     "before": "arXiv:2611.04551 conjectured in Question 10.2 that non-extremal permutations modulo 165 admit at most 72 good slopes, leaving this three-prime modulus open.",
+     "answer": "Every non-extremal permutation of the residues modulo 165 has at most 72 good slopes, confirming the conjectured bound.",
+     "why": "Resolves the open modulus 165 case in Question 10.2 of arXiv:2611.04551.",
+     "idea": "Combines the Chinese Remainder Theorem with fiber bounds modulo 55 and unit-covering translations to bound good slopes across the prime factors 3, 5, and 11.",
+     "outcome": "proved",
+     "source": "arXiv:2611.04551",
+     "main": "good_slopes_gap_mod_165",
+     "declarations": [
+      "good_slopes_gap_mod_165_le_76",
+      "good_slopes_gap_mod_165"
+     ],
+     "highlight": true,
+     "research": "Proves the conjectured 72-good-slope bound for non-extremal permutations modulo 165, a case left open in the source paper",
+     "tier": "low"
+    },
+    {
+     "headline": "Conjectured slope gap modulo 3pq holds conditionally for separated prime pairs",
+     "plain": "For products of three odd primes, permutations far from lines have a strict gap in their valid directions under prime field classifications.",
+     "before": "Question 10.2 of arXiv:2611.04551 asked whether the gap between extremal and non-extremal permutations persists for all three-prime composite moduli 3pq.",
+     "answer": "Assuming the prime-field direction classifications, every non-extremal permutation modulo 3pq satisfies the conjectured slope gap for primes p ≥ 5 and q ≥ 2p−1 with 3(p+1) < 2q.",
+     "why": "Establishes the slope gap conjecture for an infinite family of three-prime moduli, reducing it to prime-field direction theorems.",
+     "idea": "Lifts three-colored product fiber bounds via the Chinese Remainder Theorem to composite residue rings with three prime factors.",
+     "outcome": "partial",
+     "source": "arXiv:2611.04551",
+     "main": "good_slopes_gap_three_primes_field_conditional",
+     "declarations": [
+      "good_slopes_product_uncolored_gap_conditional",
+      "good_slopes_colored_product_rows_conditional",
+      "good_slopes_product_three_color_gap_conditional",
+      "good_slopes_gap_three_primes_conditional",
+      "good_slopes_gap_three_primes_field_conditional"
+     ],
+     "highlight": true,
+     "research": "Assuming the stated prime-field direction classifications, proves the conjectured gap for moduli 3pq with p at least 5, q at least 2p−1, and 3(p+1) less than 2q",
+     "tier": "low"
+    }
+   ]
+  },
+  {
+   "name": "General Equilibrium & Cooperative Games",
+   "context": "A counterexample shows that two-thirds-convex coalitional games need not have their Shapley value in the core.",
+   "results": [
+    {
+     "headline": "Shapley value can lie outside the core for two-thirds-convex games",
+     "plain": "In cooperative games where most pairs of coalitions satisfy the convexity condition, the standard fair payout vector can fail to be stable.",
+     "before": "Convex coalitional games always have their Shapley value in the core; arXiv:2611.16207 investigated whether this core membership property extends to relaxed two-thirds-convex games.",
+     "answer": "The property fails: an explicit three-player superadditive two-thirds-convex coalitional game has a Shapley value that does not belong to its core.",
+     "why": "Shows that two-thirds convexity is insufficient to guarantee that the Shapley value produces a stable coalitional payoff.",
+     "idea": "Direct evaluation on an explicit three-player characteristic function with coalition values -4 on singletons and -1 on pairs.",
+     "outcome": "disproved",
+     "source": "arXiv:2611.16207",
+     "main": "op_1641_counterexample_three_players_exists",
+     "declarations": [
+      "CoalitionalGame.IsConvex.isTwoThirdsConvex",
+      "op_1641_convex_implies_two_thirds_convex_and_superadditive",
+      "op_1641_two_thirds_convex_shapley_in_core_negation",
+      "op_1641_counterexample_three_players_exists"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Online Algorithms",
+   "context": "Greedy carpooling discrepancy bounds on path graphs were constructed, while online coloring lower bounds were systematically formalized.",
+   "results": [
+    {
+     "headline": "Path edge sequence forces cubic greedy discrepancy in randomized online carpooling",
+     "plain": "Repeatedly asking for rides between neighboring stops along a line can force greedy routing algorithms to accumulate large imbalances.",
+     "before": "Deterministic greedy carpooling was known to have discrepancy bounds on paths, but explicit cubic request sequences achieving maximal prefix discrepancy remained unconstructed.",
+     "answer": "For every integer D ≥ 1, an explicit sequence of at most D³ requests on a 2D-vertex path forces absolute discrepancy at least D under some coin sequence.",
+     "why": "Provides a constructive cubic lower-bound trajectory for greedy carpooling discrepancy on path graphs.",
+     "idea": "Cascades discrepancies from left to right along the path so that matching tie coins push imbalance toward the boundary.",
+     "outcome": "new",
+     "source": "arXiv:2609.21348",
+     "main": "carpool_path_greedy_cubic_witness",
+     "declarations": [
+      "carpool_path_requests_valid",
+      "carpool_path_example_d2",
+      "carpool_path_greedy_cubic_tail_lower",
+      "carpool_path_greedy_cubic_witness"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Algorithm Design & Analysis",
+   "context": "Deterministic query complexity for matroid connectedness was resolved for two elements, establishing the base case of an open complexity problem.",
+   "results": [
+    {
+     "headline": "Matroid connectedness on two elements requires exactly three independence queries",
+     "plain": "Testing whether a system of independent sets on two items is connected requires asking about all three non-empty candidate subsets.",
+     "before": "arXiv:2611.23624 broke the quadratic query barrier for matroid connectedness and asked in its final remarks for the exact deterministic query complexity for small ground sets.",
+     "answer": "For ground sets of size two, the exact deterministic query complexity is three: querying {0}, {1}, and {0,1} suffices, and two queries never suffice.",
+     "why": "Settles the two-element base case of the matroid connectedness question from arXiv:2611.23624.",
+     "idea": "A sensitivity argument on the uniform matroid of rank one proves the lower bound, matching the three-query decision tree.",
+     "outcome": "proved",
+     "source": "arXiv:2611.23624",
+     "main": "matroid_connectedness_query_two_eq_three",
+     "declarations": [
+      "matroid_connectedness_query_le_mono",
+      "matroid_connected_of_subsingleton",
+      "matroid_connectedness_query_le_one_zero",
+      "matroid_connected_fin_two_iff",
+      "matroid_connectedness_query_not_le_of_sensitive",
+      "matroid_connectedness_query_not_le_self",
+      "matroid_connectedness_query_two_eq_three"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Fair Division",
+   "context": "Non-existence of temporal envy-free chore allocations was bounded between four and nine chores for three agents.",
+   "results": [
+    {
+     "headline": "Temporal EF1 chore allocations can fail to exist for three agents with nine chores",
+     "plain": "Dividing nine chores over time among three people so that nobody envies anyone else after dropping one chore is sometimes impossible.",
+     "before": "Whether temporal EF1 chore allocations always exist for three agents was open; instances up to three chores always admit valid allocations.",
+     "answer": "arXiv:2611.25892 shows that there exist three-agent nine-chore cost matrices admitting no temporal EF1 allocation; Lean now checks the proof.",
+     "why": "Formalizes Theorem 3.1 of arXiv:2611.25892, establishing that temporal EF1 allocations can fail for chores.",
+     "idea": "Exhaustive search over all allocations of nine chores across rounds demonstrates that every partition creates severe temporal envy.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.25892",
+     "main": "tef1_nonexistence_nine_chores_three_agents",
+     "declarations": [
+      "tef1_exists_le_three_chores_three_agents",
+      "tef1_nonexistence_min_ge_four",
+      "op_2102_min_chores_tef1_nonexistence_three_agents",
+      "tef1_nonexistence_nine_chores_three_agents"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Quantum Computation",
+   "context": "Operator certificates for the magic rectangle and exact guessing probabilities for quantum nonlocal games were machine checked.",
+   "results": [
+    {
+     "headline": "Exact sum of squares certificate establishes magic rectangle operator bound",
+     "plain": "An algebraic formula verifies that quantum correlations in a grid game never exceed twice the square root of six.",
+     "before": "The maximal quantum value of the 2x3 magic rectangle game was known to be 2√6, but an exact algebraic certificate required formal verification.",
+     "answer": "arXiv:2610.12001 established an exact sum-of-squares decomposition for the 2x3 magic rectangle Bell operator; Lean now checks the proof.",
+     "why": "Verifies Theorem 3.1 of arXiv:2610.12001, providing an exact machine-checked proof of the quantum operator bound.",
+     "idea": "Decomposes 2√6 · I − S into a positive linear combination of three quadratic forms of self-adjoint operators.",
+     "outcome": "formalized",
+     "source": "arXiv:2610.12001",
+     "main": "magic_rectangle_sos_certificate",
+     "declarations": [
+      "magic_square_threshold_beta0_lt_one",
+      "magic_square_guess_fn_at_threshold",
+      "magic_rectangle_algebraic_sos_identity",
+      "magic_rectangle_sos_operator_bound",
+      "magic_rectangle_sos_certificate"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Information Theory & Coding",
+   "context": "Joint error correction and detection bounds were verified, including packing bounds and optimality of binary repetition codes.",
+   "results": [
+    {
+     "headline": "Hamming packing bound formalized for joint error correction and detection codes",
+     "plain": "The mathematical limit on how many messages can fit into a communication channel while correcting some errors and flagging others is now verified.",
+     "before": "Classical Hamming sphere-packing bounds applied to pure error-correcting codes; arXiv:2611.18156 generalized these bounds to codes that simultaneously correct and detect errors.",
+     "answer": "arXiv:2611.18156 proved that joint codes satisfy a sphere-and-ring packing inequality, with binary repetition codes achieving equality; Lean now checks the proof.",
+     "why": "Verifies Theorem III.6 and Theorem IV.3 of arXiv:2611.18156 for joint error control codes.",
+     "idea": "Partitions the Hamming space into disjoint balls and rings around codewords and bounds the total volume.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.18156",
+     "main": "joint_hamming_bound",
+     "declarations": [
+      "card_hamming_ball",
+      "card_hamming_ring",
+      "binary_repetition_code_is_joint_error_correcting_detecting",
+      "binary_repetition_code_is_joint_perfect_code",
+      "joint_hamming_bound"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Proof Complexity",
+   "context": "Soundness of Threshold Resolution and treelike Cutting Planes refutations was formally established.",
+   "results": [
+    {
+     "headline": "Soundness of Threshold Resolution and Cutting Planes refutations verified",
+     "plain": "A mathematical check confirms that whenever a proof system derives a contradiction from logical constraints, the original formula is truly unsatisfiable.",
+     "before": "Threshold Resolution was introduced to study the power of linear programming over clauses, but its soundness and refutational completeness needed formalized verification.",
+     "answer": "arXiv:2611.24548 proved soundness of Threshold Resolution derivations and treelike Cutting Planes refutations; Lean now checks the proof.",
+     "why": "Verifies Theorem 2.18 and Definition 4.1 of arXiv:2611.24548.",
+     "idea": "Induction on the proof tree shows every derived linear threshold inequality holds under any satisfying Boolean assignment.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.24548",
+     "main": "thr_res_soundness",
+     "declarations": [
+      "thr_res_unsat_of_refutation",
+      "treelike_cp_unsat_of_refutation",
+      "thr_resolution_cp_rounding",
+      "thr_res_soundness"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Quantum Mechanics",
+   "context": "Pointwise missed error formulas and minimax bounds for thermomajorization testing were checked.",
+   "results": [
+    {
+     "headline": "Sharp missed error formula formalized for binary probe testing of thermomajorization",
+     "plain": "An exact formula calculating the worst error when testing state transformations with limited measurements has been machine checked.",
+     "before": "Binary probe testing bounds for thermomajorization were developed to quantify conversion errors from incomplete measurements across energy ranks.",
+     "answer": "arXiv:2610.35433 proved that the worst-case missed conversion error at an unprobed rank equals the probe gap error; Lean now checks the proof.",
+     "why": "Formalizes the exact geometry of missed errors in thermomajorization from arXiv:2610.35433.",
+     "idea": "Matches upper bounds from convexity with lower bounds from explicit extreme distributions.",
+     "outcome": "formalized",
+     "source": "arXiv:2610.35433",
+     "main": "thermomajorization_sparse_probe_sharp_missed_trace_error",
+     "declarations": [
+      "thermomajorization_pointwise_missed_error_ge_gap_error",
+      "thermomajorization_pointwise_missed_error_le_gap_error",
+      "thermomajorization_missed_error_eq_iSup_pointwise",
+      "thermomajorization_full_budget_zero_error",
+      "thermomajorization_sparse_probe_sharp_missed_trace_error"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Social Choice Theory",
+   "context": "Group manipulability from three forcing coalitions and classical Condorcet winner-loser properties were formalized.",
+   "results": [
+    {
+     "headline": "Three-coalition partition forcing condition implies obvious group manipulability",
+     "plain": "If voters can be split into three groups such that any two can force their top pick, the voting rule is manipulable.",
+     "before": "The boundary between strategy-proof voting rules and those vulnerable to obvious group manipulation was characterized by coalition forcing conditions in recent literature.",
+     "answer": "arXiv:2611.26224 proved that whenever three disjoint voter coalitions pairwise force three distinct alternatives, the voting rule is obviously group manipulable; Lean now checks the proof.",
+     "why": "Formalizes Proposition 3 of arXiv:2611.26224.",
+     "idea": "Pairs of coalitions strategically deviate to guarantee better outcomes than following sincere preferences.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.26224",
+     "main": "obvious_group_manipulation_of_three_forcing_coalitions",
+     "declarations": [
+      "can_force_of_majority",
+      "pairwise_forcing_three_partition_type_w",
+      "obvious_group_manipulation_of_three_forcing_coalitions"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Combinatorial Games",
+   "context": "Sprague-Grundy values and misere invariants for slow exact Nim on padded configurations were machine checked.",
+   "results": [
+    {
+     "headline": "Sprague-Grundy value and misere invariant evaluate to seven on geometric witness",
+     "plain": "A specific multi-pile subtraction game configuration is verified to have game value seven under both normal and misere play.",
+     "before": "The periodic behavior of the Sprague-Grundy function of slow exact k-Nim on k+2 piles was conjectured, with explicit geometric padded positions exhibiting value seven.",
+     "answer": "arXiv:2611.14546 showed that the geometric padded witness position has Sprague-Grundy value 7 and misere invariant 7 for all k ≥ 3; Lean now checks the proof.",
+     "why": "Verifies the key geometric witness calculation for the k-Nim conjecture in arXiv:2611.14546.",
+     "idea": "Constructs a bisimulation with an abstract finite game tracking pile-size frequency vectors.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.14546",
+     "main": "op_2051_slow_exact_nim_joint_seven_witness",
+     "declarations": [
+      "slow_exact_nim_predicted_grundy_zero",
+      "op_2051_slow_exact_nim_k3_misere_seven",
+      "op_2051_slow_exact_nim_joint_seven_witness"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  },
+  {
+   "name": "Circuit Complexity & Lower Bounds",
+   "context": "Circuit size and depth bounds for symmetric functions using sigmoidal gates and integer multipliers were formalized.",
+   "results": [
+    {
+     "headline": "Six conjunction gates compute the three-bit low-half integer multiplier",
+     "plain": "Multiplying two three-bit numbers and keeping the bottom three bits of the answer requires only six conjunction gates.",
+     "before": "The exact multiplicative complexity of computing the lower half of small integer multipliers was bounded between five and seven conjunction gates over the two-element field.",
+     "answer": "arXiv:2611.15992 showed that an explicit circuit of six conjunction gates computes the lower three bits of integer multiplication; Lean now checks the proof.",
+     "why": "Verifies Section 3 of arXiv:2611.15992, confirming the upper bound of six conjunction gates.",
+     "idea": "Evaluates all 192 input-output combinations directly by finite reflection.",
+     "outcome": "formalized",
+     "source": "arXiv:2611.15992",
+     "main": "low_half_mul3_six_and_upper_bound",
+     "declarations": [
+      "low_mul3_target2_not_mem_degree_two",
+      "low_half_mul3_gate5_expansion",
+      "low_half_mul3_six_and_upper_bound"
+     ],
+     "highlight": false,
+     "research": "",
+     "tier": ""
+    }
+   ]
+  }
+ ],
+ "outlook": [
+  "Whether every oriented star whose center has equal in-degree and out-degree satisfies the oriented anti-Sidorenko property remains open.",
+  "Determining the exact domination number of the two-token graph of complete bipartite graphs with two left vertices is still unsettled for four or more vertices.",
+  "The asymptotic deficit in optimal nonadaptive binary probe testing of thermomajorization at uniform Gibbs weights remains open for each fixed integer budget.",
+  "Whether the proposed linear growth and sub-square-root exponent conjectures hold for the Ulam sequence continues to be actively investigated.",
+  "Finding the exact two-color four-dimensional grid Ramsey number and determining whether the upper exponent is attainable remains an open challenge."
+ ],
+ "glossary": [
+  {
+   "term": "EF1",
+   "meaning": "Envy-free up to one item: any envy disappears once some single item is removed (a good from the envied bundle, or a chore from the envious agent's own)."
+  },
+  {
+   "term": "TCS",
+   "meaning": "TCS: the mathematical study of discrete structures, algorithms, and computational problems."
+  }
+ ],
+ "stats": {
+  "original": 32,
+  "erratum": 2,
+  "literature": 66,
+  "lemma": 979,
+  "theorems": 1079,
+  "research": 4,
+  "research_theorems": 5,
+  "sources": 81,
+  "topics": 20,
+  "announcements": 0,
+  "open": 1291,
+  "papers_read": 143
+ },
+ "issues": [],
+ "rounds": 4,
+ "zh": {
+  "title": "奇偶博弈算法被推翻，图的可扩充度获界，次三次树的对数凹性被否定",
+  "summary": "一项声称适用于奇偶博弈的多项式时间算法被一个具体的4顶点博弈推翻，所提出的获胜统辖域在该博弈中完全失效。在图论中，阶数为2k+6的极小可扩充图的最小度对所有匹配大小均给出了界限，超越了此前已知的特例。通过构造一棵违反对数凹性的36顶点树，关于部分皮特里亚尔多项式的一个公开问题被否定解决，同时模165剩余置换的斜率界也得到解决。",
+  "lead": {
+   "title": "一个4顶点博弈推翻了声称能寻找获胜策略的捷径",
+   "story": "想象两名玩家轮流沿着单向轨道在4个带有编号的地点之间移动一枚棋子。每个地点都标有一个固定的分值。偶数玩家希望出现无穷多次的最小分值是偶数，而奇数玩家则希望它是奇数。因为棋盘是有限的且抉择会永远重复进行，总有一名玩家从任意起始位置出发都拥有确保获胜的策略。\n\n几十年来，研究人员一直想知道计算机是否总能在多项式时间内确定此类博弈的获胜方，即随着棋盘规模扩大仍能高效求解。近期的一篇预印本声称利用吸引子剥离方法达成了这一目标，该方法通过反复剥离走法来分离出统辖域，即某一玩家可以将博弈困在其中并获胜的地点子集。\n\n该断言现已被一个具体的4地点博弈推翻。当对该算例应用剥离程序时，它声称奇数玩家拥有一个包含整个棋盘的获胜统辖域。然而直接检验表明，偶数玩家实际上从每个起始地点出发都能获胜。任何重复的走法序列要么在分值为4的地点之间循环，要么反复经过分值为0的地点。由于4和0都是偶数，偶数玩家在每一种可能的对局中都会获胜。",
+   "caption": "声称的吸引子剥离算法在其中失效的4顶点奇偶博弈。",
+   "header": [
+    "顶点",
+    "归属方",
+    "优先级",
+    "出边"
+   ],
+   "rows": [
+    [
+     "0",
+     "偶数方",
+     "4",
+     "3"
+    ],
+    [
+     "1",
+     "偶数方",
+     "0",
+     "2"
+    ],
+    [
+     "2",
+     "奇数方",
+     "3",
+     "0, 1"
+    ],
+    [
+     "3",
+     "奇数方",
+     "4",
+     "0, 1"
+    ]
+   ]
+  },
+  "results": [
+   {
+    "headline": "2k+6个顶点上的极小k可扩充图的最小度至多为2k+1",
+    "plain": "在多出6个节点的极小可扩充网络中，至少有1个节点的连接数不超过匹配大小的2倍加1。"
+   },
+   {
+    "headline": "不连通匹配反例推翻6顶点图上的字面最小度定理",
+    "plain": "由3条不相连边构成的图表明，若无明确的连通性假设，已发表的最小度分类并不成立。"
+   },
+   {
+    "headline": "4顶点反例推翻声称的奇偶博弈多项式时间算法",
+    "plain": "一个4个地点的博弈推翻了近期一种声称能在多项式时间内找到获胜区域的方法。"
+   },
+   {
+    "headline": "具体的次三次树否定部分皮特里亚尔多项式的对数凹性",
+    "plain": "一棵拥有36个顶点且每个分支点至多3个分支的树，其秩系数不满足对数凹性质。"
+   },
+   {
+    "headline": "含单质因数整数的因子分解偏序集莫比乌斯函数获形式化验证",
+    "plain": "当某个质数仅出现1次时用于计算合并因数方式数的公式现已获验证。"
+   },
+   {
+    "headline": "模165非极值置换至多拥有72个良好斜率",
+    "plain": "对模165的数字重新排列且不构成直线，至多剩下72个能使所有点保持分离的方向。"
+   },
+   {
+    "headline": "模3pq的猜想斜率间隙在充分分离的质数对下有条件成立",
+    "plain": "对于3个奇质数的乘积，在素域分类假设下，远离直线的置换在其有效方向上存在严格间隙。"
+   },
+   {
+    "headline": "三分之二凸博弈的夏普利值可落在核心之外",
+    "plain": "在大多数联盟对满足凸性条件的合作博弈中，标准的公平收益分配向量可能无法保持稳定。"
+   },
+   {
+    "headline": "路径边序列迫使随机在线拼车中产生三次贪心差异",
+    "plain": "沿一条线反复请求在相邻站点之间乘车，会迫使贪心路径规划算法累积巨大的不平衡。"
+   },
+   {
+    "headline": "判断两元素拟阵的连通性恰好需要3次独立性查询",
+    "plain": "检验两元素上的独立集系统是否连通，必须查询全部3个非空候选子集。"
+   },
+   {
+    "headline": "三人九项家务的时序EF1分配可能不存在",
+    "plain": "将9项家务随时间分配给3人并使每个人在舍弃1项家务后互不嫉妒，有时是无法做到的。"
+   },
+   {
+    "headline": "精确平方和证书确立魔矩形算子界限",
+    "plain": "一个代数公式验证了网格博弈中的量子关联永远不会超过6的平方根的2倍。"
+   },
+   {
+    "headline": "纠错与检错联合编码的汉明填充界获形式化验证",
+    "plain": "在纠正部分错误并标记其他错误时，信道中可容纳消息数量的数学极限现已获验证。"
+   },
+   {
+    "headline": "阈值消解与割平面反驳的可靠性获形式化验证",
+    "plain": "数学检验确认：只要证明系统从逻辑约束中推导出矛盾，原始公式就确实不可满足。"
+   },
+   {
+    "headline": "热主化二值探针测试的紧确遗漏误差公式获形式化验证",
+    "plain": "在利用有限测量检验状态转换时，用于计算最坏误差的精确公式已通过机器验证。"
+   },
+   {
+    "headline": "三联盟划分强迫条件蕴涵显见群体可操纵性",
+    "plain": "若选民可被划分为3个群体且其中任意两个群体都能强行选定其首选，则该投票规则是可操纵的。"
+   },
+   {
+    "headline": "几何见证局势的斯普拉格-格伦迪值与逆博弈不变量均为7",
+    "plain": "一个具体的多堆减子博弈局势经检验在常规和逆博弈规则下的博弈值均为7。"
+   },
+   {
+    "headline": "6个合取门即可计算3位整数乘法的低半部分",
+    "plain": "计算两个3位数的乘积并保留结果的低3位，仅需6个合取门。"
+   }
+  ],
+  "outlook": [
+   "中心顶点入度与出度相等的每个有向星图是否都满足有向反锡多连科性质，仍未解决。",
+   "对于4个及以上顶点，确定左部有2个顶点的完全二分图的2-代币图的精确支配数仍未解决。",
+   "在均匀吉布斯权重下，对于每个固定的整数预算，热主化最优非自适应二值探针测试中的渐近缺陷仍未解决。",
+   "所提出的关于乌拉姆序列的线性增长与亚平方根指数猜想是否成立，仍在积极研究中。",
+   "求出精确的双色4维网格拉姆齐数并确定其上指数是否可达，仍是一项公开挑战。"
+  ],
+  "glossary": [
+   {
+    "term": "EF1",
+    "meaning": "至多差一件物品的无嫉妒：在移去某一件物品（被嫉妒者分得的一件好物，或嫉妒者自身分得的一项家务）后，任何嫉妒都会消除。"
+   }
+  ]
+ },
+ "zh_issues": [],
+ "numbers": "Lean accepted 1079 new theorems this week, drawn from 81 papers and 20 topics. Of these, 32 are new here, 2 correct a published claim, 66 formalize a published result and 979 are helper lemmas. They make 4 research-level results, in 5 theorems -- they lead the report. 1291 statements posed this week are not yet proved. The reading covered 143 new papers. This report covers 18 results in 15 fields.",
+ "disclaimer": "Written by a model (gemini-3.8-flash) from the week's Lean-verified results. Every declaration named here was checked by Lean; this summary is a reading aid and is not itself machine-checked.",
+ "minutes": 14,
+ "short_minutes": 3,
+ "outcomes": {
+  "proved": "Proved",
+  "disproved": "Disproved",
+  "partial": "Partial",
+  "new": "New result",
+  "formalized": "Formalized"
+ },
+ "zh_disclaimer": "本文由模型（gemini-3.8-flash）根据本期经 Lean 验证的结果撰写，并从英文版翻译而来。文中提到的每个定理都经过 Lean 检查；本摘要只是阅读辅助，本身未经机器检查。",
+ "zh_outcomes": {
+  "proved": "证明",
+  "disproved": "否定",
+  "partial": "部分结果",
+  "new": "新结果",
+  "formalized": "形式化验证"
+ }
+}

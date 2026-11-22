@@ -2,6 +2,67 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-22",
+   "kind": "daily",
+   "title": "Daily reading: 0 research-level, 35 proved, 12 open",
+   "research": {
+    "results": 0,
+    "theorems": 0
+   },
+   "body": "No research-level result today. The list entry OP-1239 was refuted by `op_1239_subcubic_tree_counterexample31`, providing a 31-vertex tree of maximum degree at most three whose partial Petrial polynomial is not log-concave. In graph theory, partial results bounded minimum degrees for OP-1957, showed that n queries do not suffice for matroid connectedness in OP-1998, advanced thread RT-1 on cycle powers for OP-205, and formalized Moore graph bounds from arXiv:2611.26037 and triangle set-coloring Ramsey numbers from arXiv:2611.19312. In quantum theory and probability, results proved the quantum synchronous coloring advantage from arXiv:2611.19002, qudit pure-state invariants for OP-697, dimension-two thermomajorization sharpness for OP-2138, and prefix discrepancy for OP-2130, a question proposed here. No papers were read today, while full thermomajorization sharpness for OP-2138 and intermediate triangle set-coloring Ramsey numbers remain open.\n\nThe Proposer read 0 new paper(s) and listed 0 open problem(s); 0 new question(s) of AFTD's own were adopted onto the list; 3 list entries were stated in Lean, as were 3 results the papers prove; the Proposer posed 18 more from what the knowledgebase already holds (39 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 35 theorem(s), 12 of them helper lemmas, which are not listed below; 12 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nRefutes OP-1239. `op_1239_subcubic_tree_counterexample31` (arXiv:2611.07503): There exists a tree on Fin 31 with maximum degree at most three whose partial Petrial polynomial is not log-concave.\n\nPartial result on OP-1998. `matroid_connectedness_query_not_le_self` (arXiv:2611.23624): Here matroid_connectedness_query_le n q means: some deterministic independence-query decision tree of depth at most q decides, for every matroid with ground set Fin n, whether it is connected (any two distinct elements lie in a common circuit). For every n ≥…\n\nPartial result on OP-1957. `minimally_k_extendable_uniform_surplus_three_degree_bound` (arXiv:2611.22690): For j≥8 and j≤k, every minimally k-extendable graph on 2k+2j vertices has minimum degree at most 2k+j−4.\n\nPartial result on OP-1957. `k_extendable_essential_low_codegree_edge_yields_small_vertex_cut` (arXiv:2611.22690): An essential graph edge of complement codegree at most one gives a vertex separator of size at most 2k+1 in a k-extendable graph of minimum degree at least 2k+2.\n\nPartial result on OP-2130. `carpool_path_example_d2` (knowledgebase): For the displayed three requests on the four-vertex path, exactly four of the eight coin tapes reach absolute prefix discrepancy two.\n\nPartial result on OP-697. `qudit_pure_state_invariant_submodule_contains_span_one` (arXiv:2610.36076): For any qudit dimension d ≥ 3 and any orthonormal Hermitian operator basis T of su(d), the submodule of quadratic pure-state invariants contains the one-dimensional subspace spanned by the all-ones weight vector.\n\nPartial result on OP-2138. `thermomajorization_witness_x_mem_antitone_stdSimplex` (knowledgebase): For any dimension n and integers a < j < b ≤ n, the thermomajorization candidate vector witness_x n a j b is a nonincreasing probability vector in the standard simplex.\n\nPartial result on OP-2138. `thermomajorization_witness_y_mem_antitone_stdSimplex` (knowledgebase): For any dimension n and rank 0 < j ≤ n, the thermomajorization candidate vector witness_y n j is a nonincreasing probability vector in the standard simplex.\n\nThread RT-1. `cycle_power_thirty_one_endpoint_bits_of_alternating`: In a tight, exactly dyadically covered, fully covered exponent-5 Boolean class model (offsets 0..31) whose bit 1 alternates, x(p+1,1) = not x(p,1), every class without bit 1 has no inner bit other than possibly the two middle bits 15 and 16. No count…\n\nThread RT-1. `simple_graph_equivalence_covering_number_cycle_power_thirty_one_of_alternating`: Conditional k = 31 case of OP-205: if bit 1 alternates (x(p+1,1) = not x(p,1)) in every tight, exactly dyadically covered, fully covered exponent-5 model with 6 active classes per vertex, then for every even n >= 31713 not divisible by 32 the equivalence…\n\nThread RT-1. `cycle_power_thirty_one_double_false_bit_one_refuted_s5f`: In a tight, exactly dyadically covered, fully covered exponent-5 model with 6 active classes per vertex, the classes rooted at 0 and 1 cannot both lack bit 1 when x(5,1) = false.\n\nFormalized. `set_coloring_ramsey_number_triangle_endpoint_le_r_minus_three` (arXiv:2611.19312 Proposition 1 (iii)): For every integer r ≥ 3 and every 1 ≤ t ≤ r - 3, the set-coloring Ramsey number of the triangle with palette parameters r, r - 1 and intersection parameter t satisfies R(3; r, r-1, t) = 3.\n\nFormalized. `set_coloring_ramsey_number_triangle_endpoint_r_minus_one` (arXiv:2611.19312 Proposition 1 (iii)): For every integer r ≥ 3, the set-coloring Ramsey number of the triangle with palette parameters r, r - 1 and intersection parameter t = r - 1 satisfies R(3; r, r-1, r-1) = R(3; r), the multicolor Ramsey number of the triangle with r colors.\n\nFormalized. `complete_coloring_quantum_synchronous_advantage` (arXiv:2611.19002 Theorem 4.6.1 -- Quantum Coloring Games on Complete Graphs): In the complete-graph coloring game on $K_n$ with $m$ colors and equal input probability $p$, for any natural numbers $n$ and $m$ satisfying $2 \\le m < n$ and any real number $p$, letting $q = \\lfloor n/m \\rfloor$ and $r = n \\bmod m$, the quantum synchronous…\n\nFormalized. `regular_graph_moore_cubic_eq_ones_degree_le_two` (arXiv:2611.26037 (An improved Moore bound for girths seven and eleven), proof of Theorem 3.1, case r(G) = 0: a Moore graph of diameter 3…): Let H be a finite nonempty d-regular simple graph with adjacency matrix A (over the integers). If A^3 + A^2 - 2(d-1)A - (d-1)I equals the all-ones matrix J, i.e. H is a Moore graph of diameter 3 (every ordered pair of vertices is joined by exactly one…\n\nFormalized. `regular_graph_degree_lt_sqrt8_deviation_add_two_sq_of_lt_one` (arXiv:2611.26037 (An improved Moore bound for girths seven and eleven), proof of Theorem 3.1, Theorem 3.1 in the case r < 1 (first step of…): Let H be a finite nonempty d-regular simple graph with adjacency matrix A, and let C = A^3 + A^2 - 2(d-1)A - (d-1)I - J. If every row of C has absolute row sum at most r and r < 1, then d < (√8 r + 2)^2. (This is the case r < 1 of the deviation bound: the…\n\nOpen. `set_coloring_ramsey_number_triangle_endpoint_r_minus_two` (arXiv:2611.19312 Proposition 1 (iii)): For every integer r ≥ 3, the set-coloring Ramsey number of the triangle with palette parameters r, r - 1 and intersection parameter t = r - 2 satisfies R(3; r, r-1, r-2) = 2 * ((r + 1) / 2) + 1.\n\nOpen. `cycle_power_thirty_one_model_alternating`: In a tight, exactly dyadically covered, fully covered exponent-5 Boolean class model with 6 active classes at every vertex, bit 1 alternates: x(p+1,1) = not x(p,1) for every p.\n\nOpen. `set_coloring_ramsey_number_triangle_endpoint` (arXiv:2611.19312 Proposition 1 (iii)): For every integer r ≥ 3 and every 1 ≤ t ≤ r - 1, the set-coloring Ramsey number R(3; r, r-1, t) equals 3 if t ≤ r - 3, equals 2 * ((r + 1) / 2) + 1 if t = r - 2, and equals the multicolor Ramsey number R(3; r) if t = r - 1.\n\nOpen. `thermomajorization_random_single_probe_sharp_witness_family` (knowledgebase): For any dimension n ≥ 2 and any probability distribution q ∈ stdSimplex ℝ (Finset.Ioo 0 n) on probe ranks 1,...,n-1, there exist integers a, j, b with a < j ∧ j < b ∧ b ≤ n such that the expected missed conversion error…\n\nOpen. `cycle_power_thirty_one_double_false_bit_one_refuted_s5t`: In a tight, exactly dyadically covered, fully covered exponent-5 model with 6 active classes per vertex, the classes rooted at 0 and 1 cannot both lack bit 1 when x(5,1) = true.\n\nOpen. `cycle_power_thirty_one_model_bit_one_not_both_false`: In a tight, exactly dyadically covered, fully covered exponent-5 model with 6 active classes per vertex, no two consecutive classes both lack bit 1: x(p,1) = false implies x(p+1,1) = true.",
+   "declarations": [
+    "op_1239_candidate31_not_log_concave",
+    "op_1239_subcubic_tree_counterexample31",
+    "matroid_connectedness_query_not_le_self",
+    "minimally_k_extendable_uniform_surplus_three_degree_bound",
+    "k_extendable_essential_low_codegree_edge_yields_small_vertex_cut",
+    "carpool_path_example_d2",
+    "forced_matching_edge_barrier_component_partition",
+    "boundary_five_blocks_single_odd_extra_shore_impossible",
+    "boundary_five_blocks_two_extra_shores_impossible",
+    "boundary_five_blocks_forced_cross_edge_is_bridge",
+    "telescoping_sum_increments",
+    "sq_sub_one_add_one_ge_sq_div_two",
+    "qudit_pure_state_invariant_submodule_contains_span_one",
+    "three_mul_two_pow_add_one_gt_sq",
+    "set_coloring_ramsey_number_triangle_endpoint_le_r_minus_three",
+    "thermomajorization_witness_x_mem_antitone_stdSimplex",
+    "cycle_power_thirty_one_endpoint_bits_of_alternating",
+    "simple_graph_equivalence_covering_number_cycle_power_thirty_one_of_alternating",
+    "thermomajorization_witness_y_mem_antitone_stdSimplex",
+    "set_coloring_ramsey_number_triangle_endpoint_r_minus_one",
+    "thermomajorization_expected_missed_error_le_worst_error",
+    "cycle_power_thirty_one_double_false_bit_one_refuted_s5f",
+    "thermomajorization_random_single_probe_sharp_witness_family_two_level",
+    "complete_coloring_quantum_sync_value_diff",
+    "complete_coloring_quantum_sync_numerator_identity",
+    "complete_coloring_quantum_sync_fraction_diff",
+    "complete_coloring_quantum_synchronous_advantage",
+    "boundary_five_clique_blocks_full_cross_essential_edge_forces_twins_of_bridge",
+    "four_disjoint_subsets_card_sum_le",
+    "finset_card_eq_sum_four_block_inter",
+    "anticomplete_vertex_four_disjoint_nonneighbor_sets_bound",
+    "boundary_five_blocks_vertex_nonneighbor_defects",
+    "finset_sdiff_card_le_erase_sdiff_card_add_one",
+    "regular_graph_moore_cubic_eq_ones_degree_le_two",
+    "regular_graph_degree_lt_sqrt8_deviation_add_two_sq_of_lt_one"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2610.36076",
+     "href": "https://arxiv.org/abs/2610.36076"
+    },
+    {
+     "label": "arXiv:2611.22690",
+     "href": "https://arxiv.org/abs/2611.22690"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-21",
    "kind": "daily",
    "title": "Daily reading: 0 research-level, 111 proved, 62 open",

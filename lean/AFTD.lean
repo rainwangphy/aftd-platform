@@ -49,6 +49,7 @@ import AFTD.Kb.GameTheoryEconomics.AllocationIsEnvyFreeable
 import AFTD.Kb.GameTheoryEconomics.AllocationIsEnvyFreeableOfEnvyFree
 import AFTD.Kb.GameTheoryEconomics.Anonymity
 import AFTD.Kb.GameTheoryEconomics.AnyPriceShare
+import AFTD.Kb.GameTheoryEconomics.AppearanceVector
 import AFTD.Kb.GameTheoryEconomics.ApproxMinimax
 import AFTD.Kb.GameTheoryEconomics.ApsFairNotImpProp1Fair
 import AFTD.Kb.GameTheoryEconomics.ApxAllVectors
@@ -1714,6 +1715,8 @@ import AFTD.Kb.GameTheoryEconomics.ImpartialCultureBordaDisagreementEvent
 import AFTD.Kb.GameTheoryEconomics.ImpartialCultureProb
 import AFTD.Kb.GameTheoryEconomics.ImpartialCultureWinnerLoserProb
 import AFTD.Kb.GameTheoryEconomics.ImpartialCultureWinnerProb
+import AFTD.Kb.GameTheoryEconomics.ImpossibilityConUconLexCel
+import AFTD.Kb.GameTheoryEconomics.ImpossibilityConUconLexCelClaim2
 import AFTD.Kb.GameTheoryEconomics.InRegularizedPluralityVetoCore
 import AFTD.Kb.GameTheoryEconomics.InRegularizedPluralityVetoCoreEmptyCoalition
 import AFTD.Kb.GameTheoryEconomics.InStdSimplex
@@ -1900,6 +1903,8 @@ import AFTD.Kb.GameTheoryEconomics.IsMaxcutNeutralPivotSafe
 import AFTD.Kb.GameTheoryEconomics.IsMaxcutOptimal
 import AFTD.Kb.GameTheoryEconomics.IsMaxcutStrongDeviation
 import AFTD.Kb.GameTheoryEconomics.IsMaxcutStrongEquilibrium
+import AFTD.Kb.GameTheoryEconomics.IsMergingSumPowerProfile
+import AFTD.Kb.GameTheoryEconomics.IsMergingSumPowerRelation
 import AFTD.Kb.GameTheoryEconomics.IsMinimalIntegralPeriod
 import AFTD.Kb.GameTheoryEconomics.IsMnwAllocation
 import AFTD.Kb.GameTheoryEconomics.IsMonotoneValuation
@@ -2091,6 +2096,8 @@ import AFTD.Kb.GameTheoryEconomics.LayeredCapacityGeometricInequality
 import AFTD.Kb.GameTheoryEconomics.LeKnapsackOpt
 import AFTD.Kb.GameTheoryEconomics.LeZeroOfAddLeSelf
 import AFTD.Kb.GameTheoryEconomics.LeastEventualPeriod
+import AFTD.Kb.GameTheoryEconomics.LexCel
+import AFTD.Kb.GameTheoryEconomics.LexGe
 import AFTD.Kb.GameTheoryEconomics.LexStreamOrderEmbeddingOfIntervals
 import AFTD.Kb.GameTheoryEconomics.LeximinEf1NotParetoOptimal
 import AFTD.Kb.GameTheoryEconomics.LeximinLt
@@ -2622,6 +2629,7 @@ import AFTD.Kb.GameTheoryEconomics.Op1719BivaluedEfxSubMmsTwoAgentsTwoRatio
 import AFTD.Kb.GameTheoryEconomics.Op2051SlowExactNimJointSevenWitness
 import AFTD.Kb.GameTheoryEconomics.Op2051SlowExactNimK3MisereSeven
 import AFTD.Kb.GameTheoryEconomics.Op2102MinChoresTef1NonexistenceThreeAgents
+import AFTD.Kb.GameTheoryEconomics.Op2119MajorityImmunityBelowHalf
 import AFTD.Kb.GameTheoryEconomics.Op561ExistsOfRatioGt
 import AFTD.Kb.GameTheoryEconomics.Op561HasOnlineAlgorithmMono
 import AFTD.Kb.GameTheoryEconomics.Op562NotConsistentEefxOfGeThreeHalves
@@ -2868,6 +2876,10 @@ import AFTD.Kb.GameTheoryEconomics.Poc8Val
 import AFTD.Kb.GameTheoryEconomics.Poc8ValEq
 import AFTD.Kb.GameTheoryEconomics.PocLinkednessConjectureCounterexample
 import AFTD.Kb.GameTheoryEconomics.PopulationParadox
+import AFTD.Kb.GameTheoryEconomics.PowerProfile
+import AFTD.Kb.GameTheoryEconomics.PowerRelation
+import AFTD.Kb.GameTheoryEconomics.PowerRelationCarrier
+import AFTD.Kb.GameTheoryEconomics.PowerRelationRel
 import AFTD.Kb.GameTheoryEconomics.Predecessors
 import AFTD.Kb.GameTheoryEconomics.Pref
 import AFTD.Kb.GameTheoryEconomics.PrefIndifferent
@@ -3126,7 +3138,10 @@ import AFTD.Kb.GameTheoryEconomics.SagesRowOtherThan
 import AFTD.Kb.GameTheoryEconomics.SagesRowOtherThanNe
 import AFTD.Kb.GameTheoryEconomics.SagesRowPairProtocol
 import AFTD.Kb.GameTheoryEconomics.SagesRowUpperBoundBinomial
+import AFTD.Kb.GameTheoryEconomics.SampfordBalancedFamilyNotAttainDeltaSix
 import AFTD.Kb.GameTheoryEconomics.SampfordConsecutiveHouseCouplingLossDelta
+import AFTD.Kb.GameTheoryEconomics.SampfordConsecutiveHouseCouplingLossDeltaSixGeAsymmetric
+import AFTD.Kb.GameTheoryEconomics.SampfordConsecutiveHouseCouplingLossDeltaUnfold
 import AFTD.Kb.GameTheoryEconomics.SampfordCouplingLoss
 import AFTD.Kb.GameTheoryEconomics.SampfordIsCoupling
 import AFTD.Kb.GameTheoryEconomics.SampfordProbSubset
@@ -3137,9 +3152,12 @@ import AFTD.Kb.GameTheoryEconomics.SampfordRareGroupRatioTwoTwoOne
 import AFTD.Kb.GameTheoryEconomics.SampfordRareGroupWeight
 import AFTD.Kb.GameTheoryEconomics.SampfordTotalWeight
 import AFTD.Kb.GameTheoryEconomics.SampfordWeight
+import AFTD.Kb.GameTheoryEconomics.SatisfiesCon
+import AFTD.Kb.GameTheoryEconomics.SatisfiesLe
 import AFTD.Kb.GameTheoryEconomics.SatisfiesMajorityCriterion
 import AFTD.Kb.GameTheoryEconomics.SatisfiesObjectwiseMm
 import AFTD.Kb.GameTheoryEconomics.SatisfiesQuota
+import AFTD.Kb.GameTheoryEconomics.SatisfiesUcon
 import AFTD.Kb.GameTheoryEconomics.ScalarRepairCertificate
 import AFTD.Kb.GameTheoryEconomics.ScalarRepairCertificateActivationOptimality
 import AFTD.Kb.GameTheoryEconomics.ScalarRepairCertificateTangency
@@ -3485,6 +3503,7 @@ import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingVotersPreferring
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingVotingRule
 import AFTD.Kb.GameTheoryEconomics.SocialChoiceVotingZKey
 import AFTD.Kb.GameTheoryEconomics.SocialCost
+import AFTD.Kb.GameTheoryEconomics.SocialRankingSolution
 import AFTD.Kb.GameTheoryEconomics.SocialWelfare
 import AFTD.Kb.GameTheoryEconomics.SocialWelfareEmpty
 import AFTD.Kb.GameTheoryEconomics.SortedTuple
@@ -3605,6 +3624,7 @@ import AFTD.Kb.GameTheoryEconomics.SpxSearcherPayoffLe
 import AFTD.Kb.GameTheoryEconomics.SpxVals
 import AFTD.Kb.GameTheoryEconomics.SpxW
 import AFTD.Kb.GameTheoryEconomics.SpxX
+import AFTD.Kb.GameTheoryEconomics.SrsStrict
 import AFTD.Kb.GameTheoryEconomics.StableMatchingNotPrefOfPref
 import AFTD.Kb.GameTheoryEconomics.StableMatchingOfAllMenTopChoice
 import AFTD.Kb.GameTheoryEconomics.StableMatchingOfAllWomenTopChoice
@@ -4334,6 +4354,9 @@ import AFTD.Kb.NumberTheory.ZmodTwoAddValInt
 -- optimization
 import AFTD.Kb.Optimization.AbelSummationByParts
 import AFTD.Kb.Optimization.AllCubeFuncOneIsSubmodular
+import AFTD.Kb.Optimization.BallBearingGraph
+import AFTD.Kb.Optimization.BallBearingNotHamiltonian
+import AFTD.Kb.Optimization.BallBearingRingSet
 import AFTD.Kb.Optimization.BasePolytopeExtremeBases
 import AFTD.Kb.Optimization.BasePolytopeSubmodular
 import AFTD.Kb.Optimization.BlockPopulationCapacity
@@ -4342,6 +4365,9 @@ import AFTD.Kb.Optimization.CanonicalTriangle
 import AFTD.Kb.Optimization.CanonicalTriangleMemLowerVertex
 import AFTD.Kb.Optimization.CubeDist
 import AFTD.Kb.Optimization.CubeFunc
+import AFTD.Kb.Optimization.DfjIsSufficientSecFamily
+import AFTD.Kb.Optimization.DfjOneTwoDfjCost
+import AFTD.Kb.Optimization.DfjOneTwoTspCost
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraAugRowEvalInl
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraAugRowEvalInrFalse
 import AFTD.Kb.Optimization.EconCSLibLinearAlgebraAugRowEvalInrTrue
@@ -8597,6 +8623,8 @@ import AFTD.Kb.Tcs.CodeDist
 import AFTD.Kb.Tcs.CodeDistEqZeroOfCodeKEqZero
 import AFTD.Kb.Tcs.CodeDistLeN
 import AFTD.Kb.Tcs.CodeK
+import AFTD.Kb.Tcs.CodeMinDist
+import AFTD.Kb.Tcs.CodeMinDistPair
 import AFTD.Kb.Tcs.CodeMinInsdelDist
 import AFTD.Kb.Tcs.CodeProj
 import AFTD.Kb.Tcs.CodeProjApply
@@ -8931,6 +8959,8 @@ import AFTD.Kb.Tcs.CommutingQuantumMessageSectorSpan
 import AFTD.Kb.Tcs.ComparisonAlgorithm
 import AFTD.Kb.Tcs.ComparisonAlgorithmSuccessProb
 import AFTD.Kb.Tcs.ComparisonDecisionTree
+import AFTD.Kb.Tcs.ComparisonDecisionTreeDepth
+import AFTD.Kb.Tcs.ComparisonDecisionTreeEval
 import AFTD.Kb.Tcs.ComparisonEdge
 import AFTD.Kb.Tcs.ComparisonEvalKerLeSpanKappa
 import AFTD.Kb.Tcs.ComparisonEvalMatrix
@@ -8953,6 +8983,7 @@ import AFTD.Kb.Tcs.ComparisonTreeDepth
 import AFTD.Kb.Tcs.ComparisonTreeDepthBindLe
 import AFTD.Kb.Tcs.ComparisonTreeEval
 import AFTD.Kb.Tcs.ComparisonTreeEvalBind
+import AFTD.Kb.Tcs.ComparisonTreeFindsGuaranteedRollercoaster
 import AFTD.Kb.Tcs.ComparisonTreeNumLeaves
 import AFTD.Kb.Tcs.ComparisonTreeNumLeavesLeTwoPowDepth
 import AFTD.Kb.Tcs.ComparisonTreeSelectsRank
@@ -11913,6 +11944,8 @@ import AFTD.Kb.Tcs.GridBoxFree
 import AFTD.Kb.Tcs.GridBoxFreeMax
 import AFTD.Kb.Tcs.GridBoxFreeMaxEqFiftyOfNotExistsFiftyOne
 import AFTD.Kb.Tcs.GridBoxFreeOfLe
+import AFTD.Kb.Tcs.GridRamseyNumber
+import AFTD.Kb.Tcs.GridRamseyProp
 import AFTD.Kb.Tcs.GridRho
 import AFTD.Kb.Tcs.GroupCayleyDigraphIsoOfMulEquiv
 import AFTD.Kb.Tcs.GroupCayleyTableChromaticNumberNeSucc
@@ -12006,6 +12039,7 @@ import AFTD.Kb.Tcs.HasKrausRepresentation
 import AFTD.Kb.Tcs.HasLaplacianPeakStateTransfer
 import AFTD.Kb.Tcs.HasMadLt
 import AFTD.Kb.Tcs.HasMadLtExistsDegreeLeTwo
+import AFTD.Kb.Tcs.HasMonochromaticBox
 import AFTD.Kb.Tcs.HasMonochromaticDiamondCopy
 import AFTD.Kb.Tcs.HasMonochromaticDiamondCopyColourInjective
 import AFTD.Kb.Tcs.HasMonochromaticDiamondCopyColourInjectiveNonempty
@@ -12419,6 +12453,7 @@ import AFTD.Kb.Tcs.InstDecidableRelPetrialRGraphAdj
 import AFTD.Kb.Tcs.InstFiniteDimensionalComplexSubtypeHnMemSubmodule
 import AFTD.Kb.Tcs.InstFintypeColoredRootedTree
 import AFTD.Kb.Tcs.InstFintypeIntervalFamily
+import AFTD.Kb.Tcs.InstFintypeNeighborSetLatticeGraphTwoOne
 import AFTD.Kb.Tcs.InstFintypeOrderHom
 import AFTD.Kb.Tcs.InstFintypePauliString
 import AFTD.Kb.Tcs.InstFintypeStandardYoungTableau
@@ -12499,6 +12534,8 @@ import AFTD.Kb.Tcs.IsBipartiteCactusNfa
 import AFTD.Kb.Tcs.IsBipartiteLocallyEncodable
 import AFTD.Kb.Tcs.IsBipartiteLocallyEncodableNormOne
 import AFTD.Kb.Tcs.IsBoundedBiasRankOneProduct
+import AFTD.Kb.Tcs.IsBox
+import AFTD.Kb.Tcs.IsBoxCard
 import AFTD.Kb.Tcs.IsBoxFree
 import AFTD.Kb.Tcs.IsBraidIso
 import AFTD.Kb.Tcs.IsBraidSolution
@@ -12595,6 +12632,7 @@ import AFTD.Kb.Tcs.IsGracefulTree
 import AFTD.Kb.Tcs.IsGracefulTreeStarTwo
 import AFTD.Kb.Tcs.IsGraphBisection
 import AFTD.Kb.Tcs.IsGraphBisectionSingletonBool
+import AFTD.Kb.Tcs.IsGraphCore
 import AFTD.Kb.Tcs.IsGraphOrientation
 import AFTD.Kb.Tcs.IsGraphon
 import AFTD.Kb.Tcs.IsHadamardMatrix
@@ -12626,6 +12664,7 @@ import AFTD.Kb.Tcs.IsKExtendableTwoMulAddTwoLe
 import AFTD.Kb.Tcs.IsKFactorCritical
 import AFTD.Kb.Tcs.IsKGeodetic
 import AFTD.Kb.Tcs.IsKGeodeticBot
+import AFTD.Kb.Tcs.IsKRollercoaster
 import AFTD.Kb.Tcs.IsKTight
 import AFTD.Kb.Tcs.IsKTightCycleSumUnitIff
 import AFTD.Kb.Tcs.IsKnrs
@@ -12638,6 +12677,7 @@ import AFTD.Kb.Tcs.IsLapTraceMinimal
 import AFTD.Kb.Tcs.IsLatinPartition
 import AFTD.Kb.Tcs.IsLatinTableau
 import AFTD.Kb.Tcs.IsLatticePolytope
+import AFTD.Kb.Tcs.IsLatticeTranslate
 import AFTD.Kb.Tcs.IsLayeredDag
 import AFTD.Kb.Tcs.IsLinearExtension
 import AFTD.Kb.Tcs.IsLinearForest
@@ -12859,6 +12899,7 @@ import AFTD.Kb.Tcs.IsUniformlyRecurrentWord
 import AFTD.Kb.Tcs.IsUniqueExtremalForEvenCycles
 import AFTD.Kb.Tcs.IsUniquelyCliqueSaturated
 import AFTD.Kb.Tcs.IsV0
+import AFTD.Kb.Tcs.IsValidGuaranteedRollercoaster
 import AFTD.Kb.Tcs.IsValidMatrix3Decomposition
 import AFTD.Kb.Tcs.IsValidPolicy
 import AFTD.Kb.Tcs.IsValidPolicyAux
@@ -12954,7 +12995,10 @@ import AFTD.Kb.Tcs.JoinCompleteTuran
 import AFTD.Kb.Tcs.JoinCompleteTuranDecidableRel
 import AFTD.Kb.Tcs.JoinCompleteTuranFractionalCoverAndTotalWeight
 import AFTD.Kb.Tcs.JoinCompleteTuranWeight
+import AFTD.Kb.Tcs.JointCodeDistGe
 import AFTD.Kb.Tcs.JointHammingBound
+import AFTD.Kb.Tcs.JointPerfectCodeMinDist
+import AFTD.Kb.Tcs.JointPerfectCodePartition
 import AFTD.Kb.Tcs.JordanProd
 import AFTD.Kb.Tcs.K22CodeCardLe
 import AFTD.Kb.Tcs.K22CodeExistsDenseFamilyOfPowerOfTwo
@@ -13147,6 +13191,9 @@ import AFTD.Kb.Tcs.LatinTableauxShape5FirstThreeCols
 import AFTD.Kb.Tcs.LatinTableauxShape5TailCols
 import AFTD.Kb.Tcs.LatinTopRowAvailability
 import AFTD.Kb.Tcs.LatinTopRowAvailabilityEqOneIff
+import AFTD.Kb.Tcs.LatticeBallOne
+import AFTD.Kb.Tcs.LatticeGraphTwoOne
+import AFTD.Kb.Tcs.LatticeGraphTwoOneNeighbors
 import AFTD.Kb.Tcs.LayerMono
 import AFTD.Kb.Tcs.LayeredDigraphCompatibleFamilyCommonVertex
 import AFTD.Kb.Tcs.LcsLength
@@ -13606,6 +13653,7 @@ import AFTD.Kb.Tcs.MeasurableComplexLaplaceIntegrand
 import AFTD.Kb.Tcs.MemCyclicOrbitCodeSelf
 import AFTD.Kb.Tcs.MemLatinColumnSymbols
 import AFTD.Kb.Tcs.MemLatinDoubleThreeTailShape
+import AFTD.Kb.Tcs.MemLatticeGraphTwoOneNeighbors
 import AFTD.Kb.Tcs.MemLayerMono
 import AFTD.Kb.Tcs.MemMonochromaticEdges
 import AFTD.Kb.Tcs.MemPaletteActiveVertices
@@ -13626,6 +13674,7 @@ import AFTD.Kb.Tcs.MinGaleCounterexampleCardThree
 import AFTD.Kb.Tcs.MinLeafCount
 import AFTD.Kb.Tcs.MinMaxDegreeSuperlinearMatchingRecoloringDiameter
 import AFTD.Kb.Tcs.MinOrderBipartiteHypotraceable
+import AFTD.Kb.Tcs.MinOrderBipartiteHypotraceableLeOfExists
 import AFTD.Kb.Tcs.MinPairCodegree
 import AFTD.Kb.Tcs.MinQAryDeletionCollision
 import AFTD.Kb.Tcs.MinQAryDeletionCollisionThreeThreeFive
@@ -14502,6 +14551,7 @@ import AFTD.Kb.Tcs.Op1957TwoBridgeHClasses
 import AFTD.Kb.Tcs.Op1992RankOneNoBapatSunderCounterexample
 import AFTD.Kb.Tcs.Op2037SharpEightGraph
 import AFTD.Kb.Tcs.Op2037SubgraphFintype
+import AFTD.Kb.Tcs.Op2068CanonicalCounterexampleNonIsomorphic
 import AFTD.Kb.Tcs.Op2068ExampleSevenFourTwoCanonicalSizes
 import AFTD.Kb.Tcs.Op2130BoundedPathHasNonincreasingEdge
 import AFTD.Kb.Tcs.Op2130CarpoolFoldAvoidsVertex
@@ -14612,6 +14662,7 @@ import AFTD.Kb.Tcs.Op309ConnectedTriangleFreeClassCycleBudget
 import AFTD.Kb.Tcs.Op309CubeDefectOneRecolorKernel
 import AFTD.Kb.Tcs.Op309CubicDiamondContainsIncidentTriangles
 import AFTD.Kb.Tcs.Op309CubicDominatingMatchingUncoveredDegreeTwo
+import AFTD.Kb.Tcs.Op309CubicInducedMatchingTotalDominatingCut
 import AFTD.Kb.Tcs.Op309CubicOverlappingTrianglesFormDiamond
 import AFTD.Kb.Tcs.Op309CubicTrianglesSharingVertexShareEdge
 import AFTD.Kb.Tcs.Op309CyclePaletteForcesMatchingPalette
@@ -14647,6 +14698,7 @@ import AFTD.Kb.Tcs.Op309GraphFourDegenerate
 import AFTD.Kb.Tcs.Op309HighGirthPeelCountArithmetic
 import AFTD.Kb.Tcs.Op309IncidenceOverlapFivePeel
 import AFTD.Kb.Tcs.Op309IncidenceWeightedFourPeel
+import AFTD.Kb.Tcs.Op309IsMatching
 import AFTD.Kb.Tcs.Op309K33NoNormalRichNeighbor
 import AFTD.Kb.Tcs.Op309K33TwoRichImpossibleKernel
 import AFTD.Kb.Tcs.Op309K33WitnessMinDegree
@@ -17003,6 +17055,9 @@ import AFTD.Kb.Tcs.StabilizedSubspace
 import AFTD.Kb.Tcs.StabilizedSubspaceBot
 import AFTD.Kb.Tcs.StabilizerCampbellHowardConditions
 import AFTD.Kb.Tcs.StabilizerSubspaceFinrankEqTwoPow
+import AFTD.Kb.Tcs.StandardCoreTwoOne
+import AFTD.Kb.Tcs.StandardCoreTwoOneCard
+import AFTD.Kb.Tcs.StandardCoreTwoOneIsCore
 import AFTD.Kb.Tcs.StandardExample
 import AFTD.Kb.Tcs.StandardExampleLe
 import AFTD.Kb.Tcs.StandardExamplePartialOrder
@@ -17190,6 +17245,10 @@ import AFTD.Kb.Tcs.SymFormSubIsRefl
 import AFTD.Kb.Tcs.SymFormSubNondegenerate
 import AFTD.Kb.Tcs.SymFormSwap
 import AFTD.Kb.Tcs.SymOrth
+import AFTD.Kb.Tcs.SymmetricBooleanDegreeDeficitMax
+import AFTD.Kb.Tcs.SymmetricBooleanDegreeDeficitMaxLeSelf
+import AFTD.Kb.Tcs.SymmetricBooleanDegreeDeficitThreeCase105
+import AFTD.Kb.Tcs.SymmetricBooleanDegreeDeficitThreeCase15
 import AFTD.Kb.Tcs.SymmetricBooleanFuncDepth3SigmoidCircuit
 import AFTD.Kb.Tcs.SymmetricCounterexampleBentWeightDiffDivSixteen
 import AFTD.Kb.Tcs.SymmetricCounterexampleEightNeZero
@@ -17669,6 +17728,7 @@ import AFTD.Kb.Tcs.TutteStrategySolvesStochasticMst
 import AFTD.Kb.Tcs.TutteThreeCommonNeighborsComponentSizes
 import AFTD.Kb.Tcs.TwinStar
 import AFTD.Kb.Tcs.TwinStarLeafCount
+import AFTD.Kb.Tcs.TwistedFrobeniusMap
 import AFTD.Kb.Tcs.TwoAdjacentChordCubicImLe
 import AFTD.Kb.Tcs.TwoBoxCounterexampleFamily
 import AFTD.Kb.Tcs.TwoBoxDeadlineInst

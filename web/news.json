@@ -2,6 +2,154 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-23",
+   "kind": "daily",
+   "title": "Daily reading: 0 research-level, 82 proved, 34 open",
+   "research": {
+    "results": 0,
+    "theorems": 0
+   },
+   "body": "No research-level result today. In graph covering, research thread RT-1 completed the k = 31 case of OP-205 via `simple_graph_equivalence_covering_number_cycle_power_thirty_one_of_not_dvd`. List entry OP-1932 was refuted by `sampford_balanced_family_not_attain_delta_six`, while partial results advanced OP-2068, OP-2097, OP-2119, and OP-2178. Formalized published theorems include an impossibility result for infinite social ranking solutions (`impossibility_con_ucon_lex_cel`), non-Hamiltonicity of ball bearing graphs, and dimension lower bounds for higher Bruhat orders. Preprints treated nowhere-zero flows on signed graphs, Simplex pivots on 0/1-polytopes, and exact slow 2-Nim, while the general exclusivity of degree-deficit-three families and core sizes in planar lattice graphs remain open.\n\nThe Proposer read 21 new paper(s) and listed 21 open problem(s); 26 new question(s) of AFTD's own were adopted onto the list; 5 list entries were stated in Lean, as were 10 results the papers prove; the Proposer posed 44 more from what the knowledgebase already holds (108 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 82 theorem(s), 53 of them helper lemmas, which are not listed below; 34 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nPartial result on OP-205. `simple_graph_equivalence_covering_number_cycle_power_thirty_one_of_not_dvd`: For every even n ≥ 31713 = 31²·33 not divisible by 32, the equivalence covering number of the 31st power of the n-cycle is 7 = 2 + log₂ 32: the k = 31 (m = 5) case of OP-205.\n\nRefutes OP-1932. `sampford_balanced_family_not_attain_delta_six` (knowledgebase): The balanced two-group family does not attain Delta_6, as the maximal consecutive-house coupling loss Delta_6 strictly exceeds the balanced family limit 31/159.\n\nPartial result on OP-2119. `op_2119_majority_immunity_below_half` (arXiv:2611.26224): Let $N$ be a finite set of voters and $A$ a finite, nonempty set of alternatives. If a social choice function $f : (N \\to \\text{LinearOrder } A) \\to A$ satisfies the majority criterion, then for any $k \\in \\mathbb{N}$ with $2k < |N|$, $f$ is not obviously…\n\nPartial result on OP-2068. `op_2068_canonical_counterexample_non_isomorphic` (arXiv:2611.25346): For parameters (n,k,t)=(5,3,2), both canonical families canonical_t_intersecting_family 5 3 2 0 and canonical_t_intersecting_family 5 3 2 1 have cardinality 4, both satisfy is_t_intersecting_family 2, and they are not isomorphic under…\n\nPartial result on OP-2097. `symmetric_boolean_degree_deficit_three_case_15` (arXiv:2611.26446): Either there exists a natural number $t$ such that $2 \\le t$ and $15 = 4t^2 - 1$, or there exists a natural number $i$ such that $2 \\le i$, $i \\bmod 3 \\ne 1$, and $15 = f_{2i+2}f_{2i+3} + 1$, where $f_j$ denotes the $j$-th Fibonacci number.\n\nPartial result on OP-2097. `symmetric_boolean_degree_deficit_three_case_105` (arXiv:2611.26446): Either there exists a natural number $t$ such that $2 \\le t$ and $105 = 4t^2 - 1$, or there exists a natural number $i$ such that $2 \\le i$, $i \\bmod 3 \\ne 1$, and $105 = f_{2i+2}f_{2i+3} + 1$, where $f_j$ denotes the $j$-th Fibonacci number.\n\nPartial result on OP-2178. `op_2178_order_two_ternary_det_sq_attained` (arXiv:2611.27591): There exists a 2 by 2 matrix M with entries in the complex third roots of unity whose squared determinant Complex.normSq M.det equals 3.\n\nPartial result on OP-2178. `op_2178_order_two_ternary_det_sq_le` (arXiv:2611.27591): Every 2 by 2 matrix M with entries in the complex third roots of unity satisfies Complex.normSq M.det ≤ 3.\n\nThread RT-1. `cycle_power_thirty_one_model_alternating`: In a tight, exactly dyadically covered, fully covered exponent-5 Boolean class model with 6 active classes at every vertex, bit 1 alternates: x(p+1,1) = not x(p,1) for every p.\n\nThread RT-1. `cycle_power_thirty_one_double_false_bit_one_refuted_s5t`: In a tight, exactly dyadically covered, fully covered exponent-5 model with 6 active classes per vertex, the classes rooted at 0 and 1 cannot both lack bit 1 when x(5,1) = true.\n\nThread RT-1. `cycle_power_thirty_one_model_bit_one_not_both_false`: In a tight, exactly dyadically covered, fully covered exponent-5 model with 6 active classes per vertex, no two consecutive classes both lack bit 1: x(p,1) = false implies x(p+1,1) = true.\n\nThread RT-1. `cycle_power_thirty_one_double_false_bit_one_refuted_s5t_m3f`: In a tight, exactly dyadically covered, fully covered exponent-5 model with 6 active classes per vertex, it is impossible that x(0,1) = x(1,1) = false, x(5,1) = true, x(-3,1) = false.\n\nThread RT-1. `cycle_power_thirty_one_double_false_bit_one_refuted_s5t_m3t_4t`: In a tight, exactly dyadically covered, fully covered exponent-5 model with 6 active classes per vertex, it is impossible that x(0,1) = x(1,1) = false, x(5,1) = true, x(-3,1) = x(4,1) = true.\n\nThread RT-1. `cycle_power_thirty_one_double_false_bit_one_refuted_s5t_m3t_4f_28t`: In a tight, exactly dyadically covered, fully covered exponent-5 model with 6 active classes per vertex, it is impossible that x(0,1) = x(1,1) = false, x(5,1) = true, x(-3,1) = true, x(4,1) = false, x(2,28) = true.\n\nFormalized. `impossibility_con_ucon_lex_cel` (arXiv:2611.19021 Theorem 3): For any countably infinite type of individuals X with decidable equality, no social ranking solution R on X simultaneously satisfies consistency (satisfies_con R), union consistency (satisfies_ucon R), and Lex-cel extension (satisfies_le R).\n\nFormalized. `joint_perfect_code_min_dist` (arXiv:2611.18156, Proposition IV.2): Given implicit parameters n, q, c, and c', if C : Finset (Fin n → Fin q) is a (c, c') joint perfect code with 2 ≤ C.card, then code_min_dist C (2 * c + c' + 1), and if c' = 0 then 2 * c + c' + 1 is odd.\n\nFormalized. `ball_bearing_not_hamiltonian` (arXiv:2611.17386 Lemma 2): For any integer k ≥ 3, the Ball Bearing graph ballBearingGraph k contains no Hamiltonian cycle, that is, ¬ (ballBearingGraph k).IsHamiltonian.\n\nFormalized. `higher_bruhat_right_coord_monotone` (arXiv:2611.17465 Section 2.2): For any subset Q ⊆ {0, ..., n-1}, the right coordinate map rho_Q is monotone with respect to family inclusion under the lexicographical order on boolean lists: if X ⊆ Y, then rho_Q(X) ≤ rho_Q(Y).\n\nFormalized. `higher_bruhat_inc_poset_dimension_ge` (arXiv:2611.17465, Proposition 2): For integers k ≥ 2 and n ≥ k+1, the Dushnik–Miller dimension of the inclusion higher Bruhat order B_inc(n, k) satisfies dim B_inc(n, k) ≥ ⌈(1/n) * choose(n, k+1)⌉.\n\nFormalized. `linear_extension_comp_automorphism` (arXiv:2611.26888 Proposition 3.1): If l is a linear extension of a finite poset P and f is a poset automorphism of P, then l ∘ f is a linear extension of P.\n\nFormalized. `lowerSet_preimage_isLowerSet` (arXiv:2611.26888 Proposition 3.2): If I is an order ideal of a poset P and f is a poset automorphism of P, then the preimage f⁻¹(I) is an order ideal of P.\n\nOpen. `radius_one_planar_lattice_core_card_ge_twelve`: For any S : Finset (ℤ × ℤ), if is_graph_core lattice_graph_two_one S holds, then 12 ≤ S.card.\n\nOpen. `planar_lattice_core_radius_one_minimum_and_unique_minimizer` (arXiv:2611.18633 Theorem 4.3): In the radius-one lattice graph lattice_graph_two_one on ℤ × ℤ, every core S has cardinality at least 12, standard_core_two_one is a core, and every core S of cardinality 12 satisfies is_lattice_translate S standard_core_two_one.\n\nOpen. `op_2107_guaranteed_rollercoaster_comparison_complexity` (arXiv:2611.26297): OP-2107: For integers k ≥ 3 and n ≥ 1, there exists an absolute constant C > 0 such that for all k ≥ 3 and n ≥ 1, a guaranteed-length k-rollercoaster in any n-element sequence can be found by a comparison decision tree of depth at most C * n * log k.\n\nOpen. `ball_bearing_tsp_sec_lower_bound` (arXiv:2611.17386 Theorem 2.1): For any integer k ≥ 3, any sufficient family 𝒱 of subtour elimination constraints for the 1,2-TSP instance derived from the Ball Bearing graph ballBearingGraph k on 5k vertices satisfies 2 ^ k ≤ 𝒱.card.\n\nOpen. `symmetric_boolean_degree_deficit_three_exclusivity` (arXiv:2611.26446): For every natural number $n$, if the maximum degree deficit of nonconstant symmetric Boolean functions on $n$ variables is at least 3, then either there exists a natural number $t \\ge 2$ such that $n = 4t^2 - 1$, or there exists a natural number $i \\ge 2$…\n\nOpen. `four_grid_ramsey_two_ge_thirty_three` (arXiv:2611.17378, Corollary 4): The four-dimensional grid Ramsey number for 2 colors satisfies `33 ≤ grid_ramsey_number 4 2`.",
+   "declarations": [
+    "simple_graph_equivalence_covering_number_cycle_power_thirty_one_of_not_dvd",
+    "op309_cubic_induced_matching_total_dominating_cut",
+    "sampford_balanced_family_not_attain_delta_six",
+    "op309_cubic_matching_recolor_rich_iff_missing",
+    "op_2119_majority_immunity_below_half",
+    "boundary_saturated_block_cross_edge_residual_reachable",
+    "factorcritical_anticomplete_odd_components_bound",
+    "boundary_five_small_clique_blocks_forced_cross_edge_is_bridge",
+    "boundary_five_clique_blocks_full_cross_essential_edge_forces_twins",
+    "boundary_five_clique_blocks_full_cross_vertex_has_removable_edge",
+    "op_2068_canonical_counterexample_non_isomorphic",
+    "cycle_power_thirty_one_model_alternating",
+    "cycle_power_thirty_one_double_false_bit_one_refuted_s5t",
+    "cycle_power_thirty_one_model_bit_one_not_both_false",
+    "bapat_sunder_witness_normsq",
+    "mem_lattice_graph_two_one_neighbors",
+    "standard_core_two_one_card",
+    "standard_core_two_one_is_core",
+    "impossibility_con_ucon_lex_cel_claim2",
+    "impossibility_con_ucon_lex_cel",
+    "joint_code_dist_ge",
+    "joint_perfect_code_partition",
+    "joint_perfect_code_min_dist",
+    "code_min_dist_pair",
+    "ball_bearing_not_hamiltonian",
+    "symmetric_boolean_degree_deficit_three_case_15",
+    "symmetric_boolean_degree_deficit_three_case_105",
+    "is_box_card",
+    "symmetric_boolean_degree_deficit_max_le_self",
+    "twisted_frobenius_map_one",
+    "twisted_frobenius_bijective",
+    "higher_bruhat_packet_consistent_empty",
+    "finite_field_rectangle_twisted_frobenius_degenerate",
+    "higher_bruhat_right_coord_monotone",
+    "higher_bruhat_inc_poset_dimension_ge_card_of_boolean_subposet",
+    "cycle_power_thirty_one_double_false_bit_one_refuted_s5t_m3f",
+    "cycle_power_thirty_one_double_false_bit_one_refuted_s5t_m3t_4t",
+    "cycle_power_thirty_one_double_false_bit_one_refuted_s5t_m3t_4f_28t",
+    "higher_bruhat_modular_sublevel_packet_consistent",
+    "cycle_power_thirty_one_double_false_bit_one_refuted_s5t_m3t_4f_28f",
+    "higher_bruhat_exists_modular_level_set_card_ge",
+    "cycle_power_thirty_one_double_true_bit_one_refuted_3b28t_m2b28t",
+    "cycle_power_thirty_one_double_true_bit_one_refuted_3b28t_m2b28f",
+    "higher_bruhat_inc_poset_dimension_ge",
+    "cycle_power_thirty_one_double_true_bit_one_refuted_3b28f_m6t_4t",
+    "cycle_power_thirty_one_double_true_bit_one_refuted_3b28f_m6t_4f",
+    "cycle_power_thirty_one_double_true_bit_one_refuted_3b28f_m6f_m2t",
+    "cycle_power_thirty_one_double_true_bit_one_refuted_3b28f_m6f_m2f",
+    "cycle_power_thirty_one_model_bit_one_not_both_true",
+    "two_point_network_length_ge",
+    "rat_self_delimiting_code_zero",
+    "rat_self_delimiting_code_neg_half",
+    "cable_instance_code_nil",
+    "rat_plane_point_dist",
+    "rat_segments_union_point",
+    "cable_steiner_opt_singleton",
+    "cable_steiner_opt_two_points",
+    "linear_extension_comp_automorphism",
+    "op_2178_order_two_ternary_det_sq_attained",
+    "lowerSet_preimage_isLowerSet",
+    "op_2178_order_two_ternary_det_sq_le",
+    "op_2130_pair_update_l1_contract",
+    "boundary_four_five_blocks_even_shores_impossible",
+    "op2130_height_wire",
+    "op2130_height_clear",
+    "op2130_height_gate",
+    "op2130_height_clear_mirror",
+    "op2130_height_majority_gate",
+    "h_chain_index_lt",
+    "boundary_five_blocks_strong_shore_separator_bound",
+    "boundary_five_blocks_short_c_shore_arithmetic",
+    "mem_matroid_base_ball_self",
+    "boundary_five_blocks_two_defect_shore_arithmetic",
+    "h_chain_pos_lt",
+    "boundary_five_blocks_bridge_shore_defect_constraints",
+    "op2130_height_law_not_log_supermodular",
+    "five_by_five_sparse_defects_have_good_pair",
+    "op2130_conditional_variation_seven_counterexample",
+    "op2130_flip_influence_projection",
+    "four_block_anticomplete_shores_separator_bound",
+    "boundary_five_blocks_defect_from_shore_shape",
+    "boundary_five_blocks_bridge_shore_defect_pattern"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2611.24611",
+     "href": "https://arxiv.org/abs/2611.24611"
+    },
+    {
+     "label": "arXiv:2611.26446",
+     "href": "https://arxiv.org/abs/2611.26446"
+    },
+    {
+     "label": "arXiv:2611.26297",
+     "href": "https://arxiv.org/abs/2611.26297"
+    },
+    {
+     "label": "arXiv:2611.27591",
+     "href": "https://arxiv.org/abs/2611.27591"
+    },
+    {
+     "label": "arXiv:2611.27740",
+     "href": "https://arxiv.org/abs/2611.27740"
+    },
+    {
+     "label": "arXiv:2611.27562",
+     "href": "https://arxiv.org/abs/2611.27562"
+    },
+    {
+     "label": "arXiv:2611.27671",
+     "href": "https://arxiv.org/abs/2611.27671"
+    },
+    {
+     "label": "arXiv:2611.27934",
+     "href": "https://arxiv.org/abs/2611.27934"
+    },
+    {
+     "label": "arXiv:2611.27965",
+     "href": "https://arxiv.org/abs/2611.27965"
+    },
+    {
+     "label": "arXiv:2611.27519",
+     "href": "https://arxiv.org/abs/2611.27519"
+    },
+    {
+     "label": "arXiv:2611.27685",
+     "href": "https://arxiv.org/abs/2611.27685"
+    },
+    {
+     "label": "arXiv:2611.27793",
+     "href": "https://arxiv.org/abs/2611.27793"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-22",
    "kind": "weekly",
    "week": "2026-W47",

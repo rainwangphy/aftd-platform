@@ -1271,6 +1271,8 @@ import AFTD.Kb.GameTheoryEconomics.EmpiricalStrategy
 import AFTD.Kb.GameTheoryEconomics.EmptyEqZeroOfMatroidRankValuation
 import AFTD.Kb.GameTheoryEconomics.EndowmentIsFeasible
 import AFTD.Kb.GameTheoryEconomics.EnviedSubsetContainsAddedGood
+import AFTD.Kb.GameTheoryEconomics.EnvyFreeConsecutiveHouseCouplingLossDelta
+import AFTD.Kb.GameTheoryEconomics.EnvyFreeMinCouplingLoss
 import AFTD.Kb.GameTheoryEconomics.EpsteinDown
 import AFTD.Kb.GameTheoryEconomics.EpsteinRemoteness
 import AFTD.Kb.GameTheoryEconomics.EpsteinRemotenessFourNonempty
@@ -1664,6 +1666,7 @@ import AFTD.Kb.GameTheoryEconomics.GsBijective
 import AFTD.Kb.GameTheoryEconomics.GsInjective
 import AFTD.Kb.GameTheoryEconomics.GuaranteesAlphaEefx
 import AFTD.Kb.GameTheoryEconomics.HareMonroeSatisfiesDroopJr
+import AFTD.Kb.GameTheoryEconomics.HasAdmissibleLottery
 import AFTD.Kb.GameTheoryEconomics.HasBinaryMarginals
 import AFTD.Kb.GameTheoryEconomics.HasBivaluedEfxSubMmsInstance
 import AFTD.Kb.GameTheoryEconomics.HasConsistentEefxAlgorithm
@@ -1784,6 +1787,7 @@ import AFTD.Kb.GameTheoryEconomics.IrrStepNe
 import AFTD.Kb.GameTheoryEconomics.IsAauRule
 import AFTD.Kb.GameTheoryEconomics.IsAbLinked
 import AFTD.Kb.GameTheoryEconomics.IsAdjacentSwapBid
+import AFTD.Kb.GameTheoryEconomics.IsAdmissibleLottery
 import AFTD.Kb.GameTheoryEconomics.IsAffineUtility
 import AFTD.Kb.GameTheoryEconomics.IsAffineUtilityIsRiskNeutral
 import AFTD.Kb.GameTheoryEconomics.IsAllocationRule
@@ -1858,6 +1862,9 @@ import AFTD.Kb.GameTheoryEconomics.IsEjrCommittee
 import AFTD.Kb.GameTheoryEconomics.IsEjrCommitteeIffCandidateSubsets
 import AFTD.Kb.GameTheoryEconomics.IsEjrCommitteeIffUndersatisfiedSupporters
 import AFTD.Kb.GameTheoryEconomics.IsEjrCommitteeZero
+import AFTD.Kb.GameTheoryEconomics.IsEnvyFreeCoupling
+import AFTD.Kb.GameTheoryEconomics.IsEnvyFreeOutcome
+import AFTD.Kb.GameTheoryEconomics.IsEnvyFreeOutcomeOfEqualShares
 import AFTD.Kb.GameTheoryEconomics.IsEnvyFreeWithSubsidy
 import AFTD.Kb.GameTheoryEconomics.IsEnvyFreeWithSubsidyPermLe
 import AFTD.Kb.GameTheoryEconomics.IsEqualLengthAllocation
@@ -4029,6 +4036,7 @@ import AFTD.Kb.NumberTheory.DesignatedOddPartitionGenFun
 import AFTD.Kb.NumberTheory.DesignatedOddPartitionKTuple
 import AFTD.Kb.NumberTheory.DesignatedOddPartitionPredictedValuation
 import AFTD.Kb.NumberTheory.DesignatedOddPartitionTupleCoeff
+import AFTD.Kb.NumberTheory.DesignatedOddPartitionTupleCoeffEqKTuple
 import AFTD.Kb.NumberTheory.DesignatedOddPartitionWeight
 import AFTD.Kb.NumberTheory.DesignatedPartitionA
 import AFTD.Kb.NumberTheory.DesignatedPartitionA3
@@ -4626,6 +4634,8 @@ import AFTD.Kb.Optimization.StochasticMstSubmodularGoalValue
 import AFTD.Kb.Optimization.SubmodQueryTree
 import AFTD.Kb.Optimization.SubmodQueryTreeEval
 import AFTD.Kb.Optimization.SubmodularBasePolytope
+import AFTD.Kb.Optimization.SubmodularGoalFunctionMinTruncation
+import AFTD.Kb.Optimization.SubmodularGoalValueLeOfGoalFunction
 import AFTD.Kb.Optimization.SubmodularRandomSampleGuarantee
 import AFTD.Kb.Optimization.SubmodularRandomSampleGuaranteeIffUniversalFamily
 import AFTD.Kb.Optimization.SubmodularRandomSampleSuccessProb
@@ -5537,6 +5547,7 @@ import AFTD.Kb.Physics.IsHalfIntegralCurrent
 import AFTD.Kb.Physics.IsHamiltonianTrajectory
 import AFTD.Kb.Physics.IsHamiltonianTrajectoryZero
 import AFTD.Kb.Physics.IsInducedClaw
+import AFTD.Kb.Physics.IsLeastExtraYangMillsProfile
 import AFTD.Kb.Physics.IsLocalizedFunctionTransform
 import AFTD.Kb.Physics.IsLocalizedFunctionTransformAdd
 import AFTD.Kb.Physics.IsLocalizedFunctionTransformClmApply
@@ -5587,6 +5598,7 @@ import AFTD.Kb.Physics.IsTestFunctionSub
 import AFTD.Kb.Physics.IsTestFunctionSum
 import AFTD.Kb.Physics.IsTestFunctionToCompactlySupportedContinuousMap
 import AFTD.Kb.Physics.IsTestFunctionZero
+import AFTD.Kb.Physics.IsYangMillsSmoothProfile
 import AFTD.Kb.Physics.IsingGraphState
 import AFTD.Kb.Physics.IsingInverseSquareBulkFieldPolynomial
 import AFTD.Kb.Physics.IsingInverseSquareBulkTwoOfFiniteFormula
@@ -7725,6 +7737,13 @@ import AFTD.Kb.Physics.XzRho
 import AFTD.Kb.Physics.XzRhoIsHermitian
 import AFTD.Kb.Physics.XzRhoTraceOne
 import AFTD.Kb.Physics.XzTransferMatrix
+import AFTD.Kb.Physics.YangMillsAMinus
+import AFTD.Kb.Physics.YangMillsAlphaMinus
+import AFTD.Kb.Physics.YangMillsBetaMinus
+import AFTD.Kb.Physics.YangMillsBetaMinusPosOfGe29
+import AFTD.Kb.Physics.YangMillsExplicitMinusProfile
+import AFTD.Kb.Physics.YangMillsExplicitMinusProfileOrigin
+import AFTD.Kb.Physics.YangMillsProfileScaledEndpoint
 import AFTD.Kb.Physics.YangMillsResidualPolynomial
 import AFTD.Kb.Physics.YangMillsResidualRootM3
 import AFTD.Kb.Physics.YangMillsResonancePolynomial
@@ -9002,8 +9021,10 @@ import AFTD.Kb.Tcs.CommunicationComplexityUnitFiniteProbabilitySpace
 import AFTD.Kb.Tcs.CommunicationComplexityUnitMeasureSpace
 import AFTD.Kb.Tcs.CommunicationComplexityVariationalIntegralMulLeIntegralKlFunAddCgf
 import AFTD.Kb.Tcs.CommutingQuantumEfficiency
+import AFTD.Kb.Tcs.CommutingQuantumLuedersPrefix
 import AFTD.Kb.Tcs.CommutingQuantumMessageSector
 import AFTD.Kb.Tcs.CommutingQuantumMessageSectorSpan
+import AFTD.Kb.Tcs.CommutingQuantumOneBitZeroErrorVanishing
 import AFTD.Kb.Tcs.ComparisonAlgorithm
 import AFTD.Kb.Tcs.ComparisonAlgorithmSuccessProb
 import AFTD.Kb.Tcs.ComparisonDecisionTree
@@ -14957,6 +14978,8 @@ import AFTD.Kb.Tcs.Op462GaleCounterexampleCardThreeGeFive
 import AFTD.Kb.Tcs.Op462GaleCounterexampleCardThreeLe101
 import AFTD.Kb.Tcs.Op462IsLeastIff
 import AFTD.Kb.Tcs.Op462Lt101OfIntegerWitness
+import AFTD.Kb.Tcs.Op462Lt65OfIntegerWitness
+import AFTD.Kb.Tcs.Op462LtSixtyFiveOfExistsCounterexample
 import AFTD.Kb.Tcs.Op462MinCardLeOfIntegerWitness
 import AFTD.Kb.Tcs.Op462MinCounterexampleCardThreeInRange
 import AFTD.Kb.Tcs.Op462MinGaleCounterexampleCardThreeInRange
@@ -18003,6 +18026,7 @@ import AFTD.Kb.Tcs.TwoFourCodeCardAchievable
 import AFTD.Kb.Tcs.TwoFourCodeFourSupportsIntersectGeTwo
 import AFTD.Kb.Tcs.TwoFourCodeMaxCard
 import AFTD.Kb.Tcs.TwoFourCodeMaxCardGe
+import AFTD.Kb.Tcs.TwoFourCodeMaxCardNeOfExistsCode
 import AFTD.Kb.Tcs.TwoFourCodeSyncSingleCoord
 import AFTD.Kb.Tcs.TwoFourColorCoversWithThreeCommonForceFourthEqual
 import AFTD.Kb.Tcs.TwoFourEventualThreshold
@@ -18392,6 +18416,8 @@ import AFTD.Kb.Tcs.ZeroSumW
 import AFTD.Kb.Tcs.ZeroSumWBad
 import AFTD.Kb.Tcs.ZeroSumWBadConcatBoxComplementLengthLe
 import AFTD.Kb.Tcs.ZeroSumWBadNil
+import AFTD.Kb.Tcs.ZeroSumWBadReplicateLe
+import AFTD.Kb.Tcs.ZeroSumWBadSublist
 import AFTD.Kb.Tcs.ZeroSumWGe
 import AFTD.Kb.Tcs.ZeroSumWThreeThree
 import AFTD.Kb.Tcs.ZeroSumWTwo

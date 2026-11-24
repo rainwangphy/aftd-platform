@@ -2,6 +2,148 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-24",
+   "kind": "daily",
+   "title": "Daily reading: 0 research-level, 76 proved, 0 open",
+   "research": {
+    "results": 0,
+    "theorems": 0
+   },
+   "body": "No research-level result today. Two open-problem entries gained partial results: `minimally_k_extendable_five_block_boundary_degree_bound_with_separator` proves a degree bound under a five-block boundary and separator condition for OP-1957, while `op_2178_eisenstein_inner_product_classification` classifies elements in 2 + 3ℤ[ω] with squared norm at most 4 for OP-2178. Published theorems formalized include `metric_ball_volume_comparison_matroid_bases` bounding matroid basis ball cardinalities from arXiv:2611.27934, a counterexample polynomial for a weighted Catalan conjecture in `weighted_catalan_conjecture_counterexample` from arXiv:2611.26953, and `poset_automorphism_induces_isomorphic_mcdo` establishing isomorphic maximal chain descent orders from arXiv:2611.26888. New papers addressed topics such as edge-colorings, cake cutting, and metric dimension, yielding 98 open-problem entries including the list entry OP-2207 as well as questions proposed here, with 0 of today's statements remaining open.\n\nThe Proposer read 38 new paper(s) and listed 47 open problem(s); 51 new question(s) of AFTD's own were adopted onto the list; 1 list entries were stated in Lean, as were 2 results the papers prove; the Proposer posed 12 more from what the knowledgebase already holds (13 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 76 theorem(s), 69 of them helper lemmas, which are not listed below; 0 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nPartial result on OP-1957. `minimally_k_extendable_five_block_boundary_degree_bound_with_separator` (arXiv:2611.22690): For every natural number k at least five, let G be a connected minimally k-extendible simple graph on Fin (4k) with decidable adjacency. Let A, B, C, D be pairwise disjoint sets covering all vertices, with |A|=|C|=5, |A|+|B|=|C|+|D|=2k, no edges between A…\n\nPartial result on OP-2178. `op_2178_eisenstein_inner_product_classification` (arXiv:2611.27591): If an Eisenstein element u in 2 + 3ℤ[ω] satisfies |u|² ≤ 4, then u = -1 or u = 2.\n\nFormalized. `metric_ball_volume_comparison_matroid_bases` (arXiv:2611.27934 Lemma 4.11 -- The Power of Sampling for Finding Far-Apart Bases in Matroids): For every finite matroid M on a type α, any two bases A, B of M (satisfying M.IsBase A and M.IsBase B), and every natural number r, the cardinality (ncard) of the basis ball matroid_base_ball M A r is at most 4^(matroid_diam M) times the cardinality (ncard)…\n\nFormalized. `weighted_catalan_counterexample_satisfies_conditions` (arXiv:2611.26953, Lemma 7): For every integer t, the polynomial b_t satisfies: b_t(0) is odd; 2^(k - s_2(k)) divides (Δ^k b_t)(x) for all k ≥ 2 and all natural numbers x, where s_2(k) is the sum of the binary digits of k; and b_t(0) ≡ b_t(1) mod 4.\n\nFormalized. `chain_step_element_map_automorphism` (arXiv:2611.26888 Lemma 3.4): Let P be a finite partially ordered set with poset automorphism f : P ≃o P. For any maximal chain M : MaximalChainLowerSet P of order ideals, index i : Fin (Fintype.card P), and element x : P, chain_step_element M i x holds if and only if chain_step_element…\n\nFormalized. `weighted_catalan_conjecture_counterexample` (arXiv:2611.26953, Theorem 6): For every integer t, the function weighted_catalan_poly t satisfies: weighted_catalan_poly t 0 is odd; for all natural numbers k ≥ 2 and all natural numbers x, 2^(k - binary_digit_sum k) divides iter_forward_diff k (weighted_catalan_poly t) x;…\n\nFormalized. `poset_automorphism_induces_isomorphic_mcdo` (arXiv:2611.26888 Theorem 1.2): Let P be a finite partially ordered set with linear extension l : P → Fin (Fintype.card P), and let f : P ≃o P be a poset automorphism. Then the linear extensions l and l ∘ f induce isomorphic maximal chain descent orders mcdo_le l and mcdo_le (l ∘ f) on the…",
+   "declarations": [
+    "cycle_square_four_colorable_except_five",
+    "matching_short_alternating_cycle_near_universal",
+    "matching_blocked_short_switches_two_missing_saturation",
+    "matching_short_switch_complement_local_girth_five",
+    "boundary_five_blocks_essential_edge_cross_defect_pattern",
+    "exists_base_ball_image",
+    "k_sorted_of_monotone",
+    "metric_ball_volume_comparison_matroid_bases",
+    "op2130_interval_marginal_recursive_counterexample",
+    "op2130_two_step_increment",
+    "boundary_five_odd_blocks_one_defect_uniform_count_impossible",
+    "op2130_height_two_level_reset",
+    "op2130_decision_gates",
+    "op2130_setup_finite_gadgets",
+    "op2130_variation_sum_lower",
+    "minimally_k_extendable_five_block_boundary_degree_bound_with_separator",
+    "op2130_load_bit_gadgets",
+    "op2130_path_height_step_bridge",
+    "op2130_decision_list_conditional_variation",
+    "op2130_setup_odd_prefix",
+    "op2130_setup_replay_shift",
+    "boundary_five_blocks_minimal_no_full_cross",
+    "op2130_setup_replay_append",
+    "op2130_setup_gadgets_safe",
+    "matroid_circuit_mono_of_fundCircuit_mono_of_finite_sdiff",
+    "not_matroid_connected_of_fund_circuit_separated_finite",
+    "odd_components_group_into_exactly",
+    "op2130_height_double_local",
+    "forced_matching_edge_barrier_partition_with_odd_endpoints",
+    "op2130_mc_step_agrees_general",
+    "factorcritical_anticomplete_odd_groups_bound",
+    "pairwise_disjoint_nonempty_groups_card_bound",
+    "op2130_setup_replay_matches_carpool",
+    "op2130_circuit_advance_or_and",
+    "factorcritical_odd_groups_outside_vertex_bound",
+    "op2130_circuit_advance_and_or",
+    "four_block_forbidden_shore_separator_bound",
+    "op_2178_eisenstein_inner_product_classification",
+    "weighted_catalan_poly_zero",
+    "five_odd_saturated_large_shore_arithmetic_core",
+    "five_odd_mixed_witness_incidence_impossible",
+    "five_odd_saturated_small_shore_aggregate_patterns",
+    "in1122_saturated_small_explicit_critical_arithmetic",
+    "five_odd_saturated_large_shore_aggregate_pattern",
+    "weighted_catalan_poly_one_sub_zero",
+    "not_diamond_move_self",
+    "catalan_four_eq_fourteen",
+    "catalan_four_padic_valuation",
+    "op874_pseudoforest_pairrich_no_port_cover",
+    "mcdo_le_refl",
+    "truncation_two_common_missing_no_three_edges",
+    "weighted_catalan_counterexample_satisfies_conditions",
+    "maximal_chain_map_automorphism_refl",
+    "weighted_catalan_four_poly_dvd",
+    "op874_pseudoforest_pairrich_data",
+    "chain_step_element_map_automorphism",
+    "truncation_no_three_common_missing_colors",
+    "op874_pseudoforest_pairrich_no_local_completion",
+    "op874_finset_progress_card_le",
+    "weighted_catalan_conjecture_counterexample",
+    "op874_pseudoforest_indexed_edges_agree",
+    "op874_forest_fixed_external_no_strong_completion",
+    "op874_single_color_at_most_one_impossible",
+    "poset_automorphism_induces_isomorphic_mcdo",
+    "op874_two_targets_per_gadget_need_two_switches",
+    "op874_pseudoforest_fixed_external_no_strong_completion",
+    "op874_pseudoforest_graph_and_cut_public",
+    "op874_no_single_external_edge_repair",
+    "op874_dense_gadgets_switch_lower_bound",
+    "op874_forest_pairdegree_no_binary_owners",
+    "op874_two_four_forest_fixed_external_no_completion",
+    "op874_two_four_forest_no_binary_owners",
+    "strong_truncation_dense_vertex_set_sees_color",
+    "op874_two_four_forest_matching_colors",
+    "op874_fixed_external_exact_owner_strictness",
+    "op874_forest_fixed_external_exact_owner_strictness"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2611.27591",
+     "href": "https://arxiv.org/abs/2611.27591"
+    },
+    {
+     "label": "arXiv:2611.29111",
+     "href": "https://arxiv.org/abs/2611.29111"
+    },
+    {
+     "label": "arXiv:2611.29623",
+     "href": "https://arxiv.org/abs/2611.29623"
+    },
+    {
+     "label": "arXiv:2611.29819",
+     "href": "https://arxiv.org/abs/2611.29819"
+    },
+    {
+     "label": "arXiv:2611.30029",
+     "href": "https://arxiv.org/abs/2611.30029"
+    },
+    {
+     "label": "arXiv:2611.30333",
+     "href": "https://arxiv.org/abs/2611.30333"
+    },
+    {
+     "label": "arXiv:2611.28984",
+     "href": "https://arxiv.org/abs/2611.28984"
+    },
+    {
+     "label": "arXiv:2611.29166",
+     "href": "https://arxiv.org/abs/2611.29166"
+    },
+    {
+     "label": "arXiv:2611.29409",
+     "href": "https://arxiv.org/abs/2611.29409"
+    },
+    {
+     "label": "arXiv:2611.29448",
+     "href": "https://arxiv.org/abs/2611.29448"
+    },
+    {
+     "label": "arXiv:2611.29559",
+     "href": "https://arxiv.org/abs/2611.29559"
+    },
+    {
+     "label": "arXiv:2611.29726",
+     "href": "https://arxiv.org/abs/2611.29726"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-23",
    "kind": "daily",
    "title": "Daily reading: 0 research-level, 82 proved, 34 open",

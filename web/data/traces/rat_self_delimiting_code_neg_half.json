@@ -1,0 +1,1 @@
+{"name":"rat_self_delimiting_code_neg_half","v":1,"source_hash":"e3016ee3cdeacd9f","lines":["⊢ rat_self_delimiting_code (-1 / 2) = [true, true, true, false, true, false, true, true, false]"],"goals":[[0]],"steps":[{"line":3,"col":2,"end_line":3,"end_col":16,"tactic":"decide +kernel","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

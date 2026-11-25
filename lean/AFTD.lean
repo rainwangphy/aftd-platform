@@ -1872,6 +1872,7 @@ import AFTD.Kb.GameTheoryEconomics.IsEqualLengthAllocation
 import AFTD.Kb.GameTheoryEconomics.IsEqualMarginalLottery
 import AFTD.Kb.GameTheoryEconomics.IsEventualPeriod
 import AFTD.Kb.GameTheoryEconomics.IsEventualPeriodConst
+import AFTD.Kb.GameTheoryEconomics.IsEventualPeriodNat
 import AFTD.Kb.GameTheoryEconomics.IsExAnteProportionalChores
 import AFTD.Kb.GameTheoryEconomics.IsExAnteProportionalOfEqualMarginal
 import AFTD.Kb.GameTheoryEconomics.IsExPostAlphaMmsChores
@@ -2104,6 +2105,8 @@ import AFTD.Kb.GameTheoryEconomics.LayeredCapacityGeometricInequality
 import AFTD.Kb.GameTheoryEconomics.LeKnapsackOpt
 import AFTD.Kb.GameTheoryEconomics.LeZeroOfAddLeSelf
 import AFTD.Kb.GameTheoryEconomics.LeastEventualPeriod
+import AFTD.Kb.GameTheoryEconomics.LeastEventualPeriodNat
+import AFTD.Kb.GameTheoryEconomics.LeastPreperiod
 import AFTD.Kb.GameTheoryEconomics.LexCel
 import AFTD.Kb.GameTheoryEconomics.LexGe
 import AFTD.Kb.GameTheoryEconomics.LexStreamOrderEmbeddingOfIntervals
@@ -2639,6 +2642,8 @@ import AFTD.Kb.GameTheoryEconomics.Op2051SlowExactNimJointSevenWitness
 import AFTD.Kb.GameTheoryEconomics.Op2051SlowExactNimK3MisereSeven
 import AFTD.Kb.GameTheoryEconomics.Op2102MinChoresTef1NonexistenceThreeAgents
 import AFTD.Kb.GameTheoryEconomics.Op2119MajorityImmunityBelowHalf
+import AFTD.Kb.GameTheoryEconomics.Op2347G
+import AFTD.Kb.GameTheoryEconomics.Op2347W
 import AFTD.Kb.GameTheoryEconomics.Op561ExistsOfRatioGt
 import AFTD.Kb.GameTheoryEconomics.Op561HasOnlineAlgorithmMono
 import AFTD.Kb.GameTheoryEconomics.Op562NotConsistentEefxOfGeThreeHalves
@@ -17117,6 +17122,7 @@ import AFTD.Kb.Tcs.SimpleGraphRegularEightTriangleDistinctFinFifteenDegrees
 import AFTD.Kb.Tcs.SimpleGraphRegularFortyInducedThirtyFiveTotalDominating
 import AFTD.Kb.Tcs.SimpleGraphRegularHasBinaryVector
 import AFTD.Kb.Tcs.SimpleGraphRegularOfDegreeIffNeighborCard
+import AFTD.Kb.Tcs.SimpleGraphResistance
 import AFTD.Kb.Tcs.SimpleGraphRichNeighborColoringIffWitnessGraph
 import AFTD.Kb.Tcs.SimpleGraphRichNeighborColoringOfEdgeFamily
 import AFTD.Kb.Tcs.SimpleGraphRichNeighborFiveSubdivideThreePalette
@@ -17260,6 +17266,7 @@ import AFTD.Kb.Tcs.SimpleGraphVertexConnectivityTwoCardThreeHamiltonian
 import AFTD.Kb.Tcs.SimpleGraphVertexDominated
 import AFTD.Kb.Tcs.SimpleGraphVertexDominatedCompleteTwo
 import AFTD.Kb.Tcs.SimpleGraphVertexIsolatedPackedK4DecreasesPacking
+import AFTD.Kb.Tcs.SimpleGraphWeakOddness
 import AFTD.Kb.Tcs.SimpleGraphWildNumber
 import AFTD.Kb.Tcs.SimpleGraphWildNumberAttained
 import AFTD.Kb.Tcs.SimpleGraphWildNumberLeCardEdgeFinset

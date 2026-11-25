@@ -1,0 +1,1 @@
+{"name":"quaternary_03102_heap_options_zero","v":1,"source_hash":"97e9ba52ce90ff72","lines":["⊢ quaternary_03102_heap_options 0 = ∅"],"goals":[[0]],"steps":[{"line":3,"col":2,"end_line":3,"end_col":5,"tactic":"rfl","before":[0],"after":[],"used":["Finset","instOfNatNat","quaternary_03102_heap_options","Nat","Eq.refl","OfNat.ofNat"]}],"steps_total":1,"truncated":false}

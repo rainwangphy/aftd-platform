@@ -2,6 +2,93 @@
  "about": "Announcements for the News section of the home page, newest first. kind is launch (something new on the site or in the machine), proof (a result Lean accepted), daily (written by `aftd daily`: what the day's reading posed, proved and left open) or weekly (written by `aftd interpret --week --write`: points at that week's report in weekly/, which the build checks like a proof entry). A proof entry must name the declarations it announces, and the build refuses one that names anything Lean has not verified. body is plain text: a blank line starts a new paragraph, `backticks` set code. links are optional; an href without a scheme is relative to the site root.",
  "entries": [
   {
+   "date": "2026-11-25",
+   "kind": "daily",
+   "title": "Daily reading: 0 research-level, 21 proved, 17 open",
+   "research": {
+    "results": 0,
+    "theorems": 0
+   },
+   "body": "No research-level result today. In graph theory, OP-2282 gained both the exact localization sum on Turán graphs and the triangle-free bound via `op_2282_turan_graph_sum_eq_one` and `op_2282_exact_edge_localization_triangle_free`, while `multigraph_chromatic_index_le_local_chromatic_index` bounded the chromatic index by the local chromatic index for OP-2287. In algebra and analysis, `signed_element_order_sum_decomposition` formalized the decomposition of signed permutation order sums from arXiv:2611.29409, `interval_r_doubling` established a recurrence for OP-2209, and `yang_mills_beta_minus_pos_of_ge_29` proved positivity of beta_-(d) for d >= 29 in OP-2243. Today's new papers addressed linear code distances under permutations in arXiv:2611.32240, fair allocations, and graph chromatic numbers. Seventeen statements remain open, including the existence of smooth Yang-Mills profiles in OP-2243 and randomized Littlestone dimensions in OP-2209.\n\nThe Proposer read 41 new paper(s) and listed 37 open problem(s); 58 new question(s) of AFTD's own were adopted onto the list; 5 list entries were stated in Lean, as were 4 results the papers prove; the Proposer posed 21 more from what the knowledgebase already holds (40 new theorem statement(s) in all, each checked against its English in both directions). The Prover proved 21 theorem(s), 15 of them helper lemmas, which are not listed below; 17 of today's statements are not yet proved and stay in the knowledgebase, marked as such.\n\nPartial result on OP-2243. `yang_mills_beta_minus_pos_of_ge_29` (knowledgebase): For every natural number d >= 29, beta_-(d) is strictly positive.\n\nPartial result on OP-2209. `interval_r_doubling` (arXiv:2611.28727): For every positive natural number ℓ ≥ 1, the rational sequence interval_r satisfies interval_r (2 * ℓ) = interval_r ℓ + 1 - (1 : ℚ) / (2 ^ (2 * ℓ - 1) : ℚ).\n\nPartial result on OP-2287. `multigraph_chromatic_index_le_local_chromatic_index` (arXiv:2611.29111): For any multigraph G on a finite vertex type V admitting a locally bounded proper edge-coloring, its chromatic index is at most its local chromatic index: chi'(G) <= chi'_loc(G).\n\nPartial result on OP-2282. `op_2282_turan_graph_sum_eq_one` (arXiv:2611.30029): For any natural numbers n and s with 2 ≤ s ≤ n, the Turán graph T_s(n) satisfies the equality that the sum over all its edges e of 1 / |E(T_{w(e)}(n))| equals 1.\n\nPartial result on OP-2282. `op_2282_exact_edge_localization_triangle_free` (arXiv:2611.30029): Let G be a finite simple graph on vertex type V with at least two vertices and nonempty edgeFinset which is triangle-free (G.CliqueFree 3). In ℝ, the sum over all edges e ∈ G.edgeFinset of 1 / (SimpleGraph.turanGraph (Fintype.card V) (edge_max_clique_order G…\n\nFormalized. `signed_element_order_sum_decomposition` (arXiv:2611.29409 Lemma 3.1): For any natural number n, the signed element order sum D_n = ∑_{σ ∈ S_n} sgn(σ) o(σ) (`perm_signed_order_sum n : ℤ`) decomposes as D_n = D_n^* - V_n in ℤ, where D_n^* = ∑_{σ ∈ S_n} sgn(σ) lcm(2, o(σ)) (`perm_signed_lcm_two_order_sum n : ℤ`) and V_n = ∑_{σ ∈…\n\nOpen. `yang_mills_third_profile_odd_existence_ge_29` (knowledgebase): For every odd natural number d : ℕ with 29 ≤ d (so d % 2 = 1), there exists a function u : ℝ → ℝ and a real parameter a > yang_mills_a_minus (d : ℝ) such that is_yang_mills_smooth_profile d u a holds.\n\nOpen. `yang_mills_third_profile_even_existence_ge_30` (knowledgebase): For every even natural number d : ℕ with 30 ≤ d (so d % 2 = 0), there exists a function u : ℝ → ℝ and a real parameter a > yang_mills_a_minus (d : ℝ) such that is_yang_mills_smooth_profile d u a holds.\n\nOpen. `yang_mills_third_profile_adjacent_dimension_parity_matching` (knowledgebase): There exist a real constant K > 0 and a natural number cutoff d_0 : ℕ such that for every natural number d : ℕ with d_0 ≤ d and d % 2 = 0, there exists a function u_d : ℝ → ℝ satisfying is_least_extra_yang_mills_profile d u_d, there exists a function u_next…\n\nOpen. `open_problem_2290_envyfree_coupling_loss_delta` (knowledgebase): For every n ≥ 4, the maximal consecutive-house coupling loss envy_free_consecutive_house_coupling_loss_delta n across all positive vote shares and house sizes admitting admissible lotteries equals 1/2.\n\nOpen. `discrete_intervals_randomized_littlestone` (arXiv:2611.28727): For every natural number m : ℕ, the rational-valued randomised Littlestone dimension of the concept class discrete_intervals m equals interval_r (m + 1).\n\nOpen. `discrete_intervals_randomized_littlestone_zero` (arXiv:2611.28727): The rational-valued randomised Littlestone dimension of discrete_intervals 0 equals interval_r 1.",
+   "declarations": [
+    "simple_graph_opposite_pair_stable_external_k4_attachment",
+    "simple_graph_vertex_isolated_packed_k4_decreases_packing",
+    "simple_graph_active_edge_matching_le_two_mul_triangle_packing",
+    "is_envy_free_outcome_of_equal_shares",
+    "yang_mills_explicit_minus_profile_origin",
+    "yang_mills_beta_minus_pos_of_ge_29",
+    "envy_free_coupling_loss_mem_unit_interval",
+    "interval_r_doubling",
+    "perm_sign_eq_one_of_odd_order",
+    "perm_signed_lcm_two_sub_order",
+    "signed_element_order_sum_decomposition",
+    "multigraph_chromatic_index_le_local_chromatic_index",
+    "consecutive_sum_ap_distinct_sums",
+    "quaternary_03102_heap_options_zero",
+    "edge_max_clique_order_ge_two",
+    "quaternary_03102_misere_outcome_zero_zero",
+    "op_2282_turan_graph_sum_eq_one",
+    "edge_max_clique_order_le_card",
+    "op_2282_exact_edge_localization_triangle_free",
+    "oddFoldDiag_length",
+    "evenFoldDiag_length"
+   ],
+   "links": [
+    {
+     "label": "arXiv:2611.28727",
+     "href": "https://arxiv.org/abs/2611.28727"
+    },
+    {
+     "label": "arXiv:2611.30029",
+     "href": "https://arxiv.org/abs/2611.30029"
+    },
+    {
+     "label": "arXiv:2611.29111",
+     "href": "https://arxiv.org/abs/2611.29111"
+    },
+    {
+     "label": "arXiv:2611.32240",
+     "href": "https://arxiv.org/abs/2611.32240"
+    },
+    {
+     "label": "arXiv:2611.32673",
+     "href": "https://arxiv.org/abs/2611.32673"
+    },
+    {
+     "label": "arXiv:2611.33052",
+     "href": "https://arxiv.org/abs/2611.33052"
+    },
+    {
+     "label": "arXiv:2611.32276",
+     "href": "https://arxiv.org/abs/2611.32276"
+    },
+    {
+     "label": "arXiv:2611.32429",
+     "href": "https://arxiv.org/abs/2611.32429"
+    },
+    {
+     "label": "arXiv:2611.32607",
+     "href": "https://arxiv.org/abs/2611.32607"
+    },
+    {
+     "label": "arXiv:2611.32711",
+     "href": "https://arxiv.org/abs/2611.32711"
+    },
+    {
+     "label": "arXiv:2611.32746",
+     "href": "https://arxiv.org/abs/2611.32746"
+    },
+    {
+     "label": "arXiv:2611.32837",
+     "href": "https://arxiv.org/abs/2611.32837"
+    },
+    {
+     "label": "Open problems",
+     "href": "problems/"
+    }
+   ]
+  },
+  {
    "date": "2026-11-24",
    "kind": "daily",
    "title": "Daily reading: 0 research-level, 76 proved, 0 open",

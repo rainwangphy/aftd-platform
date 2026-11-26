@@ -1,0 +1,1 @@
+{"name":"op309_center_linked_ten_impossible","v":1,"source_hash":"3fecb9ad69382663","lines":["p u d : ℕ","hn : 10 = 3 * p + u","hboundary : 3 * u + 2 * d = 5 * p","hmatch : 2 * d ≤ p","⊢ False"],"goals":[[0,1,2,3,4]],"steps":[{"line":1,"col":138,"end_line":1,"end_col":143,"tactic":"omega","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

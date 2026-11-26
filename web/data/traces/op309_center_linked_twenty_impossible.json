@@ -1,0 +1,1 @@
+{"name":"op309_center_linked_twenty_impossible","v":1,"source_hash":"c8d4bf73665f5ea8","lines":["p u d : ℕ","hn : 20 = 3 * p + u","hboundary : 3 * u + 2 * d = 5 * p","hmatch : 2 * d ≤ p","⊢ False"],"goals":[[0,1,2,3,4]],"steps":[{"line":1,"col":141,"end_line":1,"end_col":146,"tactic":"omega","before":[0],"after":[],"used":[]}],"steps_total":1,"truncated":false}

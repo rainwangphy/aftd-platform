@@ -1968,6 +1968,7 @@ import AFTD.Kb.GameTheoryEconomics.IsParallelTwoCutConsistentEmpty
 import AFTD.Kb.GameTheoryEconomics.IsParetoOptimal
 import AFTD.Kb.GameTheoryEconomics.IsParetoOptimalChores
 import AFTD.Kb.GameTheoryEconomics.IsParetoOptimalGoods
+import AFTD.Kb.GameTheoryEconomics.IsPartialMajorityColoring
 import AFTD.Kb.GameTheoryEconomics.IsPathConnected
 import AFTD.Kb.GameTheoryEconomics.IsPermutationallyConvex
 import AFTD.Kb.GameTheoryEconomics.IsPickingSequencePne
@@ -2241,6 +2242,8 @@ import AFTD.Kb.GameTheoryEconomics.LxvSumBundle
 import AFTD.Kb.GameTheoryEconomics.LxvVal
 import AFTD.Kb.GameTheoryEconomics.LxvValues
 import AFTD.Kb.GameTheoryEconomics.MajorityCriterion
+import AFTD.Kb.GameTheoryEconomics.MajorityGameAliceWins
+import AFTD.Kb.GameTheoryEconomics.MajorityGameAliceWinsFrom
 import AFTD.Kb.GameTheoryEconomics.ManCutoffTanking
 import AFTD.Kb.GameTheoryEconomics.MapSumOfMemRankingsOf
 import AFTD.Kb.GameTheoryEconomics.MarginalVector
@@ -3746,6 +3749,7 @@ import AFTD.Kb.GameTheoryEconomics.StrictlyPreferredIrrefl
 import AFTD.Kb.GameTheoryEconomics.StrictlyPreferredTrans
 import AFTD.Kb.GameTheoryEconomics.StrongFef1ImpliesFef1
 import AFTD.Kb.GameTheoryEconomics.SubdividedClaw
+import AFTD.Kb.GameTheoryEconomics.SubdividedClawCount
 import AFTD.Kb.GameTheoryEconomics.SubdividedClawRel
 import AFTD.Kb.GameTheoryEconomics.SubmodAddItemsLe
 import AFTD.Kb.GameTheoryEconomics.SubmodBiUnionLeSum
@@ -11363,6 +11367,7 @@ import AFTD.Kb.Tcs.DyadicSpectralSeriesBound
 import AFTD.Kb.Tcs.EC
 import AFTD.Kb.Tcs.ECEC
 import AFTD.Kb.Tcs.ENNRealTendstoToRealIffOfEventuallyNeTop
+import AFTD.Kb.Tcs.EbPauliOutputs
 import AFTD.Kb.Tcs.EdgeArrivalProb
 import AFTD.Kb.Tcs.EdgeArrivalProbSum
 import AFTD.Kb.Tcs.EdgeColorClassGraph
@@ -11587,6 +11592,7 @@ import AFTD.Kb.Tcs.ExtendibleBalancedCutMaximumMatchingSizesEqual
 import AFTD.Kb.Tcs.ExtendibleBalancedCutOddBoundOfEvenCrossMatching
 import AFTD.Kb.Tcs.ExtendibleBalancedCutOddBoundOfNearPerfectHypothesis
 import AFTD.Kb.Tcs.ExtendibleBalancedCutOddBoundOfParityCrossMatching
+import AFTD.Kb.Tcs.ExtendibleCommonNonneighborDeficitEqualityMatchable
 import AFTD.Kb.Tcs.ExtendibleEqualCutMaximumMatchingDeficiencyAtMostOne
 import AFTD.Kb.Tcs.ExtendibleEssentialEdgeAmbientOddShores
 import AFTD.Kb.Tcs.ExtendibleGraphMatchableDeletionInheritsExtendibility
@@ -11594,6 +11600,7 @@ import AFTD.Kb.Tcs.ExtendibleHighDegreeBalancedCutOddBoundNoSeparator
 import AFTD.Kb.Tcs.ExtendibleHighDegreeBalancedCutOddComponentBound
 import AFTD.Kb.Tcs.ExtendibleIndependentAnticompleteMatchingObstructionGeneral
 import AFTD.Kb.Tcs.ExtendibleIndependentCommonNonneighborDeficitLeOne
+import AFTD.Kb.Tcs.ExtendibleIndependentCommonNonneighborDeficitLeZero
 import AFTD.Kb.Tcs.ExtendibleK7BalancedCutOddComponentBound
 import AFTD.Kb.Tcs.ExtendibleMatchableTwoKVerticesComplementMatchable
 import AFTD.Kb.Tcs.ExtendibleMatchingResidualHasPerfectMatching
@@ -12734,8 +12741,12 @@ import AFTD.Kb.Tcs.IidWordMeasure
 import AFTD.Kb.Tcs.ImplementsCczLayer
 import AFTD.Kb.Tcs.ImplementsCczLayerZero
 import AFTD.Kb.Tcs.In1122SaturatedSmallExplicitCriticalArithmetic
+import AFTD.Kb.Tcs.In1261SevenAnticompletePairs
 import AFTD.Kb.Tcs.In1261SevenForbiddenOrdered
+import AFTD.Kb.Tcs.In1261SevenFullCrossThreeDefects
 import AFTD.Kb.Tcs.In1261SevenGraph
+import AFTD.Kb.Tcs.In1261SevenMinimumDegree
+import AFTD.Kb.Tcs.In1261SevenTargetEdgeNotExtendible
 import AFTD.Kb.Tcs.In701PackingLeEdgeCover
 import AFTD.Kb.Tcs.In715DeficitCEdges
 import AFTD.Kb.Tcs.In715DeficitCSize
@@ -12957,6 +12968,7 @@ import AFTD.Kb.Tcs.IsDistanceRegularWith
 import AFTD.Kb.Tcs.IsDnfTautology
 import AFTD.Kb.Tcs.IsDominatingDistribution
 import AFTD.Kb.Tcs.IsDoublyStochastic
+import AFTD.Kb.Tcs.IsEbPauliChannel
 import AFTD.Kb.Tcs.IsEdgeGeodesicTransversal
 import AFTD.Kb.Tcs.IsEndpointCutStable
 import AFTD.Kb.Tcs.IsEvenFactor
@@ -13183,6 +13195,7 @@ import AFTD.Kb.Tcs.IsRigidSequence
 import AFTD.Kb.Tcs.IsRotationFreeChar3
 import AFTD.Kb.Tcs.IsSemilinearSetRelComp
 import AFTD.Kb.Tcs.IsSemistandard
+import AFTD.Kb.Tcs.IsSeparableBipartite
 import AFTD.Kb.Tcs.IsSharpCyclicLabeling
 import AFTD.Kb.Tcs.IsSignedDictator
 import AFTD.Kb.Tcs.IsSignedPauli
@@ -14116,15 +14129,18 @@ import AFTD.Kb.Tcs.MinimalFactorcriticalSaturatedTwinsRefinedQuadraticBound
 import AFTD.Kb.Tcs.MinimalFactorcriticalSaturatedTwinsStrictQuadraticBound
 import AFTD.Kb.Tcs.MinimallyKExtendableComplementDegreeTwoBound
 import AFTD.Kb.Tcs.MinimallyKExtendableComplementLocalGirthDegreeBound
+import AFTD.Kb.Tcs.MinimallyKExtendableDegreeSurplusComplementOrderBound
 import AFTD.Kb.Tcs.MinimallyKExtendableDegreeSurplusZeroCodegreeCompleteBipartite
 import AFTD.Kb.Tcs.MinimallyKExtendableEvenJSurplusThreeDegreeBound
 import AFTD.Kb.Tcs.MinimallyKExtendableFiveBlockBoundaryDegreeBoundWithSeparator
 import AFTD.Kb.Tcs.MinimallyKExtendableFiveOddBlockDegreeBoundWithSeparator
 import AFTD.Kb.Tcs.MinimallyKExtendableHighDegreeZeroCodegreeComplementFourCycle
 import AFTD.Kb.Tcs.MinimallyKExtendableOddJSurplusThreeDegreeBound
+import AFTD.Kb.Tcs.MinimallyKExtendableOrderTwoMulAddEightComplementDegreeThreeBound
 import AFTD.Kb.Tcs.MinimallyKExtendableOrderTwoMulAddEightDenseComplementNeighborhoodBound
 import AFTD.Kb.Tcs.MinimallyKExtendableOrderTwoMulAddEightLowCodegreeDegreeBound
 import AFTD.Kb.Tcs.MinimallyKExtendableOrderTwoMulAddSixMinDegreeLe
+import AFTD.Kb.Tcs.MinimallyKExtendableSimplicialComplementDegreeBound
 import AFTD.Kb.Tcs.MinimallyKExtendableTriangleComponentBoundaryDegreeBoundWithSeparator
 import AFTD.Kb.Tcs.MinimallyKExtendableUniformSurplusThreeDegreeBound
 import AFTD.Kb.Tcs.MinorEdgeIsBridge
@@ -15243,6 +15259,7 @@ import AFTD.Kb.Tcs.Op309AffineFiftySixGraph
 import AFTD.Kb.Tcs.Op309AffineFiftySixSelected
 import AFTD.Kb.Tcs.Op309AffineFiftySixSourcePort
 import AFTD.Kb.Tcs.Op309BipartiteEighteenGraph
+import AFTD.Kb.Tcs.Op309BipartiteEighteenUniformP3HostSelectionImpossible
 import AFTD.Kb.Tcs.Op309BitMatchingWitness
 import AFTD.Kb.Tcs.Op309BridgeGapDoubleCountArithmetic
 import AFTD.Kb.Tcs.Op309BridgeGapLocalGraph
@@ -15274,6 +15291,7 @@ import AFTD.Kb.Tcs.Op309CubicOverlappingTrianglesFormDiamond
 import AFTD.Kb.Tcs.Op309CubicTrianglesSharingVertexShareEdge
 import AFTD.Kb.Tcs.Op309CubicU4554EdgesBoundaryClean
 import AFTD.Kb.Tcs.Op309CyclePaletteForcesMatchingPalette
+import AFTD.Kb.Tcs.Op309CyclePersistsAfterLowDegreeRemoval
 import AFTD.Kb.Tcs.Op309CyclicMatchingDominationPeriodThree
 import AFTD.Kb.Tcs.Op309DiamondTemplateRichStar
 import AFTD.Kb.Tcs.Op309DiamondTwoRichEdgesColorKernel
@@ -15367,6 +15385,7 @@ import AFTD.Kb.Tcs.Op309LocalNearbyMaskData
 import AFTD.Kb.Tcs.Op309LocalRepairConflictUncolorableA
 import AFTD.Kb.Tcs.Op309LocalRepairConflictUncolorableB
 import AFTD.Kb.Tcs.Op309LocalUncovered28Arithmetic
+import AFTD.Kb.Tcs.Op309LocallyInjectiveFourdegLift
 import AFTD.Kb.Tcs.Op309OddRingChordSpacingObstruction
 import AFTD.Kb.Tcs.Op309OddRingGraph
 import AFTD.Kb.Tcs.Op309OverlapPeelHostPairPotentialBound
@@ -15688,6 +15707,7 @@ import AFTD.Kb.Tcs.Op874CanonicalSeparatedChoicesImpossible
 import AFTD.Kb.Tcs.Op874CanonicalSlotInjective
 import AFTD.Kb.Tcs.Op874ConnectivityBooleanCore
 import AFTD.Kb.Tcs.Op874ContractionForcesEqualFactorPalette
+import AFTD.Kb.Tcs.Op874CycleCommonHiddenColorExposed
 import AFTD.Kb.Tcs.Op874CycleDifferenceLabelsIntegrate
 import AFTD.Kb.Tcs.Op874CyclePaletteKernel
 import AFTD.Kb.Tcs.Op874DefectFreeProducerFiveCycleImpossible
@@ -15708,6 +15728,7 @@ import AFTD.Kb.Tcs.Op874EightVertexMixedPaletteColoringWitness
 import AFTD.Kb.Tcs.Op874ExistsNonarticulationSuccessor
 import AFTD.Kb.Tcs.Op874ExistsShortestDirectedPath
 import AFTD.Kb.Tcs.Op874ExtendBitsAlongPaths
+import AFTD.Kb.Tcs.Op874ExternalColorClassLowerBound
 import AFTD.Kb.Tcs.Op874FactorPath
 import AFTD.Kb.Tcs.Op874FactorPathCyclicIndexTransfer
 import AFTD.Kb.Tcs.Op874FactorReachabilityGroup0
@@ -15755,18 +15776,21 @@ import AFTD.Kb.Tcs.Op874FixedOwnerBooleanCore
 import AFTD.Kb.Tcs.Op874FixedOwnerMaxcutBadPort
 import AFTD.Kb.Tcs.Op874FixedOwnerObstructionCut
 import AFTD.Kb.Tcs.Op874FixedOwnerObstructionDeletionConnected
+import AFTD.Kb.Tcs.Op874FixedOwnerObstructionFactorCycles
 import AFTD.Kb.Tcs.Op874FixedOwnerObstructionWitness
 import AFTD.Kb.Tcs.Op874FixedWordsProperAndPairRich
 import AFTD.Kb.Tcs.Op874ForestFixedExternalExactOwnerStrictness
 import AFTD.Kb.Tcs.Op874ForestFixedExternalNoStrongCompletion
 import AFTD.Kb.Tcs.Op874ForestPairdegreeNoBinaryOwners
 import AFTD.Kb.Tcs.Op874FourColorPairNormalization
+import AFTD.Kb.Tcs.Op874FourMatchingsNoCommonWindowFactorWord
 import AFTD.Kb.Tcs.Op874FourMatchingsWindowCubeC01
 import AFTD.Kb.Tcs.Op874FourMatchingsWindowCubeC02
 import AFTD.Kb.Tcs.Op874FourMatchingsWindowCubeC20
 import AFTD.Kb.Tcs.Op874FourMatchingsWindowCubeC21a
 import AFTD.Kb.Tcs.Op874FourMatchingsWindowCubeC21b
 import AFTD.Kb.Tcs.Op874FourMatchingsWindowCubeC21c
+import AFTD.Kb.Tcs.Op874FourMatchingsWindowCubeC23a
 import AFTD.Kb.Tcs.Op874FourMatchingsWindowCubeC23b
 import AFTD.Kb.Tcs.Op874FourPortMaxcutForcesThreeMatchingBits
 import AFTD.Kb.Tcs.Op874FourSquareOpenPortCutBound
@@ -15777,6 +15801,7 @@ import AFTD.Kb.Tcs.Op874FourTwoIncidenceTwoPseudoforestCover
 import AFTD.Kb.Tcs.Op874FourTwoSlotHall
 import AFTD.Kb.Tcs.Op874FourteenRunEdges
 import AFTD.Kb.Tcs.Op874FourteenRunGraph
+import AFTD.Kb.Tcs.Op874FourteenRunGraphData
 import AFTD.Kb.Tcs.Op874FourteenSeparatedOwnersImpossible
 import AFTD.Kb.Tcs.Op874G
 import AFTD.Kb.Tcs.Op874GoodParityBooleanCore
@@ -15801,6 +15826,7 @@ import AFTD.Kb.Tcs.Op874ManyDisjointPaletteCollisions
 import AFTD.Kb.Tcs.Op874MatchingOverlapGadgetChain
 import AFTD.Kb.Tcs.Op874MatchingPortHighIsFactorColor
 import AFTD.Kb.Tcs.Op874MaxcutHamiltonianFactorOrientationObstruction
+import AFTD.Kb.Tcs.Op874MaxcutMonoRunForcesThreeHighColors
 import AFTD.Kb.Tcs.Op874MissingColorInducedEdgesLeVertices
 import AFTD.Kb.Tcs.Op874NoAuxiliaryTwoCycle
 import AFTD.Kb.Tcs.Op874NoCutBooleanAllAssignments
@@ -15855,6 +15881,7 @@ import AFTD.Kb.Tcs.Op874PaletteStateCycleGivesFourWindows
 import AFTD.Kb.Tcs.Op874ParityObstructionCutIsNotMaximum
 import AFTD.Kb.Tcs.Op874PartialBitsExtendToRooted
 import AFTD.Kb.Tcs.Op874PathTwoPalettesAvoidEndpoint
+import AFTD.Kb.Tcs.Op874PermutationDisjointCover
 import AFTD.Kb.Tcs.Op874PrescribedRootDoubleCrossRefutation
 import AFTD.Kb.Tcs.Op874ProducerPredecessorDemandForcesFourthEdge
 import AFTD.Kb.Tcs.Op874PseudoforestFixedExternalNoStrongCompletion
@@ -15903,8 +15930,10 @@ import AFTD.Kb.Tcs.Op874SomeRootBothBranchesReturn
 import AFTD.Kb.Tcs.Op874SparsePairRichWordsKernelData
 import AFTD.Kb.Tcs.Op874SparseWordsExactlyOneSquareConflict
 import AFTD.Kb.Tcs.Op874SparseWordsProperAndPairRich
+import AFTD.Kb.Tcs.Op874SquareEqualColorForcesCommonGap
 import AFTD.Kb.Tcs.Op874TenOneMoveRepairData
 import AFTD.Kb.Tcs.Op874TenOneMoveRepairGraph
+import AFTD.Kb.Tcs.Op874TenVertexNoStrictCutSevenMatchings
 import AFTD.Kb.Tcs.Op874ThreeCoreRepairData
 import AFTD.Kb.Tcs.Op874ThreeCoreRepairGraph
 import AFTD.Kb.Tcs.Op874TightCutFreeLowColoringWitness
@@ -16265,6 +16294,8 @@ import AFTD.Kb.Tcs.PauliBlochAlignmentProjector
 import AFTD.Kb.Tcs.PauliBlochMatrix
 import AFTD.Kb.Tcs.PauliBlochMatrixHermitian
 import AFTD.Kb.Tcs.PauliBlochMatrixSquare
+import AFTD.Kb.Tcs.PauliChannelApply
+import AFTD.Kb.Tcs.PauliChoiMatrix
 import AFTD.Kb.Tcs.PauliContinuousOddSpinorAlignment
 import AFTD.Kb.Tcs.PauliCoordinateAxisHasSpinorProjector
 import AFTD.Kb.Tcs.PauliErrorsLe
